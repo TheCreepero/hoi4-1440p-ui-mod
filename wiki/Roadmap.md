@@ -17,18 +17,15 @@ Status values: Not started, In progress, Done.
 | Phase | Scope | Status |
 |---|---|---|
 | 0 | Foundation: scaffold fixes, tools, generic tests, docs | Done |
-| 1 | Pilot screen (A1) and the single-window override test | Not started |
+| 1 | Pilot screen (A1) and the single-window override test | In progress: override test done, screen rework next |
 
 ## Phase 1: pilot
 
 Screen A1, air wings and airbases. Its backgrounds are tiled, popular overhaul mods leave it alone, and it contains a 74-line popup that suits the override test.
 
-1. **Override test** on `quick_wing_deployment_selection_window` (`airselectionview.gui`, 500x515).
-   - Put a visibly changed copy in a separate small file. Check in game that it wins and that `error.log` stays clean.
-   - Try file names and folders that sort before and after the vanilla file.
-   - Repeat with a mod that replaces the whole vanilla file, to learn how load order interacts.
-   - Outcome: the override method and file naming rule, recorded in [Design Rules](Design-Rules.md).
-2. **Rework the screen:** `air_selection_view`, `unassigned_airwings_view`, the selection item rows and the quick deploy popup.
+1. **Override test.** Done. A window redefined in a separate file takes effect when that file sorts after the vanilla file, so each screen ships as `interface/zz_1440p_<screen>.gui`. The evidence and the two cases still untested are in [Design Rules](Design-Rules.md).
+   - Still open: repeat with a mod that replaces the whole vanilla file, to learn how load order interacts. Done together with the playset check of the finished screen.
+2. **Rework the screen.** Built in `interface/zz_1440p_air_selection.gui`, game check pending: the selection list holds 20 rows instead of 9, rows are 734 wide instead of 548 so wing names fit, texts are one font size larger, and the quick deploy popup is taller. The frame and clipping list that hold the rows are `unassigned_airwings_view`, despite its name; the first build left it at vanilla size and the rows were cut off at 556 px.
 3. **Lock the shared rules** that are still marked provisional in [Design Rules](Design-Rules.md): font mapping, row heights, maximum window sizes.
 
 ## Milestone A: military lists
@@ -37,7 +34,7 @@ Phases are independent after Phase 1 and can be reordered.
 
 | # | Screen | Vanilla file and main windows | Vanilla size | Background | Also changed by | Status |
 |---|---|---|---|---|---|---|
-| A1 | Air wings and airbases (pilot) | `airselectionview.gui`: `air_selection_view`, `unassigned_airwings_view` | 502x430, 582x430 | tiled | none found | Not started |
+| A1 | Air wings and airbases (pilot) | `airselectionview.gui`: `air_selection_view`, `unassigned_airwings_view` | 502x430, 582x430 | tiled panel, bitmap rows | none found | In progress: built, game check pending |
 | A2 | Selected army: badge and division list | `unitview.gui`: `armies_view`, `army_badge_view`, `army_division_list_view`, `expeditionary_force_container` | list 422x430 | tiled, small bitmaps | RBM's GFX Overhaul | Not started |
 | A3 | Division and ship details | `unitview.gui`: `army_division_stats_view`, `ship_stats_window` | 856x522, 557x407 | bitmap | RBM's GFX Overhaul | Not started |
 | A4 | Navy and fleet view | `naviesview.gui`: `naviesview_window`, fleet and task force rows, composition editor, base picker | 500 wide, 86% high | tiled, bitmap rows | RBM's GFX Overhaul, Vanilla Navy Rework | Not started |
@@ -76,7 +73,7 @@ After Milestone A and again after Milestone B, decide whether to build a patch f
 
 ## Risks
 
-- **Single-window override fails or depends on load order.** The fallback is full copies of the vanilla files, which means more merge work after each game update.
+- **Single-window override next to other mods.** The override works against vanilla. How it behaves next to a mod that replaces the whole vanilla file is still untested.
 - **Engine-positioned widgets.** Some layouts (regiment grid, hull slots, combat width bars) cannot be moved from `.gui` files. The inventory step of each phase finds them before a layout is promised.
 - **Bitmap backgrounds with painted-in frames.** If no background option gives a clean result, the window keeps its vanilla size and only its lists and fonts are reworked.
 - **Game updates.** A new game version can change windows the mod overrides. Re-running `tools/Export-VanillaBaseline.ps1` shows which ones.

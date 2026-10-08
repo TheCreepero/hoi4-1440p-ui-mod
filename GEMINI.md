@@ -14,6 +14,7 @@
 - **UTF-8 Without BOM**: All Clausewitz script and interface files (`.mod`, `.txt`, `.gui`, `.gfx`) must be saved in UTF-8 without BOM. Never use standard Windows PowerShell `Set-Content -Encoding UTF8` because it writes a BOM (`\ufeff`). Always write text files using:
   `[System.IO.File]::WriteAllText($path, $content, [System.Text.UTF8Encoding]::new($false))`
 - **Hardcoded C++ Widget Bindings**: The Clausewitz engine binds gameplay data exclusively to predefined widget `name = "..."` attributes. Never rename vanilla element names inside overridden windows, and keep each named widget under its vanilla parent.
+- **One Override File Per Screen**: Put a screen's reworked top-level windows in `interface/zz_1440p_<screen>.gui` and leave the vanilla file alone. The game uses the last loaded definition of a window name and loads `.gui` files in name order, so the `zz_` prefix is what makes the override win.
 - **Baseline Before Rework**: Before reworking a vanilla window, save its vanilla text with `tools/Export-VanillaBaseline.ps1 <file.gui> <window>`. The test suite fails for an overridden window without a baseline, and for any named vanilla widget that is missing or moved.
 - **Sprite Naming**: Name new sprites `GFX_1440p_*` and declare them in `interface/1440p_ui.gfx`. Leave vanilla sprite names untouched.
 - **Art From Vanilla Assets**: Build every image from vanilla game assets, following the order of options in `wiki/Design-Rules.md`. AI-generated images are not allowed anywhere in the mod.

@@ -1,0 +1,79 @@
+# Vanilla 1.19.3.0, interface/airselectionview.gui, lines 966-1040.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "unassigned_airwings_view"
+		position = {x=0 y=0}
+		size = { width=582 height=430 } # height set in code, but initial value here is used for max allowed height
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_tiled_window_1b_thin_border"
+		}
+
+		#buttonType = {
+		#	name = "copy_wing_btn"
+		#	position = {x=207 y=7}
+		#	spriteType = "GFX_air_base_copy_btn"
+		#	clicksound = click_default
+		#	shortcut = "f"
+		#	scale = 0.7
+		#}
+		
+		#buttonType = {
+		#	name = "split_wing_btn"
+		#	position = {x=240 y=7}
+		#	spriteType = "GFX_air_base_split_btn"
+		#	clicksound = click_default
+		#	shortcut = "d"
+		#	scale = 0.7
+		#}
+		
+		#buttonType = {
+		#	name = "reorg_wings_btn"
+		#	position = {x=307 y=7}
+		#	spriteType = "GFX_air_base_reorganize_btn"
+		#	clicksound = click_default
+		#	shortcut = "o"
+		#	scale = 0.7
+		#}
+
+		smoothListBoxType = {
+			name = "air_wings_list"
+			position = { x = 6 y = 6 }
+			size = { x = 550 y = 428 } # Only max size before we start scrolling, will scale to lower if needed
+			clipping = yes
+			scrollbartype = "standardlistbox_slider"
+		}
+
+		positionType = {
+				name = "air_wings_list_padding"
+				position = { x=0 y=25 } #only Y is used
+		}
+
+		containerWindowType = {
+			name = "bottom_window"
+			position = {x=0 y=380}
+			size = { width = 422 height= 50 } # height set in code, but initial value here is used for max allowed height
+			clipping = no
+
+			background = {
+				name = "Background"
+				quadTextureSprite ="GFX_unitlist_unassigned_bg"
+				position = {x=5 y=-10}
+			}
+
+			instantTextboxType = {
+				name = "divisions_count"
+				position = {x=18 y=2}
+				font = "hoi_16mbs"
+				maxWidth = 370
+				maxHeight = 23
+				format = center
+				text = "UNASSIGNED_UNIT_DESCRIPTION"
+			}
+		}
+	}
+}

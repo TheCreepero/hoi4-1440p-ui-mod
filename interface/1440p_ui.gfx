@@ -1,0 +1,19 @@
+spriteTypes = {
+
+	# Air wing, gun emplacement and rocket rows, 734 wide. Frame 1 unselected, frame 2 selected.
+	# The texture is the vanilla wing_entry_bg.dds widened by tools/stretch_background.py.
+	spriteType = {
+		name = "GFX_1440p_AV_wing_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/av_wing_entry_bg.dds"
+		noOfFrames = 2
+	}
+
+	# Airbase rows. The vanilla texture itself, tiled so the button can take any width.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AV_base_entry_bg"
+		size = { x = 548 y = 48 }
+		textureFile = "gfx/interface/airview/base_entry_bg.dds"
+		borderSize = { x = 64 y = 16 }
+		tilingCenter = yes
+	}
+}

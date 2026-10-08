@@ -36,8 +36,9 @@ param(
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'GuiParsing.ps1')
 
-# Accept "a, b" (PowerShell), "a b" and "a,b" (other shells) alike.
-$Window = @($Window | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+# Accept "a, b" (PowerShell), "a b" and "a,b" (other shells) alike. A PowerShell array bound through
+# ValueFromRemainingArguments arrives as one space-joined string, so split on whitespace as well.
+$Window = @($Window | ForEach-Object { $_ -split '[,\s]+' } | Where-Object { $_ })
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 if (Test-Path -LiteralPath $File -PathType Leaf) {
@@ -56,7 +57,14 @@ function Format-GuiPair {
 
     $block = Get-GuiBlock -Node $Node -Key $Key
     if ($null -eq $block) { return '' }
-    return ('{0}{1}{2}' -f (Get-GuiValue -Node $block -Key $First), $Separator, (Get-GuiValue -Node $block -Key $Second))
+    $a = Get-GuiValue -Node $block -Key $First
+    $b = Get-GuiValue -Node $block -Key $Second
+    if ($null -eq $a -and $null -eq $b -and $Key -ieq 'size') {
+        # list boxes and tiled buttons write their size as x/y instead of width/height
+        $a = Get-GuiValue -Node $block -Key 'x'
+        $b = Get-GuiValue -Node $block -Key 'y'
+    }
+    return ('{0}{1}{2}' -f $a, $Separator, $b)
 }
 
 function Get-GuiNodeDetails {

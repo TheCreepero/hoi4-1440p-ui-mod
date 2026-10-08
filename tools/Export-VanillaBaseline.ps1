@@ -20,8 +20,9 @@ param(
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'GuiParsing.ps1')
 
-# Accept "a, b" (PowerShell), "a b" and "a,b" (other shells) alike.
-$Window = @($Window | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+# Accept "a, b" (PowerShell), "a b" and "a,b" (other shells) alike. A PowerShell array bound through
+# ValueFromRemainingArguments arrives as one space-joined string, so split on whitespace as well.
+$Window = @($Window | ForEach-Object { $_ -split '[,\s]+' } | Where-Object { $_ })
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $baselineDir = Join-Path $repoRoot 'baseline'

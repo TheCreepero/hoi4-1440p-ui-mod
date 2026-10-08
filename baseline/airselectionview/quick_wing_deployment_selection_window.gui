@@ -1,0 +1,78 @@
+# Vanilla 1.19.3.0, interface/airselectionview.gui, lines 81-154.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "quick_wing_deployment_selection_window"
+		position = { x=-380 y=-340 }	
+		size = { width =500 height=515 }
+		orientation= center
+		moveable = yes
+		fade_time = 200
+		fade_type = linear
+		clipping = no
+
+		background = {
+			name = "Background"	
+			quadTextureSprite ="GFX_tiled_window_w_close"
+		}
+
+		instantTextboxType = {
+			name = "current_airbase_text"
+			position = {x=40 y=20}
+			font = "hoi_16mbs"
+			maxWidth = 400
+			maxHeight = 23
+			format = center
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "info"
+			position = {x=40 y=50}
+			font = "hoi_16mbs"
+			maxWidth = 400
+			maxHeight = 23
+			format = left
+			text = "QUICK_DEPLOY_SELECTION_WINDOW_DESC"
+			alwaystransparent = yes
+		}
+		
+		iconType = {
+			name = "stockpille_icon"
+			position = { x=-100 y=50 }
+			Orientation = upper_right
+			spriteType = "GFX_in_stock_icon"
+		}
+
+		instantTextboxType = {
+			name = "selection_count"
+			position = {x=-60 y=55}
+			Orientation = upper_right
+			font = "hoi_16mbs"
+			maxWidth = 70
+			maxHeight = 23
+			format = left
+			text = "0/3"
+			alwaystransparent = yes
+		}
+		
+		buttonType = {
+			name = "close_button"
+			position ={ x = -45 y = 13 }
+			quadTextureSprite ="GFX_closebutton"
+			buttonFont = "hoi_16mbs"
+			shortcut = "ESCAPE"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+		}
+		
+		listBoxType = {
+			name = "plane_selection_items_list"
+			position = { x = 10 y = 80}
+			size = { x = 500 y = 400 }
+			scrollbartype = "standardlistbox_slider"
+			offset = { x = -40 y = 0}
+		}
+	}
+}

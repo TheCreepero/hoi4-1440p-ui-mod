@@ -10,7 +10,12 @@ Rules every reworked screen follows. Items marked **provisional** are fixed at t
 
 ## Overriding vanilla windows
 
-- **Method: provisional.** Preferred: one small file per screen under `interface/` that contains only the reworked top-level windows. Fallback: a full copy of the vanilla file, edited in place. The Phase 1 override test decides, and also sets the file naming rule.
+- **Method:** one file per screen, `interface/zz_1440p_<screen>.gui`, containing only the reworked top-level windows. The vanilla file is not copied or replaced.
+- **Why the `zz_` prefix:** when two loaded files define a window with the same name, the game uses the definition it loads last, and it loads `.gui` files in `interface/` in file name order. The mod's file must therefore sort after the vanilla file.
+- **Evidence** (override test, game 1.19.3, vanilla playset): a redefinition in `interface/zz_*.gui` took effect, one in `interface/aa_*.gui` did not, and one in `interface/1440p_ui/override_test.gui` did. `error.log` had no line about the duplicates.
+- **Not yet tested:**
+  - Windows whose vanilla file sits in a subfolder of `interface/` (factions, international market and similar). The subfolder result fits two load orders (subfolders after the root, or sorting by bare file name), so repeat the test before the first such screen.
+  - Another mod that replaces the whole vanilla file. Checked at the end of Phase 1.
 - **Widget names stay.** The engine binds data to widgets by `name`, looked up inside their parent. A reworked window keeps every named vanilla widget, with the same element type, under the same named parent. Position, size, font and sprite are free to change.
 - **Export the baseline first.** Before reworking a vanilla window, run `tools/Export-VanillaBaseline.ps1 <file.gui> <window>`. It saves the vanilla text under `baseline/`; the test suite compares the mod's window against it.
 - **Mod-only windows** (no vanilla counterpart) are named `mod1440_*`.
@@ -48,6 +53,7 @@ Larger text means choosing a larger font that vanilla already ships. Sizes in us
 ## Recipe for a screen phase
 
 1. **Inventory.** `tools/Show-GuiOutline.ps1 <file.gui>` lists the windows; add a window name and `-All` for its widgets, fonts and sprites. Note which backgrounds are bitmaps and which widgets the engine positions itself.
+   - Find the container that actually holds and clips the rows before changing a row size. The link is made in game code and the names can mislead: the air wing rows sit in `unassigned_airwings_view`, not in the `air_selection` list of `air_selection_view`. Match the frame seen in a screenshot to a background sprite and a `clipping = yes` list of the right size.
 2. **Layout proposal.** Target sizes, panel regions, row heights and font choices as a short text mock-up, agreed before any file is written.
 3. **Baseline.** `tools/Export-VanillaBaseline.ps1 <file.gui> <window> [<window> ...]`.
 4. **Background.** Only for bitmap backgrounds: work down the four options above and declare the sprite.
