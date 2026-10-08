@@ -1,0 +1,25 @@
+{
+  "_comment": "Scene for the advisor selection popup. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "screen": "advisor_selection",
+  "phase": "C",
+  "file": "zz_1440p_advisor_selection.gui",
+  "screenshot": "reference/vanilla/advisor_selection.jpg",
+  "windows": [],
+  "samples": {},
+  "setup": [
+    {
+      "move": "open_advisor_selection"
+    }
+  ],
+  "captures": [],
+  "expect": [],
+  "crop": [
+    0,
+    60,
+    1100,
+    700
+  ],
+  "manual": [],
+  "checklist": [],
+  "_note": "Backlog screen: recipe and vanilla reference only. No windows listed yet; add them with tools/New-OverrideFile.ps1 when the phase starts."
+}

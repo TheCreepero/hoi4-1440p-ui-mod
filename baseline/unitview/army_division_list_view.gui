@@ -1,0 +1,537 @@
+# Vanilla 1.19.3.0, interface/unitview.gui, lines 779-1311.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "army_division_list_view"
+		position = {x=1 y=2}
+		size = { width=422 height=430 } # height set in code, but initial value here is used for max allowed height when not stretched to full screen height
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_tiled_window_1b_thin_border"
+		}
+
+		# Off-screen anchor for the ctrl+g+s shortcut. containerWindowType cannot host shortcut=,
+		# so a hidden buttonType is the only place the engine will dispatch the chord from.
+		buttonType = {
+			name = "select_hq_shortcut_anchor"
+			position = { x=-1000 y=-1000 }
+			quadTextureSprite = "GFX_group_marker3"
+			shortcut = "ctrl+g+s"
+		}
+
+		containerWindowType = {
+			name = "content_window"
+			position = {x=0 y=0}
+			margin = { top = 8 }
+			size = {width=422 height=1} # Y Set in code to match the window size
+			Orientation = upper_left
+			clipping = no
+
+			iconType = {
+				name = "army_group_header"
+				spriteType = "GFX_unit_list_header"
+				position = { x = 7 y = 0 }
+			}
+
+			buttonType = {
+				name = "btn_delete"
+				position = { x=9 y=0 }
+				spriteType = "GFX_NV_btn_delete"
+				clicksound = disband
+			}
+
+			dropDownBoxType = {
+				name = "divisions"
+				position = { x = 37 y = 2 }
+				size = { width = 200 height = 30 }
+				#clipping = no
+
+				expandButton = {
+					name = "expand_button"
+					position = { x = 0 y = -2 }
+					spriteType = "GFX_change_template_button"
+					clicksound = click_default
+				}
+
+				expandedWindow = {
+					name = "expanded_window"
+					position = { x=0 y= -300 }
+					show_position = { x = 0 y = 18 }
+					show_animation_type = decelerated
+					hide_animation_type = accelerated
+					animation_time = 300
+					size = { width=230 height=315 }	
+					verticalScrollbar = "right_vertical_slider"
+					scroll_wheel_factor = 50
+					smooth_scrolling = yes
+					margin = { top = 7 bottom = 7 right = 6 }
+					#clipping = no
+
+					background = {
+						name = "Background"
+						quadTextureSprite ="GFX_tiled_window_1b_thin_border"
+						position = { x = 0 y = 0 }
+					}
+
+					gridBoxType = {
+						name = "divisions_grid"
+						position = { x = 8 y = 0 }
+						size = { width = 199 height = 100%% }
+						slotsize = { width = 220 height = 50 }
+						max_slots_horizontal = 1
+						format = "UPPER_LEFT"
+					}
+				}
+			}
+
+			instantTextboxType = {
+				name = "selected_division_count"
+				position = {x=75 y=6}
+				font = "hoi_18mbs"
+				maxWidth = 130
+				maxHeight = 23
+				format = left
+			}
+
+			buttonType = {
+				name = "redeployment_type_button"
+				position = {x=160 y=0}
+				spriteType = "GFX_redeployment_type_icon"
+				clicksound = click_default
+				shortcut = "b"
+				shortcut = "ctrl+b"
+			}
+
+			buttonType = {
+				name = "btn_consolidate_selection"
+				position = {x=191 y=0}
+				spriteType = "GFX_consolidate"
+				clicksound = click_default
+			}
+
+			iconType ={
+				name ="convoys_icon_bg"
+				position = {x=230 y=4}
+				spriteType = "GFX_generic_mini_bg"
+			}
+
+			iconType ={
+				name ="convoys_icon"
+				position = {x=235 y=8}
+				spriteType = "GFX_topbar_convoys"
+			}
+
+			instantTextboxType = {
+				position = {x=245 y=7}
+				name = "transport_weight"
+				font = "hoi_18mbs"
+				maxWidth = 62
+				maxHeight = 23
+				format = center
+				text = "99"
+			}
+
+			buttonType = {
+				name = "btn_select_half"
+				position = {x=300 y=0}
+				spriteType = "GFX_select_half"
+				clicksound = click_default
+				shortcut = "s"
+			}
+
+			buttonType = {
+				name = "btn_hold"
+				position = {x=330 y=0}
+				spriteType = "GFX_hold"
+				shortcut = "h"
+				pdx_tooltip = "HALT_UNIT"
+			}
+
+			buttonType = {
+				name = "btn_unassign"
+				position = {x=362 y=0}
+				spriteType = "GFX_UV_btn_unassign"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "btn_close"
+				position = {x=362 y=0}
+				spriteType = "GFX_NV_btn_close"
+				pdx_tooltip = "DESELECT_UNIT"
+			}
+
+			containerWindowType = {
+				name = "column_heads"
+				position = {x=8 y=31}
+				size = {width=388 height=21}
+				Orientation = upper_left
+				clipping = no
+
+				containerWindowType = {
+					name = "organisation_strength"
+					position = { x=0 y=0 }
+
+					buttonType = {
+						name = "button"
+						size = { x=19 y=21 }
+						spriteType = "GFX_tiling_sort_button_thin"
+						pdx_tooltip = "division_list_organization_strength_column_button_tooltip"
+						clicksound = click_default
+					}
+					iconType = {
+						name ="icon"
+						spriteType = "GFX_division_list_column_button"
+						alwaystransparent = yes
+					}
+				}
+
+				containerWindowType = {
+					name = "warning"
+					position = { x=19 y=0 }
+
+					buttonType = {
+						name = "button"
+						size = { x=19 y=21 }
+						spriteType = "GFX_tiling_sort_button_thin"
+						pdx_tooltip = "division_list_warning_column_button_tooltip"
+						clicksound = click_default
+					}
+					iconType = {
+						name ="icon"
+						spriteType = "GFX_division_list_column_button"
+						alwaystransparent = yes
+					}
+				}
+
+				containerWindowType = {
+					name = "template"
+					position = { x=38 y=0 }
+
+					buttonType = {
+						name = "button"
+						size = { x=57 y=21 }
+						spriteType = "GFX_tiling_sort_button_thin"
+						pdx_tooltip = "division_list_template_column_button_tooltip"
+						clicksound = click_default
+					}
+					iconType = {
+						name ="icon"
+						spriteType = "GFX_division_list_column_button"
+						alwaystransparent = yes
+					}
+				}
+
+				containerWindowType = {
+					name = "experience"
+					position = { x=95 y=0 }
+
+					buttonType = {
+						name = "button"
+						size = { x=26 y=21 }
+						spriteType = "GFX_tiling_sort_button_thin"
+						pdx_tooltip = "division_list_experience_column_button_tooltip"
+						clicksound = click_default
+					}
+					iconType = {
+						name ="icon"
+						spriteType = "GFX_division_list_column_button"
+						alwaystransparent = yes
+					}
+				}
+
+				containerWindowType = {
+					name = "preparedness"
+					position = { x=121 y=0 }
+
+					buttonType = {
+						name = "button"
+						size = { x=20 y=21 }
+						spriteType = "GFX_tiling_sort_button_thin"
+						pdx_tooltip = "division_list_preparedness_column_button_tooltip"
+						clicksound = click_default
+					}
+					iconType = {
+						name ="icon"
+						spriteType = "GFX_division_list_column_button"
+						alwaystransparent = yes
+					}
+				}
+
+				containerWindowType = {
+					name = "status"
+					position = { x=141 y=0 }
+
+					buttonType = {
+						name = "button"
+						size = { x=30 y=21 }
+						spriteType = "GFX_tiling_sort_button_thin"
+						pdx_tooltip = "division_list_status_column_button_tooltip"
+						clicksound = click_default
+					}
+					iconType = {
+						name ="icon"
+						spriteType = "GFX_division_list_column_button"
+						alwaystransparent = yes
+					}
+				}
+
+				containerWindowType = {
+					name = "name"
+					position = { x=171 y=0 }
+
+					buttonType = {
+						name = "button"
+						size = { x=162 y=21 }
+						spriteType = "GFX_tiling_sort_button_thin"
+						pdx_tooltip = "division_list_name_column_button_tooltip"
+						clicksound = click_default
+					}
+					iconType = {
+						name ="icon"
+						spriteType = "GFX_division_list_column_button"
+						alwaystransparent = yes
+					}
+				}
+
+				containerWindowType = {
+					name = "fuel"
+					position = { x=333 y=0 }
+
+					buttonType = {
+						name = "button"
+						size = { x=24 y=21 }
+						spriteType = "GFX_tiling_sort_button_thin"
+						pdx_tooltip = "division_list_fuel_column_button_tooltip"
+						clicksound = click_default
+					}
+					iconType = {
+						name ="icon"
+						spriteType = "GFX_division_list_column_button"
+						alwaystransparent = yes
+					}
+				}
+
+				containerWindowType = {
+					name = "army"
+					position = { x=357 y=0 }
+
+					buttonType = {
+						name = "button"
+						size = { x=31 y=21 }
+						spriteType = "GFX_tiling_sort_button_thin"
+						pdx_tooltip = "division_list_army_column_button_tooltip"
+						clicksound = click_default
+					}
+					iconType = {
+						name ="icon"
+						spriteType = "GFX_division_list_column_button"
+						alwaystransparent = yes
+					}
+				}
+			}
+
+			containerWindowType = {
+				name = "hq_window"
+				position = { x=8 y=-37 }
+				size = { width=423 height=40 }
+				clipping = no
+
+				background = {
+					name = "Background"
+					position = { x=-4 y=-5 }
+					quadTextureSprite ="GFX_army_hq_bg"
+					alwaystransparent = yes
+				}
+
+				containerWindowType = {
+					name = "empty_slot"
+
+					# Off-screen ctrl+g+d chord anchor
+					buttonType = {
+						name = "deploy_hq_shortcut_anchor"
+						position = { x=-1000 y=-1000 }
+						quadTextureSprite = "GFX_group_marker3"
+						shortcut = "ctrl+g+d"
+					}
+
+					# Deploy button lives inside the dropdown (so opening-click counts as "inside"); expand_button is parked off-screen and C++ drives toggling.
+					dropDownBoxType = {
+						name = "deploy_dropdown"
+						position = { x = 45 y = 2 }
+
+						containerWindowType = {
+							name = "deploy_button_container_window"
+							position = { x=0 y=0 }
+
+							buttonType = {
+								name = "deploy"
+								quadTextureSprite = "GFX_deploy_hq_button"
+								font = "hoi_16mbs"
+							}
+
+							instantTextboxType = {
+								name = "deploy_button_label"
+								position = { x = 0 y = 7 }
+								font = "hoi_16mbs"
+								maxWidth = 110
+								format = center
+								alwaystransparent = yes
+							}
+
+							iconType = {
+								name = "template_icon"
+								spriteType = "GFX_unit_infantry_icon_medium" # <- Replaced in code
+								position = { x=97 y=-6 }
+								alwaystransparent = yes
+							}
+
+							instantTextboxType = {
+								name = "deploy_button_template_name"
+								position = { x = 168 y = 8 }
+								font = "hoi_16mbs"
+								maxWidth = 85
+								maxHeight = 20
+								format = left
+								truncate = yes
+								fixedsize = yes
+								alwaystransparent = yes
+							}
+
+							instantTextboxType = {
+								name = "deploy_button_cost"
+								position = { x = 226 y = 8 }
+								font = "hoi_16mbs"
+								maxWidth = 60
+								format = right
+								alwaystransparent = yes
+							}
+
+							instantTextboxType = {
+								name = "deploy_button_no_commander_message"
+								position = { x = 92 y = 8 }
+								font = "hoi_16mbs"
+								maxWidth = 220
+								format = center
+								alwaystransparent = yes
+							}
+						}
+
+						expandButton = {
+							name = "expand_button"
+							spriteType = "GFX_hq_template_selector_button"
+							position = { x=-1000 y=-1000 }
+							clicksound = click_default
+						}
+
+						expandedWindow = {
+							name = "expanded_window"
+							position = { x = 96 y = -280 }
+							show_position = { x = 96 y = 20 }
+							show_animation_type = decelerated
+							hide_animation_type = accelerated
+							animation_time = 300
+							size = { width=230 height=250 }
+							verticalScrollbar = "right_vertical_slider"
+							scroll_wheel_factor = 50
+							smooth_scrolling = yes
+							margin = { top = 18 bottom = 2 right = 6 }
+
+							background = {
+								name = "Background"
+								quadTextureSprite ="GFX_tiled_window_1b_thin_border"
+								position = { x = 0 y = 10 }
+							}
+
+							gridBoxType = {
+								name = "templates_grid"
+								position = { x = 8 y = 0 }
+								size = { width = 199 height = 100%% }
+								slotsize = { width = 220 height = 50 }
+								max_slots_horizontal = 1
+								format = "UPPER_LEFT"
+							}
+						}
+					}
+				}
+				
+				buttonType = {
+					name = "undeploy"
+					position = { x=393 y=0 }
+					spriteType = "GFX_NV_btn_delete"
+					clicksound = disband
+					shortcut = "ctrl+g+w"
+				}
+			}
+
+			containerWindowType = {
+				name = "divisions_window"
+				position = {x=5 y=53}
+				size = {width=332 height=12} # Y Set in code to match the window size, but initial value is used as extra space in height
+				Orientation = upper_left
+				clipping = no
+
+				# Here inserted in code entries of "army_division_view" stretching its height to preferred size.
+
+				# Scrollbar visibility and size is adapted in code too...
+				extendedScrollbarType = {
+					name = "slider"
+					position = {x=394 y=0}
+					size = {width=18 height=18}
+					startValue = 0
+					background = {
+						name = "Background"
+						quadTextureSprite = "GFX_scrollbar_vertical_bg"
+					}
+					slider = {
+						name = "Slider"
+						quadTextureSprite = "GFX_scroll_drager"
+						position = { x = -2 y = -2 }
+					}
+					track = {
+						name = "Track"
+						quadTextureSprite = "GFX_scroll_track"
+						position = { x = 3 y = 0 }
+						alwaystransparent = yes
+					}
+					decreaseButton = {
+						name = "Decrease"
+						quadTextureSprite = "GFX_scroll_up"
+						position = { x = 2 y = 3 }
+					}
+					increaseButton = {
+						name = "Increase"
+						quadTextureSprite = "GFX_scroll_down"
+						position = { x=-17 y = -19}
+					}
+				}
+			}
+
+			containerWindowType = {
+				name = "bottom_window"
+				position = {x=0 y=0}
+				size = { width=422 height= 50 } # height set in code, but initial value here is used for max allowed height
+				clipping = no
+
+				background = {
+					name = "Background"
+					quadTextureSprite ="GFX_unitlist_unassigned_bg"
+					position = {x=5 y=-19}
+				}
+
+				instantTextboxType = {
+					name = "divisions_count"
+					position = {x=18 y=-9}
+					font = "hoi_16mbs"
+					maxWidth = 370
+					maxHeight = 23
+					format = center
+					text = "UNASSIGNED_UNIT_DESCRIPTION"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,53 @@
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_1326468377.mod line: 7
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_1326679427.mod line: 7
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_1326690459.mod line: 7
+[no_game_date][persistent.cpp:67]: Error: "Malformed token: German flag replaced with ,"
+tags={
+	, near line: 3" in file: "mod/ugc_1491512364.mod" near line: 3
+[no_game_date][persistent.cpp:67]: Error: "Unexpected token: Alternative, near line: 3" in file: "mod/ugc_1491512364.mod" near line: 3
+[no_game_date][persistent.cpp:67]: Error: "Unexpected token: 
+	, near line: 4" in file: "mod/ugc_1491512364.mod" near line: 4
+[no_game_date][persistent.cpp:67]: Error: "Unexpected token: 
+	, near line: 5" in file: "mod/ugc_1491512364.mod" near line: 5
+[no_game_date][persistent.cpp:67]: Error: "Unexpected token: 
+	, near line: 6" in file: "mod/ugc_1491512364.mod" near line: 6
+[no_game_date][persistent.cpp:67]: Error: "Unexpected token: 
+}
+picture=, near line: 8" in file: "mod/ugc_1491512364.mod" near line: 8
+[no_game_date][persistent.cpp:67]: Error: "Unexpected token: 
+supported_version=, near line: 9" in file: "mod/ugc_1491512364.mod" near line: 9
+[no_game_date][persistent.cpp:67]: Error: "Unexpected token: 
+archive=, near line: 10" in file: "mod/ugc_1491512364.mod" near line: 10
+[no_game_date][persistent.cpp:67]: Error: "Unexpected token: 
+remote_file_id=, near line: 11" in file: "mod/ugc_1491512364.mod" near line: 11
+[no_game_date][persistent.cpp:67]: Error: "Unexpected token: , near line: 11" in file: "mod/ugc_1491512364.mod" near line: 11
+[no_game_date][dlc.cpp:1829]: Incorrect MOD descriptor: "mod/ugc_1491512364.mod"
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_1629702438.mod line: 6
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_1632610803.mod line: 6
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_1976923067.mod line: 7
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_1993141805.mod line: 7
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_2835509087.mod line: 7
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_2852740673.mod line: 8
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_2938290655.mod line: 8
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3139707147.mod line: 8
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3255803991.mod line: 9
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3256421597.mod line: 8
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3277805669.mod line: 8
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3313579396.mod line: 8
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3330969122.mod line: 7
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3365877907.mod line: 8
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3446246309.mod line: 9
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3618429635.mod line: 15
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3718330259.mod line: 6
+[no_game_date][dlc.cpp:218]: Invalid supported_version in  file: mod/ugc_3731538127.mod line: 10
+[no_game_date][pdx_entity.cpp:324]: Failed to find entity "ITA_mechanized_vehicle_1_entity" for attachment in vehicle
+[no_game_date][equipment_graphic_database.cpp:72]: Entity referenced in equipment graphic database does not exist: "GER_super_heavy_armor_entity", associated with GER super_heavy_tank_aa_chassis
+[no_game_date][equipment_graphic_database.cpp:72]: Entity referenced in equipment graphic database does not exist: "GER_super_heavy_armor_entity", associated with GER super_heavy_tank_chassis
+[no_game_date][equipment_graphic_database.cpp:72]: Entity referenced in equipment graphic database does not exist: "GER_super_heavy_armor_entity", associated with GER super_heavy_tank_destroyer_chassis
+[no_game_date][equipment_graphic_database.cpp:72]: Entity referenced in equipment graphic database does not exist: "GER_super_heavy_armor_entity", associated with GER super_heavy_tank_artillery_chassis
+[no_game_date][equipment_graphic_database.cpp:72]: Entity referenced in equipment graphic database does not exist: "SOV_super_heavy_armor_entity", associated with SOV super_heavy_tank_chassis
+[1936.01.01.12][effect.cpp:445]: Invalid effect 'IRQ_kamil_shabib' in history/countries/IRQ - Iraq.txt line : 116
+[1936.01.01.12][effect.cpp:358]: Error: "Unknown effect-type: IRQ_kamil_shabib, near line: 116" in file: "history/countries/IRQ - Iraq.txt" near line: 127
+[1936.01.01.12][equipment_effects.cpp:814]: 'history/countries/GER - Germany.txt:1547: create_equipment_variant': 'Hs 123' - Invalid icon 'GFX_GER_cv_fighter1_medium'.
+[1936.01.01.12][scopedvariable.cpp:363]: mio:CHL_famae_organization was not found in country scope CHL
+[1936.01.01.12][effect.cpp:813]: history/units/CHL_1936.txt:84: add_equipment_production: industrial_manufacturer is set but no MIO has been found

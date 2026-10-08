@@ -2,4 +2,10 @@
 - **Developer Guide**
   - [Roadmap](Roadmap.md)
   - [Design Rules](Design-Rules.md)
+  - [Engine Facts](Engine-Facts.md)
+  - [Game Recipes](Game-Recipes.md)
+  - [Phase Template](Phase-Template.md)
   - [Contributing](Contributing.md)
+- **Phases**
+  - [A1 Air wings and airbases](phases/A1-air-selection.md)
+  - [A2 Selected army](phases/A2-army-selection.md)

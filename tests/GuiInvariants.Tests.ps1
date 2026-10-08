@@ -2,10 +2,11 @@ BeforeDiscovery {
     $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
     . (Join-Path (Join-Path $repoRoot 'tools') 'GuiParsing.ps1')
 
-    # Grids and the entry rows the engine fills them with. The link lives in game code, so it is
-    # listed here: add one row per reworked list, e.g. @{ Grid = 'names_grid'; Entry = 'designer_div_name_group_entry' }.
-    $entryPairCases = @(
-    )
+    # Grids and their entry rows, list boxes and their row windows: links the engine makes in code, kept
+    # in tools/gui-links.json (shared with the renderer and the game harness). Add a row there per reworked list.
+    $links = Get-GuiLinks -Path (Join-Path (Join-Path $repoRoot 'tools') 'gui-links.json')
+    $entryPairCases = @($links.EntryPairs | ForEach-Object { @{ Grid = $_.grid; Entry = $_.entry } })
+    $listRowCases = @($links.ListRows | ForEach-Object { @{ ListWindow = $_.listWindow; List = $_.list; Row = $_.row } })
 
     $guiFileCases = @()
     $windowCases = @()
@@ -43,13 +44,14 @@ BeforeAll {
         return @(Get-GuiTopLevelWindows -Root $root | Where-Object { $_.Name -eq $Name })[0]
     }
 
-    function Get-BaselineWindow {
+    # The top-level window with this name from whichever mod .gui file defines it, or $null.
+    function Find-ModWindow {
         param([string]$Name)
-        if (-not (Test-Path $script:BaselineDir)) { return $null }
-        $file = Get-ChildItem -Path $script:BaselineDir -Recurse -File -Filter "$Name.gui" | Select-Object -First 1
-        if (-not $file) { return $null }
-        $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)
-        return @(Get-GuiTopLevelWindows -Root $root)[0]
+        foreach ($file in @(Get-ModGuiFiles -Filter '*.gui')) {
+            $window = Get-ModWindow -Path $file.FullName -Name $Name
+            if ($window) { return $window }
+        }
+        return $null
     }
 }
 
@@ -116,6 +118,28 @@ guiTypes = {
         @(Compare-GuiWidgetPaths -Baseline $script:SampleWindow.Node -Actual $actual.Node) | Should -BeNullOrEmpty
     }
 
+    It 'reports each changed, added and removed property by widget' {
+        $changed = $script:Sample -replace 'width = 300 height = 30', 'width = 320 height = 30' -replace 'font = "hoi_18mbs"', 'maxWidth = 200' -replace 'height=300', 'height=300 moveable = yes'
+        $actual = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $changed))[0]
+        $changes = @(Compare-GuiWindows -Baseline $script:SampleWindow.Node -Actual $actual.Node | ForEach-Object { '{0}|{1}|{2}|{3}|{4}' -f $_.Kind, $_.Widget, $_.Property, $_.Old, $_.New })
+        $changes | Should -Contain 'Changed|sample_window/list/grid|slotsize.width|300|320'
+        $changes | Should -Contain 'Added|sample_window/title|maxWidth||200'
+        $changes | Should -Contain 'Removed|sample_window/title|font|hoi_18mbs|'
+        $changes | Should -Contain 'Added|sample_window|size.moveable||yes'
+        $changes.Count | Should -Be 4
+    }
+
+    It 'reports a new or missing widget once, and nothing for reordered or reformatted text' {
+        $changed = $script:Sample -replace '(?m)^\s*instantTextBoxType.*$', 'iconType = { name = "extra" spriteType = "GFX_x" }'
+        $actual = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $changed))[0]
+        $changes = @(Compare-GuiWindows -Baseline $script:SampleWindow.Node -Actual $actual.Node | ForEach-Object { '{0}|{1}' -f $_.Kind, $_.Widget })
+        $changes | Should -Be @('NewWidget|sample_window/extra', 'MissingWidget|sample_window/title')
+
+        $reformatted = $script:Sample -replace 'width = 400 height=300', "height = 300`n`t`t`twidth=400 # reordered" -replace '"sample_window"', 'sample_window'
+        $actual = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $reformatted))[0]
+        @(Compare-GuiWindows -Baseline $script:SampleWindow.Node -Actual $actual.Node) | Should -BeNullOrEmpty
+    }
+
     It 'flags a scroll factor that is not a whole number of rows' {
         @(Get-GuiScrollViolations -Node $script:SampleWindow.Node) | Should -BeNullOrEmpty
         $changed = $script:Sample -replace 'scroll_wheel_factor = 60', 'scroll_wheel_factor = 45'
@@ -128,6 +152,30 @@ guiTypes = {
         $changed = $script:Sample -replace 'height=300', 'height=1500'
         $actual = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $changed))[0]
         @(Get-GuiOversizeViolations -Node $actual.Node).Count | Should -Be 1
+    }
+}
+
+Describe 'Executable name search' {
+    BeforeAll {
+        # Two groups of zero-terminated string literals 5000 bytes apart, the way hoi4.exe stores them.
+        $nul = [string][char]0
+        $script:ExeSample = 'junk' + $nul + 'close_button' + $nul + ('x' * 5000) + $nul + 'row_name' + $nul + 'ROW_TOOLTIP' + $nul + 'hidden_value' + $nul + $nul + 'row_icon' + $nul + 'tail'
+    }
+
+    It 'puts the cluster that holds most of the names first' {
+        $clusters = @(Get-ExeNameClusters -Text $script:ExeSample -Names @('row_name', 'row_icon', 'close_button', 'not_stored'))
+        $clusters.Count | Should -Be 2
+        $clusters[0].Names | Should -Be @('row_name', 'row_icon')
+        $script:ExeSample.Substring($clusters[0].Start, $clusters[0].End - $clusters[0].Start) | Should -BeLike 'row_name*row_icon'
+    }
+
+    It 'lists every literal stored inside a cluster, in stored order' {
+        $cluster = @(Get-ExeNameClusters -Text $script:ExeSample -Names @('row_name', 'row_icon'))[0]
+        @(Get-ExeStrings -Text $script:ExeSample -Start ($cluster.Start - 1) -End ($cluster.End + 1) | ForEach-Object { $_.Value }) | Should -Be @('row_name', 'ROW_TOOLTIP', 'hidden_value', 'row_icon')
+    }
+
+    It 'matches whole literals only' {
+        @(Get-ExeNameClusters -Text $script:ExeSample -Names @('row', 'name')).Count | Should -Be 0
     }
 }
 
@@ -177,12 +225,29 @@ Describe 'Mod sprites' {
         # Textures may come from the mod or from vanilla. Without a game install (CI) only the mod is checked.
         $gameDir = Resolve-HoiGameDir
         $missing = foreach ($sprite in $script:DeclaredSprites) {
-            if (-not $sprite.Texture) { "$($sprite.Name): no texturefile"; continue }
-            if (Test-Path (Join-Path $script:RepoRoot $sprite.Texture)) { continue }
-            if (-not $gameDir) { continue }
-            if (-not (Test-Path (Join-Path $gameDir $sprite.Texture))) { "$($sprite.Name): $($sprite.Texture)" }
+            if (-not $sprite.Textures.Count) { "$($sprite.Name): no texturefile"; continue }
+            foreach ($texture in $sprite.Textures) {
+                if (Test-Path (Join-Path $script:RepoRoot $texture)) { continue }
+                if (-not $gameDir) { continue }
+                if (-not (Test-Path (Join-Path $gameDir $texture))) { "$($sprite.Name): $texture" }
+            }
         }
         $missing | Should -BeNullOrEmpty
+    }
+}
+
+Describe 'Mod windows' {
+    It 'defines every overridden window in one file only' {
+        # With two definitions the file that loads last wins silently.
+        $seen = @{}
+        $duplicates = foreach ($file in @(Get-ModGuiFiles -Filter '*.gui')) {
+            $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)
+            foreach ($window in @(Get-GuiTopLevelWindows -Root $root)) {
+                if ($seen.ContainsKey($window.Name)) { "$($window.Name): $($seen[$window.Name]) and $($file.Name)" }
+                else { $seen[$window.Name] = $file.Name }
+            }
+        }
+        $duplicates | Should -BeNullOrEmpty
     }
 }
 
@@ -210,17 +275,45 @@ if ($windowCases.Count -gt 0) {
     Describe 'Window <Window> in <RelPath>' -ForEach $windowCases {
         It 'has a vanilla baseline, or is a mod-only window with the mod prefix' {
             if ($Window -like "$($script:ModWindowPrefix)*") { return }
-            Get-BaselineWindow -Name $Window | Should -Not -BeNullOrEmpty -Because 'run tools/Export-VanillaBaseline.ps1 before reworking a vanilla window'
+            Find-GuiBaseline -BaselineDir $script:BaselineDir -Name $Window | Should -Not -BeNullOrEmpty -Because 'run tools/Export-VanillaBaseline.ps1 before reworking a vanilla window'
         }
 
         It 'keeps every named vanilla widget under the same parent' {
-            $baseline = Get-BaselineWindow -Name $Window
+            $baseline = Find-GuiBaseline -BaselineDir $script:BaselineDir -Name $Window
             if (-not $baseline) {
                 Set-ItResult -Skipped -Because 'there is no baseline to compare against'
                 return
             }
             $actual = Get-ModWindow -Path $FullPath -Name $Window
             @(Compare-GuiWidgetPaths -Baseline $baseline.Node -Actual $actual.Node) | Should -BeNullOrEmpty -Because 'the engine binds data to widgets by name inside their parent'
+        }
+    }
+}
+
+if ($listRowCases.Count -gt 0) {
+    Describe 'Rows <Row> in list <List>' -ForEach $listRowCases {
+        It 'fit inside the list, which is overridden together with them' {
+            $rowWindow = Find-ModWindow -Name $Row
+            $rowWindow | Should -Not -BeNullOrEmpty -Because "row window '$Row' is listed in `$listRowCases, so a mod .gui file should define it"
+
+            $listWindow = Find-ModWindow -Name $ListWindow
+            $listWindow | Should -Not -BeNullOrEmpty -Because "'$ListWindow' holds the list of these rows; left at vanilla size it cuts wider rows off"
+
+            $listNode = @(Get-GuiNodes -Node $listWindow.Node | Where-Object { (Get-GuiValue -Node $_ -Key 'name') -eq $List })[0]
+            $listNode | Should -Not -BeNullOrEmpty -Because "'$ListWindow' should contain a list named '$List'"
+
+            $rowWidth = Get-GuiWidth -Node $rowWindow.Node
+            $listWidth = Get-GuiWidth -Node $listNode
+            $rowWidth | Should -Not -BeNullOrEmpty
+            $listWidth | Should -Not -BeNullOrEmpty
+            $rowWidth | Should -BeLessOrEqual $listWidth -Because 'a list box cuts off anything wider than itself'
+
+            # a list height of 0 or "set in code" means the engine sizes it; a written height must hold one row
+            $rowHeight = Get-GuiHeight -Node $rowWindow.Node
+            $listHeight = Get-GuiHeight -Node $listNode
+            if ($rowHeight -and $listHeight -and $listHeight -gt 0) {
+                $rowHeight | Should -BeLessOrEqual $listHeight -Because 'a list shorter than one row shows nothing'
+            }
         }
     }
 }

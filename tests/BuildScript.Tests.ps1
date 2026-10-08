@@ -74,6 +74,12 @@ Describe "build.ps1 Packaging & Staging Exclusions" {
         $script:BuildContent | Should -Match "excludeDirs\s*=\s*@\([^)]*['`"]wiki['`"]"
     }
 
+    It "Build script must exclude the reference captures and other dev-only folders from packages" {
+        foreach ($folder in 'reference', 'tools', 'baseline', 'scratch') {
+            $script:BuildContent | Should -Match "excludeDirs\s*=\s*@\([^)]*['`"]$folder['`"]" -Because "$folder is dev-only and reference alone is tens of megabytes"
+        }
+    }
+
     It "Build script must exclude .git and dev tools from packaging" {
         $script:BuildContent | Should -Match "excludeDirs\s*=\s*@\([^)]*['`"]\.git['`"]"
         $script:BuildContent | Should -Match "excludeDirs\s*=\s*@\([^)]*['`"]\.github['`"]"

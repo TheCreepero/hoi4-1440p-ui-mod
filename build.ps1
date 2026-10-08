@@ -21,6 +21,15 @@ param(
     [Parameter(ParameterSetName = 'Test')]
     [switch]$Test,
 
+    # Everything before a game check of one screen: validation, tests and the scene render. With -InGame
+    # it goes on to the unattended game check (tools/Invoke-GameCheck.ps1), which takes over the main
+    # screen for about two minutes.
+    [Parameter(ParameterSetName = 'Check')]
+    [string]$Check,
+
+    [Parameter(ParameterSetName = 'Check')]
+    [switch]$InGame,
+
     [switch]$Validate,
     [switch]$NoValidate,
     [switch]$Clean,
@@ -112,7 +121,7 @@ function New-LauncherModContent {
 function Copy-ModContent {
     param([string]$Destination)
 
-    $excludeDirs = @('.git', '.github', '.vscode', '.agents', '.agent', '.claude', 'tests', 'wiki', 'assets', 'artifacts', 'scratch', 'Files', 'docs', 'tools', 'baseline')
+    $excludeDirs = @('.git', '.github', '.vscode', '.agents', '.agent', '.claude', 'tests', 'wiki', 'assets', 'artifacts', 'scratch', 'Files', 'docs', 'tools', 'baseline', 'reference')
     $excludeFiles = @('.gitattributes', '.gitignore', 'build.ps1', 'build.bat', 'build_and_deploy.bat', '.steam_username')
     $excludeExtensions = @('.zip', '.md')
 
@@ -162,7 +171,7 @@ function Invoke-Validation {
 
     $clausewitzFiles = @(Get-ChildItem -Path $RepoDir -Recurse -File | Where-Object {
         ($_.Extension -eq '.txt' -or $_.Extension -eq '.gui' -or $_.Extension -eq '.gfx') -and
-        $_.FullName -notmatch '[\\/](\.git|\.github|\.vscode|tests|wiki|tools|baseline|artifacts|scratch)[\\/]'
+        $_.FullName -notmatch '[\\/](\.git|\.github|\.vscode|tests|wiki|tools|baseline|reference|artifacts|scratch)[\\/]'
     })
 
     $checkedCount = 0
@@ -242,7 +251,35 @@ if ($InstallSteamCmd) {
     exit 0
 }
 
-$shouldValidate = $Validate -or (-not $NoValidate -and -not $Clean -and -not $Test)
+if ($Check) {
+    $ok = Invoke-Validation
+    if (-not $ok) { Write-Host "`nValidation failed!" -ForegroundColor Red; exit 1 }
+
+    Write-Step "Running the test suite..."
+    & (Join-Path $RepoDir "tests\Run-Tests.ps1")
+    if ($LASTEXITCODE -ne 0) { Write-Err "Tests failed. Fix them before a game check."; exit 1 }
+
+    Write-Step "Rendering the scene '$Check' (scratch\previews\$Check`_scene.png and _crop.png)..."
+    $python = Get-Command python -ErrorAction SilentlyContinue
+    if (-not $python) {
+        Write-Warn "python not found: no render. Install Python 3 with Pillow."
+    } else {
+        & $python.Source -I (Join-Path $RepoDir "tools\render_gui.py") --scene $Check
+        if ($LASTEXITCODE -ne 0) { Write-Err "The render failed; read the output above."; exit 1 }
+    }
+
+    if ($InGame) {
+        Write-Step "Game check of '$Check': restart, new 1936 game, capture (scratch\checks)..."
+        & (Join-Path $RepoDir "tools\Invoke-GameCheck.ps1") $Check | Out-Null
+    } else {
+        Write-Info "Look at the render first. Then check in the game with: tools\Invoke-GameCheck.ps1 $Check  (or add -InGame here)"
+    }
+    $stopwatch.Stop()
+    Write-Host "`nCheck of '$Check' finished in $($stopwatch.Elapsed.TotalSeconds.ToString('0.00'))s" -ForegroundColor Green
+    exit 0
+}
+
+$shouldValidate = $Validate -or (-not $NoValidate -and -not $Clean -and -not $Test -and -not $Check)
 if ($ValidateOnly) {
     $ok = Invoke-Validation
     $stopwatch.Stop()

@@ -1,0 +1,105 @@
+{
+  "_comment": "Scene for the air wings and airbases screen. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "screen": "air_selection",
+  "phase": "A1",
+  "file": "zz_1440p_air_selection.gui",
+  "screenshot": "reference/vanilla/air_selection.jpg",
+  "windows": [
+    {
+      "name": "air_selection_view",
+      "at": [
+        0,
+        77
+      ],
+      "hide": [
+        "strategic_air_priorities_window"
+      ],
+      "_note": "The mission toolbar grid is filled by code with one button per mission; strategic_air_priorities_window opens on a click."
+    },
+    {
+      "name": "unassigned_airwings_view",
+      "at": [
+        2,
+        168
+      ],
+      "rows": {
+        "air_wings_list": 20
+      },
+      "listRows": {
+        "air_wings_list": [
+          "airbase_selection_item",
+          "airwing_selection_item",
+          "airwing_selection_item",
+          "airwing_selection_item",
+          "airwing_selection_item"
+        ]
+      },
+      "hide": [
+        "bottom_window"
+      ],
+      "_note": "Measured with render_gui.py --verify: the code places this frame under the toolbars, so it sits at 2,168 with the mod and at 2,197 in vanilla ('atVanilla'). An air group badge pushes it further down. bottom_window is the footer of the unassigned list only.",
+      "atVanilla": [
+        2,
+        197
+      ]
+    }
+  ],
+  "samples": {
+    "air_selection_view": {
+      "wings_count": "4 Selected",
+      "strategic_priorities_label": "Strategic air priorities"
+    },
+    "airbase_selection_item": {
+      "base_name": "Brandenburg",
+      "capacity": "280/1200",
+      "permission_wings_count": "0"
+    },
+    "airwing_selection_item": {
+      "count": "80",
+      "unit_name": "Jagdgeschwader 132",
+      "mission_state": "Standing by",
+      "armies_count_box": "1"
+    },
+    "unassigned_airwings_view": {
+      "divisions_count": "4 wings"
+    },
+    "quick_wing_deployment_selection_window": {
+      "current_airbase_text": "Brandenburg",
+      "info": "Select plane types to deploy",
+      "selection_count": "0"
+    },
+    "quick_wing_deploy_plane_type_entry_item": {
+      "plane_name": "Bf 109 E",
+      "plane_count": "120"
+    }
+  },
+  "setup": [
+    {
+      "move": "select_airbase"
+    }
+  ],
+  "captures": [],
+  "expect": [
+    "air_selection_view/btn_delete",
+    "air_selection_view/btn_create_air_group",
+    "airbase_selection_item/btn_close"
+  ],
+  "crop": [
+    0,
+    60,
+    780,
+    1200
+  ],
+  "manual": [
+    "Tooltips and click targets",
+    "Quick deploy popup: open it, scroll its list",
+    "Gun emplacement and rocket rows (none in a 1936 start)"
+  ],
+  "checklist": [
+    "Mission toolbar, wing toolbar and list form one block without gaps",
+    "Wing rows: name and status in full, 20 rows before scrolling",
+    "Airbase row: name, capacity, quick deploy buttons",
+    "Scroll the list to the end",
+    "Quick deploy popup: open it, scroll its list"
+  ]
+}

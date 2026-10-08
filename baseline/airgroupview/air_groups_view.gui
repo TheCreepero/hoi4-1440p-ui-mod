@@ -1,0 +1,18 @@
+# Vanilla 1.19.3.0, interface/airgroupview.gui, lines 18-31.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "air_groups_view"
+		position = {x=0 y=-0}
+		size = { width=580 height=1000 } # Height set in code, this is max size
+		Orientation = upper_left
+		clipping = no
+
+		smoothListBoxType = {
+				name = "air_group_view_entries"
+				position = {x=0 y=0}
+				size = { x=580 y=0 } #Height set in code
+				scrollbartype = "standardlistbox_slider"
+		}
+	}
+}

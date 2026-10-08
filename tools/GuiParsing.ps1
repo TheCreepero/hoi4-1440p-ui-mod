@@ -234,6 +234,130 @@ function Compare-GuiWidgetPaths {
     }
 }
 
+function Add-GuiProperties {
+    param($Block, [string]$Widget, [string]$Prefix, $Map, $WidgetCounts)
+
+    $keyCounts = @{}
+    foreach ($child in $Block.Children) {
+        $childName = $null
+        if ($null -ne $child.Children) { $childName = Get-GuiValue -Node $child -Key 'name' }
+
+        if ($childName) {
+            $path = "$Widget/$childName"
+            $pathKey = $path.ToLowerInvariant()
+            $WidgetCounts[$pathKey] = 1 + [int]$WidgetCounts[$pathKey]
+            if ($WidgetCounts[$pathKey] -gt 1) { $path = "$path#$($WidgetCounts[$pathKey])" }
+            $Map[("$path`t(type)").ToLowerInvariant()] = [pscustomobject]@{ Widget = $path; Property = '(type)'; Value = $child.Key.ToLowerInvariant(); Line = $child.Line }
+            Add-GuiProperties -Block $child -Widget $path -Prefix '' -Map $Map -WidgetCounts $WidgetCounts
+            continue
+        }
+
+        # the name of a widget is already its path
+        if ($null -eq $child.Children -and -not $Prefix -and $child.Key -ieq 'name') { continue }
+
+        $key = $child.Key
+        $countKey = $key.ToLowerInvariant()
+        $keyCounts[$countKey] = 1 + [int]$keyCounts[$countKey]
+        if ($keyCounts[$countKey] -gt 1) { $key = "$key#$($keyCounts[$countKey])" }
+
+        if ($null -eq $child.Children) {
+            $property = $Prefix + $key
+            $Map[("$Widget`t$property").ToLowerInvariant()] = [pscustomobject]@{ Widget = $Widget; Property = $property; Value = [string]$child.Value; Line = $child.Line }
+        } else {
+            Add-GuiProperties -Block $child -Widget $Widget -Prefix ($Prefix + $key + '.') -Map $Map -WidgetCounts $WidgetCounts
+        }
+    }
+}
+
+# Flattens a window into one entry per property, keyed by widget path and property path.
+# A block with a name is a widget. Unnamed blocks (position, size, slotsize ...) are property groups
+# of the widget around them, so a value reads like "air_wing_toolbar/btn_close  position.x".
+# Repeated keys and repeated widget names get a #2, #3 ... suffix in order of appearance.
+function Get-GuiPropertyMap {
+    param([Parameter(Mandatory)]$Node)
+
+    $map = [ordered]@{}
+    $widget = [string](Get-GuiValue -Node $Node -Key 'name')
+    $map[("$widget`t(type)").ToLowerInvariant()] = [pscustomobject]@{ Widget = $widget; Property = '(type)'; Value = $Node.Key.ToLowerInvariant(); Line = $Node.Line }
+    Add-GuiProperties -Block $Node -Widget $widget -Prefix '' -Map $map -WidgetCounts @{}
+    return $map
+}
+
+# Every difference between two versions of a window, one object per changed, added or removed
+# property. A widget that exists on one side only is reported once, not property by property.
+function Compare-GuiWindows {
+    param([Parameter(Mandatory)]$Baseline, [Parameter(Mandatory)]$Actual)
+
+    $old = Get-GuiPropertyMap -Node $Baseline
+    $new = Get-GuiPropertyMap -Node $Actual
+
+    $newWidgets = @{}
+    foreach ($key in $new.Keys) {
+        $entry = $new[$key]
+        if ($old.Contains($key)) {
+            if ($old[$key].Value -cne $entry.Value) {
+                [pscustomobject]@{ Kind = 'Changed'; Widget = $entry.Widget; Property = $entry.Property; Old = $old[$key].Value; New = $entry.Value; Line = $entry.Line }
+            }
+        } elseif ($entry.Property -eq '(type)') {
+            $newWidgets[$entry.Widget] = $true
+            [pscustomobject]@{ Kind = 'NewWidget'; Widget = $entry.Widget; Property = '(type)'; Old = $null; New = $entry.Value; Line = $entry.Line }
+        } elseif (-not $newWidgets.ContainsKey($entry.Widget)) {
+            [pscustomobject]@{ Kind = 'Added'; Widget = $entry.Widget; Property = $entry.Property; Old = $null; New = $entry.Value; Line = $entry.Line }
+        }
+    }
+
+    $missingWidgets = @{}
+    foreach ($key in $old.Keys) {
+        if ($new.Contains($key)) { continue }
+        $entry = $old[$key]
+        if ($entry.Property -eq '(type)') {
+            $missingWidgets[$entry.Widget] = $true
+            [pscustomobject]@{ Kind = 'MissingWidget'; Widget = $entry.Widget; Property = '(type)'; Old = $entry.Value; New = $null; Line = $null }
+        } elseif (-not $missingWidgets.ContainsKey($entry.Widget)) {
+            [pscustomobject]@{ Kind = 'Removed'; Widget = $entry.Widget; Property = $entry.Property; Old = $entry.Value; New = $null; Line = $null }
+        }
+    }
+}
+
+# The vanilla reference copy of a window, as saved by Export-VanillaBaseline.ps1, or $null.
+function Find-GuiBaseline {
+    param([Parameter(Mandatory)][string]$BaselineDir, [Parameter(Mandatory)][string]$Name)
+
+    if (-not (Test-Path -LiteralPath $BaselineDir)) { return $null }
+    $file = Get-ChildItem -LiteralPath $BaselineDir -Recurse -File -Filter "$Name.gui" | Select-Object -First 1
+    if (-not $file) { return $null }
+
+    $text = (Read-GuiText -Path $file.FullName) -replace "`r`n", "`n"
+    $window = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $text))[0]
+    if (-not $window) { return $null }
+
+    $gameVersion = ''
+    $source = ''
+    if ($text -match '^# Vanilla (\S+), (\S+), lines') {
+        $gameVersion = $Matches[1]
+        $source = $Matches[2]
+    }
+    $lines = $text -split "`n"
+    return [pscustomobject]@{
+        Name        = $window.Name
+        Node        = $window.Node
+        Path        = $file.FullName
+        GameVersion = $gameVersion
+        Source      = $source
+        Lines       = $lines[($window.Line - 1)..($window.EndLine - 1)]
+    }
+}
+
+# Width of a window, list or tiled button. Windows write width/height, list boxes and buttons x/y.
+function Get-GuiWidth {
+    param($Node)
+
+    $size = Get-GuiBlock -Node $Node -Key 'size'
+    $width = ConvertTo-GuiNumber (Get-GuiValue -Node $size -Key 'width')
+    if ($null -eq $width) { $width = ConvertTo-GuiNumber (Get-GuiValue -Node $size -Key 'x') }
+    return $width
+}
+
 # Scroll containers whose scroll_wheel_factor is not a whole number of rows.
 function Get-GuiScrollViolations {
     param([Parameter(Mandatory)]$Node)
@@ -283,8 +407,160 @@ function Get-GuiSpriteDeclarations {
             if ($null -eq $sprite.Children) { continue }
             $name = Get-GuiValue -Node $sprite -Key 'name'
             if (-not $name) { continue }
-            $texture = [string](Get-GuiValue -Node $sprite -Key 'texturefile') -replace '[\\/]+', '/'
-            [pscustomobject]@{ Name = $name; Type = $sprite.Key; Texture = $texture; Line = $sprite.Line }
+            # sprites name one texture (texturefile); progress bars name two (textureFile1, textureFile2)
+            $textures = @($sprite.Children | Where-Object { $null -eq $_.Children -and $_.Key -imatch '^texturefile\d?$' } | ForEach-Object { ([string]$_.Value) -replace '[\\/]+', '/' })
+            [pscustomobject]@{ Name = $name; Type = $sprite.Key; Texture = [string]($textures | Select-Object -First 1); Textures = $textures; Line = $sprite.Line }
         }
     }
+}
+
+# The game executable as text, one character per byte, for the two functions below.
+function Read-ExeText {
+    param([Parameter(Mandatory)][string]$Path)
+
+    return [System.Text.Encoding]::GetEncoding(28591).GetString([System.IO.File]::ReadAllBytes($Path))
+}
+
+# Where the given names are stored as string literals in the executable text, grouped into clusters
+# of hits at most $Gap bytes apart, the cluster with the most names first. The game code finds
+# widgets by name, and the literals of one source file are stored together, so the largest cluster
+# for the widget names of a window is the code that fills that window.
+function Get-ExeNameClusters {
+    param([Parameter(Mandatory)][string]$Text, [Parameter(Mandatory)][string[]]$Names, [int]$Gap = 2048)
+
+    $nul = [string][char]0
+    $seen = [System.Collections.Generic.HashSet[string]]::new()
+    $hits = [System.Collections.Generic.List[object]]::new()
+    foreach ($name in $Names) {
+        if (-not $name -or -not $seen.Add($name)) { continue }
+        $needle = $nul + $name + $nul
+        $at = $Text.IndexOf($needle, [System.StringComparison]::Ordinal)
+        while ($at -ge 0) {
+            $hits.Add([pscustomobject]@{ Offset = $at + 1; Name = $name })
+            $at = $Text.IndexOf($needle, $at + 1, [System.StringComparison]::Ordinal)
+        }
+    }
+
+    $clusters = [System.Collections.Generic.List[object]]::new()
+    $current = $null
+    foreach ($hit in ($hits | Sort-Object Offset)) {
+        if ($null -eq $current -or ($hit.Offset - $current.End) -gt $Gap) {
+            $current = [pscustomobject]@{ Start = $hit.Offset; End = 0; Names = [System.Collections.Generic.List[string]]::new() }
+            $clusters.Add($current)
+        }
+        $current.End = $hit.Offset + $hit.Name.Length
+        if (-not $current.Names.Contains($hit.Name)) { $current.Names.Add($hit.Name) }
+    }
+    return @($clusters | Sort-Object @{ Expression = { $_.Names.Count }; Descending = $true }, Start)
+}
+
+# The string literals stored between two offsets of the executable text, in stored order.
+function Get-ExeStrings {
+    param([Parameter(Mandatory)][string]$Text, [int]$Start, [int]$End)
+
+    $Start = [Math]::Max(0, $Start)
+    $End = [Math]::Min($Text.Length, $End)
+    if ($End -le $Start) { return }
+    foreach ($m in [regex]::Matches($Text.Substring($Start, $End - $Start), '(?<=\x00)[\x20-\x7e]{3,}(?=\x00)')) {
+        [pscustomobject]@{ Offset = $Start + $m.Index; Value = $m.Value }
+    }
+}
+
+# The list/row and grid/entry links the engine makes in code, from tools/gui-links.json.
+# Returns an object with EntryPairs (grid, entry), ListRows (listWindow, list, row) and Variables.
+function Get-GuiLinks {
+    param([string]$Path)
+
+    if (-not $Path) { $Path = Join-Path $PSScriptRoot 'gui-links.json' }
+    $json = [System.IO.File]::ReadAllText($Path, [System.Text.Encoding]::UTF8) | ConvertFrom-Json
+    return [pscustomobject]@{
+        EntryPairs = @($json.entryPairs | Where-Object { $_.grid })
+        ListRows   = @($json.listRows | Where-Object { $_.row })
+        Variables  = $json.variables
+        Path       = $Path
+    }
+}
+
+# A scene file from tools/scenes/<name>.json: the windows of one screen, sample texts and the
+# screenshot region to crop. $Name may also be a path.
+function Get-GuiScene {
+    param([Parameter(Mandatory)][string]$Name)
+
+    $path = $Name
+    if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
+        $path = Join-Path (Join-Path $PSScriptRoot 'scenes') "$Name.json"
+    }
+    if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { throw "Scene not found: $Name (looked for $path)" }
+    $scene = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8) | ConvertFrom-Json
+    $scene | Add-Member -NotePropertyName Path -NotePropertyValue $path -Force
+    return $scene
+}
+
+# Pixel width of a line of text in a vanilla bitmap font: the sum of the xadvance values in
+# gfx/fonts/<font>.fnt (see Design Rules, "A text's width can be worked out before a launch").
+# $Font is the font name used in .gui files (hoi_18, hoi_20b ...); the .fnt file is looked up in the mod
+# first, then in the game install. Returns $null when the font file cannot be found.
+function Measure-GuiText {
+    param([Parameter(Mandatory)][string]$Font, [Parameter(Mandatory)][AllowEmptyString()][string]$Text, [string]$GameDir)
+
+    if (-not $script:GuiFontCache) { $script:GuiFontCache = @{} }
+    if (-not $script:GuiFontCache.ContainsKey($Font)) {
+        $repoRoot = Split-Path -Parent $PSScriptRoot
+        $resolvedGameDir = Resolve-HoiGameDir -GameDir $GameDir
+        $file = $null
+        foreach ($base in @($repoRoot, $resolvedGameDir)) {
+            if (-not $base) { continue }
+            $candidate = Join-Path (Join-Path (Join-Path $base 'gfx') 'fonts') "$Font.fnt"
+            if (Test-Path -LiteralPath $candidate) { $file = $candidate; break }
+        }
+        $table = $null
+        if ($file) {
+            $table = @{}
+            foreach ($line in [System.IO.File]::ReadAllLines($file)) {
+                if ($line -match '^char\s+id=(\d+)\s.*\sxadvance=(-?\d+)') { $table[[int]$Matches[1]] = [int]$Matches[2] }
+                elseif ($line -match '^common\s+lineHeight=(\d+)') { $table[-1] = [int]$Matches[1] }
+            }
+        }
+        $script:GuiFontCache[$Font] = $table
+    }
+    $table = $script:GuiFontCache[$Font]
+    if ($null -eq $table) { return $null }
+    if ($Text.Length -eq 0) { return 0 }
+    $width = 0
+    foreach ($ch in $Text.ToCharArray()) {
+        $code = [int]$ch
+        if ($table.ContainsKey($code)) { $width += $table[$code] }
+        elseif ($table.ContainsKey(63)) { $width += $table[63] }
+    }
+    return $width
+}
+
+# Line height of a vanilla bitmap font in pixels (the lineHeight of its .fnt), or $null.
+function Get-GuiFontLineHeight {
+    param([Parameter(Mandatory)][string]$Font, [string]$GameDir)
+
+    if ($null -eq (Measure-GuiText -Font $Font -Text '' -GameDir $GameDir)) { return $null }
+    $table = $script:GuiFontCache[$Font]
+    if ($table.ContainsKey(-1)) { return $table[-1] }
+    return $null
+}
+
+# Height of a window, list or tiled button (the counterpart of Get-GuiWidth).
+function Get-GuiHeight {
+    param($Node)
+
+    $size = Get-GuiBlock -Node $Node -Key 'size'
+    $height = ConvertTo-GuiNumber (Get-GuiValue -Node $size -Key 'height')
+    if ($null -eq $height) { $height = ConvertTo-GuiNumber (Get-GuiValue -Node $size -Key 'y') }
+    return $height
+}
+
+# The @variables a window's text uses, and the ones its file defines (they do not travel with a window).
+function Get-GuiVariableUse {
+    param([Parameter(Mandatory)][string]$Path)
+
+    $text = [regex]::Replace((Read-GuiText -Path $Path), '#[^\r\n]*', '')
+    $defined = @([regex]::Matches($text, '(?m)^\s*(@[A-Za-z0-9_]+)\s*=') | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
+    $used = @([regex]::Matches($text, '=\s*(@[A-Za-z0-9_]+)') | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
+    return [pscustomobject]@{ Defined = $defined; Used = $used; Undefined = @($used | Where-Object { $defined -notcontains $_ }) }
 }

@@ -37,11 +37,13 @@ Check out my other mods:
 - Built for Hearts of Iron IV version 1.19.*.
 
 [h1]Reworked screens:[/h1]
-- (one bullet per finished screen)
+- [b]Air wings and airbases:[/b] The selection panel shows 20 rows before it scrolls instead of 9. Rows are wider, so wing names appear in full, and the text is larger.
+- [b]Selected army:[/b] The division list is a table. Organisation and strength are two lying bars, warnings have a block of their own, division names appear in full in a larger font, and the sort buttons have captions. The change-template dropdown shows 12 templates instead of 6. The army badge has a longer name field and shows the commander's name in full.
+- [b]New hotkeys:[/b] Shift+U unassigns the selected divisions, Shift+C consolidates them.
 
 [h1]Compatibility:[/h1]
-- Built and tested against the vanilla game.
-- (fill in after the Phase 1 override test: how the mod behaves next to mods that change the same screens, and the load order to use)
+- Built and tested against the vanilla game only.
+- Not tested with other mods. Mods that change the same screens may conflict.
 
 [h1]Feedback & Contributions:[/h1]
 Please report issues, suggestions, or feedback in the Steam Workshop discussion threads.

@@ -1,0 +1,107 @@
+{
+  "_comment": "Scene for the selected-army screen. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "screen": "army_selection",
+  "phase": "A2",
+  "file": "zz_1440p_army_selection.gui",
+  "screenshot": "reference/vanilla/army_selection.jpg",
+  "windows": [
+    {
+      "name": "army_division_list_view",
+      "at": [
+        1,
+        187
+      ],
+      "rows": {
+        "divisions_window": 30
+      },
+      "listRows": {
+        "divisions_window": "army_division_view"
+      },
+      "height": 760,
+      "hide": [
+        "hq_window",
+        "bottom_window",
+        "select_hq_shortcut_anchor"
+      ],
+      "_note": "Measured with render_gui.py --verify on a game capture: the toolbar sits at y 187 + its file position. The frame itself starts at the top of the badge (y 83) and runs behind it; the code hides hq_window unless an HQ can be deployed and shows bottom_window only for the unassigned list."
+    },
+    {
+      "name": "army_badge_view",
+      "at": [
+        1,
+        80
+      ],
+      "hide": [
+        "army_color_button"
+      ],
+      "_note": "army_color_button is hidden by the code unless a colour is being picked."
+    }
+  ],
+  "samples": {
+    "army_badge_view": {
+      "armies_count_box": "30",
+      "group_name": "1. Armee",
+      "divisions_count": "30",
+      "title": "Generaloberst",
+      "leader_name": "Gerd von Rundstedt",
+      "leader_skill": "4",
+      "leader_stat_attack": "3",
+      "leader_stat_defense": "2",
+      "leader_stat_planning": "4",
+      "leader_stat_logistics": "1",
+      "click_to_assign": "Click to assign"
+    },
+    "army_division_list_view": {
+      "selected_division_count": "30 Selected",
+      "transport_weight": "96",
+      "divisions_count": "30 divisions"
+    },
+    "army_division_view": {
+      "unit_name": "Kavallerie-Kommando Insterburg"
+    },
+    "unit_template_entry": {
+      "name": "Infanterie-Division",
+      "cp_cost_text": "10"
+    }
+  },
+  "setup": [
+    {
+      "move": "select_army_1"
+    }
+  ],
+  "captures": [
+    {
+      "name": "template-dropdown",
+      "steps": [
+        {
+          "clickWidget": "army_division_list_view/expand_button",
+          "wait": 1.0
+        }
+      ]
+    }
+  ],
+  "expect": [
+    "army_division_list_view/btn_delete",
+    "army_division_list_view/expand_button",
+    "army_badge_view/close_button"
+  ],
+  "crop": [
+    0,
+    60,
+    760,
+    1200
+  ],
+  "manual": [
+    "Tooltips and click targets",
+    "Hotkeys shift+u and shift+c",
+    "States a 1936 start does not show: combat icons, low supply, attrition, exile markers, a commander with traits"
+  ],
+  "checklist": [
+    "Division list: every row background, bars, warnings column, names in full",
+    "Scroll the list to the end",
+    "Open the change-template dropdown (12 templates, names on one line)",
+    "Selected and unselected row states",
+    "Army badge: name field, commander name, four stats, right area",
+    "Hotkeys shift+u and shift+c"
+  ]
+}

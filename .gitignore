@@ -16,3 +16,6 @@ desktop.ini
 *.swp
 *.bak
 .steam_username
+# Python
+__pycache__/
+*.pyc

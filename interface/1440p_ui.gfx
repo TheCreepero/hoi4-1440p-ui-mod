@@ -1,6 +1,6 @@
 spriteTypes = {
 
-	# Air wing, gun emplacement and rocket rows, 734 wide. Frame 1 unselected, frame 2 selected.
+	# Air wing, gun emplacement and rocket rows, 671 wide. Frame 1 unselected, frame 2 selected.
 	# The texture is the vanilla wing_entry_bg.dds widened by tools/stretch_background.py.
 	spriteType = {
 		name = "GFX_1440p_AV_wing_entry_bg"
@@ -15,5 +15,69 @@ spriteTypes = {
 		textureFile = "gfx/interface/airview/base_entry_bg.dds"
 		borderSize = { x = 64 y = 16 }
 		tilingCenter = yes
+	}
+
+	# Air group badge, 704 wide.
+	# The texture is the vanilla air_group.dds widened by tools/stretch_background.py.
+	spriteType = {
+		name = "GFX_1440p_AV_air_group_bg"
+		texturefile = "gfx/interface/1440p_ui/av_air_group_bg.dds"
+	}
+
+	# Division rows, 638 wide. Frame 1 unselected, frame 2 selected.
+	# The texture is the vanilla unit_entry_bg.dds widened by tools/stretch_background.py.
+	spriteType = {
+		name = "GFX_1440p_UV_unit_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/uv_unit_entry_bg.dds"
+		noOfFrames = 2
+	}
+
+	# Toolbar plate above the division list. The vanilla texture itself, tiled to 640 wide.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_UV_unit_list_header"
+		size = { x = 640 y = 35 }
+		textureFile = "gfx/interface/unitcontrol/unit_list_header.dds"
+		borderSize = { x = 24 y = 12 }
+		tilingCenter = yes
+	}
+
+	# Organisation and strength bars of a division row, drawn lying down at 48x9.
+	# The vanilla 28x6 gradient textures themselves; the bar size stretches them.
+	progressbartype = {
+		name = "GFX_1440p_UV_bar_org"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 48 y = 9 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_UV_bar_str"
+		textureFile1 = "gfx/interface/navieslist_bar_str.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 48 y = 9 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+	}
+
+	# Footer plate of the unassigned divisions list, 644 wide.
+	# The texture is the vanilla unitlist_unassigned_bg.dds widened by tools/stretch_background.py.
+	spriteType = {
+		name = "GFX_1440p_UV_unitlist_unassigned_bg"
+		texturefile = "gfx/interface/1440p_ui/uv_unitlist_unassigned_bg.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	# Army badge and army group badge, 685 and 684 wide.
+	# The textures are the vanilla army_group_bg.dds and army_group_group_bg.dds widened by tools/stretch_background.py.
+	spriteType = {
+		name = "GFX_1440p_UV_army_bg"
+		texturefile = "gfx/interface/1440p_ui/uv_army_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_UV_army_group_bg"
+		texturefile = "gfx/interface/1440p_ui/uv_army_group_bg.dds"
 	}
 }

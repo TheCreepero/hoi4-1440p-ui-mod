@@ -1,0 +1,32 @@
+{
+  "_comment": "Scene for the ship designer. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "screen": "ship_designer",
+  "phase": "B4",
+  "file": "zz_1440p_ship_designer.gui",
+  "screenshot": "reference/vanilla/ship_designer.jpg",
+  "windows": [
+    {
+      "name": "countryequipmentdesignerview"
+    }
+  ],
+  "samples": {},
+  "setup": [
+    {
+      "move": "open_ship_designer"
+    }
+  ],
+  "captures": [],
+  "expect": [
+    "countryequipmentdesignerview/close_button",
+    "countryequipmentdesignerview/duplicate_button"
+  ],
+  "crop": [
+    700,
+    420,
+    1180,
+    620
+  ],
+  "manual": [],
+  "checklist": [],
+  "_note": "Surveyed on 2026-10-08: the recipe works, the vanilla reference is captured, and the window sits exactly where its file puts it (centred), so no 'at' is needed and the 'expect' widgets verify."
+}

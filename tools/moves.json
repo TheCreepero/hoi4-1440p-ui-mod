@@ -1,0 +1,392 @@
+{
+  "_comment": "Shared moves: recipe steps that several scenes need, by name. A scene uses one with { \"move\": \"<name>\" }. Every move except prepare_game starts from the clean state: a paused 1936 Germany game with all 30 divisions in Army 1, nothing selected, nothing open, the land map mode and the Home camera (what Invoke-GameCheck.ps1 gives before each scene, and Reset-HoiState restores). Map positions are measured in that view. Step kinds, how to find a recipe and what each move was tested on: wiki/Game-Recipes.md.",
+  "moves": {
+    "prepare_game": {
+      "_note": "Run once by the harness right after a new game has loaded, never by a scene: puts all 30 divisions into Army 1, so that every later recipe finds the same bottom bar. Doing it twice in one game does not work: the second box selection finds no unassigned divisions and the click lands on the map.",
+      "steps": [
+        {
+          "move": "select_all_divisions"
+        },
+        {
+          "click": [
+            1308,
+            1372
+          ],
+          "wait": 1.5,
+          "_note": "the green + of the bottom bar: new army from the selection"
+        }
+      ]
+    },
+    "select_all_divisions": {
+      "_note": "A box over Germany and East Prussia in the Home view. Before prepare_game it selects the 30 unassigned divisions; used by prepare_game only.",
+      "steps": [
+        {
+          "drag": [
+            700,
+            380,
+            2230,
+            1338
+          ],
+          "wait": 0.8
+        }
+      ]
+    },
+    "select_army_1": {
+      "_note": "Selects Army 1 (all 30 divisions) by its portrait in the bottom bar: the army badge and the division list come up.",
+      "steps": [
+        {
+          "click": [
+            1272,
+            1380
+          ],
+          "wait": 1.5
+        }
+      ]
+    },
+    "select_airbase": {
+      "_note": "The Niederschlesien airbase marker in the Home view: air map mode, the airbase row and its three wings.",
+      "steps": [
+        {
+          "click": [
+            1592,
+            828
+          ],
+          "wait": 1.5
+        }
+      ]
+    },
+    "planes_into_reserve": {
+      "_note": "Disbands the four wings of the Brandenburg airbase (the marker beside Berlin), which puts their planes into the reserve; without planes in reserve the 'Add new Air Wing' button of every airbase is disabled. Leaves Brandenburg selected. It changes the game for good, so a scene that uses it sets changesState. Run again in the same game it finds no wings, and the steps do nothing.",
+      "steps": [
+        {
+          "click": [
+            1410,
+            765
+          ],
+          "wait": 1.5,
+          "_note": "Brandenburg airbase marker in the Home view"
+        },
+        {
+          "clickWidget": "air_selection_view/btn_delete",
+          "scene": "air_selection",
+          "wait": 1.5,
+          "_note": "disband the selected wings: opens a confirmation"
+        },
+        {
+          "key": "enter",
+          "wait": 1.5,
+          "_note": "confirm"
+        }
+      ]
+    },
+    "select_fleet": {
+      "_note": "Navy overview (p), then the first fleet row (Hochseeflotte): fleet panel with its task forces and ships. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "key": "p",
+          "wait": 1.2
+        },
+        {
+          "click": [
+            250,
+            344
+          ],
+          "wait": 1.5
+        }
+      ]
+    },
+    "open_politics": {
+      "steps": [
+        {
+          "key": "q",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_decisions": {
+      "steps": [
+        {
+          "key": "shift+q",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_research": {
+      "steps": [
+        {
+          "key": "w",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_diplomacy": {
+      "_note": "On 1.19.3 the e key opens the international market panel.",
+      "steps": [
+        {
+          "key": "e",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_trade": {
+      "steps": [
+        {
+          "key": "r",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_construction": {
+      "steps": [
+        {
+          "key": "t",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_production": {
+      "steps": [
+        {
+          "key": "y",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_recruit_deploy": {
+      "_note": "Recruit & Deploy with the Division Templates panel beside it.",
+      "steps": [
+        {
+          "key": "u",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_logistics": {
+      "steps": [
+        {
+          "key": "i",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_army_overview": {
+      "steps": [
+        {
+          "key": "o",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_navy_overview": {
+      "steps": [
+        {
+          "key": "p",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_air_overview": {
+      "steps": [
+        {
+          "key": "l",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_officer_corps": {
+      "steps": [
+        {
+          "key": "shift+e",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_intelligence": {
+      "steps": [
+        {
+          "key": "shift+w",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_faction": {
+      "steps": [
+        {
+          "key": "ctrl+q",
+          "wait": 1.2
+        }
+      ]
+    },
+    "open_division_designer": {
+      "_note": "Recruit & Deploy, then Edit on the first template (Infanterie-Division). Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "open_recruit_deploy"
+        },
+        {
+          "click": [
+            810,
+            276
+          ],
+          "wait": 2.5
+        }
+      ]
+    },
+    "open_tank_designer": {
+      "_note": "Production, add tank line, then the modify icon of the first design (Panzer II). Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "open_production"
+        },
+        {
+          "click": [
+            140,
+            262
+          ],
+          "wait": 1.5
+        },
+        {
+          "click": [
+            982,
+            230
+          ],
+          "wait": 2.0
+        }
+      ]
+    },
+    "open_plane_designer": {
+      "_note": "Production, add plane line, then the modify icon of the first design. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "open_production"
+        },
+        {
+          "click": [
+            220,
+            262
+          ],
+          "wait": 1.5
+        },
+        {
+          "click": [
+            982,
+            230
+          ],
+          "wait": 2.0
+        }
+      ]
+    },
+    "open_ship_designer": {
+      "_note": "Production, add ship line, then the modify icon of the first class (Scharnhorst). Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "open_production"
+        },
+        {
+          "click": [
+            382,
+            262
+          ],
+          "wait": 1.5
+        },
+        {
+          "click": [
+            978,
+            371
+          ],
+          "wait": 2.0
+        }
+      ]
+    },
+    "open_ship_details": {
+      "_note": "Fleet panel, then the icon of the first ship (Deutschland). Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "select_fleet"
+        },
+        {
+          "click": [
+            55,
+            442
+          ],
+          "wait": 2.0
+        }
+      ]
+    },
+    "open_task_force_composition": {
+      "_note": "Fleet panel, then the composition button of the first task force. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "select_fleet"
+        },
+        {
+          "click": [
+            465,
+            387
+          ],
+          "wait": 2.0
+        }
+      ]
+    },
+    "open_home_base_picker": {
+      "_note": "Fleet panel, then the home base button of the navy badge. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "select_fleet"
+        },
+        {
+          "click": [
+            300,
+            230
+          ],
+          "wait": 2.0
+        }
+      ]
+    },
+    "open_advisor_selection": {
+      "_note": "Politics, then the first empty political advisor slot. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "open_politics"
+        },
+        {
+          "click": [
+            300,
+            590
+          ],
+          "wait": 2.0
+        }
+      ]
+    },
+    "open_focus_tree": {
+      "_note": "Politics, then the national focus box. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "open_politics"
+        },
+        {
+          "click": [
+            400,
+            170
+          ],
+          "wait": 3.0
+        }
+      ]
+    },
+    "open_tech_tree": {
+      "_note": "Research, then the first research slot. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "steps": [
+        {
+          "move": "open_research"
+        },
+        {
+          "click": [
+            190,
+            402
+          ],
+          "wait": 3.0
+        }
+      ]
+    }
+  }
+}

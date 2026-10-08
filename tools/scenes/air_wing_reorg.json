@@ -1,0 +1,38 @@
+{
+  "_comment": "Scene for the air wing reorganisation window. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "screen": "air_wing_reorg",
+  "phase": "A7",
+  "changesState": true,
+  "file": "zz_1440p_air_wing_reorg.gui",
+  "screenshot": "reference/vanilla/air_wing_reorg.jpg",
+  "windows": [
+    {
+      "name": "air_wing_reorganization"
+    }
+  ],
+  "samples": {},
+  "setup": [
+    {
+      "move": "planes_into_reserve"
+    },
+    {
+      "clickWidget": "airbase_selection_item/new_btn",
+      "scene": "air_selection",
+      "wait": 2.5
+    }
+  ],
+  "captures": [],
+  "expect": [
+    "air_wing_reorganization/close_button",
+    "air_wing_reorganization/confirm_btn"
+  ],
+  "crop": [
+    820,
+    320,
+    1020,
+    520
+  ],
+  "manual": [],
+  "checklist": [],
+  "_note": "The window opens from an airbase's 'Add new Air Wing' button, which needs planes in reserve; the recipe disbands the Brandenburg wings first, so the scene runs last ('changesState'). Surveyed on 2026-10-08: the recipe works, the vanilla reference is captured, and the window sits exactly where its file puts it (centred), so no 'at' is needed and the 'expect' widgets verify."
+}

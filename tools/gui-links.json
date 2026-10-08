@@ -1,0 +1,57 @@
+{
+  "_comment": "Links the engine makes in code between lists and the windows that fill them. Read by tests/GuiInvariants.Tests.ps1, tools/render_gui.py and tools/Invoke-GameCheck.ps1. Add a row per reworked list.",
+  "entryPairs": [
+    {
+      "grid": "divisions_grid",
+      "entry": "unit_template_entry"
+    },
+    {
+      "grid": "templates_grid",
+      "entry": "unit_template_entry"
+    }
+  ],
+  "listRows": [
+    {
+      "listWindow": "unassigned_airwings_view",
+      "list": "air_wings_list",
+      "row": "airbase_selection_item"
+    },
+    {
+      "listWindow": "unassigned_airwings_view",
+      "list": "air_wings_list",
+      "row": "airwing_selection_item"
+    },
+    {
+      "listWindow": "unassigned_airwings_view",
+      "list": "air_wings_list",
+      "row": "gun_emplacement_selection_item"
+    },
+    {
+      "listWindow": "unassigned_airwings_view",
+      "list": "air_wings_list",
+      "row": "rocket_selection_item"
+    },
+    {
+      "listWindow": "quick_wing_deployment_selection_window",
+      "list": "plane_selection_items_list",
+      "row": "quick_wing_deploy_plane_type_entry_item"
+    },
+    {
+      "listWindow": "air_groups_view",
+      "list": "air_group_view_entries",
+      "row": "air_group_view_entry"
+    },
+    {
+      "listWindow": "air_groups_view",
+      "list": "air_group_view_entries",
+      "row": "unassigned_airwings_view",
+      "_comment": "With an air group selected the game puts the group badge and the whole wing list frame into this second list."
+    }
+  ],
+  "variables": {
+    "_comment": "File-level @variables of vanilla files whose windows the mod overrides. They do not travel with a window; the override file must define the ones it uses.",
+    "interface/airselectionview.gui": {
+      "@equipment_entry_heigth": "40"
+    }
+  }
+}

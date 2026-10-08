@@ -16,11 +16,15 @@
 
 .EXAMPLE
     .\tools\Show-GuiOutline.ps1 airselectionview.gui air_selection_view -All
-    Also lists text boxes, icons and buttons, with their fonts and sprites.
+    Also lists text boxes, icons and buttons, with their fonts, sprites and hotkeys.
 
 .EXAMPLE
     .\tools\Show-GuiOutline.ps1 airselectionview.gui air_selection_view -Widgets
     Lists the named widget paths that the name-parity test compares.
+
+.EXAMPLE
+    .\tools\Show-GuiOutline.ps1 unitview.gui army_division_list_view -Comments
+    Lists the vanilla comments that say what the engine does with a widget ("set in code", grid spacing ...).
 #>
 [CmdletBinding()]
 param(
@@ -29,6 +33,7 @@ param(
     [int]$Depth = 2,
     [switch]$All,
     [switch]$Widgets,
+    [switch]$Comments,
     [switch]$FromMod,
     [string]$GameDir
 )
@@ -87,6 +92,9 @@ function Get-GuiNodeDetails {
     }
     $orientation = Get-GuiValue -Node $Node -Key 'orientation'
     if ($orientation) { $details.Add("orient $orientation") }
+    # a button can carry several hotkeys, one per shortcut line
+    $hotkeys = @($Node.Children | Where-Object { $null -eq $_.Children -and $_.Key -ieq 'shortcut' } | ForEach-Object { $_.Value })
+    if ($hotkeys.Count) { $details.Add("key $($hotkeys -join ' / ')") }
     return ($details -join ', ')
 }
 
@@ -111,6 +119,21 @@ foreach ($name in $Window) {
 
     if ($Widgets) {
         Get-GuiWidgetPaths -Node $w.Node | Sort-Object | ForEach-Object { "  $_" }
+        continue
+    }
+
+    if ($Comments) {
+        # the comments that say what the engine does with a widget: sizes set in code, widths computed from a grid
+        $sourceLines = (Read-GuiText -Path $path) -replace "`r`n", "`n" -split "`n"
+        for ($i = $w.Line; $i -le $w.EndLine -and $i -le $sourceLines.Count; $i++) {
+            $line = $sourceLines[$i - 1]
+            $hash = $line.IndexOf('#')
+            if ($hash -lt 0) { continue }
+            $comment = $line.Substring($hash + 1).Trim()
+            if ($comment -match '(?i)in code|spacing|max |maximum|set to|stretch|replaced|hidden|not used|overrid') {
+                "  L{0,-5} {1,-50} # {2}" -f $i, $line.Substring(0, $hash).Trim(), $comment
+            }
+        }
         continue
     }
 

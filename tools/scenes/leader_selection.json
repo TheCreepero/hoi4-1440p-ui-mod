@@ -1,0 +1,30 @@
+{
+  "_comment": "Scene for the general selection popup. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "screen": "leader_selection",
+  "phase": "C",
+  "file": "zz_1440p_leader_selection.gui",
+  "screenshot": "reference/vanilla/leader_selection.jpg",
+  "windows": [],
+  "samples": {},
+  "setup": [
+    {
+      "move": "select_army_1"
+    },
+    {
+      "clickWidget": "army_badge_view/leader_button",
+      "scene": "army_selection",
+      "wait": 2.0
+    }
+  ],
+  "captures": [],
+  "expect": [],
+  "crop": [
+    1300,
+    900,
+    1300,
+    400
+  ],
+  "manual": [],
+  "checklist": [],
+  "_note": "Backlog screen: recipe and vanilla reference only. No windows listed yet; add them with tools/New-OverrideFile.ps1 when the phase starts."
+}

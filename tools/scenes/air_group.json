@@ -1,0 +1,50 @@
+{
+  "_comment": "Scene for the air groups panel. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "screen": "air_group",
+  "phase": "A1",
+  "changesState": true,
+  "file": "zz_1440p_air_group.gui",
+  "screenshot": "reference/vanilla/air_group.jpg",
+  "windows": [
+    {
+      "name": "air_groups_view",
+      "at": [
+        0,
+        77
+      ],
+      "rows": {
+        "air_group_view_entries": 6
+      },
+      "listRows": {
+        "air_group_view_entries": "air_group_view_entry"
+      }
+    }
+  ],
+  "samples": {},
+  "setup": [
+    {
+      "move": "select_airbase"
+    },
+    {
+      "clickWidget": "air_selection_view/btn_create_air_group",
+      "scene": "air_selection",
+      "wait": 2.0
+    }
+  ],
+  "captures": [],
+  "expect": [],
+  "crop": [
+    0,
+    60,
+    780,
+    1200
+  ],
+  "manual": [
+    "Tooltips and click targets"
+  ],
+  "checklist": [
+    "Group rows in full",
+    "Scroll the list to the end"
+  ],
+  "_note": "Creates an air group, whose badge appears above the airbase row and moves the wing list down in every later air capture of the same game; 'changesState' makes the harness run this scene last. 'at' is not measured yet."
+}
