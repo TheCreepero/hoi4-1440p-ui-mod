@@ -1,0 +1,193 @@
+{
+  "_comment": "Scene for 'Select Ships to Transfer', the window that opens when a ship counter of one task force is dragged onto another task force. Keys are explained in tools/scenes/fleet.json and wiki/Game-Recipes.md.",
+  "screen": "fleet_transfer",
+  "phase": "A4",
+  "file": "zz_1440p_fleet.gui",
+  "screenshot": "reference/vanilla/fleet_transfer.jpg",
+  "windows": [
+    {
+      "name": "naviesview_window",
+      "at": [
+        0,
+        82
+      ],
+      "height": 1058,
+      "rows": {
+        "detailed_fleet_box": 1
+      },
+      "place": {
+        "tool_bar_window": [
+          0,
+          168
+        ]
+      },
+      "hide": [
+        "slider"
+      ]
+    },
+    {
+      "name": "taskforce_view_entry",
+      "at": [
+        0,
+        293
+      ],
+      "rows": {
+        "ships_detailed": 0,
+        "taskforce_view_entry/ships_compact": 3,
+        "fleet_view_header/ships_compact": 4
+      },
+      "listRows": {
+        "ships_detailed": "ship_entry_detailed",
+        "ships_compact": "ship_entry_compact"
+      },
+      "rowsAcross": [
+        "ships_compact"
+      ],
+      "hide": [
+        "air_base",
+        "reserve_fleet_icon",
+        "interrupted_mission",
+        "current_mission",
+        "underway_replenishment_icon",
+        "fuel_efficiency_warning_icon",
+        "slider"
+      ],
+      "_note": "The first task force card; the recipe drags its first counter (the fifth drawn: four belong to the fleet card)."
+    },
+    {
+      "name": "taskforce_view_entry",
+      "at": [
+        0,
+        377
+      ],
+      "atVanilla": [
+        0,
+        416
+      ],
+      "_note": "The second card, the drop target: 84 px below the first with the mod, 123 px in vanilla."
+    },
+    {
+      "name": "move_ships_window",
+      "at": [
+        756,
+        376
+      ],
+      "atVanilla": [
+        508,
+        415
+      ],
+      "height": 166,
+      "rows": {
+        "ships_grid": 3
+      },
+      "_note": "Placed by the code beside the task force card the counter was dropped on: 16 to 20 px right of the panel, at the height of that card. Its height is 58 plus one row per entry."
+    },
+    {
+      "name": "fleet_view_header",
+      "skip": true,
+      "hide": [
+        "leader_enroute",
+        "fuel_efficiency_warning_icon",
+        "btn_fleet_color",
+        "air_base_btn",
+        "highlight"
+      ]
+    },
+    {
+      "name": "ship_entry_compact",
+      "skip": true,
+      "hide": [
+        "bar_planes",
+        "plane_icon",
+        "h_divider",
+        "required_ships_count"
+      ]
+    },
+    {
+      "name": "move_ship_entry",
+      "skip": true,
+      "hide": [
+        "pride"
+      ]
+    }
+  ],
+  "samples": {
+    "fleet_view_header": {
+      "fleet_name": "Kriegsmarine",
+      "taskforce_count": "3",
+      "active_in_regions": "Active in Regions: 0",
+      "home_base_name": "Wilhelmshaven",
+      "leader_desc": "Grand Admiral",
+      "leader_name": "Erich Raeder",
+      "skill_text": "4",
+      "leader_stat_attack_text": "3",
+      "leader_stat_defense_text": "3",
+      "leader_stat_maneuvering_text": "2",
+      "leader_stat_coordination_text": "4",
+      "click_to_assign": "Click to assign."
+    },
+    "taskforce_view_entry": {
+      "unit_name": "Hochseeflotte",
+      "activity_description": "Docked in Weser-Ems"
+    },
+    "ship_entry_compact": {
+      "ships_count": [
+        "2",
+        "2",
+        "8",
+        "12",
+        "2",
+        "6",
+        "4"
+      ]
+    },
+    "move_ship_entry": {
+      "ship_name": [
+        "All Heavy Cruisers",
+        "Admiral Scheer",
+        "Deutschland"
+      ],
+      "ship_type": [
+        "",
+        "Panzerschiff (Deutschland Klasse)",
+        "Panzerschiff (Deutschland Klasse)"
+      ]
+    }
+  },
+  "setup": [
+    {
+      "move": "select_fleet"
+    },
+    {
+      "clickWidget": "taskforce_view_entry/select_btn",
+      "wait": 1.5,
+      "_note": "Back: the task force list"
+    },
+    {
+      "dragWidget": [
+        "ship_entry_compact/ship_button#4",
+        "taskforce_view_entry/activity_description#1"
+      ],
+      "wait": 1.5,
+      "_note": "the heavy cruiser counter of Hochseeflotte onto Ostseeflotte"
+    }
+  ],
+  "captures": [],
+  "expect": [
+    "move_ships_window/btn_close"
+  ],
+  "crop": [
+    0,
+    60,
+    1500,
+    700
+  ],
+  "manual": [
+    "Tooltips",
+    "Picking a ship moves it; 'All ...' moves every ship of the class"
+  ],
+  "checklist": [
+    "Rows: silhouette, name and class on one line",
+    "A class with more ships than fit: scroll to the end"
+  ]
+}

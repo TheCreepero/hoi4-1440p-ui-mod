@@ -6,7 +6,7 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
 
 - **Game**: Hearts of Iron IV
 - **Supported Version**: `1.19.*`
-- **Mod Version**: `1.2`
+- **Mod Version**: `1.3`
 - **Tags**: Graphics, Utilities, Fixes
 - **Requires**: 2560x1440 or higher at 100% UI scale
 - **Ironman & Achievements**: Compatible (only `interface/` and `gfx/` files, which are outside the game checksum)
@@ -25,6 +25,13 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
   - The Stats tab of all four windows is regrouped into dark cards (Base, Combat, Misc) of stat tiles: a small label over a large value. Long labels such as "Trickleback & War Support Protection" wrap instead of being cut. The ship, air wing and railway gun windows are taller to fit the cards.
   - The division window opens beside the army panel instead of on top of it, and its Template and History tabs fill the larger frame.
   - Equipment and plane names on one line, and the terrain adjusters visible without scrolling where they fit.
+- **Fleet panel** (the panel shown when a fleet or task force is selected):
+  - The ship list reads as a table: one line per ship with organisation and strength as two lying bars, the name in a larger font and the class name in full beside it, so more ships fit on the screen.
+  - Task force cards are lower, with the ship counts on the mission line, so a fleet of twelve task forces fits on the screen without scrolling.
+  - Fleet and task force names, the home base name and the commander's name have room to show in full, and the toolbar buttons are in four groups.
+  - New hotkeys with ships selected: `Shift+N` makes a new task force of them, `Shift+R` moves them to the reserve fleet, `Shift+O` balances task forces, `Shift+G` upgrades, `Shift+P` repairs now.
+  - The home base picker and the ship details window open beside the wider panel.
+  - Pop-ups: the ship class picker of the composition editor shows all nine classes without scrolling, the composition editor and the home base picker are wider with names in a larger font, and "Select Ships to Transfer" lists one ship per line.
 
 ---
 

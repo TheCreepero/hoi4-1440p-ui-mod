@@ -1,0 +1,206 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 1874-2075.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "task_force_composition_editor_window"
+		position = { x=0 y=0 }
+		size = { width=524 height=161 } # The height is actually not the height since that is dynamic, the height is this value + number of entries (up to maximum size of "ships" window below)
+		orientation = center
+		moveable = yes
+		fade_time = 300
+		fade_type = linear
+		clipping = no
+
+		positionType = {
+			name = "sub_unit_selection_window_default_pos"
+			position = { x = 516 y = 1 }
+		}
+
+		positionType = {
+			name = "sub_unit_selection_window_low_res_pos"
+			position = { x = 220 y = 44 }
+		}
+
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_window"
+		}
+
+		iconType = {
+			name = "header_bg"
+			spriteType = "GFX_frontend_task_force_composition_editor_upper_bar"
+			position = { x=9 y=10 }
+			alwaystransparent = yes
+		}
+#
+#		iconType = {
+#			name = "menubar_bg"
+#			spriteType = "GFX_NV_bg_task_force_composition_editor_menubar"
+#			position = { x=10 y=40 }
+#			alwaystransparent = yes
+#		}
+#
+		containerWindowType = {
+			name = "ships"
+			position = { x = 4 y = 113 }
+			size = { width = 534 height = 1000 }
+			#verticalScrollbar = "right_vertical_slider"
+			margin = {top=-4 left=0 bottom=0 right=0}
+
+			background = {
+				name = "Background"
+				spriteType = "GFX_tiled_window_transparent"
+			}
+
+			gridBoxType = {
+				name = "ships_grid"
+				position = { x = 11 y = 0 }
+				size = { width = 100%% height = 100%% }
+				slotsize = { width = 460 height = 43 }
+				format = "UPPER_LEFT"
+				max_slots_horizontal = 1
+			}
+		}
+
+		instantTextboxType = {
+			name = "header_text"
+			position = { x = 20 y = 21 }
+			font = "hoi_20bs"
+			borderSize = {x = 0 y = 0}
+			text = "TASK_FORCE_COMPOSITION_EDITOR_TITLE"
+			maxWidth = 470
+			maxHeight = 20
+			format = center
+		}
+
+		buttonType = {
+			name = "btn_close"
+			position = {x=477 y=15}
+			spriteType = "GFX_NV_btn_close"
+			pdx_tooltip = "CLOSE"
+			shortcut = "ESCAPE"
+		}
+
+		buttonType = {
+			name = "btn_cancel"
+			position = { x=115 y=111}
+			Orientation = "UPPER_LEFT"
+			quadTextureSprite ="GFX_button_148x34"
+			buttonText = "FE_CANCEL"
+			buttonFont = "hoi_16mbs"
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "btn_accept"
+			position = { x=265 y=111}
+			Orientation = "UPPER_LEFT"
+			quadTextureSprite ="GFX_button_148x34"
+			buttonText = "OK"
+			buttonFont = "hoi_16mbs"
+			shortcut = "RETURN"
+			clicksound = click_default
+		}
+
+		@buttons_height=54
+
+		buttonType = {
+			name = "btn_reset"
+			spriteType = "GFX_NV_btn_reset"
+			position = { x= 25 y = @buttons_height }
+		}
+
+		buttonType = {
+			name = "btn_clear_template"
+			spriteType = "GFX_hold"
+			position = { x= 55 y = @buttons_height }
+			tooltip = "CLEAR_TASK_FORCE_COMPOSITION_TEMPLATE"
+		}
+
+		buttonType = {
+			name = "btn_save_template"
+			spriteType = "GFX_NV_btn_save_task_force_composition_template"
+			position = { x=432 y = @buttons_height }
+			tooltip = "MAKE_TASK_FORCE_REQUIREMENTS_FROM_CURRENT_COMPOSITION"
+		}
+
+		buttonType = {
+			name = "btn_delete_template"
+			position = {x=472 y=@buttons_height}
+			spriteType = "GFX_NV_btn_delete"
+			clicksound = click_default
+			pdx_tooltip = ""
+		}
+
+		dropDownBoxType = {
+			name = "ddb_templates"
+			position = { x = 86 y = @buttons_height }
+			size = { width = 324 height = 30 }
+
+			containerWindowType = {
+				name = "template_name_bg"
+				size = { width = 100%% height = 100%% }
+
+				background = {
+					name = "name_bg"
+					quadTextureSprite = "GFX_generic_background"
+					position = { x = 15 y = 0 }
+					alwaystransparent = yes
+				}
+			}
+
+			iconType = {
+				name = "template_icon"
+				spriteType = "GFX_division_template_icon"
+				position = { x = 20 y = 0 }
+			}
+
+			editBoxType = {
+				name = "template_name"
+				position = { x = 45 y = 5 }
+				font = "hoi_18mbs"
+				size = { x=268 y=20 }
+				text = "TEMPLATE_NAME"
+			}
+
+			expandButton = {
+				name = "expand_button"
+				position = { x = -9 y = 4 }
+				quadTextureSprite ="GFX_expand_button"
+				buttonFont = "Main_14_black"
+				Orientation = "UPPER_RIGHT"
+				clicksound = click_default
+			}
+
+			expandedWindow = {
+				name = "expanded_window"
+				position = { x=10 y= -300 }
+				show_position = { x = 10 y = 27 }
+				show_animation_type = decelerated
+				hide_animation_type = accelerated
+				animation_time = 150
+				size = { width=332 height=325 }
+				verticalScrollbar = "right_vertical_slider"
+				margin = { top = 7 bottom = 7 right = 6 }
+				#clipping = no
+
+				background = {
+					name = "Background"
+					quadTextureSprite ="GFX_tiled_window_1b_thin_border"
+					position = { x = 0 y = 0 }
+				}
+
+				gridBoxType = {
+					name = "templates_grid"
+					position = { x = 38 y = 0 }
+					size = { width = 230 height = 100%% }
+					slotsize = { width = 268 height = 20 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+
+			}
+
+		}
+	}
+}

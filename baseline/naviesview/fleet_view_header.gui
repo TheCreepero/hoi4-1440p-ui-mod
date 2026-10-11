@@ -1,0 +1,361 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 874-1230.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "fleet_view_header"
+		#name = "naviesview_entry"
+		position = {x=0 y=0}
+		size = { width=492 height=166 }
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_window_transparent"
+		}
+
+		iconType = {
+			name = "background_image"
+			spriteType = "GFX_fleet_bg"
+			position = {x=-2 y=2}
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "highlight"
+			spriteType = "GFX_fleet_bg_hl"
+			position = { x=-4 y=0 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "insigna"
+			position = { x=6 y=6 }
+			spriteType = "GFX_theatre_army_shield"
+		}
+
+		editBoxType = {
+			name = "fleet_name"
+			position = {x=70 y=12}
+			font = "hoi_18"
+			size = { x=212 y=23 }
+			text = "FLEET_NAME_HERE"
+		}
+
+		instantTextboxType = {
+			name = "taskforce_count"
+			position = {x=318 y=10}
+			font = "hoi_18mbs"
+			maxWidth = 90
+			maxHeight = 23
+			format = center
+			text = "99/99"
+		}
+
+		buttonType = {
+			name = "btn_close"
+			position = {x=454 y=5}
+			spriteType = "GFX_NV_btn_close"
+			pdx_tooltip = "DESELECT_UNIT"
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "btn_fleet_color"
+			quadTextureSprite = "GFX_group_marker3"
+			size = { x = 25 y = 25 }
+			position = { x=461 y = 45}
+			pdx_tooltip = "CHOOSE_INSIGNIA"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "pride_of_the_fleet_icon"
+			position = {x=451 y=40}
+			spriteType = "GFX_NV_icon_pride"
+			pdx_tooltip = "FLEET_CONTAINS_PRIDE_OF_THE_FLEET"
+		}
+
+		iconType = {
+			name = "fuel_icon"
+			spriteType = "GFX_fuel_extended_strip"
+			frame = 1
+			position = {x=455 y=75}
+		}
+
+		iconType = {
+			name = "fuel_efficiency_warning_icon"
+			spriteType = "GFX_mapicon_unit_invalid_orders"
+			position = { x=450 y=75 }
+		}
+
+		buttonType ={
+			name = "air_base_btn"
+			quadTextureSprite = "GFX_mapicon_air_base"
+			position = { x=453 y=105 }
+			frame = 2
+		}
+
+#		instantTextboxType = {
+#			name = "home_base"
+#			position = {x=108 y=135}
+#			font = "hoi_18b"
+#			maxWidth = 181
+#			maxHeight = 23
+#			format = left
+#			pdx_tooltip = "HOME_BASE_TITLE"
+#			pdx_tooltip_delayed = "HOME_BASE_DESC"
+#		}
+#
+#		iconType = {
+#			name = "home_base_icon"
+#			position = {x=75 y=130}
+#			spriteType ="GFX_home_base_icon"
+#			pdx_tooltip = "HOME_BASE_TITLE"
+#			pdx_tooltip_delayed = "HOME_BASE_DESC"
+#		}
+
+		buttonType = {
+			name = "select_all_btn"
+			spriteType = "GFX_select_all_armylist_btn"
+			position = { x=354 y=142 }
+			clicksound = click_default
+			font = "hoi_18mbs"
+			text = "SELECT_ALL"
+		}
+
+		instantTextboxType = {
+			name = "active_in_regions"
+			position = {x=16 y=140}
+			font = "hoi_18mbs"
+			maxWidth = 172
+			maxHeight = 23
+			format = left
+			text = "Active in Regions: 4"
+		}
+
+		containerWindowType = {
+		    name = "home_base_view"
+		    position = { x=200 y=140 }
+			
+			buttonType = {
+				position = { x=0 y=-5 }
+				name = "automate_home_base_button"
+				spriteType = "GFX_naval_automation_base"
+				clicksound = click_default
+				shortcut = "shift+s"
+			}
+			
+            buttonType = {
+                name = "home_base_button"
+                position = { x=30 y=-5	 }
+                quadTextureSprite = "GFX_naval_deploy_button"
+                buttonFont = "hoi_16mbs"
+                clicksound = click_default
+            }
+
+            iconType = {
+                name = "home_base_icon"
+                position = { x=30 y=-6 }
+                spriteType = "GFX_deploy_port_fleet_icons"
+                alwaystransparent = yes
+            }
+
+            instantTextboxType = {
+                name = "home_base_name"
+                position = { x = 60 y = 0 }
+                font = "hoi_18b"
+                borderSize = {x = 0 y = 0}
+                text = "Home base"
+                maxWidth = 90
+                maxHeight = 25
+                fixedsize = yes
+                alwaystransparent = yes
+            }
+        }
+
+		buttonType = {
+			name = "leader_button"
+			position = {x=8 y=47}
+			spriteType = "GFX_leader_unknown"
+			scale = 0.39
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "leader_icon"
+			position = {x=8 y=47}
+			quadTextureSprite ="GFX_leader_unknown"
+			alwaystransparent = yes
+			scale = 0.39
+		}
+
+		iconType = {
+			name = "leader_enroute"
+			position = {x=8 y=50}
+			quadTextureSprite ="GFX_leader_en_route"
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "click_to_assign"
+			position = { x = 8 y = 68 }
+			font = "hoi_16mbs"
+			text = "CLICK_TO_ASSIGN"
+			maxWidth = 60
+			maxHeight = 40
+			format = center
+			Orientation = "UPPER_LEFT"
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "naval_unit_leader_frame"
+			position = {x=4 y=40}
+			spriteType ="GFX_naval_unit_leader_frame"
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "btn_trait_tree"
+			position = {x=8 y=110}
+			spriteType = "GFX_leader_details_icon"
+			pdx_tooltip = "CLICK_TO_ASSIGN_TRAITS"
+		}
+
+		buttonType = {
+			name = "btn_advisor_tree"
+			position = { x=38 y = 110}
+			quadTextureSprite ="GFX_give_role_leader_strip"
+			buttonFont = "hoi_16mbs"
+			clicksound = click_default
+			frame = 1
+		}
+
+		iconType = {
+			name = "skill_icon"
+			spriteType = "GFX_land_battle_leader_skill_bg"
+			centerposition = yes
+			position = { x=211 y=65 }
+			scale = 0.7
+		}
+
+		instantTextboxType = {
+			name = "skill_text"
+			position = {x=196 y=51}
+			font = "hoi_18mbs"
+			maxWidth = 30
+			maxHeight = 23
+			format = center
+			text = "3"
+		}
+
+		instantTextboxType = {
+			name = "leader_desc"
+			position = {x=81 y=50}
+			font = "hoi_16mbs"
+			maxWidth = 75
+			maxHeight = 23
+			format = left
+			text = "LEADER_DESC"
+		}
+
+		instantTextboxType = {
+			name = "leader_name"
+			position = {x=81 y=66}
+			font = "hoi_16mbs"
+			maxWidth = 140
+			maxHeight = 23
+			fixedsize = yes
+			format = left
+		}
+
+		iconType = {
+			name = "leader_stat_attack_icon"
+			spriteType = "GFX_trait_attack"
+			position = { x=218 y=47 }
+		}
+
+		instantTextboxType = {
+			name = "leader_stat_attack_text"
+			position = {x=216 y=69}
+			font = "hoi_16mbs"
+			maxWidth = 30
+			maxHeight = 23
+			format = center
+			text = "7"
+		}
+
+		iconType = {
+			name = "leader_stat_defense_icon"
+			spriteType = "GFX_trait_defense"
+			position = { x=236 y=47 }
+		}
+
+		instantTextboxType = {
+			name = "leader_stat_defense_text"
+			position = {x=234 y=69}
+			font = "hoi_16mbs"
+			maxWidth = 30
+			maxHeight = 23
+			format = center
+			text = "8"
+		}
+
+		iconType = {
+			name = "leader_stat_maneuvering_icon"
+			spriteType = "GFX_trait_maneuvering"
+			position = { x=254 y=47 }
+		}
+
+		instantTextboxType = {
+			name = "leader_stat_maneuvering_text"
+			position = {x=252 y=69}
+			font = "hoi_16mbs"
+			maxWidth = 30
+			maxHeight = 23
+			format = center
+			text = "9"
+		}
+
+		iconType = {
+			name = "leader_stat_coordination_icon"
+			spriteType = "GFX_trait_coordination"
+			position = { x=271 y=47 }
+		}
+
+		instantTextboxType = {
+			name = "leader_stat_coordination_text"
+			position = {x=269 y=69}
+			font = "hoi_16mbs"
+			maxWidth = 30
+			maxHeight = 23
+			format = center
+			text = "10"
+		}
+
+		gridBoxType = {
+			name = "traits_grid"
+			position = {x=302 y=60}
+			size = {width=450 height=50}
+			slotsize = {width=21 height=32}
+			max_slots_vertical = 1
+			format = "UPPER_LEFT"
+		}
+
+		containerWindowType = {
+			name = "ships_compact"
+			position = {x=75 y=95}
+			size = { width=300 height=40 }
+			Orientation = upper_left
+
+			buttonType = {
+				name = "background"
+				position = {x=0 y=1}
+				spriteType = "GFX_tiled_window_transparent"
+			}
+
+			# Code inserts ship_entry_compact here next to each other
+		}
+	}
+}

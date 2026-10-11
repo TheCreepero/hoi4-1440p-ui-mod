@@ -919,7 +919,7 @@ guiTypes = {
 		moveable = yes
 		click_to_front = yes
 		position = { x=-275 y=-235 }
-		size = { width = 791 height = 584 }
+		size = { width = 10 height = 10 }
 		Orientation = center
 		clipping = no
 		fade_time = 300
@@ -929,18 +929,19 @@ guiTypes = {
 
 		Background = {
 			name = "ship_stats_bg"
+			position = { x=258 y=0 }
 			quadTextureSprite = "GFX_1440p_UD_ship_bg"
 		}
 
 		buttonType = {
 			name = "btn_pride"
-			position = {x=13 y=455}
+			position = {x=271 y=455}
 			spriteType = "GFX_NV_btn_pride"
 		}
 
 		instantTextboxType = {
 			name = "ship_title"
-			position = { x = 35 y = 0 }
+			position = { x = 293 y = 0 }
 			textureFile = ""
 			font = "hoi_36header"
 			borderSize = {x = 0 y = 0}
@@ -952,7 +953,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "tab_stats"
-			position = { x = 10 y = -10 }
+			position = { x = 268 y = 564 }
 			Orientation = "LOWER_LEFT"
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_STATS_LABEL"
@@ -962,7 +963,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "tab_history"
-			position = { x = 120 y = -10 }
+			position = { x = 378 y = 564 }
 			Orientation = "LOWER_LEFT"
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_HISTORY_LABEL"
@@ -972,7 +973,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "tab_design"
-			position = { x = 227 y = -10 }
+			position = { x = 485 y = 564 }
 			Orientation = "LOWER_LEFT"
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_DESIGN_LABEL"
@@ -983,12 +984,12 @@ guiTypes = {
 		iconType = {
 			name = "type_icon"
 			spriteType = "GFX_unit_infantry_icon_medium" # <- Replaced in code
-			position = { x=17 y=43 }
+			position = { x=275 y=43 }
 		}
 
 		editBoxType = {
 			name = "ship_name"
-			position = { x = 113 y = 42 }
+			position = { x = 371 y = 42 }
 			size = {x=498 y=20}
 			#textureFile = ""
 			font = "hoi_20b"
@@ -1001,7 +1002,7 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "experience"
-			position = { x = 619 y = 41 }
+			position = { x = 877 y = 41 }
 			font = "hoi_18mbs"
 			text = ""
 			maxWidth = 150
@@ -1011,18 +1012,18 @@ guiTypes = {
 		iconType = {
 			name = "unit_level"
 			spriteType = "GFX_unit_level"
-			position = { x = 730 y = 38 }
+			position = { x = 988 y = 38 }
 		}
 		
 		iconType = {
 			name = "dominance_icon"
-			position = {x=20 y=505}
+			position = {x=278 y=505}
 			spriteType = "GFX_naval_dominance_texticon"
 		}
 
 		instantTextboxType = {
 			name = "dominance_value"
-			position = { x = 50 y = 507 }
+			position = { x = 308 y = 507 }
 			textureFile = ""
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
@@ -1034,14 +1035,14 @@ guiTypes = {
 		
 		iconType = {
 			name = "support_icon"
-			position = {x=20 y=475}
+			position = {x=278 y=475}
 			spriteType = "GFX_naval_dominance_support_strip"
 			frame = 2
 		}
 
 		instantTextboxType = {
 			name = "support_value"
-			position = { x = 50 y = 473 }
+			position = { x = 308 y = 473 }
 			textureFile = ""
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
@@ -1054,12 +1055,12 @@ guiTypes = {
 		iconType = {
 			name = "manpower_icon"
 			spriteType = "GFX_manpower_icon"
-			position = { x=924 y=3 }
+			position = { x=1182 y=3 }
 		}
 
 		instantTextboxType = {
 			name = "current_manpower"
-			position = { x = 967 y = 8 }
+			position = { x = 1225 y = 8 }
 			font = "hoi_18mbs"
 			text = "Stuff"
 			maxWidth = 60
@@ -1070,12 +1071,12 @@ guiTypes = {
 		iconType = {
 			name = "fuel_icon"
 			spriteType = "GFX_fuel"
-			position = { x = 1059 y = 8 }
+			position = { x = 1317 y = 8 }
 		}
 
 		instantTextboxType = {
 			name = "fuel_consumption"
-			position = { x = 1092 y = 8 }
+			position = { x = 1350 y = 8 }
 			font = "hoi_18mbs"
 			text = "Stuff"
 			maxWidth = 60
@@ -1086,6 +1087,7 @@ guiTypes = {
 		# captain
 		containerWindowType = {
 			name = "captain_window"
+			position = { x=258 y=0 }
 			containerWindowType = {
 				name = "captain_header_list_entry"
 				position = { x = 796 y = 34 }
@@ -1147,7 +1149,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "terrain"
-			position = { x=394 y=437}
+			position = { x=652 y=437}
 			size = { width=410 height=210}
 			margin = { top = 13 left = 13 bottom = 15 right = 25}
 			verticalScrollbar = "right_vertical_slider"
@@ -1165,7 +1167,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "info"
-			position = { x=3 y=75 }
+			position = { x=261 y=75 }
 			size = { width=787 height=355 }
 			Background = {
 				name = "mod1440_info_bg"
@@ -1274,7 +1276,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "equipment"
-			position = { x=10 y=465 }
+			position = { x=268 y=465 }
 			size = { width=250 height=200 }
 			clipping = no
 
@@ -1291,17 +1293,17 @@ guiTypes = {
 
 		positionType = {
 			name = "carrier_air_wings_list_position"
-			position = { x=781 y=0 }
+			position = { x=1039 y=0 }
 		}
 		positionType = {
 			name = "taog_carrier_air_wings_list_position"
-			position = { x=781 y=90 }
+			position = { x=1039 y=90 }
 		}
 
 		containerWindowType = {
 			name = "air_wings"
-			position = { x=781 y=90 }
-			size = { width=390 height=-4 }
+			position = { x=1039 y=90 }
+			size = { width=390 height=580 }
 			margin = { bottom = 8 }
 			clipping = no
 
@@ -1359,8 +1361,8 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "history"
-			position = { x=2 y=70}
-			size = { width=100% height=276}
+			position = { x=260 y=70}
+			size = { width=791 height=276}
 
 			containerWindowType = {
 				name = "medal_instance_container"
@@ -1437,7 +1439,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_delete"
-			position = { x = 3 y = 3 }
+			position = { x = 1042 y = 3 }
 			spriteType = "GFX_NV_btn_delete"
 			clicksound = disband
 			Orientation = "UPPER_RIGHT"
@@ -1445,7 +1447,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_close"
-			position = { x = 355 y = 3 }
+			position = { x = 1394 y = 3 }
 			quadTextureSprite ="GFX_NV_btn_close"
 			buttonFont = "Main_14_black"
 			shortcut = "ESCAPE"

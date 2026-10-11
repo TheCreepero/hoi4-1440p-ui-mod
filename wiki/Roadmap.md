@@ -13,7 +13,7 @@ The mod is built one screen at a time. Each phase reworks one screen for 2560x14
 
 ## Status
 
-Status values: Not started, In progress, Done. Each phase keeps its inventory, decisions and game-check log in `wiki/phases/` ([A1](phases/A1-air-selection.md), [A2](phases/A2-army-selection.md), [A3](phases/A3-unit-details.md); template: [Phase Template](Phase-Template.md)); what the launches taught about the engine is in [Engine Facts](Engine-Facts.md).
+Status values: Not started, In progress, Done. Each phase keeps its inventory, decisions and game-check log in `wiki/phases/` ([A1](phases/A1-air-selection.md), [A2](phases/A2-army-selection.md), [A3](phases/A3-unit-details.md), [A4](phases/A4-fleet.md); template: [Phase Template](Phase-Template.md)); what the launches taught about the engine is in [Engine Facts](Engine-Facts.md).
 
 | Phase | Scope | Status |
 |---|---|---|
@@ -39,7 +39,7 @@ Phases are independent after Phase 1 and can be reordered.
 | A1 | Air wings and airbases (pilot) | `airselectionview.gui`: `air_selection_view`, `unassigned_airwings_view` | 502x430, 582x430 | tiled panel, bitmap rows | none found | Done |
 | A2 | Selected army: badge and division list | `unitview.gui`: `armies_view`, `army_badge_view`, `army_division_list_view`, `army_division_view` | list 422x430 | tiled, small bitmaps | RBM's GFX Overhaul | Done |
 | A3 | Unit details: division, ship, air wing, railway gun | `unitview.gui`: `army_division_stats_view`, `ship_stats_window`; `airwingdetails.gui`: `air_wing_stats_window`; `railway_gun.gui`: `railway_gun_stats_view` | 856x497, 856x409 | bitmap | RBM's GFX Overhaul | Done, awaiting the tester's judgement (railway gun render-only) |
-| A4 | Navy and fleet view | `naviesview.gui`: `naviesview_window`, fleet and task force rows, composition editor, base picker | 500 wide, 86% high | tiled, bitmap rows | RBM's GFX Overhaul, Vanilla Navy Rework | Not started |
+| A4 | Navy and fleet view | `naviesview.gui`: `naviesview_window`, fleet and task force rows, composition editor, base picker | 500 wide, 86% high | bitmap cards and rows | RBM's GFX Overhaul, Vanilla Navy Rework | Done |
 | A5 | Recruit and deploy | `countrydeploymentview.gui`: `countrydeploymentview`, `templatedeploymentwindow` | 550 and 375 wide, full height | tiled | RBM's GFX Overhaul | Not started |
 | A6 | Army overview tab | `countryarmyview.gui`: `countryarmyview` | 550 wide, full height | tiled | none found | Not started |
 | A7 | Air wing reorganisation | `airwingreorganization.gui`: `air_wing_reorganization` | 1000x515 | tiled | none found | Not started |
@@ -52,6 +52,11 @@ Phases are independent after Phase 1 and can be reordered.
   - Redo (2026-10-11): the Stats tab of all four windows is dark cards of stat tiles (Base, Combat, Misc). The ship, air wing and railway gun frames grew from 473 to 584 px high. Checked in game for the division, ship, carrier and air wing, with tab hotkeys (`shift+a`, `shift+h`, `shift+t`); not for the railway gun (no recipe, Engine Facts H29). History and Template tabs, header and officer card keep the first build. `reference/mod/` refreshed.
   - Not done: showing the ship window's side panel only when it has content. Open for A4.
   - Not seen in game: railway gun details, a ship captain, history entries, an HQ division.
+- A4 is done in two steps. Notes: [A4](phases/A4-fleet.md).
+  - Step 1, built (`interface/zz_1440p_fleet.gui`): the panel is 740 wide instead of 492. A ship takes one line of 35 px with name and class side by side (about 26 ships on the screen instead of 22, the class name whole), task force cards are 86 px high instead of 125 with the composition counters in the mission box (the 12 task forces of the British Home Command fit on the screen, 8 did), fleet and task force names have 360 px, the home base name is whole, the toolbar is in four groups with five new hotkeys (`shift+n` and `shift+r` confirmed in game). The home base picker and the ship details window open beside the wider panel. It took three game checks: the first showed the task force tray mostly empty and a long class name still cut.
+  - Step 2, built: the composition editor is 604 wide instead of 524 with class names in a larger font, the ship class picker shows all nine classes without scrolling (vanilla shows seven), the home base picker is 455 wide instead of 375 with base names in a larger font, and "Select Ships to Transfer" lists a ship per line, 10 before it scrolls instead of 7. One game check, plus one without the mod to measure where vanilla puts the windows.
+  - Not seen in game: several fleets selected, a commander with traits, a damaged ship with its repair and refit buttons, the refit window, three of the five hotkeys, the template list of the composition editor.
+  - The A3 item "show the ship window's side panel only when it has content" is still open.
 - A8 is the riskiest: much of its layout is positioned by the engine. Do it last, or drop it if little can move.
 
 ### A2: selected army

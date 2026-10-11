@@ -1,0 +1,87 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 1726-1808.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "ship_entry_compact"
+		position = {x=0 y=0}
+		size = { width=46 height=34 }
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			spriteType = "GFX_tiled_window_transparent"
+		}
+
+		buttonType = {
+			name = "ship_button"
+			position = {x=7 y=12} # Y is centered in code
+			spriteType = "GFX_unit_carrier_icon_medium_white"
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "bar_planes"
+			spriteType = "GFX_navieslist_bar_planes"
+			position = { x=7 y=24 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "plane_icon"
+			spriteType = "GFX_NV_XS_plane_icon"
+			position = { x=13 y=27 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "bar_str"
+			spriteType = "GFX_navieslist_bar_str_compact"
+			position = { x=7 y=4 }
+			#rotation = 1.5708
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "bar_org"
+			spriteType = "GFX_navieslist_bar_org_compact"
+			position = { x=7 y=8 }
+			#rotation = 1.5708
+			alwaystransparent = yes
+		}
+
+#		iconType = {
+#			name = "pride"
+#			position = {x=21 y=12}
+#			spriteType = "GFX_NV_icon_pride"
+#			scale = 0.4
+#			alwaystransparent = yes
+#		}
+
+		instantTextboxType = {
+			name = "ships_count"
+			position = {x=34 y=2}
+			font = "hoi_16mbs"
+			maxWidth = 30
+			maxHeight = 16
+			format = left
+			text = 99
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "h_divider"
+			position = { x=33 y = 15 }
+			spriteType = "GFX_NV_h_divider"
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "required_ships_count"
+			position = {x=34 y=16}
+			font = "hoi_16mbs"
+			maxWidth = 15
+			maxHeight = 23
+			format = left
+			text = 99
+			alwaystransparent = yes
+		}
+
+	}
+}

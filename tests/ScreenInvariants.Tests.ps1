@@ -290,7 +290,7 @@ Describe 'Game recipes' {
         $script:MovesPath = Join-Path (Join-Path $script:RepoRoot 'tools') 'moves.json'
         $script:Moves = @{}
         foreach ($prop in ([System.IO.File]::ReadAllText($script:MovesPath, [System.Text.Encoding]::UTF8) | ConvertFrom-Json).moves.PSObject.Properties) { $script:Moves[$prop.Name] = $prop.Value }
-        $script:StepKinds = @('key', 'clickWidget', 'move', 'click', 'rightClick', 'drag', 'console')
+        $script:StepKinds = @('key', 'clickWidget', 'dragWidget', 'move', 'click', 'rightClick', 'drag', 'console')
 
         function Get-RecipeSteps {
             param($Steps, [string]$Where, [string]$Scene, [int]$Depth = 0)
@@ -323,9 +323,9 @@ Describe 'Game recipes' {
             if ($unknown.Count) { "$($item.Where): unknown key '$($unknown -join ', ')'" }
             if ($kinds.Count -gt 1) { "$($item.Where): more than one action in a step ($($kinds -join ', '))" }
             if (-not $kinds.Count -and -not $item.Step.wait) { "$($item.Where): a step without an action" }
-            foreach ($pair in @(@('click', 2), @('rightClick', 2), @('drag', 4))) {
+            foreach ($pair in @(@('click', 2), @('rightClick', 2), @('drag', 4), @('dragWidget', 2))) {
                 $value = $item.Step.($pair[0])
-                if ($null -ne $value -and @($value).Count -ne $pair[1]) { "$($item.Where): $($pair[0]) needs $($pair[1]) numbers" }
+                if ($null -ne $value -and @($value).Count -ne $pair[1]) { "$($item.Where): $($pair[0]) needs $($pair[1]) values" }
             }
             foreach ($position in @($item.Step.click, $item.Step.rightClick)) {
                 if ($position -and ([int]$position[0] -lt 0 -or [int]$position[0] -ge 2560 -or [int]$position[1] -lt 0 -or [int]$position[1] -ge 1440)) { "$($item.Where): position $($position -join ',') is off a 2560x1440 screen" }
@@ -355,11 +355,12 @@ Describe 'Game recipes' {
         # scene -> the widget specs laid out with it
         $wanted = @{}
         foreach ($item in $script:AllSteps) {
-            if (-not $item.Step.clickWidget) { continue }
+            $specs = @($item.Step.clickWidget) + @($item.Step.dragWidget) | Where-Object { $_ }
+            if (-not $specs) { continue }
             $sceneName = if ($item.Step.scene) { [string]$item.Step.scene } else { $item.Scene }
             if (-not $sceneName) { "$($item.Where): clickWidget in a shared move needs a 'scene'" | Should -BeNullOrEmpty; continue }
             if (-not $wanted.ContainsKey($sceneName)) { $wanted[$sceneName] = [System.Collections.Generic.HashSet[string]]::new() }
-            [void]$wanted[$sceneName].Add([string]$item.Step.clickWidget)
+            foreach ($spec in $specs) { [void]$wanted[$sceneName].Add([string]$spec) }
         }
         foreach ($scene in @(Get-Scenes)) {
             foreach ($spec in @($scene.expect)) {

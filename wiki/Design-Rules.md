@@ -159,6 +159,19 @@ What A3 showed (unit details windows), confirmed in game:
 - **States a scene cannot reach are still rendered.** A scene's `captures` and `states` can carry `hide`, `rows`, `samples` and `expand`; `render_gui.py --scene <screen> --state <name>` draws them. A sample can be a list, one text per row.
 - **A text the design cuts on purpose is listed.** `knownCuts` in the scene names the widget, the text and the reason; the tests then accept it.
 
+What A4 showed (fleet panel), confirmed in game:
+
+- **Look for the row a card does not need.** The vanilla task force card kept a whole row for a few small counters. At 740 px the counters fit beside the mission text, the card went from 125 to 86 px, and 12 task forces fit where 8 did. The code places cards, rows and counters by the size of their entry window ([Engine Facts](Engine-Facts.md) S21), so a lower card needs no other change.
+- **Two lines become a table row when the width allows it.** Name and class of a ship side by side took 248 px more width and gave four more ships on the screen, and the class column could be wider than vanilla's.
+- **A sample text is not the longest text.** The class name that vanilla cuts was assumed to end where the cut began; the real one was 35 px longer, which cost a launch. Bring up the fullest state the harness can reach (`tag ENG` for a large navy) before settling a column width.
+- **A bitmap can lose rows** (`cut` in `tools/stretch_background.py`): spans of one pattern period out of a mesh, or a whole painted band.
+- **A window that widens pushes its neighbours.** List what opens beside the panel during the inventory: one follows a button (the composition editor), one has a file position (the home base picker), one is placed by code and needs the 10x10 treatment (the ship details window).
+- **Keep a layout script absolute.** A script that adds to the current value moves the widget again on every run; write the vanilla value plus the growth.
+- **A pop-up gets a scene of its own.** The composition editor, the home base picker and the transfer window each have a recipe, an `expect` list and references, apart from the panel that opens them. A window the code places is measured twice, with the mod and without it (`at`, `atVanilla`).
+- **What cannot be brought up stays close to vanilla.** The template list of the composition editor never opened in a check, so it got the width its dropdown needs and kept its vanilla height.
+- **Two vanilla windows can share a grid name.** `templates_grid` and `ships_grid` each exist twice; an entry pair in `tools/gui-links.json` names its window then.
+- **Recipes break with the panel they click into.** When a raw recipe step clicks into a panel that is being reworked, turn it into a `clickWidget` step in the same change; three shared moves and the carrier capture of the ship details scene clicked into the fleet panel.
+
 ## Recipe for a screen phase
 
 1. **Inventory.**

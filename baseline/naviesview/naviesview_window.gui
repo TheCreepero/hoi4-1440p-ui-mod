@@ -1,0 +1,368 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 420-783.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "naviesview_window"
+		position = {x=-340 y=82}
+		show_position = {x=0 y=82}
+		size = { width=500 height=86%% }
+		show_animation_type = decelerated
+		hide_animation_type = accelerated
+		animation_time = 300
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_window_transparent"
+			alwaystransparent = yes
+		}
+
+
+		# Fleet detailed list (visibility toggled by code)
+		containerWindowType = {
+			name = "detailed_fleet_list"
+			position = {x=0 y=0}
+			size = {width=528 height=400} # height adapted in code
+			margin = { left=0 top=0 right=22 bottom=0 }
+			verticalScrollbar = "right_vertical_slider"
+			Orientation = upper_left
+			clipping = no
+
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+
+			gridBoxType = {
+				name = "detailed_fleet_box"
+				position = { x=0 y=0 }
+				size = { width=492 height=100%% }
+				slotsize = { width=100%% height=165 }
+				max_slots_horizontal = 1
+			}
+
+		}
+
+		# Tool/selection bar (visibility toggled by code)
+		containerWindowType = {
+			name = "tool_bar_window"
+			position = {x=0 y=0} # vertical position controlled by code
+			size = { width=492 height=44 }
+			Orientation = upper_left
+
+			background = {
+				name = "Background"
+				spriteType = "GFX_tiled_window_transparent"
+			}
+
+			iconType = {
+				name = "icn_background"
+				spriteType = "GFX_task_force_actions_bg"
+			}
+
+			# selection toolbox
+
+			@nv_tb_btn_y = 6
+			buttonType = {
+				name = "btn_delete"
+				position = {x=6 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_delete"
+				clicksound = click_default
+				pdx_tooltip = ""
+			}
+
+			buttonType = {
+				name = "btn_create_new_from_selected"
+				position = {x=64 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_create_new_from_selected"
+				clicksound = click_default
+				pdx_tooltip = CREATE_NEW_TASK_FORCE_FROM_SELECTION
+			}
+
+			buttonType = {
+				name = "btn_split_in_half"
+				position = {x=94 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_split_in_half"
+				clicksound = click_default
+				shortcut = d
+				pdx_tooltip = NAVY_SPLIT_IN_HALF
+			}
+
+			buttonType = {
+				name = "btn_select_half"
+				position = {x=124 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_select_half"
+				clicksound = click_default
+				shortcut = s
+				pdx_tooltip = NAVY_SELECT_HALF
+			}
+
+			buttonType = {
+				name = "btn_exclude"
+				position = {x=154 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_set_as_reserve"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "btn_merge"
+				position = {x=184 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_merge"
+				clicksound = click_default
+				shortcut = g
+			}
+
+			buttonType = {
+				name = "btn_taskforce_o_matic"
+				position = {x=214 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_taskforce_o_matic"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				position = { x=244 y=@nv_tb_btn_y }
+				name = "btn_base_underway_replenishment"
+				spriteType = "GFX_NV_btn_base_partial_toggle"
+				clicksound = click_default
+			}
+
+			iconType = {
+				name = "btn_underway_replenishment"
+				position = {x=244 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_underway_replenishment"
+				alwaystransparent = yes
+			}
+
+			buttonType = {
+				name = "btn_upgrade"
+				position = {x=274 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_upgrade"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "btn_repair_now"
+				position = {x=304 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_repair_now_small"
+				clicksound = click_default
+				pdx_tooltip = "NAVY_REPAIR_NOW"
+			}
+			
+			dropDownBoxType = {
+				name = "defensive_stance_dropdown"
+				position = { x = 334 y = @nv_tb_btn_y }
+				size = { width = 37 height = 37 }
+				
+				expandButton = {
+					name = "defensive_stance_expand_button"
+					position = { x = 0 y = 0 }
+					quadTextureSprite ="GFX_NV_btn_base_partial_toggle"
+					frame = 1
+					buttonFont = "Main_14_black"
+					Orientation = "UPPER_LEFT"
+					clicksound = click_default
+					pdx_tooltip = "NAVY_CARRIER_DEFENSIVE_STANCE"
+				}
+
+				expandedWindow = {
+					name = "defensive_stance_expanded_window"
+					position = { x=10 y= 0 }
+					show_position = { x = 10 y = 25 }
+					show_animation_type = decelerated
+					hide_animation_type = accelerated
+					animation_time = 150
+					size = { width=240 height=172 }
+					verticalScrollbar = "right_vertical_slider"
+					margin = { top = 15 bottom = 0 left = 0 }
+
+					background = {
+						name = "Background"
+						quadTextureSprite ="GFX_tiled_window_1b_border"
+						position = { x = 0 y = 0 }
+					}
+
+					# contains defensive_stand_item
+					gridBoxType = {
+						name = "button_grid"
+						position = { x = 12 y = 0 }
+						size = { width = 200 height = 100%% }
+						slotsize = { width = 26 height = 30 }
+						max_slots_horizontal = 1
+						format = "UPPER_LEFT"
+					}
+				}
+			}
+
+			dropDownBoxType = {
+				name = "repair_priority_dropdown"
+				position = { x = 424 y = @nv_tb_btn_y }
+				
+				expandButton = {
+					name = "repair_priority_expand_button"
+					position = { x = 0 y = 0 }
+					quadTextureSprite ="GFX_NV_btn_base_partial_toggle"
+					frame = 1
+					buttonFont = "Main_14_black"
+					Orientation = "UPPER_LEFT"
+					clicksound = click_default
+				}
+
+				expandedWindow = {
+					name = "repair_priority_expanded_window"
+					position = { x=10 y= 0 }
+					show_position = { x = 10 y = 25 }
+					show_animation_type = decelerated
+					hide_animation_type = accelerated
+					animation_time = 150
+					size = { width=272 height=150 }
+					verticalScrollbar = "right_vertical_slider"
+					margin = { top = 15 bottom = 0 left = 0 }
+
+					background = {
+						name = "Background"
+						quadTextureSprite ="GFX_tiled_window_1b_border"
+						position = { x = 0 y = 0 }
+					}						
+
+					gridBoxType = {
+						name = "button_grid"
+						position = { x = 12 y = 0 }
+						size = { width = 160 height = 100%% }
+						slotsize = { width = 26 height = 30 }
+						max_slots_horizontal = 1
+						format = "UPPER_LEFT"
+					}
+				}
+			}
+
+			dropDownBoxType = {
+				name = "aggressiveness_dropdown"
+				position = { x = 454 y = @nv_tb_btn_y }
+				
+				expandButton = {
+					name = "aggressiveness_expand_button"
+					position = { x = 0 y = 0 }
+					quadTextureSprite ="GFX_NV_btn_base_partial_toggle"
+					buttonFont = "Main_14_black"
+					Orientation = "UPPER_LEFT"
+					clicksound = click_default
+					pdx_tooltip = "NAVY_AGGRESSIVENESS"
+				}
+
+				expandedWindow = {
+					name = "aggressiveness_expanded_window"
+					position = { x=10 y= 0 }
+					show_position = { x = 10 y = 25 }
+					show_animation_type = decelerated
+					hide_animation_type = accelerated
+					animation_time = 150
+					size = { width=272 height=172 }
+					verticalScrollbar = "right_vertical_slider"
+					margin = { top = 15 bottom = 0 left = 0 }
+
+					background = {
+						name = "Background"
+						quadTextureSprite ="GFX_tiled_window_1b_border"
+						position = { x = 0 y = 0 }
+					}					
+
+					gridBoxType = {
+						name = "button_grid"
+						position = { x = 12 y = 0 }
+						size = { width = 160 height = 100%% }
+						slotsize = { width = 26 height = 30 }
+						max_slots_horizontal = 1
+						format = "UPPER_LEFT"
+					}
+				}
+			}
+
+			buttonType = {
+				position = { x=364 y=@nv_tb_btn_y }
+				name = "btn_base_reinforce"
+				spriteType = "GFX_NV_btn_base_partial_toggle"
+				clicksound = click_default
+			}
+
+			iconType = {
+				name = "btn_reinforce"
+				position = {x=364 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_reinforce"
+				alwaystransparent = yes
+			}
+
+			buttonType = {
+				position = { x=394 y=@nv_tb_btn_y }
+				name = "btn_base_toggle_split_for_repair"
+				spriteType = "GFX_NV_btn_base_partial_toggle"
+				clicksound = click_default
+			}
+
+			iconType = {
+				name = "btn_toggle_split_for_repair"
+				position = {x=394 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_toggle_split_for_repair"
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "repair_priority_icon"
+				frame = 2
+				position = {x=424 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_repair_priority"
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "btn_aggressiveness"
+				position = {x=454 y=@nv_tb_btn_y}
+				spriteType = "GFX_NV_btn_aggressiveness_small"
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name = "icon_defensive_stance"
+				position = {x = 334 y = @nv_tb_btn_y}
+				spriteType = "GFX_defensive_stance_strip"
+				frame = 1
+				alwaystransparent = yes
+			}
+		}
+
+		# Entries are entered here in code...
+
+		# Scrollbar visibility and size is adapted in code too...
+		extendedScrollbarType = {
+			name = "slider"
+			position = { x=492 y=50 }
+			size = { width = 18 height = 18 }
+			startValue = 0
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_scrollbar_vertical_bg"
+			}
+			slider = {
+				name = "Slider"
+				quadTextureSprite = "GFX_scroll_drager"
+				position = { x = -2 y = -2 }
+			}
+			track = {
+				name = "Track"
+				quadTextureSprite = "GFX_scroll_track"
+				position = { x = 3 y = 0 }
+				alwaystransparent = yes
+			}
+			decreaseButton = {
+				name = "Decrease"
+				quadTextureSprite = "GFX_scroll_up"
+				position = { x = 2 y = 3 }
+			}
+			increaseButton = {
+				name = "Increase"
+				quadTextureSprite = "GFX_scroll_down"
+				position = { x=-17 y = -19}
+			}
+		}
+	}
+}

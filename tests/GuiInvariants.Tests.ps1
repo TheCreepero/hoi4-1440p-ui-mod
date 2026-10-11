@@ -5,7 +5,7 @@ BeforeDiscovery {
     # Grids and their entry rows, list boxes and their row windows: links the engine makes in code, kept
     # in tools/gui-links.json (shared with the renderer and the game harness). Add a row there per reworked list.
     $links = Get-GuiLinks -Path (Join-Path (Join-Path $repoRoot 'tools') 'gui-links.json')
-    $entryPairCases = @($links.EntryPairs | ForEach-Object { @{ Grid = $_.grid; Entry = $_.entry } })
+    $entryPairCases = @($links.EntryPairs | ForEach-Object { @{ Grid = $_.grid; Entry = $_.entry; GridWindow = [string]$_.window } })
     $listRowCases = @($links.ListRows | ForEach-Object { @{ ListWindow = $_.listWindow; List = $_.list; Row = $_.row } })
 
     $guiFileCases = @()
@@ -319,14 +319,19 @@ if ($listRowCases.Count -gt 0) {
 }
 
 if ($entryPairCases.Count -gt 0) {
-    Describe 'List <Grid> filled with <Entry>' -ForEach $entryPairCases {
+    Describe 'List <Grid> <GridWindow> filled with <Entry>' -ForEach $entryPairCases {
         It 'uses a slot width equal to the entry row width' {
             $gridNode = $null
             $entryNode = $null
             foreach ($file in @(Get-ModGuiFiles -Filter '*.gui')) {
                 $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)
-                foreach ($node in @(Get-GuiNodes -Node $root)) {
-                    if ($node.Key -ieq 'gridBoxType' -and (Get-GuiValue -Node $node -Key 'name') -eq $Grid) { $gridNode = $node }
+                # two vanilla windows can each have a grid of one name (templates_grid): a pair may name its window
+                $scopes = @($root)
+                if ($GridWindow) { $scopes = @(Get-GuiTopLevelWindows -Root $root | Where-Object { $_.Name -eq $GridWindow } | ForEach-Object { $_.Node }) }
+                foreach ($scope in $scopes) {
+                    foreach ($node in @(Get-GuiNodes -Node $scope)) {
+                        if ($node.Key -ieq 'gridBoxType' -and (Get-GuiValue -Node $node -Key 'name') -eq $Grid) { $gridNode = $node }
+                    }
                 }
                 $window = @(Get-GuiTopLevelWindows -Root $root | Where-Object { $_.Name -eq $Entry })[0]
                 if ($window) { $entryNode = $window.Node }

@@ -1,0 +1,71 @@
+{
+  "_comment": "Scene for the home base picker of the fleet card. Keys are explained in tools/scenes/fleet.json and wiki/Game-Recipes.md.",
+  "screen": "fleet_home_base",
+  "phase": "A4",
+  "file": "zz_1440p_fleet.gui",
+  "screenshot": "reference/vanilla/fleet_home_base.jpg",
+  "windows": [
+    {
+      "name": "home_base_selection_window",
+      "at": [
+        738,
+        78
+      ],
+      "atVanilla": [
+        490,
+        78
+      ],
+      "height": 1008,
+      "rows": {
+        "home_base_selection_grid": 8
+      },
+      "_note": "Sits where its file position puts it (Engine Facts S22): beside the fleet panel. 70 % of the screen high."
+    },
+    {
+      "name": "naval_base_selection_item",
+      "skip": true,
+      "hide": [
+        "naval_supply_icon"
+      ],
+      "_note": "The headquarters icon shows on the fleet's own home base only; drawn on every row here."
+    }
+  ],
+  "samples": {
+    "naval_base_selection_item": {
+      "name": [
+        "Wilhelmshaven (8)",
+        "Kiel (8)",
+        "Rostock (6)",
+        "Königsberg (5)",
+        "Stettin (4)",
+        "Cuxhaven (1)",
+        "Buxtehude (1)",
+        "Köslin (1)"
+      ]
+    }
+  },
+  "setup": [
+    {
+      "move": "open_home_base_picker"
+    }
+  ],
+  "captures": [],
+  "expect": [
+    "home_base_selection_window/close"
+  ],
+  "crop": [
+    480,
+    60,
+    780,
+    1060
+  ],
+  "manual": [
+    "Tooltips",
+    "The three filter checkboxes",
+    "A country with more bases than fit: scroll to the end"
+  ],
+  "checklist": [
+    "Rows: icon, base name and count in full",
+    "Filters and title"
+  ]
+}

@@ -1,15 +1,168 @@
 {
-  "_comment": "Scene for the navy and fleet panel. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "_comment": "Scene for the navy and fleet panel. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human. 'rowsAcross' names the containers the code fills from left to right (the composition counters). A window with 'skip' is a row window listed for its 'hide' list only: another window draws it.",
   "screen": "fleet",
   "phase": "A4",
   "file": "zz_1440p_fleet.gui",
   "screenshot": "reference/vanilla/fleet.jpg",
   "windows": [
     {
-      "name": "naviesview_window"
+      "name": "naviesview_window",
+      "at": [
+        0,
+        82
+      ],
+      "height": 1058,
+      "rows": {
+        "detailed_fleet_box": 1
+      },
+      "place": {
+        "tool_bar_window": [
+          0,
+          168
+        ]
+      },
+      "_note": "The frame is transparent and 86 % of the screen high (1238 px) in vanilla and in the mod; 'height' here ends at the bottom bar line. The code puts one fleet card per selected fleet into detailed_fleet_box, the toolbar under the last card (168 px below the top with one fleet) and the task force cards under the toolbar.",
+      "hide": [
+        "slider"
+      ]
+    },
+    {
+      "name": "taskforce_view_entry",
+      "at": [
+        0,
+        293
+      ],
+      "rows": {
+        "ships_detailed": 12,
+        "taskforce_view_entry/ships_compact": 3,
+        "fleet_view_header/ships_compact": 4
+      },
+      "listRows": {
+        "ships_detailed": "ship_entry_detailed",
+        "ships_compact": "ship_entry_compact"
+      },
+      "rowsAcross": [
+        "ships_compact"
+      ],
+      "hide": [
+        "air_base",
+        "reserve_fleet_icon",
+        "interrupted_mission",
+        "current_mission",
+        "underway_replenishment_icon",
+        "fuel_efficiency_warning_icon",
+        "slider"
+      ],
+      "_note": "The first task force card: 43 px below the toolbar. A card opened with Select shows alone, with its ships in ships_detailed (35 px per ship)."
+    },
+    {
+      "name": "fleet_view_header",
+      "at": [
+        0,
+        82
+      ],
+      "hide": [
+        "leader_enroute",
+        "fuel_efficiency_warning_icon",
+        "btn_fleet_color",
+        "air_base_btn",
+        "highlight"
+      ],
+      "_note": "Drawn by naviesview_window as the row of detailed_fleet_box; listed here for its hide list only.",
+      "skip": true
+    },
+    {
+      "name": "ship_entry_detailed",
+      "skip": true,
+      "hide": [
+        "highlight",
+        "plane_icon",
+        "bar_planes",
+        "pride",
+        "history_report_button",
+        "exile_force_flag_frame",
+        "foreign_ship_flag",
+        "available_medals",
+        "repair_symbol",
+        "damaged_part_report",
+        "btn_repair_now",
+        "btn_refit"
+      ],
+      "_note": "A ship without planes, medals or damage: the code hides those widgets."
+    },
+    {
+      "name": "ship_entry_compact",
+      "skip": true,
+      "hide": [
+        "bar_planes",
+        "plane_icon",
+        "h_divider",
+        "required_ships_count"
+      ],
+      "_note": "The divider and the required count show only for a task force with a composition template."
     }
   ],
-  "samples": {},
+  "samples": {
+    "fleet_view_header": {
+      "fleet_name": "Kriegsmarine",
+      "taskforce_count": "3",
+      "active_in_regions": "Active in Regions: 0",
+      "home_base_name": "Wilhelmshaven",
+      "leader_desc": "Grand Admiral",
+      "leader_name": "Erich Raeder",
+      "skill_text": "4",
+      "leader_stat_attack_text": "3",
+      "leader_stat_defense_text": "3",
+      "leader_stat_maneuvering_text": "2",
+      "leader_stat_coordination_text": "4",
+      "click_to_assign": "Click to assign."
+    },
+    "taskforce_view_entry": {
+      "unit_name": "Hochseeflotte",
+      "activity_description": "Docked in Weser-Ems"
+    },
+    "ship_entry_detailed": {
+      "ship_name": [
+        "Deutschland",
+        "Admiral Scheer",
+        "Nürnberg",
+        "Leipzig",
+        "Königsberg",
+        "Karlsruhe",
+        "Köln",
+        "Emden",
+        "Jaguar",
+        "Leopard",
+        "Luchs",
+        "Tiger"
+      ],
+      "ship_type": [
+        "Panzerschiff (Deutschland Klasse)",
+        "Panzerschiff (Deutschland Klasse)",
+        "Basic Cruiser (Leipzig Klasse)",
+        "Basic Cruiser (Leipzig Klasse)",
+        "Early Cruiser (Königsberg Klasse)",
+        "Early Cruiser (Königsberg Klasse)",
+        "Early Cruiser (Königsberg Klasse)",
+        "Early Cruiser (Emden A Klasse)",
+        "Early Destroyer (Type 24 Klasse)",
+        "Early Destroyer (Type 24 Klasse)",
+        "Early Destroyer (Type 24 Klasse)",
+        "Early Destroyer (Type 24 Klasse)"
+      ]
+    },
+    "ship_entry_compact": {
+      "ships_count": [
+        "2",
+        "2",
+        "8",
+        "12",
+        "2",
+        "6",
+        "4"
+      ]
+    }
+  },
   "setup": [
     {
       "move": "select_fleet"
@@ -17,46 +170,178 @@
   ],
   "captures": [
     {
-      "name": "composition",
+      "name": "ship-selected",
       "steps": [
         {
-          "click": [
-            465,
-            387
-          ],
-          "wait": 2.0
+          "clickWidget": "ship_entry_detailed/ship_name",
+          "wait": 1.2,
+          "_note": "selects the first ship: the selected row frame, its gold outline and the toolbar buttons for a selection"
         }
       ]
+    },
+    {
+      "name": "task-forces",
+      "steps": [
+        {
+          "clickWidget": "taskforce_view_entry/select_btn",
+          "wait": 1.5,
+          "_note": "Back: from the ship list to the task forces of the fleet"
+        }
+      ],
+      "rows": {
+        "ships_detailed": 0
+      }
     },
     {
       "name": "home-base",
       "steps": [
         {
-          "key": "escape",
-          "wait": 0.6
-        },
+          "clickWidget": "fleet_view_header/home_base_button",
+          "wait": 2.0
+        }
+      ],
+      "rows": {
+        "ships_detailed": 0
+      }
+    },
+    {
+      "name": "composition",
+      "steps": [
         {
           "key": "escape",
-          "wait": 0.6
+          "wait": 0.8
+        },
+        {
+          "clickWidget": "taskforce_view_entry/btn_composition_editor",
+          "wait": 2.0
+        }
+      ],
+      "rows": {
+        "ships_detailed": 0
+      }
+    },
+    {
+      "name": "british",
+      "steps": [
+        {
+          "key": "escape",
+          "wait": 0.8
+        },
+        {
+          "console": "tag ENG",
+          "wait": 2.0
+        },
+        {
+          "key": "p",
+          "wait": 1.5
         },
         {
           "click": [
-            300,
-            230
+            250,
+            660
           ],
-          "wait": 2.0
+          "wait": 2.0,
+          "_note": "Home Fleet in the British navy overview (33 ships, a carrier first). Raw position inside the navy overview, a vanilla panel."
         }
-      ]
+      ],
+      "rows": {
+        "ships_detailed": 20,
+        "taskforce_view_entry/ships_compact": 6,
+        "fleet_view_header/ships_compact": 7
+      },
+      "samples": {
+        "fleet_view_header": {
+          "fleet_name": "Home Command",
+          "taskforce_count": "12",
+          "home_base_name": "Scapa Flow"
+        },
+        "taskforce_view_entry": {
+          "unit_name": "Home Fleet",
+          "activity_description": "Docked in Scottish Highlands"
+        },
+        "ship_entry_detailed": {
+          "ship_name": [
+            "HMS Furious",
+            "HMS Nelson",
+            "HMS Rodney",
+            "HMS Royal Oak",
+            "HMS Royal Sovereign",
+            "HMS Ramillies",
+            "HMS Hood",
+            "HMS Repulse"
+          ],
+          "ship_type": [
+            "Converted Battleship (Courageous Class)",
+            "Early Heavy Ship  (Nelson Class Mk. III)",
+            "Early Heavy Ship  (Nelson Class Mk. III)",
+            "Early Heavy Ship  (Revenge Class Mk. V)",
+            "Early Heavy Ship  (Revenge Class Mk. V)",
+            "Early Heavy Ship  (Revenge Class Mk. V)",
+            "Early Heavy Ship  (Admiral Class Mk. I)",
+            "Early Heavy Ship  (Renown Class)"
+          ]
+        },
+        "ship_entry_compact": {
+          "ships_count": [
+            "2",
+            "9",
+            "3",
+            "8",
+            "17",
+            "89",
+            "19",
+            "1",
+            "5",
+            "3",
+            "1",
+            "3",
+            "20"
+          ]
+        }
+      }
+    },
+    {
+      "name": "british-task-forces",
+      "steps": [
+        {
+          "clickWidget": "taskforce_view_entry/select_btn",
+          "wait": 1.5
+        }
+      ],
+      "rows": {
+        "ships_detailed": 0
+      }
     }
   ],
-  "expect": [],
+  "expect": [
+    "taskforce_view_entry/btn_composition_editor",
+    "fleet_view_header/btn_close",
+    "naviesview_window/btn_merge"
+  ],
   "crop": [
     0,
     60,
-    560,
+    860,
     1000
   ],
-  "manual": [],
-  "checklist": [],
-  "_note": "Surveyed on 2026-10-08: the recipe works and the vanilla reference is captured. 'at' of its windows is not measured yet; do that at the start of the phase (wiki/Game-Recipes.md, 'Measuring where a window sits'). The refit window (ship_refit_equipment_view) was not reached: it needs ships with a newer design to refit to."
+  "knownCuts": [],
+  "manual": [
+    "Tooltips and click targets",
+    "Hotkeys shift+o, shift+g, shift+p on the toolbar (shift+n and shift+r are confirmed)",
+    "States a 1936 start does not show: a commander with traits, a damaged ship (repair and refit buttons), a mission in several regions, a carrier's plane bar, several fleets selected at once"
+  ],
+  "checklist": [
+    "Fleet card: name, commander box, composition counters, home base name in full, Select All",
+    "Toolbar: every button, the three dropdowns opened",
+    "Task force cards: name, mission line, the four order buttons, composition counters",
+    "Ship list: both bars, silhouette, level, name and class on one line, insignia; scroll a long list to its end",
+    "Selected and unselected ship rows",
+    "Home base picker and composition editor open clear of the panel"
+  ],
+  "teardown": [
+    {
+      "console": "tag GER",
+      "wait": 2.0
+    }
+  ]
 }

@@ -1,0 +1,140 @@
+{
+  "_comment": "Scene for the task force composition editor and the ship class picker that opens with it. Keys are explained in tools/scenes/fleet.json and wiki/Game-Recipes.md.",
+  "screen": "fleet_composition",
+  "phase": "A4",
+  "file": "zz_1440p_fleet.gui",
+  "screenshot": "reference/vanilla/fleet_composition.jpg",
+  "windows": [
+    {
+      "name": "task_force_composition_editor_window",
+      "at": [
+        768,
+        292
+      ],
+      "atVanilla": [
+        520,
+        292
+      ],
+      "height": 333,
+      "rows": {
+        "ships_grid": 4
+      },
+      "listRows": {
+        "ships_grid": [
+          "task_force_composition_editor_entry",
+          "task_force_composition_editor_entry",
+          "task_force_composition_editor_entry",
+          "task_force_composition_editor_new_entry"
+        ]
+      },
+      "_note": "Centred in its file, but the code opens it beside the composition button it was opened from (Engine Facts S22). Its height is 161 plus 43 per row. The code moves Cancel and OK below the last row.",
+      "place": {
+        "btn_cancel": [
+          155,
+          283
+        ],
+        "btn_accept": [
+          305,
+          283
+        ]
+      }
+    },
+    {
+      "name": "task_force_composition_editor_sub_unit_selection_window",
+      "at": [
+        1364,
+        293
+      ],
+      "atVanilla": [
+        1036,
+        293
+      ],
+      "rows": {
+        "sub_unit_box": 9
+      },
+      "_note": "The code puts it at sub_unit_selection_window_default_pos of the editor. The game has nine ship classes; vanilla shows seven and scrolls."
+    }
+  ],
+  "samples": {
+    "task_force_composition_editor_window": {
+      "template_name": "New template"
+    },
+    "task_force_composition_editor_entry": {
+      "ship_name": [
+        "Heavy Cruiser",
+        "Light Cruiser",
+        "Destroyer"
+      ],
+      "amount": [
+        "2/2",
+        "6/6",
+        "4/4"
+      ]
+    },
+    "task_force_composition_editor_sub_unit_entry_window": {
+      "ship_name": [
+        "Carrier",
+        "Battleship",
+        "Battlecruiser",
+        "Heavy Cruiser",
+        "Light Cruiser",
+        "Destroyer",
+        "Repair Ship",
+        "Submarine",
+        "Support Ship"
+      ]
+    },
+    "task_force_template_entry": {
+      "label": [
+        "New template",
+        "Convoy escort group",
+        "Strike force"
+      ]
+    }
+  },
+  "setup": [
+    {
+      "move": "select_fleet"
+    },
+    {
+      "clickWidget": "taskforce_view_entry/select_btn",
+      "scene": "fleet",
+      "wait": 1.5,
+      "_note": "Back: the task force list"
+    },
+    {
+      "clickWidget": "taskforce_view_entry/btn_composition_editor",
+      "scene": "fleet",
+      "wait": 2.0
+    }
+  ],
+  "captures": [],
+  "expect": [
+    "task_force_composition_editor_window/btn_reset",
+    "task_force_composition_editor_sub_unit_selection_window/btn_close"
+  ],
+  "crop": [
+    480,
+    240,
+    1440,
+    580
+  ],
+  "manual": [
+    "Tooltips",
+    "Adding and removing a class, the role picker of a row",
+    "Saving a template and opening the template list: not seen in a check"
+  ],
+  "checklist": [
+    "Editor: class names and counts, the + row, Cancel and OK",
+    "Class picker: all nine classes without scrolling"
+  ],
+  "states": [
+    {
+      "name": "templates",
+      "_note": "The template list opened. Not reachable by the harness: a new game has no saved template, and Save did nothing after one click, with and without a changed count. Drawn by the renderer only.",
+      "expand": [
+        "ddb_templates"
+      ]
+    }
+  ]
+}

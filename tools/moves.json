@@ -80,7 +80,7 @@
       ]
     },
     "select_fleet": {
-      "_note": "Navy overview (p), then the first fleet row (Hochseeflotte): fleet panel with its task forces and ships. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "_note": "Navy overview (p), then the first row of the navy overview (Hochseeflotte): the fleet panel with that task force opened to its ship list. Raw position inside the navy overview, a vanilla panel (A6): when the mod reworks it, replace it with a clickWidget step.",
       "steps": [
         {
           "key": "p",
@@ -299,46 +299,44 @@
       ]
     },
     "open_ship_details": {
-      "_note": "Fleet panel, then the icon of the first ship (Deutschland). Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "_note": "Fleet panel, then the icon of the first ship (Deutschland). The game centres the icon in its row, 12 px above where the file puts it, hence the offset.",
       "steps": [
         {
           "move": "select_fleet"
         },
         {
-          "click": [
-            55,
-            442
+          "clickWidget": "ship_entry_detailed/ship_button",
+          "scene": "fleet",
+          "offset": [
+            0,
+            -12
           ],
           "wait": 2.0
         }
       ]
     },
     "open_task_force_composition": {
-      "_note": "Fleet panel, then the composition button of the first task force. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "_note": "Fleet panel, then the composition button of the first task force.",
       "steps": [
         {
           "move": "select_fleet"
         },
         {
-          "click": [
-            465,
-            387
-          ],
+          "clickWidget": "taskforce_view_entry/btn_composition_editor",
+          "scene": "fleet",
           "wait": 2.0
         }
       ]
     },
     "open_home_base_picker": {
-      "_note": "Fleet panel, then the home base button of the navy badge. Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "_note": "Fleet panel, then the home base button of the fleet card.",
       "steps": [
         {
           "move": "select_fleet"
         },
         {
-          "click": [
-            300,
-            230
-          ],
+          "clickWidget": "fleet_view_header/home_base_button",
+          "scene": "fleet",
           "wait": 2.0
         }
       ]

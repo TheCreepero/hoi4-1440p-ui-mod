@@ -15,7 +15,7 @@
         500,
         100
       ],
-      "_note": "Placed by the game code at 500,100; each further ship window opened in the same game sits 50 px left of and 20 px below the one before.",
+      "_note": "Placed by the game code at 500,100; each further ship window opened in the same game sits 50 px left of and 20 px below the one before. With the mod the window's rectangle is 10x10 and its content is drawn 258 px to the right of that point, beside the 740 px fleet panel (A4).",
       "hide": [
         "captain_window",
         "air_wings",
@@ -50,7 +50,7 @@
       "fuel_consumption": "36",
       "dominance_value": "352",
       "support_value": "0",
-      "captain": "Kapit\u00e4n zur See Hans Langsdorff",
+      "captain": "Kapitän zur See Hans Langsdorff",
       "title": "Air Wings"
     },
     "stat_entry": {
@@ -190,12 +190,14 @@
           "_note": "Home Fleet in the British navy overview. Raw position inside a vanilla panel."
         },
         {
-          "click": [
-            55,
-            442
+          "clickWidget": "ship_entry_detailed/ship_button",
+          "scene": "fleet",
+          "offset": [
+            0,
+            -12
           ],
           "wait": 2.0,
-          "_note": "its first ship, the carrier HMS Furious. Raw position inside a vanilla panel: when the mod reworks the fleet panel, replace it with a clickWidget step."
+          "_note": "its first ship, the carrier HMS Furious"
         }
       ],
       "hide": {
@@ -219,7 +221,7 @@
   "crop": [
     0,
     60,
-    1700,
+    1960,
     700
   ],
   "manual": [

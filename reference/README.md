@@ -37,9 +37,16 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A3 | ship details window | [ship_details.jpg](vanilla/ship_details.jpg) | [ship_details-panel.png](vanilla/ship_details-panel.png) | 1.19.3.0 | 2026-10-08 |
 | A3 | ship details window, carrier | [ship_details-carrier.jpg](vanilla/ship_details-carrier.jpg) | [ship_details-carrier-panel.png](vanilla/ship_details-carrier-panel.png) | 1.19.3.0 | 2026-10-08 |
 | A3 | ship details window, history | [ship_details-history.jpg](vanilla/ship_details-history.jpg) | [ship_details-history-panel.png](vanilla/ship_details-history-panel.png) | 1.19.3.0 | 2026-10-08 |
-| A4 | navy and fleet panel | [fleet.jpg](vanilla/fleet.jpg) | [fleet-panel.png](vanilla/fleet-panel.png) | 1.19.3.0 | 2026-10-08 |
-| A4 | navy and fleet panel, composition | [fleet-composition.jpg](vanilla/fleet-composition.jpg) | [fleet-composition-panel.png](vanilla/fleet-composition-panel.png) | 1.19.3.0 | 2026-10-08 |
-| A4 | navy and fleet panel, home-base | [fleet-home-base.jpg](vanilla/fleet-home-base.jpg) | [fleet-home-base-panel.png](vanilla/fleet-home-base-panel.png) | 1.19.3.0 | 2026-10-08 |
+| A4 | navy and fleet panel | [fleet.jpg](vanilla/fleet.jpg) | [fleet-panel.png](vanilla/fleet-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A4 | navy and fleet panel, british | [fleet-british.jpg](vanilla/fleet-british.jpg) | [fleet-british-panel.png](vanilla/fleet-british-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A4 | navy and fleet panel, british-task-forces | [fleet-british-task-forces.jpg](vanilla/fleet-british-task-forces.jpg) | [fleet-british-task-forces-panel.png](vanilla/fleet-british-task-forces-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A4 | navy and fleet panel, composition | [fleet-composition.jpg](vanilla/fleet-composition.jpg) | [fleet-composition-panel.png](vanilla/fleet-composition-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A4 | navy and fleet panel, home-base | [fleet-home-base.jpg](vanilla/fleet-home-base.jpg) | [fleet-home-base-panel.png](vanilla/fleet-home-base-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A4 | navy and fleet panel, ship-selected | [fleet-ship-selected.jpg](vanilla/fleet-ship-selected.jpg) | [fleet-ship-selected-panel.png](vanilla/fleet-ship-selected-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A4 | navy and fleet panel, task-forces | [fleet-task-forces.jpg](vanilla/fleet-task-forces.jpg) | [fleet-task-forces-panel.png](vanilla/fleet-task-forces-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A4 | task force composition editor and the ship class picker that opens with it | [fleet_composition.jpg](vanilla/fleet_composition.jpg) | [fleet_composition-panel.png](vanilla/fleet_composition-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A4 | home base picker of the fleet card | [fleet_home_base.jpg](vanilla/fleet_home_base.jpg) | [fleet_home_base-panel.png](vanilla/fleet_home_base-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A4 | fleet_transfer | [fleet_transfer.jpg](vanilla/fleet_transfer.jpg) | [fleet_transfer-panel.png](vanilla/fleet_transfer-panel.png) | 1.19.3.0 | 2026-10-11 |
 | A5 | Recruit & Deploy and Division Templates panels | [recruit_deploy.jpg](vanilla/recruit_deploy.jpg) | [recruit_deploy-panel.png](vanilla/recruit_deploy-panel.png) | 1.19.3.0 | 2026-10-08 |
 | A6 | army overview tab | [army_overview.jpg](vanilla/army_overview.jpg) | [army_overview-panel.png](vanilla/army_overview-panel.png) | 1.19.3.0 | 2026-10-08 |
 | A6 | army overview tab, air | [army_overview-air.jpg](vanilla/army_overview-air.jpg) | [army_overview-air-panel.png](vanilla/army_overview-air-panel.png) | 1.19.3.0 | 2026-10-08 |
@@ -91,3 +98,13 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A3 | ship details window, history | [ship_details-history.jpg](mod/ship_details-history.jpg) | [ship_details-history-panel.png](mod/ship_details-history-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
 | A3 | ship details window, hk-history | [ship_details-hk-history.jpg](mod/ship_details-hk-history.jpg) | [ship_details-hk-history-panel.png](mod/ship_details-hk-history-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
 | A3 | ship details window, hk-stats | [ship_details-hk-stats.jpg](mod/ship_details-hk-stats.jpg) | [ship_details-hk-stats-panel.png](mod/ship_details-hk-stats-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
+| A4 | navy and fleet panel | [fleet.jpg](mod/fleet.jpg) | [fleet-panel.png](mod/fleet-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A4 | navy and fleet panel, british | [fleet-british.jpg](mod/fleet-british.jpg) | [fleet-british-panel.png](mod/fleet-british-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A4 | navy and fleet panel, british-task-forces | [fleet-british-task-forces.jpg](mod/fleet-british-task-forces.jpg) | [fleet-british-task-forces-panel.png](mod/fleet-british-task-forces-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A4 | navy and fleet panel, composition | [fleet-composition.jpg](mod/fleet-composition.jpg) | [fleet-composition-panel.png](mod/fleet-composition-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A4 | navy and fleet panel, home-base | [fleet-home-base.jpg](mod/fleet-home-base.jpg) | [fleet-home-base-panel.png](mod/fleet-home-base-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A4 | navy and fleet panel, ship-selected | [fleet-ship-selected.jpg](mod/fleet-ship-selected.jpg) | [fleet-ship-selected-panel.png](mod/fleet-ship-selected-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A4 | navy and fleet panel, task-forces | [fleet-task-forces.jpg](mod/fleet-task-forces.jpg) | [fleet-task-forces-panel.png](mod/fleet-task-forces-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A4 | task force composition editor and the ship class picker that opens with it | [fleet_composition.jpg](mod/fleet_composition.jpg) | [fleet_composition-panel.png](mod/fleet_composition-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A4 | home base picker of the fleet card | [fleet_home_base.jpg](mod/fleet_home_base.jpg) | [fleet_home_base-panel.png](mod/fleet_home_base-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A4 | fleet_transfer | [fleet_transfer.jpg](mod/fleet_transfer.jpg) | [fleet_transfer-panel.png](mod/fleet_transfer-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |

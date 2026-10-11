@@ -1,0 +1,50 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 2674-2719.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "naval_base_selection_item"
+		position = { x=0 y=0 }
+		size = { width=272 height=35 }
+		clipping = no
+
+		background = {
+			name = "Background"
+			spriteType ="GFX_deploy_port_fleet_bg"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "icon"
+			position = { x=0 y=4 }
+			spriteType = "GFX_deploy_port_fleet_icons"
+		}
+
+		iconType = {
+			name = "naval_headquarter_icon"
+			position = { x= 35 y = 4 }
+			scale = 0.6
+			quadTextureSprite ="GFX_buildings_strip"
+			hide = yes
+		}
+
+		iconType = {
+			name = "naval_supply_icon"
+			position = { x= 60 y = 4 }
+			scale = 0.6
+			quadTextureSprite ="GFX_buildings_strip"
+			hide = yes
+		}
+
+		instantTextboxType = {
+			name = "name"
+			position = { x = 120 y = 9 }
+			font = "hoi_18b"
+			borderSize = {x = 0 y = 0}
+			text = "somewhere"
+			maxWidth = 272
+			maxHeight = 25
+			format = left
+			alwaystransparent = yes
+		}
+	}
+}

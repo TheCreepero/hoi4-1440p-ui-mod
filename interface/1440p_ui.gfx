@@ -202,4 +202,109 @@ spriteTypes = {
 		tilingCenter = yes
 		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
 	}
+
+	# A4, fleet panel, 740 wide. Every texture below is a vanilla texture widened by
+	# tools/stretch_background.py.
+
+	# Fleet card and the gold outline of a selected one.
+	spriteType = {
+		name = "GFX_1440p_FL_fleet_bg"
+		texturefile = "gfx/interface/1440p_ui/fl_fleet_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_FL_fleet_bg_hl"
+		texturefile = "gfx/interface/1440p_ui/fl_fleet_bg_hl.dds"
+	}
+
+	# Task force card and its outline.
+	spriteType = {
+		name = "GFX_1440p_FL_task_force_bg"
+		texturefile = "gfx/interface/1440p_ui/fl_task_force_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_FL_task_force_bg_hl"
+		texturefile = "gfx/interface/1440p_ui/fl_task_force_bg_hl.dds"
+	}
+
+	# Toolbar plate between the fleet card and the task forces.
+	spriteType = {
+		name = "GFX_1440p_FL_task_force_actions_bg"
+		texturefile = "gfx/interface/1440p_ui/fl_task_force_actions_bg.dds"
+	}
+
+	# Ship rows, 741x41 for a row 35 high. Frame 1 unselected, frame 2 selected.
+	spriteType = {
+		name = "GFX_1440p_FL_ship_entry"
+		texturefile = "gfx/interface/1440p_ui/fl_ship_entry.dds"
+		noOfFrames = 2
+	}
+
+	spriteType = {
+		name = "GFX_1440p_FL_ship_entry_highlight"
+		texturefile = "gfx/interface/1440p_ui/fl_ship_entry_highlight.dds"
+	}
+
+	# Home base button of the fleet card, 184 wide, so that a base name of 150 px fits.
+	spriteType = {
+		name = "GFX_1440p_FL_home_base_button"
+		texturefile = "gfx/interface/1440p_ui/fl_home_base_button.dds"
+	}
+
+	# Organisation and strength bars of a ship row, drawn lying down at 46x8.
+	# The vanilla 28x6 gradient textures themselves; the bar size stretches them.
+	progressbartype = {
+		name = "GFX_1440p_FL_bar_org"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 46 y = 8 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_FL_bar_str"
+		textureFile1 = "gfx/interface/navieslist_bar_str.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 46 y = 8 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+	}
+
+	# A4 step 2: the pop-ups of the fleet panel.
+
+	# Composition editor, 604 wide: its header and menu bar, a ship class row and the "+" row.
+	spriteType = {
+		name = "GFX_1440p_FL_comp_editor_bar"
+		texturefile = "gfx/interface/1440p_ui/fl_comp_editor_bar.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_FL_comp_entry"
+		texturefile = "gfx/interface/1440p_ui/fl_comp_entry.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_FL_comp_add"
+		texturefile = "gfx/interface/1440p_ui/fl_comp_add.dds"
+	}
+
+	# Row of the home base picker, 415 wide.
+	spriteType = {
+		name = "GFX_1440p_FL_home_base_entry"
+		texturefile = "gfx/interface/1440p_ui/fl_home_base_entry.dds"
+	}
+
+	# "Select Ships to Transfer", 695 wide: its header and a ship row of 653x41.
+	spriteType = {
+		name = "GFX_1440p_FL_transfer_header"
+		texturefile = "gfx/interface/1440p_ui/fl_transfer_header.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_FL_transfer_ship_entry"
+		texturefile = "gfx/interface/1440p_ui/fl_transfer_ship_entry.dds"
+		noOfFrames = 2
+	}
 }

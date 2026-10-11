@@ -1,0 +1,50 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 2195-2240.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "move_ship_entry"
+		position = {x=0 y=0}
+		size = { width=460 height=46 }
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_naval_unit_ship_entry"
+		}
+
+		iconType = {
+			name = "pride"
+			position = {x=3 y=10}
+			spriteType = "GFX_NV_icon_pride"
+			scale = 0.8
+		}
+
+
+		instantTextboxType = {
+			name = "ship_name"
+			position = {x=120 y=4}
+			font = "hoi_18mbs"
+			maxWidth = 300
+			maxHeight = 23
+			format = left
+		}
+
+		instantTextboxType = {
+			name = "ship_type"
+			position = {x=120 y=22}
+			font = "hoi_16mbs"
+			maxWidth = 300
+			maxHeight = 23
+			format = left
+			text = "USS Enterprise"
+		}
+
+		iconType = {
+			name = "ship_icon"
+			position = {x=25 y=16} # Y is centered in code
+			alwaystransparent = yes
+			spriteType = "GFX_navalcombat_ship_icon_unknown"
+		}
+	}
+}

@@ -158,11 +158,13 @@ class WindowIndex:
         return None, None, None
 
     def variables(self, path):
-        """@name -> value defined at file level in a .gui file."""
+        """@name -> value defined in a .gui file: at file level, or inside a window (naviesview.gui
+        defines @nv_tb_btn_y inside its toolbar, and that definition travels with the window)."""
         out = {}
-        for child in self._root(path).children:
-            if child.children is None and child.key.startswith("@") and child.value is not None:
-                out[child.key] = child.value
+        for block in self._root(path).walk():
+            for child in block.children or []:
+                if child.children is None and child.key.startswith("@") and child.value is not None:
+                    out.setdefault(child.key, child.value)
         return out
 
 
@@ -221,6 +223,10 @@ class Renderer:
             self.hidden.add(("*", n))
         for n, at in (self.options.get("place") or {}).items():
             self.placements[("*", n)] = at
+        # containers the code fills from left to right instead of top to bottom (composition counters)
+        self.across = set()
+        for w in self.scene.get("windows") or []:
+            self.across |= set(w.get("rowsAcross") or [])
         self.clip_default = self.options.get("clip_default", "no") == "yes"
         self.frame_override = self.options.get("frame")
 
@@ -616,17 +622,21 @@ class Renderer:
 
     def fill_rows(self, rows, rect, canvas, window_name, list_name, depth, inner_clip, spacing):
         count = self.row_count(window_name, list_name, default=None)
-        cy = rect.y
+        across = list_name in self.across
+        cx, cy = rect.x, rect.y
         i = 0
         while True:
             if count is not None and i >= count:
                 break
-            if count is None and cy >= rect.bottom:
+            if count is None and (cx >= rect.right if across else cy >= rect.bottom):
                 break
-            row_rect = self.render_window(rows[i % len(rows)], canvas, (rect.x, cy), depth=depth + 1, clip=inner_clip)
-            if row_rect is None or row_rect.h <= 0:
+            row_rect = self.render_window(rows[i % len(rows)], canvas, (cx, cy), depth=depth + 1, clip=inner_clip)
+            if row_rect is None or (row_rect.w if across else row_rect.h) <= 0:
                 break
-            cy += row_rect.h + spacing
+            if across:
+                cx += row_rect.w + spacing
+            else:
+                cy += row_rect.h + spacing
             i += 1
             if i > 200:
                 break
@@ -889,7 +899,8 @@ class Renderer:
                     return [rows] if isinstance(rows, str) else list(rows)
         out = []
         for pair in self.links.get("entryPairs", []):
-            if pair.get("grid") in keys:
+            # a pair that names its window fills that window's grid only (two windows have a templates_grid)
+            if pair.get("grid") in keys and pair.get("window") in (None, window_name):
                 out.append(pair["entry"])
         for pair in self.links.get("listRows", []):
             if pair.get("list") in keys:
@@ -1043,6 +1054,8 @@ def layout_scene(renderer, scene, canvas):
         prefer = os.path.join(REPO_ROOT, "interface", scene["file"])
     rects = []
     for w in scene.get("windows", []):
+        if w.get("skip"):   # a row window, listed for its "hide" list only: another window draws it
+            continue
         at = w.get("at")
         if renderer.vanilla_only and w.get("atVanilla") is not None:
             # a window the code places next to others sits elsewhere without the mod's sizes

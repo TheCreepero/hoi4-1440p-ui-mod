@@ -1,0 +1,73 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 2262-2330.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "task_force_composition_editor_entry"
+		position = {x=0 y=0}
+		size = { width=460 height=49 }
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_task_force_comp_unit_bg"
+		}
+
+		buttonType = {
+			name = "btn_remove"
+			spriteType = "GFX_hold"
+			position = { x=8 y=8 }
+		}
+
+		instantTextboxType = {
+			name = "ship_name"
+			position = {x=196 y=12}
+			font = "hoi_18mbs"
+			maxWidth = 220
+			maxHeight = 23
+			format = left
+		}
+
+		iconType = {
+			name = "ship_icon"
+			position = {x=50 y=26} # Y is centered in code
+			alwaystransparent = yes
+			spriteType = "GFX_navalcombat_ship_icon_unknown"
+		}
+
+		buttonType = {
+			name = "role_button"
+			position = { x=150 y=9 }
+			spriteType = "GFX_naval_equipment_role_icon_any"
+			scale = 0.865
+		}
+
+		positionType = {
+			name = "role_icon_selection_window_pos"
+			position = { x=184 y=-2 }
+		}
+
+		buttonType = {
+			name = "btn_decrease"
+			position = { x=372 y=10 }
+			spriteType = "GFX_subtract_one"
+		}
+
+		instantTextboxType = {
+			name = "amount"
+			position = { x=404 y=14 }
+			font = "hoi_16mbs"
+			maxWidth = 50
+			maxHeight = 23
+			format = center
+			text = "99/99"
+		}
+
+		buttonType = {
+			name = "btn_increase"
+			position = { x=450 y=10 }
+			spriteType = "GFX_add_one"
+		}
+
+	}
+}

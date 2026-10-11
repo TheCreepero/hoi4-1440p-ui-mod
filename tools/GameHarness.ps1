@@ -199,6 +199,8 @@ function Start-HoiNewGame {
 #                that defines the widget (the row window for a widget of a row); #n is the n-th drawn
 #                instance. Optional: scene (whose layout to use, default the current scene),
 #                offset [dx, dy], button "right".
+#   dragWidget: ["window/widget", "window/widget"]   press on the first widget, release on the second, both
+#                found by name like clickWidget (same optional scene): a drag and drop inside a panel
 #   move: "<name>"            the steps of a shared move from tools/moves.json
 #   click: [x, y]             a raw screen position; only for the map, whose Home camera never changes
 #   rightClick: [x, y]        drag: [x1, y1, x2, y2] (box selection)
@@ -306,6 +308,12 @@ function Invoke-HoiSteps {
             $x = $at[0]; $y = $at[1]
             if ($step.offset) { $x += [int]$step.offset[0]; $y += [int]$step.offset[1] }
             Send-HoiClick -X $x -Y $y -Right:($step.button -eq 'right')
+        }
+        elseif ($step.dragWidget) {
+            $stepScene = if ($step.scene) { [string]$step.scene } else { $Scene }
+            $from = Resolve-HoiWidget -Spec ([string]$step.dragWidget[0]) -Scene $stepScene
+            $to = Resolve-HoiWidget -Spec ([string]$step.dragWidget[1]) -Scene $stepScene
+            Send-HoiDrag -X1 $from[0] -Y1 $from[1] -X2 $to[0] -Y2 $to[1]
         }
         elseif ($step.key) { Send-HoiKey -Key ([string]$step.key) }
         elseif ($step.click) { Send-HoiClick -X ([int]$step.click[0]) -Y ([int]$step.click[1]) }

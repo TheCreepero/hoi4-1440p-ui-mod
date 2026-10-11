@@ -1,0 +1,45 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 2153-2193.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "task_force_composition_editor_sub_unit_entry_window"
+		position = { x=0 y=0 }
+		size={ width=355 height=47 }
+
+		background = {
+			name = "Background"
+			spriteType = "GFX_task_force_comp_small_bg"
+		}
+
+		iconType = {
+			name = "ship_icon"
+			position = {x=15 y=26} # Y is centered in code
+			spriteType = "GFX_navalcombat_ship_icon_unknown"
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "role_icon_ph"
+			position = { x=115 y=8 }
+			spriteType = "GFX_role_icon_placeholder"
+			alwaystransparent = yes
+		}
+
+		positionType = {
+			name = "role_icon_selection_window_pos"
+			position = { x=140 y=-2 }
+		}
+
+		instantTextboxType = {
+			name = "ship_name"
+			position = {x=160 y=12}
+			font = "hoi_18mbs"
+			maxWidth = 300
+			maxHeight = 23
+			fixedsize = yes
+			format = left
+			alwaystransparent = yes
+		}
+
+	}
+}

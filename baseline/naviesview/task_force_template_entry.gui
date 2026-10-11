@@ -1,0 +1,23 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 2242-2260.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "task_force_template_entry"
+		position = { x=0 y=0 }
+		size = { width=268 height=20 }
+
+		background = {
+			name = "background"
+			spriteType = "GFX_tiled_window_transparent"
+		}
+
+		instantTextboxType = {
+			name = "label"
+			position = { x=0 y=0 }
+			font = "hoi_18mbs"
+			text = "Template entry"
+			maxWidth = 268
+		}
+
+	}
+}

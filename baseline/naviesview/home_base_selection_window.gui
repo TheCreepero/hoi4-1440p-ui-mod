@@ -1,0 +1,129 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 2548-2672.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "home_base_selection_window"
+		position = { x=490 y=78}
+		size = { width=375 height=70%% }
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_tiled_plain_bg"
+		}
+
+		instantTextboxType = {
+			name = "homebase_title"
+			position = { x = -240 y = 6 }
+			textureFile = ""
+			font = "hoi_20b"
+			borderSize = {x = 0 y = 0}
+			text = "HOMEBASE_WINDOW_TITLE"
+			maxWidth = 200
+			maxHeight = 20
+			format = left
+			fixedsize = yes
+			Orientation = "UPPER_RIGHT"
+		}
+
+		checkboxType = {
+			name = "show_subject_bases"
+			position = { x = -350 y = 20 }
+			quadTextureSprite ="GFX_generic_checkbox"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_checkbox
+		}
+
+		instantTextboxType = {
+			name = "subject_title"
+			position = { x = -310 y = 25 }
+			textureFile = ""
+			font = "hoi_20b"
+			borderSize = {x = 0 y = 0}
+			text = "SUBJECT_NAVAL_BASES"
+			maxWidth = 200
+			maxHeight = 20
+			format = left
+			fixedsize = yes
+			Orientation = "UPPER_RIGHT"
+		}
+
+		checkboxType = {
+			name = "show_faction_bases"
+			position = { x = -350 y = 56 }
+			quadTextureSprite ="GFX_generic_checkbox"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_checkbox
+		}
+
+		instantTextboxType = {
+			name = "faction_title"
+			position = { x = -310 y = 61 }
+			textureFile = ""
+			font = "hoi_20b"
+			borderSize = {x = 0 y = 0}
+			text = "FACTION_NAVAL_BASES"
+			maxWidth = 200
+			maxHeight = 20
+			format = left
+			fixedsize = yes
+			Orientation = "UPPER_RIGHT"
+		}
+
+		checkboxType = {
+			name = "show_accessible_bases"
+			position = { x = -350 y = 92 }
+			quadTextureSprite ="GFX_generic_checkbox"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_checkbox
+		}
+
+		instantTextboxType = {
+			name = "accessible_title"
+			position = { x = -310 y = 97 }
+			textureFile = ""
+			font = "hoi_20b"
+			borderSize = {x = 0 y = 0}
+			text = "ACCESSIBLE_NAVAL_BASES"
+			maxWidth = 200
+			maxHeight = 20
+			format = left
+			fixedsize = yes
+			Orientation = "UPPER_RIGHT"
+		}
+
+		containerWindowType = {
+			name = "home_base_selection"
+			position = { x=0 y=126 }
+			size = { width=100%% height=100%% }
+			verticalScrollbar = "right_vertical_slider"
+			smooth_scrolling = yes
+			margin = { top = 14 bottom = 12}
+
+			background = {
+				name = "Background"
+				quadTextureSprite ="GFX_tiled_bg_1_scrollbar"
+			}
+
+			gridboxtype = {
+				name = "home_base_selection_grid"
+				position = { x = 14 y = 0 }
+				size = { width = 100%% height = 100%% }
+				slotsize = { width = 335 height = 36 }
+				format = "UPPER_LEFT"
+				max_slots_horizontal = 1
+			}
+		}
+
+		buttonType = {
+			name = "close"
+			position = { x = -50 y = 5 }
+			quadTextureSprite ="GFX_closebutton"
+			buttonFont = "Main_14_black"
+			shortcut = "ESCAPE"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+		}
+
+	}
+}

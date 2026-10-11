@@ -402,6 +402,78 @@ def stat_tile(source, width=122, height=52, cap=6, top=16, bottom=4, plain_colum
     return out
 
 
+# ---------------------------------------------------------------------------------------------
+# A4: fleet panel. Every bitmap of the panel is 493 columns wide in vanilla (the panel is 492) and
+# grows by FLEET_GROWTH columns. The fleet card and the task force card are painted alike: a blue
+# title bar with a black name plate (columns 44-302), boxes on scratched metal, a tray.
+FLEET_GROWTH = 248        # 492 -> 740 px: one line per ship with the class name whole
+FLEET_PLATE = 148         # of which the name plate takes this much
+SHIP_ROW_CUT = [(14, 3), (26, 3)]   # a ship row loses 6 rows: 41 -> 35 px per row
+
+
+def cut(image, axis, spans):
+    """Remove columns (axis "x") or rows (axis "y"): `spans` lists (first, count) in the lines of the
+    image as passed in. Short spans spread over a gradient leave no visible step."""
+    horizontal = axis == "x"
+    w, h = image.size
+    keep, at = [], 0
+    for first, count in sorted(spans):
+        keep.append(image.crop((at, 0, first, h) if horizontal else (0, at, w, first)))
+        at = first + count
+    keep.append(image.crop((at, 0, w, h) if horizontal else (0, at, w, h)))
+    return join(keep, axis)
+
+
+def fleet_card(source):
+    """Fleet card, 493x166 to 741x166. Bands of rows:
+      0-39     title bar: the name plate grows, the count badge (columns 322-405, its rim down to
+               row 37) moves with it
+      40-92    commander: the name box (columns 78-224) and the stats box (224-297) grow by 60 each
+      93-128   composition tray (columns 78-405)
+      129-165  metal and the blue footer
+    """
+    rest = FLEET_GROWTH - FLEET_PLATE
+    return grow_bands(source, "x", [
+        (0, 40, stretched(70, 280, FLEET_PLATE) + stretched(412, 480, rest)),
+        (40, 93, stretched(90, 215, 60) + stretched(232, 290, 60) + stretched(310, 460, FLEET_GROWTH - 120)),
+        (93, 129, stretched(90, 395, FLEET_GROWTH)),
+        (129, source.height, stretched(20, 460, FLEET_GROWTH)),
+    ])
+
+
+TASK_FORCE_TRAY = (79, 39)   # rows of the composition tray, which the wide card does without
+
+
+def task_force_card(source):
+    """Task force card, 493x125 to 741x86. Bands of rows:
+      0-31     title bar, as on the fleet card
+      32-78    the mission box (columns 8-380) takes the growth but 30 columns, which go to the
+               box for the order buttons (387-482)
+      79-117   composition tray (columns 8-482): cut, the counters sit in the mission box
+      118-124  bottom edge
+    """
+    rest = FLEET_GROWTH - FLEET_PLATE
+    wide = grow_bands(source, "x", [
+        (0, 32, stretched(70, 280, FLEET_PLATE) + stretched(310, 480, rest)),
+        (32, 79, stretched(20, 370, FLEET_GROWTH - 30) + stretched(395, 475, 30)),
+        (79, source.height, stretched(20, 470, FLEET_GROWTH)),
+    ])
+    return cut(wide, "y", [TASK_FORCE_TRAY])
+
+
+POPUP_GROWTH = 80         # composition editor and home base picker: 524 -> 604 and 375 -> 455
+TRANSFER_GROWTH = 160     # "Select Ships to Transfer": 535 -> 695, a ship on one line
+
+
+def ship_row(right_cap, growth=FLEET_GROWTH):
+    """One frame of the ship row, 493x47 to 741x41 (or by another growth): a fine mesh that repeats
+    every 29 columns, edge bars in rows 0-5 and 40-46, and (selected frame) a chevron in the last columns."""
+    def widen(frame):
+        wide = widen_periodic(frame, frame.width + growth, period=29, split=330, top=6, bottom=40, right_cap=right_cap)
+        return cut(wide, "y", SHIP_ROW_CUT)
+    return widen
+
+
 # One entry per output texture. `frames` lists one widening call per frame of the source, left to right;
 # `compose` is a function that builds the whole output from the source instead.
 JOBS = [
@@ -528,6 +600,93 @@ JOBS = [
         "source": "gfx/interface/army_hq_unit_details_bg.dds",
         "output": "ud_template_hq_bg.dds",
         "compose": hq_board,
+    },
+    {
+        # A4, fleet card.
+        "source": "gfx/interface/naviesview/fleet_bg.dds",
+        "output": "fl_fleet_bg.dds",
+        "compose": fleet_card,
+    },
+    {
+        # Gold outline of a selected fleet card, 497 to 745 wide: plain lines between its corners.
+        "source": "gfx/interface/naviesview/fleet_bg_hl.dds",
+        "output": "fl_fleet_bg_hl.dds",
+        "compose": lambda source: grow(source, "x", [(250, FLEET_GROWTH)]),
+    },
+    {
+        "source": "gfx/interface/naviesview/task_force_bg.dds",
+        "output": "fl_task_force_bg.dds",
+        "compose": task_force_card,
+    },
+    {
+        "source": "gfx/interface/naviesview/task_force_bg_hl.dds",
+        "output": "fl_task_force_bg_hl.dds",
+        "compose": lambda source: cut(grow(source, "x", [(250, FLEET_GROWTH)]), "y", [(45, TASK_FORCE_TRAY[1])]),
+    },
+    {
+        # Toolbar plate between the fleet card and the task forces: scratched metal with a rivet
+        # in each corner.
+        "source": "gfx/interface/naviesview/task_force_actions_bg.dds",
+        "output": "fl_task_force_actions_bg.dds",
+        "compose": lambda source: grow(source, "x", stretched(20, 470, FLEET_GROWTH)),
+    },
+    {
+        # Ship rows: frame 1 unselected, frame 2 selected (lighter, with a chevron at the right end).
+        "source": "gfx/interface/naval_unit_ship_entry.dds",
+        "output": "fl_ship_entry.dds",
+        "frames": [ship_row(12), ship_row(34)],
+    },
+    {
+        # Gold outline of a selected ship row, 490x43 to 738x37: plain lines and a thick right end.
+        "source": "gfx/interface/naviesview/naval_unit_ship_entry_highlight.dds",
+        "output": "fl_ship_entry_highlight.dds",
+        "compose": lambda source: cut(grow(source, "x", [(245, FLEET_GROWTH)]), "y", [(12, 2), (20, 2), (28, 2)]),
+    },
+    {
+        # Home base button of the fleet card, 124 to 184 wide: an anchor badge and a name bar that
+        # is plain between columns 45 and 115.
+        "source": "gfx/interface/naval_deploy_button.dds",
+        "output": "fl_home_base_button.dds",
+        "compose": lambda source: grow(source, "x", stretched(45, 115, 60)),
+    },
+    {
+        # A4 step 2. Row of the composition editor, 493 to 573 wide: a plate for the remove button
+        # (columns 0-40), then a plain bar.
+        "source": "gfx/interface/task_force_comp_unit_bg.dds",
+        "output": "fl_comp_entry.dds",
+        "compose": lambda source: grow(source, "x", stretched(60, 470, POPUP_GROWTH)),
+    },
+    {
+        # The "+" row under them: a plain bar.
+        "source": "gfx/interface/task_force_comp_add_bg.dds",
+        "output": "fl_comp_add.dds",
+        "compose": lambda source: grow(source, "x", stretched(30, 470, POPUP_GROWTH)),
+    },
+    {
+        # Header and menu bar of the composition editor, 505 to 585 wide: scratched metal, rivets
+        # in the corners.
+        "source": "gfx/interface/frontend_task_force_composition_editor_upper_bar.dds",
+        "output": "fl_comp_editor_bar.dds",
+        "compose": lambda source: grow(source, "x", stretched(30, 475, POPUP_GROWTH)),
+    },
+    {
+        # Row of the home base picker, 335 to 415 wide: an icon plate (columns 0-33), then a
+        # meshed name bar.
+        "source": "gfx/interface/deploy_port_fleet_bg.dds",
+        "output": "fl_home_base_entry.dds",
+        "compose": lambda source: grow(source, "x", stretched(60, 320, POPUP_GROWTH)),
+    },
+    {
+        # Header of the transfer window, 516 to 676 wide.
+        "source": "gfx/interface/tradeview/trade_header.dds",
+        "output": "fl_transfer_header.dds",
+        "compose": lambda source: grow(source, "x", stretched(30, 490, TRANSFER_GROWTH)),
+    },
+    {
+        # Ship rows of the transfer window, 653x41.
+        "source": "gfx/interface/naval_unit_ship_entry.dds",
+        "output": "fl_transfer_ship_entry.dds",
+        "frames": [ship_row(12, TRANSFER_GROWTH), ship_row(34, TRANSFER_GROWTH)],
     },
 ]
 

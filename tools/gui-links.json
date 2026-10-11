@@ -1,13 +1,47 @@
 {
-  "_comment": "Links the engine makes in code between lists and the windows that fill them. Read by tests/GuiInvariants.Tests.ps1, tools/render_gui.py and tools/Invoke-GameCheck.ps1. Add a row per reworked list.",
+  "_comment": "Links the engine makes in code between lists and the windows that fill them. Read by tests/GuiInvariants.Tests.ps1, tools/render_gui.py and tools/Invoke-GameCheck.ps1. Add a row per reworked list. An entry pair may name the top-level 'window' that holds its grid, for grid names that two windows share.",
   "entryPairs": [
     {
       "grid": "divisions_grid",
-      "entry": "unit_template_entry"
+      "entry": "unit_template_entry",
+      "window": "army_division_list_view"
     },
     {
       "grid": "templates_grid",
+      "entry": "unit_template_entry",
+      "window": "army_division_list_view"
+    },
+    {
+      "grid": "divisions_grid",
+      "window": "army_division_stats_view",
       "entry": "unit_template_entry"
+    },
+    {
+      "grid": "detailed_fleet_box",
+      "entry": "fleet_view_header"
+    },
+    {
+      "grid": "templates_grid",
+      "window": "task_force_composition_editor_window",
+      "entry": "task_force_template_entry"
+    },
+    {
+      "grid": "sub_unit_box",
+      "entry": "task_force_composition_editor_sub_unit_entry_window"
+    },
+    {
+      "grid": "home_base_selection_grid",
+      "entry": "naval_base_selection_item"
+    },
+    {
+      "grid": "ships_grid",
+      "window": "task_force_composition_editor_window",
+      "entry": "task_force_composition_editor_entry"
+    },
+    {
+      "grid": "ships_grid",
+      "window": "move_ships_window",
+      "entry": "move_ship_entry"
     }
   ],
   "listRows": [
@@ -57,6 +91,12 @@
       "list": "history_grid",
       "row": "army_history_entry",
       "_comment": "The same entry fills the history list of the division and of the ship details window."
+    },
+    {
+      "listWindow": "taskforce_view_entry",
+      "list": "ships_detailed",
+      "row": "ship_entry_detailed",
+      "_comment": "The code inserts the ship rows into this container of the task force card, one below the other."
     }
   ],
   "variables": {

@@ -1,0 +1,60 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 2096-2151.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "task_force_composition_editor_sub_unit_selection_window"
+		size = { width=400 height=370 }
+		position = { x=0 y=0 }
+		margin = { bottom=12 }
+
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_window_1b_border"
+		}
+
+		instantTextboxType = {
+			name = "header_text"
+			position = { x = 16 y = 16 }
+			font = "hoi_20bs"
+			borderSize = {x = 0 y = 0}
+			text = "NAVAL_SUB_UNIT_DEF_SELECTION_WINDOW_TITLE"
+			maxWidth = 340
+			maxHeight = 20
+			format = center
+		}
+
+		buttonType = {
+			name = "btn_close"
+			position = { x=345 y=12 }
+			spriteType = "GFX_NV_btn_close"
+			pdx_tooltip = "CLOSE"
+			shortcut = "ESCAPE"
+		}
+
+		containerWindowType = {
+			name = "sub_unit_list_window"
+			position = { x=16 y=48 }
+			size = { width=100%% height=100%% }
+			verticalScrollbar = "right_vertical_slider"
+			smooth_scrolling = yes
+			vertical_scroll_step = 43
+			scroll_wheel_factor = 43
+			margin = { right=14 }
+
+			background = {
+				name = "Background"
+				spriteType = "GFX_tiled_window_transparent"
+			}
+
+			gridBoxType = {
+				name = "sub_unit_box"
+				position = { x=0 y=0 }
+				size = { width=100% height=100% }
+				format = "UPPER_LEFT"
+				max_slots_horizontal = 1
+				slotsize = { width=250 height=43 }
+			}
+
+		}
+	}
+}

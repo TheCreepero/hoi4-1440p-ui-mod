@@ -1,0 +1,22 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 2077-2094.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "task_force_composition_editor_new_entry"
+		position = { x=0 y=0 }
+		size = { width=400 height=47 }
+
+		background = {
+			name = "Background"
+			spriteType = "GFX_task_force_comp_add_bg"
+			frame = 1
+		}
+
+		iconType = {
+			name = "plus_icon"
+			spriteType = "GFX_new_regiment_slot"
+			position = { x=200 y=3 }
+			alwaystransparent = yes
+		}
+	}
+}

@@ -19,6 +19,7 @@ Use the first kind in this list that can do the job. The order is how long a ste
 |---|---|---|
 | A hotkey | `{ "key": "u" }`, `{ "key": "shift+q" }`, `{ "key": "escape" }` | the game changes the key |
 | A click on a widget by name | `{ "clickWidget": "army_division_view/unitinfo_button" }` | the widget is renamed, which the mod never does |
+| A drag between two widgets by name | `{ "dragWidget": ["ship_entry_compact/ship_button#4", "taskforce_view_entry/unit_name#1"] }` | either widget is renamed |
 | A shared move | `{ "move": "select_army_1" }` | its own steps break |
 | A raw position | `{ "click": [1592, 828] }`, `{ "rightClick": [x, y] }`, `{ "drag": [x1, y1, x2, y2] }` | anything at that spot moves |
 | A console command | `{ "console": "tag GER" }` | the command changes |
@@ -26,6 +27,8 @@ Use the first kind in this list that can do the job. The order is how long a ste
 Every step takes an optional `"wait": <seconds>` and a `"_note"`.
 
 **Clicks by name.** `clickWidget` asks the renderer where the widget sits (`render_gui.py --scene <scene> --locate <spec>`), so the step follows every layout change and works for the vanilla and the modded window alike. The spec is `window/widget`, where the window is the top-level window that defines the widget: for a button of a list row that is the row window. `#n` picks the n-th drawn instance, counted from 0. The layout comes from the current scene; `"scene": "<other>"` borrows another scene's, and `"offset": [dx, dy]` and `"button": "right"` adjust the click.
+
+**A widget the code moves needs an offset.** The game centres a ship's icon in its row, 12 px above where the file puts it, so the step that opens the ship details is `{ "clickWidget": "ship_entry_detailed/ship_button", "scene": "fleet", "offset": [0, -12] }`.
 
 **Raw positions** are for the map and for vanilla panels the mod has not reworked yet. Map positions are measured in the Home view. A raw position inside a panel breaks the day that panel is reworked; the move's `_note` says so, and the fix is a `clickWidget` step.
 
@@ -51,7 +54,10 @@ Surveyed on game 1.19.3 on 2026-10-08, each recipe run unattended with the mod a
 | A3 | `division_details` | `select_army_1`, sort by name, then click `army_division_view/unitinfo_button` | verified, mod and vanilla; extra captures: History and Template tabs, both dropdowns, a tank and a motorised division (each a further window) |
 | A3 | `ship_details` | `open_ship_details` | verified, mod and vanilla; extra captures: History tab, a British carrier (`tag ENG`; the scene's `teardown` switches back) |
 | A3 | `air_wing_details` | `select_airbase`, then click `airwing_selection_item/unitinfo_button` | verified, mod and vanilla |
-| A4 | `fleet` | `select_fleet` | extra captures: composition editor, home base picker |
+| A4 | `fleet` | `select_fleet` | verified, mod and vanilla; extra captures: a selected ship, the task force list (Back), home base picker, composition editor, the British Home Fleet and its task force list (`tag ENG`; the scene's `teardown` switches back) |
+| A4 | `fleet_composition` | `select_fleet`, Back, then click `taskforce_view_entry/btn_composition_editor` | verified, mod and vanilla; the ship class picker opens with it |
+| A4 | `fleet_home_base` | `open_home_base_picker` | verified, mod and vanilla |
+| A4 | `fleet_transfer` | `select_fleet`, Back, then drag the first ship counter of the first task force onto the second task force | verified, mod and vanilla |
 | A5 | `recruit_deploy` | `open_recruit_deploy` (key `u`) | |
 | A6 | `army_overview` | `open_army_overview` (key `o`) | extra captures: navy (`p`) and air (`l`) tabs |
 | A7 | `air_wing_reorg` | `planes_into_reserve`, then click `airbase_selection_item/new_btn` | verified; disbands the Brandenburg wings, runs last |
@@ -66,6 +72,8 @@ Surveyed on game 1.19.3 on 2026-10-08, each recipe run unattended with the mod a
 Not reached, and why:
 
 - **Ship refit** (`ship_refit_equipment_view`): needs a ship with a newer design to refit to.
+- **The template list of the composition editor**: a new game has no saved template, and Save did nothing after one click.
+- **Several fleets selected at once**: needs a shift-click, which the harness does not have ([Engine Facts](Engine-Facts.md) H30).
 - **Combat, low supply, attrition, exile markers, commander traits**: not in a 1936 start. Out of scope for now.
 - **Military industrial organisations, special projects, raids, front end screens**: not surveyed.
 

@@ -1,0 +1,273 @@
+# Vanilla 1.19.3.0, interface/naviesview.gui, lines 1262-1530.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "taskforce_view_entry"
+		position = {x=0 y=-0}
+		size = { width=492 height=125 }
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_window_transparent"
+		}
+
+		iconType = {
+			name = "background_sprite"
+			spriteType = "GFX_task_force_bg"
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "highlight"
+			position = { x=0 y=0 }
+			spriteType = "GFX_task_force_bg_hl"
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "insigna"
+			position = {x=8 y=5}
+			spriteType = "GFX_theatre_army_shield"
+		}
+
+		iconType = {
+			name = "pride"
+			position = {x=295 y=5}
+			spriteType = "GFX_NV_icon_pride"
+		}
+
+		editBoxType = {
+			name = "unit_name"
+			position = {x=70 y=8}
+			font = "hoi_18"
+			size = { x=212 y=23 }
+			orientation = left
+		}
+
+		iconType = {
+			name ="naval_headquarter_icon"
+			quadTextureSprite = "GFX_buildings_strip"
+			frame = 29
+			scale = 0.6
+			position = { x = 40 y = 5 }
+		}
+
+		buttonType ={
+			name ="air_base"
+			quadTextureSprite = "GFX_mapicon_air_base"
+			position = { x=330 y=5 }
+			frame = 2
+		}
+
+		buttonType = {
+			name = "btn_composition_editor"
+			spriteType = "GFX_NV_btn_composition_editor"
+			position = {x=450 y=80}
+			pdx_tooltip = "OPEN_TASK_FORCE_COMPOSITION_EDITOR"
+			pdx_tooltip_delayed = "TASK_FORCE_COMPOSITION_EDITOR_DESC"
+		}
+
+		buttonType = {
+			name = "toggle_btn_split_for_repair_indiv"
+			position = {x=389 y=43}
+			spriteType = "GFX_NV_btn_base_partial_toggle"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "toggle_btn_split_for_repair_indiv_icon"
+			position = {x=389 y=43}
+			spriteType = "GFX_NV_btn_toggle_split_for_repair"
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			position = {x=419 y=43}
+			name = "toggle_btn_for_repair_priority_indiv"
+			spriteType = "GFX_NV_btn_base_partial_toggle"
+			clicksound = click_default
+		}
+
+		iconType = {
+			position = {x=419 y=43}
+			name = "toggle_btn_repair_priority_indiv_icon"
+			spriteType = "GFX_NV_btn_repair_priority"
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			position = {x=449 y=43}
+			name = "toggle_btn_aggressiveness_indiv"
+			spriteType = "GFX_NV_btn_base_partial_toggle"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "toggle_btn_aggressiveness_indiv_icon"
+			position = {x=449 y=43}
+			spriteType = "GFX_NV_btn_aggressiveness_small"
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "select_btn"
+			position = { x=389 y=3 }
+			spriteType = "GFX_NV_btn_select"
+			text = "SELECT"
+			font = "hoi_16mbs"
+		}
+
+		buttonType = {
+			name = "deselect_btn"
+			position = {x=454 y=3}
+			spriteType = "GFX_NV_btn_close"
+			pdx_tooltip = "DESELECT_UNIT"
+			clicksound = click_default
+		}
+
+		# visibility toggled with fleet insigna
+		iconType = {
+			name = "reserve_fleet_icon"
+			spriteType = "GFX_NV_icon_reserve_fleet"
+			position = { x=356 y=3 }
+			pdx_tooltip = "TASK_FORCE_IS_RESERVE_FLEET"
+		}
+
+		# NOTE: placeholder, replaced in code.
+		buttonType = {
+			name = "fleet_insigna"
+			quadTextureSprite = "GFX_theatre_army_shield"
+			position = { x=356 y=5 }
+			frame = 4
+			scale = 0.8
+		}
+
+		iconType = {
+			name = "current_mission_bg"
+			position = {x=8 y=38}
+			spriteType ="GFX_task_force_mission_bg"
+		}
+
+		containerWindowType = {
+			name = "ships_compact"
+			position = {x=10 y=75}
+			size = { width=460 height=81 }
+			Orientation = upper_left
+
+#			background = {
+#				name = "bg"
+#				spriteType = "GFX_tiled_window_transparent"
+#			}
+			# Code inserts ship_entry_compact here next to each other
+		}
+
+		instantTextboxType = {
+			name = "activity_description"
+			position = { x=60 y=38 }
+			text = "I DO THAT"
+			font = "hoi_16mbs"
+			maxWidth = 269
+			maxHeight = 40
+			format = left
+			fixedsize = yes
+			vertical_alignment = center
+		}
+
+		iconType = {
+			name = "interrupted_mission"
+			position = { x=34 y=45 }
+			spriteType = "GFX_onmap_mission_unit_counter_types"
+			frame = 2
+		}
+
+		iconType = {
+			name = "current_mission"
+			position = {x=7 y=42}
+			spriteType ="GFX_NV_all_missions"
+		}
+
+		iconType = {
+			name = "current_activity"
+			position = { x=12 y=42 }
+			spriteType = "GFX_NV_all_activities"
+			frame = 1
+		}
+
+		iconType = {
+			name = "underway_replenishment_icon"
+			position = {x=330 y=43}
+			spriteType = "GFX_NV_btn_underway_replenishment"
+			frame = 1
+		}
+
+		iconType = {
+			name = "dominance"
+			position = {x=325 y=51}
+			spriteType = "GFX_naval_dominance_support_strip"
+		}
+
+		iconType = {
+			name = "fuel_stocks_icon"
+			position = {x=355 y=47}
+			spriteType = "GFX_fuel_extended_strip"
+			frame = 7
+		}
+
+		iconType = {
+			name = "fuel_efficiency_warning_icon"
+			spriteType = "GFX_mapicon_unit_invalid_orders"
+			position = { x=350 y=47 }
+		}
+
+		# Code toggles visibility on ships_detailed
+		containerWindowType = {
+			name = "ships_detailed"
+			position = {x=0 y=122}
+			size = { width=460 height=500 }
+			Orientation = upper_left
+			clipping = no
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiled_window_transparent"
+			}
+
+			# Code inserts ship_entry_detailed here as list filling up the screen
+
+			# Scrollbar visibility and size is adapted in code too...
+			extendedScrollbarType = {
+				name = "slider"
+				position = { x=493 y=3 }
+				size = { width = 18 height = 18 }
+				startValue = 0
+				background = {
+					name = "Background"
+					quadTextureSprite = "GFX_scrollbar_vertical_bg"
+				}
+				slider = {
+					name = "Slider"
+					quadTextureSprite = "GFX_scroll_drager"
+					position = { x = -2 y = -2 }
+				}
+				track = {
+					name = "Track"
+					quadTextureSprite = "GFX_scroll_track"
+					position = { x = 3 y = 0 }
+				}
+				decreaseButton = {
+					name = "Decrease"
+					quadTextureSprite = "GFX_scroll_up"
+					position = { x = 2 y = 3 }
+				}
+				increaseButton = {
+					name = "Increase"
+					quadTextureSprite = "GFX_scroll_down"
+					position = { x=-17 y = -19}
+				}
+			}
+		}
+
+	}
+}
