@@ -6,7 +6,7 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
 
 - **Game**: Hearts of Iron IV
 - **Supported Version**: `1.19.*`
-- **Mod Version**: `1.1`
+- **Mod Version**: `1.2`
 - **Tags**: Graphics, Utilities, Fixes
 - **Requires**: 2560x1440 or higher at 100% UI scale
 - **Ironman & Achievements**: Compatible (only `interface/` and `gfx/` files, which are outside the game checksum)
@@ -21,6 +21,10 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
   - The change-template dropdown shows 12 templates instead of 6, with names on one line.
   - The army badge has a longer name field, the commander's name in full in a larger font, and the four commander stats spaced apart.
   - New hotkeys: `Shift+U` unassigns the selected divisions, `Shift+C` consolidates them.
+- **Unit details** (the windows that open from the icon of a division, ship or air wing):
+  - Stats in a 22 px font instead of 16 px, in wider columns on taller rows, so labels and values no longer run into each other.
+  - The division window opens beside the army panel instead of on top of it, and its Template and History tabs fill the larger frame.
+  - Equipment and plane names on one line, and the terrain adjusters visible without scrolling where they fit.
 
 ---
 
@@ -94,12 +98,14 @@ Screen work uses the scripts in `tools/`:
 # Refresh the baseline of a window, for example after a game update
 .\tools\Export-VanillaBaseline.ps1 airselectionview.gui air_selection_view
 
-# Rebuild the textures that are widened copies of vanilla ones (needs Python with Pillow)
+# Rebuild the textures that are enlarged copies of vanilla ones (needs Python with Pillow)
 python tools\stretch_background.py
+python tools\stretch_background.py --only ud_ --preview scratch\previews   # some of them, with before/after images
 
 # Draw a window, or a whole screen (tools\scenes\<screen>.json), before any launch; output in scratch\previews
 python -I tools\render_gui.py army_division_view --bounds
 python -I tools\render_gui.py --scene army_selection --over
+python -I tools\render_gui.py --scene division_details --state template   # another tab, or an opened dropdown
 
 # Validation, tests and the scene render in one go (-InGame adds the unattended game check)
 .\build.ps1 -Check army_selection

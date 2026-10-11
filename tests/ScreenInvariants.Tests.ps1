@@ -57,13 +57,24 @@ Describe 'Texts' {
     BeforeAll {
         # Every text box or button caption of the mod whose text is known: a scene sample, a literal, or a
         # vanilla localisation key without variables. Measured with the real font against maxWidth (Engine Facts W11).
+        # A sample is one text, or a list with one text per drawn instance (the rows of a grid). The states of
+        # a scene (its captures and render-only states) may bring samples of their own. A text the design
+        # knowingly cuts off is listed under the scene's "knownCuts" and is not judged here.
         $samples = @{}
+        $knownCuts = [System.Collections.Generic.HashSet[string]]::new()
         foreach ($scene in @(Get-Scenes)) {
-            foreach ($windowName in @($scene.samples.PSObject.Properties.Name)) {
-                foreach ($prop in @($scene.samples.$windowName.PSObject.Properties)) {
-                    $samples["$windowName/$($prop.Name)"] = [string]$prop.Value
+            $tables = @($scene.samples) + @(@($scene.captures) + @($scene.states) | Where-Object { $_ -and $_.samples } | ForEach-Object { $_.samples })
+            foreach ($table in $tables) {
+                if (-not $table) { continue }
+                foreach ($windowName in @($table.PSObject.Properties.Name)) {
+                    foreach ($prop in @($table.$windowName.PSObject.Properties)) {
+                        $key = "$windowName/$($prop.Name)"
+                        if (-not $samples.ContainsKey($key)) { $samples[$key] = [System.Collections.Generic.List[string]]::new() }
+                        foreach ($value in @($prop.Value)) { if (-not $samples[$key].Contains([string]$value)) { $samples[$key].Add([string]$value) } }
+                    }
                 }
             }
+            foreach ($cut in @($scene.knownCuts)) { if ($cut) { [void]$knownCuts.Add("$($cut.widget)|$($cut.text)") } }
         }
         $keys = [System.Collections.Generic.HashSet[string]]::new()
         $boxes = @()
@@ -95,16 +106,19 @@ Describe 'Texts' {
         $colorCode = [string][char]0xA7 + '[A-Za-z0-9!]'
         $script:TextCases = @()
         foreach ($box in $boxes) {
-            $text = $null
+            $texts = @()
             $source = $null
             $sampleKey = "$($box.Window)/$($box.Widget)"
-            if ($samples.ContainsKey($sampleKey)) { $text = $samples[$sampleKey]; $source = 'sample' }
-            elseif ($box.Literal -and $loc.ContainsKey($box.Literal)) { $text = $loc[$box.Literal]; $source = 'localisation' }
-            elseif ($box.Literal -and $box.Literal -cnotmatch '^[A-Z][A-Z0-9_]+$') { $text = $box.Literal; $source = 'literal' }
-            if (-not $text) { continue }
-            if ($text.Contains('$') -or $text.Contains('[')) { continue }   # dynamic text, length unknown
-            $text = $text -replace $colorCode, ''
-            $script:TextCases += [pscustomobject]@{ Where = "$($box.File):$($box.Line) $($box.Window)/$($box.Widget)"; Text = $text; Font = $box.Font; MaxWidth = $box.MaxWidth; MaxHeight = $box.MaxHeight; Source = $source }
+            if ($samples.ContainsKey($sampleKey)) { $texts = @($samples[$sampleKey]); $source = 'sample' }
+            elseif ($box.Literal -and $loc.ContainsKey($box.Literal)) { $texts = @($loc[$box.Literal]); $source = 'localisation' }
+            elseif ($box.Literal -and $box.Literal -cnotmatch '^[A-Z][A-Z0-9_]+$') { $texts = @($box.Literal); $source = 'literal' }
+            foreach ($text in $texts) {
+                if (-not $text) { continue }
+                if ($text.Contains('$') -or $text.Contains('[')) { continue }   # dynamic text, length unknown
+                if ($knownCuts.Contains("$sampleKey|$text")) { continue }
+                $text = $text -replace $colorCode, ''
+                $script:TextCases += [pscustomobject]@{ Where = "$($box.File):$($box.Line) $($box.Window)/$($box.Widget)"; Text = $text; Font = $box.Font; MaxWidth = $box.MaxWidth; MaxHeight = $box.MaxHeight; Source = $source }
+            }
         }
     }
 

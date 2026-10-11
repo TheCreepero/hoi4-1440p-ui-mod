@@ -1,0 +1,38 @@
+# Vanilla 1.19.3.0, interface/unitview.gui, lines 1802-1835.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType =
+	{
+		name = "stat_archetype_header_list_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 270 height = 30 }
+
+		Background = {
+			name = "unit_stats_list_entry_bg"
+			quadTextureSprite = "GFX_unit_stats_list_entry_bg2"
+		}
+
+		instantTextBoxType = {
+			name = "archetype_name"
+			position = { x = 10 y = 5 }
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			fixedsize = yes
+			maxWidth = 175
+			maxHeight = 20
+			format = left
+		}
+
+		instantTextBoxType = {
+			name = "archetype_amount"
+			position = { x = 190 y = 5 }
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			maxWidth = 72
+			maxHeight = 20
+			format = right
+		}
+	}
+}

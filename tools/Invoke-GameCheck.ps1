@@ -137,6 +137,12 @@ try {
             }
             $results.Add($extraResult)
         }
+
+        # steps that undo what the scene changed for good (a switch to another country), so later scenes start clean
+        if ($sceneData.teardown) {
+            try { Invoke-HoiSteps -Steps $sceneData.teardown -Scene $sceneData.screen }
+            catch { Write-Host "  [WARN] $($sceneData.screen): teardown failed: $($_.Exception.Message)" -ForegroundColor Yellow }
+        }
     }
 
     if ($SaveReference) { Update-HoiReferenceIndex }

@@ -2,28 +2,234 @@
   "_comment": "Scene for the ship details window. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
   "screen": "ship_details",
   "phase": "A3",
-  "file": "zz_1440p_ship_details.gui",
+  "file": "zz_1440p_unit_details.gui",
   "screenshot": "reference/vanilla/ship_details.jpg",
   "windows": [
     {
-      "name": "ship_stats_window"
+      "name": "ship_stats_window",
+      "at": [
+        500,
+        100
+      ],
+      "atVanilla": [
+        500,
+        100
+      ],
+      "_note": "Placed by the game code at 500,100; each further ship window opened in the same game sits 50 px left of and 20 px below the one before.",
+      "hide": [
+        "captain_window",
+        "air_wings",
+        "history"
+      ],
+      "_hide_note": "Stats tab of a ship without a captain or air wings: the code hides those blocks and the History tab.",
+      "listRows": {
+        "base_stats/stats_grid": "stat_entry",
+        "combat_stats/stats_grid": "stat_entry",
+        "misc_stats/stats_grid": "stat_entry",
+        "equipment_grid": "stat_equipment_entry_naval",
+        "terrain_grid": "designer_adjuster_entry",
+        "list": "ship_stats_air_wing_entry",
+        "history_grid": "army_history_entry"
+      },
+      "rows": {
+        "base_stats/stats_grid": 6,
+        "combat_stats/stats_grid": 8,
+        "misc_stats/stats_grid": 6,
+        "equipment_grid": 1,
+        "terrain_grid": 4,
+        "list": 3,
+        "history_grid": 2
+      }
     }
   ],
-  "samples": {},
+  "samples": {
+    "ship_stats_window": {
+      "ship_name": "Deutschland",
+      "experience": "Experience",
+      "current_manpower": "1.2K",
+      "fuel_consumption": "36",
+      "dominance_value": "352",
+      "support_value": "0",
+      "captain": "Kapitän zur See Hans Langsdorff",
+      "title": "Air Wings"
+    },
+    "stat_entry": {
+      "label": [
+        "Max Speed: ",
+        "Max Range: ",
+        "Organization: ",
+        "HP: ",
+        "Reliability: ",
+        "Supply Use: ",
+        "Light Attack: ",
+        "Light Piercing: ",
+        "Heavy Attack: ",
+        "Heavy Piercing: ",
+        "Torpedo Attack: ",
+        "Armor: ",
+        "Anti-Air: ",
+        "Depth Charges: ",
+        "Fuel Usage: ",
+        "Surface Visibility: ",
+        "Surface Detection: ",
+        "Sub Detection: ",
+        "Weather Penalty: ",
+        "Hit Profile"
+      ],
+      "value": [
+        "26.2 kn",
+        "7500 km",
+        "40.0",
+        "220.0",
+        "80.0%",
+        "0.24",
+        "3.2",
+        "5.5",
+        "19.7",
+        "36.0",
+        "19.7",
+        "5.7",
+        "5.0",
+        "0.0",
+        "36.00",
+        "18.0",
+        "27.0",
+        "3.5",
+        "0%",
+        "54.3"
+      ]
+    },
+    "stat_equipment_entry_naval": {
+      "equipment_name": "Deutschland"
+    },
+    "ship_stats_air_wing_entry": {
+      "name": [
+        "CV Fighter",
+        "CV Naval Bomber",
+        "CV Naval Bomber"
+      ],
+      "count": [
+        "9/10",
+        "10/10",
+        "2/10"
+      ]
+    },
+    "army_history_entry": {
+      "date_field": "1939.12.13",
+      "text_field": "Sunk HMS Exeter (York Class)"
+    }
+  },
   "setup": [
     {
       "move": "open_ship_details"
     }
   ],
-  "captures": [],
-  "expect": [],
+  "captures": [
+    {
+      "name": "history",
+      "steps": [
+        {
+          "clickWidget": "ship_stats_window/tab_history",
+          "wait": 1.2
+        }
+      ],
+      "hide": {
+        "ship_stats_window": [
+          "captain_window",
+          "air_wings",
+          "info",
+          "equipment",
+          "terrain",
+          "btn_pride",
+          "dominance_icon",
+          "dominance_value",
+          "support_icon",
+          "support_value"
+        ]
+      }
+    },
+    {
+      "name": "carrier",
+      "steps": [
+        {
+          "clickWidget": "ship_stats_window/tab_stats",
+          "wait": 0.8
+        },
+        {
+          "console": "tag ENG",
+          "wait": 2.0
+        },
+        {
+          "key": "p",
+          "wait": 1.5
+        },
+        {
+          "click": [
+            250,
+            660
+          ],
+          "wait": 2.0,
+          "_note": "Home Fleet in the British navy overview. Raw position inside a vanilla panel."
+        },
+        {
+          "click": [
+            55,
+            442
+          ],
+          "wait": 2.0,
+          "_note": "its first ship, the carrier HMS Furious. Raw position inside a vanilla panel: when the mod reworks the fleet panel, replace it with a clickWidget step."
+        }
+      ],
+      "hide": {
+        "ship_stats_window": [
+          "captain_window",
+          "history"
+        ]
+      },
+      "samples": {
+        "ship_stats_window": {
+          "ship_name": "HMS Furious",
+          "current_manpower": "5.0K",
+          "fuel_consumption": "98"
+        }
+      }
+    }
+  ],
+  "expect": [
+    "ship_stats_window/btn_close"
+  ],
   "crop": [
     0,
     60,
-    1100,
+    1700,
     700
   ],
-  "manual": [],
-  "checklist": [],
-  "_note": "Surveyed on 2026-10-08: the recipe works and the vanilla reference is captured. 'at' of its windows is not measured yet; do that at the start of the phase (wiki/Game-Recipes.md, 'Measuring where a window sits')."
+  "manual": [
+    "Tooltips on stat rows and sea terrain adjusters",
+    "Renaming the ship, Pride of the Fleet, Delete",
+    "States a 1936 start does not show: a captain, history entries and medals"
+  ],
+  "checklist": [
+    "Stats tab: every label and value on its row",
+    "A carrier: the air wing list in the side panel",
+    "History and Design tabs",
+    "The window can be dragged by its title bar and its side panel"
+  ],
+  "teardown": [
+    {
+      "console": "tag GER",
+      "wait": 2.0
+    }
+  ],
+  "states": [
+    {
+      "name": "captain",
+      "_note": "A ship with a captain: not reachable in a 1936 start, drawn by the renderer only.",
+      "hide": {
+        "ship_stats_window": [
+          "history"
+        ]
+      }
+    }
+  ]
 }

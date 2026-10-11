@@ -1,0 +1,2 @@
+I am listing issues here that I've found while playing the game with this mod enabled.
+- Division Details view: Trickleback & War Support Protection is too long and overlaps the value

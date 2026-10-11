@@ -1,0 +1,50 @@
+# Vanilla 1.19.3.0, interface/unitview.gui, lines 3473-3518.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "ship_stats_air_wing_entry"
+		position = {x=0 y=0}
+		orientation = upper_left
+		size = {width=268 height=50}
+
+		background = {
+			name = "bg"
+			spriteType = "GFX_air_unit_stats_equip_entry"
+		}
+
+		iconType = {
+			name ="equipment_icon"
+			spriteType = "GFX_technology_medium"
+			position = { x=10 y=13 }
+			scale = 0.5
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "count"
+			position = {x=80 y=19}
+			font = "hoi_18mbs"
+			maxWidth = 100
+			maxHeight = 23
+			format = left
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "name"
+			position = {x=80 y=4}
+			font = "hoi_18mbs"
+			maxWidth = 185
+			maxHeight = 23
+			fixedsize = yes
+			format = left
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "ace_icon"
+			position = {x=223 y=-2}
+			spriteType = "GFX_ace_none"
+		}
+	}
+}

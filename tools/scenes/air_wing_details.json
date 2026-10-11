@@ -1,0 +1,116 @@
+{
+  "_comment": "Scene for the air wing details window. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "screen": "air_wing_details",
+  "phase": "A3",
+  "file": "zz_1440p_unit_details.gui",
+  "screenshot": "reference/vanilla/air_wing_details.jpg",
+  "windows": [
+    {
+      "name": "air_wing_stats_window",
+      "_note": "Sits where its own position puts it: 1005,485 in vanilla.",
+      "hide": [
+        "carrier_capable_icon",
+        "ace_icon",
+        "niche_selection_container"
+      ],
+      "listRows": {
+        "base_stats/stats_grid": "stat_entry",
+        "combat_stats/stats_grid": "stat_entry",
+        "misc_stats/stats_grid": "stat_entry",
+        "list": "air_wing_details_equipment_entry"
+      },
+      "rows": {
+        "base_stats/stats_grid": 3,
+        "combat_stats/stats_grid": 8,
+        "misc_stats/stats_grid": 7,
+        "list": 1,
+        "mission_grid": 0
+      }
+    }
+  ],
+  "samples": {
+    "air_wing_stats_window": {
+      "air_wing_name": "Kampfgeschwader 253",
+      "current_manpower": "2.6K",
+      "equipment_ratio": "60%",
+      "equipment_name": "Do 23"
+    },
+    "stat_entry": {
+      "label": [
+        "Max Speed: ",
+        "Range: ",
+        "Supply Use: ",
+        "Air Defense: ",
+        "Air Attack: ",
+        "Agility: ",
+        "Air Superiority: ",
+        "Naval Attack: ",
+        "Naval Targeting: ",
+        "Ground Attack: ",
+        "Strat. Bombing: ",
+        "Reliability: ",
+        "Fuel Usage: ",
+        "Minelaying: ",
+        "Minesweeping: ",
+        "Surface Detection: ",
+        "Sub Detection: ",
+        "Night Penalty: "
+      ],
+      "value": [
+        "200.0 km/h",
+        "750 km",
+        "0.16",
+        "15.0",
+        "0.0",
+        "25.5",
+        "1.00",
+        "1.00",
+        "1.00",
+        "0.0",
+        "0.0",
+        "80.0%",
+        "0.32",
+        "0.00",
+        "0.00",
+        "0.0",
+        "0.0",
+        "0.0%"
+      ]
+    },
+    "air_wing_details_equipment_entry": {
+      "count": "60",
+      "name": "Inter-War Medium Airframe",
+      "type": "Do 23"
+    }
+  },
+  "setup": [
+    {
+      "move": "select_airbase"
+    },
+    {
+      "clickWidget": "airwing_selection_item/unitinfo_button",
+      "scene": "air_selection",
+      "wait": 2.0
+    }
+  ],
+  "captures": [],
+  "expect": [
+    "air_wing_stats_window/btn_close"
+  ],
+  "crop": [
+    900,
+    420,
+    1400,
+    620
+  ],
+  "manual": [
+    "Tooltips on stat rows",
+    "Renaming the wing, the mission button, Delete",
+    "A wing with an ace, a carrier wing"
+  ],
+  "checklist": [
+    "Stats: every label and value on its row",
+    "The plane type row in the side panel: name on one line",
+    "The window can be dragged"
+  ]
+}

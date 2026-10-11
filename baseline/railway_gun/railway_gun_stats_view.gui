@@ -1,0 +1,235 @@
+# Vanilla 1.19.3.0, interface/railway_gun.gui, lines 279-509.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+containerWindowType = {
+		name = "railway_gun_stats_view"
+		moveable = yes
+		click_to_front = yes
+		position = { x=-275 y=-235 }
+		size = { width = 557 height = 407 }
+		Orientation = center
+		clipping = no
+		fade_time = 300
+		fade_type = linear
+
+		show_sound = pop_up
+
+		Background = {
+			name = "railway_gun_stats_bg"
+			quadTextureSprite = "GFX_naval_unit_stats_bg"
+		}
+
+		instantTextboxType = {
+			name = "railway_gun_title"
+			position = { x = 35 y = 0 }
+			textureFile = ""
+			font = "hoi_36header"
+			borderSize = {x = 0 y = 0}
+			text = "RAILWAY_GUN_UNIT_STATS"
+			maxWidth = 500
+			maxHeight = 20
+			format = left
+		}
+
+		iconType = {
+			name = "type_icon"
+			spriteType = "GFX_unit_railway_gun_icon_medium" # <- Replaced in code
+			position = { x=24 y=29 }
+		}
+
+		editBoxType = {
+			name = "railway_gun_name"
+			position = { x = 113 y = 42 }
+			size = {x=264 y=20}
+			#textureFile = ""
+			font = "hoi_20b"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			#maxWidth = 300
+			#maxHeight = 20
+			#format = left
+		}
+
+		iconType = {
+			name = "manpower_icon"
+			spriteType = "GFX_manpower_icon"
+			position = { x=20 y=364 }
+		}
+
+		instantTextboxType = {
+			name = "current_manpower"
+			position = { x = 50 y = 369 }
+			font = "hoi_18mbs"
+			text = "Stuff"
+			maxWidth = 60
+			maxHeight = 20
+			format = center
+		}
+
+		containerWindowType = {
+			name = "forts_modifier"
+			size = { width = 50 height = 70 }
+			position = { x = 448 y = 324 }
+			clipping = no
+
+			iconType = {
+				name = "terrain_mod_bg"
+				spriteType = "GFX_adjuster_fort_bg"
+				position = { x=18 y=11 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "terrain_mod_frame"
+				spriteType = "GFX_terrain_mod_frame"
+				position = { x=7 y=5 }
+			}
+
+			iconType = {
+				name = "terrain_mod_attack_strip"
+				spriteType = "GFX_terrain_mod_attack_strip"
+				position = { x=34 y=42 }
+				frame = 1
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "terrain_mod_movement_strip"
+				spriteType = "GFX_terrain_mod_movement_strip"
+				position = { x=11 y=42 }
+				frame = 3
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "terrain_mod_defense_strip"
+				spriteType = "GFX_terrain_mod_defense_strip"
+				position = { x=56 y=42 }
+				frame = 3
+				alwaystransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "info"
+			position = { x=3 y=47}
+			size = { width=100% height=100%% }
+			verticalScrollbar = "right_vertical_slider"
+
+			containerWindowType = {
+				name = "base_stats"
+				position = { x=10 y=15 }
+				size = { width=165 height=200 }
+				clipping = no
+
+				instantTextboxType = {
+					name = "base_stats_label"
+					position = { x = 5 y = 14 }
+					font = "hoi4_typewriter22"
+					text = "DESIGNER_BASE_STATS_LABEL"
+					maxWidth = 170
+					maxHeight = 20
+					format = left
+				}
+
+				gridboxtype = {
+					name = "stats_grid"
+					position = { x = 5 y = 36 }
+					size = { width = 155 height = 100%% }
+					slotsize = { width = 155 height = 20 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+			}
+
+			containerWindowType = {
+				name = "combat_stats"
+				position = { x=179 y=15 }
+				size = { width=165 height=200 }
+				clipping = no
+
+				instantTextboxType = {
+					name = "combat_stats_label"
+					position = { x = 10 y = 14 }
+					font = "hoi4_typewriter22"
+					text = "DESIGNER_COMBAT_STATS_LABEL"
+					maxWidth = 170
+					maxHeight = 20
+					format = left
+				}
+
+				gridboxtype = {
+					name = "stats_grid"
+					position = { x = 8 y = 36 }
+					size = { width = 155 height = 100%% }
+					slotsize = { width = 155 height = 20 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+			}
+
+			containerWindowType = {
+				name = "misc_stats"
+				position = { x=354 y=15 }
+				size = { width=165 height=200 }
+				Orientation = UPPER_LEFT
+				clipping = no
+
+				instantTextboxType = {
+					name = "misc_stats_label"
+					position = { x = 10 y = 14 }
+					font = "hoi4_typewriter22"
+					text = "FE_MISC_STATS"
+					maxWidth = 150
+					maxHeight = 20
+					format = left
+				}
+
+				gridboxtype = {
+					name = "stats_grid"
+					position = { x = 7 y = 36 }
+					size = { width = 155 height = 100%% }
+					slotsize = { width = 155 height = 20 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+			}
+		}
+
+		containerWindowType = {
+			name = "equipment"
+			position = { x=10 y=290 }
+			size = { width=250 height=200 }
+			clipping = no
+
+			gridboxtype = {
+				name = "equipment_grid"
+				position = { x = 155 y = 10 }
+				size = { width = 250 height = 100%% }
+				slotsize = { width = 60 height = 60 }
+				#max_slots_horizontal = 3
+				#max_slots_vertical = 3
+				format = "UPPER_LEFT"
+			}
+		}
+
+		buttonType = {
+			name = "btn_delete"
+			position = { x = 3 y = 3 }
+			spriteType = "GFX_NV_btn_delete"
+			clicksound = disband
+			Orientation = "UPPER_RIGHT"
+		}
+
+		buttonType = {
+			name = "btn_close"
+			position = { x = 265 y = 3 }
+			quadTextureSprite ="GFX_NV_btn_close"
+			buttonFont = "Main_14_black"
+			shortcut = "ESCAPE"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+			Orientation = "UPPER_RIGHT"
+		}
+	}
+}

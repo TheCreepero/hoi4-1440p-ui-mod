@@ -1,0 +1,24 @@
+# Vanilla 1.19.3.0, interface/unitview.gui, lines 3707-3726.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "unit_hq_modifier_entry"
+		size = { width = 188 height = 20 }
+		clipping = no
+
+		# y is the vertical gap between consecutive rows; negative values tighten the spacing.
+		positionType = {
+			name = "row_padding"
+			position = { x = 0 y = 6 }
+		}
+
+		instantTextboxType = {
+			name = "text"
+			font = "hoi_16mbs"
+			maxWidth = 188
+			maxHeight = 60
+			format = left
+			multiline = yes
+		}
+	}
+}

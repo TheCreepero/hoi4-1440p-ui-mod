@@ -13,7 +13,7 @@ The mod is built one screen at a time. Each phase reworks one screen for 2560x14
 
 ## Status
 
-Status values: Not started, In progress, Done. Each phase keeps its inventory, decisions and game-check log in `wiki/phases/` ([A1](phases/A1-air-selection.md), [A2](phases/A2-army-selection.md); template: [Phase Template](Phase-Template.md)); what the launches taught about the engine is in [Engine Facts](Engine-Facts.md).
+Status values: Not started, In progress, Done. Each phase keeps its inventory, decisions and game-check log in `wiki/phases/` ([A1](phases/A1-air-selection.md), [A2](phases/A2-army-selection.md), [A3](phases/A3-unit-details.md); template: [Phase Template](Phase-Template.md)); what the launches taught about the engine is in [Engine Facts](Engine-Facts.md).
 
 | Phase | Scope | Status |
 |---|---|---|
@@ -38,7 +38,7 @@ Phases are independent after Phase 1 and can be reordered.
 |---|---|---|---|---|---|---|
 | A1 | Air wings and airbases (pilot) | `airselectionview.gui`: `air_selection_view`, `unassigned_airwings_view` | 502x430, 582x430 | tiled panel, bitmap rows | none found | Done |
 | A2 | Selected army: badge and division list | `unitview.gui`: `armies_view`, `army_badge_view`, `army_division_list_view`, `army_division_view` | list 422x430 | tiled, small bitmaps | RBM's GFX Overhaul | Done |
-| A3 | Division and ship details | `unitview.gui`: `army_division_stats_view`, `ship_stats_window` | 856x522, 557x407 | bitmap | RBM's GFX Overhaul | Not started |
+| A3 | Unit details: division, ship, air wing, railway gun | `unitview.gui`: `army_division_stats_view`, `ship_stats_window`; `airwingdetails.gui`: `air_wing_stats_window`; `railway_gun.gui`: `railway_gun_stats_view` | 856x497, 856x409 | bitmap | RBM's GFX Overhaul | Done, awaiting the tester's judgement |
 | A4 | Navy and fleet view | `naviesview.gui`: `naviesview_window`, fleet and task force rows, composition editor, base picker | 500 wide, 86% high | tiled, bitmap rows | RBM's GFX Overhaul, Vanilla Navy Rework | Not started |
 | A5 | Recruit and deploy | `countrydeploymentview.gui`: `countrydeploymentview`, `templatedeploymentwindow` | 550 and 375 wide, full height | tiled | RBM's GFX Overhaul | Not started |
 | A6 | Army overview tab | `countryarmyview.gui`: `countryarmyview` | 550 wide, full height | tiled | none found | Not started |
@@ -47,8 +47,10 @@ Phases are independent after Phase 1 and can be reordered.
 
 - A1 was first built 768 wide, before A2 showed how width is judged. It was narrowed to 705 afterwards. That is as narrow as it goes while the three blocks stay aligned: the mission bar is 703 wide at vanilla spacing with 15 missions. Wing and airbase names still fit; the status line "On Mission in <region>" is cut for the nine regions with the longest names.
   - The narrowing passed its game check. The same check found that an air group had always broken the layout: with a group selected the rows sit in a second list (`air_groups_view`) that was still 580 wide. That list and the air group badge are now 705 and 704 wide (`interface/zz_1440p_air_group.gui`). Confirmed by the tester in game, without a screenshot.
-- A2 already put `army_division_stats_view` (the A3 window) into its override file, with only the template dropdown widened. A3 continues in that file.
-- A3 is the first screen with a bitmap background, so the background options in [Design Rules](Design-Rules.md) are first tried there.
+- A3 grew from two windows to four: the stat row is shared by the division, ship, air wing and railway gun details windows. They are in `interface/zz_1440p_unit_details.gui`; the division window moved there from the A2 file. Notes: [A3](phases/A3-unit-details.md).
+  - Stats in a 22 px font on rows 28 px apart, in frames 1180 wide; the division window opens beside the army panel.
+  - Not done: showing the ship window's side panel only when it has content. Open for A4.
+  - Not seen in game: railway gun details, a ship captain, history entries, an HQ division.
 - A8 is the riskiest: much of its layout is positioned by the engine. Do it last, or drop it if little can move.
 
 ### A2: selected army

@@ -9,3 +9,4 @@
 - **Phases**
   - [A1 Air wings and airbases](phases/A1-air-selection.md)
   - [A2 Selected army](phases/A2-army-selection.md)
+  - [A3 Unit details](phases/A3-unit-details.md)

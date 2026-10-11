@@ -1,0 +1,60 @@
+# Vanilla 1.19.3.0, interface/unitview.gui, lines 1837-1892.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType =
+	{
+		name = "stat_equipment_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 270 height = 50 }
+
+		iconType =
+		{
+			name ="equipment_variant_bg"
+			spriteType = "GFX_transparent_equipment_bg"
+			position = { x= 0 y = 0 }
+		}
+
+		iconType =
+		{
+			name ="equipment_icon"
+			spriteType = "GFX_equipment_item"
+			position = { x= 50 y = 30 }
+			Orientation = "UPPER_LEFT"
+			scale = 0.65
+			centerposition = yes
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "creator_flag"
+			quadTextureSprite ="GFX_flag_small"
+			position = { x = 70 y = 25 }
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "equipment_name"
+			position = { x =104 y = 0 }
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			maxWidth = 110
+			maxHeight = 50
+			vertical_alignment = center
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "equipment_amount"
+			position = { x = 178 y = 0 }
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			maxWidth = 80
+			maxHeight = 50
+			format = right
+			vertical_alignment = center
+			alwaystransparent = yes
+		}
+	}
+}

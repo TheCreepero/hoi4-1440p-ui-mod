@@ -66,6 +66,17 @@ function Set-HoiPlayset {
 
     $paths = Get-HoiPaths
     if (-not (Test-Path -LiteralPath $paths.ModFile)) { throw "Launcher mod file not found: $($paths.ModFile). Run build.ps1 -DevLink first." }
+    if (-not $Vanilla -and -not $Mods) {
+        # The launcher file names the folder the game loads. After build.ps1 -Deploy that is a copy in
+        # Documents, and a check would then show that copy instead of the working tree, without any error.
+        $modText = [System.IO.File]::ReadAllText($paths.ModFile, [System.Text.Encoding]::UTF8)
+        $loaded = $null
+        if ($modText -match '(?m)^\s*path\s*=\s*"([^"]+)"') { $loaded = $Matches[1] }
+        $normalise = { param($p) ([string]$p).Replace('\', '/').TrimEnd('/').ToLowerInvariant() }
+        if ((& $normalise $loaded) -ne (& $normalise $script:HarnessRepoRoot)) {
+            throw "The launcher mod file points to '$loaded', not to this repository ($script:HarnessRepoRoot): the game would load that copy and none of the changes here. Run build.ps1 -DevLink first."
+        }
+    }
     if (-not (Test-Path -LiteralPath $script:HarnessScratch)) { New-Item -ItemType Directory -Path $script:HarnessScratch -Force | Out-Null }
     $backup = Join-Path $script:HarnessScratch 'dlc_load.backup.json'
     $disabled = @()
@@ -167,6 +178,7 @@ function Start-HoiNewGame {
         throw "The new game did not load. Look at $shot to see where the menu clicks ended up (the menu screens as they should look are in reference\harness)."
     }
     Start-Sleep -Seconds 6   # the map fades in after the log line
+    Hide-HoiErrorLogWindows | Out-Null   # the game has just opened error.log in Notepad, if the load logged errors
     Reset-HoiState | Out-Null   # nothing open, land map mode, Home camera
     # once per game: what every recipe may rely on (all divisions in Army 1), then back to the clean state
     $moves = Get-HoiMoves
@@ -414,6 +426,13 @@ public struct INPUT { public uint type; public INPUTUNION u; }
 [DllImport("user32.dll")] public static extern short VkKeyScan(char ch);
 [DllImport("user32.dll")] public static extern uint MapVirtualKey(uint uCode, uint uMapType);
 [DllImport("kernel32.dll")] public static extern uint GetCurrentThreadId();
+[StructLayout(LayoutKind.Sequential)]
+public struct POINT { public int X; public int Y; }
+[DllImport("user32.dll")] public static extern IntPtr WindowFromPoint(POINT point);
+[DllImport("user32.dll")] public static extern IntPtr GetAncestor(IntPtr hWnd, uint flags);
+[DllImport("user32.dll", CharSet = CharSet.Unicode)] public static extern int GetWindowText(IntPtr hWnd, System.Text.StringBuilder text, int count);
+public static IntPtr RootAt(int x, int y) { POINT p; p.X = x; p.Y = y; return GetAncestor(WindowFromPoint(p), 2); }
+public static string TitleOf(IntPtr hWnd) { System.Text.StringBuilder text = new System.Text.StringBuilder(200); GetWindowText(hWnd, text, 200); return text.ToString(); }
 public const uint INPUT_KEYBOARD = 1;
 public const uint INPUT_MOUSE = 0;
 public const uint KEYEVENTF_SCANCODE = 0x0008;
@@ -472,6 +491,42 @@ function Set-HoiForeground {
         if ([HoiInput]::GetForegroundWindow() -eq $handle) { return $handle }
     }
     throw 'The game window did not come to the front; no keys were sent.'
+}
+
+# In debug mode the game starts Notepad with error.log when a new game has loaded with errors in the log
+# (wiki/Engine-Facts.md, H27), and that window can land in front of the game: clicks then go to Notepad.
+# Minimises every window that shows error.log. Nothing is closed.
+function Hide-HoiErrorLogWindows {
+    Initialize-HoiInput
+    $hidden = 0
+    foreach ($process in @(Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne [IntPtr]::Zero -and $_.MainWindowTitle -like 'error.log*' })) {
+        [HoiInput]::ShowWindow($process.MainWindowHandle, 6) | Out-Null   # SW_MINIMIZE
+        $hidden++
+    }
+    if ($hidden) {
+        Write-Host "  [INFO] minimised $hidden window(s) showing error.log: the game opens that file itself in debug mode" -ForegroundColor Gray
+        Start-Sleep -Milliseconds 600
+    }
+    return $hidden
+}
+
+# Throws unless the game window is what a click at this screen position would reach. A click is sent by
+# position, so it lands in whatever window is on top there, whichever window has the keyboard.
+function Assert-HoiPointIsGame {
+    param([Parameter(Mandatory)][int]$X, [Parameter(Mandatory)][int]$Y)
+    Initialize-HoiInput
+    $process = Get-Hoi4Process
+    if (-not $process) { throw 'The game is not running.' }
+    $root = [IntPtr]::Zero
+    for ($attempt = 0; $attempt -lt 2; $attempt++) {
+        $root = [HoiInput]::RootAt($X, $Y)
+        if ($root -eq $process.MainWindowHandle) { return }
+        if ($attempt -eq 0) {
+            Hide-HoiErrorLogWindows | Out-Null
+            Set-HoiForeground | Out-Null
+        }
+    }
+    throw "Another window ('$([HoiInput]::TitleOf($root))') covers the game at $X,$Y; nothing was sent there."
 }
 
 function Send-HoiScan {
@@ -536,6 +591,8 @@ function Send-HoiDrag {
     param([Parameter(Mandatory)][int]$X1, [Parameter(Mandatory)][int]$Y1, [Parameter(Mandatory)][int]$X2, [Parameter(Mandatory)][int]$Y2, [int]$SettleMs = 400)
     Initialize-HoiInput
     Set-HoiForeground | Out-Null
+    Assert-HoiPointIsGame -X $X1 -Y $Y1
+    Assert-HoiPointIsGame -X $X2 -Y $Y2
     [HoiInput]::SetCursorPos($X1, $Y1) | Out-Null
     Start-Sleep -Milliseconds 120
     [HoiInput]::Mouse([HoiInput]::MOUSEEVENTF_LEFTDOWN)
@@ -553,6 +610,7 @@ function Send-HoiClick {
     param([Parameter(Mandatory)][int]$X, [Parameter(Mandatory)][int]$Y, [switch]$Right, [int]$SettleMs = 300)
     Initialize-HoiInput
     Set-HoiForeground | Out-Null
+    Assert-HoiPointIsGame -X $X -Y $Y
     [HoiInput]::SetCursorPos($X, $Y) | Out-Null
     Start-Sleep -Milliseconds 100
     if ($Right) { [HoiInput]::Mouse([HoiInput]::MOUSEEVENTF_RIGHTDOWN); Start-Sleep -Milliseconds 60; [HoiInput]::Mouse([HoiInput]::MOUSEEVENTF_RIGHTUP) }
@@ -581,6 +639,8 @@ function Save-HoiScreenshot {
     if (-not $F11) {
         Add-Type -AssemblyName System.Drawing
         Set-HoiForeground | Out-Null   # throws when the game is not in front: no capture of another window
+        # having the keyboard is not enough: another window can still lie on top of the game
+        foreach ($point in @(@(640, 400), @(1920, 400), @(1280, 1000))) { Assert-HoiPointIsGame -X $point[0] -Y $point[1] }
         if (-not $KeepCursor) {
             [HoiInput]::SetCursorPos($script:CursorPark[0], $script:CursorPark[1]) | Out-Null
             Start-Sleep -Milliseconds 400

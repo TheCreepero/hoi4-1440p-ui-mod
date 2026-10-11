@@ -80,4 +80,107 @@ spriteTypes = {
 		name = "GFX_1440p_UV_army_group_bg"
 		texturefile = "gfx/interface/1440p_ui/uv_army_group_bg.dds"
 	}
+
+	# Unit details windows (division, ship, air wing, railway gun). Every texture below is a vanilla
+	# texture enlarged by tools/stretch_background.py.
+
+	# Division details, 1180x587.
+	spriteType = {
+		name = "GFX_1440p_UD_division_bg"
+		texturefile = "gfx/interface/1440p_ui/ud_division_bg.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	# Header bar of the officer block and of each equipment group, 358 wide.
+	spriteType = {
+		name = "GFX_1440p_UD_list_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/ud_list_entry_bg.dds"
+	}
+
+	# Hard and soft attack bar of a division, 350 wide in a 363 wide frame.
+	# The bar is the vanilla pair of textures; the bar size stretches them.
+	progressbartype = {
+		name = "GFX_1440p_UD_softness_ratio"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 0.0 0.0 0.0 }
+		textureFile1 = "gfx/interface/softness_ratio_armour.dds"
+		textureFile2 = "gfx/interface/softness_ratio_infantry.dds"
+		size = { x = 350 y = 11 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+	}
+
+	spriteType = {
+		name = "GFX_1440p_UD_softness_frame"
+		texturefile = "gfx/interface/1440p_ui/ud_softness_frame.dds"
+	}
+
+	# History tab: the line under an entry, 754 wide, and the strip behind the medals, 767 wide.
+	spriteType = {
+		name = "GFX_1440p_UD_history_divider"
+		texturefile = "gfx/interface/1440p_ui/ud_history_divider.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_UD_medal_strip"
+		texturefile = "gfx/interface/1440p_ui/ud_medal_strip.dds"
+	}
+
+	# Template tab of the division window: the board with the regiment tree, 782x513, and the
+	# picture behind an HQ template, 755x478.
+	spriteType = {
+		name = "GFX_1440p_UD_template_bg"
+		texturefile = "gfx/interface/1440p_ui/ud_template_bg.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_UD_template_hq_bg"
+		texturefile = "gfx/interface/1440p_ui/ud_template_hq_bg.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	# Ship details (also the railway gun details) and air wing details, 1180x475, and the row of an
+	# air wing or plane type in their side panel, 358 wide.
+	spriteType = {
+		name = "GFX_1440p_UD_ship_bg"
+		texturefile = "gfx/interface/1440p_ui/ud_ship_bg.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_UD_air_wing_bg"
+		texturefile = "gfx/interface/1440p_ui/ud_air_wing_bg.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_UD_wing_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/ud_wing_entry_bg.dds"
+	}
+
+	# A3 redo: cards and tiles of the division Stats tab. Tiled vanilla textures declared at the size wanted;
+	# an iconType draws them at that size.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_UD_card_stats"
+		size = { x = 380 y = 242 }
+		textureFile = "gfx//interface//tiles//tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_UD_card_misc"
+		size = { x = 772 y = 86 }
+		textureFile = "gfx//interface//tiles//tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_UD_stat_tile"
+		texturefile = "gfx/interface/1440p_ui/ud_stat_tile.dds"
+	}
 }

@@ -194,11 +194,26 @@ class Renderer:
         self.missing_sprites = set()
         self.variables = {}
         self.expand = set(self.options.get("expand") or [])
+        # a named state of the scene: one of its captures, which may say what the screen shows then
+        # ("hide" per window, "rows", "samples", "expand"); it is laid over the scene's own values
+        self.state = {}
+        wanted = self.options.get("state")
+        if wanted:
+            # "states" are states the renderer can draw but the harness cannot bring up (an HQ division)
+            for capture in (self.scene.get("captures") or []) + (self.scene.get("states") or []):
+                if capture.get("name") == wanted:
+                    self.state = capture
+            if not self.state:
+                self.warn("the scene has no capture or state named %s; drawing its default state" % wanted)
+        self.expand |= set(self.state.get("expand") or [])
+        self._containers = []      # names of the containers being drawn, outermost first
+        self._sample_index = {}    # (window, widget) -> how many instances took a text from a sample list
         # widgets the game code hides or moves: per window, from the scene ("hide", "place") and the CLI
         self.hidden = set()
         self.placements = {}
+        state_hide = self.state.get("hide") or {}
         for w in self.scene.get("windows") or []:
-            for n in w.get("hide") or []:
+            for n in (state_hide[w["name"]] if w["name"] in state_hide else (w.get("hide") or [])):
                 self.hidden.add((w["name"], n))
             for n, at in (w.get("place") or {}).items():
                 self.placements[(w["name"], n)] = (float(at[0]), float(at[1]))
@@ -424,11 +439,16 @@ class Renderer:
             return gp.load_font("hoi_18", self.game_dir, self.mod_dir, self.font_decls)
 
     def sample_text(self, window_name, widget_name, literal):
-        samples = self.scene.get("samples") or {}
-        for scope in (window_name, "*"):
-            table = samples.get(scope) or {}
-            if widget_name in table:
-                return str(table[widget_name]), "sample"
+        for samples in (self.state.get("samples") or {}, self.scene.get("samples") or {}):
+            for scope in (window_name, "*"):
+                table = samples.get(scope) or {}
+                if widget_name in table:
+                    value = table[widget_name]
+                    if isinstance(value, list):   # one text per instance, in drawing order (rows of a grid)
+                        index = self._sample_index.get((window_name, widget_name), 0)
+                        self._sample_index[(window_name, widget_name)] = index + 1
+                        value = value[index % len(value)] if value else ""
+                    return str(value), "sample"
         if literal:
             if literal in self.loc:
                 return gp.plain_text(self.loc[literal]), "loc"
@@ -489,6 +509,8 @@ class Renderer:
         elif lines and self.size_set_in_code(node, lines) and depth == 0:
             self.notes.add("%s: height %d is set in code; the game sizes it to its content up to this maximum (set 'height' in the scene or --height %s=N to see another)" % (name, rect.h, name))
         self._source_lines[name] = lines
+        if depth == 0:
+            self._sample_index = {}
         outer = getattr(self, "_window", None)
         self._window = name
         self.draw_container(node, rect, canvas, name, depth, clip, window_rect=rect)
@@ -566,20 +588,26 @@ class Renderer:
             clips = True
         inner_clip = rect.intersect(clip) if clips else clip
 
-        background = node.block("background")
-        if background is not None:
+        # a container can have several backgrounds (the History tab has a header panel, a strip and a
+        # paper); each is drawn at its own position (wiki/Engine-Facts.md, S18), a tiled one at its own
+        # size or the container's.
+        for background in [b for b in node.blocks() if b.key.lower() == "background"]:
             sprite = self.sprite(self.value(background.get("quadTextureSprite")) or self.value(background.get("spriteType")))
-            if sprite is not None:
-                bx = self.num(background, "position", "x", rect.w)
-                by = self.num(background, "position", "y", rect.h)
-                kind = sprite.kind.lower()
-                if kind == "corneredtilespritetype":
-                    self.draw_sprite(canvas, sprite, Rect(rect.x + bx, rect.y + by, rect.w, rect.h), clip=inner_clip)
-                else:
-                    self.draw_sprite(canvas, sprite, Rect(rect.x + bx, rect.y + by, None, None), clip=inner_clip)
+            if sprite is None:
+                continue
+            bx = self.num(background, "position", "x", rect.w)
+            by = self.num(background, "position", "y", rect.h)
+            if sprite.kind.lower() == "corneredtilespritetype":
+                own = self.size_of(background, rect, default=None)
+                bw, bh = own if own is not None else (rect.w, rect.h)
+                self.draw_sprite(canvas, sprite, Rect(rect.x + bx, rect.y + by, bw or rect.w, bh or rect.h), clip=inner_clip)
+            else:
+                self.draw_sprite(canvas, sprite, Rect(rect.x + bx, rect.y + by, None, None), clip=inner_clip)
 
+        self._containers.append(name)
         for child in node.blocks():
             self.draw_child(child, rect, canvas, window_name, depth, inner_clip)
+        self._containers.pop()
 
         # a container the code fills with rows (the division list's divisions_window) is drawn like a list
         rows = self.rows_for(window_name, name) if name else []
@@ -757,7 +785,11 @@ class Renderer:
             # placeholder text ("Auto ($EQUIPMENT_CATEGORY$)") is replaced by the code at run time.
             judged = source == "sample" or name.startswith("mod1440_")
             if max_w and full > max_w and judged:
-                self.report_text(window_name, name, text, font, full, max_w, "cut off" if truncated else "wrapped")
+                verdict = "cut off" if truncated else "wrapped"
+                # a text the design knowingly cuts off: listed in the scene, with the reason
+                if truncated and any(c.get("widget") == "%s/%s" % (window_name, name) and c.get("text") == text for c in self.scene.get("knownCuts") or []):
+                    verdict = "cut (known)"
+                self.report_text(window_name, name, text, font, full, max_w, verdict)
             elif max_w and judged:
                 self.report_text(window_name, name, text, font, full, max_w, "fits")
 
@@ -837,30 +869,45 @@ class Renderer:
                 ey = rect.bottom - (row + 1) * sh
             self.render_window(entries[i % len(entries)], canvas, (ex, ey), depth=depth + 1, clip=inner_clip)
 
+    def list_keys(self, list_name):
+        """The names a list goes by in a scene and in gui-links.json: "parent/list" first, then "list".
+
+        The parent is the nearest named container around it. A window with several lists of one name
+        (the three stat columns and the adjuster grid of a details window are all "stats_grid") needs
+        the longer form.
+        """
+        parents = [n for n in self._containers if n]
+        return (["%s/%s" % (parents[-1], list_name)] if parents else []) + [list_name]
+
     def rows_for(self, window_name, list_name):
         """Row windows for a list or grid: the scene's listRows first, then gui-links.json."""
-        for w in self.scene.get("windows") or []:
-            rows = (w.get("listRows") or {}).get(list_name)
-            if rows:
-                return [rows] if isinstance(rows, str) else list(rows)
+        keys = self.list_keys(list_name)
+        for key in keys:
+            for w in self.scene.get("windows") or []:
+                rows = (w.get("listRows") or {}).get(key)
+                if rows:
+                    return [rows] if isinstance(rows, str) else list(rows)
         out = []
         for pair in self.links.get("entryPairs", []):
-            if pair.get("grid") == list_name:
+            if pair.get("grid") in keys:
                 out.append(pair["entry"])
         for pair in self.links.get("listRows", []):
-            if pair.get("list") == list_name:
+            if pair.get("list") in keys:
                 out.append(pair["row"])
         # the first row window listed is the usual one; the others are shown once each after it
         return out
 
     def row_count(self, window_name, list_name, default):
-        override = (self.options.get("rows") or {}).get(list_name)
-        if override is not None:
-            return int(override)
-        for w in self.scene.get("windows") or []:
-            rows = (w.get("rows") or {}).get(list_name)
-            if rows is not None:
-                return int(rows)
+        keys = self.list_keys(list_name)
+        for table in (self.options.get("rows") or {}, self.state.get("rows") or {}):
+            for key in keys:
+                if table.get(key) is not None:
+                    return int(table[key])
+        for key in keys:
+            for w in self.scene.get("windows") or []:
+                rows = (w.get("rows") or {}).get(key)
+                if rows is not None:
+                    return int(rows)
         return default
 
     def draw_scrollbar(self, node, parent, canvas, clip):
@@ -1079,7 +1126,8 @@ def render_scene(renderer, scene, args):
         renderer.draw_bounds(canvas)
     base.alpha_composite(canvas)
     os.makedirs(PREVIEW_DIR, exist_ok=True)
-    out = args.out or os.path.join(PREVIEW_DIR, scene["screen"] + "_scene" + ("_bounds" if args.bounds else "") + ".png")
+    state = ("_" + args.state) if getattr(args, "state", None) else ""
+    out = args.out or os.path.join(PREVIEW_DIR, scene["screen"] + state + "_scene" + ("_bounds" if args.bounds else "") + ".png")
     base.save(out)
     crop_out = None
     crop = scene.get("crop")
@@ -1131,6 +1179,7 @@ def main(argv):
     ap.add_argument("--locate", nargs="+", metavar="WINDOW/WIDGET[#N]", help="with --scene: print where these widgets sit on the screen, and draw nothing")
     ap.add_argument("--verify", metavar="CAPTURE.png", help="with --scene: look for the scene's 'expect' widgets (or --expect) in a game capture")
     ap.add_argument("--expect", nargs="+", metavar="WINDOW/WIDGET[#N]", help="widgets for --verify instead of the scene's own list")
+    ap.add_argument("--state", metavar="CAPTURE", help="with --scene: draw the state of one of the scene's captures (another tab, an opened dropdown)")
     args = ap.parse_args(argv)
     args.background = [int(v) for v in args.background.split(",")]
 
@@ -1152,7 +1201,7 @@ def main(argv):
         k, _sep, v = item.partition("=")
         xs, _sep, ys = v.partition(",")
         places[k] = (float(xs), float(ys))
-    options = {"expand": args.expand, "frame": args.frame, "rows": rows, "heights": heights, "hide": args.hide, "place": places, "clip_default": args.clip_default, "vanilla": args.vanilla}
+    options = {"expand": args.expand, "frame": args.frame, "rows": rows, "heights": heights, "hide": args.hide, "place": places, "clip_default": args.clip_default, "vanilla": args.vanilla, "state": args.state}
     renderer = Renderer(game_dir, scene=scene, options=options)
 
     if args.locate or args.verify:

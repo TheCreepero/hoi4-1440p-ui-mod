@@ -1,0 +1,519 @@
+# Vanilla 1.19.3.0, interface/unitview.gui, lines 2957-3471.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "ship_stats_window"
+		moveable = yes
+		click_to_front = yes
+		position = { x=-275 y=-235 }
+		size = { width = 557 height = 407 }
+		Orientation = center
+		clipping = no
+		fade_time = 300
+		fade_type = linear
+
+		show_sound = pop_up
+
+		Background = {
+			name = "ship_stats_bg"
+			quadTextureSprite = "GFX_naval_unit_stats_bg"
+		}
+
+		buttonType = {
+			name = "btn_pride"
+			position = {x=13 y=280}
+			spriteType = "GFX_NV_btn_pride"
+		}
+
+		instantTextboxType = {
+			name = "ship_title"
+			position = { x = 35 y = 0 }
+			textureFile = ""
+			font = "hoi_36header"
+			borderSize = {x = 0 y = 0}
+			text = "SHIP_UNIT_STATS"
+			maxWidth = 300
+			maxHeight = 20
+			format = left
+		}
+
+		buttonType = {
+			name = "tab_stats"
+			position = { x = 10 y = -10 }
+			Orientation = "LOWER_LEFT"
+			quadTextureSprite = "GFX_unit_stats_view_tabs"
+			buttonText = "NAVAL_STATS_LABEL"
+			font = "hoi_18mbs"
+		}
+
+		buttonType = {
+			name = "tab_history"
+			position = { x = 120 y = -10 }
+			Orientation = "LOWER_LEFT"
+			quadTextureSprite = "GFX_unit_stats_view_tabs"
+			buttonText = "NAVAL_HISTORY_LABEL"
+			font = "hoi_18mbs"
+		}
+
+		buttonType = {
+			name = "tab_design"
+			position = { x = 227 y = -10 }
+			Orientation = "LOWER_LEFT"
+			quadTextureSprite = "GFX_unit_stats_view_tabs"
+			buttonText = "NAVAL_DESIGN_LABEL"
+			font = "hoi_18mbs"
+			frame = 2
+		}
+
+		iconType = {
+			name = "type_icon"
+			spriteType = "GFX_unit_infantry_icon_medium" # <- Replaced in code
+			position = { x=17 y=43 }
+		}
+
+		editBoxType = {
+			name = "ship_name"
+			position = { x = 113 y = 42 }
+			size = {x=264 y=20}
+			#textureFile = ""
+			font = "hoi_20b"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			#maxWidth = 300
+			#maxHeight = 20
+			#format = left
+		}
+
+		instantTextboxType = {
+			name = "experience"
+			position = { x = 385 y = 41 }
+			font = "hoi_18mbs"
+			text = ""
+			maxWidth = 150
+			maxHeight = 20
+		}
+
+		iconType = {
+			name = "unit_level"
+			spriteType = "GFX_unit_level"
+			position = { x = 496 y = 38 }
+		}
+		
+		iconType = {
+			name = "dominance_icon"
+			position = {x=20 y=330}
+			spriteType = "GFX_naval_dominance_texticon"
+		}
+
+		instantTextboxType = {
+			name = "dominance_value"
+			position = { x = 50 y = 332 }
+			textureFile = ""
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			text = "0"
+			maxWidth = 300
+			maxHeight = 20
+			format = left
+		}
+		
+		iconType = {
+			name = "support_icon"
+			position = {x=20 y=300}
+			spriteType = "GFX_naval_dominance_support_strip"
+			frame = 2
+		}
+
+		instantTextboxType = {
+			name = "support_value"
+			position = { x = 50 y = 298 }
+			textureFile = ""
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			text = "0"
+			maxWidth = 300
+			maxHeight = 20
+			format = left
+		}
+
+		iconType = {
+			name = "manpower_icon"
+			spriteType = "GFX_manpower_icon"
+			position = { x=600 y=3 }
+		}
+
+		instantTextboxType = {
+			name = "current_manpower"
+			position = { x = 643 y = 8 }
+			font = "hoi_18mbs"
+			text = "Stuff"
+			maxWidth = 60
+			maxHeight = 20
+			format = center
+		}
+		
+		iconType = {
+			name = "fuel_icon"
+			spriteType = "GFX_fuel"
+			position = { x = 735 y = 8 }
+		}
+
+		instantTextboxType = {
+			name = "fuel_consumption"
+			position = { x = 768 y = 8 }
+			font = "hoi_18mbs"
+			text = "Stuff"
+			maxWidth = 60
+			maxHeight = 20
+			format = left
+		}
+
+		# captain
+		containerWindowType = {
+			name = "captain_window"
+			containerWindowType = {
+				name = "captain_header_list_entry"
+				position = { x = 562 y = 34 }
+				size = { width = 270 height = 30 }
+
+				Background = {
+					name = "captain_list_entry_bg"
+					quadTextureSprite = "GFX_unit_stats_list_entry_bg2"
+					alwaystransparent = yes
+				}
+			}
+
+			instantTextboxType = {
+				name = "captain_title_text"
+				position = { x = 574 y = 39 }
+				font = "hoi_18mbs"
+				text = "CAPTAIN_TITLE_TEXT"
+				maxWidth = 340
+				maxHeight = 20
+				format = left
+			}
+
+			buttonType = {
+				name = "portraittime"
+				position = { x = 568 y = 60 }
+				quadTextureSprite = "GFX_idea_HOL_wilhelmina"
+				alwaystransparent= yes
+			}
+
+			buttonType = {
+				name = "promote_captain"
+				quadTextureSprite ="GFX_leader_selection_button"
+				position = { x=740 y=34 }
+				buttonText = "PROMOTE"
+				font = "hoi_16mbs"
+				frame = 1
+			}
+
+			iconType = {
+				name = "idea_traits"
+				position = { x = 611 y = 104 }
+				spriteType = "GFX_chevrons"
+				centerposition = yes
+				alwaystransparent = yes
+				frame = 1
+				scale = 0.68
+			}
+
+			instantTextboxType = {
+				name = "captain"
+				position = { x = 632  y = 72 }
+				font = "hoi_18mbs"
+				text = "captain haddock"
+				maxWidth = 190
+				maxHeight = 20
+				format = left
+			}
+		}
+
+		containerWindowType = {
+			name = "terrain"
+			position = { x=370 y=262}
+			size = { width=200 height=210}
+			margin = { top = 13 left = 13 bottom = 15 right = 25}
+			verticalScrollbar = "right_vertical_slider"
+
+			gridboxtype = {
+				name = "terrain_grid"
+				position = { x = 0 y = -2 }
+				size = { width = 100%% height = 100%% }
+				slotsize = { width = 70 height = 58 }
+				max_slots_horizontal = 2
+				max_slots_vertical = 2
+				format = "UPPER_LEFT"
+			}
+		}
+
+		containerWindowType = {
+			name = "info"
+			position = { x=3 y=47}
+			size = { width=100% height=100%% }
+			verticalScrollbar = "right_vertical_slider"
+
+			containerWindowType = {
+				name = "base_stats"
+				position = { x=10 y=15 }
+				size = { width=165 height=200 }
+				clipping = no
+
+				instantTextboxType = {
+					name = "base_stats_label"
+					position = { x = 5 y = 14 }
+					font = "hoi4_typewriter22"
+					text = "DESIGNER_BASE_STATS_LABEL"
+					maxWidth = 170
+					maxHeight = 20
+					format = left
+				}
+
+				gridboxtype = {
+					name = "stats_grid"
+					position = { x = 5 y = 36 }
+					size = { width = 155 height = 100%% }
+					slotsize = { width = 155 height = 20 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+			}
+
+			containerWindowType = {
+				name = "combat_stats"
+				position = { x=179 y=15 }
+				size = { width=165 height=200 }
+				clipping = no
+
+				instantTextboxType = {
+					name = "combat_stats_label"
+					position = { x = 10 y = 14 }
+					font = "hoi4_typewriter22"
+					text = "DESIGNER_COMBAT_STATS_LABEL"
+					maxWidth = 170
+					maxHeight = 20
+					format = left
+				}
+
+				gridboxtype = {
+					name = "stats_grid"
+					position = { x = 8 y = 36 }
+					size = { width = 155 height = 100%% }
+					slotsize = { width = 155 height = 20 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+			}
+
+			containerWindowType = {
+				name = "misc_stats"
+				position = { x=354 y=15 }
+				size = { width=165 height=200 }
+				Orientation = UPPER_LEFT
+				clipping = no
+
+				instantTextboxType = {
+					name = "misc_stats_label"
+					position = { x = 10 y = 14 }
+					font = "hoi4_typewriter22"
+					text = "FE_MISC_STATS"
+					maxWidth = 150
+					maxHeight = 20
+					format = left
+				}
+
+				gridboxtype = {
+					name = "stats_grid"
+					position = { x = 7 y = 36 }
+					size = { width = 155 height = 100%% }
+					slotsize = { width = 155 height = 20 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+			}
+		}
+
+		containerWindowType = {
+			name = "equipment"
+			position = { x=10 y=290 }
+			size = { width=250 height=200 }
+			clipping = no
+
+			gridboxtype = {
+				name = "equipment_grid"
+				position = { x = 155 y = 10 }
+				size = { width = 250 height = 100%% }
+				slotsize = { width = 60 height = 60 }
+				#max_slots_horizontal = 3
+				#max_slots_vertical = 3
+				format = "UPPER_LEFT"
+			}
+		}
+
+		positionType = {
+			name = "carrier_air_wings_list_position"
+			position = { x=547 y=0 }
+		}
+		positionType = {
+			name = "taog_carrier_air_wings_list_position"
+			position = { x=547 y=90 }
+		}
+
+		containerWindowType = {
+			name = "air_wings"
+			position = { x=547 y=90 }
+			size = { width=300 height=-4 }
+			margin = { bottom = 8 }
+			clipping = no
+
+			containerWindowType = {
+				name = "captain_header_list_entry"
+				position = { x = 15 y = 34 }
+				size = { width = 270 height = 30 }
+
+				Background = {
+					name = "captain_list_entry_bg"
+					quadTextureSprite = "GFX_unit_stats_list_entry_bg2"
+					alwaystransparent = yes
+				}
+			}
+
+			background = {
+				name = "Background"
+				quadTextureSprite ="GFX_tiled_window_transparent"
+			}
+
+			instantTextboxType = {
+				name = "title"
+				position = { x = 27 y = 39 }
+				textureFile = ""
+				font = "hoi_18mbs"
+				borderSize = {x = 0 y = 0}
+				text = "AIR_WINGS"
+				maxWidth = 210
+				maxHeight = 20
+				fixedsize = yes
+			}
+
+			containerWindowType = {
+				name = "list_window"
+				position = { x=0 y=65}
+				size = { width=310 height=100%% }
+				clipping = yes
+				verticalScrollbar = "right_vertical_slider"
+
+				background = {
+					name = "Background"
+					spriteType ="GFX_tiled_window_transparent"
+				}
+
+				gridboxtype = {
+					name = "list"
+					position = { x = 15 y = 0 }
+					size = { width = 280 height = 100%% }
+					slotsize = { width = 280 height = 46 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+			}
+		}
+
+		containerWindowType = {
+			name = "history"
+			position = { x=2 y=70}
+			size = { width=100% height=210}
+
+			containerWindowType = {
+				name = "medal_instance_container"
+				position = { x = 4 y = 0 }
+				size = { width = 100% height = 30 }
+
+				background = {
+					name = "Background"
+					quadTextureSprite ="GFX_deployment_binding"
+					alwaysTransparent = yes
+				}
+
+				instantTextboxType = {
+					name = "base_medals_label"
+					position = { x = 19 y = 5 }
+					font = "hoi_18mbs"
+					text = "INSTANCED_MEDALS"
+					maxWidth = 100
+					maxHeight = 20
+					format = left
+				}
+
+				gridboxtype = {
+					name = "medals_grid"
+					position = { x = 105 y = -6 }
+					size = { width = 155 height = 80 }
+					slotsize = { width = 40 height = 60 }
+					max_slots_horizontal = 9
+					format = "UPPER_LEFT"
+				}
+				
+				instantTextboxType = {
+					name = "captain_experience"
+					position = { x = 230 y = 5 }
+					font = "hoi_18mbs"
+					text = "Experience Count"
+					maxWidth = 250
+					maxHeight = 20
+					format = right
+				}
+
+			}
+
+			containerWindowType = {
+				name = "history_grid_container"
+				position = { x=-2 y=28}
+				size = { width=100% height=310 }
+				margin = { top = 13 left = 13 bottom = 0 }
+
+				background = {
+					name = "Background"
+					quadTextureSprite ="GFX_tiled_paper_w_frame_one_border_2"
+					alwaysTransparent = yes
+				}
+
+				# history_grid needs to be a listbox because army history is one too and the entries are shared
+				# listboxes don't accept extended scrollbars such as right_vertical_slider, so code handles the scrollbar background manually to behave as expected
+				buttonType = {
+					name = "scrollbar_background"
+					quadTextureSprite = "GFX_scrollbar_vertical_bg"
+					position = { x = 521 y = 0 }
+					size = { x=18 y=288 }
+					alwaystransparent = yes
+				}
+
+				listboxType = {
+					name = "history_grid"
+					position = { x = 0 y = 2 }
+					size = { x = 522 y = 283 }
+					scrollbartype = "standardlistbox_slider"
+				}
+			}
+		}
+
+		buttonType = {
+			name = "btn_delete"
+			position = { x = 3 y = 3 }
+			spriteType = "GFX_NV_btn_delete"
+			clicksound = disband
+			Orientation = "UPPER_RIGHT"
+		}
+
+		buttonType = {
+			name = "btn_close"
+			position = { x = 265 y = 3 }
+			quadTextureSprite ="GFX_NV_btn_close"
+			buttonFont = "Main_14_black"
+			shortcut = "ESCAPE"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+			Orientation = "UPPER_RIGHT"
+		}
+	}
+}

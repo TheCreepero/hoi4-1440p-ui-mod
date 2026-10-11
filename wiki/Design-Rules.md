@@ -19,7 +19,13 @@ A screen is re-laid out around what the player wants to see at once, not only en
 | Give each existing value its own place: full names, a column per status, larger bars | Yes | Larger art is built from vanilla assets |
 | Hotkeys, including key chords | Yes | A `shortcut` line on a button the game already has |
 | Fixed text and icons: column captions, legends, static tooltips | Yes | A vanilla text key needs no file; new text needs a file under `localisation/` |
+| Stat rows as tiles: a grid with two or more columns, a wrapped label over a larger value | Yes | `max_slots_horizontal` and `slotsize` of the grid, layout of the row window ([Engine Facts](Engine-Facts.md) W16); labels that vanilla cuts can be shown whole |
+| Tab hotkeys | Yes | `shortcut` on the tab buttons (W19) |
+| Cards, panels, grouped headers | Yes, as sibling backgrounds | A background drawn behind the widgets; the widgets stay under their vanilla parent (W15) |
 | New live values the screen does not show today | No | The game fills only the widgets its code asks for |
+| A value shown in two places | No | A second widget with the same name is dropped (W14) |
+| Wrapping widgets in a new container (cards that own their content) | No | The code finds a widget only among the children of its vanilla parent (W15) |
+| Showing two tabs at once | No | Duplicate tab containers are dropped (W14), and the code hides the other tab's container |
 | New buttons that do something | No | Same reason |
 
 - **The game fills only the widgets its code asks for, by name.** A widget with a name the code does not know stays empty and does nothing when clicked. The names are stored as text in `hoi4.exe`, so they can be listed.
@@ -138,6 +144,20 @@ What A2 showed (division list), confirmed in game unless noted:
   - Each insert takes its columns from inside one area, clear of every edge.
 - **Width is the first thing to be judged in game.** The first build had 90 px bars and a 96 px warnings column; both were sent back as too wide. A column gets the width its content needs and no more, and width that is saved goes back to the map, not to another column.
 - **Untested: a tiled sprite replacing a plain one as a window `background`.** The footer plate is a plain sprite drawn at its own size. A tiled sprite normally takes the window's size, which here is set in code, so the plate got a widened texture instead.
+
+What A3 showed (unit details windows), confirmed in game:
+
+- **A row can be shared between vanilla files.** Before enlarging a row, run `tools/Show-CodeNames.ps1` on every window that could use it and look for the row's name; `stat_entry` turned two windows into four.
+- **A window the code places can still be moved.** Give the window a 10x10 rectangle and put the background (with a `position`) and every widget where the window should appear. The division details window opens 505 px further right this way, clear of the army panel in each of the places the game picks for it ([Engine Facts](Engine-Facts.md) S17 to S20).
+  - Do not pad the texture with a transparent strip instead: the strip swallows clicks on whatever lies under it.
+  - Give children that were sized in per cent of the window an explicit size.
+- **Bitmaps with painted areas grow band by band.** `grow_bands` in `tools/stretch_background.py` gives each band of rows its own column inserts, and `grow` adds rows between printed lines. Find the plain ranges of each band first: the columns without an edge in any row of the band.
+  - Paper, scratched metal: many single-line copies spread over the area (`stretched`).
+  - A hatch or dotted line: copies of one period (`spread` with the period).
+  - A plain bar: one mirrored insert.
+- **Move widgets by name, with a script.** `tools/guiedit.py` sets positions, sizes, fonts and sprites by widget path and leaves the rest of the file alone. A layout is then a short script of numbers that can be run again with other numbers.
+- **States a scene cannot reach are still rendered.** A scene's `captures` and `states` can carry `hide`, `rows`, `samples` and `expand`; `render_gui.py --scene <screen> --state <name>` draws them. A sample can be a list, one text per row.
+- **A text the design cuts on purpose is listed.** `knownCuts` in the scene names the widget, the text and the reason; the tests then accept it.
 
 ## Recipe for a screen phase
 

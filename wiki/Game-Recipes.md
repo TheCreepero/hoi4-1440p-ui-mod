@@ -48,8 +48,9 @@ Surveyed on game 1.19.3 on 2026-10-08, each recipe run unattended with the mod a
 | A1 | `air_selection` | `select_airbase` | verified, mod and vanilla |
 | A1 | `air_group` | `select_airbase`, then click `air_selection_view/btn_create_air_group` | the group badge moves the list down; runs last |
 | A2 | `army_selection` | `select_army_1` | verified, mod and vanilla; extra capture of the template dropdown |
-| A3 | `division_details` | `select_army_1`, then click `army_division_view/unitinfo_button` | |
-| A3 | `ship_details` | `open_ship_details` | |
+| A3 | `division_details` | `select_army_1`, sort by name, then click `army_division_view/unitinfo_button` | verified, mod and vanilla; extra captures: History and Template tabs, both dropdowns, a tank and a motorised division (each a further window) |
+| A3 | `ship_details` | `open_ship_details` | verified, mod and vanilla; extra captures: History tab, a British carrier (`tag ENG`; the scene's `teardown` switches back) |
+| A3 | `air_wing_details` | `select_airbase`, then click `airwing_selection_item/unitinfo_button` | verified, mod and vanilla |
 | A4 | `fleet` | `select_fleet` | extra captures: composition editor, home base picker |
 | A5 | `recruit_deploy` | `open_recruit_deploy` (key `u`) | |
 | A6 | `army_overview` | `open_army_overview` (key `o`) | extra captures: navy (`p`) and air (`l`) tabs |
@@ -116,6 +117,9 @@ Each `VERIFY` line gives the offset between the layout and the game, up to 20 px
 - **A recipe can change what the next one sees.** `Invoke-GameCheck.ps1` runs all scenes in one game, and the reset closes windows but does not undo what a recipe created. Creating the army a second time failed for that reason, so it now happens once, in `prepare_game`. A scene that leaves something behind which other screens show gets `"changesState": true` and runs last; `air_group` is the one so far.
 - **Earlier clicks shift later positions.** An air group badge pushes the wing list down by its height. A `clickWidget` step uses the layout of the scene it names, so name a scene that describes the state the click happens in.
 - **A disabled button swallows the click.** The "Add new Air Wing" button did nothing until there were planes in reserve. When a click has no effect, hover the button and capture with `Save-HoiGridCapture -KeepCursor`: the tooltip says why.
+- **A details window opens somewhere else each time.** The game counts the division details windows opened in a game and places each one by that count ([Engine Facts](Engine-Facts.md) S17). A scene's `at` describes the first; a step that clicks into a later one needs an `offset`.
+- **Another window can cover the game.** In debug mode the game itself opens `error.log` in Notepad. The harness minimises it after loading and refuses to click or capture where the game is not on top.
+- **The game may be loading a copy of the mod.** After `build.ps1 -Deploy` the launcher file points at the copy under Documents. The harness stops with a message; run `build.ps1 -DevLink`.
 - **A wrong `at` makes a named click miss silently.** The vanilla wing list was 15 px from where the scene put it, which is half a button. Measure `at` (and `atVanilla`) before relying on `clickWidget` in a window the code places.
 - **The cursor leaves a tooltip.** It is parked over the map before each capture; keep the crop region clear of (1500, 1000).
 - **A click only counts while the game is in front.** The harness checks before every key and click and stops with an error otherwise. Moving the mouse during a run still derails it.

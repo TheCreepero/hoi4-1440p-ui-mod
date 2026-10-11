@@ -321,8 +321,9 @@ def load_sprites(game_dir, mod_dir=REPO_ROOT, verbose=False):
 class BitmapFont:
     """A BMFont text file plus its page image. Measures and draws text with the real glyphs."""
 
-    def __init__(self, fnt_path):
+    def __init__(self, fnt_path, color=(255, 255, 255, 255)):
         self.path = fnt_path
+        self.color = color      # the colour its bitmapfont block declares; white leaves the glyphs as painted
         self.chars = {}
         self.kerning = {}
         self.line_height = 0
@@ -377,10 +378,13 @@ class BitmapFont:
                 raise FileNotFoundError("no page image for " + self.path)
         return self.page_images[page_id]
 
-    def draw(self, canvas, x, y, text, color=(255, 255, 255, 255)):
-        """Draw one line with its top-left corner at (x, y). Returns the width drawn."""
+    def draw(self, canvas, x, y, text, color=None):
+        """Draw one line with its top-left corner at (x, y), in the font's declared colour unless one is given.
+        Returns the width drawn."""
         from PIL import Image
 
+        if color is None:
+            color = self.color
         cursor = x
         prev = None
         for ch in text:
@@ -440,15 +444,21 @@ def load_font(name, game_dir, mod_dir=REPO_ROOT, declarations=None):
         return _font_cache[name]
     if declarations is None:
         declarations = font_declarations(game_dir, mod_dir)
-    rel, _color = declarations.get(name, (None, None))
+    rel, declared = declarations.get(name, (None, None))
     if rel is None:
         rel = "gfx/fonts/" + name
+    color = (255, 255, 255, 255)
+    try:   # 0xAARRGGBB: the typewriter fonts are white glyphs declared black, and print black on paper
+        argb = int(str(declared), 16)
+        color = ((argb >> 16) & 255, (argb >> 8) & 255, argb & 255, 255)
+    except (TypeError, ValueError):
+        pass
     for base in (mod_dir, game_dir):
         if not base:
             continue
         fnt = os.path.join(base, *rel.split("/")) + ".fnt"
         if os.path.isfile(fnt):
-            font = BitmapFont(fnt)
+            font = BitmapFont(fnt, color)
             _font_cache[name] = font
             return font
     raise FileNotFoundError("font %s (%s.fnt) not found" % (name, rel))

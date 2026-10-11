@@ -1,0 +1,36 @@
+# Vanilla 1.19.3.0, interface/unitview.gui, lines 1769-1800.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType =
+	{
+		name = "stat_entry"
+		position = {x=0 y=0}
+		size = { width = 90 height = 5 }
+
+		instantTextBoxType = {
+			name = "label"
+			position = { x = 0 y = 5 }
+			textureFile = ""
+			font = "hoi4_typewriter16"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			maxWidth = 140
+			maxHeight = 20
+			fixedsize = yes
+			format = left
+		}
+
+		instantTextBoxType = {
+			name = "value"
+			position = { x = 0 y = 5 }
+			textureFile = ""
+			font = "hoi4_typewriter16_inverted"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			maxWidth = 163
+			maxHeight = 20
+			fixedsize = yes
+			format = right
+		}
+	}
+}

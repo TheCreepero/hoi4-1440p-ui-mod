@@ -46,6 +46,17 @@
       "list": "air_group_view_entries",
       "row": "unassigned_airwings_view",
       "_comment": "With an air group selected the game puts the group badge and the whole wing list frame into this second list."
+    },
+    {
+      "listWindow": "army_division_stats_view",
+      "list": "history_entry_grid",
+      "row": "army_history_entry"
+    },
+    {
+      "listWindow": "ship_stats_window",
+      "list": "history_grid",
+      "row": "army_history_entry",
+      "_comment": "The same entry fills the history list of the division and of the ship details window."
     }
   ],
   "variables": {
