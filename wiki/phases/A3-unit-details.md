@@ -77,6 +77,16 @@ Not seen in game (states a 1936 start does not show):
 - A foreign, colonial or exiled division's flags in the header strip.
 - The Design tab of the ship window opens the ship designer (B4) and was not changed.
 
+## A3 redo: cards and tiles (2026-10-09, in progress)
+
+The first build only enlarged the vanilla layout. The redo regroups the Stats tab of all four windows as dark cards of stat tiles. Engine experiments first ([Engine Facts](../Engine-Facts.md) W14 to W21): duplicates, reparenting and two tabs at once do not work; tiles from a grid with several columns, wrapped labels and tab hotkeys do.
+
+- **Stat row as a tile** (`stat_entry`, shared by all four windows): 126x52, label in `hoi_16mbs` over a value in `hoi_20b`, background `GFX_1440p_UD_stat_tile` (built from the vanilla header bar by `tools/stretch_background.py`). The long label "Trickleback & War Support Protection" wraps to two lines (107 and 115 px in a 121 px box); the first build's 116 px box left no margin and was widened after the tester reported an overlap with the value (`FOUND_ISSUES.txt`, seen in the earlier typewriter build).
+- **Division window:** Base and Combat cards (3 tile columns) side by side, Misc card (6 columns) below, no parchment on the Stats tab; adjusters in two rows of seven; tab hotkeys `shift+a`, `shift+h`, `shift+t` are NOT in the shipped file yet.
+- **Ship, air wing and railway gun windows:** same cards (194 and 142 px high); the paper of `ud_ship_bg.dds` and `ud_air_wing_bg.dds` grew by 111 rows (586 px high), every widget under the paper moved down 111 px, window height 473 to 584.
+- **Game check 10 (2026-10-11, build 52c3e50+dirty):** division (all tabs, both dropdowns, tank, motorised), ship (stats, history, carrier) and air wing. `error.log` clean. Stats tiles, the wrapped "Trickleback & War / Support Protection:" label (no overlap with its value), all adjusters and the shifted lower panels came out as rendered. It found one fault: the ship History paper (container 376 px) ran 40 px over the lower panel; shortened to 334 (grid 307, scrollbar 312) and re-rendered, not yet launched again.
+- **Not checked in game:** railway gun (no recipe), the shortened ship History, tab hotkeys (not added to the shipped file yet), and `reference/mod/` is not refreshed.
+
 ## Left for the tester
 
 1. Tooltips on stat rows, terrain adjusters and equipment rows.

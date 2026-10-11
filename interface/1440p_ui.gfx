@@ -183,4 +183,23 @@ spriteTypes = {
 		name = "GFX_1440p_UD_stat_tile"
 		texturefile = "gfx/interface/1440p_ui/ud_stat_tile.dds"
 	}
+
+	# A3 redo: cards of the ship, air wing and railway gun Stats tab (three rows of tiles, two rows of six).
+	corneredTileSpriteType = {
+		name = "GFX_1440p_UD_card_stats_s"
+		size = { x = 380 y = 194 }
+		textureFile = "gfx//interface//tiles//tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_UD_card_misc_s"
+		size = { x = 772 y = 142 }
+		textureFile = "gfx//interface//tiles//tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
 }

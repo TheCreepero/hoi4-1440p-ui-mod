@@ -225,7 +225,7 @@ def paper_columns():
     return spread(24, 176, count, 3, 3) + spread(196, 352, count, 3, 3) + spread(372, 526, count, 3, 3)
 
 
-def paper_rows(first, bands, last_band_rows=8):
+def paper_rows(first, bands, last_band_rows=8, per_band=STAT_ROW):
     """Row inserts for a paper with `bands` stat rows: every band between two printed lines takes
     STAT_ROW rows, each a copy of one of its own rows.
 
@@ -234,8 +234,11 @@ def paper_rows(first, bands, last_band_rows=8):
     its first rows.
     """
     rows = []
+    # a band has 16 plain rows: up to 8 copies go after every second one; more copies cycle through
+    # rows 1 to 15, so several copies of one row follow each other (a plain row repeated is still plain)
+    offset = (lambda i: 1 + 2 * i) if per_band <= 8 else (lambda i: 1 + i % 15)
     for band in range(bands - 1):
-        rows += [(first + 20 * band + 1 + 2 * i, 1, 1) for i in range(STAT_ROW)]
+        rows += [(first + 20 * band + offset(i), 1, 1) for i in range(per_band)]
     rows += [(first + 20 * (bands - 1) + 1 + i, 1, 1) for i in range(last_band_rows)]
     return rows
 
@@ -292,6 +295,13 @@ def division_details(source):
     return join([main, side], "x")
 
 
+# A3 redo: the paper of the ship, air wing and railway gun bitmaps is taller, so that two rows of stat
+# cards (194 and 142 px) fit on it: 7 bands of 24 rows and a last band of 7, 175 rows in all (it was 64).
+SMALL_PER_BAND = 24
+SMALL_LAST_BAND = 7
+SMALL_PAPER_GROWTH = 7 * SMALL_PER_BAND + SMALL_LAST_BAND
+
+
 def small_details(frame_band, bottom_inserts):
     """A compose function for the ship and air wing details bitmaps, 856x409 to 1180x475.
 
@@ -315,7 +325,7 @@ def small_details(frame_band, bottom_inserts):
             (frame_end, h - 10, stretched(20, 520, MAIN_GROWTH)),
             (h - 10, h, bottom_inserts),
         ])
-        rows = paper_rows(104, 8) + stretched(300, 380, 2)
+        rows = paper_rows(104, 8, last_band_rows=SMALL_LAST_BAND, per_band=SMALL_PER_BAND) + stretched(300, 380, 2)
         main = grow(main, "y", rows)
         side = side_panel(source.crop((553, 0, 856, h)), sum(row[1] for row in rows))
         return join([main, side], "x")

@@ -916,7 +916,7 @@ guiTypes = {
 		moveable = yes
 		click_to_front = yes
 		position = { x=-275 y=-235 }
-		size = { width = 791 height = 473 }
+		size = { width = 791 height = 584 }
 		Orientation = center
 		clipping = no
 		fade_time = 300
@@ -931,7 +931,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_pride"
-			position = {x=13 y=344}
+			position = {x=13 y=455}
 			spriteType = "GFX_NV_btn_pride"
 		}
 
@@ -1011,13 +1011,13 @@ guiTypes = {
 		
 		iconType = {
 			name = "dominance_icon"
-			position = {x=20 y=394}
+			position = {x=20 y=505}
 			spriteType = "GFX_naval_dominance_texticon"
 		}
 
 		instantTextboxType = {
 			name = "dominance_value"
-			position = { x = 50 y = 396 }
+			position = { x = 50 y = 507 }
 			textureFile = ""
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
@@ -1029,14 +1029,14 @@ guiTypes = {
 		
 		iconType = {
 			name = "support_icon"
-			position = {x=20 y=364}
+			position = {x=20 y=475}
 			spriteType = "GFX_naval_dominance_support_strip"
 			frame = 2
 		}
 
 		instantTextboxType = {
 			name = "support_value"
-			position = { x = 50 y = 362 }
+			position = { x = 50 y = 473 }
 			textureFile = ""
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
@@ -1142,7 +1142,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "terrain"
-			position = { x=394 y=326}
+			position = { x=394 y=437}
 			size = { width=410 height=210}
 			margin = { top = 13 left = 13 bottom = 15 right = 25}
 			verticalScrollbar = "right_vertical_slider"
@@ -1160,85 +1160,108 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "info"
-			position = { x=3 y=47}
-			size = { width=100% height=100%% }
-			verticalScrollbar = "right_vertical_slider"
+			position = { x=3 y=75 }
+			size = { width=787 height=355 }
+			Background = {
+				name = "mod1440_info_bg"
+				quadTextureSprite = "GFX_tiled_plain_bg_small"
+			}
+
+			iconType = {
+				name = "mod1440_card_base"
+				spriteType = "GFX_1440p_UD_card_stats_s"
+				position = { x = 7 y = 6 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_card_combat"
+				spriteType = "GFX_1440p_UD_card_stats_s"
+				position = { x = 399 y = 6 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_card_misc"
+				spriteType = "GFX_1440p_UD_card_misc_s"
+				position = { x = 7 y = 206 }
+				alwaystransparent = yes
+			}
 
 			containerWindowType = {
 				name = "base_stats"
-				position = { x=10 y=15 }
-				size = { width=243 height=264 }
+				position = { x=7 y=6 }
+				size = { width=380 height=194 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "base_stats_label"
-					position = { x = 5 y = 14 }
-					font = "hoi4_typewriter22"
+					position = { x = 12 y = 5 }
+					font = "hoi_20b"
 					text = "DESIGNER_BASE_STATS_LABEL"
-					maxWidth = 230
-					maxHeight = 20
+					maxWidth = 356
+					maxHeight = 22
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 5 y = 36 }
-					size = { width = 233 height = 100%% }
-					slotsize = { width = 233 height = 28 }
-					max_slots_horizontal = 1
+					position = { x = 1 y = 30 }
+					size = { width = 378 height = 100%% }
+					slotsize = { width = 126 height = 52 }
+					max_slots_horizontal = 3
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "combat_stats"
-				position = { x=257 y=15 }
-				size = { width=243 height=264 }
+				position = { x=399 y=6 }
+				size = { width=380 height=194 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "combat_stats_label"
-					position = { x = 10 y = 14 }
-					font = "hoi4_typewriter22"
+					position = { x = 12 y = 5 }
+					font = "hoi_20b"
 					text = "DESIGNER_COMBAT_STATS_LABEL"
-					maxWidth = 230
-					maxHeight = 20
+					maxWidth = 356
+					maxHeight = 22
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 8 y = 36 }
-					size = { width = 233 height = 100%% }
-					slotsize = { width = 233 height = 28 }
-					max_slots_horizontal = 1
+					position = { x = 1 y = 30 }
+					size = { width = 378 height = 100%% }
+					slotsize = { width = 126 height = 52 }
+					max_slots_horizontal = 3
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "misc_stats"
-				position = { x=510 y=15 }
-				size = { width=243 height=264 }
-				Orientation = UPPER_LEFT
+				position = { x=7 y=206 }
+				size = { width=772 height=142 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "misc_stats_label"
-					position = { x = 10 y = 14 }
-					font = "hoi4_typewriter22"
+					position = { x = 12 y = 5 }
+					font = "hoi_20b"
 					text = "FE_MISC_STATS"
-					maxWidth = 230
-					maxHeight = 20
+					maxWidth = 748
+					maxHeight = 22
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 7 y = 36 }
-					size = { width = 233 height = 100%% }
-					slotsize = { width = 233 height = 28 }
-					max_slots_horizontal = 1
+					position = { x = 8 y = 30 }
+					size = { width = 756 height = 100%% }
+					slotsize = { width = 126 height = 52 }
+					max_slots_horizontal = 6
 					format = "UPPER_LEFT"
 				}
 			}
@@ -1246,7 +1269,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "equipment"
-			position = { x=10 y=354 }
+			position = { x=10 y=465 }
 			size = { width=250 height=200 }
 			clipping = no
 
@@ -1379,7 +1402,7 @@ guiTypes = {
 			containerWindowType = {
 				name = "history_grid_container"
 				position = { x=-2 y=28}
-				size = { width=100% height=376 }
+				size = { width=100% height=334 }
 				margin = { top = 13 left = 13 bottom = 0 }
 
 				background = {
@@ -1394,14 +1417,14 @@ guiTypes = {
 					name = "scrollbar_background"
 					quadTextureSprite = "GFX_scrollbar_vertical_bg"
 					position = { x = 755 y = 0 }
-					size = { x=18 y=354 }
+					size = { x=18 y=312 }
 					alwaystransparent = yes
 				}
 
 				listboxType = {
 					name = "history_grid"
 					position = { x = 0 y = 2 }
-					size = { x = 756 y = 349 }
+					size = { x = 756 y = 307 }
 					scrollbartype = "standardlistbox_slider"
 				}
 			}
@@ -1442,24 +1465,24 @@ containerWindowType =
 
 		instantTextBoxType = {
 			name = "label"
-			position = { x = 6 y = 2 }
+			position = { x = 4 y = 2 }
 			textureFile = ""
 			font = "hoi_16mbs"
 			borderSize = {x = 0 y = 0}
 			text = ""
-			maxWidth = 116
+			maxWidth = 121
 			maxHeight = 32
 			format = left
 		}
 
 		instantTextBoxType = {
 			name = "value"
-			position = { x = 6 y = 32 }
+			position = { x = 4 y = 32 }
 			textureFile = ""
 			font = "hoi_20b"
 			borderSize = {x = 0 y = 0}
 			text = ""
-			maxWidth = 116
+			maxWidth = 121
 			maxHeight = 20
 			fixedsize = yes
 			format = left
@@ -1726,7 +1749,7 @@ containerWindowType =
 		name = "air_wing_stats_window"
 		moveable = yes
 		position = { x=-275 y=-235 }
-		size = { width = 1180 height = 473 }
+		size = { width = 1180 height = 584 }
 		Orientation = center
 		clipping = no
 		fade_time = 300
@@ -1802,12 +1825,12 @@ containerWindowType =
 		iconType = {
 			name = "manpower_icon"
 			spriteType = "GFX_manpower_icon"
-			position = { x=20 y=428 }
+			position = { x=20 y=539 }
 		}
 		
 		instantTextboxType = {
 			name = "current_manpower"
-			position = { x = 50 y = 433  }
+			position = { x = 50 y = 544  }
 			font = "hoi_18mbs"
 			text = "Stuff"
 			maxWidth = 60
@@ -1817,7 +1840,7 @@ containerWindowType =
 
 		containerWindowType = {
 			name = "missions"
-			position = { x = 20 y = 379 }
+			position = { x = 20 y = 490 }
 			size = { width = 150 height = 20 }
 
 			gridboxtype = {
@@ -1857,85 +1880,108 @@ containerWindowType =
 	
 		containerWindowType = {
 			name = "info"
-			position = { x=3 y=47}
-			size = { width=100% height=100%% }
-			verticalScrollbar = "right_vertical_slider"
-			
+			position = { x=3 y=75 }
+			size = { width=787 height=355 }
+			Background = {
+				name = "mod1440_info_bg"
+				quadTextureSprite = "GFX_tiled_plain_bg_small"
+			}
+
+			iconType = {
+				name = "mod1440_card_base"
+				spriteType = "GFX_1440p_UD_card_stats_s"
+				position = { x = 7 y = 6 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_card_combat"
+				spriteType = "GFX_1440p_UD_card_stats_s"
+				position = { x = 399 y = 6 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_card_misc"
+				spriteType = "GFX_1440p_UD_card_misc_s"
+				position = { x = 7 y = 206 }
+				alwaystransparent = yes
+			}
+
 			containerWindowType = {
 				name = "base_stats"
-				position = { x=10 y=15 }	
-				size = { width=243 height=264 }
+				position = { x=7 y=6 }
+				size = { width=380 height=194 }
 				clipping = no
-				
+
 				instantTextboxType = {
 					name = "base_stats_label"
-					position = { x = 5 y = 14 }
-					font = "hoi4_typewriter22"
+					position = { x = 12 y = 5 }
+					font = "hoi_20b"
 					text = "DESIGNER_BASE_STATS_LABEL"
-					maxWidth = 230
-					maxHeight = 20
+					maxWidth = 356
+					maxHeight = 22
 					format = left
 				}
-				
+
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 5 y = 36 }
-					size = { width = 233 height = 100%% }
-					slotsize = { width = 233 height = 28 }
-					max_slots_horizontal = 1
+					position = { x = 1 y = 30 }
+					size = { width = 378 height = 100%% }
+					slotsize = { width = 126 height = 52 }
+					max_slots_horizontal = 3
 					format = "UPPER_LEFT"
 				}
 			}
-			
+
 			containerWindowType = {
 				name = "combat_stats"
-				position = { x=257 y=15 }	
-				size = { width=243 height=264 }
+				position = { x=399 y=6 }
+				size = { width=380 height=194 }
 				clipping = no
-				
+
 				instantTextboxType = {
 					name = "combat_stats_label"
-					position = { x = 10 y = 14 }
-					font = "hoi4_typewriter22"
+					position = { x = 12 y = 5 }
+					font = "hoi_20b"
 					text = "DESIGNER_COMBAT_STATS_LABEL"
-					maxWidth = 230
-					maxHeight = 20
+					maxWidth = 356
+					maxHeight = 22
 					format = left
 				}
-				
+
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 8 y = 36 }
-					size = { width = 233 height = 100%% }
-					slotsize = { width = 233 height = 28 }
-					max_slots_horizontal = 1
+					position = { x = 1 y = 30 }
+					size = { width = 378 height = 100%% }
+					slotsize = { width = 126 height = 52 }
+					max_slots_horizontal = 3
 					format = "UPPER_LEFT"
 				}
 			}
-			
+
 			containerWindowType = {
 				name = "misc_stats"
-				position = { x=510 y=15 }	
-				size = { width=243 height=264 }
-				Orientation = UPPER_LEFT				
+				position = { x=7 y=206 }
+				size = { width=772 height=142 }
 				clipping = no
-				
+
 				instantTextboxType = {
 					name = "misc_stats_label"
-					position = { x = 10 y = 14 }
-					font = "hoi4_typewriter22"
+					position = { x = 12 y = 5 }
+					font = "hoi_20b"
 					text = "FE_MISC_STATS"
-					maxWidth = 230
-					maxHeight = 20
+					maxWidth = 748
+					maxHeight = 22
 					format = left
 				}
-				
+
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 7 y = 36 }
-					size = { width = 233 height = 100%% }
-					slotsize = { width = 233 height = 28 }
-					max_slots_horizontal = 1
+					position = { x = 8 y = 30 }
+					size = { width = 756 height = 100%% }
+					slotsize = { width = 126 height = 52 }
+					max_slots_horizontal = 6
 					format = "UPPER_LEFT"
 				}
 			}
@@ -1943,13 +1989,13 @@ containerWindowType =
 		
 		iconType = {
 			name = "ace_icon"
-			position = {x=714 y=414}
+			position = {x=714 y=525}
 			spriteType = "GFX_ace_none"
 		}
 		
 		instantTextboxType = {
 			name = "ace_name"
-			position = {x=459 y=434}
+			position = {x=459 y=545}
 			font = "hoi_18mbs"
 			text = ""
 			maxWidth = 250
@@ -1960,7 +2006,7 @@ containerWindowType =
 		containerWindowType = 
 		{
 			name = "stat_equipment_entry_large"
-			position = {x=117 y=364}
+			position = {x=117 y=475}
 			size = { width = 50 height = 50 }
 			
 			iconType =
@@ -1996,7 +2042,7 @@ containerWindowType =
 		containerWindowType = {
 			name = "equipment"
 			position = { x=795 y=30 }	
-			size = { width=358 height=466 }
+			size = { width=358 height=577 }
 			orientation = upper_left
 			clipping = yes
 			verticalScrollbar = "right_vertical_slider"
@@ -2077,7 +2123,7 @@ containerWindowType = {
 		moveable = yes
 		click_to_front = yes
 		position = { x=-275 y=-235 }
-		size = { width = 791 height = 473 }
+		size = { width = 791 height = 584 }
 		Orientation = center
 		clipping = no
 		fade_time = 300
@@ -2124,12 +2170,12 @@ containerWindowType = {
 		iconType = {
 			name = "manpower_icon"
 			spriteType = "GFX_manpower_icon"
-			position = { x=20 y=428 }
+			position = { x=20 y=539 }
 		}
 
 		instantTextboxType = {
 			name = "current_manpower"
-			position = { x = 50 y = 433 }
+			position = { x = 50 y = 544 }
 			font = "hoi_18mbs"
 			text = "Stuff"
 			maxWidth = 60
@@ -2140,7 +2186,7 @@ containerWindowType = {
 		containerWindowType = {
 			name = "forts_modifier"
 			size = { width = 50 height = 70 }
-			position = { x = 682 y = 388 }
+			position = { x = 682 y = 499 }
 			clipping = no
 
 			iconType = {
@@ -2183,85 +2229,108 @@ containerWindowType = {
 
 		containerWindowType = {
 			name = "info"
-			position = { x=3 y=47}
-			size = { width=100% height=100%% }
-			verticalScrollbar = "right_vertical_slider"
+			position = { x=3 y=75 }
+			size = { width=787 height=355 }
+			Background = {
+				name = "mod1440_info_bg"
+				quadTextureSprite = "GFX_tiled_plain_bg_small"
+			}
+
+			iconType = {
+				name = "mod1440_card_base"
+				spriteType = "GFX_1440p_UD_card_stats_s"
+				position = { x = 7 y = 6 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_card_combat"
+				spriteType = "GFX_1440p_UD_card_stats_s"
+				position = { x = 399 y = 6 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_card_misc"
+				spriteType = "GFX_1440p_UD_card_misc_s"
+				position = { x = 7 y = 206 }
+				alwaystransparent = yes
+			}
 
 			containerWindowType = {
 				name = "base_stats"
-				position = { x=10 y=15 }
-				size = { width=243 height=264 }
+				position = { x=7 y=6 }
+				size = { width=380 height=194 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "base_stats_label"
-					position = { x = 5 y = 14 }
-					font = "hoi4_typewriter22"
+					position = { x = 12 y = 5 }
+					font = "hoi_20b"
 					text = "DESIGNER_BASE_STATS_LABEL"
-					maxWidth = 230
-					maxHeight = 20
+					maxWidth = 356
+					maxHeight = 22
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 5 y = 36 }
-					size = { width = 233 height = 100%% }
-					slotsize = { width = 233 height = 28 }
-					max_slots_horizontal = 1
+					position = { x = 1 y = 30 }
+					size = { width = 378 height = 100%% }
+					slotsize = { width = 126 height = 52 }
+					max_slots_horizontal = 3
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "combat_stats"
-				position = { x=257 y=15 }
-				size = { width=243 height=264 }
+				position = { x=399 y=6 }
+				size = { width=380 height=194 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "combat_stats_label"
-					position = { x = 10 y = 14 }
-					font = "hoi4_typewriter22"
+					position = { x = 12 y = 5 }
+					font = "hoi_20b"
 					text = "DESIGNER_COMBAT_STATS_LABEL"
-					maxWidth = 230
-					maxHeight = 20
+					maxWidth = 356
+					maxHeight = 22
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 8 y = 36 }
-					size = { width = 233 height = 100%% }
-					slotsize = { width = 233 height = 28 }
-					max_slots_horizontal = 1
+					position = { x = 1 y = 30 }
+					size = { width = 378 height = 100%% }
+					slotsize = { width = 126 height = 52 }
+					max_slots_horizontal = 3
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "misc_stats"
-				position = { x=510 y=15 }
-				size = { width=243 height=264 }
-				Orientation = UPPER_LEFT
+				position = { x=7 y=206 }
+				size = { width=772 height=142 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "misc_stats_label"
-					position = { x = 10 y = 14 }
-					font = "hoi4_typewriter22"
+					position = { x = 12 y = 5 }
+					font = "hoi_20b"
 					text = "FE_MISC_STATS"
-					maxWidth = 230
-					maxHeight = 20
+					maxWidth = 748
+					maxHeight = 22
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 7 y = 36 }
-					size = { width = 233 height = 100%% }
-					slotsize = { width = 233 height = 28 }
-					max_slots_horizontal = 1
+					position = { x = 8 y = 30 }
+					size = { width = 756 height = 100%% }
+					slotsize = { width = 126 height = 52 }
+					max_slots_horizontal = 6
 					format = "UPPER_LEFT"
 				}
 			}
@@ -2269,7 +2338,7 @@ containerWindowType = {
 
 		containerWindowType = {
 			name = "equipment"
-			position = { x=10 y=354 }
+			position = { x=10 y=465 }
 			size = { width=250 height=200 }
 			clipping = no
 
