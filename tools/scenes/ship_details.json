@@ -50,7 +50,7 @@
       "fuel_consumption": "36",
       "dominance_value": "352",
       "support_value": "0",
-      "captain": "Kapitän zur See Hans Langsdorff",
+      "captain": "Kapit\u00e4n zur See Hans Langsdorff",
       "title": "Air Wings"
     },
     "stat_entry": {
@@ -125,6 +125,24 @@
     }
   ],
   "captures": [
+    {
+      "name": "hk-history",
+      "steps": [
+        {
+          "key": "shift+h",
+          "wait": 1.2
+        }
+      ]
+    },
+    {
+      "name": "hk-stats",
+      "steps": [
+        {
+          "key": "shift+a",
+          "wait": 1.2
+        }
+      ]
+    },
     {
       "name": "history",
       "steps": [

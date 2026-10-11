@@ -22,6 +22,7 @@ guiTypes = {
 			position = { x=515 y=577 }
 			buttonText = "UNIT_STATS_STATS_TAB"
 			font = "hoi_18mbs"
+			shortcut = "shift+a"
 		}
 
 		buttonType = {
@@ -30,6 +31,7 @@ guiTypes = {
 			position = { x=735 y=577 }
 			buttonText = "UNIT_STATS_TEMPLATE_TAB"
 			font = "hoi_18mbs"
+			shortcut = "shift+t"
 		}
 
 		buttonType = {
@@ -38,6 +40,7 @@ guiTypes = {
 			position = { x=625 y=577 }
 			buttonText = "UNIT_STATS_HISTORY_TAB"
 			font = "hoi_18mbs"
+			shortcut = "shift+h"
 		}
 
 		Background = {
@@ -954,6 +957,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_STATS_LABEL"
 			font = "hoi_18mbs"
+			shortcut = "shift+a"
 		}
 
 		buttonType = {
@@ -963,6 +967,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_HISTORY_LABEL"
 			font = "hoi_18mbs"
+			shortcut = "shift+h"
 		}
 
 		buttonType = {

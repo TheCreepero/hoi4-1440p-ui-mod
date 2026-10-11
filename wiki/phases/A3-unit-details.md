@@ -85,7 +85,8 @@ The first build only enlarged the vanilla layout. The redo regroups the Stats ta
 - **Division window:** Base and Combat cards (3 tile columns) side by side, Misc card (6 columns) below, no parchment on the Stats tab; adjusters in two rows of seven; tab hotkeys `shift+a`, `shift+h`, `shift+t` worked in the experiment but are NOT in the shipped file yet (next phase).
 - **Ship, air wing and railway gun windows:** same cards (194 and 142 px high); the paper of `ud_ship_bg.dds` and `ud_air_wing_bg.dds` grew by 111 rows (586 px high), every widget under the paper moved down 111 px, window height 473 to 584.
 - **Game check 10 (2026-10-11, build 52c3e50+dirty):** division (all tabs, both dropdowns, tank, motorised), ship (stats, history, carrier) and air wing. `error.log` clean. Stats tiles, the wrapped "Trickleback & War / Support Protection:" label (no overlap with its value), all adjusters and the shifted lower panels came out as rendered. It found one fault: the ship History paper (container 376 px) ran 40 px over the lower panel; shortened to 334 (grid 307, scrollbar 312) and re-rendered, not yet launched again.
-- **Not checked in game:** railway gun (no recipe), the shortened ship History, tab hotkeys (not added to the shipped file yet), and `reference/mod/` is not refreshed.
+- **Game check 11 (2026-10-11):** tab hotkeys `shift+a`, `shift+h`, `shift+t` (division) and `shift+a`, `shift+h` (ship) switch the tabs; the shortened ship History ends above the lower panel; `error.log` clean; `reference/mod/` refreshed with `-SaveReference` (65 captures).
+- **Not checked in game:** railway gun details. `rg` creates no gun in a release build (Engine Facts H29) and no recipe was found; the window has the same layout numbers as the ship window and is render-only. Promote hotkey not added (needs a commander to test).
 
 ## Left for the tester
 

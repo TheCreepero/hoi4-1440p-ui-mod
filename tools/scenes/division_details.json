@@ -176,6 +176,33 @@
   ],
   "captures": [
     {
+      "name": "hk-history",
+      "steps": [
+        {
+          "key": "shift+h",
+          "wait": 1.2
+        }
+      ]
+    },
+    {
+      "name": "hk-template",
+      "steps": [
+        {
+          "key": "shift+t",
+          "wait": 1.2
+        }
+      ]
+    },
+    {
+      "name": "hk-stats",
+      "steps": [
+        {
+          "key": "shift+a",
+          "wait": 1.2
+        }
+      ]
+    },
+    {
       "name": "history",
       "steps": [
         {
