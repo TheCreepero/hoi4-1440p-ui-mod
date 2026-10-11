@@ -22,7 +22,7 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
   - The army badge has a longer name field, the commander's name in full in a larger font, and the four commander stats spaced apart.
   - New hotkeys: `Shift+U` unassigns the selected divisions, `Shift+C` consolidates them.
 - **Unit details** (the windows that open from the icon of a division, ship or air wing):
-  - Stats in a 22 px font instead of 16 px, in wider columns on taller rows, so labels and values no longer run into each other.
+  - The Stats tab of all four windows is regrouped into dark cards (Base, Combat, Misc) of stat tiles: a small label over a large value. Long labels such as "Trickleback & War Support Protection" wrap instead of being cut. The ship, air wing and railway gun windows are taller to fit the cards.
   - The division window opens beside the army panel instead of on top of it, and its Template and History tabs fill the larger frame.
   - Equipment and plane names on one line, and the terrain adjusters visible without scrolling where they fit.
 

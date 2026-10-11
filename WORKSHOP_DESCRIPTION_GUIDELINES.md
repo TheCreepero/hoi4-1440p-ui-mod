@@ -40,7 +40,7 @@ Check out my other mods:
 - [b]Air wings and airbases:[/b] The selection panel shows 20 rows before it scrolls instead of 9. Rows are wider, so wing names appear in full, and the text is larger.
 - [b]Selected army:[/b] The division list is a table. Organisation and strength are two lying bars, warnings have a block of their own, division names appear in full in a larger font, and the sort buttons have captions. The change-template dropdown shows 12 templates instead of 6. The army badge has a longer name field and shows the commander's name in full.
 - [b]New hotkeys:[/b] Shift+U unassigns the selected divisions, Shift+C consolidates them.
-- [b]Unit details:[/b] The windows that open from the icon of a division, ship or air wing show their stats in a 22 px font instead of 16 px, in wider columns, so labels and values no longer run into each other. The division window opens beside the army panel instead of on top of it. Equipment names fit on one line.
+- [b]Unit details:[/b] The windows that open from the icon of a division, ship or air wing show their stats as dark cards of tiles (Base, Combat, Misc), each with a small label over a large value, so long labels wrap instead of being cut. The division window opens beside the army panel instead of on top of it. Equipment names fit on one line.
 
 [h1]Compatibility:[/h1]
 - Built and tested against the vanilla game only.
