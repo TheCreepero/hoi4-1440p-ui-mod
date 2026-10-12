@@ -1,6 +1,6 @@
 # Phases D4 and D5: National Figures and History, opened from Politics
 
-Two pages in one window beside the politics panel: the country's summed modifiers and figures today, and twelve of its figures month by month. Status: done on 2026-10-12, awaiting the tester's judgement; the monthly recording of D5 has not been seen running. The pages are described in [Scripted GUIs](../Scripted-GUIs.md).
+Two pages in one window beside the politics panel: the country's summed modifiers and figures today, and twelve of its figures month by month. Status: done on 2026-10-12. The user after playing: "This is good, everything seems to be working, including the history ticks", so the monthly recording of D5 runs. The pages are described in [Scripted GUIs](../Scripted-GUIs.md).
 
 ## Scope
 
@@ -37,7 +37,7 @@ Values compared with the game's own numbers (Germany, 1 January 1936): party pop
 
 Not seen in game:
 
-- A second month: `on_monthly` has not run in a check.
+- A second month in a check: `on_monthly` has not run in one. It runs in the user's game ("everything seems to be working, including the history ticks", 2026-10-12).
 - A month dropped after ten years by the real recording (the made-up months did drop: 130 written, 120 kept).
 - A modifier that changes while the page is open.
 
@@ -48,4 +48,4 @@ Not seen in game:
 - [x] Scene files (`tools/scenes/national_figures.json`, `history.json`, written by the tool)
 - [x] Finished pages stored under `reference/mod/`
 - [ ] The tester's judgement: which modifiers belong on the page, which figures on the graph
-- [ ] The tester's look after 1 February of a game: a second column
+- [x] The tester's look after 1 February of a game: the columns appear (reported 2026-10-12)

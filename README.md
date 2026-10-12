@@ -1,15 +1,15 @@
 # HOI4 1440p UI Mod
 
-High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2560x1440) and higher displays, and adds manager pages that fill the free width with tables and figures of your country.
+High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2560x1440) and higher displays, adds manager pages that fill the free width with tables and figures of your country, and keeps a record of your campaign for role-play: a war diary, your officers, your government and your wars.
 
 ## Overview
 
 - **Game**: Hearts of Iron IV
 - **Supported Version**: `1.19.*`
-- **Mod Version**: `1.5`
+- **Mod Version**: `1.6`
 - **Tags**: Graphics, Utilities, Fixes
 - **Requires**: 2560x1440 or higher at 100% UI scale
-- **Ironman & Achievements**: Not compatible since version 1.5. The manager pages are scripted GUIs, and their script under `common/` changes the game checksum. In multiplayer every player needs the mod. The pages show values and change nothing in the game.
+- **Ironman & Achievements**: Not compatible since version 1.5. The manager pages are scripted GUIs, and their script under `common/` changes the game checksum. In multiplayer every player needs the mod. The pages show values and keep records of their own; the one thing they write into the game is a line in a division's history (unit honours, see The Records).
 - **Status**: In development, one screen at a time. See [wiki/Roadmap.md](wiki/Roadmap.md).
 - **Tested with**: the vanilla game only. Behaviour next to other mods is untested.
 
@@ -58,6 +58,22 @@ Pages of the mod's own that stand beside a vanilla panel and use the width of th
   - Twelve figures of your country month by month as a column graph, ten years at most: manpower, divisions, factories, stability, war support, fuel and others. The mod writes them down on the first of each month, from the day it is active in a game.
 
 Limits: the game gives script no list of templates, training lines, production lines or queues, so the pages have none; an army without a commander is not listed; equipment, buildings and resources that another mod adds do not appear.
+
+## The Records
+
+A window for playing the game as a story: the mod writes down what happens in your campaign, from the day it is active in a game. The Records button of the top bar or `Shift+J` opens it, `Escape` closes it.
+
+- **War Diary**: a dated log. Wars declared and ended, capitulations, annexations, subjects, your faction, capitals taken and lost, changes of government, officers commissioned, promoted and decorated. Beside it the record in figures: how many wars, states, capitals, promotions and decorations since it began.
+  - Six filters. Territory lists every single state that changed hands; a button on such a line moves the camera to the state.
+- **Officers**: every general and admiral in one table that sorts by any column: skill, the four levels, traits, command, battles won and lost.
+  - A click on an officer shows his record: when he was commissioned and promoted, his battles, the states taken under him, his lines of the diary. An officer who has retired keeps his record.
+  - **Decorations**: his medals side by side on his file. Award him the medals your country has in the game (Iron Cross and Knight's Cross for Germany, Victoria Cross for Britain and so on), by name and icon. For an officer they are a record only: no bonus and no cost.
+- **Government**: the head of government, the parties with their leaders and support, the laws in force, the cabinet, the high command, your faction with its members, your subjects. Each name with the day it took office.
+- **Wars**: one row per enemy and one per finished war: since when, for how many days, your casualties in that time, states taken and lost, a bar for the enemy's surrender progress, how it ended. Totals for all wars, and counters for aces.
+- **State card**: beside the state view of a state you control: when it was taken and from whom.
+- **Unit honours** (By Blood Alone): your divisions that stand in an enemy capital when it falls get a line in their own history, "Took part in the capture of ...". The Battle honours switch on the War Diary turns this off. The state card's button cites the divisions in a state the same way; for a citation the game lets you award a medal at its usual price. A division takes one such line a day.
+
+Limits: no page can take typed text, so nothing can be renamed or annotated there; the game gives script no name of a division or a ship; a record starts when the mod is first active in a game; a line found by the daily comparison (a peace, a capitulation, an office) carries the date of the day that ended. Not yet seen in a test: battles counted per officer, a capitulation, landings and aces.
 
 ---
 
@@ -132,7 +148,7 @@ Screen work uses the scripts in `tools/`:
 # Refresh the baseline of a window, for example after a game update
 .\tools\Export-VanillaBaseline.ps1 airselectionview.gui air_selection_view
 
-# Write every file of the manager pages (scripted GUIs) from the tables in the tool; a running game redraws them
+# Write every file of the manager pages and the Records window (scripted GUIs) from the tables in the tools; a running game redraws them
 python -I tools\build_managers.py
 python -I tools\build_managers.py --check   # fails when a generated file was edited by hand or is stale
 

@@ -66,16 +66,27 @@ BeforeAll {
         'set_temp_variable', 'add_to_temp_variable', 'subtract_from_temp_variable', 'multiply_temp_variable',
         'divide_temp_variable', 'add_to_array', 'add_to_temp_array', 'remove_from_array', 'clear_array',
         'clear_temp_array', 'resize_array', 'find_highest_in_array', 'find_lowest_in_array',
-        'free_building_slots'
+        'free_building_slots', 'is_in_array', 'has_country_leader', 'date'
     )
-    # Everything else the mod's script may say. A scripted GUI of this mod shows and navigates and never changes
-    # the game (wiki/Scripted-GUIs.md, rule 1): nothing that builds, adds, removes or changes a rule belongs here.
+    # Commands that write to the game itself, each with the page that needs it (wiki/Roleplay-Pages.md, the
+    # changed rule). add_history_entry: a line in a division's own history, phase E6. Nothing else.
+    $script:WritingCommands = @('add_history_entry')
+    # Everything else the mod's script may say. A scripted GUI of this mod shows, navigates and keeps records
+    # (wiki/Scripted-GUIs.md, rule 1): nothing that gives the player what the game charges for belongs here.
+    # None of these writes to the game. A command that does (a role-play page of wiki/Roleplay-Pages.md)
+    # gets a list of its own beside this one, with the page that needs it.
     $script:AllowedCommands = @(
         'if', 'else', 'else_if', 'limit', 'AND', 'OR', 'NOT', 'always', 'is_ai',
         'for_each_loop', 'for_each_scope_loop', 'for_loop_effect', 'while_loop_effect',
         'array', 'value', 'index', 'start', 'end', 'add', 'compare', 'break',
         'every_country', 'every_country_division', 'unit_strength', 'unit_organization', 'is_core_of',
-        'goto_state', 'goto_province', 'log', 'ROOT', 'PREV', 'THIS', 'FROM'
+        'goto_state', 'goto_province', 'log', 'ROOT', 'PREV', 'THIS', 'FROM', 'FROM.FROM', 'OWNER',
+        # the Records window (Milestone E): what is asked of an officer, a country and a state
+        'is_field_marshal', 'is_corps_commander', 'is_navy_leader', 'any_character', 'is_army_chief', 'is_navy_chief',
+        'is_air_chief', 'is_theorist', 'has_idea', 'is_in_faction', 'has_capitulated', 'exists', 'is_capital',
+        'is_controlled_by', 'has_dlc', 'tag', 'every_state_division',
+        # the conditions under which the game gives a country a medal, copied from the game (tools/unit_medals_table.py)
+        'has_government', 'original_tag', 'has_completed_focus', 'has_country_flag', 'owns_state'
     )
 
     # Adds to $Into every command of a block that is neither allowed nor an effect of the mod's own.
@@ -83,9 +94,11 @@ BeforeAll {
         param($Node, [System.Collections.Generic.List[string]]$Into, [string]$Where)
         foreach ($child in @($Node.Children)) {
             $key = [string]$child.Key
-            if ($script:ArgumentCommands -contains $key) { continue }
+            if ($script:ArgumentCommands -contains $key -or $script:WritingCommands -contains $key) { continue }
             if ($key -like "$($script:Prefix)*") { continue }
-            if ($script:AllowedCommands -notcontains $key) { $Into.Add("$Where line $($child.Line): $key") }
+            if ($key -like 'should_have_*_medals_trigger') { continue }   # the game's own scripted triggers for its medals
+            # "var:<variable> = { ... }" enters the scope a variable holds (Engine Facts X33): no command of its own
+            if ($key -notlike 'var:*' -and $script:AllowedCommands -notcontains $key) { $Into.Add("$Where line $($child.Line): $key") }
             if ($null -ne $child.Children) { Find-ForeignCommands -Node $child -Into $Into -Where $Where }
         }
     }
@@ -166,15 +179,23 @@ Describe 'Scripted GUIs' {
     }
 
     It 'belong to the player and to nobody else' {
+        # One exception: the card in the state view belongs to the state the player has selected, and shows
+        # itself only for a state the player controls.
         $problems = foreach ($gui in $script:Guis) {
-            if ((Get-GuiValue -Node $gui.Node -Key 'context_type') -ne 'player_context') { "$($gui.Name): context is not player_context" }
+            $context = Get-GuiValue -Node $gui.Node -Key 'context_type'
+            if ($gui.Name -eq 'mod1440_state_card') {
+                if ($context -ne 'selected_state_context') { "$($gui.Name): context is not selected_state_context" }
+                $visible = Get-GuiBlock -Node $gui.Node -Key 'visible'
+                if (-not $visible -or (Get-GuiValue -Node $visible -Key 'is_controlled_by') -ne 'ROOT') { "$($gui.Name): not limited to states the player controls" }
+            }
+            elseif ($context -ne 'player_context') { "$($gui.Name): context is not player_context" }
         }
         $problems | Should -BeNullOrEmpty -Because 'the mod shows values of the own country only (wiki/Scripted-GUIs.md, rule 2)'
     }
 }
 
 Describe 'Script of the mod' {
-    It 'shows and navigates, and changes nothing in the game' {
+    It 'uses only the commands this test lists' {
         $foreign = [System.Collections.Generic.List[string]]::new()
         foreach ($gui in @(Get-ScriptedGuis)) {
             foreach ($part in 'visible', 'effects', 'triggers') {
@@ -198,10 +219,21 @@ Describe 'Script of the mod' {
                 }
             }
         }
-        $foreign | Should -BeNullOrEmpty -Because 'a new command goes into the list of this test first, and only when it changes nothing in the game'
+        $names = @($foreign | ForEach-Object { ($_ -split ': ')[-1] } | Sort-Object -Unique)
+        ($names + @($foreign | Select-Object -First 5)) | Should -BeNullOrEmpty -Because 'a new command goes into the list of this test first, and one that writes to the game only with the page that needs it'
     }
 
-    It 'lists every name used after @ as a synchronised token' {
+    It 'writes to the game only in the files of the Records window' {
+        $problems = foreach ($file in @(Get-ChildItem -Path $script:CommonDir -Recurse -File -Filter '*.txt')) {
+            $text = [System.IO.File]::ReadAllText($file.FullName)
+            foreach ($command in $script:WritingCommands) {
+                if ($text -match "\b$command\b" -and $file.Name -ne 'mod1440_records.txt') { "$($file.Name): $command" }
+            }
+        }
+        $problems | Should -BeNullOrEmpty -Because 'the unit honours of phase E6 are the one thing the mod writes into the game (wiki/Roleplay-Pages.md)'
+    }
+
+    It 'lists every name used after @ or as token: as a synchronised token' {
         $tokenFiles = @(Get-ScriptFiles -Folder 'synchronized_dynamic_tokens')
         $listed = @{}
         foreach ($file in $tokenFiles) { foreach ($line in [System.IO.File]::ReadAllLines($file.FullName)) { if ($line.Trim()) { $listed[$line.Trim()] = $true } } }
@@ -210,7 +242,7 @@ Describe 'Script of the mod' {
         $locDir = Join-Path $script:RepoRoot 'localisation'
         if (Test-Path $locDir) { $sources += @(Get-ChildItem -Path $locDir -Recurse -File -Filter '*.yml') }
         $missing = foreach ($file in $sources) {
-            foreach ($m in [regex]::Matches([System.IO.File]::ReadAllText($file.FullName), '@([A-Za-z_][A-Za-z0-9_]*)')) {
+            foreach ($m in [regex]::Matches([System.IO.File]::ReadAllText($file.FullName), '(?:@(?!var:)|token:)([A-Za-z_][A-Za-z0-9_]*)')) {
                 if (-not $listed.ContainsKey($m.Groups[1].Value)) { "$($file.Name): $($m.Groups[1].Value)" }
             }
         }

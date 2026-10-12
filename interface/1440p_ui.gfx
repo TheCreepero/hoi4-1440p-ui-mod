@@ -443,4 +443,65 @@ spriteTypes = {
 		tilingCenter = yes
 		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
 	}
+
+	# The Records window (tools/build_records.py): the plate of a figure, the darker band of every second row of a
+	# list, the lighter band of the chosen row, and a longer bar. Tiles of vanilla textures, as the heads above.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_tile"
+		size = { x = 156 y = 64 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_stripe_1160x30"
+		size = { x = 1160 y = 30 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_stripe_900x30"
+		size = { x = 900 y = 30 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_stripe_1622x30"
+		size = { x = 1622 y = 30 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_stripe_496x26"
+		size = { x = 496 y = 26 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_pick_900x30"
+		size = { x = 900 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_bg_noframe.dds"
+		borderSize = { x = 6 y = 6 }
+		tilingCenter = yes
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_SG_bar_wide"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 300 y = 12 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+		steps = 100
+	}
 }

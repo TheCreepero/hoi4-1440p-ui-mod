@@ -72,6 +72,10 @@ Surveyed on game 1.19.3 on 2026-10-08, each recipe run unattended with the mod a
 | D3 | `states` | `open_construction`, then Shift+M; the `teardown` hides the page again | verified; mod only |
 | D4 | `national_figures` | `open_politics`, then Shift+M; the `teardown` closes the window | verified; mod only |
 | D5 | `history` | as `national_figures`, then a click on `mod1440_figures/nf_history` | verified; mod only |
+| E1 | `war_diary` | Shift+J opens the Records window, then a click on its first page button; the `teardown` closes it | verified; mod only |
+| E2 | `officers` | Shift+J, then a click on `mod1440_records_wd/wd_tab_1` | verified; mod only |
+| E3 | `government` | Shift+J, then a click on `mod1440_records_wd/wd_tab_2` | verified; mod only |
+| E4 | `wars` | Shift+J, then a click on `mod1440_records_wd/wd_tab_3` | verified; mod only |
 | C | `leader_selection`, `advisor_selection`, `focus_tree`, `tech_tree` | see `tools/moves.json` | |
 | C | `politics`, `decisions`, `research`, `international_market`, `trade`, `construction`, `production`, `logistics`, `officer_corps`, `intelligence`, `faction` | one top bar hotkey each | |
 

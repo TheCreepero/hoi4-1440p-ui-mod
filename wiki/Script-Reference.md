@@ -175,11 +175,21 @@ Found on the way, and not on this page before:
 - **State and general values** read in a list row (X20, X21); `goto_state` wants country scope: `ROOT = { goto_state = PREV }` (X13).
 - **Number formats** (X18) and more on texts (X30): row T3 above is confirmed and extended by `=` (the sign), `*` (K and M) and `-` (colours turned).
 - **Names after `@` must be listed** in `common/synchronized_dynamic_tokens/` (X24, X31).
-- **Hooks:** `on_startup` seen; `on_daily` and `on_monthly` written after vanilla and The New Order, not seen running (X28).
+- **Hooks:** `on_startup` seen; `on_daily` and `on_monthly` written after vanilla and The New Order. No check has seen them run; the user reported them working after playing (X28).
+
+## What the research for the role-play pages added
+
+Read on 2026-10-12 for Milestone E. The facts, with their sources, are rows R1 to R14 of [Roleplay Pages](Roleplay-Pages.md): the arrays and single values of a country that hold characters, the texts of a general, a character, a country and an ace, the hooks and their scopes, scopes and text keys held in variables, flags with a number on a character, how a division is reached, and `add_history_entry`. The [E0 probe](phases/E0-roleplay-probe.md) tried them in game the same day: rows X32 to X49 of [Engine Facts](Engine-Facts.md). What it found beyond the documentation:
+
+- A variable set in a character's scope stays there; a country's variable or array can hold the character, and `[?holder:variable]` reads his variable from the country.
+- In a list row scoped to something else, a variable of the country needs `ROOT.` before its name.
+- `[?variable.GetTokenLocalizedKey]` writes the text of a key held as `token:<key>`; the text is not worked out further. A scripted localisation's text is.
+- `@var:<variable>` passes a variable where a value takes a name after `@` (`num_units_in_state@var:x`).
+- The console command `effect` runs in the scope of what is selected.
 
 ## Open questions
 
-1. `on_daily` and `on_monthly` running for a player: asked of the tester, because no check runs time.
+1. `on_daily` and `on_monthly` running for a player: answered by the user's play on 2026-10-12 ("everything seems to be working, including the history ticks"). Still true: no check runs time.
 2. Shift, control and alt clicks (the harness cannot make them).
 3. A list filled straight from a game array (X11): one row showed; not needed so far.
 4. Buildings that stand in provinces (forts, naval bases) through `building_level@`: 0 in the two states tried.

@@ -139,7 +139,10 @@ Describe 'Texts' {
             # greedy word wrap, the way the game fills a box that holds more than one line (Engine Facts W10)
             $lines = 0
             $overflow = $null
-            foreach ($paragraph in ($case.Text -split '\\n|\n')) {
+            # the game draws a text icon (a pound sign and a name) as a small picture and a colour code (a section
+            # sign and a letter) not at all; the signs are written as numbers here, because this file is ASCII
+            $shown = $case.Text -replace ([string][char]0xA7 + '[A-Za-z!]'), '' -replace ([string][char]0xA3 + '\w+'), 'MM'
+            foreach ($paragraph in ($shown -split '\\n|\n')) {
                 $current = ''
                 foreach ($word in ($paragraph -split ' ')) {
                     $trial = if ($current) { "$current $word" } else { $word }
@@ -283,7 +286,10 @@ Describe 'Screen heights' {
                 $orientation = [string](Get-GuiValue -Node $node -Key 'orientation')
                 if ($orientation -and $orientation -notmatch '(?i)upper_left') { continue }
                 $height = if ($w.height) { [double]$w.height } else { Get-GuiHeight -Node $node }
-                if ($height -and ([double]$w.at[1] + $height) -gt 1140) { "$($scene.screen)/$($w.name): bottom at $([double]$w.at[1] + $height)" }
+                # a window of the mod's own in the middle of the screen (the Records) may run down to the army
+                # portraits of the bottom bar, which start at y 1320; the scene marks it
+                $limit = if ($w.freeWindow) { 1320 } else { 1140 }
+                if ($height -and ([double]$w.at[1] + $height) -gt $limit) { "$($scene.screen)/$($w.name): bottom at $([double]$w.at[1] + $height), limit $limit" }
             }
         }
         $tooLow | Should -BeNullOrEmpty

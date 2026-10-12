@@ -115,7 +115,11 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A5 | Recruit & Deploy and Division Templates panels, icon-picker | [recruit_deploy-icon-picker.jpg](mod/recruit_deploy-icon-picker.jpg) | [recruit_deploy-icon-picker-panel.png](mod/recruit_deploy-icon-picker-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
 | A5 | Recruit & Deploy and Division Templates panels, italy | [recruit_deploy-italy.jpg](mod/recruit_deploy-italy.jpg) | [recruit_deploy-italy-panel.png](mod/recruit_deploy-italy-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
 | A5 | Recruit & Deploy and Division Templates panels, name-dropdown | [recruit_deploy-name-dropdown.jpg](mod/recruit_deploy-name-dropdown.jpg) | [recruit_deploy-name-dropdown-panel.png](mod/recruit_deploy-name-dropdown-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
-| D2 | army_readiness | [army_readiness.jpg](mod/army_readiness.jpg) | [army_readiness-panel.png](mod/army_readiness-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
+| D2 | army_readiness | [army_readiness.jpg](mod/army_readiness.jpg) | [army_readiness-panel.png](mod/army_readiness-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
 | D3 | states | [states.jpg](mod/states.jpg) | [states-panel.png](mod/states-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
-| D4 | national_figures | [national_figures.jpg](mod/national_figures.jpg) | [national_figures-panel.png](mod/national_figures-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
+| D4 | national_figures | [national_figures.jpg](mod/national_figures.jpg) | [national_figures-panel.png](mod/national_figures-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
 | D5 | history | [history.jpg](mod/history.jpg) | [history-panel.png](mod/history-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
+| E1 | war_diary | [war_diary.jpg](mod/war_diary.jpg) | [war_diary-panel.png](mod/war_diary-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
+| E2 | officers | [officers.jpg](mod/officers.jpg) | [officers-panel.png](mod/officers-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
+| E3 | government | [government.jpg](mod/government.jpg) | [government-panel.png](mod/government-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
+| E4 | wars | [wars.jpg](mod/wars.jpg) | [wars-panel.png](mod/wars-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |

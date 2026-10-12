@@ -16,14 +16,16 @@ This document provides formatting rules, length limits, and reference templates 
    - Links: `[url=https://...]Text[/url]`
    - Bullets: Standard hyphen (`- Item`)
 
-5. **Before publishing 1.5**: two sentences of the template rest on hooks no automated check has seen run, because no check lets game time pass (`wiki/Scripted-GUIs.md`, "Known gaps"). Play a few days and past the first of a month first: the date beside "Count again" on Army Readiness should be the day's, and History should have a second column. If not, fix the hooks or take "fill in after a day" and "month by month" out.
+5. **Sentences that rest on game time** (manager pages): "fill in after a day" and "month by month" rest on hooks no automated check sees run, because no check lets game time pass (`wiki/Scripted-GUIs.md`, "Known gaps"). The user played past the first of a month and reported them working on 2026-10-12. A new page that records over time (Milestone E) is played the same way before its sentence goes into the template.
+6. **What the mod writes** is said in the Info lines since 1.6: unit honours are the one thing (`wiki/phases/E6-unit-honours.md`).
+7. **Before publishing 1.6**: "battles won and lost" under Officers rests on four hooks no check has seen fire (nine days of a test war brought no battle), and "capitulations" on a daily comparison never seen finding one. Play a war first; if the Won and Lost columns stay empty after battles, take the phrase out or fix the hooks (`wiki/Scripted-GUIs.md`, "Known gaps").
 
 ---
 
 ## Template Description
 
 ```bbcode
-Hearts of Iron IV screens re-laid out for 2560x1440 displays: larger windows, longer lists and larger text. New manager pages beside the vanilla panels fill the free width with tables and figures of your country.
+Hearts of Iron IV screens re-laid out for 2560x1440 displays: larger windows, longer lists and larger text. Manager pages beside the vanilla panels fill the free width with tables and figures of your country, and a Records window keeps a war diary, your officers, your government and your wars for those who play the game as a story.
 
 Check out my other mods:
 - [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2967389401]Immersive Namelists Expanded[/url]
@@ -33,9 +35,9 @@ Check out my other mods:
 - A resolution of 2560x1440 or higher with the in-game UI scale at 100%. At a lower resolution or a higher UI scale the windows do not fit on screen.
 
 [h1]Info:[/h1]
-- [b]Not compatible with Ironman and achievements[/b] since version 1.5: the manager pages need script files, which change the game checksum. The pages only show values; they change nothing in your game.
+- [b]Not compatible with Ironman and achievements[/b] since version 1.5: the pages need script files, which change the game checksum. They show values and keep records of their own. The one thing written into your game is a line in a division's history (unit honours, below), which you can switch off.
 - [b]Multiplayer:[/b] every player needs the mod.
-- [b]Save Game Compatible:[/b] Can be added to or removed from ongoing games. Added to a running game, the manager pages fill in after a day and the History graph starts on the first of the next month.
+- [b]Save Game Compatible:[/b] Can be added to or removed from ongoing games. Added to a running game, the manager pages fill in after a day, the History graph starts on the first of the next month, and the Records begin on that day.
 - Built for Hearts of Iron IV version 1.19.*.
 
 [h1]Manager pages:[/h1]
@@ -45,6 +47,15 @@ Shift+M shows and hides the page of the open tab.
 - [b]National Figures[/b] (from Politics): the summed modifiers of your country, 93 of them: what all your laws, spirits, advisors and technologies together add to factory output, construction speed, research speed, organisation and the rest. With factories, fuel, party popularity and a table of resources.
 - [b]History[/b] (in National Figures): twelve figures of your country month by month as a graph: manpower, divisions, factories, stability, war support, fuel and more.
 - The pages show your own country only. Equipment, buildings and resources added by other mods do not appear in them.
+
+[h1]The Records:[/h1]
+The Records button of the top bar or Shift+J opens a window that writes your campaign down as you play.
+- [b]War Diary:[/b] a dated log of wars, peace, capitulations, annexations, subjects, your faction, capitals taken and lost, changes of government and your officers' careers. Filters by kind; every single state under Territory, with a button that moves the camera there.
+- [b]Officers:[/b] every general and admiral in a table you can sort, and a record for each: commissioned, promoted, battles won and lost, states taken under him. A retired officer keeps his record. Award him your country's medals from the game, by name and icon: for an officer a record only, with no bonus and no cost.
+- [b]Government:[/b] head of government, parties and their leaders, laws, cabinet, high command, faction and subjects, each name with the day it took office.
+- [b]Wars:[/b] one row per enemy and per finished war: dates, days, your casualties in that time, states taken and lost, how it ended.
+- [b]Unit honours[/b] (By Blood Alone): your divisions that stand in an enemy capital when it falls get a line in their own history. A button beside the state view cites the divisions in a state the same way. The Battle honours switch on the War Diary turns the automatic line off.
+- The record starts on the day the mod is first active in a game. Nothing can be typed into a page, and the game gives no page the name of a division or a ship.
 
 [h1]Reworked screens:[/h1]
 - [b]Air wings and airbases:[/b] The selection panel shows 20 rows before it scrolls instead of 9. Rows are wider, so wing names appear in full, and the text is larger.
