@@ -1,15 +1,15 @@
 # HOI4 1440p UI Mod
 
-High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2560x1440) and higher displays.
+High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2560x1440) and higher displays, and adds manager pages that fill the free width with tables and figures of your country.
 
 ## Overview
 
 - **Game**: Hearts of Iron IV
 - **Supported Version**: `1.19.*`
-- **Mod Version**: `1.4`
+- **Mod Version**: `1.5`
 - **Tags**: Graphics, Utilities, Fixes
 - **Requires**: 2560x1440 or higher at 100% UI scale
-- **Ironman & Achievements**: Compatible (only `interface/` and `gfx/` files, which are outside the game checksum)
+- **Ironman & Achievements**: Not compatible since version 1.5. The manager pages are scripted GUIs, and their script under `common/` changes the game checksum. In multiplayer every player needs the mod. The pages show values and change nothing in the game.
 - **Status**: In development, one screen at a time. See [wiki/Roadmap.md](wiki/Roadmap.md).
 - **Tested with**: the vanilla game only. Behaviour next to other mods is untested.
 
@@ -38,6 +38,27 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
   - The template panel ends above the bottom bar, so the army portraits stay in reach; the symbol picker shows seven symbols per row.
   - New hotkey: `Shift+F` opens the division designer.
 
+## Manager Pages
+
+Pages of the mod's own that stand beside a vanilla panel and use the width of the screen for values the game shows nowhere in one place. `Shift+M` shows and hides the page of the open tab. They show values of your own country and change nothing in the game.
+
+- **Army Readiness** (beside Recruit & Deploy, open by default):
+  - Manpower: free, in training, in the army, navy and air force, needed by garrisons.
+  - Equipment: for sixteen kinds of land equipment the stock, what the divisions in the field hold and what they need, with a bar. A shortage is red.
+  - Army: divisions, battalions, army experience, divisions below 75% strength and below 50% organisation.
+  - Armies: one row per general with troops: divisions, battalions, divisions fighting, planning, the worst equipped kind of equipment, divisions by kind.
+- **States** (beside Construction, opened with `Shift+M`):
+  - One row per state you control: free building slots, the levels of nine buildings, seven resources, population, and compliance and resistance for occupied states.
+  - A click on a column head sorts, a second click turns the order. Three choices narrow the list: cores, occupied, with free slots.
+  - A click on a state moves the camera there and hides the page.
+- **National Figures** (opened from Politics with `Shift+M` or the button in its title strip):
+  - The summed modifiers of your country, 93 of them in six groups: what all laws, spirits, advisors and technologies together add to factory output, construction speed, research speed, organisation and so on. A modifier that is zero is left blank.
+  - Factories and how many are free, fuel, party popularity, and a table of resources: balance, produced, used, imported, exported.
+- **History** (the second page of National Figures):
+  - Twelve figures of your country month by month as a column graph, ten years at most: manpower, divisions, factories, stability, war support, fuel and others. The mod writes them down on the first of each month, from the day it is active in a game.
+
+Limits: the game gives script no list of templates, training lines, production lines or queues, so the pages have none; an army without a commander is not listed; equipment, buildings and resources that another mod adds do not appear.
+
 ---
 
 ## Directory Architecture
@@ -54,9 +75,10 @@ C:\dev\hoi4-1440p-ui-mod/
 |-- artifacts/                      # Packaged release archives (git-ignored)
 |-- baseline/                       # Vanilla reference copies of overridden windows (dev-only)
 |-- reference/                      # Captures of every screen, vanilla and reworked (dev-only)
-|-- common/                         # Kept empty: the mod stays checksum-neutral
+|-- common/                         # Script of the manager pages only (generated; changes the checksum)
 |-- gfx/                            # Textures built from vanilla assets
-|-- interface/                      # GUI layout (.gui) and sprite (.gfx) files
+|-- interface/                      # GUI layout (.gui) and sprite (.gfx) files; mod1440_*.gui are generated
+|-- localisation/                   # Texts of the manager pages (generated, one file per game language)
 |-- tests/                          # Automated Pester test suites
 |-- tools/                          # GUI inspection and baseline scripts (dev-only)
 \-- wiki/                           # GitHub documentation wiki (roadmap, design rules)
@@ -109,6 +131,10 @@ Screen work uses the scripts in `tools/`:
 
 # Refresh the baseline of a window, for example after a game update
 .\tools\Export-VanillaBaseline.ps1 airselectionview.gui air_selection_view
+
+# Write every file of the manager pages (scripted GUIs) from the tables in the tool; a running game redraws them
+python -I tools\build_managers.py
+python -I tools\build_managers.py --check   # fails when a generated file was edited by hand or is stale
 
 # Rebuild the textures that are enlarged copies of vanilla ones (needs Python with Pillow)
 python tools\stretch_background.py

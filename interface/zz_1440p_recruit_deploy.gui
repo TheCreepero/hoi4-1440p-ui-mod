@@ -11,6 +11,9 @@ guiTypes = {
 		hide_animation_type = accelerated
 		animation_time = 300
 		size = { width=640 height=100%% }
+		# lets the Army Readiness page, a scripted GUI attached to this tab, show beside the two panels
+		# (wiki/Engine-Facts.md, X6)
+		clipping = no
 
 		#hide_sound = menu_close_window
 		show_sound = menu_open_window

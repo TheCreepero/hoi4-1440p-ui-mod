@@ -824,7 +824,8 @@ function Compare-HoiErrorLog {
     foreach ($file in @(Get-ChildItem -Path (Join-Path $script:HarnessRepoRoot 'interface') -Recurse -File -Filter '*.gui')) {
         foreach ($w in @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)))) { $windowNames += $w.Name }
     }
-    $pattern = '(zz_1440p|GFX_1440p|1440p_ui|' + (($windowNames | ForEach-Object { [regex]::Escape($_) }) -join '|') + ')'
+    # mod1440_ is the prefix of the mod's script files under common/ and of its scripted GUI windows
+    $pattern = '(zz_1440p|GFX_1440p|1440p_ui|mod1440_|' + (($windowNames | ForEach-Object { [regex]::Escape($_) }) -join '|') + ')'
     $new = @($current | Where-Object { -not $known.ContainsKey($_) })
     $mod = @($new | Where-Object { $_ -match $pattern })
     $other = @($new | Where-Object { $_ -notmatch $pattern })

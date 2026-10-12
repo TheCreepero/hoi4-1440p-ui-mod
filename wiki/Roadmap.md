@@ -6,14 +6,14 @@ The mod is built one screen at a time. Each phase reworks one screen for 2560x14
 
 - **Baseline:** vanilla 1.19 only, for now. Every screen is built and checked in a playset that contains just this mod. Behaviour next to other mods is not tested and not worked on until a compatibility checkpoint (see "Compatibility checkpoints").
 - **Design target:** 2560x1440 at 100% UI scale. The mod does not fit smaller resolutions or a higher UI scale.
-- **Depth:** a redesign per screen, not only an enlargement. Each screen is re-laid out around what the player wants to see at once: regrouped panels, a place of its own for every value the screen already has, larger fonts and backgrounds, fixed captions, and hotkeys for buttons that have none. New live values and new working buttons are not possible; the limits are in [Design Rules](Design-Rules.md), "What a redesign can add".
-- **Checksum:** untouched so far. Scripted GUIs, the game's way to add new values and buttons, live in `common/` and change the checksum. On 2026-10-12 the user decided that they may become part of this mod and that losing Ironman and achievement compatibility is acceptable. The mod stays outside the checksum until the first one ships (D2); the README, the Workshop text, the checksum rule in `GEMINI.md` and the tests change in that phase.
+- **Depth:** a redesign per screen, not only an enlargement. Each screen is re-laid out around what the player wants to see at once: regrouped panels, a place of its own for every value the screen already has, larger fonts and backgrounds, fixed captions, and hotkeys for buttons that have none. New live values and new working buttons are not possible in a vanilla window; the limits are in [Design Rules](Design-Rules.md), "What a redesign can add". The manager pages of Milestone D add both, as scripted GUIs beside the vanilla panels.
+- **Checksum:** changed since phase D2. The reworked screens (Milestones A and B) are interface and texture files, outside the checksum. The manager pages of Milestone D are scripted GUIs, the game's way to add new values and buttons; their script lives in `common/` and changes the checksum, so the mod no longer works with Ironman and achievements, and in multiplayer every player needs it. The user decided on 2026-10-12 that this is acceptable. Only four folders under `common/` are used, and the tests hold that line.
 - **Art:** no AI-generated images. Backgrounds are built from vanilla game assets.
 - **Priority:** military lists, then designers, then the backlog.
 
 ## Status
 
-Status values: Not started, In progress, Done. Each phase keeps its inventory, decisions and game-check log in `wiki/phases/` ([A1](phases/A1-air-selection.md), [A2](phases/A2-army-selection.md), [A3](phases/A3-unit-details.md), [A4](phases/A4-fleet.md), [A5](phases/A5-recruit-deploy.md), [D0](phases/D0-manager-feasibility.md); template: [Phase Template](Phase-Template.md)); what the launches taught about the engine is in [Engine Facts](Engine-Facts.md).
+Status values: Not started, In progress, Done. Each phase keeps its inventory, decisions and game-check log in `wiki/phases/` ([A1](phases/A1-air-selection.md), [A2](phases/A2-army-selection.md), [A3](phases/A3-unit-details.md), [A4](phases/A4-fleet.md), [A5](phases/A5-recruit-deploy.md), [D0](phases/D0-manager-feasibility.md), [D2](phases/D2-army-readiness.md), [D3](phases/D3-states.md), [D4 and D5](phases/D4-national-figures.md); template: [Phase Template](Phase-Template.md)); what the launches taught about the engine is in [Engine Facts](Engine-Facts.md).
 
 | Phase | Scope | Status |
 |---|---|---|
@@ -88,7 +88,7 @@ Phases are independent after Phase 1 and can be reordered.
 - B2 and B3 share one structure, so B3 mostly reuses the B2 layout.
 - In B2 to B4 the hull and slot area keeps its vanilla size. Module slot positions are defined per hull in `interface/equipmentdesigner/` (253 tank files, 8 plane files, 6 ship files).
 
-## Milestone D: manager screens (planned, feasibility first)
+## Milestone D: manager pages
 
 The idea (user, 2026-10-12): a side panel such as Recruit & Deploy becomes a near full screen "manager" with new information and quality of life options, and narrows by itself when the map is needed, for example to pick a deploy location. The feasibility phase D0 was run on 2026-10-12 ([notes](phases/D0-manager-feasibility.md)). The table gives what it found.
 
@@ -108,10 +108,17 @@ So a manager is not a wider version of the vanilla panels: they have nothing mor
 |---|---|---|---|
 | D0 | Feasibility | Four questions on Recruit & Deploy in one launch: columns in the template list (no), what the code does while a deploy location is picked (nothing), clicks on the map between the panels (they arrive), a scripted GUI on this tab (works). | Done |
 | D1 | Recruit & Deploy as a wider arrangement of its vanilla lists | Templates in two or three columns beside the divisions in training. | Dropped: the lists stay one column (D0) |
-| D2 | Recruitment manager: a scripted panel on the deployment tab, in this mod | Read [Script Reference](Script-Reference.md) first: what script can read and do, how sure each fact is, and eight questions still open. Starts with an inventory of the country values and effects script offers for recruiting (manpower available, queued, deployed and needed by garrisons; army experience; equipment in stock and in the field per type), then a layout proposal with mock-ups: what the panel shows, where it stands, how it folds. The first file under `common/`: the checksum rule, its tests, the README and the Workshop text change here. | Not started; on hold until the user has read the script research (2026-10-12) |
-| D3 | The same for production, construction and logistics | Each has a token of its own (`production_tab`, `construction_tab`, `logistics_tab`). After D2 has been judged in game. | Not scheduled |
+| D2 | Army Readiness, docked to Recruit & Deploy | Opened with a probe of two launches that settled the open engine questions (rows X6 to X25 of [Engine Facts](Engine-Facts.md)). Then the foundation, paid once: the tool that writes every file of a page (`tools/build_managers.py`), the tests (`tests/ScriptedGuis.Tests.ps1`), the changed checksum rule, the renderer and the harness reading a scripted page. The page: manpower, the army's counts, a table of land equipment (stock, in the field, needed, a bar). [Notes](phases/D2-army-readiness.md) | Done, awaiting the tester's judgement |
+| D3 | States, docked to Construction | One row per controlled state, sorted by any column, a click moves the camera there. The vanilla Construction window needs no override: it already lets a page stand beside it. [Notes](phases/D3-states.md) | Done, awaiting the tester's judgement |
+| D4 | National Figures, opened from Politics | The country's summed modifiers (93, in six groups), factories, fuel, party popularity, resources. A window of its own: the vanilla Politics window would have to be overridden to dock a page. [Notes](phases/D4-national-figures.md) | Done, awaiting the tester's judgement |
+| D5 | History, the second page of National Figures | Twelve figures written down on the first of each month and drawn as columns. The graph is checked with made-up months; the monthly recording has not been seen running, because no check runs time. [Notes](phases/D4-national-figures.md) | Done, awaiting the tester's judgement and a look after a month of play |
+| D6 | Armies, on the Army Readiness page | One row per general with troops: divisions, battalions, fighting, planning, the worst equipped kind, divisions by kind. Built with D2. | Done, awaiting the tester's judgement |
+| D7 | Top bar strip | Numbers the top bar hides in tooltips, in the 930 px that are free at 1440p. | Not started (the user: later) |
 
-- Open for D2: a scripted list (`dynamic_lists`), a scripted panel larger than the tab it is attached to, and clicks on vanilla widgets under a scripted panel were not tried in D0.
+What each page shows, the rules they follow and how to work on them: [Scripted GUIs](Scripted-GUIs.md). What the user chose on 2026-10-12: all four managers and graphs over time, pages docked to their tab, values of the own country only, the top bar strip later.
+
+- **Asked of the tester:** a few days and a month of game time with the mod. The date beside "Count again" on Army Readiness should then be the day's, and History should have a second column on 1 February. No check can show this: the user's autosave is monthly, and a check that let a month pass would overwrite it.
+- **Not built, and why:** a table of other countries (own country only); anything per template, per training line or per production line (script has no list of them).
 - A layout D0 showed to work and nobody has asked for: the template panel at the right edge of the screen, the divisions in training at the left, the map between them.
 
 ## Milestone C: backlog (not scheduled)

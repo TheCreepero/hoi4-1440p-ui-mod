@@ -103,6 +103,13 @@ Describe 'Texts' {
                 $loc[$hit.Matches[0].Groups[1].Value] = $hit.Matches[0].Groups[2].Value
             }
         }
+        # the mod's own texts (the captions of its scripted GUIs) are judged the same way
+        $modLoc = Join-Path $script:RepoRoot 'localisation\english'
+        if (Test-Path $modLoc) {
+            foreach ($hit in (Select-String -Path (Join-Path $modLoc '*.yml') -Pattern '^\s*([A-Z][A-Z0-9_]+):\d*\s*"(.*)"')) {
+                $loc[$hit.Matches[0].Groups[1].Value] = $hit.Matches[0].Groups[2].Value
+            }
+        }
         $colorCode = [string][char]0xA7 + '[A-Za-z0-9!]'
         $script:TextCases = @()
         foreach ($box in $boxes) {
@@ -374,10 +381,14 @@ Describe 'Game recipes' {
                 [void]$wanted["$($scene.screen)|"].Add([string]$spec)
             }
         }
+        # a page of the mod's own (a scripted GUI) has no vanilla layout: its scene says "modOnly"
+        $modOnly = @{}
+        foreach ($scene in @(Get-Scenes)) { if ($scene.modOnly) { $modOnly[[string]$scene.screen] = $true } }
         $renderPy = Join-Path (Join-Path $script:RepoRoot 'tools') 'render_gui.py'
         $notFound = foreach ($layout in $wanted.Keys) {
             $sceneName, $state = $layout -split '\|', 2
-            foreach ($mode in '', '--vanilla') {
+            $modes = if ($modOnly.ContainsKey($sceneName)) { @('') } else { @('', '--vanilla') }
+            foreach ($mode in $modes) {
                 $arguments = @('-I', $renderPy, '--scene', $sceneName, '--locate') + @($wanted[$layout])
                 if ($state) { $arguments += '--state'; $arguments += $state }
                 if ($mode) { $arguments += $mode }

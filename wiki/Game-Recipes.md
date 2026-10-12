@@ -68,6 +68,10 @@ Surveyed on game 1.19.3 on 2026-10-08, each recipe run unattended with the mod a
 | B2 | `tank_designer` | `open_tank_designer` | verified, mod and vanilla |
 | B3 | `plane_designer` | `open_plane_designer` | verified, mod and vanilla |
 | B4 | `ship_designer` | `open_ship_designer` | verified, mod and vanilla |
+| D2 | `army_readiness` | `open_recruit_deploy`: the page is docked to the tab and open by default | verified; mod only (a scripted GUI has no vanilla layout: the scene says `modOnly`) |
+| D3 | `states` | `open_construction`, then Shift+M; the `teardown` hides the page again | verified; mod only |
+| D4 | `national_figures` | `open_politics`, then Shift+M; the `teardown` closes the window | verified; mod only |
+| D5 | `history` | as `national_figures`, then a click on `mod1440_figures/nf_history` | verified; mod only |
 | C | `leader_selection`, `advisor_selection`, `focus_tree`, `tech_tree` | see `tools/moves.json` | |
 | C | `politics`, `decisions`, `research`, `international_market`, `trade`, `construction`, `production`, `logistics`, `officer_corps`, `intelligence`, `faction` | one top bar hotkey each | |
 
@@ -134,3 +138,5 @@ Each `VERIFY` line gives the offset between the layout and the game, up to 20 px
 - **The cursor leaves a tooltip.** It is parked over the map before each capture; keep the crop region clear of (1500, 1000).
 - **A click only counts while the game is in front.** The harness checks before every key and click and stops with an error otherwise. Moving the mouse during a run still derails it.
 - **Positions are for 2560x1440 at 100 % UI scale.**
+- **A scripted page remembers whether it is open**, per country, in a variable. A recipe that opens one with Shift+M closes it again in its `teardown`, or the next run of the same recipe closes it instead of opening it.
+- **The scenes of the scripted pages are written by `tools/build_managers.py`.** Change them there; the test suite fails when a scene file on disk differs.

@@ -373,4 +373,74 @@ spriteTypes = {
 		texturefile = "gfx/interface/1440p_ui/rd_template_entry_obsolete.dds"
 		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
 	}
+
+	# Scripted GUIs (Milestone D). A bar that script fills through its "frame" property, 0 to 100
+	# (wiki/Engine-Facts.md, X17). Textures: the vanilla organisation bar of the navy list.
+	progressbartype = {
+		name = "GFX_1440p_SG_bar"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 105 y = 12 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+		steps = 100
+	}
+
+	# A column of a scripted graph: the same bar standing up, filled from below, 0 to 200.
+	progressbartype = {
+		name = "GFX_1440p_SG_column"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 9 y = 300 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = no
+		steps = 200
+	}
+
+	# Column heads and row buttons of a scripted table, one sprite per width: the vanilla header tile
+	# (tiles/tiled_header_1.dds, the texture of GFX_tiled_header_1) at a size of its own.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_52"
+		size = { x = 52 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_56"
+		size = { x = 56 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_60"
+		size = { x = 60 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_84"
+		size = { x = 84 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_240"
+		size = { x = 240 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
 }

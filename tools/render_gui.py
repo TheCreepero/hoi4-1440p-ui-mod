@@ -865,6 +865,9 @@ class Renderer:
         if not entries or not sw or not sh:
             return
         cols = int(gp.number(self.value(node.get("max_slots_horizontal")), 0) or 0)
+        if cols <= 0 and sw < 2 and (self.value(node.get("add_horizontal")) or "").lower() == "no":
+            # a scripted list: a slot of 1x1 that does not run sideways is one column (wiki/Engine-Facts.md, X10)
+            cols = 1
         if cols <= 0:
             cols = max(1, int(rect.w // sw)) if rect.w else 1
         count = self.row_count(window_name, name, default=None)

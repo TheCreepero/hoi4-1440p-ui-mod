@@ -8,7 +8,7 @@ This document provides formatting rules, length limits, and reference templates 
 
 1. **No Emojis**: Strictly avoid emojis anywhere in the description text.
 2. **Character Limits**: Steam Workshop descriptions have a max limit of ~17,000 raw BBCode characters. Keep bullet points concise and direct.
-3. **No Planned Section**: Do not include speculative 'Planned' sections in the public description. List a screen under "Reworked screens" only when its phase is marked Done in `wiki/Roadmap.md`.
+3. **No Planned Section**: Do not include speculative 'Planned' sections in the public description. List a screen under "Reworked screens", or a page under "Manager pages", only when its phase is marked Done in `wiki/Roadmap.md`.
 4. **Valid Steam BBCode**:
    - Headers: `[h1]Title[/h1]`
    - Bold: `[b]Text[/b]`
@@ -16,12 +16,14 @@ This document provides formatting rules, length limits, and reference templates 
    - Links: `[url=https://...]Text[/url]`
    - Bullets: Standard hyphen (`- Item`)
 
+5. **Before publishing 1.5**: two sentences of the template rest on hooks no automated check has seen run, because no check lets game time pass (`wiki/Scripted-GUIs.md`, "Known gaps"). Play a few days and past the first of a month first: the date beside "Count again" on Army Readiness should be the day's, and History should have a second column. If not, fix the hooks or take "fill in after a day" and "month by month" out.
+
 ---
 
 ## Template Description
 
 ```bbcode
-Hearts of Iron IV screens re-laid out for 2560x1440 displays: larger windows, longer lists and larger text.
+Hearts of Iron IV screens re-laid out for 2560x1440 displays: larger windows, longer lists and larger text. New manager pages beside the vanilla panels fill the free width with tables and figures of your country.
 
 Check out my other mods:
 - [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2967389401]Immersive Namelists Expanded[/url]
@@ -31,10 +33,18 @@ Check out my other mods:
 - A resolution of 2560x1440 or higher with the in-game UI scale at 100%. At a lower resolution or a higher UI scale the windows do not fit on screen.
 
 [h1]Info:[/h1]
-- [b]Ironman and achievement compatible:[/b] Only interface and graphics files are changed, so the game checksum is untouched.
-- [b]Multiplayer compatible.[/b]
-- [b]Save Game Compatible:[/b] Can be added or removed from ongoing games without issues.
+- [b]Not compatible with Ironman and achievements[/b] since version 1.5: the manager pages need script files, which change the game checksum. The pages only show values; they change nothing in your game.
+- [b]Multiplayer:[/b] every player needs the mod.
+- [b]Save Game Compatible:[/b] Can be added to or removed from ongoing games. Added to a running game, the manager pages fill in after a day and the History graph starts on the first of the next month.
 - Built for Hearts of Iron IV version 1.19.*.
+
+[h1]Manager pages:[/h1]
+Shift+M shows and hides the page of the open tab.
+- [b]Army Readiness[/b] (beside Recruit & Deploy): manpower free, in training, in the field and needed by garrisons. For sixteen kinds of land equipment the stock, what your divisions hold and what they need, with a bar, shortages in red. Divisions below 75% strength and below 50% organisation. One row per general with troops: divisions, battalions, divisions fighting, planning and the worst equipped kind of equipment.
+- [b]States[/b] (beside Construction): every state you control as a table: free building slots, building levels, resources, population, compliance and resistance. Click a column head to sort. Click a state and the camera goes there.
+- [b]National Figures[/b] (from Politics): the summed modifiers of your country, 93 of them: what all your laws, spirits, advisors and technologies together add to factory output, construction speed, research speed, organisation and the rest. With factories, fuel, party popularity and a table of resources.
+- [b]History[/b] (in National Figures): twelve figures of your country month by month as a graph: manpower, divisions, factories, stability, war support, fuel and more.
+- The pages show your own country only. Equipment, buildings and resources added by other mods do not appear in them.
 
 [h1]Reworked screens:[/h1]
 - [b]Air wings and airbases:[/b] The selection panel shows 20 rows before it scrolls instead of 9. Rows are wider, so wing names appear in full, and the text is larger.

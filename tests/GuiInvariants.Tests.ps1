@@ -179,9 +179,12 @@ Describe 'Executable name search' {
     }
 }
 
-Describe 'Checksum neutrality' {
-    It 'contains no file type the game includes in its checksum' {
-        # Mirrors checksum_manifest.txt in the game folder.
+Describe 'Checksum' {
+    It 'is changed by the scripted GUIs of Milestone D and by nothing else' {
+        # Mirrors checksum_manifest.txt in the game folder. Since phase D2 the mod has scripted GUIs, which
+        # live under common/ and end Ironman and achievement compatibility (wiki/Roadmap.md, "Checksum").
+        # They stay in these four folders; tests/ScriptedGuis.Tests.ps1 checks what the files may say.
+        $scriptedGuiFolders = @('scripted_guis', 'scripted_effects', 'on_actions', 'synchronized_dynamic_tokens')
         $rules = @(
             @{ Dir = 'common'; Extensions = @('.txt', '.lua') }
             @{ Dir = 'events'; Extensions = @('.txt') }
@@ -191,9 +194,14 @@ Describe 'Checksum neutrality' {
         $hits = foreach ($rule in $rules) {
             $dir = Join-Path $script:RepoRoot $rule.Dir
             if (-not (Test-Path $dir)) { continue }
-            Get-ChildItem -Path $dir -Recurse -File | Where-Object { $rule.Extensions -contains $_.Extension.ToLowerInvariant() } | ForEach-Object { $_.FullName.Substring($script:RepoRoot.Length + 1) }
+            foreach ($file in @(Get-ChildItem -Path $dir -Recurse -File | Where-Object { $rule.Extensions -contains $_.Extension.ToLowerInvariant() })) {
+                $rel = $file.FullName.Substring($script:RepoRoot.Length + 1)
+                $parts = $rel -split '[\\/]'
+                if ($rule.Dir -eq 'common' -and $parts.Count -eq 3 -and $scriptedGuiFolders -contains $parts[1]) { continue }
+                $rel
+            }
         }
-        $hits | Should -BeNullOrEmpty -Because 'the mod must stay Ironman, achievement and multiplayer compatible'
+        $hits | Should -BeNullOrEmpty -Because 'gameplay files other than scripted GUIs are outside what this mod does'
     }
 }
 

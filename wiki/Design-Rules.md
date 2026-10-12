@@ -22,11 +22,13 @@ A screen is re-laid out around what the player wants to see at once, not only en
 | Stat rows as tiles: a grid with two or more columns, a wrapped label over a larger value | Yes | `max_slots_horizontal` and `slotsize` of the grid, layout of the row window ([Engine Facts](Engine-Facts.md) W16); labels that vanilla cuts can be shown whole |
 | Tab hotkeys | Yes | `shortcut` on the tab buttons (W19) |
 | Cards, panels, grouped headers | Yes, as sibling backgrounds | A background drawn behind the widgets; the widgets stay under their vanilla parent (W15) |
-| New live values the screen does not show today | Not in a vanilla window; yes in a scripted GUI, for values of the country | The game fills only the widgets its code asks for. A scripted GUI reads script variables ([Engine Facts](Engine-Facts.md) X1, X2) and changes the checksum |
+| New live values the screen does not show today | Not in a vanilla window; yes in a scripted GUI, for values of the country, its states and its generals | The game fills only the widgets its code asks for. A scripted GUI reads script variables ([Engine Facts](Engine-Facts.md) X1, X2, X19 to X21) and changes the checksum |
 | A value shown in two places | No | A second widget with the same name is dropped (W14) |
 | Wrapping widgets in a new container (cards that own their content) | No | The code finds a widget only among the children of its vanilla parent (W15) |
 | Showing two tabs at once | No | Duplicate tab containers are dropped (W14), and the code hides the other tab's container |
-| New buttons that do something | Not in a vanilla window; yes in a scripted GUI | A scripted button runs a script effect (X3); what it can do is what effects can do |
+| New buttons that do something | Not in a vanilla window; yes in a scripted GUI | A scripted button runs a script effect (X3); what it can do is what effects can do. In this mod it changes its page or moves the camera, nothing in the game ([Scripted GUIs](Scripted-GUIs.md), rule 1) |
+| A table of states or generals, sorted by a click | Yes, in a scripted GUI | A scripted list filled from an array (X10), sorted by an effect (X22) |
+| A graph over time | Yes, in a scripted GUI | Script writes the values down each month; each column is a progress bar it fills (X17) |
 | Lists the code fills, in several columns | No | `max_slots_horizontal` is not followed by them (S29) |
 | A panel that narrows or hides by itself | No | No file can ask what the player is doing; a scripted panel can fold on a click (X4) |
 
@@ -45,11 +47,12 @@ A screen is re-laid out around what the player wants to see at once, not only en
 - **Fixed text.** A text box with `text = "<key>"` shows that key's text in the game language.
   - **Confirmed in game (A2):** captions on the sort buttons of the division list, using vanilla keys such as `ARMY_SORT_NAME` ("Name"). A vanilla key needs no localisation file. Search `localisation/english/` for a key whose whole text is the word needed.
   - Name an added widget `mod1440_*` and give it `alwaystransparent = yes`, so clicks reach the button under it.
-  - Text of the mod's own needs a file under `localisation/`. That folder is not in the game's `checksum_manifest.txt`, so it keeps the mod checksum-neutral. Vanilla localisation files are UTF-8 **with** BOM, the opposite of the rule for `.gui` files. Not used yet; the first use must also check that `build.ps1` packages the folder.
-- **Scripted GUIs are allowed since 2026-10-12, and none ships yet.** They are the game's way to add new values and buttons, described in `common/scripted_guis/_documentation.md` in the game folder. A probe on Recruit & Deploy worked ([D0](phases/D0-manager-feasibility.md)); the first real one is phase D2 of the [Roadmap](Roadmap.md). What is known about the script language, with the source and status of each fact, is in [Script Reference](Script-Reference.md): look a command up there or in the game's documentation before writing it, never from memory.
-  - They live in `common/`, so they change the checksum: with the first one the mod stops being compatible with Ironman and achievements, and in multiplayer every player needs it. The user accepts this.
-  - They attach to the top bar, the side tabs (among them `deployment_tab`, Recruit & Deploy), the focus tree, the country and state views and the ledgers. The selected army, air wings, navy and the designers are not among the attach points.
-  - They work on a country or a state, never on the selected army, division, wing or fleet.
+  - Text of the mod's own needs a file under `localisation/`: UTF-8 **with** BOM, the opposite of the rule for `.gui` files, and one file per language of the game, or a player of another language sees the bare key. The scripted GUIs use this since D2; `tools/build_managers.py` writes the files.
+- **Scripted GUIs are the manager pages of Milestone D**, in the mod since phase D2 (decided by the user on 2026-10-12). They are the game's way to add new values and buttons, described in `common/scripted_guis/_documentation.md` in the game folder. Their rules, what each page shows and how to work on them are in [Scripted GUIs](Scripted-GUIs.md); what is known about the script language, with the source and status of each fact, is in [Script Reference](Script-Reference.md): look a command up there or in the game's documentation before writing it, never from memory.
+  - They live in `common/`, so they change the checksum: the mod is not compatible with Ironman and achievements, and in multiplayer every player needs it. The user accepts this.
+  - They attach to the top bar, the side tabs, the focus tree, the country and state views and the ledgers, or stand as windows of their own. A page attached to a tab shows beside the panel only if the tab's window has `clipping = no` ([Engine Facts](Engine-Facts.md) X6): the mod's Recruit & Deploy window and the vanilla Construction and Trade windows do. The selected army, air wings, navy and the designers are not among the attach points.
+  - They work on a country, a state or a general, never on the selected army, division, wing or fleet, and they have no list of templates, training lines or production lines.
+  - A page is a finished widget tree of the mod's own: the rules above about vanilla widget names do not bind it, and it is reworked in a running game (X23, X27).
 
 ## Overriding vanilla windows
 
@@ -65,7 +68,7 @@ A screen is re-laid out around what the player wants to see at once, not only en
 - **Each window is overridden in one file only.** With two definitions the file that loads last wins silently. The test suite enforces this.
 - **File-level `@variables` do not travel with a window.** If a vanilla window uses one (for example `@equipment_entry_heigth` in `airselectionview.gui`), define it in the override file too before overriding that window. Untested, so check it in game the first time.
 - **Mod-only windows** (no vanilla counterpart) are named `mod1440_*`.
-- **Nothing under `common/`, `events/`, `history/` or `map/`.** Those folders are part of the game checksum; `interface/` and `gfx/` are not.
+- **Under `common/` only the script of the scripted GUIs**, in four folders (`scripted_guis`, `scripted_effects`, `on_actions`, `synchronized_dynamic_tokens`), every file named `mod1440_*`. Nothing under `events/`, `history/` or `map/`. These folders are part of the game checksum; `interface/`, `gfx/` and `localisation/` are not.
 
 ## How the engine treats sizes and containers
 

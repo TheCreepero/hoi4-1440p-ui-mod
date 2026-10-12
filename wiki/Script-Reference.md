@@ -1,6 +1,6 @@
 # Script Reference
 
-What is known about the Hearts of Iron IV script language as far as a scripted GUI of this mod needs it, with the source of every claim and how sure it is. Researched on 2026-10-12 against game 1.19.3.0 (revision c01a3d50), before any scripted GUI is written. Read it before phase D2 of the [Roadmap](Roadmap.md); what the engine does with `.gui` files is in [Engine Facts](Engine-Facts.md).
+What is known about the Hearts of Iron IV script language as far as a scripted GUI of this mod needs it, with the source of every claim and how sure it is. Researched on 2026-10-12 against game 1.19.3.0 (revision c01a3d50), before any scripted GUI was written. The probe and the builds of the same day then tried most of it in game: those results are rows X6 to X31 of [Engine Facts](Engine-Facts.md), which is the stronger source where the two differ, and the last section of this page says which rows here they settle. The pages built with it are in [Scripted GUIs](Scripted-GUIs.md).
 
 Status values, strongest first:
 
@@ -153,15 +153,34 @@ So the buttons of a manager panel are for the panel itself: fold, switch what it
 - **Performance:** an update every tick unless `dirty` is used (G10). Loops over all divisions belong behind a button or a daily `on_action`, not in a text that is redrawn every tick.
 - **Other mods:** a scripted GUI adds a container and does not replace one, so it does not collide with a mod that reworks the same tab; it can overlap what that mod draws.
 
-## Open questions, in the order D2 needs them
+## What the probe and the builds settled
 
-Each needs the game. They fit into one launch. The New Order answers the first four in principle (rows G5, G6, G9, G10, G13, G14); they stay on the list until a build of this mod has shown them.
+The eight questions this page ended with on the morning of 2026-10-12, and what a launch said. The row of [Engine Facts](Engine-Facts.md) has the evidence.
 
-1. `dynamic_lists`: a grid filled from an array of our own, with and without `change_scope` (G9).
-2. A free window opened from a button on the deployment tab and closed again (G13). Does a scripted container take the clicks of the vanilla widgets under it (G14)?
-3. `_click_enabled`, `_right_click` and the shift combination (G5, G6); the tooltip of a scripted button (G12).
-4. `dirty` (G10): does the panel stop updating until the variable changes, and is that needed at all?
-5. A loop over `every_country_division` in a button's effect: how long does it take with 300 divisions? No answer from TNO was looked for.
-6. `log` to `game.log` and the console commands `eval_effect`, `get_var` and `list_vars` as tools for the harness.
-7. Whether a change to a file under `common/scripted_guis/` or `localisation/` is picked up without a restart.
-8. `num_target_equipment_in_armies@<type>` against `num_equipment_in_armies@<type>`: do they give the shortage the logistics screen shows?
+| Question | Answer | Row |
+|---|---|---|
+| `dynamic_lists` from an array of our own, with and without `change_scope` (G9) | Works for numbers, states and generals; a slot of 1x1 with `add_horizontal = no` stacks rows, a real slot with `add_horizontal = yes` runs sideways | X10, X12 |
+| A window of its own, opened and closed; clicks under a scripted container (G13, G14) | Works; with a background it takes every click inside its rectangle | X7, X9 |
+| `_click_enabled`, `_right_click`, the tooltip of a scripted button (G5, G6, G12) | The first two work. A button whose effect only sets a variable shows no tooltip; `pdx_tooltip` gives it one. G12 is not confirmed. Shift, control and alt clicks stay untried | X14 |
+| `dirty` (G10) | Works, also for the first drawing: the page shows raw text until the variable first changes | X16 |
+| A loop over every division | Under a hundredth of a second for 138 divisions | X22 |
+| `log` and the console for the harness | `log` writes to `game.log` with values; `effect <name>` runs a scripted effect. `get_var` and `list_vars` were not needed and not tried | X25, X31 |
+| Reload without a restart | Script, localisation and the layout of a scripted GUI are read again; a new `.gui` file is not | X23, X27 |
+| The shortage the logistics screen shows | `num_equipment@` is its stock column and never negative; in the field against needed covers the divisions in the field, not those in training | X19, X29 |
+
+Found on the way, and not on this page before:
+
+- **A page attached to a tab is cut off at the tab's window** unless that window has `clipping = no` (X6). This decides where a page can be docked.
+- **`_visible` and the `x`, `y` properties do not act on a nested container** (X15), and **a property takes a variable only**, no math expression (X26). So a group that hides is a scripted GUI of its own, and a derived number is worked out by an effect.
+- **State and general values** read in a list row (X20, X21); `goto_state` wants country scope: `ROOT = { goto_state = PREV }` (X13).
+- **Number formats** (X18) and more on texts (X30): row T3 above is confirmed and extended by `=` (the sign), `*` (K and M) and `-` (colours turned).
+- **Names after `@` must be listed** in `common/synchronized_dynamic_tokens/` (X24, X31).
+- **Hooks:** `on_startup` seen; `on_daily` and `on_monthly` written after vanilla and The New Order, not seen running (X28).
+
+## Open questions
+
+1. `on_daily` and `on_monthly` running for a player: asked of the tester, because no check runs time.
+2. Shift, control and alt clicks (the harness cannot make them).
+3. A list filled straight from a game array (X11): one row showed; not needed so far.
+4. Buildings that stand in provinces (forts, naval bases) through `building_level@`: 0 in the two states tried.
+5. What a scripted GUI costs while the game runs at speed: every frame rate here was read with the game paused.
