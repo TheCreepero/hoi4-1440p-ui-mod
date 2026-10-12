@@ -1,32 +1,404 @@
 {
-  "_comment": "Scene for the Recruit & Deploy and Division Templates panels. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "_comment": "Scene for the Recruit & Deploy and Division Templates panels. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human. A window with 'skip' is a row window listed for its 'hide' list only: another window draws it. The listRows of deployments_list_gridbox is the sequence of rows the code puts into that one grid: six priority rows, then per template in training a card, a summary row, one row per division and an end line. 'sidePanel' marks a panel of a top bar tab, which vanilla runs down the whole screen: the y 1140 limit of the docked selection panels does not apply to it.",
   "screen": "recruit_deploy",
   "phase": "A5",
   "file": "zz_1440p_recruit_deploy.gui",
   "screenshot": "reference/vanilla/recruit_deploy.jpg",
   "windows": [
     {
-      "name": "countrydeploymentview"
+      "name": "countrydeploymentview",
+      "at": [
+        -6,
+        78
+      ],
+      "rows": {
+        "deployments_list_gridbox": 21
+      },
+      "listRows": {
+        "deployments_list_gridbox": [
+          "deploy_entry",
+          "deploy_entry",
+          "supply_deploy_entry",
+          "deploy_entry",
+          "deploy_entry",
+          "deploy_entry",
+          "military_deployment_conveyor_view",
+          "military_deployment_conveyor_summary_view",
+          "military_deployment_line_view",
+          "military_deployment_line_view",
+          "military_deployment_line_view",
+          "military_deployment_line_view",
+          "military_deployment_conveyor_end_view",
+          "military_deployment_conveyor_view",
+          "military_deployment_conveyor_summary_view",
+          "military_deployment_line_view",
+          "military_deployment_conveyor_end_view",
+          "military_deployment_conveyor_view",
+          "military_deployment_conveyor_summary_view",
+          "military_deployment_line_view",
+          "military_deployment_conveyor_end_view"
+        ]
+      },
+      "_note": "The state after the setup: Infanterie-Division with four lines, Panzer-Division and Infanterie-Division (mot.) with one each. 'place' adds the 13 px top margin of the scrolling container to the grid's y of 5; the renderer does not model margins.",
+      "place": {
+        "deployments_list_gridbox": [
+          25,
+          18
+        ]
+      },
+      "height": 1362,
+      "sidePanel": true
     },
     {
-      "name": "templatedeploymentwindow"
+      "name": "templatedeploymentwindow",
+      "at": [
+        628,
+        78
+      ],
+      "rows": {
+        "templates_grid": 5
+      },
+      "listRows": {
+        "foreign_templates_grid": "foreign_template_item"
+      },
+      "hide": [
+        "div_templ_custom_icon_view"
+      ],
+      "height": 1210,
+      "atVanilla": [
+        538,
+        78
+      ],
+      "_note": "Opens beside the left panel: at x 538 in vanilla, at 628 beside the mod's 640 px panel. In the mod it ends at y 1288, above the army portraits of the bottom bar; vanilla runs to the bottom of the screen.",
+      "sidePanel": true
+    },
+    {
+      "name": "named_division_template_entry",
+      "skip": true,
+      "hide": [
+        "Background_obsolete",
+        "obsolete_template_warning",
+        "special_forces_icon",
+        "allow_as_hq_icon",
+        "can_paradrop_icon",
+        "template_cap",
+        "tutorial_highlight_train",
+        "foreign_template_flag",
+        "colonial_force_flag_frame",
+        "exile_force_flag_frame"
+      ],
+      "_note": "A plain template of the own country: no cap, no flag, not decommissioned."
+    },
+    {
+      "name": "military_deployment_conveyor_view",
+      "skip": true,
+      "hide": [
+        "foreign_template_flag",
+        "colonial_force_flag_frame",
+        "exile_force_flag_frame",
+        "obsolete_template_warning",
+        "add_limit_bg",
+        "add_limit",
+        "tutorial_highlight_add_unit"
+      ]
+    },
+    {
+      "name": "deploy_entry",
+      "skip": true
+    },
+    {
+      "name": "supply_deploy_entry",
+      "skip": true
+    },
+    {
+      "name": "military_deployment_conveyor_summary_view",
+      "skip": true
+    },
+    {
+      "name": "military_deployment_conveyor_end_view",
+      "skip": true
+    },
+    {
+      "name": "military_deployment_line_view",
+      "skip": true
+    },
+    {
+      "name": "division_name_dropdown_entry",
+      "skip": true
     }
   ],
-  "samples": {},
+  "samples": {
+    "deploy_entry": {
+      "name": [
+        "Reinforcements",
+        "Upgrades",
+        "Operations",
+        "Garrisons",
+        "Raids"
+      ]
+    },
+    "supply_deploy_entry": {
+      "name": "Supply Trucks"
+    },
+    "military_deployment_conveyor_view": {
+      "generic_name_edit": [
+        "Infanterie-Division",
+        "Panzer-Division",
+        "Infanterie-Division (mot.)"
+      ],
+      "amount": "\u221e",
+      "deploy_location_button": "No location set"
+    },
+    "military_deployment_conveyor_summary_view": {
+      "lines_count": [
+        "4 Divisions",
+        "1 Division",
+        "1 Division"
+      ]
+    },
+    "military_deployment_line_view": {
+      "editbox": [
+        "26. Infanterie-Division",
+        "33. Infanterie-Division",
+        "34. Infanterie-Division",
+        "27. Infanterie-Division",
+        "4. Panzer-Division",
+        "29. Infanterie-Division (mot.)"
+      ],
+      "series_number": "1/\u221e"
+    },
+    "templatedeploymentwindow": {
+      "special_forces_cap": "6/24"
+    },
+    "named_division_template_entry": {
+      "name": [
+        "Infanterie-Division",
+        "Panzer-Division",
+        "Infanterie-Division (mot.)",
+        "Gebirgs-Brigade",
+        "Kavallerie-Brigade"
+      ]
+    },
+    "division_name_dropdown_entry": {
+      "name": [
+        "28. Infanterie-Division",
+        "30. Infanterie-Division",
+        "31. Infanterie-Division",
+        "32. Infanterie-Division",
+        "35. Infanterie-Division",
+        "36. Infanterie-Division",
+        "44. Infanterie-Division",
+        "45. Infanterie-Division",
+        "46. Infanterie-Division",
+        "61. Infanterie-Division"
+      ]
+    }
+  },
   "setup": [
     {
       "move": "open_recruit_deploy"
+    },
+    {
+      "clickWidget": "named_division_template_entry/add_template_button#0",
+      "wait": 1.2,
+      "_note": "Train on Infanterie-Division: a card with one line"
+    },
+    {
+      "clickWidget": "military_deployment_conveyor_view/add_button#0",
+      "wait": 0.8
+    },
+    {
+      "clickWidget": "military_deployment_conveyor_view/add_button#0",
+      "wait": 0.8
+    },
+    {
+      "clickWidget": "military_deployment_conveyor_view/add_button#0",
+      "wait": 0.8,
+      "_note": "Add Unit three times: four lines"
+    },
+    {
+      "clickWidget": "named_division_template_entry/add_template_button#1",
+      "wait": 1.2,
+      "_note": "Train on Panzer-Division"
+    },
+    {
+      "clickWidget": "named_division_template_entry/add_template_button#2",
+      "wait": 1.2,
+      "_note": "Train on Infanterie-Division (mot.)"
     }
   ],
-  "captures": [],
-  "expect": [],
+  "captures": [
+    {
+      "name": "name-dropdown",
+      "steps": [
+        {
+          "clickWidget": "military_deployment_line_view/expand_button#0",
+          "wait": 1.2,
+          "_note": "the name list of the first line"
+        }
+      ],
+      "expand": [
+        "division_name_dropdown"
+      ]
+    },
+    {
+      "name": "icon-picker",
+      "steps": [
+        {
+          "clickWidget": "military_deployment_line_view/expand_button#0",
+          "wait": 0.8,
+          "_note": "close the name list"
+        },
+        {
+          "clickWidget": "named_division_template_entry/counter#0",
+          "wait": 1.5,
+          "_note": "the icon of the first template opens the symbol picker over the template list"
+        }
+      ],
+      "hide": {
+        "templatedeploymentwindow": [
+          "templates",
+          "show_decommissioned_templates_window"
+        ]
+      }
+    },
+    {
+      "name": "italy",
+      "_note": "Italy has 14 templates, six of them decommissioned, one with a cap (Camicie Nere 7/12), several with priority and special forces marks. Its deployment list is empty.",
+      "steps": [
+        {
+          "clickWidget": "templatedeploymentwindow/back",
+          "wait": 0.8,
+          "_note": "leave the symbol picker",
+          "state": "icon-picker"
+        },
+        {
+          "key": "escape",
+          "wait": 0.8,
+          "_note": "close the panel, so that u opens it again for the other country"
+        },
+        {
+          "console": "tag ITA",
+          "wait": 2.0
+        },
+        {
+          "key": "u",
+          "wait": 1.5
+        },
+        {
+          "clickWidget": "templatedeploymentwindow/checkbox",
+          "wait": 1.0,
+          "_note": "show decommissioned templates"
+        }
+      ],
+      "rows": {
+        "deployments_list_gridbox": 6,
+        "templates_grid": 14
+      },
+      "samples": {
+        "templatedeploymentwindow": {
+          "special_forces_cap": "30/24"
+        },
+        "named_division_template_entry": {
+          "name": [
+            "Divisione di Fanteria",
+            "Divisione Alpina",
+            "Camicie Nere",
+            "Divisione Celere",
+            "Reggimento di Cavalleria",
+            "Divisione Coloniale",
+            "Divisione Ascari Libica",
+            "Divisione Ascari Eritrea",
+            "Divisione Ascari Somala",
+            "Banda Indigena Irregolare",
+            "Truppe Irregolari a Cavallo",
+            "Banda Irregolare Libica",
+            "Banda Irregolare Eritrea",
+            "Banda Irregolare Somala"
+          ],
+          "template_cap": "7/12"
+        }
+      },
+      "hide": {
+        "named_division_template_entry": [
+          "Background_obsolete",
+          "obsolete_template_warning",
+          "allow_as_hq_icon",
+          "can_paradrop_icon",
+          "tutorial_highlight_train",
+          "foreign_template_flag",
+          "colonial_force_flag_frame",
+          "exile_force_flag_frame"
+        ]
+      }
+    }
+  ],
+  "expect": [
+    "countrydeploymentview/close_button",
+    "templatedeploymentwindow/checkbox",
+    "military_deployment_conveyor_view/cancel_conveyor_button#2",
+    "military_deployment_line_view/cancel_line_button#5"
+  ],
   "crop": [
     0,
     60,
-    760,
-    1140
+    1280,
+    1260
   ],
-  "manual": [],
-  "checklist": [],
-  "_note": "Surveyed on 2026-10-08: the recipe works and the vanilla reference is captured. 'at' of its windows is not measured yet; do that at the start of the phase (wiki/Game-Recipes.md, 'Measuring where a window sits')."
+  "manual": [
+    "Tooltips on a line's two bars, on a card and on a template row",
+    "States a paused 1936 start does not show: a line ready to deploy, a card with a location or an order, the foreign templates list, a list long enough to scroll"
+  ],
+  "checklist": [
+    "Width: both panels together are 1246 px (vanilla 913); the template panel ends above the army portraits",
+    "A line: rename it in its box, pick a name from the list, the deploy and cancel buttons",
+    "A card: set a location (the button, then the map), assign an order, the series - and +, the three priority dots, fold and unfold, the two order arrows",
+    "A template: Train (and Shift+click for five), Edit, the decommission toggle, delete on a template of your own",
+    "The symbol picker: pick a symbol, Default symbol, Back",
+    "Shift+F opens the division designer"
+  ],
+  "teardown": [
+    {
+      "key": "escape",
+      "wait": 0.8
+    },
+    {
+      "console": "tag GER",
+      "wait": 2.0
+    },
+    {
+      "key": "u",
+      "wait": 1.5
+    },
+    {
+      "clickWidget": "templatedeploymentwindow/checkbox",
+      "wait": 0.8,
+      "_note": "the tick is kept across countries: take it off again"
+    },
+    {
+      "clickWidget": "military_deployment_conveyor_view/cancel_conveyor_button#0",
+      "wait": 1.0,
+      "_note": "cancel the three cards the setup made, each with a confirmation"
+    },
+    {
+      "key": "enter",
+      "wait": 1.0
+    },
+    {
+      "clickWidget": "military_deployment_conveyor_view/cancel_conveyor_button#0",
+      "wait": 1.0
+    },
+    {
+      "key": "enter",
+      "wait": 1.0
+    },
+    {
+      "clickWidget": "military_deployment_conveyor_view/cancel_conveyor_button#0",
+      "wait": 1.0
+    },
+    {
+      "key": "enter",
+      "wait": 1.0
+    }
+  ]
 }

@@ -264,10 +264,15 @@ class Sprite:
 def sprite_declarations(root, source_file):
     out = []
     for sec in root.children:
-        if sec.children is None or sec.key.lower() != "spritetypes":
+        if sec.children is None:
             continue
+        # vanilla core.gfx declares 15 sprites inside its "bitmapfonts" section (the 375 px panel header
+        # among them) and the game loads them, so a sprite block counts in any section
+        anywhere = sec.key.lower() != "spritetypes"
         for child in sec.children:
             if child.children is not None and child.name:
+                if anywhere and not child.key.lower().endswith(("spritetype", "progressbartype")):
+                    continue
                 out.append(Sprite(child, source_file))
     return out
 

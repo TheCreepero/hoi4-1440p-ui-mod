@@ -1,0 +1,149 @@
+# Vanilla 1.19.3.0, interface/countrydeploymentview.gui, lines 348-492.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "named_division_template_entry"
+		position = { x=0 y=0 }
+		size = { width=341 height=72 }
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_deployment_named_division_bg"
+			position = { x=-5 y=0 }
+		}
+
+		background = {
+			name = "Background_obsolete"
+			quadTextureSprite ="GFX_deployment_named_division_obsolete_bg"
+			position = { x=-5 y=0 }
+		}
+
+		buttonType = {
+			name = "counter"
+			position = { x=5 y=16 }
+			spriteType = "GFX_technology_medium"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "obsolete_template_warning"
+			quadTextureSprite ="GFX_obsolete_template_warning"
+			position = { x= 9 y = 15 }
+		}
+
+		iconType = {
+			name = "special_forces_icon"
+			spriteType = "GFX_special_forces_icon"
+			position = { x = 7 y = 46 }
+			frame = 3
+		}
+
+		iconType = {
+			name = "allow_as_hq_icon"
+			spriteType = "GFX_allow_as_hq_icon"
+			position = { x = 7 y = 10 }
+			frame = 3
+		}
+
+		iconType = {
+			name = "can_paradrop_icon"
+			spriteType = "GFX_can_paradrop_icon_small"
+			position = { x = 7 y = 42 }
+			frame = 2
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name ="division_priority_icon"
+			spriteType = "GFX_div_deploy_priority_icon_strip"
+			position = { x=55 y=16 }
+			frame = 1
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "name"
+			position = { x = 102 y = 20 }
+			textureFile = ""
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			maxWidth = 198
+			maxHeight = 20
+			format = center
+			vertical_alignment = center
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "obsolete"
+			position = { x=302 y=22 }
+			spriteType = "GFX_toggle_obsolete_button"
+			clicksound = click_default
+		}
+		
+		instantTextboxType = {
+			name = "template_cap"
+			position = { x = 95 y = 48 }
+			text = "10/10"
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			maxWidth = 60
+			maxHeight = 20
+			format = center
+			vertical_alignment = center
+		}
+
+		buttonType = {
+			name = "add_template_button"
+			position = { x = 158 y = 48 }
+			quadTextureSprite ="GFX_small_button_71x26"
+			buttonFont = "hoi_16mbs"
+			buttonText = "DEPLOYMENT_ADD_TEMPLATE"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "tutorial_highlight_train"
+			position = { x = 157 y = 48 }
+			quadTextureSprite ="GFX_tutorial_train_highlight"
+			alwaystransparent = yes
+			hide = yes
+		}
+
+		buttonType = {
+			name = "edit_button"
+			position = { x = 228 y = 48 }
+			buttonFont = "hoi_16mbs"
+			buttonText = "EDIT"
+			quadTextureSprite = "GFX_small_button_71x26"
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "delete_button"
+			position = { x = 298 y = 48 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_delete_template_button"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "foreign_template_flag"
+			quadTextureSprite ="GFX_flag_small"
+			position = { x= 7 y = 15 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "colonial_force_flag_frame"
+			quadTextureSprite ="GFX_div_designer_colonial_flag_frame2"
+			position = { x= 9 y = 8 }
+		}
+
+		iconType = {
+			name = "exile_force_flag_frame"
+			quadTextureSprite ="GFX_div_designer_exile_flag_frame2"
+			position = { x= 9 y = 11 }
+		}
+	}
+}

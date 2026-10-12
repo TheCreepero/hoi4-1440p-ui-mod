@@ -269,6 +269,9 @@ Describe 'Screen heights' {
         $tooLow = foreach ($scene in @(Get-Scenes)) {
             foreach ($w in @($scene.windows)) {
                 if (-not $w.at -or -not $windows.ContainsKey($w.name)) { continue }
+                # a side panel of a top bar tab runs down the whole screen in vanilla and covers the left end
+                # of the bottom bar by design; the scene marks it
+                if ($w.sidePanel) { continue }
                 $node = $windows[$w.name].Node
                 $orientation = [string](Get-GuiValue -Node $node -Key 'orientation')
                 if ($orientation -and $orientation -notmatch '(?i)upper_left') { continue }
@@ -309,6 +312,7 @@ Describe 'Game recipes' {
             foreach ($capture in @($scene.captures)) {
                 if ($capture) { $script:AllSteps += @(Get-RecipeSteps -Steps $capture.steps -Where "$($scene.screen) capture $($capture.name)" -Scene $scene.screen) }
             }
+            $script:AllSteps += @(Get-RecipeSteps -Steps $scene.teardown -Where "$($scene.screen) teardown" -Scene $scene.screen)
         }
         foreach ($name in $script:Moves.Keys) {
             $script:AllSteps += @(Get-RecipeSteps -Steps $script:Moves[$name].steps -Where "move $name" -Scene $null)
@@ -317,7 +321,7 @@ Describe 'Game recipes' {
 
     It 'uses only known step kinds, with well-formed values' {
         $problems = foreach ($item in $script:AllSteps) {
-            $names = @($item.Step.PSObject.Properties.Name | Where-Object { $_ -notin @('wait', '_note', 'scene', 'offset', 'button') })
+            $names = @($item.Step.PSObject.Properties.Name | Where-Object { $_ -notin @('wait', '_note', 'scene', 'state', 'offset', 'button') })
             $kinds = @($names | Where-Object { $script:StepKinds -contains $_ })
             $unknown = @($names | Where-Object { $script:StepKinds -notcontains $_ })
             if ($unknown.Count) { "$($item.Where): unknown key '$($unknown -join ', ')'" }
@@ -352,31 +356,34 @@ Describe 'Game recipes' {
         & $python -I -c 'import PIL' 2>$null
         if ($LASTEXITCODE -ne 0) { Set-ItResult -Skipped -Because 'Pillow is not installed'; return }
 
-        # scene -> the widget specs laid out with it
+        # scene (and the state of it a step names, after a "|") -> the widget specs laid out with it
         $wanted = @{}
         foreach ($item in $script:AllSteps) {
             $specs = @($item.Step.clickWidget) + @($item.Step.dragWidget) | Where-Object { $_ }
             if (-not $specs) { continue }
             $sceneName = if ($item.Step.scene) { [string]$item.Step.scene } else { $item.Scene }
             if (-not $sceneName) { "$($item.Where): clickWidget in a shared move needs a 'scene'" | Should -BeNullOrEmpty; continue }
-            if (-not $wanted.ContainsKey($sceneName)) { $wanted[$sceneName] = [System.Collections.Generic.HashSet[string]]::new() }
-            foreach ($spec in $specs) { [void]$wanted[$sceneName].Add([string]$spec) }
+            $layout = "$sceneName|$($item.Step.state)"
+            if (-not $wanted.ContainsKey($layout)) { $wanted[$layout] = [System.Collections.Generic.HashSet[string]]::new() }
+            foreach ($spec in $specs) { [void]$wanted[$layout].Add([string]$spec) }
         }
         foreach ($scene in @(Get-Scenes)) {
             foreach ($spec in @($scene.expect)) {
                 if (-not $spec) { continue }
-                if (-not $wanted.ContainsKey($scene.screen)) { $wanted[$scene.screen] = [System.Collections.Generic.HashSet[string]]::new() }
-                [void]$wanted[$scene.screen].Add([string]$spec)
+                if (-not $wanted.ContainsKey("$($scene.screen)|")) { $wanted["$($scene.screen)|"] = [System.Collections.Generic.HashSet[string]]::new() }
+                [void]$wanted["$($scene.screen)|"].Add([string]$spec)
             }
         }
         $renderPy = Join-Path (Join-Path $script:RepoRoot 'tools') 'render_gui.py'
-        $notFound = foreach ($sceneName in $wanted.Keys) {
+        $notFound = foreach ($layout in $wanted.Keys) {
+            $sceneName, $state = $layout -split '\|', 2
             foreach ($mode in '', '--vanilla') {
-                $arguments = @('-I', $renderPy, '--scene', $sceneName, '--locate') + @($wanted[$sceneName])
+                $arguments = @('-I', $renderPy, '--scene', $sceneName, '--locate') + @($wanted[$layout])
+                if ($state) { $arguments += '--state'; $arguments += $state }
                 if ($mode) { $arguments += $mode }
                 foreach ($line in @(& $python @arguments 2>$null | Where-Object { $_ -like "LOCATE`t*NOTFOUND" })) {
                     $label = if ($mode) { 'vanilla' } else { 'mod' }
-                    "$sceneName ($label): $(($line -split "`t")[1])"
+                    "$sceneName$(if ($state) { " in state $state" }) ($label): $(($line -split "`t")[1])"
                 }
             }
         }

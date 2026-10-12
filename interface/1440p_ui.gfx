@@ -307,4 +307,70 @@ spriteTypes = {
 		texturefile = "gfx/interface/1440p_ui/fl_transfer_ship_entry.dds"
 		noOfFrames = 2
 	}
+
+	# A5: Recruit & Deploy (640 wide) and Division Templates (618 wide).
+
+	# Card of a template in training (578 wide), the summary row under it, a division in training
+	# and the closing line.
+	spriteType = {
+		name = "GFX_1440p_RD_conveyor_bg"
+		texturefile = "gfx/interface/1440p_ui/rd_conveyor_bg.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_RD_summary_bg"
+		texturefile = "gfx/interface/1440p_ui/rd_summary_bg.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_RD_line_bg"
+		texturefile = "gfx/interface/1440p_ui/rd_line_bg.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_RD_end_line"
+		texturefile = "gfx/interface/1440p_ui/rd_end_line.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	# Location button of a card, 313 wide: frame 1 plain, frame 2 with chevrons.
+	textSpriteType = {
+		name = "GFX_1440p_RD_location_btn"
+		texturefile = "gfx/interface/1440p_ui/rd_location_btn.dds"
+		effectFile = "gfx/FX/buttonstate.lua"
+		noOfFrames = 2
+	}
+
+	# Header of the Recruit & Deploy panel and the strip under it.
+	spriteType = {
+		name = "GFX_1440p_RD_header_bg"
+		texturefile = "gfx/interface/1440p_ui/rd_header_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_RD_binding"
+		texturefile = "gfx/interface/1440p_ui/rd_binding.dds"
+	}
+
+	# Header of the Division Templates panel.
+	spriteType = {
+		name = "GFX_1440p_RD_templates_header"
+		texturefile = "gfx/interface/1440p_ui/rd_templates_header.dds"
+	}
+
+	# Row of a template on one line, 581x48, and its brown twin for a decommissioned template.
+	spriteType = {
+		name = "GFX_1440p_RD_template_entry"
+		texturefile = "gfx/interface/1440p_ui/rd_template_entry.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_RD_template_entry_obsolete"
+		texturefile = "gfx/interface/1440p_ui/rd_template_entry_obsolete.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
 }

@@ -598,6 +598,9 @@ class Renderer:
         # paper); each is drawn at its own position (wiki/Engine-Facts.md, S18), a tiled one at its own
         # size or the container's.
         for background in [b for b in node.blocks() if b.key.lower() == "background"]:
+            # a second background the code shows in another state (the brown one of a decommissioned template)
+            if background.name and ((window_name, background.name) in self.hidden or ("*", background.name) in self.hidden):
+                continue
             sprite = self.sprite(self.value(background.get("quadTextureSprite")) or self.value(background.get("spriteType")))
             if sprite is None:
                 continue
@@ -869,6 +872,23 @@ class Renderer:
             count = cols * (max(1, int(rect.h // sh)) if rect.h else 3)
         fmt = (self.value(node.get("format")) or "upper_left").lower()
         inner_clip = clip
+        if sh < 2 and cols == 1:
+            # a slot one pixel high: the code stacks the entries by their own height and honours each
+            # entry window's own position (wiki/Engine-Facts.md, S27). The scene's listRows is then
+            # the sequence of rows, which may mix several row windows (the deployment list).
+            cy = rect.y
+            for i in range(min(count, 200)):
+                entry = entries[i % len(entries)]
+                entry_node, _path, _lines = self.windows.find(entry)
+                if entry_node is None:
+                    break
+                ox = self.num(entry_node, "position", "x")
+                oy = self.num(entry_node, "position", "y")
+                entry_rect = self.render_window(entry, canvas, (rect.x + ox, cy + oy), depth=depth + 1, clip=inner_clip)
+                if entry_rect is None or entry_rect.h <= 0:
+                    break
+                cy += entry_rect.h
+            return
         for i in range(count):
             col, row = i % cols, i // cols
             ex = rect.x + col * sw
@@ -1170,6 +1190,9 @@ def print_report(renderer, offset=None):
 
 
 def main(argv):
+    # a sample text may hold a character the console code page lacks (the infinity sign of a series)
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="backslashreplace")
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("window", nargs="?", help="top-level window to draw")
     ap.add_argument("--scene", help="scene name from tools/scenes/ (or a path)")

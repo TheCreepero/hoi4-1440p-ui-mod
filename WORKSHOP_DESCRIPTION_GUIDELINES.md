@@ -42,6 +42,7 @@ Check out my other mods:
 - [b]New hotkeys:[/b] Shift+U unassigns the selected divisions, Shift+C consolidates them.
 - [b]Unit details:[/b] The windows that open from the icon of a division, ship or air wing show their stats as dark cards of tiles (Base, Combat, Misc), each with a small label over a large value, so long labels wrap instead of being cut. The division window opens beside the army panel instead of on top of it. Equipment names fit on one line.
 - [b]Fleet panel:[/b] The ship list is a table with one line per ship: organisation and strength as two lying bars, the name in a larger font and the class name in full beside it. Task force cards are lower, so a fleet of twelve task forces fits on the screen without scrolling. Fleet, task force and home base names appear in full. New hotkeys for selected ships: Shift+N new task force, Shift+R to reserve, Shift+O balance, Shift+G upgrade, Shift+P repair now. The ship class picker of the composition editor shows every class without scrolling, and the home base picker and the transfer window are wider with larger text.
+- [b]Recruit & Deploy:[/b] A division in training shows its whole name in a larger font. The template list is a table with one template per line: the name in full with Train, Edit and the toggles beside it, so 22 templates fit before the list scrolls instead of 17. The template panel ends above the bottom bar. New hotkey: Shift+F opens the division designer.
 
 [h1]Compatibility:[/h1]
 - Built and tested against the vanilla game only.

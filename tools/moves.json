@@ -218,16 +218,14 @@
       ]
     },
     "open_division_designer": {
-      "_note": "Recruit & Deploy, then Edit on the first template (Infanterie-Division). Raw position inside a vanilla panel: when the mod reworks that panel, replace it with a clickWidget step.",
+      "_note": "Recruit & Deploy, then Edit on the first template (Infanterie-Division).",
       "steps": [
         {
           "move": "open_recruit_deploy"
         },
         {
-          "click": [
-            810,
-            276
-          ],
+          "clickWidget": "named_division_template_entry/edit_button#0",
+          "scene": "recruit_deploy",
           "wait": 2.5
         }
       ]

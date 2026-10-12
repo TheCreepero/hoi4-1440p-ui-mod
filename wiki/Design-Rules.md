@@ -22,11 +22,13 @@ A screen is re-laid out around what the player wants to see at once, not only en
 | Stat rows as tiles: a grid with two or more columns, a wrapped label over a larger value | Yes | `max_slots_horizontal` and `slotsize` of the grid, layout of the row window ([Engine Facts](Engine-Facts.md) W16); labels that vanilla cuts can be shown whole |
 | Tab hotkeys | Yes | `shortcut` on the tab buttons (W19) |
 | Cards, panels, grouped headers | Yes, as sibling backgrounds | A background drawn behind the widgets; the widgets stay under their vanilla parent (W15) |
-| New live values the screen does not show today | No | The game fills only the widgets its code asks for |
+| New live values the screen does not show today | Not in a vanilla window; yes in a scripted GUI, for values of the country | The game fills only the widgets its code asks for. A scripted GUI reads script variables ([Engine Facts](Engine-Facts.md) X1, X2) and changes the checksum |
 | A value shown in two places | No | A second widget with the same name is dropped (W14) |
 | Wrapping widgets in a new container (cards that own their content) | No | The code finds a widget only among the children of its vanilla parent (W15) |
 | Showing two tabs at once | No | Duplicate tab containers are dropped (W14), and the code hides the other tab's container |
-| New buttons that do something | No | Same reason |
+| New buttons that do something | Not in a vanilla window; yes in a scripted GUI | A scripted button runs a script effect (X3); what it can do is what effects can do |
+| Lists the code fills, in several columns | No | `max_slots_horizontal` is not followed by them (S29) |
+| A panel that narrows or hides by itself | No | No file can ask what the player is doing; a scripted panel can fold on a click (X4) |
 
 - **The game fills only the widgets its code asks for, by name.** A widget with a name the code does not know stays empty and does nothing when clicked. The names are stored as text in `hoi4.exe`, so they can be listed.
   - `tools/Show-CodeNames.ps1 <file.gui> <window>` prints the names stored together with a window's widget names and marks where vanilla defines each one. A name marked `+` is in no vanilla `.gui` file: it is either a widget the code would fill if the window had it, or not a widget name at all.
@@ -44,9 +46,9 @@ A screen is re-laid out around what the player wants to see at once, not only en
   - **Confirmed in game (A2):** captions on the sort buttons of the division list, using vanilla keys such as `ARMY_SORT_NAME` ("Name"). A vanilla key needs no localisation file. Search `localisation/english/` for a key whose whole text is the word needed.
   - Name an added widget `mod1440_*` and give it `alwaystransparent = yes`, so clicks reach the button under it.
   - Text of the mod's own needs a file under `localisation/`. That folder is not in the game's `checksum_manifest.txt`, so it keeps the mod checksum-neutral. Vanilla localisation files are UTF-8 **with** BOM, the opposite of the rule for `.gui` files. Not used yet; the first use must also check that `build.ps1` packages the folder.
-- **Scripted GUIs are not used.** They are the game's way to add new values and buttons, described in `common/scripted_guis/_documentation.md` in the game folder.
-  - They live in `common/`, so they change the checksum.
-  - They attach to the top bar, the side tabs, the focus tree, the country and state views and the ledgers. The selected army, air wings, navy and the designers are not among the attach points.
+- **Scripted GUIs are allowed since 2026-10-12, and none ships yet.** They are the game's way to add new values and buttons, described in `common/scripted_guis/_documentation.md` in the game folder. A probe on Recruit & Deploy worked ([D0](phases/D0-manager-feasibility.md)); the first real one is phase D2 of the [Roadmap](Roadmap.md). What is known about the script language, with the source and status of each fact, is in [Script Reference](Script-Reference.md): look a command up there or in the game's documentation before writing it, never from memory.
+  - They live in `common/`, so they change the checksum: with the first one the mod stops being compatible with Ironman and achievements, and in multiplayer every player needs it. The user accepts this.
+  - They attach to the top bar, the side tabs (among them `deployment_tab`, Recruit & Deploy), the focus tree, the country and state views and the ledgers. The selected army, air wings, navy and the designers are not among the attach points.
   - They work on a country or a state, never on the selected army, division, wing or fleet.
 
 ## Overriding vanilla windows
@@ -172,12 +174,22 @@ What A4 showed (fleet panel), confirmed in game:
 - **Two vanilla windows can share a grid name.** `templates_grid` and `ships_grid` each exist twice; an entry pair in `tools/gui-links.json` names its window then.
 - **Recipes break with the panel they click into.** When a raw recipe step clicks into a panel that is being reworked, turn it into a `clickWidget` step in the same change; three shared moves and the carrier capture of the ship details scene clicked into the fleet panel.
 
+What A5 showed (recruit and deploy), confirmed in game:
+
+- **Read the screen's `.gfx` file during the inventory.** A sprite that no `.gui` file names is one the code puts on a widget itself. The priority rows get their background that way, so they could not be widened, which was found only after the layout had been proposed ([Engine Facts](Engine-Facts.md) G16).
+- **A two-line row becomes a one-line row by cutting its bitmap in two parts.** The template row lost its button strip: the icon box gave up rows of its plain inside, the name box rows of mesh and the strip, each part where it is plain, and the parts were joined at the frame line between them (`template_row` in `tools/stretch_background.py`).
+- **What sits in a row limits how low it can get.** The priority mark of a template is a strip of 52 px with a chevron at each end; the row is 48 px for it.
+- **A side panel may end above the bottom bar.** Vanilla runs the panels of a top bar tab down the whole screen, and they cover the bottom bar up to their width. A panel that reaches the army portraits (from about x 1150) gets a plain height instead ([Engine Facts](Engine-Facts.md) S28).
+- **Count rows with the height that is left**, and measure the widths, before putting numbers to the user: the question named 26 templates and about 1220 px; the build has 22 and 1246.
+- **One list can hold several kinds of rows.** The scene's `listRows` is then the sequence of row windows, and the renderer stacks them as the game does (S27).
+
 ## Recipe for a screen phase
 
 1. **Inventory.**
    - Start from the vanilla screen at 2560x1440: `reference/vanilla/<screen>.jpg` is the whole frame and `<screen>-panel.png` the panel at 1:1 without loss (index in `reference/README.md`). A screen that is not there yet needs a recipe first ([Game Recipes](Game-Recipes.md)), then `tools/Invoke-GameCheck.ps1 <screen> -Vanilla -SaveReference`. Ask the user for a screenshot only for a state a 1936 start cannot show.
    - `tools/Show-GuiOutline.ps1 <file.gui>` lists the windows; add a window name and `-All` for its widgets, fonts and sprites.
    - Note which backgrounds are bitmaps, which sizes are "set in code", which widths come from a grid, and which window really holds each list (see "How the engine treats sizes and containers").
+   - Search the screen's `.gfx` file for sprites that no `.gui` file names: the code swaps those in, and the widget they land on keeps its vanilla size.
    - List what the vanilla screen crams or hides: values stacked on one spot, text that is cut off, things reached only through a click or a tooltip, and buttons without a hotkey.
    - `tools/Show-CodeNames.ps1 <file.gui> <window>` for each window shows whether the code asks for a widget vanilla leaves out (see "What a redesign can add").
 2. **Layout proposal.** Start from what the player should see at once on this screen, then give target sizes, row heights and font choices as a short text mock-up, agreed before any file is written. The mock-up is a render: fill in `tools/scenes/<screen>.json` (positions from the screenshot, sample texts, rows per list) and run `python -I tools/render_gui.py --scene <screen> --over` to draw the proposal over the vanilla screenshot.

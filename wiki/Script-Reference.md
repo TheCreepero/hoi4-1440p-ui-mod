@@ -1,0 +1,167 @@
+# Script Reference
+
+What is known about the Hearts of Iron IV script language as far as a scripted GUI of this mod needs it, with the source of every claim and how sure it is. Researched on 2026-10-12 against game 1.19.3.0 (revision c01a3d50), before any scripted GUI is written. Read it before phase D2 of the [Roadmap](Roadmap.md); what the engine does with `.gui` files is in [Engine Facts](Engine-Facts.md).
+
+Status values, strongest first:
+
+- **confirmed**: seen working in this game version by this project (the probe of [D0](phases/D0-manager-feasibility.md)).
+- **documented**: stated in a documentation file the game ships. The file is named; paths are relative to the game folder.
+- **vanilla**: used in a vanilla 1.19.3 file, so it works in the place vanilla uses it. Not proof that it works in a scripted GUI on a tab.
+- **mod**: used in The New Order (see Sources), a released mod for this game version with 133 scripted GUIs. It works there; this project has not run it. Stronger than a documentation line, weaker than a launch of our own.
+- **recalled**: from the agent's training only, not found in a file of this install. A hypothesis; check it before relying on it.
+- **untested**: documented or recalled, and never seen working where this mod needs it.
+
+## How far the agent's own knowledge goes
+
+- **Reliable:** the shape of the language (scopes, triggers and effects, variables, arrays, localisation with values in it, the anatomy of a scripted GUI). The D0 probe, about 40 lines in three files written from memory and the game's documentation, worked on its first launch.
+- **Not reliable:** exact names, parameters and scopes of single commands, and anything the game added in recent versions. The research for this page turned up four parts of the language the agent did not know or knew wrongly: math expressions, collections, script constants, and the localisation objects. Every command is therefore looked up before it is written (`Find-HoiDoc` of the `hoi4-vanilla-lookup` skill, or the files below), never taken from memory.
+- **No vanilla example:** vanilla has 17 scripted GUIs, and all are small display panels inside a decision category. None has a click effect, a list, an attachment to a tab or an AI block (see "What vanilla uses").
+- **A large example from a mod:** The New Order uses every part of the system that vanilla leaves out, on the current game version (see "What The New Order uses"). It is read as evidence of what works and how it is put together. Its code and images are not copied: they are that team's work, and this mod builds its images from vanilla assets.
+- **No test without the game:** script cannot be run outside the game, and the agent starts the game only with the user's permission. A claim is confirmed only by a launch.
+
+## Sources
+
+| Source | What it holds |
+|---|---|
+| `documentation/script_concept_documentation.md` | bindable, contextual and formatted localisation; collections; math expressions; script constants |
+| `documentation/effects_documentation.md` (564 entries), `triggers_documentation.md` (610) | every effect and trigger with its scopes, targets and an example |
+| `documentation/dynamic_variables_documentation.md` | the values script can read without setting them, per scope |
+| `documentation/script_math_functions.md`, `script_collection_input.md`, `script_collection_operator.md` | the statements of a math expression; inputs and operators of a collection |
+| `documentation/loc_objects_documentation.md`, `loc_formatter_documentation.md` | `[Object.Property]` in localisation; the formatters (`idea_desc\|...`) |
+| `documentation/console_commands_documentation.md` | console commands, among them the ones that run and inspect script |
+| `common/scripted_guis/_documentation.md` | the whole definition of a scripted GUI, as one commented example (145 lines) |
+| `common/on_actions/_documentation.md`, `common/collections/_documentation.md`, `common/script_constants/documentation.md` | hooks that run script at fixed moments; named collections; constants |
+| `common/scripted_guis/*.txt` with `interface/*scripted_gui*.gui` | the 17 vanilla scripted GUIs |
+| `localisation/english/*.yml` | how vanilla writes values into texts |
+| The New Order: Last Days of Europe 1.10.0b, Workshop id 2438003901, `supported_version="1.19.*"`; on this machine under `steamapps/workshop/content/394360/2438003901/` | 133 files and 56,916 lines under `common/scripted_guis/`, with their containers under `interface/`; 122 scripted localisation files. Named below as TNO with the path inside the mod |
+
+The lookup scripts read a mod too: add `-Mod 2438003901` to `Find-HoiUsage.ps1` or `Find-HoiDefinition.ps1 <name> -Type scripted_gui`.
+
+Look-ups: `Find-HoiDoc.ps1 <name>` prints one entry, `Find-HoiDoc.ps1 -ListScope COUNTRY -Kind trigger` everything valid in a scope, `Find-HoiUsage.ps1 <name>` the vanilla uses, `Find-HoiDoc.ps1 -Topic scripted_guis` a format note.
+
+## The language
+
+| # | Fact | Status | Source |
+|---|---|---|---|
+| L1 | Script is nested `key = value` and `key = { ... }` blocks in `.txt` files under `common/`, UTF-8 without BOM. A **trigger** asks a question and is true or false; an **effect** changes the game. A block takes one kind or the other, never both. | recalled; every documented example has this shape | effects and triggers documentation |
+| L2 | Every trigger and effect runs in a **scope**: the thing it is about. The documentation knows the scopes COUNTRY (323 effects, 336 triggers), STATE, CHARACTER, INDUSTRIAL_ORG, SPECIAL_PROJECT, OPERATION, COMBATANT, FACTION, PURCHASE_CONTRACT, RAID_INSTANCE, STRATEGIC_REGION, ACE, and "any" (104 effects, 94 triggers). A command used in a scope it does not support does nothing or logs an error. | documented | "Supported Scopes" line of each entry |
+| L3 | A division is a scope too, reached from a country with `every_country_division`, `random_country_division` and `any_country_division` (each with a `limit`). The documentation lists the commands of that scope with an empty scope line: effects `change_division_template`, `set_unit_organization`, `destroy_unit`, `add_history_entry`, `add_divisional_commander_xp`, `promote_officer_to_general`; triggers `unit_strength`, `unit_organization`, `division_has_majority_template`, `division_has_battalion_in_template`, `is_unit_template_reserves`, `has_officer_name`. Divisions in the field only; a division in training is not one. | documented (that training lines are left out: recalled) | effects and triggers documentation |
+| L4 | Scope targets `THIS`, `ROOT`, `PREV`, `FROM` (and `OWNER`, `CONTROLLER`, `OCCUPIED`, `CAPITAL`) name other scopes from inside a block. In a scripted GUI with `player_context` the scope is the player's country. | documented ("Supported Targets"; `_documentation.md` of scripted GUIs) | - |
+| L5 | `if = { limit = { <triggers> } <effects> }` with `else_if` and `else`; `AND`, `OR`, `NOT`, `count_triggers`, `hidden_effect`, `hidden_trigger`, `random`, `random_list`. | documented, but `if` only as "a conditional effect": `limit`, `else_if` and `else` are vanilla (thousands of uses under `common/`) | effects and triggers documentation |
+| L6 | **Variables** are numbers stored on a scope (country, state, character) or globally: `set_variable`, `add_to_variable`, `subtract_from_variable`, `multiply_variable`, `divide_variable`, `modulo_variable`, `round_variable`, `clamp_variable`, `clear_variable`; read with `check_variable = { var = a value = b compare = less_than }` and `has_variable`. `set_variable = { name = 42 }` is the short form. All work in any scope. | documented; `set_variable`, `add_to_variable` and `check_variable` confirmed (D0) | effects and triggers documentation |
+| L7 | A variable that was never set reads as 0: the probe's `NOT = { check_variable = { x = 1 } }` was true before the first click, and an `x` property on an unset variable put the button at 0. | confirmed | D0 launch 2 |
+| L8 | **Temp variables** (`set_temp_variable`, `add_to_temp_variable` ...) live for one run of a block and need no scope. They also work inside triggers. | documented | triggers documentation lists them |
+| L9 | A variable is addressed across scopes as `ROOT.name`, `FROM.name`, `global.name`, `TAG.name`, `event_target:x`; a value with a parameter as `name@token` (`num_equipment@infantry_equipment`); an array element as `array^index`. | vanilla (localisation and `SOV_paranoia_system_scripted_gui.txt`); `@` documented in the dynamic variables | - |
+| L10 | **Arrays**: `add_to_array`, `remove_from_array`, `clear_array`, `resize_array`, temp twins of each, `is_in_array`, `find_highest_in_array`, `find_lowest_in_array`, `random_scope_in_array`. An element is a number or a scope (`add_to_array` without a value adds the current scope). | documented | effects documentation |
+| L11 | **Loops**: `for_each_loop` (value and index of each element in temp variables `v` and `i`), `for_each_scope_loop` (scopes to each element), `for_loop_effect` (start, end, step), `while_loop_effect` (a trigger as `limit`); each has a `break` temp variable. `all_of`, `any_of`, `all_of_scopes`, `any_of_scopes` are the trigger side. | documented | effects and triggers documentation |
+| L12 | **Math expressions**: a value can be a block that starts with `value = ...` and is changed by statements in order (`add`, `subtract`, `multiply`, `divide`, `mod`, `min`, `max`, `clamp`, `round`, `pow`, `root`, `log`, comparisons that give 1 or 0, `if` and `else`, `every_collection`). Fixed point; a broken expression counts as 0. `set_variable = { n = { value = a multiply = 2 add = 1 } }`, and `check_expr = { ... }` as a trigger. Said to be faster than temp variables. | documented; new to the agent | `script_concept_documentation.md`, `script_math_functions.md` |
+| L13 | **Collections**: sets of countries or states built from an input (`game:all_countries`, `game:all_states`, `game:scope`, `collection:<name>`) and operators (`faction_members`, `owned_states`, `controlled_states`, `country_and_all_subjects`, a `limit`). Used by `collection_size`, `any_collection_element`, `all_collection_elements`, `every_collection_element`. Countries and states only: no collection of divisions or templates. | documented; new to the agent | `script_collection_input.md`, `script_collection_operator.md` |
+| L14 | **Script constants**: named numbers in `common/script_constants/`, usable as `constant:<group>.<name>` wherever a variable is accepted. No cost at run time. | documented; new to the agent | `common/script_constants/documentation.md` |
+| L15 | `meta_effect` and `meta_trigger` build a command from text with `[PLACEHOLDER]` parts filled from variables, for cases where a name must be computed. | documented | effects and triggers documentation |
+| L16 | Scripted effects and scripted triggers (`common/scripted_effects/`, `common/scripted_triggers/`) are named blocks to reuse. | recalled; vanilla has both folders | - |
+| L17 | `on_actions` run effects at fixed moments: `on_startup`, `on_daily`, `on_daily_TAG`, `on_weekly`, `on_monthly`, and many for wars, leaders and states. None fires when a division is queued, trained or deployed. | documented | `common/on_actions/_documentation.md` |
+| L18 | Flags (`set_country_flag`, `has_country_flag`, `set_global_flag`) are yes or no markers with an optional number and lifetime. | documented | effects documentation |
+
+## Localisation
+
+| # | Fact | Status | Source |
+|---|---|---|---|
+| T1 | The mod's texts are read from `localisation/english/<name>_l_english.yml`, UTF-8 **with** BOM, first line `l_english:`, entries ` KEY:0 "text"`. Other languages need files of their own or show the key. | confirmed for English (Engine Facts X5); other languages recalled | D0 launch 2 |
+| T2 | `[?variable]` in a text shows the value of a variable or of a dynamic variable of the scope the text is shown in. | confirmed (X2) | D0 launch 2 |
+| T3 | A format follows a bar: `[?v\|0]` no decimals, `[?v\|1]`, `[?v\|2]`; `%` as a percentage; `Y`, `G`, `R`, `H` a colour; `+` a sign with green and red by sign. Combined freely: `\|%Y0`, `\|+0`. The game's documentation does not describe them; the D0 probe showed `1639.884k` with no format, so a format is needed for tidy numbers. | vanilla (145 uses of `+0`, 82 of `Y0`, 60 of `%` in the English localisation); the meaning of each letter recalled | `localisation/english/` |
+| T4 | `[Scope.GetName]`-style calls read properties of localisation objects (Country, State, Character, UnitLeader, Faction ...); a variable that holds a scope can be used the same way (`[?global.x.GetName]`). `[OBJECT ? 'KEY : 'KEY]` chooses by whether an object exists. | documented; vanilla | `loc_objects_documentation.md`, `script_concept_documentation.md` |
+| T5 | **Scripted localisation** (`common/scripted_localisation/`): `defined_text = { name = GetX text = { trigger = { ... } localization_key = KEY } ... }` picks a text by triggers and is called as `[GetX]`. Vanilla scripted GUIs use it to pick an image: `image = "[INS_GET_..._COLOR]"`. This is the way to turn a number into words or into a sprite. | vanilla | `common/scripted_localisation/00_scripted_localisation.txt`, `common/scripted_guis/INS_revolution_scripted_gui.txt` |
+| T6 | **Bindable localisation**: where the documentation says so, a text can be a block with `localization_key` and named parameters that fill `$PARAM$` in the text. **Formatters** (`idea_desc\|<idea>`, `tech_effect\|<tech>`, `character_name\|<id>` and five more) produce a ready description. | documented | `script_concept_documentation.md`, `loc_formatter_documentation.md` |
+| T7 | Colour codes (`§Y...§!`) and text icons (`£GFX_...`) inside a text. | vanilla | `localisation/english/` |
+
+## Scripted GUIs
+
+A scripted GUI is an entry in a file under `common/scripted_guis/` that names a container from an interface file and says where it is attached, when it shows, and what its widgets do. Everything in this table that is not marked confirmed comes from the 145 lines of `common/scripted_guis/_documentation.md`.
+
+| # | Fact | Status |
+|---|---|---|
+| G1 | `context_type` sets the scope and the place: `player_context` (the player's country), `selected_country_context`, `selected_state_context`, `diplomacy_target_context`, `decision_category`, `diplomatic_action`, `national_focus_context`, `country_mapicon`, `state_mapicon`. | documented; `player_context` confirmed (X1) and mod (71 TNO files); `decision_category` vanilla; the state, country and map icon contexts mod |
+| G2 | `window_name` is the container in a `.gui` file. `parent_window_token` attaches it to a game window: `top_bar`, `decision_tab`, `technology_tab`, `trade_tab`, `construction_tab`, `production_tab`, `deployment_tab`, `logistics_tab`, `diplomacy_tab`, `politics_tab`, `national_focus`, `selected_country_view` (with `_info` and `_diplomacy`), `selected_state_view`, the four ledgers and the eleven technology folders. Without it the container hangs on the main window. | documented; `deployment_tab` confirmed (X1) and mod; twelve other tokens mod (56 TNO files: `politics_tab` 29, `top_bar` 25, `decision_tab` 19, `trade_tab` 12 ...). TNO also uses `officers_tab`, which the documentation does not list |
+| G3 | `parent_window_window = "<container>"` attaches to any container by name; the documentation itself says "may not work". `parent_scripted_gui` attaches to another scripted GUI. `map_mode` limits it to one map mode. | untested |
+| G4 | `visible = { <triggers> }` shows or hides the whole container. | documented; `always = yes` confirmed |
+| G5 | `effects = { <button>_click = { ... } }` runs on a click; `<button>_right_click`, and `_alt_`, `_control_`, `_shift_` before `click` for the combinations. | `_click` confirmed while paused (X3); the others mod (TNO: 205 `right_click`, 101 `shift_click`, 92 `control_click`, 11 `alt_click`) |
+| G6 | `triggers = { <button>_click_enabled = { ... } <widget>_visible = { ... } }` greys a button out or hides a widget. | `_visible` confirmed (X4) and vanilla (`RAJ_tax_fraud_scripted_gui.txt`); `_click_enabled` mod (60 TNO files) |
+| G7 | `properties = { <widget> = { image = "<scripted loc>" frame = <variable> x = <variable> y = <variable> } }` sets a widget's sprite, frame and position from script. | `x` confirmed (X4); `frame` and `image` vanilla (11 of 17 files); all four mod (TNO: `frame` 1169 times, `image` 556, `x` 196, `y` 201) |
+| G8 | Texts of the container are ordinary text boxes whose `text` is a localisation key; values come in through `[?variable]` (T2). `pdx_tooltip = "KEY"` on a widget gives it a tooltip. | confirmed (X2); the tooltip vanilla (`interface/RAJ_eic_tax_fraud.gui`) |
+| G9 | `dynamic_lists = { <grid> = { array = <array> value = v index = i change_scope = yes entry_container = "<container>" } }` builds one copy of a container per element of an array, with the element in a temp variable or as the scope. The grid is a `gridboxtype` with `slotsize = { width = 1 height = 1 }` inside a scrolling container, and the entry is a top-level container of the same `.gui` file: the same arrangement as the vanilla lists of Engine Facts S27. A list can sit inside the entry of another list, its array named with the outer value (`array = TNO_plot_points@var:plot`). `change_scope` is used with arrays of countries and states. | mod (54 TNO files; the smallest is `common/scripted_guis/TNO_MEX_Plot_GUI.txt` with `interface/Mexico/TNO_MEX_Plot_GUI.gui`); not run by this project |
+| G10 | A scripted GUI is updated every tick by default. `dirty = <variable>` updates it only when that variable changes; an effect then changes the variable to ask for an update (`add_to_variable = { <name>_dirty = 1 }` at the end of each click effect). The variable can be a value of the game: `dirty = resource@power`. | mod (40 TNO files, for example `TNO_economy.txt`); not run by this project. The probe's values did follow the game while it was paused (X2), without `dirty` |
+| G11 | The AI can click scripted buttons: `ai_enabled`, `ai_check`, `ai_test_interval`, `ai_weights`. A panel for the player's eyes needs `ai_enabled = { always = no }`, so the AI never spends time on it. | the keys mod (18 TNO files); that a panel without them costs the AI nothing is not known |
+| G12 | A scripted button that runs an effect shows that effect's tooltip when hovered. | recalled; untested |
+| G13 | **A window of its own, not tied to a tab.** A `player_context` GUI without `parent_window_token` is a free window: its container has a size (533x623 in the example), `moveable = yes`, a `visible` trigger on a country flag, and a close button whose effect clears the flag. A button attached to a tab sets the flag. This is the pattern for a manager window that opens on a click and gives the map back on another. | mod (`TNO_MEX_Plot_GUI.txt`; the opener pattern in `TNO_Additional_Help_Buttons.txt`, attached to `deployment_tab`) |
+| G14 | **A scripted container can cover a whole tab.** TNO lays a 555 px wide, full-height container with one image over Recruit & Deploy for some countries, to close the screen off. So a scripted container is drawn above the vanilla widgets of its tab; that it also takes their clicks is what TNO relies on and this project has not seen. | mod (`Antarctica_Deploy_Panel` in TNO's `interface/countrydeploymentview.gui`) |
+
+What The New Order uses (133 files, 56,916 lines; the largest are `TNO_Antarctica_GUI.txt` with 4458 lines and `TNO_economy.txt` with 4361): `player_context` in 71 files and `decision_category` in 77; a `parent_window_token` in 56; click effects in 97 (2374 of them); `_visible` triggers in 94 and `_click_enabled` in 60; `properties` in 115; `dynamic_lists` in 54; `dirty` in 40; AI keys in 18; loops inside effects in 16. It never uses `parent_window_window` or `parent_scripted_gui`. TNO also replaces whole vanilla interface files, `interface/countrydeploymentview.gui` among them, which matters for the compatibility checkpoint of the [Roadmap](Roadmap.md) and is not a pattern for this mod.
+
+What vanilla uses (17 files, 9 to 86 lines each): all are `context_type = decision_category`, referenced from `common/decisions/categories` (13) and one scripted diplomatic action. 11 use `properties` with `frame` or `image`; one uses `_visible`. None uses `player_context`, a `parent_window_token`, click effects, `dynamic_lists`, `dirty` or the AI keys.
+
+## What script can read for a recruitment manager
+
+All in country scope, from `dynamic_variables_documentation.md` and `triggers_documentation.md`. "Read" means usable as `[?name]` in a text and in `check_variable`.
+
+| Value | Name | Status |
+|---|---|---|
+| Manpower in the training queue | `amount_manpower_in_deployment_queue` | confirmed (0, then 28800 after three divisions were queued) |
+| Manpower free to use, in thousands | `max_available_manpower_k`; `manpower_k`, `max_manpower_k` | first confirmed; others documented |
+| Manpower in the field, in thousands | `deployed_army_manpower_k`, `deployed_navy_manpower_k`, `deployed_airforce_manpower_k`, `deployed_total_manpower_k` | documented |
+| Manpower the garrisons need | `garrison_manpower_need` | documented |
+| Divisions, armies, battalions | `num_divisions` (confirmed: 30), `num_armies`, `num_armies_with_type@<type>`, `num_battalions`, `num_battalions_with_type@<sub unit>` | documented |
+| Equipment in stock, per type | `num_equipment@<equipment>` | confirmed (52, then 0 once the queue took it) |
+| Equipment in the field, and what the field needs | `num_equipment_in_armies@<equipment>`, `num_target_equipment_in_armies@<equipment>` (and `_k`) | documented. The difference is the shortage of the divisions in the field |
+| Stock against use | trigger `stockpile_ratio` ("2 means double in stockpile of what is fielded or in training") | documented; a trigger, so it gives yes or no against a threshold, not a number |
+| Army experience, command power | `army_experience` (confirmed), `command_power`, `command_power_daily` | documented |
+| Factories | `num_of_military_factories`, `num_of_available_military_factories`, `manpower_per_military_factory` | documented |
+| Equipment produced so far | `total_equipment_produced_<kind>` (infantry, artillery, armor, motorized ...) | documented |
+| Conscription | triggers `conscription_ratio`, `current_conscription_amount`, `target_conscription_amount` | documented; triggers |
+| Whether a template exists | trigger `has_template = "<name>"`, `has_template_majority_unit`, `has_template_containing_unit` | documented |
+| Divisions in the field by kind or state | a loop: `every_country_division` with `limit = { division_has_majority_template = <sub unit> }` or `unit_strength < 0.8`, adding 1 to a variable | documented; untested. The cost of looping over every division on each update is not known |
+
+What script cannot read, as far as the documentation goes: a list of the country's templates or their names; the lines of the training queue, their names, progress, equipment or location; the priority dots of reinforcements, upgrades and the other rows.
+
+## What script can do
+
+| Wish | Effect | Status |
+|---|---|---|
+| Queue a division for training, add a line, cancel one | none | documented list has no such effect |
+| Set a deploy location, a priority, the series count | none | the same |
+| Put a division on the map at once | `create_unit` | documented. It skips training, manpower and equipment cost: a cheat, not a quality of life option |
+| Lock, cap or delete a template | `set_division_template_lock`, `set_division_template_cap`, `clear_division_template_cap`, `delete_unit_template_and_units`, `set_division_force_allow_recruiting`, each by template name | documented. They change rules of the game, which a UI mod should not do |
+| Change the template of divisions in the field | `change_division_template` in division scope | documented |
+| Remember a choice of the player (a folded panel, a chosen equipment type) | `set_variable` on the country | confirmed |
+| Write to a log | `log = "text [?var]"` (to `game.log`), `print_variables` (to a file) | documented |
+
+So the buttons of a manager panel are for the panel itself: fold, switch what it shows, pick the equipment to watch. The actions of recruiting stay with the vanilla buttons.
+
+## Testing script
+
+| Tool | Use | Status |
+|---|---|---|
+| `error.log` | a broken file or an unknown command is named here at load; the harness already diffs it | confirmed for interface files; for script recalled |
+| `log` effect, `game.log` | a button's effect writes a line the harness can read, so a click is proved without a screenshot | documented |
+| Console `eval_effect`, `eval_trigger`, `effect`, `trigger` | run an effect or a trigger from the console on the selected scope | documented; not tried |
+| Console `get_var`, `set_var`, `list_vars`, `trigger_docs`, `loc_check`, `update_loc` | read and set variables; dump the trigger list; check and reload localisation | documented; not tried |
+| Whether script files reload in a running game | - | unknown. Interface files do not (Engine Facts H3) |
+
+## Costs of the first scripted GUI
+
+- **Checksum:** a file under `common/` changes it. Ironman and achievements stop, and in multiplayer every player needs the mod. Accepted by the user on 2026-10-12.
+- **Saves:** variables the panel sets are stored in the save. Removing the mod leaves them behind, unused and harmless (recalled).
+- **Performance:** an update every tick unless `dirty` is used (G10). Loops over all divisions belong behind a button or a daily `on_action`, not in a text that is redrawn every tick.
+- **Other mods:** a scripted GUI adds a container and does not replace one, so it does not collide with a mod that reworks the same tab; it can overlap what that mod draws.
+
+## Open questions, in the order D2 needs them
+
+Each needs the game. They fit into one launch. The New Order answers the first four in principle (rows G5, G6, G9, G10, G13, G14); they stay on the list until a build of this mod has shown them.
+
+1. `dynamic_lists`: a grid filled from an array of our own, with and without `change_scope` (G9).
+2. A free window opened from a button on the deployment tab and closed again (G13). Does a scripted container take the clicks of the vanilla widgets under it (G14)?
+3. `_click_enabled`, `_right_click` and the shift combination (G5, G6); the tooltip of a scripted button (G12).
+4. `dirty` (G10): does the panel stop updating until the variable changes, and is that needed at all?
+5. A loop over `every_country_division` in a button's effect: how long does it take with 300 divisions? No answer from TNO was looked for.
+6. `log` to `game.log` and the console commands `eval_effect`, `get_var` and `list_vars` as tools for the harness.
+7. Whether a change to a file under `common/scripted_guis/` or `localisation/` is picked up without a restart.
+8. `num_target_equipment_in_armies@<type>` against `num_equipment_in_armies@<type>`: do they give the shortage the logistics screen shows?

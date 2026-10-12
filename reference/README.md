@@ -47,7 +47,10 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A4 | task force composition editor and the ship class picker that opens with it | [fleet_composition.jpg](vanilla/fleet_composition.jpg) | [fleet_composition-panel.png](vanilla/fleet_composition-panel.png) | 1.19.3.0 | 2026-10-11 |
 | A4 | home base picker of the fleet card | [fleet_home_base.jpg](vanilla/fleet_home_base.jpg) | [fleet_home_base-panel.png](vanilla/fleet_home_base-panel.png) | 1.19.3.0 | 2026-10-11 |
 | A4 | fleet_transfer | [fleet_transfer.jpg](vanilla/fleet_transfer.jpg) | [fleet_transfer-panel.png](vanilla/fleet_transfer-panel.png) | 1.19.3.0 | 2026-10-11 |
-| A5 | Recruit & Deploy and Division Templates panels | [recruit_deploy.jpg](vanilla/recruit_deploy.jpg) | [recruit_deploy-panel.png](vanilla/recruit_deploy-panel.png) | 1.19.3.0 | 2026-10-08 |
+| A5 | Recruit & Deploy and Division Templates panels | [recruit_deploy.jpg](vanilla/recruit_deploy.jpg) | [recruit_deploy-panel.png](vanilla/recruit_deploy-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A5 | Recruit & Deploy and Division Templates panels, icon-picker | [recruit_deploy-icon-picker.jpg](vanilla/recruit_deploy-icon-picker.jpg) | [recruit_deploy-icon-picker-panel.png](vanilla/recruit_deploy-icon-picker-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A5 | Recruit & Deploy and Division Templates panels, italy | [recruit_deploy-italy.jpg](vanilla/recruit_deploy-italy.jpg) | [recruit_deploy-italy-panel.png](vanilla/recruit_deploy-italy-panel.png) | 1.19.3.0 | 2026-10-11 |
+| A5 | Recruit & Deploy and Division Templates panels, name-dropdown | [recruit_deploy-name-dropdown.jpg](vanilla/recruit_deploy-name-dropdown.jpg) | [recruit_deploy-name-dropdown-panel.png](vanilla/recruit_deploy-name-dropdown-panel.png) | 1.19.3.0 | 2026-10-11 |
 | A6 | army overview tab | [army_overview.jpg](vanilla/army_overview.jpg) | [army_overview-panel.png](vanilla/army_overview-panel.png) | 1.19.3.0 | 2026-10-08 |
 | A6 | army overview tab, air | [army_overview-air.jpg](vanilla/army_overview-air.jpg) | [army_overview-air-panel.png](vanilla/army_overview-air-panel.png) | 1.19.3.0 | 2026-10-08 |
 | A6 | army overview tab, navy | [army_overview-navy.jpg](vanilla/army_overview-navy.jpg) | [army_overview-navy-panel.png](vanilla/army_overview-navy-panel.png) | 1.19.3.0 | 2026-10-08 |
@@ -108,3 +111,7 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A4 | task force composition editor and the ship class picker that opens with it | [fleet_composition.jpg](mod/fleet_composition.jpg) | [fleet_composition-panel.png](mod/fleet_composition-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
 | A4 | home base picker of the fleet card | [fleet_home_base.jpg](mod/fleet_home_base.jpg) | [fleet_home_base-panel.png](mod/fleet_home_base-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
 | A4 | fleet_transfer | [fleet_transfer.jpg](mod/fleet_transfer.jpg) | [fleet_transfer-panel.png](mod/fleet_transfer-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
+| A5 | Recruit & Deploy and Division Templates panels | [recruit_deploy.jpg](mod/recruit_deploy.jpg) | [recruit_deploy-panel.png](mod/recruit_deploy-panel.png) | 1.19.3.0 | 1.4 | 2026-10-11 |
+| A5 | Recruit & Deploy and Division Templates panels, icon-picker | [recruit_deploy-icon-picker.jpg](mod/recruit_deploy-icon-picker.jpg) | [recruit_deploy-icon-picker-panel.png](mod/recruit_deploy-icon-picker-panel.png) | 1.19.3.0 | 1.4 | 2026-10-11 |
+| A5 | Recruit & Deploy and Division Templates panels, italy | [recruit_deploy-italy.jpg](mod/recruit_deploy-italy.jpg) | [recruit_deploy-italy-panel.png](mod/recruit_deploy-italy-panel.png) | 1.19.3.0 | 1.4 | 2026-10-11 |
+| A5 | Recruit & Deploy and Division Templates panels, name-dropdown | [recruit_deploy-name-dropdown.jpg](mod/recruit_deploy-name-dropdown.jpg) | [recruit_deploy-name-dropdown-panel.png](mod/recruit_deploy-name-dropdown-panel.png) | 1.19.3.0 | 1.4 | 2026-10-11 |

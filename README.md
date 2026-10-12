@@ -6,7 +6,7 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
 
 - **Game**: Hearts of Iron IV
 - **Supported Version**: `1.19.*`
-- **Mod Version**: `1.3`
+- **Mod Version**: `1.4`
 - **Tags**: Graphics, Utilities, Fixes
 - **Requires**: 2560x1440 or higher at 100% UI scale
 - **Ironman & Achievements**: Compatible (only `interface/` and `gfx/` files, which are outside the game checksum)
@@ -32,6 +32,11 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
   - New hotkeys with ships selected: `Shift+N` makes a new task force of them, `Shift+R` moves them to the reserve fleet, `Shift+O` balances task forces, `Shift+G` upgrades, `Shift+P` repairs now.
   - The home base picker and the ship details window open beside the wider panel.
   - Pop-ups: the ship class picker of the composition editor shows all nine classes without scrolling, the composition editor and the home base picker are wider with names in a larger font, and "Select Ships to Transfer" lists one ship per line.
+- **Recruit & Deploy and Division Templates** (the two panels the `U` key opens):
+  - A division in training shows its whole name in a larger font, and its name list shows 14 names instead of 10.
+  - The template list is a table: one template per line with its name in full, the cap, Train, Edit and the two toggles beside it, so 22 templates fit before the list scrolls instead of 17.
+  - The template panel ends above the bottom bar, so the army portraits stay in reach; the symbol picker shows seven symbols per row.
+  - New hotkey: `Shift+F` opens the division designer.
 
 ---
 

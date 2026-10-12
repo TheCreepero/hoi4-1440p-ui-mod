@@ -474,6 +474,56 @@ def ship_row(right_cap, growth=FLEET_GROWTH):
     return widen
 
 
+# ---------------------------------------------------------------------------------------------
+# A5, Recruit & Deploy and Division Templates. The numbers are shared with the widget positions in
+# interface/zz_1440p_recruit_deploy.gui.
+
+DEPLOY_GROWTH = 90        # left panel, 550 -> 640: the name of a division in training gets it
+TEMPLATE_GROWTH = 240     # a template row, 341 -> 581: name, cap, Train, Edit and toggles on one line
+TEMPLATE_PANEL_GROWTH = 243   # the template panel, 375 -> 618
+TEMPLATE_SPLIT = 85       # first column right of the icon box's frame line
+
+
+def conveyor_card(source):
+    """Card of a template in training, 490x84 to 580x84. Bands of rows:
+      0-7      the top lip: plain lines
+      8-41     the name field (columns 92-312, a fine mesh without a clear period): one piece of 90
+               columns goes in once more as it is; the amount pill (320-410) moves right
+      42-83    scratched metal
+    """
+    return grow_bands(source, "x", [
+        (0, 8, stretched(110, 300, DEPLOY_GROWTH)),
+        (8, 42, [(300, DEPLOY_GROWTH, 30)]),
+        (42, source.height, stretched(110, 470, DEPLOY_GROWTH)),
+    ])
+
+
+def template_row(mesh_rows, strip_rows, mesh_period):
+    """Row of a template, 346x78 to 586x54 (the brown twin of a decommissioned template: 348x79 to
+    588x55). The vanilla row is an icon box (columns 0-84) beside a meshed name box with a metal
+    strip for the buttons under it. The one-line row does without the strip:
+      icon box   loses 24 rows of its plain inside, in six spans between its corner rivets
+      name box   loses 12 rows of mesh and 12 of the 13 rows of the strip, then grows by
+                 TEMPLATE_GROWTH columns: plain lines above and below, two pieces of the mesh
+    """
+    def compose(source):
+        w, h = source.size
+        box = cut(source.crop((0, 0, TEMPLATE_SPLIT, h)), "y", [(18, 4), (25, 4), (32, 4), (39, 4), (46, 4), (52, 4)])
+        first_mesh, strip = mesh_rows[0], strip_rows[0]
+        name = cut(source.crop((TEMPLATE_SPLIT, 0, w, h)), "y", [(first_mesh + 4, 4), (first_mesh + 14, 4), (first_mesh + 24, 4), (strip, 12)])
+        mesh_end = mesh_rows[1] - 12
+        half = TEMPLATE_GROWTH // 2   # the mesh runs from column 7 to 251 of the name part: two pieces fit
+        if TEMPLATE_GROWTH % 2 or half % mesh_period or half > 120:
+            raise ValueError("the template row cannot grow by %d columns" % TEMPLATE_GROWTH)
+        name = grow_bands(name, "x", [
+            (0, first_mesh, stretched(20, 240, TEMPLATE_GROWTH)),
+            (first_mesh, mesh_end, [(130, half, mesh_period), (244, half, mesh_period)]),
+            (mesh_end, name.height, stretched(20, 240, TEMPLATE_GROWTH)),
+        ])
+        return join([box, name], "x")
+    return compose
+
+
 # One entry per output texture. `frames` lists one widening call per frame of the source, left to right;
 # `compose` is a function that builds the whole output from the source instead.
 JOBS = [
@@ -687,6 +737,73 @@ JOBS = [
         "source": "gfx/interface/naval_unit_ship_entry.dds",
         "output": "fl_transfer_ship_entry.dds",
         "frames": [ship_row(12, TRANSFER_GROWTH), ship_row(34, TRANSFER_GROWTH)],
+    },
+    {
+        # A5. Card of a template in training.
+        "source": "gfx/interface/military_deployment_conveyor_bg.dds",
+        "output": "rd_conveyor_bg.dds",
+        "compose": conveyor_card,
+    },
+    {
+        # Summary row under the card, 518 to 608 wide: plain metal between the rivets at column 65
+        # and the bar slot at 213.
+        "source": "gfx/interface/military_deployment_add_line_bg.dds",
+        "output": "rd_summary_bg.dds",
+        "compose": lambda source: grow(source, "x", stretched(80, 200, DEPLOY_GROWTH)),
+    },
+    {
+        # Row of a division in training, 514 to 604 wide: the name box (columns 5-203) is a plain
+        # dark box.
+        "source": "gfx/interface/military_deployment_line_bg.dds",
+        "output": "rd_line_bg.dds",
+        "compose": lambda source: grow(source, "x", stretched(25, 190, DEPLOY_GROWTH)),
+    },
+    {
+        # Closing line under the rows of a card, 516 to 606 wide.
+        "source": "gfx/interface/military_deployment_end_line.dds",
+        "output": "rd_end_line.dds",
+        "compose": lambda source: grow(source, "x", stretched(30, 480, DEPLOY_GROWTH)),
+    },
+    {
+        # Location button of a card, 223 to 313 wide: frame 1 plain, frame 2 with chevrons every
+        # 15 columns.
+        "source": "gfx/interface/conveyor_location_btn.dds",
+        "output": "rd_location_btn.dds",
+        "frames": [
+            lambda f: grow(f, "x", stretched(45, 200, DEPLOY_GROWTH)),
+            lambda f: grow(f, "x", [(170, DEPLOY_GROWTH, 15)]),
+        ],
+    },
+    {
+        # Header of the Recruit & Deploy panel, 543 to 633 wide: scratched metal up to the box of
+        # the close button at column 491.
+        "source": "gfx/interface/header_bg.dds",
+        "output": "rd_header_bg.dds",
+        "compose": lambda source: grow(source, "x", stretched(120, 480, DEPLOY_GROWTH)),
+    },
+    {
+        # Strip under that header, 533 to 623 wide.
+        "source": "gfx/interface/deployment_binding.dds",
+        "output": "rd_binding.dds",
+        "compose": lambda source: grow(source, "x", stretched(40, 490, DEPLOY_GROWTH)),
+    },
+    {
+        # Header of the Division Templates panel, 375 to 618 wide: plain between columns 70 and 365.
+        "source": "gfx/interface/subview_header_bg_375x101.dds",
+        "output": "rd_templates_header.dds",
+        "compose": lambda source: grow(source, "x", stretched(75, 360, TEMPLATE_PANEL_GROWTH)),
+    },
+    {
+        # Row of a template: the mesh of the name box is rows 12-49, the strip under it 53-65.
+        "source": "gfx/interface/deployment_named_division_bg.dds",
+        "output": "rd_template_entry.dds",
+        "compose": template_row(mesh_rows=(12, 50), strip_rows=(53, 66), mesh_period=4),
+    },
+    {
+        # Its brown twin for a decommissioned template: mesh rows 13-48, strip 52-64.
+        "source": "gfx/interface/deployment_named_division_obsolete_bg.dds",
+        "output": "rd_template_entry_obsolete.dds",
+        "compose": template_row(mesh_rows=(13, 49), strip_rows=(52, 65), mesh_period=12),
     },
 ]
 

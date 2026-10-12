@@ -1,0 +1,97 @@
+# Vanilla 1.19.3.0, interface/countrydeploymentview.gui, lines 589-681.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "supply_deploy_entry"
+		position = { x = 0 y = 0}
+		size = { width = 493 height = 47 }
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_deploy_reinforcements_entry"
+			position = { x = 0 y = -5}
+		}
+
+		iconType = {
+			name = "deploy_icon_tiled_bg"
+			quadTextureSprite = "GFX_deploy_icon_tiled_bg"
+			position = { x = 10 y = 6}
+		}
+
+		iconType = {
+			name = "reinforcements_icon"
+			position = { x=14 y=7 }
+			spriteType = "GFX_reinforcements_icon"
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "name"
+			position = { x = 110 y = 15 }
+			textureFile = ""
+			font = "hoi_16mbs"
+			borderSize = {x = 0 y = 0}
+			text = "Maus"
+			maxWidth = 159
+			maxHeight = 20
+			format = center
+			alwaystransparent = yes
+		}
+
+		background = {
+			name = "deploy_priority_title_bg"
+			spriteType = "GFX_deploy_priority_title_bg"
+			alwaystransparent = no
+			position = { x = 110 y = 12 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "army_equipment"
+			spriteType = "GFX_equipment_icon"
+			position = { x=285 y=15 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "equipment_progressbar"
+			spriteType = "GFX_deployment_progressbar"
+			position = { x=310 y=20 }
+			alwaystransparent = yes
+		}
+
+		background = {
+			name = "deploy_priority_equipment_meter_bg"
+			spriteType = "GFX_deploy_priority_equipment_meter_bg"
+			alwaystransparent = no
+			position = { x = 280 y = 11 }
+		}
+
+		buttonType = {
+			name = "low_prio"
+			position = { x = 415 y = 15 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_deploy_priority"
+			frame = 1
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "medium_prio"
+			position = { x = 435 y = 15 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_deploy_priority"
+			frame = 3
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "high_prio"
+			position = { x = 455 y = 15 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_deploy_priority"
+			frame = 1
+			clicksound = click_default
+		}
+	}
+}

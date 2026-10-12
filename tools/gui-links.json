@@ -42,6 +42,16 @@
       "grid": "ships_grid",
       "window": "move_ships_window",
       "entry": "move_ship_entry"
+    },
+    {
+      "grid": "templates_grid",
+      "window": "templatedeploymentwindow",
+      "entry": "named_division_template_entry"
+    },
+    {
+      "grid": "grid",
+      "window": "military_deployment_line_view",
+      "entry": "division_name_dropdown_entry"
     }
   ],
   "listRows": [

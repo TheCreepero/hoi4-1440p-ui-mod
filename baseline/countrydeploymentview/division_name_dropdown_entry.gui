@@ -1,0 +1,29 @@
+# Vanilla 1.19.3.0, interface/countrydeploymentview.gui, lines 881-905.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "division_name_dropdown_entry"
+		position = { x=0 y=0 }
+		size = { width = 218 height = 30 }
+		clipping = no
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_mini_tooltip"
+			clicksound = click_default
+		}
+
+		instantTextboxType = {
+			name = "name"
+			position = { x = 9 y = 8 }
+			textureFile = ""
+			font = "hoi_16mbs"
+			borderSize = {x = 0 y = 0}
+			maxWidth = 215
+			maxHeight = 30
+			fixedsize = yes
+			format = left
+			alwaystransparent = yes
+		}
+	}
+}

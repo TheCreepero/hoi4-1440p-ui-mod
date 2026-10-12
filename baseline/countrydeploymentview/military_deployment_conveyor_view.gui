@@ -1,0 +1,195 @@
+# Vanilla 1.19.3.0, interface/countrydeploymentview.gui, lines 907-1097.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "military_deployment_conveyor_view"
+		position = { x=0 y=0 }
+		size = { width=488 height=84 }
+
+		background = {
+			name = "background"
+			quadTextureSprite ="GFX_military_deployment_conveyor_view_bg"
+		}
+
+		iconType = {
+			name = "template_icon"
+			position = { x=12 y=22 }
+			spriteType = "GFX_technology_medium"
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name ="division_priority_icon"
+			spriteType = "GFX_div_deploy_priority_icon_strip"
+			frame = 1
+			position = { x=62 y=22 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "foreign_template_flag"
+			quadTextureSprite ="GFX_flag_small"
+			position = { x= 12 y = 50 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "colonial_force_flag_frame"
+			quadTextureSprite ="GFX_div_designer_colonial_flag_frame2"
+			position = { x= 13 y = 43 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "exile_force_flag_frame"
+			quadTextureSprite ="GFX_div_designer_exile_flag_frame2"
+			position = { x= 14 y = 46 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "obsolete_template_warning"
+			quadTextureSprite ="GFX_obsolete_template_warning"
+			position = { x= 14 y = 21 }
+			pdx_tooltip = "DECOMMISSIONED_TEMPLATE_WARNING_TOOLTIP"
+		}
+
+		editBoxType = {
+			name = "generic_name_edit"
+			position = { x = 100 y = 18 }
+			font = "hoi_18b"
+			size = { x=200 y=25 }
+			pdx_tooltip = "CONVEYOR_GENERIC_NAME_EDIT_DESC"
+		}
+
+		buttonType = {
+			name = "deploy_location_button"
+			position = { x=91 y=46 }
+			quadTextureSprite = "GFX_conveyor_location_btn"
+			buttonFont = "hoi_18mbs"
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "deploy_group_button"
+			spriteType = "GFX_conveyor_group_btn"
+			position = { x=96 y=50 }
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "deploy_group_button_icon"
+			position = { x=94 y=48 }
+			spriteType = "GFX_conveyor_group_btn_frame"
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "decrease_amount"
+			position = { x = 312 y = 10 }
+			quadTextureSprite = "GFX_naval_decrease_amount"
+			pdx_tooltip = "CONVEYOR_SERIES_DECREASE_DESC"
+			font = "hoi_18b"
+			clicksound = click_default
+		}
+
+		instantTextboxType = {
+			name = "amount"
+			position = { x = 348 y = 16 }
+			font = "hoi_18b"
+			text = "INFINITY"
+			maxWidth = 33
+			maxHeight = 33
+			pdx_tooltip = "CONVEYOR_SERIES_AMOUNT_DESC"
+			format = centre
+		}
+
+		buttonType = {
+			name = "increase_amount"
+			position = { x = 383 y = 10 }
+			quadTextureSprite = "GFX_naval_increase_amount"
+			pdx_tooltip = "CONVEYOR_SERIES_INCREASE_DESC"
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "low_prio"
+			position = { x = 420 y = 17 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_deploy_priority"
+			pdx_tooltip = "DEPLOYMENT_LOW_PRIORITY_DESC"
+			frame = 1
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "medium_prio"
+			position = { x = 440 y = 17 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_deploy_priority"
+			pdx_tooltip = "DEPLOYMENT_MEDIUM_PRIORITY_DESC"
+			frame = 3
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "high_prio"
+			position = { x = 460 y = 17 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_deploy_priority"
+			pdx_tooltip = "DEPLOYMENT_HIGH_PRIORITY_DESC"
+			frame = 1
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "add_button"
+			position = { x = 315 y = 50 }
+			quadTextureSprite ="GFX_military_deployment_add_line_btn"
+			buttonText = "ADD_CONVEYOR_LINE_BUTTON_LABEL"
+			buttonFont = "hoi_18mbs"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "add_limit_bg"
+			position = { x=315 y=52 }
+			spriteType = "GFX_add_limit_bg"
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "add_limit"
+			position = { x = 316 y = 52 }
+			font = "hoi_18b"
+			text = "4"
+			maxWidth = 17
+			maxHeight = 33
+			format = center
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "tutorial_highlight_add_unit"
+			position = { x=315 y=49 }
+			quadTextureSprite ="GFX_tutorial_add_unit_highlight"
+			alwaystransparent = yes
+			hide = yes
+		}
+
+		buttonType = {
+			name = "deploy_conveyor_button"
+			position = { x=421 y=47 }
+			quadTextureSprite = "GFX_deploy_conveyor_button"
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "cancel_conveyor_button"
+			position = { x=450 y=47 }
+			quadTextureSprite = "GFX_cancel_conveyor_button"
+			pdx_tooltip = "CANCEL_CONVEYOR_TOOLTIP"
+			clicksound = click_close
+		}
+	}
+}

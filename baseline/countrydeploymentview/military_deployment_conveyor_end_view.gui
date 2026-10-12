@@ -1,0 +1,14 @@
+# Vanilla 1.19.3.0, interface/countrydeploymentview.gui, lines 744-753.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "military_deployment_conveyor_end_view"
+		position = { x=-14 y=-3 }
+		size = { width=486 height=9 }
+
+		background = {
+			name = "background"
+			quadTextureSprite ="GFX_military_deployment_end_line"
+		}
+	}
+}

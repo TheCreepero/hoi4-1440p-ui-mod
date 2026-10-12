@@ -7,13 +7,13 @@ The mod is built one screen at a time. Each phase reworks one screen for 2560x14
 - **Baseline:** vanilla 1.19 only, for now. Every screen is built and checked in a playset that contains just this mod. Behaviour next to other mods is not tested and not worked on until a compatibility checkpoint (see "Compatibility checkpoints").
 - **Design target:** 2560x1440 at 100% UI scale. The mod does not fit smaller resolutions or a higher UI scale.
 - **Depth:** a redesign per screen, not only an enlargement. Each screen is re-laid out around what the player wants to see at once: regrouped panels, a place of its own for every value the screen already has, larger fonts and backgrounds, fixed captions, and hotkeys for buttons that have none. New live values and new working buttons are not possible; the limits are in [Design Rules](Design-Rules.md), "What a redesign can add".
-- **Checksum:** untouched. Scripted GUIs, the game's way to add new values and buttons, live in `common/` and are not used.
+- **Checksum:** untouched so far. Scripted GUIs, the game's way to add new values and buttons, live in `common/` and change the checksum. On 2026-10-12 the user decided that they may become part of this mod and that losing Ironman and achievement compatibility is acceptable. The mod stays outside the checksum until the first one ships (D2); the README, the Workshop text, the checksum rule in `GEMINI.md` and the tests change in that phase.
 - **Art:** no AI-generated images. Backgrounds are built from vanilla game assets.
 - **Priority:** military lists, then designers, then the backlog.
 
 ## Status
 
-Status values: Not started, In progress, Done. Each phase keeps its inventory, decisions and game-check log in `wiki/phases/` ([A1](phases/A1-air-selection.md), [A2](phases/A2-army-selection.md), [A3](phases/A3-unit-details.md), [A4](phases/A4-fleet.md); template: [Phase Template](Phase-Template.md)); what the launches taught about the engine is in [Engine Facts](Engine-Facts.md).
+Status values: Not started, In progress, Done. Each phase keeps its inventory, decisions and game-check log in `wiki/phases/` ([A1](phases/A1-air-selection.md), [A2](phases/A2-army-selection.md), [A3](phases/A3-unit-details.md), [A4](phases/A4-fleet.md), [A5](phases/A5-recruit-deploy.md), [D0](phases/D0-manager-feasibility.md); template: [Phase Template](Phase-Template.md)); what the launches taught about the engine is in [Engine Facts](Engine-Facts.md).
 
 | Phase | Scope | Status |
 |---|---|---|
@@ -40,7 +40,7 @@ Phases are independent after Phase 1 and can be reordered.
 | A2 | Selected army: badge and division list | `unitview.gui`: `armies_view`, `army_badge_view`, `army_division_list_view`, `army_division_view` | list 422x430 | tiled, small bitmaps | RBM's GFX Overhaul | Done |
 | A3 | Unit details: division, ship, air wing, railway gun | `unitview.gui`: `army_division_stats_view`, `ship_stats_window`; `airwingdetails.gui`: `air_wing_stats_window`; `railway_gun.gui`: `railway_gun_stats_view` | 856x497, 856x409 | bitmap | RBM's GFX Overhaul | Done, awaiting the tester's judgement (railway gun render-only) |
 | A4 | Navy and fleet view | `naviesview.gui`: `naviesview_window`, fleet and task force rows, composition editor, base picker | 500 wide, 86% high | bitmap cards and rows | RBM's GFX Overhaul, Vanilla Navy Rework | Done |
-| A5 | Recruit and deploy | `countrydeploymentview.gui`: `countrydeploymentview`, `templatedeploymentwindow` | 550 and 375 wide, full height | tiled | RBM's GFX Overhaul | Not started |
+| A5 | Recruit and deploy | `countrydeploymentview.gui`: `countrydeploymentview`, `templatedeploymentwindow` | 550 and 375 wide, full height | tiled panels, bitmap rows | RBM's GFX Overhaul | Done |
 | A6 | Army overview tab | `countryarmyview.gui`: `countryarmyview` | 550 wide, full height | tiled | none found | Not started |
 | A7 | Air wing reorganisation | `airwingreorganization.gui`: `air_wing_reorganization` | 1000x515 | tiled | none found | Not started |
 | A8 | Theatre bar at the bottom | `theatreselector.gui` | 760 wide | tiled | RBM's GFX Overhaul | Not started |
@@ -57,6 +57,10 @@ Phases are independent after Phase 1 and can be reordered.
   - Step 2, built: the composition editor is 604 wide instead of 524 with class names in a larger font, the ship class picker shows all nine classes without scrolling (vanilla shows seven), the home base picker is 455 wide instead of 375 with base names in a larger font, and "Select Ships to Transfer" lists a ship per line, 10 before it scrolls instead of 7. One game check, plus one without the mod to measure where vanilla puts the windows.
   - Not seen in game: several fleets selected, a commander with traits, a damaged ship with its repair and refit buttons, the refit window, three of the five hotkeys, the template list of the composition editor.
   - The A3 item "show the ship window's side panel only when it has content" is still open.
+- A5 is done (`interface/zz_1440p_recruit_deploy.gui`); the tester judged it finished on 2026-10-12. Notes: [A5](phases/A5-recruit-deploy.md).
+  - The left panel is 640 wide instead of 550: a division in training shows its whole name in a larger font, and its name list shows 14 names instead of 10. The template panel is 618 wide instead of 375 and lists one template per line of 48 px, 22 before it scrolls instead of 17; it ends above the army portraits of the bottom bar. `shift+f` opens the division designer. Two game checks with the mod, after one layout chosen from three.
+  - The six priority rows keep their vanilla size: the code swaps their background per kind of row.
+  - Not captured by the harness, tried by the tester and found working: a line ready to deploy, a card with a location, the foreign templates list, a list long enough to scroll.
 - A8 is the riskiest: much of its layout is positioned by the engine. Do it last, or drop it if little can move.
 
 ### A2: selected army
@@ -84,6 +88,32 @@ Phases are independent after Phase 1 and can be reordered.
 - B2 and B3 share one structure, so B3 mostly reuses the B2 layout.
 - In B2 to B4 the hull and slot area keeps its vanilla size. Module slot positions are defined per hull in `interface/equipmentdesigner/` (253 tank files, 8 plane files, 6 ship files).
 
+## Milestone D: manager screens (planned, feasibility first)
+
+The idea (user, 2026-10-12): a side panel such as Recruit & Deploy becomes a near full screen "manager" with new information and quality of life options, and narrows by itself when the map is needed, for example to pick a deploy location. The feasibility phase D0 was run on 2026-10-12 ([notes](phases/D0-manager-feasibility.md)). The table gives what it found.
+
+| Part of the idea | Possible | How, and the limit |
+|---|---|---|
+| A panel that fills most of the screen | Yes, but with nothing to fill it | Sizes in the `.gui` file. The lists of Recruit & Deploy do not run in columns: `max_slots_horizontal = 2` on the template list failed in two forms (S29). |
+| Narrowing by itself when the map is needed | No | A window has one size in its file, and no file can ask what the player is doing. The code leaves both panels as they are while a deploy location is picked (S30). |
+| The map stays usable beside the panels | Yes | The two panels are separate windows and can stand apart: with the template panel at the right edge of the screen, a click on the map between them picked a deploy location (S30). |
+| New information on the screen | Yes, with a scripted GUI | Attached to this tab (`parent_window_token = deployment_tab`) it showed values of the country that follow the game while it is paused: queued and available manpower, army experience, number of divisions, equipment in stock (X1, X2). It lives in `common/` and changes the checksum, which the user accepts. |
+| Information per division in training or per template | No | Script sees the country, not a line of this list or a template: no array of either exists for a scripted list. |
+| New working buttons | Yes, with a scripted GUI, but few are useful here | A scripted button runs its effect, also while the game is paused (X3). No effect queues a division, sets a priority or a deploy location; effects on templates lock them, cap them or change their units. |
+| Folding the extra part away on a click | Yes, for the scripted panel | A scripted button set a variable; a text with a `_visible` trigger went away and a widget with an `x` property moved (X4). A vanilla window cannot be resized this way. |
+
+So a manager is not a wider version of the vanilla panels: they have nothing more to show and cannot use the width. It is a scripted panel of the mod's own beside or over them, with values of the country and a fold button, and it gives the map back on a click, not by itself.
+
+| # | Phase | Scope | Status |
+|---|---|---|---|
+| D0 | Feasibility | Four questions on Recruit & Deploy in one launch: columns in the template list (no), what the code does while a deploy location is picked (nothing), clicks on the map between the panels (they arrive), a scripted GUI on this tab (works). | Done |
+| D1 | Recruit & Deploy as a wider arrangement of its vanilla lists | Templates in two or three columns beside the divisions in training. | Dropped: the lists stay one column (D0) |
+| D2 | Recruitment manager: a scripted panel on the deployment tab, in this mod | Read [Script Reference](Script-Reference.md) first: what script can read and do, how sure each fact is, and eight questions still open. Starts with an inventory of the country values and effects script offers for recruiting (manpower available, queued, deployed and needed by garrisons; army experience; equipment in stock and in the field per type), then a layout proposal with mock-ups: what the panel shows, where it stands, how it folds. The first file under `common/`: the checksum rule, its tests, the README and the Workshop text change here. | Not started; on hold until the user has read the script research (2026-10-12) |
+| D3 | The same for production, construction and logistics | Each has a token of its own (`production_tab`, `construction_tab`, `logistics_tab`). After D2 has been judged in game. | Not scheduled |
+
+- Open for D2: a scripted list (`dynamic_lists`), a scripted panel larger than the tab it is attached to, and clicks on vanilla widgets under a scripted panel were not tried in D0.
+- A layout D0 showed to work and nobody has asked for: the template panel at the right edge of the screen, the divisions in training at the left, the map between them.
+
 ## Milestone C: backlog (not scheduled)
 
 - **Selection popups:** general and admiral selection (`unitleaderwindow.gui`, 550x590, bitmap), advisor and law selection (`political_ideas_window`, 500x590, tiled).
@@ -91,7 +121,7 @@ Phases are independent after Phase 1 and can be reordered.
 - **Side panels** (550 wide, already full height): production, construction, logistics, decisions, politics, diplomacy.
 - **Newer screens in subfolders:** military industrial organisations, international market, special projects, factions.
 - **Front end:** game setup and country selection.
-- **Companion mod with scripted GUIs:** country-level panels, for example extra numbers in the top bar or the production tab. It would be a separate, optional mod, because it changes the checksum and so loses Ironman achievements. Not decided.
+- **Companion mod with scripted GUIs:** country-level panels, for example extra numbers in the top bar or the production tab. It was planned as a separate, optional mod, because it changes the checksum and so loses Ironman achievements. Decided on 2026-10-12: scripted GUIs go into this mod (Milestone D).
 
 ## Compatibility checkpoints
 

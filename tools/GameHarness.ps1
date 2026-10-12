@@ -197,7 +197,8 @@ function Start-HoiNewGame {
 #                works out where it sits (tools/render_gui.py --locate), so the step survives layout
 #                changes and works for the vanilla and the modded window alike. The window is the one
 #                that defines the widget (the row window for a widget of a row); #n is the n-th drawn
-#                instance. Optional: scene (whose layout to use, default the current scene),
+#                instance. Optional: scene (whose layout to use, default the current scene), state (one
+#                of that scene's captures or states, for a widget that shows only then),
 #                offset [dx, dy], button "right".
 #   dragWidget: ["window/widget", "window/widget"]   press on the first widget, release on the second, both
 #                found by name like clickWidget (same optional scene): a drag and drop inside a panel
@@ -269,15 +270,16 @@ function Get-HoiMoves {
 
 # Where a named widget sits on the screen: its centre, from the renderer's layout of a scene.
 function Resolve-HoiWidget {
-    param([Parameter(Mandatory)][string]$Spec, [string]$Scene = $script:HarnessScene)
+    param([Parameter(Mandatory)][string]$Spec, [string]$Scene = $script:HarnessScene, [string]$State)
 
     if (-not $Scene) { throw "clickWidget '$Spec' needs a scene: the scene says where its window sits on the screen." }
-    $key = "$Scene|$($script:HarnessVanilla)|$Spec"
+    $key = "$Scene|$State|$($script:HarnessVanilla)|$Spec"
     if (-not $script:HarnessLocateCache.ContainsKey($key)) {
         $python = (Get-Command python -ErrorAction SilentlyContinue).Source
         if (-not $python) { throw 'clickWidget needs Python with Pillow (tools/render_gui.py does the layout).' }
         $arguments = @('-I', (Join-Path $PSScriptRoot 'render_gui.py'), '--scene', $Scene, '--locate', $Spec)
         if ($script:HarnessVanilla) { $arguments += '--vanilla' }
+        if ($State) { $arguments += '--state'; $arguments += $State }
         $line = @(& $python @arguments 2>$null | Where-Object { $_ -like "LOCATE`t*" })[0]
         $fields = @([string]$line -split "`t")
         if ($fields.Count -lt 4 -or $fields[2] -eq 'NOTFOUND') { throw "Widget '$Spec' is not in the layout of scene '$Scene'. Check the window and widget names with tools\Show-GuiOutline.ps1, and that the scene lists the window." }
@@ -304,7 +306,7 @@ function Invoke-HoiSteps {
         }
         elseif ($step.clickWidget) {
             $stepScene = if ($step.scene) { [string]$step.scene } else { $Scene }
-            $at = Resolve-HoiWidget -Spec ([string]$step.clickWidget) -Scene $stepScene
+            $at = Resolve-HoiWidget -Spec ([string]$step.clickWidget) -Scene $stepScene -State ([string]$step.state)
             $x = $at[0]; $y = $at[1]
             if ($step.offset) { $x += [int]$step.offset[0]; $y += [int]$step.offset[1] }
             Send-HoiClick -X $x -Y $y -Right:($step.button -eq 'right')

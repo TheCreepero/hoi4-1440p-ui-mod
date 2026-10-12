@@ -28,6 +28,8 @@ Every step takes an optional `"wait": <seconds>` and a `"_note"`.
 
 **Clicks by name.** `clickWidget` asks the renderer where the widget sits (`render_gui.py --scene <scene> --locate <spec>`), so the step follows every layout change and works for the vanilla and the modded window alike. The spec is `window/widget`, where the window is the top-level window that defines the widget: for a button of a list row that is the row window. `#n` picks the n-th drawn instance, counted from 0. The layout comes from the current scene; `"scene": "<other>"` borrows another scene's, and `"offset": [dx, dy]` and `"button": "right"` adjust the click.
 
+**A widget that shows only in one state** is found with `"state": "<capture or state of the scene>"` on the step: the Back button of the symbol picker is laid out only in the scene's `icon-picker` state.
+
 **A widget the code moves needs an offset.** The game centres a ship's icon in its row, 12 px above where the file puts it, so the step that opens the ship details is `{ "clickWidget": "ship_entry_detailed/ship_button", "scene": "fleet", "offset": [0, -12] }`.
 
 **Raw positions** are for the map and for vanilla panels the mod has not reworked yet. Map positions are measured in the Home view. A raw position inside a panel breaks the day that panel is reworked; the move's `_note` says so, and the fix is a `clickWidget` step.
@@ -58,7 +60,7 @@ Surveyed on game 1.19.3 on 2026-10-08, each recipe run unattended with the mod a
 | A4 | `fleet_composition` | `select_fleet`, Back, then click `taskforce_view_entry/btn_composition_editor` | verified, mod and vanilla; the ship class picker opens with it |
 | A4 | `fleet_home_base` | `open_home_base_picker` | verified, mod and vanilla |
 | A4 | `fleet_transfer` | `select_fleet`, Back, then drag the first ship counter of the first task force onto the second task force | verified, mod and vanilla |
-| A5 | `recruit_deploy` | `open_recruit_deploy` (key `u`) | |
+| A5 | `recruit_deploy` | `open_recruit_deploy` (key `u`), Train on the first three templates and Add Unit three times on the first card | verified, mod and vanilla; extra captures: the name list of a line, the symbol picker, Italy's templates with the decommissioned ones (`tag ITA`); the scene's `teardown` switches back and cancels the training |
 | A6 | `army_overview` | `open_army_overview` (key `o`) | extra captures: navy (`p`) and air (`l`) tabs |
 | A7 | `air_wing_reorg` | `planes_into_reserve`, then click `airbase_selection_item/new_btn` | verified; disbands the Brandenburg wings, runs last |
 | A8 | `theatre_bar` | `select_army_1` | always on screen; the recipe selects its one army |

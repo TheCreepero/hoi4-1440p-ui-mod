@@ -1,0 +1,128 @@
+# Vanilla 1.19.3.0, interface/countrydeploymentview.gui, lines 755-878.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "military_deployment_line_view"
+		position = { x=-13 y=0 }
+		size = { width=520 height=40 }
+
+		background = {
+			name = "background"
+			quadTextureSprite ="GFX_military_deployment_line_view_bg"
+		}
+
+		dropDownBoxType = {
+			name = "division_name_dropdown"
+			position = { x = 5 y = 5 }
+			size = { width = 150 height = 30 }
+
+			editBoxType = {
+				name = "editbox"
+				position = { x = 3 y = 6 }
+				font = "hoi_16mbs"
+				size = { x=175 y=19 }
+			}
+
+			expandButton = {
+				name = "expand_button"
+				position = { x = 30 y = 7 }
+				quadTextureSprite ="GFX_collapse_or_close" # Frame 1 = down, 2 = up, 3 = cancel
+				buttonFont = "Main_14_black"
+				Orientation = "UPPER_RIGHT"
+				clicksound = click_default
+				scale = 0.8
+			}
+
+			expandedWindow = {
+				name = "expanded_window"
+				position = { x=-5 y= -300 }
+				show_position = { x = -5 y = 30 }
+				show_animation_type = decelerated
+				hide_animation_type = accelerated
+				animation_time = 300
+				size = { width=250 height=300 }
+				verticalScrollbar = "right_vertical_slider"
+				margin = { top = 7 bottom = 7 right = 6 }
+
+				background = {
+					name = "Background"
+					quadTextureSprite ="GFX_tiled_window_1b_thin_border"
+					position = { x = 0 y = 0 }
+				}
+
+				gridBoxType = {
+					name = "grid"
+					position = { x = 8 y = 0 }
+					size = { width = 250 height = 286 }
+					slotsize = { width = 250 height = 30 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+
+				instantTextboxType = {
+					name = "empty"
+					position = { x = 10 y = 130 }
+					font = "hoi_18mbs"
+					borderSize = {x = 0 y = 0}
+					maxWidth = 210
+					maxHeight = 60
+					format = center
+					text = "DEPLOYMENT_LINE_OUT_OF_NAMES"
+				}
+			}
+		}
+
+		iconType = {
+			name = "army_equipment"
+			spriteType = "GFX_equipment_state_icon"
+			position = { x=214 y=12 }
+		}
+
+		iconType = {
+			name = "equipment_progressbar"
+			spriteType = "GFX_deployment_entry_progressbar"
+			position = { x=235 y=13 }
+		}
+
+		iconType = {
+			name = "army_training"
+			spriteType = "GFX_unit_level"
+			position = { x=306 y=6 }
+			frame = 1
+		}
+
+		iconType = {
+			name = "training_progressbar"
+			spriteType = "GFX_deployment_entry_progressbar"
+			position = { x=329 y=13 }
+		}
+
+		instantTextboxType = {
+			name = "series_number"
+			position = { x = 398 y = 11 }
+			font = "hoi_16mbs"
+			borderSize = {x = 0 y = 0}
+			text = "1"
+			maxWidth = 65
+			maxHeight = 20
+			pdx_tooltip = "CONVEYOR_SERIES_CURRENT_AMOUNT_DESC"
+			format = center
+			fixedsize = yes
+		}
+
+		buttonType = {
+			name = "deploy_line_button"
+			position = { x=458 y=7 }
+			quadTextureSprite = "GFX_deploy_line_button"
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "cancel_line_button"
+			position = { x=484 y=7 }
+			quadTextureSprite = "GFX_closebutton_small"
+			pdx_tooltip = "CONVEYOR_LINE_CANCEL_DESC"
+			clicksound = click_close
+		}
+	}
+}
