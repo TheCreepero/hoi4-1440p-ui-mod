@@ -127,6 +127,50 @@ python -I tools\render_gui.py --scene <scene> --verify <capture.png> --expect <w
 
 Each `VERIFY` line gives the offset between the layout and the game, up to 20 px each way. Add the offset to `at` and run it again until it reads `0 0`. For a window that is further off, read its top-left corner from a grid capture first. `--vanilla` lays the scene out without the mod, for a vanilla capture. A window the code places next to others sits elsewhere in vanilla, because its neighbours have other sizes: give it an `atVanilla` beside `at` (the wing list frame is at 2,168 with the mod and at 2,197 without).
 
+## Letting time run
+
+A check stays paused unless time is what it checks. The user allows up to ten days inside January 1936: copy `autosave.hoi4` first and compare its hash afterwards, never save, and never let a month pass ([Scripted GUIs](Scripted-GUIs.md), "Working on a page").
+
+- **Speed** is set with the plus button of the clock at (2428, 20): three clicks from speed 1 to speed 4. The number keys do not set it.
+- **Space** runs and pauses. Speed 4 is nine to ten game hours a second on this machine: five seconds are about two days.
+- **Read the clock after every burst**: `-Region 2050,0,510,120` gives it enlarged.
+- The daily round of the scripted pages runs at midnight, so something that happened on the 3rd is in the Records on the 4th.
+
+```powershell
+.\tools\Invoke-GameSteps.ps1 -Reset -Name t1 -Region 2050,0,510,120 -Steps '[{"click":[2428,20],"wait":0.4},{"click":[2428,20],"wait":0.4},{"click":[2428,20],"wait":0.4},{"key":"space","wait":5.0},{"key":"space","wait":1.0}]'
+```
+
+## With another mod loaded
+
+`Invoke-GameSteps.ps1 -Start` and `Invoke-GameCheck.ps1` load this mod alone. The user plays with dozens of mods, and what a mod adds can behave unlike the game's own content: generals a mod adds by event were missing from the Officers list in every check made with this mod alone ([Engine Facts](Engine-Facts.md) X66). A page that reads characters, leaders, states or equipment is therefore also checked with one such mod beside this one.
+
+```powershell
+.\build.ps1 -DevLink                      # this way of starting does not check where the launcher file points
+. .\tools\GameHarness.ps1
+Set-HoiPlayset -Mods @('mod/ugc_2978117558.mod', 'mod/hoi4-1440p-ui-mod.mod') | Out-Null
+Start-Hoi4 | Out-Null
+Start-HoiNewGame
+```
+
+- The launcher's files are in `Documents\Paradox Interactive\Hearts of Iron IV\mod`; the `name` line of each says which mod it is. This mod goes last.
+- From there on `Invoke-GameSteps.ps1` works as always, and `-Stop` puts the user's playset back.
+- Another country: the console command `tag USA`. The scripted pages follow, and their first daily round for that country runs at the next midnight.
+- An event of the other mod: `event <id>` in the console, then a click on its option.
+
+## Effects for a check
+
+`python -I tools/check_effects.py` writes `common/scripted_effects/mod1440_check.txt`, and a game left open reads it within seconds. `--restore` removes it; the test suite fails while it is there. Each effect is run from the console with nothing selected (`{"console":"effect mod1440_chk_war"}`) and changes the game of the check, which is never saved. What an effect finds out goes to `game.log` as a line that starts with "MOD1440".
+
+| For | Effects |
+|---|---|
+| events while paused, as Germany | `war`, `war2`, `peace`, `annex`, `puppet`, `state`, `state2`, `capital`, `vp1` to `vp3` after `sync`, `officers`, `gen`, `retire`, `hire` |
+| officers without a number (X66), without another mod | `by_effect` gives two characters a command by effect |
+| the rounds of the mod | `daily`, `refs` (the search for places), `time` (400 victory point comparisons) |
+| a game as something else left it | `old` (the logs of an earlier build), `shift` (the game's list of characters changed) |
+| the History page | `months`, `months_old`, `months_few`: made-up months |
+| numbers | `leaders`, `sizes`, `log` |
+
+
 ## Pitfalls
 
 - **State leaks between recipes.** Opening the navy overview switches the map mode, and the bottom bar then lists fleets where the army portraits were. The reset presses F1 for that reason; a recipe that needs another map mode must set it itself.
@@ -143,4 +187,5 @@ Each `VERIFY` line gives the offset between the layout and the game, up to 20 px
 - **A click only counts while the game is in front.** The harness checks before every key and click and stops with an error otherwise. Moving the mouse during a run still derails it.
 - **Positions are for 2560x1440 at 100 % UI scale.**
 - **A scripted page remembers whether it is open**, per country, in a variable. A recipe that opens one with Shift+M closes it again in its `teardown`, or the next run of the same recipe closes it instead of opening it.
+- **A named click on a page that is not up lands on the map** and selects whatever is there. After a reset the States page is as it was left, National Figures and History are closed. Look at the capture before the next step when a page was opened by a toggle.
 - **The scenes of the scripted pages are written by `tools/build_managers.py`.** Change them there; the test suite fails when a scene file on disk differs.

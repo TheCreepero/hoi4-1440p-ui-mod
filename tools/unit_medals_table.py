@@ -1,5 +1,5 @@
 """The game's unit medals (By Blood Alone), copied from common/unit_medals/00_default.txt of version 1.19.3 with
-scratch/list_medals.py: (id, icon strip, frame, the condition under which a country has the medal).
+tools/list_medals.py: (id, icon strip, frame, the condition under which a country has the medal).
 
 The id is also the text key of the medal's name. tools/build_records.py offers these medals as decorations for
 officers (wiki/phases/E2-officer-records.md): a record of the mod, with no effect in the game.
