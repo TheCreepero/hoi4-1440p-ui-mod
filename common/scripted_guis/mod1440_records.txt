@@ -120,6 +120,10 @@ scripted_gui = {
 			}
 			wd_row_go_click = {
 				set_temp_variable = { wd_state = mod1440_wd_a^i }
+				if = {
+					limit = { check_variable = { mod1440_wd_sa^i = 3 } }
+					set_temp_variable = { wd_state = mod1440_wd_p^i }
+				}
 				var:wd_state = {
 					ROOT = {
 						goto_state = PREV
@@ -162,10 +166,14 @@ scripted_gui = {
 				check_variable = { mod1440_odd^i = 1 }
 			}
 			wd_row_go_visible = {
-				check_variable = { mod1440_wd_sa^i = 2 }
+				check_variable = { mod1440_wd_sa^i > 1 }
 			}
 			wd_row_a_visible = {
 				check_variable = { mod1440_wd_sa^i > 0 }
+				check_variable = { mod1440_wd_sa^i < 3 }
+			}
+			wd_row_point_visible = {
+				check_variable = { mod1440_wd_sa^i = 3 }
 			}
 			wd_row_b_visible = {
 				check_variable = { mod1440_wd_sb^i > 0 }
@@ -174,6 +182,9 @@ scripted_gui = {
 			wd_row_b_near_visible = {
 				check_variable = { mod1440_wd_sb^i > 0 }
 				check_variable = { mod1440_wd_sa^i = 0 }
+			}
+			wd_row_c_visible = {
+				check_variable = { mod1440_wd_sc^i = 1 }
 			}
 		}
 
@@ -232,11 +243,17 @@ scripted_gui = {
 			of_show_former = {
 				frame = mod1440_of_frame_5
 			}
+			of_row_face = {
+				image = "[?mod1440_p.GetTokenKey]"
+			}
 			of_arrow_down = {
 				x = mod1440_of_arrow_x
 			}
 			of_arrow_up = {
 				x = mod1440_of_arrow_x
+			}
+			of_c_face = {
+				image = "[?mod1440_of_c_p.GetTokenKey]"
 			}
 			of_c_rack_0_aus = {
 				frame = mod1440_of_c_dec_frame^0
@@ -1500,7 +1517,7 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 1 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 373 }
+				set_variable = { mod1440_of_arrow_x = 421 }
 				mod1440_of_list = yes
 			}
 			of_sort_atk_click = {
@@ -1518,7 +1535,7 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 2 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 425 }
+				set_variable = { mod1440_of_arrow_x = 473 }
 				mod1440_of_list = yes
 			}
 			of_sort_def_click = {
@@ -1536,7 +1553,7 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 3 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 477 }
+				set_variable = { mod1440_of_arrow_x = 525 }
 				mod1440_of_list = yes
 			}
 			of_sort_c3_click = {
@@ -1554,7 +1571,7 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 4 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 529 }
+				set_variable = { mod1440_of_arrow_x = 577 }
 				mod1440_of_list = yes
 			}
 			of_sort_c4_click = {
@@ -1572,7 +1589,7 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 5 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 581 }
+				set_variable = { mod1440_of_arrow_x = 629 }
 				mod1440_of_list = yes
 			}
 			of_sort_traits_click = {
@@ -1590,7 +1607,7 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 6 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 637 }
+				set_variable = { mod1440_of_arrow_x = 685 }
 				mod1440_of_list = yes
 			}
 			of_sort_cmd_click = {
@@ -1608,7 +1625,7 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 7 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 697 }
+				set_variable = { mod1440_of_arrow_x = 745 }
 				mod1440_of_list = yes
 			}
 			of_sort_won_click = {
@@ -1626,7 +1643,7 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 8 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 753 }
+				set_variable = { mod1440_of_arrow_x = 801 }
 				mod1440_of_list = yes
 			}
 			of_sort_lost_click = {
@@ -1644,7 +1661,7 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 9 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 809 }
+				set_variable = { mod1440_of_arrow_x = 857 }
 				mod1440_of_list = yes
 			}
 			of_sort_dec_click = {
@@ -1662,10 +1679,11 @@ scripted_gui = {
 					set_variable = { mod1440_of_sort_by = 10 }
 					set_variable = { mod1440_of_up = 0 }
 				}
-				set_variable = { mod1440_of_arrow_x = 893 }
+				set_variable = { mod1440_of_arrow_x = 941 }
 				mod1440_of_list = yes
 			}
 			of_row_click = {
+				mod1440_of_me = yes
 				ROOT = {
 					if = {
 						limit = { check_variable = { mod1440_of_has_sel = 1 } }
@@ -1673,7 +1691,7 @@ scripted_gui = {
 							set_variable = { mod1440_of_picked = 0 }
 						}
 					}
-					set_variable = { mod1440_of_sel = PREV }
+					set_variable = { mod1440_of_sel = of_me }
 					set_variable = { mod1440_of_has_sel = 1 }
 				}
 				set_variable = { mod1440_of_picked = 1 }
@@ -1743,6 +1761,9 @@ scripted_gui = {
 				check_variable = { mod1440_of_sort_by > 0 }
 				check_variable = { mod1440_of_up = 1 }
 			}
+			of_c_face_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+			}
 			of_c_name_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 			}
@@ -1811,6 +1832,24 @@ scripted_gui = {
 				check_variable = { mod1440_of_has_sel = 1 }
 			}
 			of_c_states_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+			}
+			of_c_vps_bg_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+			}
+			of_c_vps_l_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+			}
+			of_c_vps_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+			}
+			of_c_vpl_bg_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+			}
+			of_c_vpl_l_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+			}
+			of_c_vpl_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 			}
 			of_c_since_visible = {
@@ -1962,14 +2001,6 @@ scripted_gui = {
 				check_variable = { mod1440_of_c_dec_n > 0 }
 				check_variable = { mod1440_of_c_dec_set^0 = 20 }
 			}
-			of_c_dec_0_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 0 }
-			}
-			of_c_dec_0_d_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 0 }
-			}
 			of_c_rack_1_aus_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_c_dec_n > 1 }
@@ -2074,14 +2105,6 @@ scripted_gui = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_c_dec_n > 1 }
 				check_variable = { mod1440_of_c_dec_set^1 = 20 }
-			}
-			of_c_dec_1_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 1 }
-			}
-			of_c_dec_1_d_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 1 }
 			}
 			of_c_rack_2_aus_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
@@ -2188,14 +2211,6 @@ scripted_gui = {
 				check_variable = { mod1440_of_c_dec_n > 2 }
 				check_variable = { mod1440_of_c_dec_set^2 = 20 }
 			}
-			of_c_dec_2_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 2 }
-			}
-			of_c_dec_2_d_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 2 }
-			}
 			of_c_rack_3_aus_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_c_dec_n > 3 }
@@ -2300,14 +2315,6 @@ scripted_gui = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_c_dec_n > 3 }
 				check_variable = { mod1440_of_c_dec_set^3 = 20 }
-			}
-			of_c_dec_3_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 3 }
-			}
-			of_c_dec_3_d_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 3 }
 			}
 			of_c_rack_4_aus_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
@@ -2414,14 +2421,6 @@ scripted_gui = {
 				check_variable = { mod1440_of_c_dec_n > 4 }
 				check_variable = { mod1440_of_c_dec_set^4 = 20 }
 			}
-			of_c_dec_4_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 4 }
-			}
-			of_c_dec_4_d_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 4 }
-			}
 			of_c_rack_5_aus_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_c_dec_n > 5 }
@@ -2526,14 +2525,6 @@ scripted_gui = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_c_dec_n > 5 }
 				check_variable = { mod1440_of_c_dec_set^5 = 20 }
-			}
-			of_c_dec_5_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 5 }
-			}
-			of_c_dec_5_d_visible = {
-				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 5 }
 			}
 			of_c_rack_6_aus_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
@@ -2640,13 +2631,45 @@ scripted_gui = {
 				check_variable = { mod1440_of_c_dec_n > 6 }
 				check_variable = { mod1440_of_c_dec_set^6 = 20 }
 			}
-			of_c_dec_6_visible = {
+			of_c_dec_0_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 6 }
+				check_variable = { mod1440_of_c_dec_n > 0 }
 			}
-			of_c_dec_6_d_visible = {
+			of_c_dec_0_d_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
-				check_variable = { mod1440_of_c_dec_n > 6 }
+				check_variable = { mod1440_of_c_dec_n > 0 }
+			}
+			of_c_dec_1_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_c_dec_n > 1 }
+			}
+			of_c_dec_1_d_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_c_dec_n > 1 }
+			}
+			of_c_dec_2_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_c_dec_n > 2 }
+			}
+			of_c_dec_2_d_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_c_dec_n > 2 }
+			}
+			of_c_dec_3_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_c_dec_n > 3 }
+			}
+			of_c_dec_3_d_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_c_dec_n > 3 }
+			}
+			of_c_dec_4_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_c_dec_n > 4 }
+			}
+			of_c_dec_4_d_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_c_dec_n > 4 }
 			}
 			of_md_title_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
@@ -3869,6 +3892,16 @@ scripted_gui = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 0 }
 			}
+			of_ln_0_s_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 0 }
+				check_variable = { mod1440_of_ln_sa^0 = 2 }
+			}
+			of_ln_0_p_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 0 }
+				check_variable = { mod1440_of_ln_sa^0 = 3 }
+			}
 			of_ln_1_d_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 1 }
@@ -3876,6 +3909,16 @@ scripted_gui = {
 			of_ln_1_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 1 }
+			}
+			of_ln_1_s_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 1 }
+				check_variable = { mod1440_of_ln_sa^1 = 2 }
+			}
+			of_ln_1_p_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 1 }
+				check_variable = { mod1440_of_ln_sa^1 = 3 }
 			}
 			of_ln_2_d_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
@@ -3885,6 +3928,16 @@ scripted_gui = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 2 }
 			}
+			of_ln_2_s_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 2 }
+				check_variable = { mod1440_of_ln_sa^2 = 2 }
+			}
+			of_ln_2_p_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 2 }
+				check_variable = { mod1440_of_ln_sa^2 = 3 }
+			}
 			of_ln_3_d_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 3 }
@@ -3892,6 +3945,16 @@ scripted_gui = {
 			of_ln_3_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 3 }
+			}
+			of_ln_3_s_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 3 }
+				check_variable = { mod1440_of_ln_sa^3 = 2 }
+			}
+			of_ln_3_p_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 3 }
+				check_variable = { mod1440_of_ln_sa^3 = 3 }
 			}
 			of_ln_4_d_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
@@ -3901,6 +3964,16 @@ scripted_gui = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 4 }
 			}
+			of_ln_4_s_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 4 }
+				check_variable = { mod1440_of_ln_sa^4 = 2 }
+			}
+			of_ln_4_p_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 4 }
+				check_variable = { mod1440_of_ln_sa^4 = 3 }
+			}
 			of_ln_5_d_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 5 }
@@ -3909,6 +3982,16 @@ scripted_gui = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 5 }
 			}
+			of_ln_5_s_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 5 }
+				check_variable = { mod1440_of_ln_sa^5 = 2 }
+			}
+			of_ln_5_p_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 5 }
+				check_variable = { mod1440_of_ln_sa^5 = 3 }
+			}
 			of_ln_6_d_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 6 }
@@ -3916,6 +3999,16 @@ scripted_gui = {
 			of_ln_6_visible = {
 				check_variable = { mod1440_of_has_sel = 1 }
 				check_variable = { mod1440_of_ln_n > 6 }
+			}
+			of_ln_6_s_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 6 }
+				check_variable = { mod1440_of_ln_sa^6 = 2 }
+			}
+			of_ln_6_p_visible = {
+				check_variable = { mod1440_of_has_sel = 1 }
+				check_variable = { mod1440_of_ln_date^num > 6 }
+				check_variable = { mod1440_of_ln_sa^6 = 3 }
 			}
 			of_row_stripe_visible = {
 				check_variable = { mod1440_of_odd = 1 }
@@ -4008,6 +4101,12 @@ scripted_gui = {
 			}
 			gv_tab_3 = {
 				frame = mod1440_rec_tab_3
+			}
+			gv_flag = {
+				image = "[ROOT.GetFlag]"
+			}
+			gv_face = {
+				image = "[?mod1440_gv_p.GetTokenKey]"
 			}
 			gv_p_0_bar = {
 				frame = mod1440_gv_pop_0
@@ -4190,6 +4289,24 @@ scripted_gui = {
 			wr_row_bar = {
 				frame = v
 			}
+			wr_c_flag_us = {
+				image = "[ROOT.GetFlag]"
+			}
+			wr_c_flag_them = {
+				image = "[?mod1440_wr_c_enemy.GetFlag]"
+			}
+			wr_c_face_us = {
+				image = "[?mod1440_gv_p.GetTokenKey]"
+			}
+			wr_c_face_them = {
+				image = "[?mod1440_wr_c_p.GetTokenKey]"
+			}
+			wr_c_their_bar = {
+				frame = mod1440_wr_c_surr
+			}
+			wr_c_our_bar = {
+				frame = mod1440_wr_c_ours
+			}
 		}
 
 		effects = {
@@ -4212,6 +4329,16 @@ scripted_gui = {
 			wr_close_click = {
 				set_variable = { mod1440_rec_open = 0 }
 			}
+			wr_row_click = {
+				set_variable = { mod1440_wr_sel_kind = 1 }
+				set_variable = { mod1440_wr_sel_i = i }
+				mod1440_wr_card = yes
+			}
+			wo_row_click = {
+				set_variable = { mod1440_wr_sel_kind = 2 }
+				set_variable = { mod1440_wr_sel_i = i }
+				mod1440_wr_card = yes
+			}
 		}
 
 		triggers = {
@@ -4224,23 +4351,552 @@ scripted_gui = {
 			wr_row_stripe_visible = {
 				check_variable = { mod1440_odd^i = 1 }
 			}
+			wr_row_pick_visible = {
+				check_variable = { mod1440_wr_sel_kind = 1 }
+				check_variable = { mod1440_wr_sel_i = i }
+			}
 			wr_row_since_visible = {
 				NOT = { check_variable = { mod1440_wr_old^i = 1 } }
 			}
 			wr_row_since_old_visible = {
 				check_variable = { mod1440_wr_old^i = 1 }
 			}
-			wr_row_outcome_visible = {
-				check_variable = { mod1440_wr_capd^i > 0 }
-			}
 			wo_row_stripe_visible = {
 				check_variable = { mod1440_odd^i = 1 }
+			}
+			wo_row_pick_visible = {
+				check_variable = { mod1440_wr_sel_kind = 2 }
+				check_variable = { mod1440_wr_sel_i = i }
 			}
 			wo_row_since_visible = {
 				NOT = { check_variable = { mod1440_wo_old^i = 1 } }
 			}
 			wo_row_since_old_visible = {
 				check_variable = { mod1440_wo_old^i = 1 }
+			}
+			wr_c_none_visible = {
+				NOT = { check_variable = { mod1440_wr_c_has = 1 } }
+			}
+			wr_c_them_0_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_c_exists = 1 }
+			}
+			wr_c_them_1_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_c_exists = 1 }
+			}
+			wr_c_them_2_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_c_exists = 1 }
+			}
+			wr_c_gone_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				NOT = { check_variable = { mod1440_wr_c_exists = 1 } }
+			}
+			wr_c_face_them_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_c_exists = 1 }
+			}
+			wr_c_since_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_c_old = 0 }
+			}
+			wr_c_since_old_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_c_old = 1 }
+			}
+			wr_c_until_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_sel_kind = 2 }
+			}
+			wr_c_until_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_sel_kind = 2 }
+			}
+			wr_c_outcome_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_sel_kind = 2 }
+			}
+			wr_c_capd_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_sel_kind = 1 }
+				check_variable = { mod1440_wr_c_capd > 0 }
+			}
+			wr_c_days_bg_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_days_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_days_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_cas_bg_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_cas_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_cas_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_taken_bg_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_taken_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_taken_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_lost_bg_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_lost_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_lost_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_vpt_bg_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_vpt_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_vpt_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_vpl_bg_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_vpl_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_vpl_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_their_bg_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_sel_kind = 1 }
+			}
+			wr_c_their_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_sel_kind = 1 }
+			}
+			wr_c_their_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_sel_kind = 1 }
+			}
+			wr_c_their_bar_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_sel_kind = 1 }
+			}
+			wr_c_our_bg_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_our_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_our_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_our_bar_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_ln_none_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n < 1 }
+			}
+			wr_ln_0_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 0 }
+			}
+			wr_ln_0_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 0 }
+			}
+			wr_ln_0_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 0 }
+				check_variable = { mod1440_wr_ln_sa^0 = 2 }
+			}
+			wr_ln_0_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 0 }
+				check_variable = { mod1440_wr_ln_sa^0 = 3 }
+			}
+			wr_ln_1_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 1 }
+			}
+			wr_ln_1_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 1 }
+			}
+			wr_ln_1_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 1 }
+				check_variable = { mod1440_wr_ln_sa^1 = 2 }
+			}
+			wr_ln_1_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 1 }
+				check_variable = { mod1440_wr_ln_sa^1 = 3 }
+			}
+			wr_ln_2_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 2 }
+			}
+			wr_ln_2_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 2 }
+			}
+			wr_ln_2_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 2 }
+				check_variable = { mod1440_wr_ln_sa^2 = 2 }
+			}
+			wr_ln_2_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 2 }
+				check_variable = { mod1440_wr_ln_sa^2 = 3 }
+			}
+			wr_ln_3_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 3 }
+			}
+			wr_ln_3_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 3 }
+			}
+			wr_ln_3_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 3 }
+				check_variable = { mod1440_wr_ln_sa^3 = 2 }
+			}
+			wr_ln_3_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 3 }
+				check_variable = { mod1440_wr_ln_sa^3 = 3 }
+			}
+			wr_ln_4_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 4 }
+			}
+			wr_ln_4_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 4 }
+			}
+			wr_ln_4_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 4 }
+				check_variable = { mod1440_wr_ln_sa^4 = 2 }
+			}
+			wr_ln_4_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 4 }
+				check_variable = { mod1440_wr_ln_sa^4 = 3 }
+			}
+			wr_ln_5_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 5 }
+			}
+			wr_ln_5_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 5 }
+			}
+			wr_ln_5_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 5 }
+				check_variable = { mod1440_wr_ln_sa^5 = 2 }
+			}
+			wr_ln_5_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 5 }
+				check_variable = { mod1440_wr_ln_sa^5 = 3 }
+			}
+			wr_ln_6_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 6 }
+			}
+			wr_ln_6_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 6 }
+			}
+			wr_ln_6_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 6 }
+				check_variable = { mod1440_wr_ln_sa^6 = 2 }
+			}
+			wr_ln_6_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 6 }
+				check_variable = { mod1440_wr_ln_sa^6 = 3 }
+			}
+			wr_ln_7_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 7 }
+			}
+			wr_ln_7_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 7 }
+			}
+			wr_ln_7_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 7 }
+				check_variable = { mod1440_wr_ln_sa^7 = 2 }
+			}
+			wr_ln_7_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 7 }
+				check_variable = { mod1440_wr_ln_sa^7 = 3 }
+			}
+			wr_ln_8_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 8 }
+			}
+			wr_ln_8_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 8 }
+			}
+			wr_ln_8_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 8 }
+				check_variable = { mod1440_wr_ln_sa^8 = 2 }
+			}
+			wr_ln_8_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 8 }
+				check_variable = { mod1440_wr_ln_sa^8 = 3 }
+			}
+			wr_ln_9_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 9 }
+			}
+			wr_ln_9_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 9 }
+			}
+			wr_ln_9_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 9 }
+				check_variable = { mod1440_wr_ln_sa^9 = 2 }
+			}
+			wr_ln_9_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 9 }
+				check_variable = { mod1440_wr_ln_sa^9 = 3 }
+			}
+			wr_ln_10_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 10 }
+			}
+			wr_ln_10_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 10 }
+			}
+			wr_ln_10_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 10 }
+				check_variable = { mod1440_wr_ln_sa^10 = 2 }
+			}
+			wr_ln_10_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 10 }
+				check_variable = { mod1440_wr_ln_sa^10 = 3 }
+			}
+			wr_ln_11_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 11 }
+			}
+			wr_ln_11_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 11 }
+			}
+			wr_ln_11_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 11 }
+				check_variable = { mod1440_wr_ln_sa^11 = 2 }
+			}
+			wr_ln_11_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 11 }
+				check_variable = { mod1440_wr_ln_sa^11 = 3 }
+			}
+			wr_ln_12_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 12 }
+			}
+			wr_ln_12_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 12 }
+			}
+			wr_ln_12_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 12 }
+				check_variable = { mod1440_wr_ln_sa^12 = 2 }
+			}
+			wr_ln_12_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 12 }
+				check_variable = { mod1440_wr_ln_sa^12 = 3 }
+			}
+			wr_ln_13_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 13 }
+			}
+			wr_ln_13_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 13 }
+			}
+			wr_ln_13_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 13 }
+				check_variable = { mod1440_wr_ln_sa^13 = 2 }
+			}
+			wr_ln_13_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 13 }
+				check_variable = { mod1440_wr_ln_sa^13 = 3 }
+			}
+			wr_ln_14_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 14 }
+			}
+			wr_ln_14_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 14 }
+			}
+			wr_ln_14_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 14 }
+				check_variable = { mod1440_wr_ln_sa^14 = 2 }
+			}
+			wr_ln_14_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 14 }
+				check_variable = { mod1440_wr_ln_sa^14 = 3 }
+			}
+			wr_ln_15_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 15 }
+			}
+			wr_ln_15_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 15 }
+			}
+			wr_ln_15_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 15 }
+				check_variable = { mod1440_wr_ln_sa^15 = 2 }
+			}
+			wr_ln_15_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 15 }
+				check_variable = { mod1440_wr_ln_sa^15 = 3 }
+			}
+			wr_ln_16_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 16 }
+			}
+			wr_ln_16_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 16 }
+			}
+			wr_ln_16_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 16 }
+				check_variable = { mod1440_wr_ln_sa^16 = 2 }
+			}
+			wr_ln_16_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 16 }
+				check_variable = { mod1440_wr_ln_sa^16 = 3 }
+			}
+			wr_ln_17_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 17 }
+			}
+			wr_ln_17_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 17 }
+			}
+			wr_ln_17_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 17 }
+				check_variable = { mod1440_wr_ln_sa^17 = 2 }
+			}
+			wr_ln_17_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 17 }
+				check_variable = { mod1440_wr_ln_sa^17 = 3 }
+			}
+			wr_ln_18_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 18 }
+			}
+			wr_ln_18_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 18 }
+			}
+			wr_ln_18_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 18 }
+				check_variable = { mod1440_wr_ln_sa^18 = 2 }
+			}
+			wr_ln_18_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 18 }
+				check_variable = { mod1440_wr_ln_sa^18 = 3 }
+			}
+			wr_ln_19_d_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 19 }
+			}
+			wr_ln_19_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_n > 19 }
+			}
+			wr_ln_19_s_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 19 }
+				check_variable = { mod1440_wr_ln_sa^19 = 2 }
+			}
+			wr_ln_19_p_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+				check_variable = { mod1440_wr_ln_date^num > 19 }
+				check_variable = { mod1440_wr_ln_sa^19 = 3 }
+			}
+			wr_c_us_0_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_us_1_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_us_2_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_flag_us_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_flag_them_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_us_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_them_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_face_us_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_c_since_l_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
+			}
+			wr_ln_title_visible = {
+				check_variable = { mod1440_wr_c_has = 1 }
 			}
 		}
 
@@ -4312,6 +4968,10 @@ scripted_gui = {
 					set_temp_variable = { ev_a = THIS }
 					set_temp_variable = { ev_sb = 0 }
 					set_temp_variable = { ev_b = 0 }
+					set_temp_variable = { ev_so = 0 }
+					set_temp_variable = { ev_o = 0 }
+					set_temp_variable = { ev_p = 0 }
+					set_temp_variable = { ev_x = 0 }
 					ROOT = {
 						mod1440_tr_add = yes
 						add_to_variable = { mod1440_hn_count = hn_n }

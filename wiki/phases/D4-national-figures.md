@@ -41,8 +41,35 @@ Not seen in game:
 - A month dropped after ten years by the real recording (the made-up months did drop: 130 written, 120 kept).
 - A modifier that changes while the page is open.
 
+## Rework of the look (2026-10-12)
+
+Part of the pass the user asked for after the Records had been polished ([D2 notes](D2-army-readiness.md), same section).
+
+National Figures:
+
+- **What changed.** What the country has today moved out of the cards into a band across the top: ten tiles (the three kinds of factories with their icon and, in grey, how many are free or idle; research slots, technologies, states, convoys, trains, ships, planes), and under them stability, war support and fuel as wide bars and the four parties as small ones. The modifiers stand in eight cards instead of six: Economy went into the tiles, "Manpower, Research, Intelligence" was split, and Occupation and Diplomacy is new (eight modifiers: compliance growth, resistance target, growth and decay, required garrisons, surrender limit, guarantee cost, volunteer divisions). A modifier of 0 keeps its name in grey; before, only its value was missing. Every second row is on a darker band. The resource table has heads of its own (its title ran into them) and the icon of each resource.
+- **Decided:** "Stability now" and "War support now" are bars, not rows. The bars are filled by an effect (`mod1440_nf_bars`) when the page opens and each day; the numbers beside them stay live. The grey name is a second text under the white one, which a trigger shows when the modifier is not 0.
+
+History:
+
+- **What changed.** The twelve buttons became a table: the figure, its newest month, and the change in a month and in a year in green or red. The graph has its own card with five tiles (newest, highest, lowest, change since the first month, months on record), four bands for the quarters of the scale with five numbers beside them, the year under the first column of each year, and a Zoom in switch that lets the columns start at the lowest month. The page is as wide as National Figures (1664 px); a column is 6 px wide instead of 9.
+- **Decided:** numbers are written with the decimals of their figure (30 divisions, 1332.6 thousand men): two texts per number, one of which a trigger shows. The lowest month is found with a loop of the page's own, because no script of the game uses `find_lowest_in_array`. The year marks are texts of the page that script moves (as the arrow of a sorted column), not a text in each column: a column is 8 px wide and would cut it. A record carries its year from now on; older months get no mark.
+- A page left open in a saved game is drawn again by the daily hook (it is drawn only when its `dirty` variable changes).
+
+Both: **not checked in game on 2026-10-12** (the launch was refused that session, see D2). The user installed the build on 2026-10-13 and played with it: "Overall I'm very happy with the results"; the error log of that session names the mod nowhere.
+
+**Checked in game on 2026-10-13**, cold start through `tools/Invoke-GameCheck.ps1` (`reference/mod/national_figures-panel.png`, `history-panel.png`):
+
+- National Figures as the renderer drew it. The bars agree with the numbers beside them: stability 81.0%, war support 35.0%, fuel 297K of 371K, the parties 40, 35, 10, 15. The tiles: 35, 28 and 10 factories with their icons and "20 free", "8 idle", "0 idle" in grey. A modifier of 0 has a grey name, one with a value a white name. The resource table reads 3, 104, -5, 3, 177, 1, 195, as in the first check. Occupation and Diplomacy: compliance growth -2.0%, resistance target +5.0%, surrender limit -9.0%, the other five grey; not compared with a tooltip of the game.
+- History with the one month of a new game: the table of twelve figures with the newest month (free manpower 1332.6, 30 divisions, 35, 28 and 10 factories, stability 81.0), the band of the chosen row, the five tiles, the scale with its four bands, one column, the date under each end of the graph.
+
+**Checked with made-up months the same day** (`python -I scratch/h_test.py`, then `effect mod1440_h_test`, `_old` and `_few` in the console; `scratch/checks/b_h1-*` to `b_h4-*`): 120 columns after 130 months were written (the oldest ten forgotten); the year marks 1937 to 1946 under the first column of each year; the table with the change in a month and in a year in green and red, for casualties the other way round; the tiles (highest 25641.0, lowest 9100.0, +16541.0 since the first month, 120 months); Zoom in with the scale from 9100.0; seven months, where the four bands of the scale show; and the months of an older save without years (no marks, nothing else amiss). `python -I tools/build_managers.py` wrote the effects file back.
+
+**Left unseen:** a month written by `on_monthly` with its year in a check. It runs in the user's game.
+
 ## Close
 
+- [x] The rework of 2026-10-12 seen in game, and `reference/mod/national_figures*` and `history*` stored again (2026-10-13)
 - [x] Roadmap status and link
 - [x] README and Workshop description
 - [x] Scene files (`tools/scenes/national_figures.json`, `history.json`, written by the tool)

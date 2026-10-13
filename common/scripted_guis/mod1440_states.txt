@@ -89,7 +89,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 1 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 293 }
 				mod1440_st_list = yes
 			}
 			st_sort_infra_click = {
@@ -107,7 +106,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 2 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 345 }
 				mod1440_st_list = yes
 			}
 			st_sort_civ_click = {
@@ -125,7 +123,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 3 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 397 }
 				mod1440_st_list = yes
 			}
 			st_sort_mil_click = {
@@ -143,7 +140,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 4 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 449 }
 				mod1440_st_list = yes
 			}
 			st_sort_dock_click = {
@@ -161,7 +157,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 5 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 501 }
 				mod1440_st_list = yes
 			}
 			st_sort_refinery_click = {
@@ -179,7 +174,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 6 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 553 }
 				mod1440_st_list = yes
 			}
 			st_sort_silo_click = {
@@ -197,7 +191,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 7 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 605 }
 				mod1440_st_list = yes
 			}
 			st_sort_air_click = {
@@ -215,7 +208,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 8 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 657 }
 				mod1440_st_list = yes
 			}
 			st_sort_aa_click = {
@@ -233,7 +225,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 9 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 709 }
 				mod1440_st_list = yes
 			}
 			st_sort_radar_click = {
@@ -251,7 +242,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 10 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 761 }
 				mod1440_st_list = yes
 			}
 			st_sort_oil_click = {
@@ -269,7 +259,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 11 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 817 }
 				mod1440_st_list = yes
 			}
 			st_sort_aluminium_click = {
@@ -287,7 +276,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 12 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 873 }
 				mod1440_st_list = yes
 			}
 			st_sort_rubber_click = {
@@ -305,7 +293,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 13 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 929 }
 				mod1440_st_list = yes
 			}
 			st_sort_tungsten_click = {
@@ -323,7 +310,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 14 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 985 }
 				mod1440_st_list = yes
 			}
 			st_sort_steel_click = {
@@ -341,7 +327,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 15 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 1041 }
 				mod1440_st_list = yes
 			}
 			st_sort_chromium_click = {
@@ -359,7 +344,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 16 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 1097 }
 				mod1440_st_list = yes
 			}
 			st_sort_coal_click = {
@@ -377,7 +361,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 17 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 1153 }
 				mod1440_st_list = yes
 			}
 			st_sort_pop_click = {
@@ -395,7 +378,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 18 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 1237 }
 				mod1440_st_list = yes
 			}
 			st_sort_compliance_click = {
@@ -413,7 +395,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 19 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 1297 }
 				mod1440_st_list = yes
 			}
 			st_sort_resistance_click = {
@@ -431,7 +412,6 @@ scripted_gui = {
 					set_variable = { mod1440_st_sort_by = 20 }
 					set_variable = { mod1440_st_up = 0 }
 				}
-				set_variable = { mod1440_st_arrow_x = 1357 }
 				mod1440_st_list = yes
 			}
 			st_row_click = {
@@ -444,6 +424,60 @@ scripted_gui = {
 		}
 
 		triggers = {
+			st_total_free_visible = {
+				check_variable = { mod1440_st_sum_free > 0 }
+			}
+			st_total_infra_visible = {
+				check_variable = { mod1440_st_sum_infra > 0 }
+			}
+			st_total_civ_visible = {
+				check_variable = { mod1440_st_sum_civ > 0 }
+			}
+			st_total_mil_visible = {
+				check_variable = { mod1440_st_sum_mil > 0 }
+			}
+			st_total_dock_visible = {
+				check_variable = { mod1440_st_sum_dock > 0 }
+			}
+			st_total_refinery_visible = {
+				check_variable = { mod1440_st_sum_refinery > 0 }
+			}
+			st_total_silo_visible = {
+				check_variable = { mod1440_st_sum_silo > 0 }
+			}
+			st_total_air_visible = {
+				check_variable = { mod1440_st_sum_air > 0 }
+			}
+			st_total_aa_visible = {
+				check_variable = { mod1440_st_sum_aa > 0 }
+			}
+			st_total_radar_visible = {
+				check_variable = { mod1440_st_sum_radar > 0 }
+			}
+			st_total_oil_visible = {
+				check_variable = { mod1440_st_sum_oil > 0 }
+			}
+			st_total_aluminium_visible = {
+				check_variable = { mod1440_st_sum_aluminium > 0 }
+			}
+			st_total_rubber_visible = {
+				check_variable = { mod1440_st_sum_rubber > 0 }
+			}
+			st_total_tungsten_visible = {
+				check_variable = { mod1440_st_sum_tungsten > 0 }
+			}
+			st_total_steel_visible = {
+				check_variable = { mod1440_st_sum_steel > 0 }
+			}
+			st_total_chromium_visible = {
+				check_variable = { mod1440_st_sum_chromium > 0 }
+			}
+			st_total_coal_visible = {
+				check_variable = { mod1440_st_sum_coal > 0 }
+			}
+			st_total_pop_visible = {
+				check_variable = { mod1440_st_sum_pop > 0 }
+			}
 			st_arrow_down_visible = {
 				check_variable = { mod1440_st_sort_by > 0 }
 				NOT = { check_variable = { mod1440_st_up = 1 } }
@@ -451,6 +485,15 @@ scripted_gui = {
 			st_arrow_up_visible = {
 				check_variable = { mod1440_st_sort_by > 0 }
 				check_variable = { mod1440_st_up = 1 }
+			}
+			st_row_stripe_visible = {
+				check_variable = { mod1440_st_odd = 1 }
+			}
+			st_row_name_visible = {
+				is_core_of = ROOT
+			}
+			st_row_occ_visible = {
+				NOT = { is_core_of = ROOT }
 			}
 			st_cell_free_visible = {
 				check_variable = { mod1440_st_free > 0 }

@@ -28,12 +28,14 @@
       "name": "mod1440_records_diary_row",
       "skip": true,
       "hide": [
-        "wd_row_icon_2",
+        "wd_row_icon_1",
         "wd_row_icon_3",
         "wd_row_icon_4",
         "wd_row_icon_5",
-        "wd_row_b_near"
-      ]
+        "wd_row_b_near",
+        "wd_row_point"
+      ],
+      "_note": "Drawn as a line of the territory log: a state, the country it was taken from, the officer."
     }
   ],
   "samples": {
@@ -47,6 +49,8 @@
       "wd_f_annex": "128",
       "wd_f_taken": "128",
       "wd_f_lost": "128",
+      "wd_f_vpt": "128",
+      "wd_f_vpl": "128",
       "wd_f_capitals": "128",
       "wd_f_govs": "128",
       "wd_f_comm": "128",
@@ -58,8 +62,10 @@
       "wd_row_date": "30 September, 1944",
       "wd_row_event": "Our pride of the fleet was sunk by",
       "wd_row_a": "\u00a7YNiederschlesien\u00a7!",
+      "wd_row_point": "\u00a7YNiederschlesien\u00a7!",
       "wd_row_b": "\u00a7YThe Czechoslovak Republic\u00a7!",
-      "wd_row_b_near": "\u00a7YThe Czechoslovak Republic\u00a7!"
+      "wd_row_b_near": "\u00a7YThe Czechoslovak Republic\u00a7!",
+      "wd_row_c": "\u00a7YKonstantin von Neurath\u00a7!"
     }
   },
   "setup": [
@@ -84,11 +90,12 @@
     1240
   ],
   "manual": [
-    "Lines that need a war: capitulation, landings, aces"
+    "Lines that need a war: a state and a victory point taken with the general on the spot, capitulation, landings, aces"
   ],
   "checklist": [
-    "A line about a state: its button moves the camera there",
-    "The filters; Older and Newer past 200 lines"
+    "A line about a state or a victory point: its button moves the camera there",
+    "The filters; Older and Newer past 200 lines",
+    "All shows the lines of both logs by date, a capital once"
   ],
   "teardown": [
     {

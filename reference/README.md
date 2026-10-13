@@ -84,23 +84,23 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A1 | air wings and airbases screen | [air_selection.jpg](mod/air_selection.jpg) | [air_selection-panel.png](mod/air_selection-panel.png) | 1.19.3.0 | 1.1 | 2026-10-08 |
 | A2 | selected-army screen | [army_selection.jpg](mod/army_selection.jpg) | [army_selection-panel.png](mod/army_selection-panel.png) | 1.19.3.0 | 1.2 | 2026-10-09 |
 | A2 | selected-army screen, template-dropdown | [army_selection-template-dropdown.jpg](mod/army_selection-template-dropdown.jpg) | [army_selection-template-dropdown-panel.png](mod/army_selection-template-dropdown-panel.png) | 1.19.3.0 | 1.2 | 2026-10-09 |
-| A3 | air wing details window | [air_wing_details.jpg](mod/air_wing_details.jpg) | [air_wing_details-panel.png](mod/air_wing_details-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details) | [division_details.jpg](mod/division_details.jpg) | [division_details-panel.png](mod/division_details-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), history | [division_details-history.jpg](mod/division_details-history.jpg) | [division_details-history-panel.png](mod/division_details-history-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), hk-history | [division_details-hk-history.jpg](mod/division_details-hk-history.jpg) | [division_details-hk-history-panel.png](mod/division_details-hk-history-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), hk-stats | [division_details-hk-stats.jpg](mod/division_details-hk-stats.jpg) | [division_details-hk-stats-panel.png](mod/division_details-hk-stats-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), hk-template | [division_details-hk-template.jpg](mod/division_details-hk-template.jpg) | [division_details-hk-template-panel.png](mod/division_details-hk-template-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), motorised | [division_details-motorised.jpg](mod/division_details-motorised.jpg) | [division_details-motorised-panel.png](mod/division_details-motorised-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), name-dropdown | [division_details-name-dropdown.jpg](mod/division_details-name-dropdown.jpg) | [division_details-name-dropdown-panel.png](mod/division_details-name-dropdown-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), tank | [division_details-tank.jpg](mod/division_details-tank.jpg) | [division_details-tank-panel.png](mod/division_details-tank-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), tank-template | [division_details-tank-template.jpg](mod/division_details-tank-template.jpg) | [division_details-tank-template-panel.png](mod/division_details-tank-template-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), template | [division_details-template.jpg](mod/division_details-template.jpg) | [division_details-template-panel.png](mod/division_details-template-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | division details window (Unit Details), template-dropdown | [division_details-template-dropdown.jpg](mod/division_details-template-dropdown.jpg) | [division_details-template-dropdown-panel.png](mod/division_details-template-dropdown-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | ship details window | [ship_details.jpg](mod/ship_details.jpg) | [ship_details-panel.png](mod/ship_details-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | ship details window, carrier | [ship_details-carrier.jpg](mod/ship_details-carrier.jpg) | [ship_details-carrier-panel.png](mod/ship_details-carrier-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | ship details window, history | [ship_details-history.jpg](mod/ship_details-history.jpg) | [ship_details-history-panel.png](mod/ship_details-history-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | ship details window, hk-history | [ship_details-hk-history.jpg](mod/ship_details-hk-history.jpg) | [ship_details-hk-history-panel.png](mod/ship_details-hk-history-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
-| A3 | ship details window, hk-stats | [ship_details-hk-stats.jpg](mod/ship_details-hk-stats.jpg) | [ship_details-hk-stats-panel.png](mod/ship_details-hk-stats-panel.png) | 1.19.3.0 | 1.2 | 2026-10-11 |
+| A3 | air wing details window | [air_wing_details.jpg](mod/air_wing_details.jpg) | [air_wing_details-panel.png](mod/air_wing_details-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details) | [division_details.jpg](mod/division_details.jpg) | [division_details-panel.png](mod/division_details-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), history | [division_details-history.jpg](mod/division_details-history.jpg) | [division_details-history-panel.png](mod/division_details-history-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), hk-history | [division_details-hk-history.jpg](mod/division_details-hk-history.jpg) | [division_details-hk-history-panel.png](mod/division_details-hk-history-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), hk-stats | [division_details-hk-stats.jpg](mod/division_details-hk-stats.jpg) | [division_details-hk-stats-panel.png](mod/division_details-hk-stats-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), hk-template | [division_details-hk-template.jpg](mod/division_details-hk-template.jpg) | [division_details-hk-template-panel.png](mod/division_details-hk-template-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), motorised | [division_details-motorised.jpg](mod/division_details-motorised.jpg) | [division_details-motorised-panel.png](mod/division_details-motorised-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), name-dropdown | [division_details-name-dropdown.jpg](mod/division_details-name-dropdown.jpg) | [division_details-name-dropdown-panel.png](mod/division_details-name-dropdown-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), tank | [division_details-tank.jpg](mod/division_details-tank.jpg) | [division_details-tank-panel.png](mod/division_details-tank-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), tank-template | [division_details-tank-template.jpg](mod/division_details-tank-template.jpg) | [division_details-tank-template-panel.png](mod/division_details-tank-template-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), template | [division_details-template.jpg](mod/division_details-template.jpg) | [division_details-template-panel.png](mod/division_details-template-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | division details window (Unit Details), template-dropdown | [division_details-template-dropdown.jpg](mod/division_details-template-dropdown.jpg) | [division_details-template-dropdown-panel.png](mod/division_details-template-dropdown-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | ship details window | [ship_details.jpg](mod/ship_details.jpg) | [ship_details-panel.png](mod/ship_details-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | ship details window, carrier | [ship_details-carrier.jpg](mod/ship_details-carrier.jpg) | [ship_details-carrier-panel.png](mod/ship_details-carrier-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | ship details window, history | [ship_details-history.jpg](mod/ship_details-history.jpg) | [ship_details-history-panel.png](mod/ship_details-history-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | ship details window, hk-history | [ship_details-hk-history.jpg](mod/ship_details-hk-history.jpg) | [ship_details-hk-history-panel.png](mod/ship_details-hk-history-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| A3 | ship details window, hk-stats | [ship_details-hk-stats.jpg](mod/ship_details-hk-stats.jpg) | [ship_details-hk-stats-panel.png](mod/ship_details-hk-stats-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
 | A4 | navy and fleet panel | [fleet.jpg](mod/fleet.jpg) | [fleet-panel.png](mod/fleet-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
 | A4 | navy and fleet panel, british | [fleet-british.jpg](mod/fleet-british.jpg) | [fleet-british-panel.png](mod/fleet-british-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
 | A4 | navy and fleet panel, british-task-forces | [fleet-british-task-forces.jpg](mod/fleet-british-task-forces.jpg) | [fleet-british-task-forces-panel.png](mod/fleet-british-task-forces-panel.png) | 1.19.3.0 | 1.3 | 2026-10-11 |
@@ -115,11 +115,11 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A5 | Recruit & Deploy and Division Templates panels, icon-picker | [recruit_deploy-icon-picker.jpg](mod/recruit_deploy-icon-picker.jpg) | [recruit_deploy-icon-picker-panel.png](mod/recruit_deploy-icon-picker-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
 | A5 | Recruit & Deploy and Division Templates panels, italy | [recruit_deploy-italy.jpg](mod/recruit_deploy-italy.jpg) | [recruit_deploy-italy-panel.png](mod/recruit_deploy-italy-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
 | A5 | Recruit & Deploy and Division Templates panels, name-dropdown | [recruit_deploy-name-dropdown.jpg](mod/recruit_deploy-name-dropdown.jpg) | [recruit_deploy-name-dropdown-panel.png](mod/recruit_deploy-name-dropdown-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
-| D2 | army_readiness | [army_readiness.jpg](mod/army_readiness.jpg) | [army_readiness-panel.png](mod/army_readiness-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
-| D3 | states | [states.jpg](mod/states.jpg) | [states-panel.png](mod/states-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
-| D4 | national_figures | [national_figures.jpg](mod/national_figures.jpg) | [national_figures-panel.png](mod/national_figures-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
-| D5 | history | [history.jpg](mod/history.jpg) | [history-panel.png](mod/history-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
-| E1 | war_diary | [war_diary.jpg](mod/war_diary.jpg) | [war_diary-panel.png](mod/war_diary-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
-| E2 | officers | [officers.jpg](mod/officers.jpg) | [officers-panel.png](mod/officers-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
-| E3 | government | [government.jpg](mod/government.jpg) | [government-panel.png](mod/government-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
-| E4 | wars | [wars.jpg](mod/wars.jpg) | [wars-panel.png](mod/wars-panel.png) | 1.19.3.0 | 1.6 | 2026-10-12 |
+| D2 | army_readiness | [army_readiness.jpg](mod/army_readiness.jpg) | [army_readiness-panel.png](mod/army_readiness-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| D3 | states | [states.jpg](mod/states.jpg) | [states-panel.png](mod/states-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| D4 | national_figures | [national_figures.jpg](mod/national_figures.jpg) | [national_figures-panel.png](mod/national_figures-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| D5 | history | [history.jpg](mod/history.jpg) | [history-panel.png](mod/history-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| E1 | war_diary | [war_diary.jpg](mod/war_diary.jpg) | [war_diary-panel.png](mod/war_diary-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| E2 | officers | [officers.jpg](mod/officers.jpg) | [officers-panel.png](mod/officers-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| E3 | government | [government.jpg](mod/government.jpg) | [government-panel.png](mod/government-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
+| E4 | wars | [wars.jpg](mod/wars.jpg) | [wars-panel.png](mod/wars-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |

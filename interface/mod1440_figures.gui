@@ -3,7 +3,7 @@ guiTypes = {
 	containerWindowType = {
 		name = "mod1440_figures"
 		position = { x = 556 y = 78 }
-		size = { width = 1664 height = 1112 }
+		size = { width = 1664 height = 1177 }
 		background = { name = "Background" quadTextureSprite = "GFX_tiled_window_1b_thin_border" }
 		containerWindowType = {
 			name = "nf_head"
@@ -11,343 +11,549 @@ guiTypes = {
 			size = { width = 1658 height = 50 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_header" }
 		}
-		instantTextboxType = { name = "nf_title" position = { x = 22 y = 8 } font = "hoi_36header" text = "MOD1440_NF_TITLE" maxWidth = 500 maxHeight = 40 format = left }
+		instantTextboxType = { name = "nf_title" position = { x = 22 y = 8 } font = "hoi_36header" text = "MOD1440_NF_TITLE" maxWidth = 300 maxHeight = 40 format = left }
 		instantTextboxType = { name = "nf_hint" position = { x = 884 y = 18 } font = "hoi_16mbs" text = "MOD1440_NF_HINT" maxWidth = 700 maxHeight = 24 format = right }
 		buttonType = { name = "nf_close" position = { x = 1598 y = 10 } quadTextureSprite = "GFX_closebutton" clicksound = click_default shortcut = "ESCAPE" pdx_tooltip = "MOD1440_NF_CLOSE_TT" }
 		containerWindowType = {
-			name = "nf_politics"
+			name = "nf_today"
 			position = { x = 14 y = 60 }
-			size = { width = 400 height = 526 }
+			size = { width = 1636 height = 161 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "nf_politics_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_POLITICS_TITLE" maxWidth = 372 maxHeight = 30 format = left }
-			instantTextboxType = { name = "nf_politics_label_0" position = { x = 16 y = 44 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_0" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_0" position = { x = 284 y = 42 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_0_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_1" position = { x = 16 y = 70 } font = "hoi_16mbs" text = "MODIFIER_POLITICAL_POWER_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_1" position = { x = 284 y = 68 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_1_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_2" position = { x = 16 y = 96 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_2" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_2" position = { x = 284 y = 94 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_2_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_3" position = { x = 16 y = 122 } font = "hoi_16mbs" text = "MODIFIER_STABILITY_WEEKLY" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_3" position = { x = 284 y = 120 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_3_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_4" position = { x = 16 y = 148 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_4" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_4" position = { x = 284 y = 146 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_4_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_5" position = { x = 16 y = 174 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_5" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_5" position = { x = 284 y = 172 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_5_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_6" position = { x = 16 y = 200 } font = "hoi_16mbs" text = "MODIFIER_WAR_SUPPORT_WEEKLY" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_6" position = { x = 284 y = 198 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_6_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_7" position = { x = 16 y = 226 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_7" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_7" position = { x = 284 y = 224 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_7_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_8" position = { x = 16 y = 252 } font = "hoi_16mbs" text = "MODIFIER_DRIFT_DEFENCE_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_8" position = { x = 284 y = 250 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_8_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_9" position = { x = 16 y = 278 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_9" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_9" position = { x = 284 y = 276 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_9_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_10" position = { x = 16 y = 304 } font = "hoi_16mbs" text = "MODIFIER_MAX_COMMAND_POWER" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_10" position = { x = 284 y = 302 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_10_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_11" position = { x = 16 y = 330 } font = "hoi_16mbs" text = "MODIFIER_OPINION_GAIN_MONTHLY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_11" position = { x = 284 y = 328 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_11_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_12" position = { x = 16 y = 356 } font = "hoi_16mbs" text = "MODIFIER_TRADE_OPINION_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_12" position = { x = 284 y = 354 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_12_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_13" position = { x = 16 y = 382 } font = "hoi_16mbs" text = "MODIFIER_JUSTIFY_WAR_GOAL_TIME" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_13" position = { x = 284 y = 380 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_13_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_14" position = { x = 16 y = 408 } font = "hoi_16mbs" text = "fascism" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_14" position = { x = 284 y = 406 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_14_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_15" position = { x = 16 y = 434 } font = "hoi_16mbs" text = "democratic" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_15" position = { x = 284 y = 432 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_15_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_16" position = { x = 16 y = 460 } font = "hoi_16mbs" text = "communism" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_16" position = { x = 284 y = 458 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_16_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_politics_label_17" position = { x = 16 y = 486 } font = "hoi_16mbs" text = "neutrality" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_politics_value_17" position = { x = 284 y = 484 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_17_V" maxWidth = 100 maxHeight = 22 format = right }
+			iconType = { name = "nf_civ_bg" position = { x = 14 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_civ_l" position = { x = 20 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_CIV_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_NF_CIV_TT" }
+			instantTextboxType = { name = "nf_civ" position = { x = 20 y = 44 } font = "hoi_20b" text = "MOD1440_NF_CIV" maxWidth = 144 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_NF_CIV_TT" }
+			iconType = { name = "nf_mil_bg" position = { x = 175 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_mil_l" position = { x = 181 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_MIL_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_NF_MIL_TT" }
+			instantTextboxType = { name = "nf_mil" position = { x = 181 y = 44 } font = "hoi_20b" text = "MOD1440_NF_MIL" maxWidth = 144 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_NF_MIL_TT" }
+			iconType = { name = "nf_dock_bg" position = { x = 336 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_dock_l" position = { x = 342 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_DOCK_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_NF_DOCK_TT" }
+			instantTextboxType = { name = "nf_dock" position = { x = 342 y = 44 } font = "hoi_20b" text = "MOD1440_NF_DOCK" maxWidth = 144 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_NF_DOCK_TT" }
+			iconType = { name = "nf_slots_bg" position = { x = 497 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_slots_l" position = { x = 503 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_SLOTS_L" maxWidth = 144 maxHeight = 20 format = centre }
+			instantTextboxType = { name = "nf_slots" position = { x = 503 y = 44 } font = "hoi_20b" text = "MOD1440_NF_SLOTS" maxWidth = 144 maxHeight = 26 format = centre }
+			iconType = { name = "nf_techs_bg" position = { x = 658 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_techs_l" position = { x = 664 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_TECHS_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_NF_TECHS_TT" }
+			instantTextboxType = { name = "nf_techs" position = { x = 664 y = 44 } font = "hoi_20b" text = "MOD1440_NF_TECHS" maxWidth = 144 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_NF_TECHS_TT" }
+			iconType = { name = "nf_states_bg" position = { x = 819 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_states_l" position = { x = 825 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_STATES_L" maxWidth = 144 maxHeight = 20 format = centre }
+			instantTextboxType = { name = "nf_states" position = { x = 825 y = 44 } font = "hoi_20b" text = "MOD1440_NF_STATES" maxWidth = 144 maxHeight = 26 format = centre }
+			iconType = { name = "nf_convoys_bg" position = { x = 980 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_convoys_l" position = { x = 986 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_CONVOYS_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_NF_CONVOYS_TT" }
+			instantTextboxType = { name = "nf_convoys" position = { x = 986 y = 44 } font = "hoi_20b" text = "MOD1440_NF_CONVOYS" maxWidth = 144 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_NF_CONVOYS_TT" }
+			iconType = { name = "nf_trains_bg" position = { x = 1141 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_trains_l" position = { x = 1147 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_TRAINS_L" maxWidth = 144 maxHeight = 20 format = centre }
+			instantTextboxType = { name = "nf_trains" position = { x = 1147 y = 44 } font = "hoi_20b" text = "MOD1440_NF_TRAINS" maxWidth = 144 maxHeight = 26 format = centre }
+			iconType = { name = "nf_ships_bg" position = { x = 1302 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_ships_l" position = { x = 1308 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_SHIPS_L" maxWidth = 144 maxHeight = 20 format = centre }
+			instantTextboxType = { name = "nf_ships" position = { x = 1308 y = 44 } font = "hoi_20b" text = "MOD1440_NF_SHIPS" maxWidth = 144 maxHeight = 26 format = centre }
+			iconType = { name = "nf_planes_bg" position = { x = 1463 y = 14 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_planes_l" position = { x = 1469 y = 21 } font = "hoi_16mbs" text = "MOD1440_NF_PLANES_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_NF_PLANES_TT" }
+			instantTextboxType = { name = "nf_planes" position = { x = 1469 y = 44 } font = "hoi_20b" text = "MOD1440_NF_PLANES" maxWidth = 144 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_NF_PLANES_TT" }
+			iconType = { name = "nf_stab_bg" position = { x = 14 y = 83 } spriteType = "GFX_1440p_SG_tile_317x64" }
+			instantTextboxType = { name = "nf_stab_l" position = { x = 24 y = 92 } font = "hoi_16mbs" text = "MOD1440_NF_STAB_L" maxWidth = 110 maxHeight = 20 format = left }
+			instantTextboxType = { name = "nf_stab" position = { x = 134 y = 89 } font = "hoi_20b" text = "MOD1440_NF_STAB" maxWidth = 187 maxHeight = 26 format = right }
+			iconType = { name = "nf_stab_bar" position = { x = 22 y = 125 } spriteType = "GFX_1440p_SG_bar_wide" }
+			iconType = { name = "nf_ws_bg" position = { x = 336 y = 83 } spriteType = "GFX_1440p_SG_tile_317x64" }
+			instantTextboxType = { name = "nf_ws_l" position = { x = 346 y = 92 } font = "hoi_16mbs" text = "MOD1440_NF_WS_L" maxWidth = 110 maxHeight = 20 format = left }
+			instantTextboxType = { name = "nf_ws" position = { x = 456 y = 89 } font = "hoi_20b" text = "MOD1440_NF_WS" maxWidth = 187 maxHeight = 26 format = right }
+			iconType = { name = "nf_ws_bar" position = { x = 344 y = 125 } spriteType = "GFX_1440p_SG_bar_wide" }
+			iconType = { name = "nf_fuel_bg" position = { x = 658 y = 83 } spriteType = "GFX_1440p_SG_tile_317x64" }
+			instantTextboxType = { name = "nf_fuel_l" position = { x = 668 y = 92 } font = "hoi_16mbs" text = "MOD1440_NF_FUEL_L" maxWidth = 110 maxHeight = 20 format = left pdx_tooltip = "MOD1440_NF_FUEL_TT" }
+			instantTextboxType = { name = "nf_fuel" position = { x = 778 y = 89 } font = "hoi_20b" text = "MOD1440_NF_FUEL" maxWidth = 187 maxHeight = 26 format = right pdx_tooltip = "MOD1440_NF_FUEL_TT" }
+			iconType = { name = "nf_fuel_bar" position = { x = 666 y = 125 } spriteType = "GFX_1440p_SG_bar_wide" }
+			iconType = { name = "nf_party_0_bg" position = { x = 980 y = 83 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_party_0_l" position = { x = 986 y = 88 } font = "hoi_16mbs" text = "fascism" maxWidth = 144 maxHeight = 20 format = centre }
+			instantTextboxType = { name = "nf_party_0" position = { x = 986 y = 106 } font = "hoi_20b" text = "MOD1440_NF_PARTY_0" maxWidth = 144 maxHeight = 24 format = centre }
+			iconType = { name = "nf_party_0_bar" position = { x = 988 y = 132 } spriteType = "GFX_1440p_SG_bar_140" }
+			iconType = { name = "nf_party_1_bg" position = { x = 1141 y = 83 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_party_1_l" position = { x = 1147 y = 88 } font = "hoi_16mbs" text = "democratic" maxWidth = 144 maxHeight = 20 format = centre }
+			instantTextboxType = { name = "nf_party_1" position = { x = 1147 y = 106 } font = "hoi_20b" text = "MOD1440_NF_PARTY_1" maxWidth = 144 maxHeight = 24 format = centre }
+			iconType = { name = "nf_party_1_bar" position = { x = 1149 y = 132 } spriteType = "GFX_1440p_SG_bar_140" }
+			iconType = { name = "nf_party_2_bg" position = { x = 1302 y = 83 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_party_2_l" position = { x = 1308 y = 88 } font = "hoi_16mbs" text = "communism" maxWidth = 144 maxHeight = 20 format = centre }
+			instantTextboxType = { name = "nf_party_2" position = { x = 1308 y = 106 } font = "hoi_20b" text = "MOD1440_NF_PARTY_2" maxWidth = 144 maxHeight = 24 format = centre }
+			iconType = { name = "nf_party_2_bar" position = { x = 1310 y = 132 } spriteType = "GFX_1440p_SG_bar_140" }
+			iconType = { name = "nf_party_3_bg" position = { x = 1463 y = 83 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "nf_party_3_l" position = { x = 1469 y = 88 } font = "hoi_16mbs" text = "neutrality" maxWidth = 144 maxHeight = 20 format = centre }
+			instantTextboxType = { name = "nf_party_3" position = { x = 1469 y = 106 } font = "hoi_20b" text = "MOD1440_NF_PARTY_3" maxWidth = 144 maxHeight = 24 format = centre }
+			iconType = { name = "nf_party_3_bar" position = { x = 1471 y = 132 } spriteType = "GFX_1440p_SG_bar_140" }
 		}
 		containerWindowType = {
-			name = "nf_economy"
-			position = { x = 14 y = 598 }
-			size = { width = 400 height = 396 }
+			name = "nf_politics"
+			position = { x = 14 y = 233 }
+			size = { width = 400 height = 368 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "nf_economy_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_ECONOMY_TITLE" maxWidth = 372 maxHeight = 30 format = left }
-			instantTextboxType = { name = "nf_economy_label_0" position = { x = 16 y = 44 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_0" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_0" position = { x = 284 y = 42 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_0_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_1" position = { x = 16 y = 70 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_1" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_1" position = { x = 284 y = 68 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_1_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_2" position = { x = 16 y = 96 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_2" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_2" position = { x = 284 y = 94 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_2_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_3" position = { x = 16 y = 122 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_3" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_3" position = { x = 284 y = 120 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_3_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_4" position = { x = 16 y = 148 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_4" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_4" position = { x = 284 y = 146 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_4_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_5" position = { x = 16 y = 174 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_5" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_5" position = { x = 284 y = 172 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_5_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_6" position = { x = 16 y = 200 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_6" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_6" position = { x = 284 y = 198 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_6_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_7" position = { x = 16 y = 226 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_7" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_7" position = { x = 284 y = 224 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_7_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_8" position = { x = 16 y = 252 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_8" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_8" position = { x = 284 y = 250 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_8_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_9" position = { x = 16 y = 278 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_9" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_9" position = { x = 284 y = 276 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_9_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_10" position = { x = 16 y = 304 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_10" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_10" position = { x = 284 y = 302 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_10_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_11" position = { x = 16 y = 330 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_11" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_11" position = { x = 284 y = 328 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_11_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_economy_label_12" position = { x = 16 y = 356 } font = "hoi_16mbs" text = "MOD1440_NF_ECONOMY_12" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_economy_value_12" position = { x = 284 y = 354 } font = "hoi_18mbs" text = "MOD1440_NF_ECONOMY_12_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_POLITICS_TITLE" maxWidth = 372 maxHeight = 30 format = left }
+			iconType = { name = "nf_politics_stripe_1" position = { x = 14 y = 70 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_politics_stripe_3" position = { x = 14 y = 122 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_politics_stripe_5" position = { x = 14 y = 174 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_politics_stripe_7" position = { x = 14 y = 226 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_politics_stripe_9" position = { x = 14 y = 278 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_politics_stripe_11" position = { x = 14 y = 330 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			instantTextboxType = { name = "nf_politics_label_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_0" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_0" position = { x = 278 y = 44 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_0_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_1_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MODIFIER_POLITICAL_POWER_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_1" position = { x = 278 y = 70 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_1_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_2_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MODIFIER_STABILITY_WEEKLY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_2" position = { x = 278 y = 96 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_2_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_3_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_3" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_3" position = { x = 278 y = 122 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_3_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_4_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MODIFIER_WAR_SUPPORT_WEEKLY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_4" position = { x = 278 y = 148 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_4_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_5_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_5" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_5" position = { x = 278 y = 174 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_5_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_6_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MODIFIER_DRIFT_DEFENCE_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_6" position = { x = 278 y = 200 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_6_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_label_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_7" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_7" position = { x = 278 y = 226 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_7_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_8_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MODIFIER_MAX_COMMAND_POWER" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_8" position = { x = 278 y = 252 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_8_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_9_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MODIFIER_OPINION_GAIN_MONTHLY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_9" position = { x = 278 y = 278 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_9_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_10_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MODIFIER_TRADE_OPINION_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_10" position = { x = 278 y = 304 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_10_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_politics_dim_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MOD1440_NF_POLITICS_11_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_label_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MODIFIER_JUSTIFY_WAR_GOAL_TIME" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_politics_value_11" position = { x = 278 y = 330 } font = "hoi_18mbs" text = "MOD1440_NF_POLITICS_11_V" maxWidth = 100 maxHeight = 22 format = right }
+		}
+		containerWindowType = {
+			name = "nf_manpower"
+			position = { x = 14 y = 613 }
+			size = { width = 400 height = 264 }
+			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
+			instantTextboxType = { name = "nf_manpower_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_MANPOWER_TITLE" maxWidth = 372 maxHeight = 30 format = left }
+			iconType = { name = "nf_manpower_stripe_1" position = { x = 14 y = 70 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_manpower_stripe_3" position = { x = 14 y = 122 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_manpower_stripe_5" position = { x = 14 y = 174 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_manpower_stripe_7" position = { x = 14 y = 226 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			instantTextboxType = { name = "nf_manpower_dim_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MOD1440_NF_MANPOWER_0_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_label_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MODIFIER_CONSCRIPTION_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_value_0" position = { x = 278 y = 44 } font = "hoi_18mbs" text = "MOD1440_NF_MANPOWER_0_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_manpower_dim_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MOD1440_NF_MANPOWER_1_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_label_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MODIFIER_CONSCRIPTION_TOTAL_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_value_1" position = { x = 278 y = 70 } font = "hoi_18mbs" text = "MOD1440_NF_MANPOWER_1_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_manpower_dim_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MOD1440_NF_MANPOWER_2_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_label_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MODIFIER_WEEKLY_MANPOWER" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_value_2" position = { x = 278 y = 96 } font = "hoi_18mbs" text = "MOD1440_NF_MANPOWER_2_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_manpower_dim_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_MANPOWER_3_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_label_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MODIFIER_GLOBAL_MONTHLY_POPULATION" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_value_3" position = { x = 278 y = 122 } font = "hoi_18mbs" text = "MOD1440_NF_MANPOWER_3_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_manpower_dim_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MOD1440_NF_MANPOWER_4_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_label_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MODIFIER_GLOBAL_NON_CORE_MANPOWER" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_value_4" position = { x = 278 y = 148 } font = "hoi_18mbs" text = "MOD1440_NF_MANPOWER_4_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_manpower_dim_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_MANPOWER_5_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_label_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MODIFIER_MOBILIZATION_SPEED" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_value_5" position = { x = 278 y = 174 } font = "hoi_18mbs" text = "MOD1440_NF_MANPOWER_5_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_manpower_dim_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MOD1440_NF_MANPOWER_6_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_label_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MODIFIER_TRAINING_TIME_ARMY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_value_6" position = { x = 278 y = 200 } font = "hoi_18mbs" text = "MOD1440_NF_MANPOWER_6_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_manpower_dim_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MOD1440_NF_MANPOWER_7_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_label_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MODIFIER_SPECIAL_FORCES_CAP" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_manpower_value_7" position = { x = 278 y = 226 } font = "hoi_18mbs" text = "MOD1440_NF_MANPOWER_7_V" maxWidth = 100 maxHeight = 22 format = right }
+		}
+		containerWindowType = {
+			name = "nf_occupation"
+			position = { x = 14 y = 889 }
+			size = { width = 400 height = 264 }
+			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
+			instantTextboxType = { name = "nf_occupation_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_OCCUPATION_TITLE" maxWidth = 372 maxHeight = 30 format = left }
+			iconType = { name = "nf_occupation_stripe_1" position = { x = 14 y = 70 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_occupation_stripe_3" position = { x = 14 y = 122 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_occupation_stripe_5" position = { x = 14 y = 174 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_occupation_stripe_7" position = { x = 14 y = 226 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			instantTextboxType = { name = "nf_occupation_dim_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MOD1440_NF_OCCUPATION_0_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_label_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MODIFIER_COMPLIANCE_GROWTH" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_value_0" position = { x = 278 y = 44 } font = "hoi_18mbs" text = "MOD1440_NF_OCCUPATION_0_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_occupation_dim_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MOD1440_NF_OCCUPATION_1_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_label_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MODIFIER_RESISTANCE_TARGET" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_value_1" position = { x = 278 y = 70 } font = "hoi_18mbs" text = "MOD1440_NF_OCCUPATION_1_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_occupation_dim_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MOD1440_NF_OCCUPATION_2_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_label_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MODIFIER_RESISTANCE_GROWTH" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_value_2" position = { x = 278 y = 96 } font = "hoi_18mbs" text = "MOD1440_NF_OCCUPATION_2_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_occupation_dim_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_OCCUPATION_3_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_label_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MODIFIER_RESISTANCE_DECAY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_value_3" position = { x = 278 y = 122 } font = "hoi_18mbs" text = "MOD1440_NF_OCCUPATION_3_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_occupation_dim_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MOD1440_NF_OCCUPATION_4_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_label_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MODIFIER_REQUIRED_GARRISON_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_value_4" position = { x = 278 y = 148 } font = "hoi_18mbs" text = "MOD1440_NF_OCCUPATION_4_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_occupation_dim_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_OCCUPATION_5_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_label_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MODIFIER_SURRENDER_LIMIT" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_value_5" position = { x = 278 y = 174 } font = "hoi_18mbs" text = "MOD1440_NF_OCCUPATION_5_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_occupation_dim_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MOD1440_NF_OCCUPATION_6_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_label_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MODIFIER_GUARANTEE_COST" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_value_6" position = { x = 278 y = 200 } font = "hoi_18mbs" text = "MOD1440_NF_OCCUPATION_6_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_occupation_dim_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MOD1440_NF_OCCUPATION_7_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_label_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MODIFIER_SEND_VOLUNTEER_SIZE" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_occupation_value_7" position = { x = 278 y = 226 } font = "hoi_18mbs" text = "MOD1440_NF_OCCUPATION_7_V" maxWidth = 100 maxHeight = 22 format = right }
 		}
 		containerWindowType = {
 			name = "nf_industry"
-			position = { x = 426 y = 60 }
-			size = { width = 400 height = 552 }
+			position = { x = 426 y = 233 }
+			size = { width = 400 height = 550 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
 			instantTextboxType = { name = "nf_industry_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_INDUSTRY_TITLE" maxWidth = 372 maxHeight = 30 format = left }
-			instantTextboxType = { name = "nf_industry_label_0" position = { x = 16 y = 44 } font = "hoi_16mbs" text = "MODIFIER_INDUSTRIAL_CAPACITY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_0" position = { x = 284 y = 42 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_0_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_1" position = { x = 16 y = 70 } font = "hoi_16mbs" text = "MODIFIER_INDUSTRIAL_CAPACITY_DOCKYARD_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_1" position = { x = 284 y = 68 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_1_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_2" position = { x = 16 y = 96 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_FACTORY_MAX_EFFICIENCY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_2" position = { x = 284 y = 94 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_2_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_3" position = { x = 16 y = 122 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_FACTORY_EFFICIENCY_GAIN_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_3" position = { x = 284 y = 120 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_3_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_4" position = { x = 16 y = 148 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_FACTORY_START_EFFICIENCY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_4" position = { x = 284 y = 146 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_4_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_5" position = { x = 16 y = 174 } font = "hoi_16mbs" text = "MODIFIER_LINE_CHANGE_PRODUCTION_EFFICIENCY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_5" position = { x = 284 y = 172 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_5_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_6" position = { x = 16 y = 200 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_SPEED_BUILDINGS_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_6" position = { x = 284 y = 198 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_6_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_7" position = { x = 16 y = 226 } font = "hoi_16mbs" text = "MODIFIER_GLOBAL_BUILDING_SLOTS_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_7" position = { x = 284 y = 224 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_7_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_8" position = { x = 16 y = 252 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_8" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_8" position = { x = 284 y = 250 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_8_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_9" position = { x = 16 y = 278 } font = "hoi_16mbs" text = "MODIFIER_CONSUMER_GOODS_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_9" position = { x = 284 y = 276 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_9_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_10" position = { x = 16 y = 304 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_10" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_10" position = { x = 284 y = 302 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_10_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_11" position = { x = 16 y = 330 } font = "hoi_16mbs" text = "MODIFIER_INDUSTRY_REPAIR_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_11" position = { x = 284 y = 328 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_11_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_12" position = { x = 16 y = 356 } font = "hoi_16mbs" text = "MODIFIER_LOCAL_RESOURCES_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_12" position = { x = 284 y = 354 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_12_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_13" position = { x = 16 y = 382 } font = "hoi_16mbs" text = "MODIFIER_MIN_EXPORT_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_13" position = { x = 284 y = 380 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_13_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_14" position = { x = 16 y = 408 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_LACK_OF_RESOURCE_PENALTY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_14" position = { x = 284 y = 406 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_14_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_15" position = { x = 16 y = 434 } font = "hoi_16mbs" text = "MODIFIER_FUEL_GAIN_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_15" position = { x = 284 y = 432 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_15_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_16" position = { x = 16 y = 460 } font = "hoi_16mbs" text = "MODIFIER_MAX_FUEL_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_16" position = { x = 284 y = 458 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_16_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_17" position = { x = 16 y = 486 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_OIL_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_17" position = { x = 284 y = 484 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_17_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_industry_label_18" position = { x = 16 y = 512 } font = "hoi_16mbs" text = "MODIFIER_EQUIPMENT_CAPTURE" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_industry_value_18" position = { x = 284 y = 510 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_18_V" maxWidth = 100 maxHeight = 22 format = right }
-		}
-		containerWindowType = {
-			name = "nf_people"
-			position = { x = 426 y = 624 }
-			size = { width = 400 height = 474 }
-			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "nf_people_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_PEOPLE_TITLE" maxWidth = 372 maxHeight = 30 format = left }
-			instantTextboxType = { name = "nf_people_label_0" position = { x = 16 y = 44 } font = "hoi_16mbs" text = "MODIFIER_CONSCRIPTION_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_0" position = { x = 284 y = 42 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_0_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_1" position = { x = 16 y = 70 } font = "hoi_16mbs" text = "MODIFIER_CONSCRIPTION_TOTAL_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_1" position = { x = 284 y = 68 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_1_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_2" position = { x = 16 y = 96 } font = "hoi_16mbs" text = "MODIFIER_WEEKLY_MANPOWER" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_2" position = { x = 284 y = 94 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_2_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_3" position = { x = 16 y = 122 } font = "hoi_16mbs" text = "MODIFIER_GLOBAL_MONTHLY_POPULATION" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_3" position = { x = 284 y = 120 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_3_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_4" position = { x = 16 y = 148 } font = "hoi_16mbs" text = "MODIFIER_GLOBAL_NON_CORE_MANPOWER" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_4" position = { x = 284 y = 146 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_4_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_5" position = { x = 16 y = 174 } font = "hoi_16mbs" text = "MODIFIER_MOBILIZATION_SPEED" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_5" position = { x = 284 y = 172 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_5_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_6" position = { x = 16 y = 200 } font = "hoi_16mbs" text = "MODIFIER_TRAINING_TIME_ARMY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_6" position = { x = 284 y = 198 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_6_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_7" position = { x = 16 y = 226 } font = "hoi_16mbs" text = "MODIFIER_SPECIAL_FORCES_CAP" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_7" position = { x = 284 y = 224 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_7_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_8" position = { x = 16 y = 252 } font = "hoi_16mbs" text = "MODIFIER_RESEARCH_SPEED_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_8" position = { x = 284 y = 250 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_8_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_9" position = { x = 16 y = 278 } font = "hoi_16mbs" text = "MOD1440_NF_PEOPLE_9" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_9" position = { x = 284 y = 276 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_9_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_10" position = { x = 16 y = 304 } font = "hoi_16mbs" text = "MOD1440_NF_PEOPLE_10" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_10" position = { x = 284 y = 302 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_10_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_11" position = { x = 16 y = 330 } font = "hoi_16mbs" text = "MODIFIER_DECRYPTION_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_11" position = { x = 284 y = 328 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_11_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_12" position = { x = 16 y = 356 } font = "hoi_16mbs" text = "MODIFIER_ENCRYPTION_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_12" position = { x = 284 y = 354 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_12_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_13" position = { x = 16 y = 382 } font = "hoi_16mbs" text = "MODIFIER_OPERATIVE_SLOT" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_13" position = { x = 284 y = 380 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_13_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_14" position = { x = 16 y = 408 } font = "hoi_16mbs" text = "MODIFIER_INTELLIGENCE_AGENCY_DEFENSE" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_14" position = { x = 284 y = 406 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_14_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_people_label_15" position = { x = 16 y = 434 } font = "hoi_16mbs" text = "MODIFIER_INTEL_NETWORK_GAIN_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_people_value_15" position = { x = 284 y = 432 } font = "hoi_18mbs" text = "MOD1440_NF_PEOPLE_15_V" maxWidth = 100 maxHeight = 22 format = right }
-		}
-		containerWindowType = {
-			name = "nf_army"
-			position = { x = 838 y = 60 }
-			size = { width = 400 height = 552 }
-			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "nf_army_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_ARMY_TITLE" maxWidth = 372 maxHeight = 30 format = left }
-			instantTextboxType = { name = "nf_army_label_0" position = { x = 16 y = 44 } font = "hoi_16mbs" text = "MODIFIER_ARMY_ORG_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_0" position = { x = 284 y = 42 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_0_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_1" position = { x = 16 y = 70 } font = "hoi_16mbs" text = "MODIFIER_ARMY_MORALE_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_1" position = { x = 284 y = 68 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_1_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_2" position = { x = 16 y = 96 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_2" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_2" position = { x = 284 y = 94 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_2_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_3" position = { x = 16 y = 122 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_3" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_3" position = { x = 284 y = 120 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_3_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_4" position = { x = 16 y = 148 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_4" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_4" position = { x = 284 y = 146 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_4_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_5" position = { x = 16 y = 174 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_5" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_5" position = { x = 284 y = 172 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_5_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_6" position = { x = 16 y = 200 } font = "hoi_16mbs" text = "MODIFIER_ARMY_INFANTRY_ATTACK_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_6" position = { x = 284 y = 198 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_6_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_7" position = { x = 16 y = 226 } font = "hoi_16mbs" text = "MODIFIER_ARMY_ARMOR_ATTACK_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_7" position = { x = 284 y = 224 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_7_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_8" position = { x = 16 y = 252 } font = "hoi_16mbs" text = "MODIFIER_BREAKTHROUGH" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_8" position = { x = 284 y = 250 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_8_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_9" position = { x = 16 y = 278 } font = "hoi_16mbs" text = "MODIFIER_ARMY_SPEED_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_9" position = { x = 284 y = 276 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_9_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_10" position = { x = 16 y = 304 } font = "hoi_16mbs" text = "MODIFIER_PLANNING_SPEED" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_10" position = { x = 284 y = 302 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_10_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_11" position = { x = 16 y = 330 } font = "hoi_16mbs" text = "MODIFIER_MAX_PLANNING" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_11" position = { x = 284 y = 328 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_11_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_12" position = { x = 16 y = 356 } font = "hoi_16mbs" text = "MODIFIER_DIG_IN_SPEED_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_12" position = { x = 284 y = 354 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_12_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_13" position = { x = 16 y = 382 } font = "hoi_16mbs" text = "MODIFIER_MAX_DIG_IN_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_13" position = { x = 284 y = 380 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_13_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_14" position = { x = 16 y = 408 } font = "hoi_16mbs" text = "MODIFIER_LAND_REINFORCE_RATE" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_14" position = { x = 284 y = 406 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_14_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_15" position = { x = 16 y = 434 } font = "hoi_16mbs" text = "MODIFIER_SUPPLY_CONSUMPTION_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_15" position = { x = 284 y = 432 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_15_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_16" position = { x = 16 y = 460 } font = "hoi_16mbs" text = "MODIFIER_ATTRITION" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_16" position = { x = 284 y = 458 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_16_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_17" position = { x = 16 y = 486 } font = "hoi_16mbs" text = "MODIFIER_OUT_OF_SUPPLY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_17" position = { x = 284 y = 484 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_17_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_army_label_18" position = { x = 16 y = 512 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_18" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_army_value_18" position = { x = 284 y = 510 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_18_V" maxWidth = 100 maxHeight = 22 format = right }
-		}
-		containerWindowType = {
-			name = "nf_navy"
-			position = { x = 1250 y = 60 }
-			size = { width = 400 height = 448 }
-			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "nf_navy_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_NAVY_TITLE" maxWidth = 372 maxHeight = 30 format = left }
-			instantTextboxType = { name = "nf_navy_label_0" position = { x = 16 y = 44 } font = "hoi_16mbs" text = "MODIFIER_NAVY_ORG_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_0" position = { x = 284 y = 42 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_0_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_1" position = { x = 16 y = 70 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_MORALE_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_1" position = { x = 284 y = 68 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_1_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_2" position = { x = 16 y = 96 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_SPEED_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_2" position = { x = 284 y = 94 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_2_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_3" position = { x = 16 y = 122 } font = "hoi_16mbs" text = "MODIFIER_NAVY_MAX_RANGE_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_3" position = { x = 284 y = 120 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_3_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_4" position = { x = 16 y = 148 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_HIT_CHANCE" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_4" position = { x = 284 y = 146 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_4_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_5" position = { x = 16 y = 174 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_DAMAGE_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_5" position = { x = 284 y = 172 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_5_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_6" position = { x = 16 y = 200 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_DEFENSE_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_6" position = { x = 284 y = 198 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_6_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_7" position = { x = 16 y = 226 } font = "hoi_16mbs" text = "MODIFIER_POSITIONING" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_7" position = { x = 284 y = 224 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_7_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_8" position = { x = 16 y = 252 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_COORDINATION" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_8" position = { x = 284 y = 250 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_8_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_9" position = { x = 16 y = 278 } font = "hoi_16mbs" text = "MODIFIER_SPOTTING_CHANCE" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_9" position = { x = 284 y = 276 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_9_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_10" position = { x = 16 y = 304 } font = "hoi_16mbs" text = "MODIFIER_CONVOY_RAIDING_EFFICIENCY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_10" position = { x = 284 y = 302 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_10_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_11" position = { x = 16 y = 330 } font = "hoi_16mbs" text = "MODIFIER_MISSION_CONVOY_ESCORT_EFFICIENCY" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_11" position = { x = 284 y = 328 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_11_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_12" position = { x = 16 y = 356 } font = "hoi_16mbs" text = "MODIFIER_STAT_CARRIER_SORTIE_EFFICIENCY" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_12" position = { x = 284 y = 354 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_12_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_13" position = { x = 16 y = 382 } font = "hoi_16mbs" text = "MODIFIER_NAVY_FUEL_CONSUMPTION_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_13" position = { x = 284 y = 380 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_13_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_navy_label_14" position = { x = 16 y = 408 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_14" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_navy_value_14" position = { x = 284 y = 406 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_14_V" maxWidth = 100 maxHeight = 22 format = right }
-		}
-		containerWindowType = {
-			name = "nf_air"
-			position = { x = 1250 y = 520 }
-			size = { width = 400 height = 474 }
-			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "nf_air_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_AIR_TITLE" maxWidth = 372 maxHeight = 30 format = left }
-			instantTextboxType = { name = "nf_air_label_0" position = { x = 16 y = 44 } font = "hoi_16mbs" text = "MODIFIER_AIR_ATTACK_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_0" position = { x = 284 y = 42 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_0_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_1" position = { x = 16 y = 70 } font = "hoi_16mbs" text = "MODIFIER_AIR_DEFENCE_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_1" position = { x = 284 y = 68 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_1_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_2" position = { x = 16 y = 96 } font = "hoi_16mbs" text = "MODIFIER_AIR_AGILITY_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_2" position = { x = 284 y = 94 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_2_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_3" position = { x = 16 y = 122 } font = "hoi_16mbs" text = "MODIFIER_AIR_RANGE_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_3" position = { x = 284 y = 120 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_3_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_4" position = { x = 16 y = 148 } font = "hoi_16mbs" text = "MODIFIER_AIR_MISSION_EFFICIENCY" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_4" position = { x = 284 y = 146 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_4_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_5" position = { x = 16 y = 174 } font = "hoi_16mbs" text = "MODIFIER_AIR_SUPERIORITY_EFFICIENCY" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_5" position = { x = 284 y = 172 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_5_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_6" position = { x = 16 y = 200 } font = "hoi_16mbs" text = "MODIFIER_AIR_CAS_EFFICIENCY" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_6" position = { x = 284 y = 198 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_6_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_7" position = { x = 16 y = 226 } font = "hoi_16mbs" text = "MODIFIER_STRATEGIC_BOMBER_BOMBING_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_7" position = { x = 284 y = 224 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_7_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_8" position = { x = 16 y = 252 } font = "hoi_16mbs" text = "MODIFIER_AIR_BOMBING_TARGETTING" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_8" position = { x = 284 y = 250 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_8_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_9" position = { x = 16 y = 278 } font = "hoi_16mbs" text = "MODIFIER_AIR_DETECTION" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_9" position = { x = 284 y = 276 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_9_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_10" position = { x = 16 y = 304 } font = "hoi_16mbs" text = "MODIFIER_AIR_ACE_GENERATION_CHANCE_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_10" position = { x = 284 y = 302 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_10_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_11" position = { x = 16 y = 330 } font = "hoi_16mbs" text = "MODIFIER_AIR_ACCIDENTS_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_11" position = { x = 284 y = 328 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_11_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_12" position = { x = 16 y = 356 } font = "hoi_16mbs" text = "MODIFIER_AIR_WEATHER_PENALTY" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_12" position = { x = 284 y = 354 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_12_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_13" position = { x = 16 y = 382 } font = "hoi_16mbs" text = "MODIFIER_AIR_NIGHT_PENALTY" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_13" position = { x = 284 y = 380 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_13_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_14" position = { x = 16 y = 408 } font = "hoi_16mbs" text = "MODIFIER_AIR_FUEL_CONSUMPTION_FACTOR" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_14" position = { x = 284 y = 406 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_14_V" maxWidth = 100 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_air_label_15" position = { x = 16 y = 434 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_15" maxWidth = 284 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_air_value_15" position = { x = 284 y = 432 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_15_V" maxWidth = 100 maxHeight = 22 format = right }
+			iconType = { name = "nf_industry_stripe_1" position = { x = 14 y = 70 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_industry_stripe_3" position = { x = 14 y = 122 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_industry_stripe_5" position = { x = 14 y = 174 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_industry_stripe_7" position = { x = 14 y = 226 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_industry_stripe_9" position = { x = 14 y = 278 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_industry_stripe_11" position = { x = 14 y = 330 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_industry_stripe_13" position = { x = 14 y = 382 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_industry_stripe_15" position = { x = 14 y = 434 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_industry_stripe_17" position = { x = 14 y = 486 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			instantTextboxType = { name = "nf_industry_dim_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_0_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MODIFIER_INDUSTRIAL_CAPACITY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_0" position = { x = 278 y = 44 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_0_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_1_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MODIFIER_INDUSTRIAL_CAPACITY_DOCKYARD_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_1" position = { x = 278 y = 70 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_1_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_2_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_FACTORY_MAX_EFFICIENCY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_2" position = { x = 278 y = 96 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_2_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_3_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_FACTORY_EFFICIENCY_GAIN_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_3" position = { x = 278 y = 122 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_3_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_4_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_FACTORY_START_EFFICIENCY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_4" position = { x = 278 y = 148 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_4_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_5_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MODIFIER_LINE_CHANGE_PRODUCTION_EFFICIENCY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_5" position = { x = 278 y = 174 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_5_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_6_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_SPEED_BUILDINGS_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_6" position = { x = 278 y = 200 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_6_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_7_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MODIFIER_GLOBAL_BUILDING_SLOTS_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_7" position = { x = 278 y = 226 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_7_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_8_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_8" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_8" position = { x = 278 y = 252 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_8_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_9_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MODIFIER_CONSUMER_GOODS_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_9" position = { x = 278 y = 278 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_9_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_10_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_10" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_10" position = { x = 278 y = 304 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_10_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_11_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MODIFIER_INDUSTRY_REPAIR_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_11" position = { x = 278 y = 330 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_11_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_12" position = { x = 22 y = 358 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_12_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_12" position = { x = 22 y = 358 } font = "hoi_16mbs" text = "MODIFIER_LOCAL_RESOURCES_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_12" position = { x = 278 y = 356 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_12_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_13" position = { x = 22 y = 384 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_13_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_13" position = { x = 22 y = 384 } font = "hoi_16mbs" text = "MODIFIER_MIN_EXPORT_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_13" position = { x = 278 y = 382 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_13_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_14" position = { x = 22 y = 410 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_14_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_14" position = { x = 22 y = 410 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_LACK_OF_RESOURCE_PENALTY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_14" position = { x = 278 y = 408 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_14_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_15" position = { x = 22 y = 436 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_15_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_15" position = { x = 22 y = 436 } font = "hoi_16mbs" text = "MODIFIER_FUEL_GAIN_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_15" position = { x = 278 y = 434 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_15_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_16" position = { x = 22 y = 462 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_16_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_16" position = { x = 22 y = 462 } font = "hoi_16mbs" text = "MODIFIER_MAX_FUEL_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_16" position = { x = 278 y = 460 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_16_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_17" position = { x = 22 y = 488 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_17_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_17" position = { x = 22 y = 488 } font = "hoi_16mbs" text = "MODIFIER_PRODUCTION_OIL_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_17" position = { x = 278 y = 486 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_17_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_industry_dim_18" position = { x = 22 y = 514 } font = "hoi_16mbs" text = "MOD1440_NF_INDUSTRY_18_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_label_18" position = { x = 22 y = 514 } font = "hoi_16mbs" text = "MODIFIER_EQUIPMENT_CAPTURE" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_industry_value_18" position = { x = 278 y = 512 } font = "hoi_18mbs" text = "MOD1440_NF_INDUSTRY_18_V" maxWidth = 100 maxHeight = 22 format = right }
 		}
 		containerWindowType = {
 			name = "nf_res"
-			position = { x = 838 y = 624 }
-			size = { width = 400 height = 244 }
+			position = { x = 426 y = 795 }
+			size = { width = 400 height = 268 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "nf_res_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_RES_TITLE" maxWidth = 200 maxHeight = 30 format = left }
-			instantTextboxType = { name = "nf_res_head_balance" position = { x = 104 y = 22 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEAD_BALANCE" maxWidth = 56 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEAD_BALANCE_TT" }
-			instantTextboxType = { name = "nf_res_head_made" position = { x = 160 y = 22 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEAD_MADE" maxWidth = 56 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEAD_MADE_TT" }
-			instantTextboxType = { name = "nf_res_head_used" position = { x = 216 y = 22 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEAD_USED" maxWidth = 56 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEAD_USED_TT" }
-			instantTextboxType = { name = "nf_res_head_in" position = { x = 272 y = 22 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEAD_IN" maxWidth = 56 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEAD_IN_TT" }
-			instantTextboxType = { name = "nf_res_head_out" position = { x = 328 y = 22 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEAD_OUT" maxWidth = 56 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEAD_OUT_TT" }
-			instantTextboxType = { name = "nf_res_name_0" position = { x = 16 y = 48 } font = "hoi_16mbs" text = "PRODUCTION_MATERIALS_OIL" maxWidth = 96 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_res_balance_0" position = { x = 110 y = 46 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_0" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_made_0" position = { x = 166 y = 46 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_0" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_used_0" position = { x = 222 y = 46 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_0" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_in_0" position = { x = 278 y = 46 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_0" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_out_0" position = { x = 334 y = 46 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_0" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_name_1" position = { x = 16 y = 74 } font = "hoi_16mbs" text = "PRODUCTION_MATERIALS_ALUMINIUM" maxWidth = 96 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_res_balance_1" position = { x = 110 y = 72 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_1" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_made_1" position = { x = 166 y = 72 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_1" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_used_1" position = { x = 222 y = 72 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_1" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_in_1" position = { x = 278 y = 72 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_1" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_out_1" position = { x = 334 y = 72 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_1" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_name_2" position = { x = 16 y = 100 } font = "hoi_16mbs" text = "PRODUCTION_MATERIALS_RUBBER" maxWidth = 96 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_res_balance_2" position = { x = 110 y = 98 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_2" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_made_2" position = { x = 166 y = 98 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_2" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_used_2" position = { x = 222 y = 98 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_2" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_in_2" position = { x = 278 y = 98 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_2" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_out_2" position = { x = 334 y = 98 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_2" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_name_3" position = { x = 16 y = 126 } font = "hoi_16mbs" text = "PRODUCTION_MATERIALS_TUNGSTEN" maxWidth = 96 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_res_balance_3" position = { x = 110 y = 124 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_3" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_made_3" position = { x = 166 y = 124 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_3" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_used_3" position = { x = 222 y = 124 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_3" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_in_3" position = { x = 278 y = 124 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_3" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_out_3" position = { x = 334 y = 124 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_3" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_name_4" position = { x = 16 y = 152 } font = "hoi_16mbs" text = "PRODUCTION_MATERIALS_STEEL" maxWidth = 96 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_res_balance_4" position = { x = 110 y = 150 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_4" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_made_4" position = { x = 166 y = 150 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_4" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_used_4" position = { x = 222 y = 150 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_4" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_in_4" position = { x = 278 y = 150 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_4" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_out_4" position = { x = 334 y = 150 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_4" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_name_5" position = { x = 16 y = 178 } font = "hoi_16mbs" text = "PRODUCTION_MATERIALS_CHROMIUM" maxWidth = 96 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_res_balance_5" position = { x = 110 y = 176 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_5" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_made_5" position = { x = 166 y = 176 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_5" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_used_5" position = { x = 222 y = 176 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_5" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_in_5" position = { x = 278 y = 176 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_5" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_out_5" position = { x = 334 y = 176 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_5" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_name_6" position = { x = 16 y = 204 } font = "hoi_16mbs" text = "PRODUCTION_MATERIALS_COAL" maxWidth = 96 maxHeight = 22 format = left }
-			instantTextboxType = { name = "nf_res_balance_6" position = { x = 110 y = 202 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_6" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_made_6" position = { x = 166 y = 202 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_6" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_used_6" position = { x = 222 y = 202 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_6" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_in_6" position = { x = 278 y = 202 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_6" maxWidth = 50 maxHeight = 22 format = right }
-			instantTextboxType = { name = "nf_res_out_6" position = { x = 334 y = 202 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_6" maxWidth = 50 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_RES_TITLE" maxWidth = 372 maxHeight = 30 format = left }
+			containerWindowType = {
+				name = "nf_res_heads"
+				position = { x = 14 y = 42 }
+				size = { width = 372 height = 30 }
+				background = { name = "Background" quadTextureSprite = "GFX_1440p_SG_head_240" }
+				instantTextboxType = { name = "nf_res_heads_0" position = { x = 8 y = 5 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEADS_0" maxWidth = 100 maxHeight = 20 format = left }
+				instantTextboxType = { name = "nf_res_heads_1" position = { x = 112 y = 5 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEADS_1" maxWidth = 48 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEADS_1_TT" }
+				instantTextboxType = { name = "nf_res_heads_2" position = { x = 164 y = 5 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEADS_2" maxWidth = 48 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEADS_2_TT" }
+				instantTextboxType = { name = "nf_res_heads_3" position = { x = 216 y = 5 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEADS_3" maxWidth = 48 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEADS_3_TT" }
+				instantTextboxType = { name = "nf_res_heads_4" position = { x = 268 y = 5 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEADS_4" maxWidth = 48 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEADS_4_TT" }
+				instantTextboxType = { name = "nf_res_heads_5" position = { x = 320 y = 5 } font = "hoi_16mbs" text = "MOD1440_NF_RES_HEADS_5" maxWidth = 48 maxHeight = 20 format = right pdx_tooltip = "MOD1440_NF_RES_HEADS_5_TT" }
+			}
+			iconType = { name = "nf_res_stripe_1" position = { x = 14 y = 100 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_res_stripe_3" position = { x = 14 y = 152 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_res_stripe_5" position = { x = 14 y = 204 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			instantTextboxType = { name = "nf_res_name_0" position = { x = 22 y = 76 } font = "hoi_16mbs" text = "MOD1440_NF_RES_NAME_0" maxWidth = 102 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_res_balance_0" position = { x = 126 y = 74 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_0" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_made_0" position = { x = 178 y = 74 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_0" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_used_0" position = { x = 230 y = 74 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_0" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_in_0" position = { x = 282 y = 74 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_0" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_out_0" position = { x = 334 y = 74 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_0" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_name_1" position = { x = 22 y = 102 } font = "hoi_16mbs" text = "MOD1440_NF_RES_NAME_1" maxWidth = 102 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_res_balance_1" position = { x = 126 y = 100 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_1" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_made_1" position = { x = 178 y = 100 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_1" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_used_1" position = { x = 230 y = 100 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_1" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_in_1" position = { x = 282 y = 100 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_1" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_out_1" position = { x = 334 y = 100 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_1" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_name_2" position = { x = 22 y = 128 } font = "hoi_16mbs" text = "MOD1440_NF_RES_NAME_2" maxWidth = 102 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_res_balance_2" position = { x = 126 y = 126 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_2" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_made_2" position = { x = 178 y = 126 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_2" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_used_2" position = { x = 230 y = 126 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_2" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_in_2" position = { x = 282 y = 126 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_2" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_out_2" position = { x = 334 y = 126 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_2" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_name_3" position = { x = 22 y = 154 } font = "hoi_16mbs" text = "MOD1440_NF_RES_NAME_3" maxWidth = 102 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_res_balance_3" position = { x = 126 y = 152 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_3" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_made_3" position = { x = 178 y = 152 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_3" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_used_3" position = { x = 230 y = 152 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_3" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_in_3" position = { x = 282 y = 152 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_3" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_out_3" position = { x = 334 y = 152 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_3" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_name_4" position = { x = 22 y = 180 } font = "hoi_16mbs" text = "MOD1440_NF_RES_NAME_4" maxWidth = 102 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_res_balance_4" position = { x = 126 y = 178 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_4" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_made_4" position = { x = 178 y = 178 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_4" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_used_4" position = { x = 230 y = 178 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_4" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_in_4" position = { x = 282 y = 178 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_4" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_out_4" position = { x = 334 y = 178 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_4" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_name_5" position = { x = 22 y = 206 } font = "hoi_16mbs" text = "MOD1440_NF_RES_NAME_5" maxWidth = 102 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_res_balance_5" position = { x = 126 y = 204 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_5" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_made_5" position = { x = 178 y = 204 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_5" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_used_5" position = { x = 230 y = 204 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_5" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_in_5" position = { x = 282 y = 204 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_5" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_out_5" position = { x = 334 y = 204 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_5" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_name_6" position = { x = 22 y = 232 } font = "hoi_16mbs" text = "MOD1440_NF_RES_NAME_6" maxWidth = 102 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_res_balance_6" position = { x = 126 y = 230 } font = "hoi_18mbs" text = "MOD1440_NF_RES_BALANCE_6" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_made_6" position = { x = 178 y = 230 } font = "hoi_18mbs" text = "MOD1440_NF_RES_MADE_6" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_used_6" position = { x = 230 y = 230 } font = "hoi_18mbs" text = "MOD1440_NF_RES_USED_6" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_in_6" position = { x = 282 y = 230 } font = "hoi_18mbs" text = "MOD1440_NF_RES_IN_6" maxWidth = 48 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_res_out_6" position = { x = 334 y = 230 } font = "hoi_18mbs" text = "MOD1440_NF_RES_OUT_6" maxWidth = 48 maxHeight = 22 format = right }
+		}
+		containerWindowType = {
+			name = "nf_army"
+			position = { x = 838 y = 233 }
+			size = { width = 400 height = 550 }
+			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
+			instantTextboxType = { name = "nf_army_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_ARMY_TITLE" maxWidth = 372 maxHeight = 30 format = left }
+			iconType = { name = "nf_army_stripe_1" position = { x = 14 y = 70 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_army_stripe_3" position = { x = 14 y = 122 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_army_stripe_5" position = { x = 14 y = 174 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_army_stripe_7" position = { x = 14 y = 226 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_army_stripe_9" position = { x = 14 y = 278 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_army_stripe_11" position = { x = 14 y = 330 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_army_stripe_13" position = { x = 14 y = 382 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_army_stripe_15" position = { x = 14 y = 434 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_army_stripe_17" position = { x = 14 y = 486 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			instantTextboxType = { name = "nf_army_dim_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_0_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MODIFIER_ARMY_ORG_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_0" position = { x = 278 y = 44 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_0_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_1_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MODIFIER_ARMY_MORALE_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_1" position = { x = 278 y = 70 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_1_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_2_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_2" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_2" position = { x = 278 y = 96 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_2_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_3_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_3" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_3" position = { x = 278 y = 122 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_3_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_4_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_4" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_4" position = { x = 278 y = 148 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_4_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_5_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_5" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_5" position = { x = 278 y = 174 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_5_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_6_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MODIFIER_ARMY_INFANTRY_ATTACK_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_6" position = { x = 278 y = 200 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_6_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_7_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MODIFIER_ARMY_ARMOR_ATTACK_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_7" position = { x = 278 y = 226 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_7_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_8_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MODIFIER_BREAKTHROUGH" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_8" position = { x = 278 y = 252 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_8_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_9_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MODIFIER_ARMY_SPEED_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_9" position = { x = 278 y = 278 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_9_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_10_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MODIFIER_PLANNING_SPEED" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_10" position = { x = 278 y = 304 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_10_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_11_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MODIFIER_MAX_PLANNING" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_11" position = { x = 278 y = 330 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_11_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_12" position = { x = 22 y = 358 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_12_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_12" position = { x = 22 y = 358 } font = "hoi_16mbs" text = "MODIFIER_DIG_IN_SPEED_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_12" position = { x = 278 y = 356 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_12_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_13" position = { x = 22 y = 384 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_13_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_13" position = { x = 22 y = 384 } font = "hoi_16mbs" text = "MODIFIER_MAX_DIG_IN_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_13" position = { x = 278 y = 382 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_13_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_14" position = { x = 22 y = 410 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_14_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_14" position = { x = 22 y = 410 } font = "hoi_16mbs" text = "MODIFIER_LAND_REINFORCE_RATE" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_14" position = { x = 278 y = 408 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_14_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_15" position = { x = 22 y = 436 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_15_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_15" position = { x = 22 y = 436 } font = "hoi_16mbs" text = "MODIFIER_SUPPLY_CONSUMPTION_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_15" position = { x = 278 y = 434 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_15_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_16" position = { x = 22 y = 462 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_16_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_16" position = { x = 22 y = 462 } font = "hoi_16mbs" text = "MODIFIER_ATTRITION" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_16" position = { x = 278 y = 460 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_16_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_17" position = { x = 22 y = 488 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_17_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_17" position = { x = 22 y = 488 } font = "hoi_16mbs" text = "MODIFIER_OUT_OF_SUPPLY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_17" position = { x = 278 y = 486 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_17_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_army_dim_18" position = { x = 22 y = 514 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_18_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_label_18" position = { x = 22 y = 514 } font = "hoi_16mbs" text = "MOD1440_NF_ARMY_18" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_army_value_18" position = { x = 278 y = 512 } font = "hoi_18mbs" text = "MOD1440_NF_ARMY_18_V" maxWidth = 100 maxHeight = 22 format = right }
+		}
+		containerWindowType = {
+			name = "nf_research"
+			position = { x = 838 y = 795 }
+			size = { width = 400 height = 212 }
+			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
+			instantTextboxType = { name = "nf_research_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_RESEARCH_TITLE" maxWidth = 372 maxHeight = 30 format = left }
+			iconType = { name = "nf_research_stripe_1" position = { x = 14 y = 70 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_research_stripe_3" position = { x = 14 y = 122 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_research_stripe_5" position = { x = 14 y = 174 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			instantTextboxType = { name = "nf_research_dim_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MOD1440_NF_RESEARCH_0_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_label_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MODIFIER_RESEARCH_SPEED_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_value_0" position = { x = 278 y = 44 } font = "hoi_18mbs" text = "MOD1440_NF_RESEARCH_0_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_research_dim_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MOD1440_NF_RESEARCH_1_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_label_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MODIFIER_DECRYPTION_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_value_1" position = { x = 278 y = 70 } font = "hoi_18mbs" text = "MOD1440_NF_RESEARCH_1_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_research_dim_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MOD1440_NF_RESEARCH_2_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_label_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MODIFIER_ENCRYPTION_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_value_2" position = { x = 278 y = 96 } font = "hoi_18mbs" text = "MOD1440_NF_RESEARCH_2_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_research_dim_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_RESEARCH_3_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_label_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MODIFIER_OPERATIVE_SLOT" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_value_3" position = { x = 278 y = 122 } font = "hoi_18mbs" text = "MOD1440_NF_RESEARCH_3_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_research_dim_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MOD1440_NF_RESEARCH_4_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_label_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MODIFIER_INTELLIGENCE_AGENCY_DEFENSE" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_value_4" position = { x = 278 y = 148 } font = "hoi_18mbs" text = "MOD1440_NF_RESEARCH_4_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_research_dim_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_RESEARCH_5_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_label_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MODIFIER_INTEL_NETWORK_GAIN_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_research_value_5" position = { x = 278 y = 174 } font = "hoi_18mbs" text = "MOD1440_NF_RESEARCH_5_V" maxWidth = 100 maxHeight = 22 format = right }
+		}
+		containerWindowType = {
+			name = "nf_navy"
+			position = { x = 1250 y = 233 }
+			size = { width = 400 height = 446 }
+			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
+			instantTextboxType = { name = "nf_navy_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_NAVY_TITLE" maxWidth = 372 maxHeight = 30 format = left }
+			iconType = { name = "nf_navy_stripe_1" position = { x = 14 y = 70 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_navy_stripe_3" position = { x = 14 y = 122 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_navy_stripe_5" position = { x = 14 y = 174 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_navy_stripe_7" position = { x = 14 y = 226 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_navy_stripe_9" position = { x = 14 y = 278 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_navy_stripe_11" position = { x = 14 y = 330 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_navy_stripe_13" position = { x = 14 y = 382 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			instantTextboxType = { name = "nf_navy_dim_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_0_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MODIFIER_NAVY_ORG_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_0" position = { x = 278 y = 44 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_0_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_1_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_MORALE_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_1" position = { x = 278 y = 70 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_1_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_2_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_SPEED_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_2" position = { x = 278 y = 96 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_2_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_3_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MODIFIER_NAVY_MAX_RANGE_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_3" position = { x = 278 y = 122 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_3_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_4_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_HIT_CHANCE" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_4" position = { x = 278 y = 148 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_4_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_5_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_DAMAGE_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_5" position = { x = 278 y = 174 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_5_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_6_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_DEFENSE_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_6" position = { x = 278 y = 200 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_6_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_7_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MODIFIER_POSITIONING" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_7" position = { x = 278 y = 226 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_7_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_8_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MODIFIER_NAVAL_COORDINATION" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_8" position = { x = 278 y = 252 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_8_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_9_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MODIFIER_SPOTTING_CHANCE" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_9" position = { x = 278 y = 278 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_9_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_10_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MODIFIER_CONVOY_RAIDING_EFFICIENCY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_10" position = { x = 278 y = 304 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_10_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_11_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MODIFIER_MISSION_CONVOY_ESCORT_EFFICIENCY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_11" position = { x = 278 y = 330 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_11_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_12" position = { x = 22 y = 358 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_12_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_12" position = { x = 22 y = 358 } font = "hoi_16mbs" text = "MODIFIER_STAT_CARRIER_SORTIE_EFFICIENCY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_12" position = { x = 278 y = 356 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_12_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_13" position = { x = 22 y = 384 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_13_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_13" position = { x = 22 y = 384 } font = "hoi_16mbs" text = "MODIFIER_NAVY_FUEL_CONSUMPTION_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_13" position = { x = 278 y = 382 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_13_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_navy_dim_14" position = { x = 22 y = 410 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_14_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_label_14" position = { x = 22 y = 410 } font = "hoi_16mbs" text = "MOD1440_NF_NAVY_14" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_navy_value_14" position = { x = 278 y = 408 } font = "hoi_18mbs" text = "MOD1440_NF_NAVY_14_V" maxWidth = 100 maxHeight = 22 format = right }
+		}
+		containerWindowType = {
+			name = "nf_air"
+			position = { x = 1250 y = 691 }
+			size = { width = 400 height = 472 }
+			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
+			instantTextboxType = { name = "nf_air_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_NF_AIR_TITLE" maxWidth = 372 maxHeight = 30 format = left }
+			iconType = { name = "nf_air_stripe_1" position = { x = 14 y = 70 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_air_stripe_3" position = { x = 14 y = 122 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_air_stripe_5" position = { x = 14 y = 174 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_air_stripe_7" position = { x = 14 y = 226 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_air_stripe_9" position = { x = 14 y = 278 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_air_stripe_11" position = { x = 14 y = 330 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_air_stripe_13" position = { x = 14 y = 382 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			iconType = { name = "nf_air_stripe_15" position = { x = 14 y = 434 } spriteType = "GFX_1440p_SG_stripe_372x26" }
+			instantTextboxType = { name = "nf_air_dim_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_0_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_0" position = { x = 22 y = 46 } font = "hoi_16mbs" text = "MODIFIER_AIR_ATTACK_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_0" position = { x = 278 y = 44 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_0_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_1_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_1" position = { x = 22 y = 72 } font = "hoi_16mbs" text = "MODIFIER_AIR_DEFENCE_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_1" position = { x = 278 y = 70 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_1_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_2_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_2" position = { x = 22 y = 98 } font = "hoi_16mbs" text = "MODIFIER_AIR_AGILITY_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_2" position = { x = 278 y = 96 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_2_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_3_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_3" position = { x = 22 y = 124 } font = "hoi_16mbs" text = "MODIFIER_AIR_RANGE_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_3" position = { x = 278 y = 122 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_3_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_4_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_4" position = { x = 22 y = 150 } font = "hoi_16mbs" text = "MODIFIER_AIR_MISSION_EFFICIENCY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_4" position = { x = 278 y = 148 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_4_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_5_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_5" position = { x = 22 y = 176 } font = "hoi_16mbs" text = "MODIFIER_AIR_SUPERIORITY_EFFICIENCY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_5" position = { x = 278 y = 174 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_5_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_6_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_6" position = { x = 22 y = 202 } font = "hoi_16mbs" text = "MODIFIER_AIR_CAS_EFFICIENCY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_6" position = { x = 278 y = 200 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_6_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_7_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_7" position = { x = 22 y = 228 } font = "hoi_16mbs" text = "MODIFIER_STRATEGIC_BOMBER_BOMBING_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_7" position = { x = 278 y = 226 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_7_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_8_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_8" position = { x = 22 y = 254 } font = "hoi_16mbs" text = "MODIFIER_AIR_BOMBING_TARGETTING" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_8" position = { x = 278 y = 252 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_8_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_9_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_9" position = { x = 22 y = 280 } font = "hoi_16mbs" text = "MODIFIER_AIR_DETECTION" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_9" position = { x = 278 y = 278 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_9_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_10_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_10" position = { x = 22 y = 306 } font = "hoi_16mbs" text = "MODIFIER_AIR_ACE_GENERATION_CHANCE_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_10" position = { x = 278 y = 304 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_10_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_11_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_11" position = { x = 22 y = 332 } font = "hoi_16mbs" text = "MODIFIER_AIR_ACCIDENTS_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_11" position = { x = 278 y = 330 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_11_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_12" position = { x = 22 y = 358 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_12_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_12" position = { x = 22 y = 358 } font = "hoi_16mbs" text = "MODIFIER_AIR_WEATHER_PENALTY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_12" position = { x = 278 y = 356 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_12_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_13" position = { x = 22 y = 384 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_13_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_13" position = { x = 22 y = 384 } font = "hoi_16mbs" text = "MODIFIER_AIR_NIGHT_PENALTY" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_13" position = { x = 278 y = 382 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_13_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_14" position = { x = 22 y = 410 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_14_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_14" position = { x = 22 y = 410 } font = "hoi_16mbs" text = "MODIFIER_AIR_FUEL_CONSUMPTION_FACTOR" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_14" position = { x = 278 y = 408 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_14_V" maxWidth = 100 maxHeight = 22 format = right }
+			instantTextboxType = { name = "nf_air_dim_15" position = { x = 22 y = 436 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_15_DIM" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_label_15" position = { x = 22 y = 436 } font = "hoi_16mbs" text = "MOD1440_NF_AIR_15" maxWidth = 276 maxHeight = 22 format = left }
+			instantTextboxType = { name = "nf_air_value_15" position = { x = 278 y = 434 } font = "hoi_18mbs" text = "MOD1440_NF_AIR_15_V" maxWidth = 100 maxHeight = 22 format = right }
 		}
 		buttonType = { name = "nf_history" position = { x = 330 y = 12 } quadTextureSprite = "GFX_button_123x34" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_NF_HISTORY" pdx_tooltip = "MOD1440_NF_HISTORY_TT" }
 	}
@@ -360,68 +566,195 @@ guiTypes = {
 	containerWindowType = {
 		name = "mod1440_history"
 		position = { x = 556 y = 78 }
-		size = { width = 1690 height = 454 }
+		size = { width = 1664 height = 520 }
 		background = { name = "Background" quadTextureSprite = "GFX_tiled_window_1b_thin_border" }
 		containerWindowType = {
 			name = "h_head"
 			position = { x = 3 y = 3 }
-			size = { width = 1684 height = 50 }
+			size = { width = 1658 height = 50 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_header" }
 		}
 		instantTextboxType = { name = "h_title" position = { x = 22 y = 8 } font = "hoi_36header" text = "MOD1440_H_TITLE" maxWidth = 300 maxHeight = 40 format = left }
 		buttonType = { name = "h_figures" position = { x = 330 y = 12 } quadTextureSprite = "GFX_button_123x34" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_FIGURES" pdx_tooltip = "MOD1440_H_FIGURES_TT" }
-		instantTextboxType = { name = "h_hint" position = { x = 930 y = 18 } font = "hoi_16mbs" text = "MOD1440_H_HINT" maxWidth = 680 maxHeight = 24 format = right }
-		buttonType = { name = "h_close" position = { x = 1624 y = 10 } quadTextureSprite = "GFX_closebutton" clicksound = click_default shortcut = "ESCAPE" pdx_tooltip = "MOD1440_H_CLOSE_TT" }
-		buttonType = { name = "h_series_0" position = { x = 16 y = 66 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_0" }
-		instantTextboxType = { name = "h_name_0" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_0" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_1" position = { x = 16 y = 98 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_1" }
-		instantTextboxType = { name = "h_name_1" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_1" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_2" position = { x = 16 y = 130 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_2" }
-		instantTextboxType = { name = "h_name_2" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_2" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_3" position = { x = 16 y = 162 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_3" }
-		instantTextboxType = { name = "h_name_3" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_3" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_4" position = { x = 16 y = 194 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_4" }
-		instantTextboxType = { name = "h_name_4" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_4" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_5" position = { x = 16 y = 226 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_5" }
-		instantTextboxType = { name = "h_name_5" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_5" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_6" position = { x = 16 y = 258 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_6" }
-		instantTextboxType = { name = "h_name_6" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_6" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_7" position = { x = 16 y = 290 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_7" }
-		instantTextboxType = { name = "h_name_7" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_7" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_8" position = { x = 16 y = 322 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_8" }
-		instantTextboxType = { name = "h_name_8" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_8" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_9" position = { x = 16 y = 354 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_9" }
-		instantTextboxType = { name = "h_name_9" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_9" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_10" position = { x = 16 y = 386 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_10" }
-		instantTextboxType = { name = "h_name_10" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_10" maxWidth = 700 maxHeight = 30 format = left }
-		buttonType = { name = "h_series_11" position = { x = 16 y = 418 } quadTextureSprite = "GFX_sort_button_202x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_SERIES_11" }
-		instantTextboxType = { name = "h_name_11" position = { x = 240 y = 70 } font = "hoi_24header" text = "MOD1440_H_NAME_11" maxWidth = 700 maxHeight = 30 format = left }
-		instantTextboxType = { name = "h_top" position = { x = 240 y = 102 } font = "hoi_16mbs" text = "MOD1440_H_TOP" maxWidth = 90 maxHeight = 20 format = right }
-		instantTextboxType = { name = "h_half" position = { x = 240 y = 252 } font = "hoi_16mbs" text = "MOD1440_H_HALF" maxWidth = 90 maxHeight = 20 format = right }
-		instantTextboxType = { name = "h_zero" position = { x = 240 y = 398 } font = "hoi_16mbs" text = "0" maxWidth = 90 maxHeight = 20 format = right }
-		instantTextboxType = { name = "h_from" position = { x = 340 y = 418 } font = "hoi_16mbs" text = "MOD1440_H_FROM" maxWidth = 300 maxHeight = 24 format = left }
-		instantTextboxType = { name = "h_to" position = { x = 1360 y = 418 } font = "hoi_16mbs" text = "MOD1440_H_TO" maxWidth = 300 maxHeight = 24 format = right }
-		instantTextboxType = { name = "h_latest" position = { x = 960 y = 74 } font = "hoi_18mbs" text = "MOD1440_H_LATEST" maxWidth = 400 maxHeight = 24 format = right }
-		instantTextboxType = { name = "h_none" position = { x = 360 y = 240 } font = "hoi_18mbs" text = "MOD1440_H_NONE" maxWidth = 900 maxHeight = 24 format = left }
+		instantTextboxType = { name = "h_hint" position = { x = 804 y = 18 } font = "hoi_16mbs" text = "MOD1440_H_HINT" maxWidth = 780 maxHeight = 24 format = right }
+		buttonType = { name = "h_close" position = { x = 1598 y = 10 } quadTextureSprite = "GFX_closebutton" clicksound = click_default shortcut = "ESCAPE" pdx_tooltip = "MOD1440_H_CLOSE_TT" }
 		containerWindowType = {
-			name = "h_chart"
-			position = { x = 340 y = 110 }
-			size = { width = 1320 height = 300 }
+			name = "h_table"
+			position = { x = 14 y = 60 }
+			size = { width = 562 height = 446 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			gridboxtype = {
-				name = "h_grid"
-				position = { x = 0 y = 0 }
-				size = { width = 1320 height = 300 }
-				slotsize = { width = 11 height = 300 }
-				add_horizontal = yes
-				max_slots_horizontal = 120
-				format = "UPPER_LEFT"
+			instantTextboxType = { name = "h_table_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_TABLE_TITLE" maxWidth = 534 maxHeight = 30 format = left }
+			containerWindowType = {
+				name = "h_tab_heads"
+				position = { x = 14 y = 42 }
+				size = { width = 534 height = 30 }
+				background = { name = "Background" quadTextureSprite = "GFX_1440p_SG_head_240" }
+				instantTextboxType = { name = "h_tab_heads_0" position = { x = 10 y = 5 } font = "hoi_16mbs" text = "MOD1440_H_TAB_HEADS_0" maxWidth = 220 maxHeight = 20 format = left pdx_tooltip = "MOD1440_H_TAB_HEADS_0_TT" }
+				instantTextboxType = { name = "h_tab_heads_1" position = { x = 242 y = 5 } font = "hoi_16mbs" text = "MOD1440_H_TAB_HEADS_1" maxWidth = 90 maxHeight = 20 format = right pdx_tooltip = "MOD1440_H_TAB_HEADS_1_TT" }
+				instantTextboxType = { name = "h_tab_heads_2" position = { x = 342 y = 5 } font = "hoi_16mbs" text = "MOD1440_H_TAB_HEADS_2" maxWidth = 90 maxHeight = 20 format = right pdx_tooltip = "MOD1440_H_TAB_HEADS_2_TT" }
+				instantTextboxType = { name = "h_tab_heads_3" position = { x = 442 y = 5 } font = "hoi_16mbs" text = "MOD1440_H_TAB_HEADS_3" maxWidth = 90 maxHeight = 20 format = right pdx_tooltip = "MOD1440_H_TAB_HEADS_3_TT" }
 			}
+			iconType = { name = "h_tab_stripe_1" position = { x = 14 y = 104 } spriteType = "GFX_1440p_SG_stripe_534x30" }
+			iconType = { name = "h_tab_stripe_3" position = { x = 14 y = 164 } spriteType = "GFX_1440p_SG_stripe_534x30" }
+			iconType = { name = "h_tab_stripe_5" position = { x = 14 y = 224 } spriteType = "GFX_1440p_SG_stripe_534x30" }
+			iconType = { name = "h_tab_stripe_7" position = { x = 14 y = 284 } spriteType = "GFX_1440p_SG_stripe_534x30" }
+			iconType = { name = "h_tab_stripe_9" position = { x = 14 y = 344 } spriteType = "GFX_1440p_SG_stripe_534x30" }
+			iconType = { name = "h_tab_stripe_11" position = { x = 14 y = 404 } spriteType = "GFX_1440p_SG_stripe_534x30" }
+			iconType = { name = "h_pick_0" position = { x = 14 y = 74 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_0" position = { x = 14 y = 74 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_0" position = { x = 24 y = 78 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_0" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_0" position = { x = 256 y = 78 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_0" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_0" position = { x = 356 y = 78 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_0" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_0" position = { x = 456 y = 78 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_0" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_1" position = { x = 14 y = 104 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_1" position = { x = 14 y = 104 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_1" position = { x = 24 y = 108 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_1" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_1" position = { x = 256 y = 108 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_1" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_1" position = { x = 356 y = 108 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_1" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_1" position = { x = 456 y = 108 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_1" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_2" position = { x = 14 y = 134 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_2" position = { x = 14 y = 134 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_2" position = { x = 24 y = 138 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_2" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_2" position = { x = 256 y = 138 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_2" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_2" position = { x = 356 y = 138 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_2" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_2" position = { x = 456 y = 138 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_2" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_3" position = { x = 14 y = 164 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_3" position = { x = 14 y = 164 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_3" position = { x = 24 y = 168 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_3" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_3" position = { x = 256 y = 168 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_3" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_3" position = { x = 356 y = 168 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_3" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_3" position = { x = 456 y = 168 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_3" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_4" position = { x = 14 y = 194 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_4" position = { x = 14 y = 194 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_4" position = { x = 24 y = 198 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_4" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_4" position = { x = 256 y = 198 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_4" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_4" position = { x = 356 y = 198 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_4" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_4" position = { x = 456 y = 198 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_4" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_5" position = { x = 14 y = 224 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_5" position = { x = 14 y = 224 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_5" position = { x = 24 y = 228 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_5" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_5" position = { x = 256 y = 228 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_5" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_5" position = { x = 356 y = 228 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_5" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_5" position = { x = 456 y = 228 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_5" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_6" position = { x = 14 y = 254 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_6" position = { x = 14 y = 254 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_6" position = { x = 24 y = 258 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_6" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_6" position = { x = 256 y = 258 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_6" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_6" position = { x = 356 y = 258 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_6" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_6" position = { x = 456 y = 258 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_6" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_7" position = { x = 14 y = 284 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_7" position = { x = 14 y = 284 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_7" position = { x = 24 y = 288 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_7" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_7" position = { x = 256 y = 288 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_7" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_7" position = { x = 356 y = 288 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_7" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_7" position = { x = 456 y = 288 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_7" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_8" position = { x = 14 y = 314 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_8" position = { x = 14 y = 314 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_8" position = { x = 24 y = 318 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_8" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_8" position = { x = 256 y = 318 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_8" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_8" position = { x = 356 y = 318 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_8" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_8" position = { x = 456 y = 318 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_8" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_9" position = { x = 14 y = 344 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_9" position = { x = 14 y = 344 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_9" position = { x = 24 y = 348 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_9" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_9" position = { x = 256 y = 348 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_9" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_9" position = { x = 356 y = 348 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_9" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_9" position = { x = 456 y = 348 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_9" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_10" position = { x = 14 y = 374 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_10" position = { x = 14 y = 374 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_10" position = { x = 24 y = 378 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_10" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_10" position = { x = 256 y = 378 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_10" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_10" position = { x = 356 y = 378 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_10" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_10" position = { x = 456 y = 378 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_10" maxWidth = 90 maxHeight = 22 format = right }
+			iconType = { name = "h_pick_11" position = { x = 14 y = 404 } spriteType = "GFX_1440p_SG_pick_534x30" }
+			buttonType = { name = "h_series_11" position = { x = 14 y = 404 } quadTextureSprite = "GFX_1440p_SG_head_240" clicksound = click_default pdx_tooltip = "MOD1440_H_SERIES_TT" }
+			instantTextboxType = { name = "h_series_name_11" position = { x = 24 y = 408 } font = "hoi_18mbs" text = "MOD1440_H_SERIES_11" maxWidth = 224 maxHeight = 22 format = left alwaystransparent = yes }
+			instantTextboxType = { name = "h_tab_now_11" position = { x = 256 y = 408 } font = "hoi_18mbs" text = "MOD1440_H_TAB_NOW_11" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_m_11" position = { x = 356 y = 408 } font = "hoi_18mbs" text = "MOD1440_H_TAB_M_11" maxWidth = 90 maxHeight = 22 format = right }
+			instantTextboxType = { name = "h_tab_y_11" position = { x = 456 y = 408 } font = "hoi_18mbs" text = "MOD1440_H_TAB_Y_11" maxWidth = 90 maxHeight = 22 format = right }
 		}
+		containerWindowType = {
+			name = "h_graph"
+			position = { x = 588 y = 60 }
+			size = { width = 1062 height = 446 }
+			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
+			instantTextboxType = { name = "h_name_0" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_0" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_1" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_1" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_2" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_2" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_3" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_3" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_4" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_4" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_5" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_5" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_6" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_6" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_7" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_7" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_8" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_8" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_9" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_9" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_10" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_10" maxWidth = 600 maxHeight = 30 format = left }
+			instantTextboxType = { name = "h_name_11" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_H_NAME_11" maxWidth = 600 maxHeight = 30 format = left }
+			buttonType = { name = "h_zoom" position = { x = 908 y = 9 } quadTextureSprite = "GFX_sort_button_140x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_H_ZOOM" pdx_tooltip = "MOD1440_H_ZOOM_TT" }
+			iconType = { name = "h_latest_bg" position = { x = 14 y = 44 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "h_latest_l" position = { x = 20 y = 51 } font = "hoi_16mbs" text = "MOD1440_H_LATEST_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_H_LATEST_TT" }
+			instantTextboxType = { name = "h_latest_0" position = { x = 20 y = 74 } font = "hoi_20b" text = "MOD1440_H_LATEST_0" maxWidth = 144 maxHeight = 24 format = centre }
+			instantTextboxType = { name = "h_latest_1" position = { x = 20 y = 74 } font = "hoi_20b" text = "MOD1440_H_LATEST_1" maxWidth = 144 maxHeight = 24 format = centre }
+			iconType = { name = "h_max_bg" position = { x = 178 y = 44 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "h_max_l" position = { x = 184 y = 51 } font = "hoi_16mbs" text = "MOD1440_H_MAX_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_H_MAX_TT" }
+			instantTextboxType = { name = "h_max_0" position = { x = 184 y = 74 } font = "hoi_20b" text = "MOD1440_H_MAX_0" maxWidth = 144 maxHeight = 24 format = centre }
+			instantTextboxType = { name = "h_max_1" position = { x = 184 y = 74 } font = "hoi_20b" text = "MOD1440_H_MAX_1" maxWidth = 144 maxHeight = 24 format = centre }
+			iconType = { name = "h_min_bg" position = { x = 342 y = 44 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "h_min_l" position = { x = 348 y = 51 } font = "hoi_16mbs" text = "MOD1440_H_MIN_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_H_MIN_TT" }
+			instantTextboxType = { name = "h_min_0" position = { x = 348 y = 74 } font = "hoi_20b" text = "MOD1440_H_MIN_0" maxWidth = 144 maxHeight = 24 format = centre }
+			instantTextboxType = { name = "h_min_1" position = { x = 348 y = 74 } font = "hoi_20b" text = "MOD1440_H_MIN_1" maxWidth = 144 maxHeight = 24 format = centre }
+			iconType = { name = "h_change_bg" position = { x = 506 y = 44 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "h_change_l" position = { x = 512 y = 51 } font = "hoi_16mbs" text = "MOD1440_H_CHANGE_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_H_CHANGE_TT" }
+			instantTextboxType = { name = "h_change_0" position = { x = 512 y = 74 } font = "hoi_20b" text = "MOD1440_H_CHANGE_0" maxWidth = 144 maxHeight = 24 format = centre }
+			instantTextboxType = { name = "h_change_1" position = { x = 512 y = 74 } font = "hoi_20b" text = "MOD1440_H_CHANGE_1" maxWidth = 144 maxHeight = 24 format = centre }
+			iconType = { name = "h_months_bg" position = { x = 670 y = 44 } spriteType = "GFX_1440p_SG_tile" }
+			instantTextboxType = { name = "h_months_l" position = { x = 676 y = 51 } font = "hoi_16mbs" text = "MOD1440_H_MONTHS_L" maxWidth = 144 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_H_MONTHS_TT" }
+			instantTextboxType = { name = "h_months" position = { x = 676 y = 74 } font = "hoi_20b" text = "MOD1440_H_MONTHS" maxWidth = 144 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_H_MONTHS_TT" }
+			instantTextboxType = { name = "h_scale_0_0" position = { x = 14 y = 376 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_0_0" maxWidth = 60 maxHeight = 24 format = right }
+			instantTextboxType = { name = "h_scale_0_1" position = { x = 14 y = 376 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_0_1" maxWidth = 60 maxHeight = 24 format = right }
+			instantTextboxType = { name = "h_scale_1_0" position = { x = 14 y = 309 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_1_0" maxWidth = 60 maxHeight = 24 format = right }
+			instantTextboxType = { name = "h_scale_1_1" position = { x = 14 y = 309 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_1_1" maxWidth = 60 maxHeight = 24 format = right }
+			instantTextboxType = { name = "h_scale_2_0" position = { x = 14 y = 242 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_2_0" maxWidth = 60 maxHeight = 24 format = right }
+			instantTextboxType = { name = "h_scale_2_1" position = { x = 14 y = 242 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_2_1" maxWidth = 60 maxHeight = 24 format = right }
+			instantTextboxType = { name = "h_scale_3_0" position = { x = 14 y = 175 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_3_0" maxWidth = 60 maxHeight = 24 format = right }
+			instantTextboxType = { name = "h_scale_3_1" position = { x = 14 y = 175 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_3_1" maxWidth = 60 maxHeight = 24 format = right }
+			instantTextboxType = { name = "h_scale_4_0" position = { x = 14 y = 108 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_4_0" maxWidth = 60 maxHeight = 24 format = right }
+			instantTextboxType = { name = "h_scale_4_1" position = { x = 14 y = 108 } font = "hoi_16mbs" text = "MOD1440_H_SCALE_4_1" maxWidth = 60 maxHeight = 24 format = right }
+			containerWindowType = {
+				name = "h_chart"
+				position = { x = 80 y = 118 }
+				size = { width = 968 height = 288 }
+				background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
+				iconType = { name = "h_band_1" position = { x = 4 y = 67 } spriteType = "GFX_1440p_SG_stripe_960x67" }
+				iconType = { name = "h_band_3" position = { x = 4 y = 201 } spriteType = "GFX_1440p_SG_stripe_960x67" }
+				gridboxtype = {
+					name = "h_grid"
+					position = { x = 4 y = 0 }
+					size = { width = 960 height = 288 }
+					slotsize = { width = 8 height = 288 }
+					add_horizontal = yes
+					max_slots_horizontal = 120
+					format = "UPPER_LEFT"
+				}
+			}
+			instantTextboxType = { name = "h_from" position = { x = 84 y = 410 } font = "hoi_16mbs" text = "MOD1440_H_FROM" maxWidth = 300 maxHeight = 20 format = left }
+			instantTextboxType = { name = "h_to" position = { x = 744 y = 410 } font = "hoi_16mbs" text = "MOD1440_H_TO" maxWidth = 300 maxHeight = 20 format = right }
+			instantTextboxType = { name = "h_none" position = { x = 100 y = 238 } font = "hoi_18mbs" text = "MOD1440_H_NONE" maxWidth = 900 maxHeight = 24 format = left }
+		}
+		instantTextboxType = { name = "h_year_0" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_0" maxWidth = 40 maxHeight = 18 format = centre }
+		instantTextboxType = { name = "h_year_1" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_1" maxWidth = 40 maxHeight = 18 format = centre }
+		instantTextboxType = { name = "h_year_2" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_2" maxWidth = 40 maxHeight = 18 format = centre }
+		instantTextboxType = { name = "h_year_3" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_3" maxWidth = 40 maxHeight = 18 format = centre }
+		instantTextboxType = { name = "h_year_4" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_4" maxWidth = 40 maxHeight = 18 format = centre }
+		instantTextboxType = { name = "h_year_5" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_5" maxWidth = 40 maxHeight = 18 format = centre }
+		instantTextboxType = { name = "h_year_6" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_6" maxWidth = 40 maxHeight = 18 format = centre }
+		instantTextboxType = { name = "h_year_7" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_7" maxWidth = 40 maxHeight = 18 format = centre }
+		instantTextboxType = { name = "h_year_8" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_8" maxWidth = 40 maxHeight = 18 format = centre }
+		instantTextboxType = { name = "h_year_9" position = { x = 656 y = 447 } font = "hoi_16mbs" text = "MOD1440_H_YEAR_9" maxWidth = 40 maxHeight = 18 format = centre }
 	}
 	containerWindowType = {
 		name = "mod1440_history_column"
-		size = { width = 11 height = 300 }
-		iconType = { name = "h_bar" position = { x = 1 y = 0 } spriteType = "GFX_1440p_SG_column" pdx_tooltip = "MOD1440_H_BAR_TT" }
+		size = { width = 8 height = 288 }
+		iconType = { name = "h_bar" position = { x = 1 y = 0 } spriteType = "GFX_1440p_SG_column_6x268" pdx_tooltip = "MOD1440_H_BAR_TT" }
 	}
 }

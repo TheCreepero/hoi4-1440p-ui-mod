@@ -21,6 +21,14 @@ on_actions = {
 					limit = { check_variable = { mod1440_st_open = 1 } }
 					mod1440_st_list = yes
 				}
+				mod1440_nf_bars = yes
+				if = {
+					limit = { check_variable = { mod1440_nf_open = 1 } }
+					if = {
+						limit = { check_variable = { mod1440_nf_page = 1 } }
+						mod1440_h_draw = yes
+					}
+				}
 				mod1440_rec_daily = yes
 			}
 		}
@@ -45,6 +53,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 				log = "MOD1440 listening: on_ace_killed, ace [FROM.GetFullName] ([FROM.GetCallsign])"
 			}
@@ -62,6 +74,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 				log = "MOD1440 listening: on_ace_killed_by_ace, ace [FROM.GetFullName] ([FROM.GetCallsign])"
 			}
@@ -79,6 +95,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 				log = "MOD1440 listening: on_ace_killed_on_accident, ace [FROM.GetFullName] ([FROM.GetCallsign])"
 			}
@@ -96,6 +116,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 				log = "MOD1440 listening: on_ace_killed_other_ace, ace [FROM.GetFullName] ([FROM.GetCallsign])"
 			}
@@ -113,6 +137,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 				log = "MOD1440 listening: on_ace_promoted, ace [FROM.GetFullName] ([FROM.GetCallsign])"
 			}
@@ -134,6 +162,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 1 }
 				set_temp_variable = { ev_b = FROM }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 				set_temp_variable = { wr_c = FROM }
 				mod1440_wr_annexed = yes
@@ -154,15 +186,30 @@ on_actions = {
 				limit = { FROM = { is_ai = no } }
 				set_variable = { mod1440_of_prom = global.date }
 				set_variable = { mod1440_of_prom_day = global.num_days }
-				set_temp_variable = { ev_kind = token:mod1440_ev_promoted }
-				set_temp_variable = { ev_fam = 4 }
-				set_temp_variable = { ev_kid = 28 }
-				set_temp_variable = { ev_sa = 1 }
-				set_temp_variable = { ev_a = THIS }
-				set_temp_variable = { ev_sb = 0 }
-				set_temp_variable = { ev_b = 0 }
-				FROM = {
-					mod1440_ev_add = yes
+				mod1440_of_me = yes
+				if = {
+					limit = { check_variable = { of_me = 0 } }
+					FROM = {
+						mod1440_of_refs = yes
+					}
+					mod1440_of_me = yes
+				}
+				if = {
+					limit = { NOT = { check_variable = { of_me = 0 } } }
+					set_temp_variable = { ev_kind = token:mod1440_ev_promoted }
+					set_temp_variable = { ev_fam = 4 }
+					set_temp_variable = { ev_kid = 28 }
+					set_temp_variable = { ev_sa = 1 }
+					set_temp_variable = { ev_a = of_me }
+					set_temp_variable = { ev_sb = 0 }
+					set_temp_variable = { ev_b = 0 }
+					set_temp_variable = { ev_so = 0 }
+					set_temp_variable = { ev_o = 0 }
+					set_temp_variable = { ev_p = 0 }
+					set_temp_variable = { ev_x = 0 }
+					FROM = {
+						mod1440_ev_add = yes
+					}
 				}
 			}
 		}
@@ -186,6 +233,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 			}
 		}
@@ -202,6 +253,10 @@ on_actions = {
 				set_temp_variable = { ev_a = THIS }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				ROOT = {
 					mod1440_ev_add = yes
 				}
@@ -236,6 +291,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 			}
 		}
@@ -252,6 +311,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 				log = "MOD1440 listening: on_non_ace_killed_other_ace, ace [FROM.GetFullName] ([FROM.GetCallsign])"
 			}
@@ -268,6 +331,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 1 }
 				set_temp_variable = { ev_b = FROM }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 			}
 			if = {
@@ -280,6 +347,10 @@ on_actions = {
 					set_temp_variable = { ev_a = 0 }
 					set_temp_variable = { ev_sb = 1 }
 					set_temp_variable = { ev_b = PREV }
+					set_temp_variable = { ev_so = 0 }
+					set_temp_variable = { ev_o = 0 }
+					set_temp_variable = { ev_p = 0 }
+					set_temp_variable = { ev_x = 0 }
 					mod1440_ev_add = yes
 				}
 			}
@@ -296,6 +367,10 @@ on_actions = {
 				set_temp_variable = { ev_a = 0 }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				mod1440_ev_add = yes
 			}
 		}
@@ -338,15 +413,30 @@ on_actions = {
 				limit = { FROM = { is_ai = no } }
 				set_variable = { mod1440_of_since = global.date }
 				set_variable = { mod1440_of_since_day = global.num_days }
-				set_temp_variable = { ev_kind = token:mod1440_ev_commissioned }
-				set_temp_variable = { ev_fam = 4 }
-				set_temp_variable = { ev_kid = 27 }
-				set_temp_variable = { ev_sa = 1 }
-				set_temp_variable = { ev_a = THIS }
-				set_temp_variable = { ev_sb = 0 }
-				set_temp_variable = { ev_b = 0 }
-				FROM = {
-					mod1440_ev_add = yes
+				mod1440_of_me = yes
+				if = {
+					limit = { check_variable = { of_me = 0 } }
+					FROM = {
+						mod1440_of_refs = yes
+					}
+					mod1440_of_me = yes
+				}
+				if = {
+					limit = { NOT = { check_variable = { of_me = 0 } } }
+					set_temp_variable = { ev_kind = token:mod1440_ev_commissioned }
+					set_temp_variable = { ev_fam = 4 }
+					set_temp_variable = { ev_kid = 27 }
+					set_temp_variable = { ev_sa = 1 }
+					set_temp_variable = { ev_a = of_me }
+					set_temp_variable = { ev_sb = 0 }
+					set_temp_variable = { ev_b = 0 }
+					set_temp_variable = { ev_so = 0 }
+					set_temp_variable = { ev_o = 0 }
+					set_temp_variable = { ev_p = 0 }
+					set_temp_variable = { ev_x = 0 }
+					FROM = {
+						mod1440_ev_add = yes
+					}
 				}
 			}
 		}
@@ -357,15 +447,30 @@ on_actions = {
 				limit = { FROM = { is_ai = no } }
 				set_variable = { mod1440_of_lvl = global.date }
 				set_variable = { mod1440_of_lvl_day = global.num_days }
-				set_temp_variable = { ev_kind = token:mod1440_ev_level }
-				set_temp_variable = { ev_fam = 4 }
-				set_temp_variable = { ev_kid = 29 }
-				set_temp_variable = { ev_sa = 1 }
-				set_temp_variable = { ev_a = THIS }
-				set_temp_variable = { ev_sb = 0 }
-				set_temp_variable = { ev_b = 0 }
-				FROM = {
-					mod1440_ev_add = yes
+				mod1440_of_me = yes
+				if = {
+					limit = { check_variable = { of_me = 0 } }
+					FROM = {
+						mod1440_of_refs = yes
+					}
+					mod1440_of_me = yes
+				}
+				if = {
+					limit = { NOT = { check_variable = { of_me = 0 } } }
+					set_temp_variable = { ev_kind = token:mod1440_ev_level }
+					set_temp_variable = { ev_fam = 4 }
+					set_temp_variable = { ev_kid = 29 }
+					set_temp_variable = { ev_sa = 1 }
+					set_temp_variable = { ev_a = of_me }
+					set_temp_variable = { ev_sb = 0 }
+					set_temp_variable = { ev_b = 0 }
+					set_temp_variable = { ev_so = 0 }
+					set_temp_variable = { ev_o = 0 }
+					set_temp_variable = { ev_p = 0 }
+					set_temp_variable = { ev_x = 0 }
+					FROM = {
+						mod1440_ev_add = yes
+					}
 				}
 			}
 		}
@@ -381,6 +486,10 @@ on_actions = {
 				set_temp_variable = { ev_a = THIS }
 				set_temp_variable = { ev_sb = 0 }
 				set_temp_variable = { ev_b = 0 }
+				set_temp_variable = { ev_so = 0 }
+				set_temp_variable = { ev_o = 0 }
+				set_temp_variable = { ev_p = 0 }
+				set_temp_variable = { ev_x = 0 }
 				FROM = {
 					mod1440_ev_add = yes
 				}

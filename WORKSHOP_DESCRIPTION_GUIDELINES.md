@@ -42,18 +42,19 @@ Check out my other mods:
 
 [h1]Manager pages:[/h1]
 Shift+M shows and hides the page of the open tab.
-- [b]Army Readiness[/b] (beside Recruit & Deploy): manpower free, in training, in the field and needed by garrisons. For sixteen kinds of land equipment the stock, what your divisions hold and what they need, with a bar, shortages in red. Divisions below 75% strength and below 50% organisation. One row per general with troops: divisions, battalions, divisions fighting, planning and the worst equipped kind of equipment.
-- [b]States[/b] (beside Construction): every state you control as a table: free building slots, building levels, resources, population, compliance and resistance. Click a column head to sort. Click a state and the camera goes there.
-- [b]National Figures[/b] (from Politics): the summed modifiers of your country, 93 of them: what all your laws, spirits, advisors and technologies together add to factory output, construction speed, research speed, organisation and the rest. With factories, fuel, party popularity and a table of resources.
-- [b]History[/b] (in National Figures): twelve figures of your country month by month as a graph: manpower, divisions, factories, stability, war support, fuel and more.
+- [b]Army Readiness[/b] (beside Recruit & Deploy): manpower free, in training, in the field and needed by garrisons, and divisions below 75% strength and below 50% organisation, as tiles. For sixteen kinds of land equipment the stock, what your divisions hold, what they need and what they are short of, with a bar, shortages in red. One row per general with troops: divisions, battalions, divisions fighting, planning and the worst equipped kind of equipment.
+- [b]States[/b] (beside Construction): every state you control as a table: free building slots, building levels, resources, population, compliance and resistance. Click a column head to sort. Click a state and the camera goes there. The totals of the listed states stand under the list.
+- [b]National Figures[/b] (from Politics): the summed modifiers of your country, 101 of them: what all your laws, spirits, advisors and technologies together add to factory output, construction speed, research speed, organisation, compliance and the rest; what does not apply is grey. With factories, stability, war support, fuel and party popularity as tiles and bars, and a table of resources.
+- [b]History[/b] (in National Figures): twelve figures of your country month by month: manpower, divisions, factories, stability, war support, fuel and more. A table with the change in a month and in a year, and a graph of the one you click, with a zoom.
 - The pages show your own country only. Equipment, buildings and resources added by other mods do not appear in them.
 
 [h1]The Records:[/h1]
 The Records button of the top bar or Shift+J opens a window that writes your campaign down as you play.
-- [b]War Diary:[/b] a dated log of wars, peace, capitulations, annexations, subjects, your faction, capitals taken and lost, changes of government and your officers' careers. Filters by kind; every single state under Territory, with a button that moves the camera there.
-- [b]Officers:[/b] every general and admiral in a table you can sort, and a record for each: commissioned, promoted, battles won and lost, states taken under him. A retired officer keeps his record. Award him your country's medals from the game, by name and icon: for an officer a record only, with no bonus and no cost.
+- [b]War Diary:[/b] a dated log of wars, peace, capitulations, annexations, subjects, your faction, every state and victory point taken or lost with the general on the spot, changes of government and your officers' careers. Filters by kind; a button on a line about a place moves the camera there.
+- [b]Officers:[/b] every general and admiral with his portrait in a table you can sort, and a file for each: commissioned, promoted, battles won and lost, states and victory points taken under him. A retired officer keeps his record. Award him your country's medals from the game, by name and icon: for an officer a record only, with no bonus and no cost.
+- Officers that other mods add are listed as well. Their portraits show for the mods this build knows; from other mods they show the unknown leader.
 - [b]Government:[/b] head of government, parties and their leaders, laws, cabinet, high command, faction and subjects, each name with the day it took office.
-- [b]Wars:[/b] one row per enemy and per finished war: dates, days, your casualties in that time, states taken and lost, how it ended.
+- [b]Wars:[/b] one row per enemy and per finished war, and a file for the war you click: the flags and heads of government of both sides, days, your casualties, states and victory points taken and lost, how it ended.
 - [b]Unit honours[/b] (By Blood Alone): your divisions that stand in an enemy capital when it falls get a line in their own history. A button beside the state view cites the divisions in a state the same way. The Battle honours switch on the War Diary turns the automatic line off.
 - The record starts on the day the mod is first active in a game. Nothing can be typed into a page, and the game gives no page the name of a division or a ship.
 

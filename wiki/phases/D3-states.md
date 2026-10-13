@@ -37,8 +37,20 @@ Not seen in game:
 - The daily remake of an open list.
 - A list longer than the page with the mouse wheel (the probe scrolled a scripted list by dragging the bar).
 
+## Rework of the look (2026-10-12)
+
+Part of the pass the user asked for after the Records had been polished ([D2 notes](D2-army-readiness.md), same section).
+
+- **What changed.** The choices (All, Cores, Occupied, With free slots, Refresh) moved into the title strip, which gave the list a row more. The columns stand in five groups with 10 px between them, and a grey caption names the buildings, the resources and the occupation columns. Every second row is on a darker band. Under the list a bar holds the totals of every column over the states that are listed. Free slots are green; a state that is not a core has its name in another colour.
+- **Decided:** 1472 px wide instead of 1422, for the gaps. The totals follow the choice: with "Cores" they are the totals of the cores. Compliance and resistance have no total. The arrow of the sorted column is now placed when the list is made, not by the click, so that a game saved with the old layout shows it over the right column.
+- **Not checked in game on 2026-10-12** (the launch was refused that session, see D2). The user installed the build on 2026-10-13 and played with it: "Overall I'm very happy with the results"; the error log of that session names the mod nowhere.
+- **Checked in game on 2026-10-13**, cold start through `tools/Invoke-GameCheck.ps1`: the page as the renderer drew it (`reference/mod/states-panel.png`). The totals of the 24 states of Germany's start agree with their columns, added up by hand from the capture: free slots 95, infrastructure 81, civilian factories 35 (the top bar's number), military factories 28, dockyards 10.
+- **After the check:** the arrow of the sorted column is the game's small arrow at about half its size on the upper right corner of the head (at its own size it covered part of a narrow head). In the second check of the day it ran into the group caption above it: the game draws that text about 4 px lower than the renderer does. The captions were raised by 5 px in the open game and stand clear, under "Buildings" and under "Occupation" (`scratch/checks/b_st3-*`, `b_st4-*`). `reference/mod/states*` still shows the captions where they were: to be stored again at the next launch.
+- **Left unseen:** as the United Kingdom (`tag ENG`) the Occupied choice and the colour of a name.
+
 ## Close
 
+- [x] The rework of 2026-10-12 seen in game, and `reference/mod/states*` stored again (2026-10-13)
 - [x] Roadmap status and link
 - [x] README and Workshop description
 - [x] Scene file (`tools/scenes/states.json`, written by the tool)

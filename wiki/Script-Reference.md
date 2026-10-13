@@ -187,6 +187,30 @@ Read on 2026-10-12 for Milestone E. The facts, with their sources, are rows R1 t
 - `@var:<variable>` passes a variable where a value takes a name after `@` (`num_units_in_state@var:x`).
 - The console command `effect` runs in the scope of what is selected.
 
+## What the portraits and the victory points added
+
+Read on 2026-10-13, after the user asked for portraits, a record of victory points and a file for each war. Sources and status: rows X58 to X64 of [Engine Facts](Engine-Facts.md); each was seen in the game that day.
+
+- **`NOT = { A B }` is "neither A nor B"**, not "not both". The test "this holder is not the one written down" was written that way for the offices of the Government page and missed a holder replaced on the same day. "Not both" is `OR = { NOT = { A } NOT = { B } }`.
+- A character is known by `is_character = <character>` in his own scope; a country's head of government is the variable `country_leader`. `is_character` logs an error for a character no country has recruited, so the country is asked `has_character = <character>` first (the game's own scripts do the same).
+- **A temporary variable is shared with every scripted effect a run calls.** A called effect that sets `ev_c` changes the caller's `ev_c` (X64). Temporary variables carry the prefix of their effect.
+- **A number written with `|0` has its fraction cut off**, it is not rounded (X65). Where a difference stands beside its two terms, round it up in script first.
+- A state's scope can be entered by its number: `64 = { ... }`. The victory point script takes the state of a point that way.
+- A text key held in a variable gives its own name with `[?v.GetTokenKey]` and its text with `[?v.GetTokenLocalizedKey]`; the first is what an icon's `image` wants.
+- `global.province_controllers^<province>` and `global.year` are read like any array element and value.
+
+## What the officers of another mod taught
+
+Found on 2026-10-13, when the user's test showed that generals a mod adds were missing from the Officers list. Rows X66 to X70 of [Engine Facts](Engine-Facts.md).
+
+- **Go through officers with `every_army_leader` and `every_navy_leader`**, not with the arrays `army_leaders` and `navy_leaders`: an array holds nothing in the place of a leader whose command came by an effect, and the loop over it then stays in the scope it was in.
+- **`THIS` is not a way to keep a person.** For such a leader it is -21474.83648. `mod1440_of_me = yes` leaves what a variable can hold of the officer in scope in `of_me` (0: not known yet).
+- **A variable that holds nothing leaves the scope where it is.** `var:v = { ... }` then runs in the scope around it, without a word in the log. A test that must fail for an empty variable is run from a scope that cannot pass it: the search asks from the country's scope, never from the leader's own.
+- **Numbers have five decimals**, and a person in a variable is a number: -21474.83648 and up for unit leaders by their number, 5368.70912 and up for characters by their place. A sum on it works.
+- **A loop ends after 1000 rounds.** Longer: a loop in a loop.
+- **`on_unit_leader_created` fires for `create_corps_commander`, not for `add_corps_commander_role`.**
+- **`has_character = <name>` is false and silent for a name the game does not know.**
+
 ## Open questions
 
 1. `on_daily` and `on_monthly` running for a player: answered by the user's play on 2026-10-12 ("everything seems to be working, including the history ticks"). Still true: no check runs time.

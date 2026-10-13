@@ -675,6 +675,13 @@ guiTypes = {
 			}
 		}
 
+		iconType = {
+			name = "mod1440_card_adjusters"
+			spriteType = "GFX_1440p_UD_card_adjusters"
+			position = { x = 515 y = 419 }
+			alwaystransparent = yes
+		}
+
 		containerWindowType = {
 			name = "adjuster_container"
 			position = { x = 515 y = 424 }
@@ -1472,7 +1479,7 @@ containerWindowType =
 
 		instantTextBoxType = {
 			name = "label"
-			position = { x = 4 y = 2 }
+			position = { x = 5 y = 2 }
 			textureFile = ""
 			font = "hoi_16mbs"
 			borderSize = {x = 0 y = 0}
@@ -1484,7 +1491,7 @@ containerWindowType =
 
 		instantTextBoxType = {
 			name = "value"
-			position = { x = 4 y = 32 }
+			position = { x = 5 y = 32 }
 			textureFile = ""
 			font = "hoi_20b"
 			borderSize = {x = 0 y = 0}

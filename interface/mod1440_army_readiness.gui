@@ -15,201 +15,298 @@ guiTypes = {
 		instantTextboxType = { name = "ar_hint" position = { x = 645 y = 18 } font = "hoi_16mbs" text = "MOD1440_AR_HINT" maxWidth = 250 maxHeight = 24 format = right }
 		buttonType = { name = "ar_fold" position = { x = 909 y = 10 } quadTextureSprite = "GFX_closebutton" clicksound = click_default shortcut = "shift+m" pdx_tooltip = "MOD1440_AR_FOLD_TT" }
 		containerWindowType = {
-			name = "ar_manpower"
+			name = "ar_figures"
 			position = { x = 14 y = 60 }
-			size = { width = 290 height = 240 }
+			size = { width = 947 height = 162 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "ar_mp_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_AR_MP_TITLE" maxWidth = 262 maxHeight = 30 format = left }
-			instantTextboxType = { name = "ar_mp_label_free" position = { x = 16 y = 46 } font = "hoi_18mbs" text = "MOD1440_AR_MP_FREE" maxWidth = 180 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_mp_value_free" position = { x = 174 y = 45 } font = "hoi_20b" text = "MOD1440_AR_MP_FREE_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_mp_label_training" position = { x = 16 y = 76 } font = "hoi_18mbs" text = "MOD1440_AR_MP_TRAINING" maxWidth = 180 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_mp_value_training" position = { x = 174 y = 75 } font = "hoi_20b" text = "MOD1440_AR_MP_TRAINING_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_mp_zero_training" position = { x = 174 y = 75 } font = "hoi_20b" text = "0" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_mp_label_army" position = { x = 16 y = 106 } font = "hoi_18mbs" text = "MOD1440_AR_MP_ARMY" maxWidth = 180 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_mp_value_army" position = { x = 174 y = 105 } font = "hoi_20b" text = "MOD1440_AR_MP_ARMY_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_mp_label_navy" position = { x = 16 y = 136 } font = "hoi_18mbs" text = "MOD1440_AR_MP_NAVY" maxWidth = 180 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_mp_value_navy" position = { x = 174 y = 135 } font = "hoi_20b" text = "MOD1440_AR_MP_NAVY_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_mp_label_air" position = { x = 16 y = 166 } font = "hoi_18mbs" text = "MOD1440_AR_MP_AIR" maxWidth = 180 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_mp_value_air" position = { x = 174 y = 165 } font = "hoi_20b" text = "MOD1440_AR_MP_AIR_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_mp_label_garrison" position = { x = 16 y = 196 } font = "hoi_18mbs" text = "MOD1440_AR_MP_GARRISON" maxWidth = 180 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_mp_value_garrison" position = { x = 174 y = 195 } font = "hoi_20b" text = "MOD1440_AR_MP_GARRISON_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_mp_zero_garrison" position = { x = 174 y = 195 } font = "hoi_20b" text = "0" maxWidth = 100 maxHeight = 24 format = right }
-		}
-		containerWindowType = {
-			name = "ar_army"
-			position = { x = 14 y = 312 }
-			size = { width = 290 height = 252 }
-			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "ar_army_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_AR_ARMY_TITLE" maxWidth = 262 maxHeight = 30 format = left }
-			instantTextboxType = { name = "ar_army_label_divisions" position = { x = 16 y = 46 } font = "hoi_18mbs" text = "MOD1440_AR_ARMY_DIVISIONS" maxWidth = 200 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_army_value_divisions" position = { x = 174 y = 45 } font = "hoi_20b" text = "MOD1440_AR_ARMY_DIVISIONS_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_army_label_battalions" position = { x = 16 y = 76 } font = "hoi_18mbs" text = "MOD1440_AR_ARMY_BATTALIONS" maxWidth = 200 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_army_value_battalions" position = { x = 174 y = 75 } font = "hoi_20b" text = "MOD1440_AR_ARMY_BATTALIONS_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_army_label_xp" position = { x = 16 y = 106 } font = "hoi_18mbs" text = "MOD1440_AR_ARMY_XP" maxWidth = 200 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_army_value_xp" position = { x = 174 y = 105 } font = "hoi_20b" text = "MOD1440_AR_ARMY_XP_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_army_label_low_str" position = { x = 16 y = 136 } font = "hoi_18mbs" text = "MOD1440_AR_ARMY_LOW_STR" maxWidth = 200 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_army_value_low_str" position = { x = 174 y = 135 } font = "hoi_20b" text = "MOD1440_AR_ARMY_LOW_STR_V" maxWidth = 100 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_army_label_low_org" position = { x = 16 y = 166 } font = "hoi_18mbs" text = "MOD1440_AR_ARMY_LOW_ORG" maxWidth = 200 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_army_value_low_org" position = { x = 174 y = 165 } font = "hoi_20b" text = "MOD1440_AR_ARMY_LOW_ORG_V" maxWidth = 100 maxHeight = 24 format = right }
-			buttonType = { name = "ar_count" position = { x = 14 y = 204 } quadTextureSprite = "GFX_button_123x34" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_AR_COUNT" pdx_tooltip = "MOD1440_AR_COUNT_TT" }
-			instantTextboxType = { name = "ar_counted" position = { x = 140 y = 212 } font = "hoi_16mbs" text = "MOD1440_AR_COUNTED" maxWidth = 134 maxHeight = 24 format = right }
+			iconType = { name = "ar_mp_free_bg" position = { x = 14 y = 14 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_mp_free_l" position = { x = 20 y = 21 } font = "hoi_16mbs" text = "MOD1440_AR_MP_FREE_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_MP_FREE_TT" }
+			instantTextboxType = { name = "ar_mp_free" position = { x = 20 y = 44 } font = "hoi_20b" text = "MOD1440_AR_MP_FREE" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_MP_FREE_TT" }
+			iconType = { name = "ar_mp_training_bg" position = { x = 168 y = 14 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_mp_training_l" position = { x = 174 y = 21 } font = "hoi_16mbs" text = "MOD1440_AR_MP_TRAINING_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_MP_TRAINING_TT" }
+			instantTextboxType = { name = "ar_mp_training" position = { x = 174 y = 44 } font = "hoi_20b" text = "MOD1440_AR_MP_TRAINING" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_MP_TRAINING_TT" }
+			instantTextboxType = { name = "ar_mp_training_z" position = { x = 174 y = 44 } font = "hoi_20b" text = "0" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_MP_TRAINING_TT" }
+			iconType = { name = "ar_mp_army_bg" position = { x = 322 y = 14 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_mp_army_l" position = { x = 328 y = 21 } font = "hoi_16mbs" text = "MOD1440_AR_MP_ARMY_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_MP_ARMY_TT" }
+			instantTextboxType = { name = "ar_mp_army" position = { x = 328 y = 44 } font = "hoi_20b" text = "MOD1440_AR_MP_ARMY" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_MP_ARMY_TT" }
+			iconType = { name = "ar_mp_navy_bg" position = { x = 476 y = 14 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_mp_navy_l" position = { x = 482 y = 21 } font = "hoi_16mbs" text = "MOD1440_AR_MP_NAVY_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_MP_NAVY_TT" }
+			instantTextboxType = { name = "ar_mp_navy" position = { x = 482 y = 44 } font = "hoi_20b" text = "MOD1440_AR_MP_NAVY" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_MP_NAVY_TT" }
+			iconType = { name = "ar_mp_air_bg" position = { x = 630 y = 14 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_mp_air_l" position = { x = 636 y = 21 } font = "hoi_16mbs" text = "MOD1440_AR_MP_AIR_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_MP_AIR_TT" }
+			instantTextboxType = { name = "ar_mp_air" position = { x = 636 y = 44 } font = "hoi_20b" text = "MOD1440_AR_MP_AIR" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_MP_AIR_TT" }
+			iconType = { name = "ar_mp_garrison_bg" position = { x = 784 y = 14 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_mp_garrison_l" position = { x = 790 y = 21 } font = "hoi_16mbs" text = "MOD1440_AR_MP_GARRISON_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_MP_GARRISON_TT" }
+			instantTextboxType = { name = "ar_mp_garrison" position = { x = 790 y = 44 } font = "hoi_20b" text = "MOD1440_AR_MP_GARRISON" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_MP_GARRISON_TT" }
+			instantTextboxType = { name = "ar_mp_garrison_z" position = { x = 790 y = 44 } font = "hoi_20b" text = "0" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_MP_GARRISON_TT" }
+			iconType = { name = "ar_divisions_bg" position = { x = 14 y = 84 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_divisions_l" position = { x = 20 y = 91 } font = "hoi_16mbs" text = "MOD1440_AR_DIVISIONS_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_DIVISIONS_TT" }
+			instantTextboxType = { name = "ar_divisions" position = { x = 20 y = 114 } font = "hoi_20b" text = "MOD1440_AR_DIVISIONS" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_DIVISIONS_TT" }
+			iconType = { name = "ar_battalions_bg" position = { x = 168 y = 84 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_battalions_l" position = { x = 174 y = 91 } font = "hoi_16mbs" text = "MOD1440_AR_BATTALIONS_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_BATTALIONS_TT" }
+			instantTextboxType = { name = "ar_battalions" position = { x = 174 y = 114 } font = "hoi_20b" text = "MOD1440_AR_BATTALIONS" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_BATTALIONS_TT" }
+			iconType = { name = "ar_xp_bg" position = { x = 322 y = 84 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_xp_l" position = { x = 328 y = 91 } font = "hoi_16mbs" text = "MOD1440_AR_XP_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_XP_TT" }
+			instantTextboxType = { name = "ar_xp" position = { x = 328 y = 114 } font = "hoi_20b" text = "MOD1440_AR_XP" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_XP_TT" }
+			iconType = { name = "ar_low_str_bg" position = { x = 476 y = 84 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_low_str_l" position = { x = 482 y = 91 } font = "hoi_16mbs" text = "MOD1440_AR_LOW_STR_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_LOW_STR_TT" }
+			instantTextboxType = { name = "ar_low_str" position = { x = 482 y = 114 } font = "hoi_20b" text = "MOD1440_AR_LOW_STR" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_LOW_STR_TT" }
+			instantTextboxType = { name = "ar_low_str_z" position = { x = 482 y = 114 } font = "hoi_20b" text = "0" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_LOW_STR_TT" }
+			iconType = { name = "ar_low_org_bg" position = { x = 630 y = 84 } spriteType = "GFX_1440p_SG_tile_148x64" }
+			instantTextboxType = { name = "ar_low_org_l" position = { x = 636 y = 91 } font = "hoi_16mbs" text = "MOD1440_AR_LOW_ORG_L" maxWidth = 136 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_LOW_ORG_TT" }
+			instantTextboxType = { name = "ar_low_org" position = { x = 636 y = 114 } font = "hoi_20b" text = "MOD1440_AR_LOW_ORG" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_LOW_ORG_TT" }
+			instantTextboxType = { name = "ar_low_org_z" position = { x = 636 y = 114 } font = "hoi_20b" text = "0" maxWidth = 136 maxHeight = 26 format = centre pdx_tooltip = "MOD1440_AR_LOW_ORG_TT" }
+			buttonType = { name = "ar_count" position = { x = 796 y = 86 } quadTextureSprite = "GFX_button_123x34" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_AR_COUNT" pdx_tooltip = "MOD1440_AR_COUNT_TT" }
+			instantTextboxType = { name = "ar_counted" position = { x = 784 y = 124 } font = "hoi_16mbs" text = "MOD1440_AR_COUNTED" maxWidth = 148 maxHeight = 20 format = centre }
 		}
 		containerWindowType = {
 			name = "ar_equipment"
-			position = { x = 316 y = 60 }
-			size = { width = 645 height = 540 }
+			position = { x = 14 y = 234 }
+			size = { width = 947 height = 534 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "ar_eq_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_AR_EQ_TITLE" maxWidth = 220 maxHeight = 30 format = left }
-			instantTextboxType = { name = "ar_eq_head_stock" position = { x = 240 y = 16 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEAD_STOCK" maxWidth = 90 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_EQ_HEAD_STOCK_TT" }
-			instantTextboxType = { name = "ar_eq_head_field" position = { x = 330 y = 16 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEAD_FIELD" maxWidth = 90 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_EQ_HEAD_FIELD_TT" }
-			instantTextboxType = { name = "ar_eq_head_need" position = { x = 420 y = 16 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEAD_NEED" maxWidth = 90 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_EQ_HEAD_NEED_TT" }
-			instantTextboxType = { name = "ar_eq_head_bar" position = { x = 526 y = 16 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEAD_BAR" maxWidth = 105 maxHeight = 24 format = left pdx_tooltip = "MOD1440_AR_EQ_HEAD_BAR_TT" }
-			instantTextboxType = { name = "ar_eq_name_0" position = { x = 16 y = 46 } font = "hoi_18mbs" text = "infantry_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_0" position = { x = 246 y = 45 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_0" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_0" position = { x = 336 y = 45 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_0" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_0" position = { x = 336 y = 45 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_0" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_0" position = { x = 426 y = 45 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_0" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_0" position = { x = 526 y = 52 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_1" position = { x = 16 y = 76 } font = "hoi_18mbs" text = "support_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_1" position = { x = 246 y = 75 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_1" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_1" position = { x = 336 y = 75 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_1" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_1" position = { x = 336 y = 75 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_1" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_1" position = { x = 426 y = 75 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_1" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_1" position = { x = 526 y = 82 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_2" position = { x = 16 y = 106 } font = "hoi_18mbs" text = "artillery_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_2" position = { x = 246 y = 105 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_2" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_2" position = { x = 336 y = 105 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_2" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_2" position = { x = 336 y = 105 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_2" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_2" position = { x = 426 y = 105 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_2" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_2" position = { x = 526 y = 112 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_3" position = { x = 16 y = 136 } font = "hoi_18mbs" text = "anti_tank_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_3" position = { x = 246 y = 135 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_3" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_3" position = { x = 336 y = 135 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_3" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_3" position = { x = 336 y = 135 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_3" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_3" position = { x = 426 y = 135 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_3" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_3" position = { x = 526 y = 142 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_4" position = { x = 16 y = 166 } font = "hoi_18mbs" text = "anti_air_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_4" position = { x = 246 y = 165 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_4" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_4" position = { x = 336 y = 165 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_4" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_4" position = { x = 336 y = 165 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_4" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_4" position = { x = 426 y = 165 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_4" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_4" position = { x = 526 y = 172 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_5" position = { x = 16 y = 196 } font = "hoi_18mbs" text = "rocket_artillery_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_5" position = { x = 246 y = 195 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_5" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_5" position = { x = 336 y = 195 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_5" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_5" position = { x = 336 y = 195 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_5" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_5" position = { x = 426 y = 195 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_5" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_5" position = { x = 526 y = 202 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_6" position = { x = 16 y = 226 } font = "hoi_18mbs" text = "motorized_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_6" position = { x = 246 y = 225 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_6" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_6" position = { x = 336 y = 225 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_6" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_6" position = { x = 336 y = 225 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_6" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_6" position = { x = 426 y = 225 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_6" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_6" position = { x = 526 y = 232 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_7" position = { x = 16 y = 256 } font = "hoi_18mbs" text = "mechanized_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_7" position = { x = 246 y = 255 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_7" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_7" position = { x = 336 y = 255 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_7" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_7" position = { x = 336 y = 255 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_7" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_7" position = { x = 426 y = 255 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_7" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_7" position = { x = 526 y = 262 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_8" position = { x = 16 y = 286 } font = "hoi_18mbs" text = "armored_car_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_8" position = { x = 246 y = 285 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_8" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_8" position = { x = 336 y = 285 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_8" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_8" position = { x = 336 y = 285 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_8" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_8" position = { x = 426 y = 285 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_8" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_8" position = { x = 526 y = 292 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_9" position = { x = 16 y = 316 } font = "hoi_18mbs" text = "motorized_rocket_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_9" position = { x = 246 y = 315 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_9" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_9" position = { x = 336 y = 315 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_9" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_9" position = { x = 336 y = 315 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_9" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_9" position = { x = 426 y = 315 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_9" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_9" position = { x = 526 y = 322 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_10" position = { x = 16 y = 346 } font = "hoi_18mbs" text = "light_tank_chassis" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_10" position = { x = 246 y = 345 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_10" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_10" position = { x = 336 y = 345 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_10" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_10" position = { x = 336 y = 345 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_10" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_10" position = { x = 426 y = 345 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_10" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_10" position = { x = 526 y = 352 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_11" position = { x = 16 y = 376 } font = "hoi_18mbs" text = "medium_tank_chassis" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_11" position = { x = 246 y = 375 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_11" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_11" position = { x = 336 y = 375 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_11" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_11" position = { x = 336 y = 375 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_11" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_11" position = { x = 426 y = 375 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_11" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_11" position = { x = 526 y = 382 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_12" position = { x = 16 y = 406 } font = "hoi_18mbs" text = "heavy_tank_chassis" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_12" position = { x = 246 y = 405 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_12" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_12" position = { x = 336 y = 405 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_12" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_12" position = { x = 336 y = 405 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_12" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_12" position = { x = 426 y = 405 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_12" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_12" position = { x = 526 y = 412 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_13" position = { x = 16 y = 436 } font = "hoi_18mbs" text = "modern_tank_chassis" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_13" position = { x = 246 y = 435 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_13" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_13" position = { x = 336 y = 435 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_13" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_13" position = { x = 336 y = 435 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_13" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_13" position = { x = 426 y = 435 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_13" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_13" position = { x = 526 y = 442 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_14" position = { x = 16 y = 466 } font = "hoi_18mbs" text = "amphibious_tank_chassis" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_14" position = { x = 246 y = 465 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_14" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_14" position = { x = 336 y = 465 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_14" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_14" position = { x = 336 y = 465 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_14" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_14" position = { x = 426 y = 465 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_14" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_14" position = { x = 526 y = 472 } spriteType = "GFX_1440p_SG_bar" }
-			instantTextboxType = { name = "ar_eq_name_15" position = { x = 16 y = 496 } font = "hoi_18mbs" text = "amphibious_mechanized_equipment" maxWidth = 246 maxHeight = 24 format = left }
-			instantTextboxType = { name = "ar_eq_stock_15" position = { x = 246 y = 495 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_15" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_field_15" position = { x = 336 y = 495 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_15" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_short_15" position = { x = 336 y = 495 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_15" maxWidth = 84 maxHeight = 24 format = right }
-			instantTextboxType = { name = "ar_eq_need_15" position = { x = 426 y = 495 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_15" maxWidth = 84 maxHeight = 24 format = right }
-			iconType = { name = "ar_eq_bar_15" position = { x = 526 y = 502 } spriteType = "GFX_1440p_SG_bar" }
+			instantTextboxType = { name = "ar_equipment_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_AR_EQUIPMENT_TITLE" maxWidth = 919 maxHeight = 30 format = left }
+			containerWindowType = {
+				name = "ar_eq_heads"
+				position = { x = 14 y = 42 }
+				size = { width = 919 height = 30 }
+				background = { name = "Background" quadTextureSprite = "GFX_1440p_SG_head_240" }
+				instantTextboxType = { name = "ar_eq_heads_0" position = { x = 10 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEADS_0" maxWidth = 240 maxHeight = 20 format = left }
+				instantTextboxType = { name = "ar_eq_heads_1" position = { x = 260 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEADS_1" maxWidth = 100 maxHeight = 20 format = right pdx_tooltip = "MOD1440_AR_EQ_HEADS_1_TT" }
+				instantTextboxType = { name = "ar_eq_heads_2" position = { x = 370 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEADS_2" maxWidth = 100 maxHeight = 20 format = right pdx_tooltip = "MOD1440_AR_EQ_HEADS_2_TT" }
+				instantTextboxType = { name = "ar_eq_heads_3" position = { x = 480 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEADS_3" maxWidth = 100 maxHeight = 20 format = right pdx_tooltip = "MOD1440_AR_EQ_HEADS_3_TT" }
+				instantTextboxType = { name = "ar_eq_heads_4" position = { x = 584 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEADS_4" maxWidth = 86 maxHeight = 20 format = right pdx_tooltip = "MOD1440_AR_EQ_HEADS_4_TT" }
+				instantTextboxType = { name = "ar_eq_heads_5" position = { x = 690 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_EQ_HEADS_5" maxWidth = 150 maxHeight = 20 format = left pdx_tooltip = "MOD1440_AR_EQ_HEADS_5_TT" }
+			}
+			iconType = { name = "ar_eq_stripe_1" position = { x = 14 y = 102 } spriteType = "GFX_1440p_SG_stripe_919x28" }
+			iconType = { name = "ar_eq_stripe_3" position = { x = 14 y = 158 } spriteType = "GFX_1440p_SG_stripe_919x28" }
+			iconType = { name = "ar_eq_stripe_5" position = { x = 14 y = 214 } spriteType = "GFX_1440p_SG_stripe_919x28" }
+			iconType = { name = "ar_eq_stripe_7" position = { x = 14 y = 270 } spriteType = "GFX_1440p_SG_stripe_919x28" }
+			iconType = { name = "ar_eq_stripe_9" position = { x = 14 y = 326 } spriteType = "GFX_1440p_SG_stripe_919x28" }
+			iconType = { name = "ar_eq_stripe_11" position = { x = 14 y = 382 } spriteType = "GFX_1440p_SG_stripe_919x28" }
+			iconType = { name = "ar_eq_stripe_13" position = { x = 14 y = 438 } spriteType = "GFX_1440p_SG_stripe_919x28" }
+			iconType = { name = "ar_eq_stripe_15" position = { x = 14 y = 494 } spriteType = "GFX_1440p_SG_stripe_919x28" }
+			instantTextboxType = { name = "ar_eq_dim_0" position = { x = 24 y = 77 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_0" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_0" position = { x = 24 y = 77 } font = "hoi_18mbs" text = "infantry_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_0" position = { x = 284 y = 76 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_0" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_0" position = { x = 394 y = 76 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_0" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_0" position = { x = 394 y = 76 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_0" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_0" position = { x = 504 y = 76 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_0" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_0" position = { x = 604 y = 76 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_0" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_0" position = { x = 704 y = 82 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_0" position = { x = 704 y = 82 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_0" position = { x = 863 y = 76 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_0" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_1" position = { x = 24 y = 105 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_1" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_1" position = { x = 24 y = 105 } font = "hoi_18mbs" text = "support_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_1" position = { x = 284 y = 104 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_1" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_1" position = { x = 394 y = 104 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_1" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_1" position = { x = 394 y = 104 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_1" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_1" position = { x = 504 y = 104 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_1" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_1" position = { x = 604 y = 104 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_1" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_1" position = { x = 704 y = 110 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_1" position = { x = 704 y = 110 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_1" position = { x = 863 y = 104 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_1" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_2" position = { x = 24 y = 133 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_2" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_2" position = { x = 24 y = 133 } font = "hoi_18mbs" text = "artillery_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_2" position = { x = 284 y = 132 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_2" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_2" position = { x = 394 y = 132 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_2" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_2" position = { x = 394 y = 132 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_2" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_2" position = { x = 504 y = 132 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_2" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_2" position = { x = 604 y = 132 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_2" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_2" position = { x = 704 y = 138 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_2" position = { x = 704 y = 138 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_2" position = { x = 863 y = 132 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_2" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_3" position = { x = 24 y = 161 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_3" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_3" position = { x = 24 y = 161 } font = "hoi_18mbs" text = "anti_tank_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_3" position = { x = 284 y = 160 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_3" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_3" position = { x = 394 y = 160 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_3" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_3" position = { x = 394 y = 160 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_3" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_3" position = { x = 504 y = 160 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_3" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_3" position = { x = 604 y = 160 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_3" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_3" position = { x = 704 y = 166 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_3" position = { x = 704 y = 166 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_3" position = { x = 863 y = 160 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_3" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_4" position = { x = 24 y = 189 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_4" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_4" position = { x = 24 y = 189 } font = "hoi_18mbs" text = "anti_air_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_4" position = { x = 284 y = 188 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_4" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_4" position = { x = 394 y = 188 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_4" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_4" position = { x = 394 y = 188 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_4" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_4" position = { x = 504 y = 188 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_4" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_4" position = { x = 604 y = 188 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_4" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_4" position = { x = 704 y = 194 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_4" position = { x = 704 y = 194 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_4" position = { x = 863 y = 188 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_4" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_5" position = { x = 24 y = 217 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_5" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_5" position = { x = 24 y = 217 } font = "hoi_18mbs" text = "rocket_artillery_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_5" position = { x = 284 y = 216 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_5" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_5" position = { x = 394 y = 216 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_5" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_5" position = { x = 394 y = 216 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_5" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_5" position = { x = 504 y = 216 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_5" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_5" position = { x = 604 y = 216 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_5" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_5" position = { x = 704 y = 222 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_5" position = { x = 704 y = 222 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_5" position = { x = 863 y = 216 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_5" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_6" position = { x = 24 y = 245 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_6" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_6" position = { x = 24 y = 245 } font = "hoi_18mbs" text = "motorized_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_6" position = { x = 284 y = 244 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_6" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_6" position = { x = 394 y = 244 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_6" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_6" position = { x = 394 y = 244 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_6" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_6" position = { x = 504 y = 244 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_6" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_6" position = { x = 604 y = 244 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_6" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_6" position = { x = 704 y = 250 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_6" position = { x = 704 y = 250 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_6" position = { x = 863 y = 244 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_6" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_7" position = { x = 24 y = 273 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_7" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_7" position = { x = 24 y = 273 } font = "hoi_18mbs" text = "mechanized_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_7" position = { x = 284 y = 272 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_7" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_7" position = { x = 394 y = 272 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_7" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_7" position = { x = 394 y = 272 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_7" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_7" position = { x = 504 y = 272 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_7" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_7" position = { x = 604 y = 272 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_7" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_7" position = { x = 704 y = 278 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_7" position = { x = 704 y = 278 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_7" position = { x = 863 y = 272 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_7" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_8" position = { x = 24 y = 301 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_8" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_8" position = { x = 24 y = 301 } font = "hoi_18mbs" text = "armored_car_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_8" position = { x = 284 y = 300 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_8" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_8" position = { x = 394 y = 300 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_8" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_8" position = { x = 394 y = 300 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_8" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_8" position = { x = 504 y = 300 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_8" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_8" position = { x = 604 y = 300 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_8" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_8" position = { x = 704 y = 306 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_8" position = { x = 704 y = 306 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_8" position = { x = 863 y = 300 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_8" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_9" position = { x = 24 y = 329 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_9" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_9" position = { x = 24 y = 329 } font = "hoi_18mbs" text = "motorized_rocket_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_9" position = { x = 284 y = 328 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_9" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_9" position = { x = 394 y = 328 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_9" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_9" position = { x = 394 y = 328 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_9" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_9" position = { x = 504 y = 328 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_9" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_9" position = { x = 604 y = 328 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_9" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_9" position = { x = 704 y = 334 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_9" position = { x = 704 y = 334 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_9" position = { x = 863 y = 328 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_9" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_10" position = { x = 24 y = 357 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_10" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_10" position = { x = 24 y = 357 } font = "hoi_18mbs" text = "light_tank_chassis" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_10" position = { x = 284 y = 356 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_10" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_10" position = { x = 394 y = 356 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_10" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_10" position = { x = 394 y = 356 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_10" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_10" position = { x = 504 y = 356 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_10" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_10" position = { x = 604 y = 356 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_10" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_10" position = { x = 704 y = 362 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_10" position = { x = 704 y = 362 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_10" position = { x = 863 y = 356 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_10" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_11" position = { x = 24 y = 385 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_11" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_11" position = { x = 24 y = 385 } font = "hoi_18mbs" text = "medium_tank_chassis" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_11" position = { x = 284 y = 384 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_11" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_11" position = { x = 394 y = 384 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_11" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_11" position = { x = 394 y = 384 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_11" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_11" position = { x = 504 y = 384 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_11" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_11" position = { x = 604 y = 384 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_11" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_11" position = { x = 704 y = 390 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_11" position = { x = 704 y = 390 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_11" position = { x = 863 y = 384 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_11" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_12" position = { x = 24 y = 413 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_12" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_12" position = { x = 24 y = 413 } font = "hoi_18mbs" text = "heavy_tank_chassis" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_12" position = { x = 284 y = 412 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_12" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_12" position = { x = 394 y = 412 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_12" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_12" position = { x = 394 y = 412 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_12" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_12" position = { x = 504 y = 412 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_12" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_12" position = { x = 604 y = 412 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_12" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_12" position = { x = 704 y = 418 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_12" position = { x = 704 y = 418 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_12" position = { x = 863 y = 412 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_12" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_13" position = { x = 24 y = 441 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_13" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_13" position = { x = 24 y = 441 } font = "hoi_18mbs" text = "modern_tank_chassis" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_13" position = { x = 284 y = 440 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_13" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_13" position = { x = 394 y = 440 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_13" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_13" position = { x = 394 y = 440 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_13" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_13" position = { x = 504 y = 440 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_13" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_13" position = { x = 604 y = 440 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_13" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_13" position = { x = 704 y = 446 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_13" position = { x = 704 y = 446 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_13" position = { x = 863 y = 440 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_13" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_14" position = { x = 24 y = 469 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_14" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_14" position = { x = 24 y = 469 } font = "hoi_18mbs" text = "amphibious_tank_chassis" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_14" position = { x = 284 y = 468 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_14" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_14" position = { x = 394 y = 468 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_14" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_14" position = { x = 394 y = 468 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_14" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_14" position = { x = 504 y = 468 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_14" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_14" position = { x = 604 y = 468 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_14" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_14" position = { x = 704 y = 474 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_14" position = { x = 704 y = 474 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_14" position = { x = 863 y = 468 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_14" maxWidth = 56 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_dim_15" position = { x = 24 y = 497 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_DIM_15" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_name_15" position = { x = 24 y = 497 } font = "hoi_18mbs" text = "amphibious_mechanized_equipment" maxWidth = 240 maxHeight = 22 format = left }
+			instantTextboxType = { name = "ar_eq_stock_15" position = { x = 284 y = 496 } font = "hoi_20b" text = "MOD1440_AR_EQ_STOCK_15" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_field_15" position = { x = 394 y = 496 } font = "hoi_20b" text = "MOD1440_AR_EQ_FIELD_15" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_short_15" position = { x = 394 y = 496 } font = "hoi_20b" text = "MOD1440_AR_EQ_SHORT_15" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_need_15" position = { x = 504 y = 496 } font = "hoi_20b" text = "MOD1440_AR_EQ_NEED_15" maxWidth = 90 maxHeight = 24 format = right }
+			instantTextboxType = { name = "ar_eq_lack_15" position = { x = 604 y = 496 } font = "hoi_20b" text = "MOD1440_AR_EQ_LACK_15" maxWidth = 80 maxHeight = 24 format = right }
+			iconType = { name = "ar_eq_bar_15" position = { x = 704 y = 502 } spriteType = "GFX_1440p_SG_bar_150" }
+			iconType = { name = "ar_eq_low_15" position = { x = 704 y = 502 } spriteType = "GFX_1440p_SG_bar_low_150" }
+			instantTextboxType = { name = "ar_eq_pct_15" position = { x = 863 y = 496 } font = "hoi_18mbs" text = "MOD1440_AR_EQ_PCT_15" maxWidth = 56 maxHeight = 24 format = right }
 		}
 		containerWindowType = {
 			name = "ar_armies"
-			position = { x = 14 y = 612 }
-			size = { width = 947 height = 584 }
+			position = { x = 14 y = 780 }
+			size = { width = 947 height = 416 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
-			instantTextboxType = { name = "ar_al_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_AR_AL_TITLE" maxWidth = 220 maxHeight = 30 format = left }
-			instantTextboxType = { name = "ar_al_head_name" position = { x = 24 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_NAME" maxWidth = 220 maxHeight = 24 format = left pdx_tooltip = "MOD1440_AR_AL_HEAD_NAME_TT" }
-			instantTextboxType = { name = "ar_al_head_skill" position = { x = 254 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_SKILL" maxWidth = 50 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_AL_HEAD_SKILL_TT" }
-			instantTextboxType = { name = "ar_al_head_divisions" position = { x = 310 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_DIVISIONS" maxWidth = 76 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_AL_HEAD_DIVISIONS_TT" }
-			instantTextboxType = { name = "ar_al_head_battalions" position = { x = 392 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_BATTALIONS" maxWidth = 84 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_AL_HEAD_BATTALIONS_TT" }
-			instantTextboxType = { name = "ar_al_head_fighting" position = { x = 482 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_FIGHTING" maxWidth = 72 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_AL_HEAD_FIGHTING_TT" }
-			instantTextboxType = { name = "ar_al_head_planning" position = { x = 560 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_PLANNING" maxWidth = 82 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_AL_HEAD_PLANNING_TT" }
-			instantTextboxType = { name = "ar_al_head_fill" position = { x = 738 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_FILL" maxWidth = 76 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_AL_HEAD_FILL_TT" }
-			instantTextboxType = { name = "ar_al_head_inf" position = { x = 816 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_INF" maxWidth = 36 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_AL_HEAD_INF_TT" }
-			instantTextboxType = { name = "ar_al_head_arm" position = { x = 854 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_ARM" maxWidth = 36 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_AL_HEAD_ARM_TT" }
-			instantTextboxType = { name = "ar_al_head_mot" position = { x = 892 y = 40 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEAD_MOT" maxWidth = 36 maxHeight = 24 format = right pdx_tooltip = "MOD1440_AR_AL_HEAD_MOT_TT" }
-			instantTextboxType = { name = "ar_al_none" position = { x = 24 y = 70 } font = "hoi_16mbs" text = "MOD1440_AR_AL_NONE" maxWidth = 700 maxHeight = 24 format = left }
+			instantTextboxType = { name = "ar_armies_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_AR_ARMIES_TITLE" maxWidth = 919 maxHeight = 30 format = left }
+			containerWindowType = {
+				name = "ar_al_heads"
+				position = { x = 14 y = 42 }
+				size = { width = 919 height = 30 }
+				background = { name = "Background" quadTextureSprite = "GFX_1440p_SG_head_240" }
+				instantTextboxType = { name = "ar_al_heads_0" position = { x = 10 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_0" maxWidth = 200 maxHeight = 20 format = left pdx_tooltip = "MOD1440_AR_AL_HEADS_0_TT" }
+				instantTextboxType = { name = "ar_al_heads_1" position = { x = 212 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_1" maxWidth = 60 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_AL_HEADS_1_TT" }
+				instantTextboxType = { name = "ar_al_heads_2" position = { x = 274 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_2" maxWidth = 46 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_AL_HEADS_2_TT" }
+				instantTextboxType = { name = "ar_al_heads_3" position = { x = 322 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_3" maxWidth = 70 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_AL_HEADS_3_TT" }
+				instantTextboxType = { name = "ar_al_heads_4" position = { x = 394 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_4" maxWidth = 80 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_AL_HEADS_4_TT" }
+				instantTextboxType = { name = "ar_al_heads_5" position = { x = 476 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_5" maxWidth = 66 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_AL_HEADS_5_TT" }
+				instantTextboxType = { name = "ar_al_heads_6" position = { x = 544 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_6" maxWidth = 70 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_AL_HEADS_6_TT" }
+				instantTextboxType = { name = "ar_al_heads_7" position = { x = 614 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_7" maxWidth = 155 maxHeight = 20 format = left pdx_tooltip = "MOD1440_AR_AL_HEADS_7_TT" }
+				instantTextboxType = { name = "ar_al_heads_8" position = { x = 781 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_8" maxWidth = 36 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_AL_HEADS_8_TT" }
+				instantTextboxType = { name = "ar_al_heads_9" position = { x = 817 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_9" maxWidth = 36 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_AL_HEADS_9_TT" }
+				instantTextboxType = { name = "ar_al_heads_10" position = { x = 853 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_AL_HEADS_10" maxWidth = 36 maxHeight = 20 format = centre pdx_tooltip = "MOD1440_AR_AL_HEADS_10_TT" }
+			}
 			containerWindowType = {
 				name = "ar_al_list"
-				position = { x = 14 y = 64 }
-				size = { width = 933 height = 506 }
+				position = { x = 14 y = 72 }
+				size = { width = 919 height = 330 }
 				verticalScrollbar = "right_vertical_slider"
 				scroll_wheel_factor = 90
 				smooth_scrolling = yes
+				background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
 				gridboxtype = {
 					name = "ar_al_grid"
 					position = { x = 0 y = 0 }
-					size = { width = 917 height = 100%% }
+					size = { width = 889 height = 100%% }
 					slotsize = { width = 1 height = 1 }
 					add_horizontal = no
 					format = "UPPER_LEFT"
 				}
 			}
+			instantTextboxType = { name = "ar_al_none" position = { x = 28 y = 84 } font = "hoi_16mbs" text = "MOD1440_AR_AL_NONE" maxWidth = 700 maxHeight = 24 format = left }
 		}
 	}
 	containerWindowType = {
 		name = "mod1440_army_readiness_row"
-		size = { width = 917 height = 30 }
-		instantTextboxType = { name = "ar_row_name" position = { x = 10 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_NAME" maxWidth = 220 maxHeight = 22 format = left }
-		instantTextboxType = { name = "ar_row_skill" position = { x = 240 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_SKILL" maxWidth = 50 maxHeight = 22 format = right }
-		instantTextboxType = { name = "ar_row_divisions" position = { x = 296 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_DIVISIONS" maxWidth = 76 maxHeight = 22 format = right }
-		instantTextboxType = { name = "ar_row_battalions" position = { x = 378 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_BATTALIONS" maxWidth = 84 maxHeight = 22 format = right }
-		instantTextboxType = { name = "ar_row_fighting" position = { x = 468 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_FIGHTING" maxWidth = 72 maxHeight = 22 format = right }
-		instantTextboxType = { name = "ar_row_planning" position = { x = 546 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_PLANNING" maxWidth = 82 maxHeight = 22 format = right }
-		instantTextboxType = { name = "ar_row_fill" position = { x = 754 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_FILL" maxWidth = 46 maxHeight = 22 format = right }
-		instantTextboxType = { name = "ar_row_inf" position = { x = 802 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_INF" maxWidth = 36 maxHeight = 22 format = right }
-		instantTextboxType = { name = "ar_row_arm" position = { x = 840 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_ARM" maxWidth = 36 maxHeight = 22 format = right }
-		instantTextboxType = { name = "ar_row_mot" position = { x = 878 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_MOT" maxWidth = 36 maxHeight = 22 format = right }
-		iconType = { name = "ar_row_bar" position = { x = 644 y = 10 } spriteType = "GFX_1440p_SG_bar" }
+		size = { width = 889 height = 30 }
+		iconType = { name = "ar_row_stripe" position = { x = 0 y = 0 } spriteType = "GFX_1440p_SG_stripe_889x30" }
+		instantTextboxType = { name = "ar_row_name" position = { x = 10 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_NAME" maxWidth = 200 maxHeight = 22 format = left }
+		instantTextboxType = { name = "ar_row_skill" position = { x = 274 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_SKILL" maxWidth = 46 maxHeight = 22 format = centre }
+		instantTextboxType = { name = "ar_row_divisions" position = { x = 322 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_DIVISIONS" maxWidth = 70 maxHeight = 22 format = centre }
+		instantTextboxType = { name = "ar_row_battalions" position = { x = 394 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_BATTALIONS" maxWidth = 80 maxHeight = 22 format = centre }
+		instantTextboxType = { name = "ar_row_fighting" position = { x = 476 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_FIGHTING" maxWidth = 66 maxHeight = 22 format = centre }
+		instantTextboxType = { name = "ar_row_planning" position = { x = 544 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_PLANNING" maxWidth = 70 maxHeight = 22 format = centre }
+		instantTextboxType = { name = "ar_row_inf" position = { x = 781 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_INF" maxWidth = 36 maxHeight = 22 format = centre }
+		instantTextboxType = { name = "ar_row_arm" position = { x = 817 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_ARM" maxWidth = 36 maxHeight = 22 format = centre }
+		instantTextboxType = { name = "ar_row_mot" position = { x = 853 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_MOT" maxWidth = 36 maxHeight = 22 format = centre }
+		instantTextboxType = { name = "ar_row_fm" position = { x = 212 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_RANK_FM" maxWidth = 60 maxHeight = 22 format = centre }
+		instantTextboxType = { name = "ar_row_gen" position = { x = 212 y = 5 } font = "hoi_16mbs" text = "MOD1440_AR_RANK_GEN" maxWidth = 60 maxHeight = 22 format = centre }
+		iconType = { name = "ar_row_bar" position = { x = 614 y = 10 } spriteType = "GFX_1440p_SG_bar" }
+		iconType = { name = "ar_row_low" position = { x = 614 y = 10 } spriteType = "GFX_1440p_SG_bar_low_105" }
+		instantTextboxType = { name = "ar_row_pct" position = { x = 721 y = 4 } font = "hoi_18mbs" text = "MOD1440_AR_ROW_PCT" maxWidth = 48 maxHeight = 22 format = right }
 	}
 	containerWindowType = {
 		name = "mod1440_army_readiness_handle"

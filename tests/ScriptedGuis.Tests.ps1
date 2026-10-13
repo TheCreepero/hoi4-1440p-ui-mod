@@ -64,7 +64,7 @@ BeforeAll {
         'set_variable', 'add_to_variable', 'subtract_from_variable', 'multiply_variable', 'divide_variable',
         'clamp_variable', 'round_variable', 'clear_variable', 'check_variable', 'has_variable',
         'set_temp_variable', 'add_to_temp_variable', 'subtract_from_temp_variable', 'multiply_temp_variable',
-        'divide_temp_variable', 'add_to_array', 'add_to_temp_array', 'remove_from_array', 'clear_array',
+        'divide_temp_variable', 'round_temp_variable', 'add_to_array', 'add_to_temp_array', 'remove_from_array', 'clear_array',
         'clear_temp_array', 'resize_array', 'find_highest_in_array', 'find_lowest_in_array',
         'free_building_slots', 'is_in_array', 'has_country_leader', 'date'
     )
@@ -84,9 +84,11 @@ BeforeAll {
         # the Records window (Milestone E): what is asked of an officer, a country and a state
         'is_field_marshal', 'is_corps_commander', 'is_navy_leader', 'any_character', 'is_army_chief', 'is_navy_chief',
         'is_air_chief', 'is_theorist', 'has_idea', 'is_in_faction', 'has_capitulated', 'exists', 'is_capital',
-        'is_controlled_by', 'has_dlc', 'tag', 'every_state_division',
+        'is_controlled_by', 'has_dlc', 'tag', 'every_state_division', 'every_army_leader', 'every_navy_leader',
         # the conditions under which the game gives a country a medal, copied from the game (tools/unit_medals_table.py)
-        'has_government', 'original_tag', 'has_completed_focus', 'has_country_flag', 'owns_state'
+        'has_government', 'original_tag', 'has_completed_focus', 'has_country_flag', 'owns_state',
+        # portraits and victory points (2026-10-13): whether a character is a certain one, whether the country is at war
+        'is_character', 'has_character', 'has_war'
     )
 
     # Adds to $Into every command of a block that is neither allowed nor an effect of the mod's own.
@@ -97,6 +99,8 @@ BeforeAll {
             if ($script:ArgumentCommands -contains $key -or $script:WritingCommands -contains $key) { continue }
             if ($key -like "$($script:Prefix)*") { continue }
             if ($key -like 'should_have_*_medals_trigger') { continue }   # the game's own scripted triggers for its medals
+            # "<number> = { ... }" enters the scope of the state with that number (the state of a victory point)
+            if ($key -match '^[0-9]+$') { if ($null -ne $child.Children) { Find-ForeignCommands -Node $child -Into $Into -Where $Where }; continue }
             # "var:<variable> = { ... }" enters the scope a variable holds (Engine Facts X33): no command of its own
             if ($key -notlike 'var:*' -and $script:AllowedCommands -notcontains $key) { $Into.Add("$Where line $($child.Line): $key") }
             if ($null -ne $child.Children) { Find-ForeignCommands -Node $child -Into $Into -Where $Where }
@@ -110,6 +114,15 @@ Describe 'Scripted GUI files' {
         if (-not $python) { Set-ItResult -Skipped -Because 'Python is not installed'; return }
         $output = & $python -I (Join-Path (Join-Path $script:RepoRoot 'tools') 'build_managers.py') --check 2>&1
         $LASTEXITCODE | Should -Be 0 -Because ("the generated files are edited through the tool: " + ($output -join ' '))
+    }
+
+    It 'rest on tables of game content that match the installed game' {
+        # tools/portraits_table.py and tools/victory_points_table.py: after a game update, tools/make_game_tables.py
+        $python = (Get-Command python -ErrorAction SilentlyContinue).Source
+        if (-not $python) { Set-ItResult -Skipped -Because 'Python is not installed'; return }
+        $output = & $python -I (Join-Path (Join-Path $script:RepoRoot 'tools') 'make_game_tables.py') --check 2>&1
+        if (($output -join ' ') -match 'game folder|not found|No such file') { Set-ItResult -Skipped -Because 'the game is not installed'; return }
+        $LASTEXITCODE | Should -Be 0 -Because ("the tables are made by the tool from the game: " + ($output -join ' '))
     }
 
     It 'carry the mod prefix in every file name under common/' {

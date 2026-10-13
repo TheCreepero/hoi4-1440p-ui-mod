@@ -27,15 +27,37 @@
     },
     {
       "name": "mod1440_states_row",
-      "skip": true
+      "skip": true,
+      "hide": [
+        "st_row_occ"
+      ]
     }
   ],
   "samples": {
     "mod1440_states": {
-      "st_count": "152 listed"
+      "st_total_label": "Total of the 152 listed",
+      "st_total_free": "1250",
+      "st_total_infra": "1250",
+      "st_total_civ": "1250",
+      "st_total_mil": "1250",
+      "st_total_dock": "1250",
+      "st_total_refinery": "1250",
+      "st_total_silo": "1250",
+      "st_total_air": "1250",
+      "st_total_aa": "1250",
+      "st_total_radar": "1250",
+      "st_total_oil": "1250",
+      "st_total_aluminium": "1250",
+      "st_total_rubber": "1250",
+      "st_total_tungsten": "1250",
+      "st_total_steel": "1250",
+      "st_total_chromium": "1250",
+      "st_total_coal": "1250",
+      "st_total_pop": "125000K"
     },
     "mod1440_states_row": {
       "st_row_name": "Niederschlesien",
+      "st_row_occ": "\u00a7LNiederschlesien\u00a7!",
       "st_cell_free": "12",
       "st_cell_infra": "20",
       "st_cell_civ": "20",
@@ -76,16 +98,17 @@
   "crop": [
     690,
     70,
-    1460,
+    1502,
     1230
   ],
   "manual": [
-    "A country with occupied states: the Occupied choice, compliance and resistance"
+    "A country with occupied states: the Occupied choice, compliance and resistance, the other colour of a name"
   ],
   "checklist": [
     "A click on a column head sorts, a second click turns the order; State gives the game's order back",
     "A click on a state moves the camera there and hides the page",
-    "Free slots of a state against its state view (unlocked slots minus buildings)"
+    "Free slots of a state against its state view (unlocked slots minus buildings)",
+    "The totals against the sum of a column"
   ],
   "teardown": [
     {

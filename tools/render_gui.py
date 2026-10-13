@@ -454,10 +454,14 @@ class Renderer:
                         index = self._sample_index.get((window_name, widget_name), 0)
                         self._sample_index[(window_name, widget_name)] = index + 1
                         value = value[index % len(value)] if value else ""
-                    return str(value), "sample"
+                    # a text of the mod can hold a text key of the game between dollar signs
+                    value = re.sub(r"[$]([A-Za-z0-9_]+)[$]", lambda m: self.loc.get(m.group(1), m.group(0)), str(value))
+                    return value, "sample"
         if literal:
             if literal in self.loc:
-                return gp.plain_text(self.loc[literal]), "loc"
+                # a text can hold another text key between dollar signs; the colour codes and text icons stay
+                value = re.sub(r"[$]([A-Za-z0-9_]+)[$]", lambda m: self.loc.get(m.group(1), m.group(0)), self.loc[literal])
+                return (value if literal.startswith("MOD1440_") else gp.plain_text(value)), "loc"
             return gp.plain_text(literal), "literal"
         return None, None
 
@@ -745,15 +749,61 @@ class Renderer:
             text, _src = self.sample_text(window_name, name, text_key)
             font = self.font(self.value(node.get("buttonFont")) or self.value(node.get("font")) or "hoi_18mbs")
             if text:
-                tw = font.width(text)
+                tw = self.text_width(font, text)
                 tx = rect.x + (rect.w - tw) / 2.0
                 ty = rect.y + (rect.h - font.line_height) / 2.0
                 self.draw_text_line(canvas, font, tx, ty, text, clip)
 
+    # The colours of the game's text codes (the textcolors block of interface/core.gfx): a section sign and
+    # a letter sets one, a section sign and "!" gives the font's own colour back.
+    TEXT_COLOURS = {"W": (255, 255, 255), "T": (255, 255, 255), "Y": (255, 189, 0), "H": (255, 189, 0), "G": (0, 159, 3),
+                    "R": (255, 50, 50), "g": (176, 176, 176), "L": (195, 176, 145), "C": (35, 206, 255), "O": (255, 112, 25),
+                    "B": (0, 0, 255), "b": (0, 0, 0)}
+    RICH = re.compile("§(.)|£([A-Za-z0-9_]+)(?:\\|(\\d+))?")
+
+    def pieces(self, text):
+        """A line as the game draws it: ("text", colour or None, string) and ("icon", image or None) pieces.
+        A pound sign and a sprite name, with or without GFX_ and with "|frame" for a strip, is a text icon."""
+        out, colour, at = [], None, 0
+        for m in self.RICH.finditer(text):
+            if m.start() > at:
+                out.append(("text", colour, text[at:m.start()]))
+            if m.group(1) is not None:
+                colour = self.TEXT_COLOURS.get(m.group(1))
+            else:
+                name = m.group(2)
+                sprite = self.sprites.get(name if name.startswith("GFX_") else "GFX_" + name) or self.sprites.get(name)
+                out.append(("icon", self.frame_image(sprite, int(m.group(3) or 1)) if sprite is not None else None))
+            at = m.end()
+        if at < len(text):
+            out.append(("text", colour, text[at:]))
+        return out
+
+    def text_width(self, font, text):
+        """Width of a line with its colour codes taken out and its text icons at their own width."""
+        if "§" not in text and "£" not in text:
+            return font.width(text)
+        total = 0
+        for piece in self.pieces(text):
+            if piece[0] == "text":
+                total += font.width(piece[2])
+            else:
+                total += piece[1].width if piece[1] is not None else 24
+        return total
+
     def draw_text_line(self, canvas, font, x, y, text, clip):
-        layer = Image.new("RGBA", (max(1, int(font.width(text) + 4)), max(1, font.line_height + 4)), (0, 0, 0, 0))
-        font.draw(layer, 0, 0, text)
-        self.paste(canvas, layer, Rect(x, y, layer.width, layer.height), clip)
+        layer = Image.new("RGBA", (max(1, int(self.text_width(font, text) + 4)), max(1, font.line_height + 8)), (0, 0, 0, 0))
+        cursor = 0
+        for piece in self.pieces(text):
+            if piece[0] == "text":
+                cursor += font.draw(layer, cursor, 4, piece[2], piece[1] + (255,) if piece[1] else None)
+            elif piece[1] is not None:
+                # an icon stands on the middle of the line
+                layer.alpha_composite(piece[1], (int(cursor), max(0, int(4 + (font.line_height - piece[1].height) / 2.0))))
+                cursor += piece[1].width
+            else:
+                cursor += 24
+        self.paste(canvas, layer, Rect(x, y - 4, layer.width, layer.height), clip)
 
     def draw_text(self, node, parent, canvas, window_name, clip):
         name = node.name or ""
@@ -768,7 +818,7 @@ class Renderer:
         lines = []
         if text:
             lines = self.wrap(font, text, max_w)
-        w = max_w if max_w else (font.width(text) if text else 60.0)
+        w = max_w if max_w else (self.text_width(font, text) if text else 60.0)
         line_count = max(1, len(lines))
         fits = int(max_h // font.line_height) if max_h else line_count
         fits = max(1, fits)
@@ -786,14 +836,14 @@ class Renderer:
         if text:
             fmt = (self.value(node.get("format")) or "left").lower()
             for i, line in enumerate(lines):
-                lw = font.width(line)
+                lw = self.text_width(font, line)
                 lx = x
                 if fmt in ("center", "centre", "up", "down") and max_w:
                     lx = x + (max_w - lw) / 2.0
                 elif fmt in ("right", "upper_right", "lower_right") and max_w:
                     lx = x + max_w - lw
                 self.draw_text_line(canvas, font, lx, y + i * font.line_height, line, clip)
-            full = font.width(text.replace("\n", " "))
+            full = self.text_width(font, text.replace("\n", " "))
             # only texts someone chose are judged: scene samples and the mod's own captions. A vanilla
             # placeholder text ("Auto ($EQUIPMENT_CATEGORY$)") is replaced by the code at run time.
             judged = source == "sample" or name.startswith("mod1440_")
@@ -809,8 +859,7 @@ class Renderer:
     def report_text(self, window_name, name, text, font, width, max_w, verdict):
         self.text_checks.append((window_name, name, text, os.path.basename(font.path).replace(".fnt", ""), int(width), int(max_w), verdict))
 
-    @staticmethod
-    def wrap(font, text, max_w):
+    def wrap(self, font, text, max_w):
         lines = []
         for paragraph in text.split("\n"):
             if not max_w:
@@ -820,7 +869,7 @@ class Renderer:
             current = ""
             for word in words:
                 trial = word if not current else current + " " + word
-                if font.width(trial) <= max_w or not current:
+                if self.text_width(font, trial) <= max_w or not current:
                     current = trial
                 else:
                     lines.append(current)
@@ -828,12 +877,11 @@ class Renderer:
             lines.append(current)
         return lines
 
-    @staticmethod
-    def truncate(font, text, max_w):
-        if not max_w or font.width(text) <= max_w:
+    def truncate(self, font, text, max_w):
+        if not max_w or self.text_width(font, text) <= max_w:
             return text
         ellipsis = "..."
-        while text and font.width(text + ellipsis) > max_w:
+        while text and self.text_width(font, text + ellipsis) > max_w:
             text = text[:-1]
         return text.rstrip() + ellipsis
 

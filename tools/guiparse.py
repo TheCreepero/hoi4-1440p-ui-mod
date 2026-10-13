@@ -402,8 +402,10 @@ class BitmapFont:
                 box = (glyph["x"], glyph["y"], glyph["x"] + glyph["width"], glyph["y"] + glyph["height"])
                 tile = page.crop(box)
                 if color != (255, 255, 255, 255):
+                    # tinted as the game does it: the glyph's own shading and outline stay under the colour
+                    from PIL import ImageChops
                     alpha = tile.split()[3]
-                    tile = Image.new("RGBA", tile.size, color)
+                    tile = ImageChops.multiply(tile, Image.new("RGBA", tile.size, color))
                     tile.putalpha(alpha)
                 canvas.alpha_composite(tile, (int(cursor + glyph["xoffset"]), int(y + glyph["yoffset"])))
             cursor += glyph["xadvance"]

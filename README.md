@@ -43,19 +43,21 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
 Pages of the mod's own that stand beside a vanilla panel and use the width of the screen for values the game shows nowhere in one place. `Shift+M` shows and hides the page of the open tab. They show values of your own country and change nothing in the game.
 
 - **Army Readiness** (beside Recruit & Deploy, open by default):
-  - Manpower: free, in training, in the army, navy and air force, needed by garrisons.
-  - Equipment: for sixteen kinds of land equipment the stock, what the divisions in the field hold and what they need, with a bar. A shortage is red.
-  - Army: divisions, battalions, army experience, divisions below 75% strength and below 50% organisation.
-  - Armies: one row per general with troops: divisions, battalions, divisions fighting, planning, the worst equipped kind of equipment, divisions by kind.
+  - Eleven figures as tiles across the top: manpower free, in training, in the army, navy and air force and asked for by garrisons; divisions, battalions, army experience, divisions under strength (below 75%) and low on organisation (below 50%).
+  - Equipment: for sixteen kinds of land equipment the stock, what the divisions in the field hold, what they need and what they are short of, with a bar and its percentage. A shortage is red, a bar below 75% orange, a kind you neither have nor need grey.
+  - Armies: one row per commander with troops: rank, skill, divisions, battalions, divisions fighting, planning, the worst equipped kind of equipment, divisions by kind.
 - **States** (beside Construction, opened with `Shift+M`):
   - One row per state you control: free building slots, the levels of nine buildings, seven resources, population, and compliance and resistance for occupied states.
   - A click on a column head sorts, a second click turns the order. Three choices narrow the list: cores, occupied, with free slots.
+  - A bar under the list holds the totals of every column over the states that are listed.
   - A click on a state moves the camera there and hides the page.
 - **National Figures** (opened from Politics with `Shift+M` or the button in its title strip):
-  - The summed modifiers of your country, 93 of them in six groups: what all laws, spirits, advisors and technologies together add to factory output, construction speed, research speed, organisation and so on. A modifier that is zero is left blank.
-  - Factories and how many are free, fuel, party popularity, and a table of resources: balance, produced, used, imported, exported.
+  - Across the top, what your country has today: factories and how many are free, research slots, technologies, states, convoys, trains, ships and planes as tiles; stability, war support, fuel and the four parties as bars.
+  - The summed modifiers of your country, 101 of them in eight groups: what all laws, spirits, advisors and technologies together add to factory output, construction speed, research speed, organisation, compliance and so on. A modifier that is zero has a grey name and no value, so what applies stands out.
+  - A table of resources: balance, produced, used, imported, exported.
 - **History** (the second page of National Figures):
-  - Twelve figures of your country month by month as a column graph, ten years at most: manpower, divisions, factories, stability, war support, fuel and others. The mod writes them down on the first of each month, from the day it is active in a game.
+  - Twelve figures of your country month by month, ten years at most: manpower, divisions, factories, stability, war support, fuel and others. The mod writes them down on the first of each month, from the day it is active in a game.
+  - A table lists the twelve with their newest month and the change in a month and in a year; a click on one draws it as a column graph with its highest and lowest month, the years under it, and a zoom that lets the columns start at the lowest month.
 
 Limits: the game gives script no list of templates, training lines, production lines or queues, so the pages have none; an army without a commander is not listed; equipment, buildings and resources that another mod adds do not appear.
 
@@ -63,17 +65,21 @@ Limits: the game gives script no list of templates, training lines, production l
 
 A window for playing the game as a story: the mod writes down what happens in your campaign, from the day it is active in a game. The Records button of the top bar or `Shift+J` opens it, `Escape` closes it.
 
-- **War Diary**: a dated log. Wars declared and ended, capitulations, annexations, subjects, your faction, capitals taken and lost, changes of government, officers commissioned, promoted and decorated. Beside it the record in figures: how many wars, states, capitals, promotions and decorations since it began.
-  - Six filters. Territory lists every single state that changed hands; a button on such a line moves the camera to the state.
-- **Officers**: every general and admiral in one table that sorts by any column: skill, the four levels, traits, command, battles won and lost.
-  - A click on an officer shows his record: when he was commissioned and promoted, his battles, the states taken under him, his lines of the diary. An officer who has retired keeps his record.
+- **War Diary**: a dated log. Wars declared and ended, capitulations, annexations, subjects, your faction, every state and every victory point taken or lost, changes of government, officers commissioned, promoted and decorated. Beside it the record in figures: how many wars, states, victory points, capitals, promotions and decorations since it began.
+  - A line about a state or a victory point names the enemy and the general who had the most divisions there, and its button moves the camera to the place.
+  - Six filters: everything, or one kind of line.
+- **Officers**: every general and admiral with his portrait in one table that sorts by any column: skill, the four levels, traits, command, battles won and lost.
+  - A click on an officer opens his file: his portrait, when he was commissioned and promoted, his battles, the states and victory points taken under him, his lines of the diary. An officer who has retired keeps his record.
+  - Portraits are the game's own, for the named characters of the game. A general the game makes up when you recruit one shows the unknown leader: nothing lets a mod read his portrait.
+  - Generals and admirals that other mods add are listed too, also those a mod or a focus gives their command later in the game. Their portraits show for the mods the build was made with (`tools/portraits_mods_table.py`); from any other mod they show the unknown leader.
   - **Decorations**: his medals side by side on his file. Award him the medals your country has in the game (Iron Cross and Knight's Cross for Germany, Victoria Cross for Britain and so on), by name and icon. For an officer they are a record only: no bonus and no cost.
-- **Government**: the head of government, the parties with their leaders and support, the laws in force, the cabinet, the high command, your faction with its members, your subjects. Each name with the day it took office.
-- **Wars**: one row per enemy and one per finished war: since when, for how many days, your casualties in that time, states taken and lost, a bar for the enemy's surrender progress, how it ended. Totals for all wars, and counters for aces.
+- **Government**: the head of government with portrait and flag, the parties with their leaders and support, the laws in force, the cabinet, the high command, your faction with its members, your subjects. Each name with the day it took office.
+- **Wars**: one row per enemy and one per finished war: since when, for how many days, a bar for the enemy's surrender progress, how it ended. Totals for all wars, and counters for aces.
+  - A click on a war opens its file: the flags of both sides, the two heads of government with their portraits and parties, the days, your casualties, the states and victory points taken and lost, how close each side is to giving up, and the lines of the diary about that enemy.
 - **State card**: beside the state view of a state you control: when it was taken and from whom.
 - **Unit honours** (By Blood Alone): your divisions that stand in an enemy capital when it falls get a line in their own history, "Took part in the capture of ...". The Battle honours switch on the War Diary turns this off. The state card's button cites the divisions in a state the same way; for a citation the game lets you award a medal at its usual price. A division takes one such line a day.
 
-Limits: no page can take typed text, so nothing can be renamed or annotated there; the game gives script no name of a division or a ship; a record starts when the mod is first active in a game; a line found by the daily comparison (a peace, a capitulation, an office) carries the date of the day that ended. Not yet seen in a test: battles counted per officer, a capitulation, landings and aces.
+Limits: no page can take typed text, so nothing can be renamed or annotated there; the game gives script no name of a division or a ship; a record starts when the mod is first active in a game; a line found by the daily comparison (a peace, a capitulation, an office, a victory point) carries the date of the day that ended; a battle that is won without the place changing hands is counted for the officer but has no line, because the game does not say where it was fought. Not yet seen in a test: battles counted per officer, a capitulation, landings and aces.
 
 ---
 

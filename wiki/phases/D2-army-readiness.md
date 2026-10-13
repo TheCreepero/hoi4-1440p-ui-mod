@@ -65,8 +65,23 @@ Not seen in game:
 - Garrison need above 0, a division below 75% strength or 50% organisation, a division fighting, planning above 0%.
 - Shift, control and alt clicks.
 
+## Rework of the look (2026-10-12)
+
+The user, after the Records had been polished: "run a similar UI polishing pass on every other feature that has been implemented so far ... you may also add new visuals and reorganize elements where it is possible and make sense", to completion without their input.
+
+- **What changed.** The two cards of label and value rows on the left are gone: their eleven figures are tiles in two rows across the top, with Count again and the date of the count in the twelfth place. The equipment table has the whole width for it, under a bar of column heads and with every second row on a darker band; it gained a column "Short" (needed less in the field, red) and the percentage beside a longer bar, which is orange below 75%. A kind the country neither has nor needs has a grey name. The armies table has the same heads and bands, the commander's rank (Marshal, General), his name in the highlight yellow and the percentage beside his bar.
+- **Decided:** "Below 75% strength" and "Below 50% organisation" became "Under strength" and "Low organisation" to fit a tile; the thresholds are in the tooltips. A count above zero is yellow. The armies list shows ten rows before it scrolls (it showed seventeen): the equipment table took the height.
+- **What it rests on.** Tiles, heads, bands, bars, colour codes and text icons as on the Records pages, which a game check saw (Engine Facts X56). New: row X57.
+- **Not checked in game on 2026-10-12:** the launch was refused by the permission system of the assistant's tool that session ("Don't start the game without asking my permission first" stands; the user was away). The user installed the build on 2026-10-13 and played with it: "Overall I'm very happy with the results"; the error log of that session names the mod nowhere.
+- **Checked in game on 2026-10-13**, cold start through `tools/Invoke-GameCheck.ps1` after the user allowed a launch: the page as the renderer drew it (`reference/mod/army_readiness-panel.png`). Eleven tiles (free manpower 1332K, as History's 1332.6; 269K, 19K and 37K in the three branches; 30 divisions, 315 battalions); five kinds of equipment with needed equal to in the field and a full green bar at 100%, the Short column empty; eleven kinds Germany neither has nor needs in grey; "No army has a commander yet". No line of `error.log` names the mod.
+- **Checked as the Soviet Union the same day** (`tag SOV`, then Count again; `scratch/checks/b_ar1-*`, `b_ar2-*`): 138 divisions, 1231 battalions; five kinds short with the number in the field in red; the bar orange at 70% (support equipment) and 69% (light tanks), green at 76%, 78% and 91%.
+  - **A fault:** Short read 1 less than needed less in the field for three kinds (27032 for 114750 and 87717). A text cuts the fraction of a number off, and equipment in the field has one (Engine Facts X65). The gap is now rounded up in script (`round_temp_variable`, a command new to the list of `tests/ScriptedGuis.Tests.ps1`); counted again in the open game it read 27033, 170, 218, 147 and 1000.
+- **Changed on 2026-10-13 after the user's test with a mod that adds generals:** the armies list takes its commanders from the game's own loop (`every_army_leader`) and keeps each through `mod1440_of_me`, because the game's array `army_leaders` holds nothing for a general whose command came by an effect ([E2 notes](E2-officer-records.md), "Officers other mods add"; Engine Facts X66). The page was seen again as the USA with that mod loaded: counted on 4 January, no army with a commander.
+- **Left unseen:** the rank and the band of a commander's row in the new look (the armies list was seen with a general before the rework); a commander without a number in that list.
+
 ## Close
 
+- [x] The rework of 2026-10-12 seen in game, and `reference/mod/army_readiness*` stored again (2026-10-13)
 - [x] Roadmap status and link
 - [x] README and Workshop description: the pages, and that Ironman and achievements no longer work
 - [x] `version` in `descriptor.mod` (1.5)

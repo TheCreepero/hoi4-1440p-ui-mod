@@ -72,12 +72,28 @@ Values of the totals card: `casualties`, `convoys_destroyed`, `longest_war_lengt
 
 - 2026-10-12, the user: "a round of improving the UI ... really polished and fit their purpose really well", with free hands. Done the same day: the totals and the three ace counters as ten tiles in a row, both tables striped under bars of heads, and a bar for each enemy's surrender progress beside its percentage. Checked in game and from a cold start (`scratch/checks/crop_p_*.png`, `reference/mod/`).
 
+## Additions of 2026-10-13: the file of a war
+
+The user had installed the build of 2026-10-12, played a war with it and wrote on 2026-10-13: "Overall I'm very happy with the results. I just want more graphical details", with three wishes: an officer's portrait in his file and in the list; a record, in the officer's file and in the War Diary, of each battle over a victory point won or lost and of each state captured; a file for a war as there is one for a general, with the flags and maybe the leaders of each side and some statistics.
+
+- **The page** has the two tables on the left (940 px) and the file of the chosen war on the right (700 px), as the Officers page has its file. A row is chosen by a click on the plate with the enemy's name; the chosen row has the lighter band. With nothing chosen the file opens on the first war there is, and a war that ends keeps its file as it moves to the finished wars.
+- **The file:** the two flags and names; the two heads of government with portrait, party and ideology (the enemy's are public: the game shows them in the diplomacy view); since when, until when and how it ended; six figures (days, casualties, states taken and lost, victory points taken and lost) and how close each side is to giving up, as bars; and the newest twenty lines the War Diary has about this enemy, from both logs.
+- A row counts victory points taken and lost (`mod1440_wr_vpt`, `_vpl`); rows of an older save get zeros (`mod1440_wr_grow`). The tables lost the columns that the file now holds (casualties and the counts of a finished war).
+- An enemy that is no more (annexed) has no leader to show: the file says so and shows its flag and name, which the record keeps (X34).
+- **Checked in game on 2026-10-13** (checks 3 and 4 below). The fault that kept wars from closing and its mending are in the [E1 notes](E1-war-diary.md).
+
+**Left unseen:** casualties in a war with fighting. A surrender between 0 and 100% was seen in the second check of the day (theirs 18%, ours 4%, `scratch/checks/b_wr1-*`), and so were the counts an older save lacks: they are padded when the war is next written to (check 5 of the [E1 notes](E1-war-diary.md)).
+
+**Seen and left as it is:** an annexation writes "State taken" for every state of the country (nine lines for Czechoslovakia), and a state that goes back in a white peace reads "State lost".
+
 ## Game checks
 
 | # | Date | Build | Checked | Result | Screenshot | Taught |
 |---|---|---|---|---|---|---|
 | 1 | 2026-10-12 | `1a08bb3` +dirty | war on Poland by effect, two states taken and one lost by effect, a white peace, the daily run from the console | a row with the day's date, 2 taken, 1 lost, surrender 9%; after the peace the row under Finished wars with both dates and "Peace" | `scratch/checks/crop_e1_8.png`, `view_e1_9.png` | - |
 | 2 | 2026-10-12 | the same game | a second war and nine days of game time | 8 days on the 9th, 2 states lost to Polish troops, casualties 0 (no battle) | `scratch/checks/crop_e1_19.png` | X55 |
+| 3 | 2026-10-13 | `9c832ae` +dirty | live session: war on Poland by effect, three victory points and two states changing hands, a white peace; war on Czechoslovakia and its annexation; a click on each row | the file opened by itself on the first war: both flags, Hitler and Ignacy Mościcki with party and ideology, since and until, 2 states taken and 2 lost, 3 points taken and 1 lost, both surrender bars, the lines of the diary about Poland with the names of the places; after the peace the file followed the war to the finished wars ("Peace"); Czechoslovakia: 10 states taken, their surrender 100%, "has capitulated", and after the annexation "This country is no more." with flag and name kept | `scratch/checks/wr1-*` to `wr4-*` | X59, X64 |
+| 4 | 2026-10-13 | the same build, cold start through `tools/Invoke-GameCheck.ps1` with ten other scenes | the page in a new game; `error.log` | both tables on the left and the empty file on the right ("Click a war in a table to open its file."); every expected widget found where the layout puts it; no line names the mod | `reference/mod/wars-panel.png` | - |
 
 
 ## Close

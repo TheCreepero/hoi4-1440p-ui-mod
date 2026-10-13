@@ -14,7 +14,7 @@
       "freeWindow": true,
       "name": "mod1440_records_of",
       "rows": {
-        "of_grid": 26
+        "of_grid": 18
       },
       "listRows": {
         "of_grid": "mod1440_records_officer_row"
@@ -422,9 +422,16 @@
         "of_md_8_held",
         "of_md_9_held",
         "of_md_10_held",
-        "of_md_11_held"
+        "of_md_11_held",
+        "of_ln_0_p",
+        "of_ln_1_p",
+        "of_ln_2_p",
+        "of_ln_3_p",
+        "of_ln_4_p",
+        "of_ln_5_p",
+        "of_ln_6_p"
       ],
-      "_note": "The file shows a German field marshal; script hides the twins of his rank, command and service and the medal strips of other countries."
+      "_note": "The file shows a German field marshal; script hides the twins of his rank, command and service and the medal strips of other countries. A portrait is the game's unknown leader until script names the officer's sprite."
     },
     {
       "name": "mod1440_records_officer_row",
@@ -449,6 +456,8 @@
       "of_c_won": "128",
       "of_c_lost": "128",
       "of_c_states": "128",
+      "of_c_vps": "128",
+      "of_c_vpl": "128",
       "of_c_since": "30 September, 1944",
       "of_c_prom": "30 September, 1944",
       "of_c_lvl": "30 September, 1944",
@@ -462,10 +471,6 @@
       "of_c_dec_3_d": "30 September, 1944",
       "of_c_dec_4": "Knight's Cross (Swords & Diamonds)",
       "of_c_dec_4_d": "30 September, 1944",
-      "of_c_dec_5": "Knight's Cross (Swords & Diamonds)",
-      "of_c_dec_5_d": "30 September, 1944",
-      "of_c_dec_6": "Knight's Cross (Swords & Diamonds)",
-      "of_c_dec_6_d": "30 September, 1944",
       "of_md_0_name": "Knight's Cross (Swords & Diamonds)",
       "of_md_1_name": "Knight's Cross (Swords & Diamonds)",
       "of_md_2_name": "Knight's Cross (Swords & Diamonds)",
@@ -480,18 +485,32 @@
       "of_md_11_name": "Knight's Cross (Swords & Diamonds)",
       "of_ln_0_d": "30 September, 1944",
       "of_ln_0": "Our pride of the fleet was sunk by",
+      "of_ln_0_s": "\u00a7YNiederschlesien\u00a7!",
+      "of_ln_0_p": "\u00a7YNiederschlesien\u00a7!",
       "of_ln_1_d": "30 September, 1944",
       "of_ln_1": "Our pride of the fleet was sunk by",
+      "of_ln_1_s": "\u00a7YNiederschlesien\u00a7!",
+      "of_ln_1_p": "\u00a7YNiederschlesien\u00a7!",
       "of_ln_2_d": "30 September, 1944",
       "of_ln_2": "Our pride of the fleet was sunk by",
+      "of_ln_2_s": "\u00a7YNiederschlesien\u00a7!",
+      "of_ln_2_p": "\u00a7YNiederschlesien\u00a7!",
       "of_ln_3_d": "30 September, 1944",
       "of_ln_3": "Our pride of the fleet was sunk by",
+      "of_ln_3_s": "\u00a7YNiederschlesien\u00a7!",
+      "of_ln_3_p": "\u00a7YNiederschlesien\u00a7!",
       "of_ln_4_d": "30 September, 1944",
       "of_ln_4": "Our pride of the fleet was sunk by",
+      "of_ln_4_s": "\u00a7YNiederschlesien\u00a7!",
+      "of_ln_4_p": "\u00a7YNiederschlesien\u00a7!",
       "of_ln_5_d": "30 September, 1944",
       "of_ln_5": "Our pride of the fleet was sunk by",
+      "of_ln_5_s": "\u00a7YNiederschlesien\u00a7!",
+      "of_ln_5_p": "\u00a7YNiederschlesien\u00a7!",
       "of_ln_6_d": "30 September, 1944",
-      "of_ln_6": "Our pride of the fleet was sunk by"
+      "of_ln_6": "Our pride of the fleet was sunk by",
+      "of_ln_6_s": "\u00a7YNiederschlesien\u00a7!",
+      "of_ln_6_p": "\u00a7YNiederschlesien\u00a7!"
     },
     "mod1440_records_officer_row": {
       "of_row_name": "Konstantin von Neurath",
@@ -533,10 +552,12 @@
     1240
   ],
   "manual": [
-    "Battles won and lost, states taken: they need fighting"
+    "Battles won and lost, states and victory points taken: they need fighting",
+    "A general the game made up: he shows the unknown leader"
   ],
   "checklist": [
-    "A click on an officer opens his file and marks his row",
+    "Each row shows its officer's portrait",
+    "A click on an officer opens his file with his portrait and marks his row",
     "Award and Take back last",
     "Sorting by each column"
   ],

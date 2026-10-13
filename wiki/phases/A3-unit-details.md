@@ -67,6 +67,7 @@ One label stays cut: "Trickleback & War Support Protection:" is 357 px in the 22
 | 7 | 2026-10-08 | 52c3e50+dirty | 10x10 window rectangle, content 505 px right | rows beside the window can be clicked; tabs, drag, click to front and Escape work | `scratch/checks/a3u_*` | S20 |
 | 8 | 2026-10-08 | 52c3e50+dirty | all four windows: division (three tabs, two dropdowns, tank, motorised), ship, carrier, air wing | as rendered; `error.log` clean | `scratch/checks/a3v2_*` | - |
 | 9 | 2026-10-08 | 52c3e50+dirty | the same scenes, stored as reference | see `reference/mod/` | `reference/mod/` | - |
+| 10 | 2026-10-13 | 9c832ae+dirty | the polish of 2026-10-12, cold start through `tools/Invoke-GameCheck.ps1`: the eleven division scenes, the five ship scenes and the air wing | as rendered; every expected widget found; no line of `error.log` names the mod | `reference/mod/division_details*`, `ship_details*`, `air_wing_details*` | W27 |
 
 Not seen in game (states a 1936 start does not show):
 
@@ -87,6 +88,14 @@ The first build only enlarged the vanilla layout. The redo regroups the Stats ta
 - **Game check 10 (2026-10-11, build 52c3e50+dirty):** division (all tabs, both dropdowns, tank, motorised), ship (stats, history, carrier) and air wing. `error.log` clean. Stats tiles, the wrapped "Trickleback & War / Support Protection:" label (no overlap with its value), all adjusters and the shifted lower panels came out as rendered. It found one fault: the ship History paper (container 376 px) ran 40 px over the lower panel; shortened to 334 (grid 307, scrollbar 312) and re-rendered, not yet launched again.
 - **Game check 11 (2026-10-11):** tab hotkeys `shift+a`, `shift+h`, `shift+t` (division) and `shift+a`, `shift+h` (ship) switch the tabs; the shortened ship History ends above the lower panel; `error.log` clean; `reference/mod/` refreshed with `-SaveReference` (65 captures).
 - **Not checked in game:** railway gun details. `rg` creates no gun in a release build (Engine Facts H29) and no recipe was found; the window has the same layout numbers as the ship window and is render-only. Promote hotkey not added (needs a commander to test).
+
+## Polish of 2026-10-12
+
+Part of the pass the user asked for after the Records had been polished ("run a similar UI polishing pass on every other feature"). The five reworked screens were looked over at full size in `reference/mod/`; the air panel, the division list, the fleet panel and Recruit & Deploy were left as they are, and the unit details windows got two changes.
+
+- **The text of a stat tile stands 3 px inside its plate** (`stat_entry`: label and value at x 5 instead of 4, still 121 px wide). The first form of this change (x 7, 118 px) was taken back on 2026-10-13: 118 px is less than "Support Protection: " needs with the space the game's text ends on (about 119), and a 116 px box was what made the label run into its value in the build the user reported on (`FOUND_ISSUES.txt`). **The build the user installed on 2026-10-13 has the 118 px form**: if the label overlaps there, this is why.
+- **A card behind the adjusters row of the division window** (`mod1440_card_adjusters`, sprite `GFX_1440p_UD_card_adjusters`, 772x147 at 515,419): the label, the hardness bar and the terrain adjusters stand on a card as the stats above them. It is a sibling icon between `info` and `adjuster_container` in the file, drawn above the first and below the second because siblings are drawn in file order ([Engine Facts](../Engine-Facts.md) W27, confirmed by this card).
+- **Checked in game on 2026-10-13** (check 10 above), after the launch of 2026-10-12 had been refused by the permission system of the assistant's tool: the card lies behind the label, the hardness bar and the seven adjusters; "Trickleback & War Support Protection:" stands on two lines, clear of its value.
 
 ## Left for the tester
 
