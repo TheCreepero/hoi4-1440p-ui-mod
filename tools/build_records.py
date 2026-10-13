@@ -114,6 +114,13 @@ def shown_if(names, trigger):
 # (portraits_table.py) and puts the sprite's name on the officer as a text key, once. A general the game made
 # up has a portrait script cannot learn: he shows the game's picture of an unknown leader.
 
+# The strips of medal pictures are sprites of this mod on the game's own pictures (interface/1440p_ui.gfx, made
+# with tools/list_medals.py --sprites). The game's sprites GFX_medal_icon_<set>_large are in interface/medals.gfx,
+# and a mod that brings a file of that name drops the sets its copy lacks: Road to 56 has none for Ethiopia, and
+# the game then logs "Could not find sprite type" for every icon that names it.
+MEDAL_STRIP = "GFX_1440p_medal_%s"
+
+
 def table_version(table):
     """A number that changes when a table of game content changes: what script kept from the old one is then
     worked out again."""
@@ -704,7 +711,7 @@ def officers(portrait_version):
         tip = B.key("of_c_rack_%d_tt" % k, "[?mod1440_of_c_dec_key^%d.GetTokenLocalizedKey]\\n[?mod1440_of_c_dec_date^%d.%s]" % (k, k, LONG))
         for s, name in enumerate(sets):
             widget = "of_c_rack_%d_%s" % (k, name)
-            inner += scaled(widget, 14 + k * 60, y + 34, "GFX_medal_icon_%s_large" % name, 1.0, tip)
+            inner += scaled(widget, 14 + k * 60, y + 34, MEDAL_STRIP % name, 1.0, tip)
             properties += block(widget, "frame = mod1440_of_c_dec_frame^%d\n" % k)
             triggers += block(widget + "_visible", more + "check_variable = { mod1440_of_c_dec_set^%d = %d }\n" % (k, s))
     for k in range(DEC_LINES):
@@ -730,7 +737,7 @@ def officers(portrait_version):
         more = has + "check_variable = { mod1440_md_count > %d }\n" % k
         for s, name in enumerate(sets):
             widget = "of_md_%d_%s" % (k, name)
-            inner += scaled(widget, sx - 2, sy - 4, "GFX_medal_icon_%s_large" % name, 0.6)
+            inner += scaled(widget, sx - 2, sy - 4, MEDAL_STRIP % name, 0.6)
             properties += block(widget, "frame = mod1440_md_frame^%d\n" % k)
             triggers += block(widget + "_visible", has + "check_variable = { mod1440_md_set^%d = %d }\n" % (k, s))
         inner += M.text("of_md_%d_name" % k, sx + 40, sy - 2, half - 46,
@@ -1133,7 +1140,7 @@ def government(portrait_version):
     inner = ""
     for n, (ideology, token_name) in enumerate(IDEOLOGIES):
         y = 44 + n * 62
-        inner += M.text("gv_p_%d" % n, 18, y, GV_COL - 110, B.key("gv_p_%d" % n, "[ROOT.Get%sParty]" % ideology), M.FONT_SMALL, height=22)
+        inner += M.text("gv_p_%d" % n, 18, y, GV_COL - 110, B.key("gv_p_%d" % n, "[ROOT.Get%sParty]" % ideology), M.FONT_SMALL, height=22, fixed=True)
         inner += M.text("gv_p_%d_pop" % n, GV_COL - 96, y - 2, 80, B.key("gv_p_%d_pop" % n, "[?party_popularity@%s|%%0]" % token_name), M.FONT_VALUE, "right", 24)
         inner += M.text("gv_p_%d_who" % n, 18, y + 20, GV_COL - 36, B.key("gv_p_%d_who" % n, "§Y[ROOT.Get%sLeader]§!" % ideology), M.FONT_SMALL, height=22)
         inner += M.icon("gv_p_%d_bar" % n, 18, y + 44, "GFX_1440p_SG_bar_wide")
@@ -1561,17 +1568,47 @@ def wars(portrait_version):
 # and an enemy becomes a line of the territory log, with the general who had the most divisions in its state.
 
 def victory_points():
-    """Returns the text of common/scripted_effects/mod1440_victory_points.txt and the version of the table."""
+    """Returns the text of common/scripted_effects/mod1440_victory_points.txt and the version of the game's table.
+
+    A mod can bring states of its own: Road to 56 has 1143 for the game's 1081 and other numbers for many, so a
+    point of the game's table is in another state there, or no point at all. tools/victory_points_mods_table.py
+    holds the points of such a map, and script picks the table by the number of states the loaded game has."""
     from victory_points_table import VICTORY_POINTS
-    version = table_version(VICTORY_POINTS)
-    scan, sync = "", ""
-    for n, (province, state, value) in enumerate(VICTORY_POINTS):
-        name = token("vp_%d" % province, "$VICTORY_POINTS_%d$" % province)
-        now = "global.province_controllers^%d" % province
-        scan += tmp("vp_now", now) + iff("NOT = { check_variable = { mod1440_vp_ctl^%d = vp_now } }" % n, (
-            tmp("vp_old", "mod1440_vp_ctl^%d" % n) + setv("mod1440_vp_ctl^%d" % n, "vp_now") + tmp("vp_k", name) + tmp("vp_v", value)
-            + block(str(state), tmp("vp_s", "THIS")) + "mod1440_vp_changed = yes\n"))
-        sync += "add_to_array = { mod1440_vp_ctl = %s }\n" % now
+    try:
+        from victory_points_mods_table import MAPS
+    except ImportError:
+        MAPS = []
+    tables = [("the game's history/states", 0, VICTORY_POINTS)] + [("the states of " + name, states, rows) for name, states, rows in MAPS]
+    versions = [table_version(rows) for _name, _states, rows in tables]
+    assert len(set(versions)) == len(versions), "two tables of victory points with the same version"
+    version = versions[0]
+    parts = ""
+    for m, (source, states, rows) in enumerate(tables):
+        scan, sync = "", ""
+        for n, (province, state, value) in enumerate(rows):
+            name = token("vp_%d" % province, "$VICTORY_POINTS_%d$" % province)
+            now = "global.province_controllers^%d" % province
+            scan += tmp("vp_now", now) + iff("NOT = { check_variable = { mod1440_vp_ctl^%d = vp_now } }" % n, (
+                tmp("vp_old", "mod1440_vp_ctl^%d" % n) + setv("mod1440_vp_ctl^%d" % n, "vp_now") + tmp("vp_k", name) + tmp("vp_v", value)
+                + block(str(state), tmp("vp_s", "THIS")) + "mod1440_vp_changed = yes\n"))
+            sync += "add_to_array = { mod1440_vp_ctl = %s }\n" % now
+        parts += ("\n# The %d points of %s: the copy, and the daily comparison.\n" % (len(rows), source)
+                  + block("mod1440_vp_sync_%d" % m, "clear_array = mod1440_vp_ctl\n" + sync + setv("mod1440_vp_ver", versions[m]))
+                  + block("mod1440_vp_scan_%d" % m, iff("NOT = { check_variable = { mod1440_vp_ver = %d } }" % versions[m],
+                                                        "mod1440_vp_sync_%d = yes\n" % m) + els(scan)))
+
+    def pick(effect):
+        """The effect of the map that is loaded: of the game's own unless the number of states is another map's."""
+        out = "mod1440_vp_map = yes\n"
+        for m in range(1, len(tables)):
+            out += iff("check_variable = { vp_map = %d }" % m, "%s_%d = yes\n" % (effect, m), "if" if m == 1 else "else_if")
+        return out + (els("%s_0 = yes\n" % effect) if len(tables) > 1 else "%s_0 = yes\n" % effect)
+
+    which = tmp("vp_map", 0)
+    if len(tables) > 1:
+        which += tmp("vp_states", 0) + block("every_state", "add_to_temp_variable = { vp_states = 1 }\n")
+        which += "".join(iff("check_variable = { vp_states = %d }" % states, tmp("vp_map", m))
+                         for m, (_source, states, _rows) in enumerate(tables) if m)
     enemy = "OR = { is_in_array = { array = enemies value = %s } is_in_array = { array = mod1440_ev_enemies value = %s } }"
     # a point that changes hands because its country gave up or is gone was not fought for: no line
     fought = "var:%s = { exists = yes has_capitulated = no }"
@@ -1583,14 +1620,19 @@ def victory_points():
                 + tmp("wr_c", other) + tmp("wr_f", flag_value) + "mod1440_wr_count = yes\n"
                 + iff("check_variable = { of_best > 0 }", block("var:of_who", "add_to_variable = { %s = 1 }\n" % counter)))
 
-    out = ("# Generated by tools/build_managers.py from tools/victory_points_table.py (the game's history/states).\n\n"
-           "# Victory points: the copy of who holds each of the %d points today, without a line: the first run, the first\n"
-           "# day of a war, and after the game's list of points has changed.\n" % len(VICTORY_POINTS)
-           + block("mod1440_vp_sync", "clear_array = mod1440_vp_ctl\n" + sync + setv("mod1440_vp_ver", version))
+    out = ("# Generated by tools/build_managers.py from tools/victory_points_table.py (the game's history/states)\n"
+           "# and tools/victory_points_mods_table.py (the states of a mod).\n\n"
+           "# Victory points: which table is the loaded game's. vp_map: 0 the game's own, and the map of a mod when the\n"
+           "# game has as many states as that map.\n"
+           + block("mod1440_vp_map", which)
+           + "\n# Victory points: the copy of who holds each point today, without a line: the first run, the first day of a\n"
+           "# war, and after the list of points has changed (another build of the mod, another map).\n"
+           + block("mod1440_vp_sync", pick("mod1440_vp_sync"))
            + "\n# Victory points: once a day for a player's country at war. Each point whose holder is another than\n"
            "# yesterday goes to mod1440_vp_changed with vp_old and vp_now (the holders), vp_k (its name), vp_v (its\n"
            "# value) and vp_s (its state).\n"
-           + block("mod1440_vp_scan", iff("NOT = { check_variable = { mod1440_vp_ver = %d } }" % version, "mod1440_vp_sync = yes\n") + els(scan))
+           + block("mod1440_vp_scan", pick("mod1440_vp_scan"))
+           + parts
            + "\n# Victory points: one has changed hands. A line when the country in scope took it from an enemy or lost it to\n"
            "# one, the count of that war, and the count of the general on the spot.\n"
            + block("mod1440_vp_changed", (
@@ -1682,7 +1724,13 @@ def frame():
         + block("mod1440_rec_show", "mod1440_ev_grow = yes\n" + faces + show + "add_to_variable = { mod1440_rec_dirty = 1 }\n")
         + "\n# The Records: the first run for the country in scope. Takes the copies the daily comparison needs, opens a\n"
         "# row for each war that already runs and writes the first line.\n"
-        + block("mod1440_ev_init", iff("NOT = { %s }" % is_one("mod1440_ev_begun"), (
+        # The card of a state names the country it was taken from. A state nobody took holds none, and the game
+        # logs "invalid scope for var" each time such a state is selected, also while the line is hidden (Engine
+        # Facts X73). So every state gets a country once, for all players: the line shows only where
+        # mod1440_sr_day says the state was taken.
+        + block("mod1440_ev_init", iff("NOT = { check_variable = { global.mod1440_sr_named = 1 } }", (
+            block("every_state", iff("NOT = { has_variable = mod1440_sr_from }", setv("mod1440_sr_from", "PREV")))
+            + setv("global.mod1440_sr_named", 1))) + iff("NOT = { %s }" % is_one("mod1440_ev_begun"), (
             setv("mod1440_ev_begun", 1) + setv("mod1440_hn_auto", 1)
             + setv("mod1440_ev_since", "global.date") + setv("mod1440_ev_since_day", "global.num_days") + "mod1440_rec_odd = yes\n"
             + line("begins")

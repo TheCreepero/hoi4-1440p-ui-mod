@@ -4,7 +4,7 @@ The mod is built one screen at a time. Each phase reworks one screen for 2560x14
 
 ## Decisions
 
-- **Baseline:** vanilla 1.19 only, for now. Every screen is built and checked in a playset that contains just this mod. Behaviour next to other mods is not tested and not worked on until a compatibility checkpoint (see "Compatibility checkpoints").
+- **Baseline:** vanilla 1.19. Every screen is built and checked in a playset that contains just this mod, and then looked at in the user's own playset at a compatibility checkpoint (see "Compatibility checkpoints"). The first was on 2026-10-13.
 - **Design target:** 2560x1440 at 100% UI scale. The mod does not fit smaller resolutions or a higher UI scale.
 - **Depth:** a redesign per screen, not only an enlargement. Each screen is re-laid out around what the player wants to see at once: regrouped panels, a place of its own for every value the screen already has, larger fonts and backgrounds, fixed captions, and hotkeys for buttons that have none. New live values and new working buttons are not possible in a vanilla window; the limits are in [Design Rules](Design-Rules.md), "What a redesign can add". The manager pages of Milestone D add both, as scripted GUIs beside the vanilla panels.
 - **Checksum:** changed since phase D2. The reworked screens (Milestones A and B) are interface and texture files, outside the checksum. The manager pages of Milestone D are scripted GUIs, the game's way to add new values and buttons; their script lives in `common/` and changes the checksum, so the mod no longer works with Ironman and achievements, and in multiplayer every player needs it. The user decided on 2026-10-12 that this is acceptable. Only four folders under `common/` are used, and the tests hold that line.
@@ -160,13 +160,14 @@ The user asked for each page to be planned in detail and written down before any
 
 ## Compatibility checkpoints
 
-Until a checkpoint, nothing is tested or built for use next to other mods. After Milestone A and again after Milestone B, decide whether to build a patch for RBM's GFX Overhaul (and later Road to 56) covering the screens finished so far.
+A checkpoint looks at the mod in the playset the user plays with: from the files with `tools/check_playset.py`, then in the game with that playset loaded. The method and every finding are in [Compatibility](Compatibility.md).
 
-The first checkpoint starts with the test deferred from Phase 1: how a single-window override behaves next to a mod that replaces the whole vanilla file. Its result shows how much of a patch is needed.
+- **Checkpoint 1, 2026-10-13, done.** The playset "Reordered Pack (USA)": 55 mods, among them Road to 56 with Vanilla Navy Rework, RBM's GFX Overhaul and the Better Mechanics mods. The question deferred from Phase 1 is answered: next to a mod that replaces the whole vanilla file the mod's windows win by file name, without a line in the log. No patch mod is needed. Seven things were fixed in the mod itself: the victory points of Road to 56's map, a medal sprite that mod drops, a button on another mod's button, two texts that other mods make longer, the place of a wider insignia, and an error line of the state card.
+- **Checkpoint 2: after Milestone B**, or when the playset changes much. The designers are the screens RBM's GFX Overhaul and Vanilla Navy Rework change most.
 
 ## Risks
 
-- **Single-window override next to other mods.** The override works against vanilla. How it behaves next to a mod that replaces the whole vanilla file is still untested.
+- **Other mods.** The single-window override holds next to a mod that replaces the whole vanilla file (checkpoint 1). What a playset can still break is listed in [Compatibility](Compatibility.md): sprites a mod drops or resizes, texts it makes longer, a second scripted GUI on the same spot, and a map or characters the mod's tables do not know.
 - **Engine-positioned widgets.** Some layouts (regiment grid, hull slots, combat width bars) cannot be moved from `.gui` files. The inventory step of each phase finds them before a layout is promised.
 - **A redesign that promises more than the engine gives.** The game fills only the widgets its code asks for. `tools/Show-CodeNames.ps1` lists them during the inventory, before a layout is proposed.
 - **Bitmap backgrounds with painted-in frames.** If no background option gives a clean result, the window keeps its vanilla size and only its lists and fonts are reworked.

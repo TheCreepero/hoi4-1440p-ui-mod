@@ -17,6 +17,12 @@
     Starts the game with only this mod and stops at the clean state of a new 1936 Germany game.
 
 .EXAMPLE
+    .\tools\Invoke-GameSteps.ps1 -Start -Playset -TimeoutSec 900 -AfterLoad tools\playsets\reordered-pack-usa.json
+    The same with the launcher's playset as it is, this mod last: what the user plays with. -AfterLoad names
+    the steps (JSON, or a file of them) that close what the playset opens at the start of a game, before the
+    clean state is made (wiki/Game-Recipes.md, "With the user's playset").
+
+.EXAMPLE
     .\tools\Invoke-GameSteps.ps1 -Reset -Steps '[{"key":"y","wait":1.2}]' -Region 0,60,560,420
     From the clean state: open production, then a grid capture of its top part.
 
@@ -39,6 +45,9 @@ param(
     [switch]$Reset,
     [switch]$Start,
     [switch]$Vanilla,
+    [switch]$Playset,
+    [string]$AfterLoad,
+    [int]$TimeoutSec = 300,
     [switch]$Stop,
     [switch]$NoCapture
 )
@@ -49,9 +58,17 @@ $ErrorActionPreference = 'Stop'
 if ($Stop) { Stop-Hoi4; return }
 if ($Start) {
     if (Get-Hoi4Process) { throw 'The game is already running. Use -Stop first, or leave out -Start.' }
-    if ($Vanilla) { Set-HoiPlayset -Vanilla | Out-Null } else { Set-HoiPlayset -OnlyThisMod | Out-Null }
-    Start-Hoi4 | Out-Null
-    Start-HoiNewGame
+    if ($Vanilla) { Set-HoiPlayset -Vanilla | Out-Null }
+    elseif ($Playset) { Set-HoiPlayset -UserPlayset | Out-Null }
+    else { Set-HoiPlayset -OnlyThisMod | Out-Null }
+    Start-Hoi4 -TimeoutSec $TimeoutSec | Out-Null
+    $closing = $null
+    if ($AfterLoad) {
+        # steps as JSON, or the path of a file that holds them (tools\playsets\<name>.json)
+        if (Test-Path -LiteralPath $AfterLoad) { $AfterLoad = [System.IO.File]::ReadAllText((Resolve-Path -LiteralPath $AfterLoad), [System.Text.Encoding]::UTF8) }
+        $closing = @($AfterLoad | ConvertFrom-Json | ForEach-Object { $_ })
+    }
+    Start-HoiNewGame -TimeoutSec ([Math]::Max(180, $TimeoutSec)) -AfterLoad $closing
 }
 if (-not (Get-Hoi4Process)) { throw 'The game is not running. Start it with -Start, or with tools\Invoke-GameCheck.ps1 <scene> -KeepRunning.' }
 

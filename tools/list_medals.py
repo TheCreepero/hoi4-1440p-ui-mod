@@ -2,6 +2,9 @@
 after a game update that changes the medals, and the rows pasted into that file.
 
     python -I tools/list_medals.py > scratch/medals_table.txt
+    python -I tools/list_medals.py --sprites     the strips of medal pictures as sprites of this mod, for
+                                                 interface/1440p_ui.gfx: the game's pictures under the names
+                                                 GFX_1440p_medal_<set>, which no other mod's medals.gfx can drop
 """
 import io
 import os
@@ -34,6 +37,13 @@ source = io.open(os.path.join(GAME, "common", "unit_medals", "00_default.txt"), 
 loc = io.open(os.path.join(GAME, "localisation", "english", "unit_medals_l_english.yml"), encoding="utf-8-sig").read()
 names = dict(re.findall(r'^\s*([A-Za-z_0-9]+):\d*\s*"([^"]*)"', loc, re.M))
 medals = blocks(dict(blocks(source))["unit_medals"])
+if "--sprites" in sys.argv:
+    known = guiparse.load_sprites(GAME)
+    for name in sorted(set(re.search(r'icon\s*=\s*"GFX_medal_icon_(\w+)"', body).group(1) for _name, body in medals)):
+        sprite = known["GFX_medal_icon_%s_large" % name]
+        sys.stdout.write('\tspriteType = {\n\t\tname = "GFX_1440p_medal_%s"\n\t\ttextureFile = "%s"\n\t\tnoOfFrames = %d\n\t}\n\n'
+                         % (name, sprite.texture.replace("/", "//"), sprite.frames))
+    sys.exit(0)
 print("# (id, icon set, frame, available) : %d medals" % len(medals))
 for name, body in medals:
     parts = dict(blocks(body))

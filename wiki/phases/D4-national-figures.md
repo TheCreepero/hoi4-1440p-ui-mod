@@ -67,6 +67,8 @@ Both: **not checked in game on 2026-10-12** (the launch was refused that session
 
 **Left unseen:** a month written by `on_monthly` with its year in a check. It runs in the user's game.
 
+- **2026-10-13, with the user's playset:** the button in the title strip of Politics stood on the "Economy Status" button of Better Mechanics: Production (x 230 to 356). It is 92 px wide now (`GFX_1440p_SG_button_92`, the game's 148 px button as a tile), reads "Figures" and stands at x 359, before the game's own button at 454. The tooltip gives the full name. [Compatibility](../Compatibility.md).
+
 ## Close
 
 - [x] The rework of 2026-10-12 seen in game, and `reference/mod/national_figures*` and `history*` stored again (2026-10-13)

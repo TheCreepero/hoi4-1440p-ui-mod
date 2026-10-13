@@ -122,6 +122,8 @@ Not seen in game (states a 1936 start does not show, or the harness cannot reach
 - A home base picker with more bases than fit, and its supply icon.
 - A transfer window with more ships than fit.
 
+- **2026-10-13, with the user's playset:** RBM's insignia are 43 px wide, the game's 33, and the one at the end of a ship row stood 8 px outside the panel. `task_force_insignia` of `ship_entry_detailed` moved from x 705 to 697. The ship count on a task force's insignia overlaps RBM's wider picture; it is the insignia button's own text, drawn by the game, and looks the same without this mod. The role icons of Vanilla Navy Rework (43 px, 86 frames) fit the row. [Compatibility](../Compatibility.md).
+
 ## Left for the tester
 
 1. Whether the lying bars (46x8) are too heavy. (The width was judged good on 2026-10-11.)

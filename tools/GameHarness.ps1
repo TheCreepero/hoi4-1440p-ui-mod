@@ -59,10 +59,10 @@ function Get-HoiPaths {
 
 # ---------------------------------------------------------------- playset
 
-# Backs up dlc_load.json once and writes a playset with only this mod (or none, with -Vanilla). The DevLink
-# .mod file must exist.
+# Backs up dlc_load.json once and writes a playset with only this mod (or none, with -Vanilla; the mods of
+# -Mods; with -UserPlayset the launcher's own playset as it is, this mod last). The DevLink .mod file must exist.
 function Set-HoiPlayset {
-    param([switch]$OnlyThisMod, [switch]$Vanilla, [string[]]$Mods)
+    param([switch]$OnlyThisMod, [switch]$Vanilla, [switch]$UserPlayset, [string[]]$Mods)
 
     $paths = Get-HoiPaths
     if (-not (Test-Path -LiteralPath $paths.ModFile)) { throw "Launcher mod file not found: $($paths.ModFile). Run build.ps1 -DevLink first." }
@@ -80,6 +80,7 @@ function Set-HoiPlayset {
     if (-not (Test-Path -LiteralPath $script:HarnessScratch)) { New-Item -ItemType Directory -Path $script:HarnessScratch -Force | Out-Null }
     $backup = Join-Path $script:HarnessScratch 'dlc_load.backup.json'
     $disabled = @()
+    if ($UserPlayset -and -not (Test-Path -LiteralPath $paths.DlcLoad)) { throw "No dlc_load.json: the launcher has no playset to start with." }
     if (Test-Path -LiteralPath $paths.DlcLoad) {
         $current = [System.IO.File]::ReadAllText($paths.DlcLoad, [System.Text.Encoding]::UTF8)
         if (-not (Test-Path -LiteralPath $backup)) { [System.IO.File]::WriteAllText($backup, $current, [System.Text.UTF8Encoding]::new($false)) }
@@ -87,6 +88,13 @@ function Set-HoiPlayset {
     }
     $enabled = @($script:HarnessModFile)
     if ($Mods) { $enabled = @($Mods) }
+    if ($UserPlayset) {
+        # the user's playset is the backup when an earlier call has already put a playset of the harness in place
+        $own = [System.IO.File]::ReadAllText($backup, [System.Text.Encoding]::UTF8)
+        $others = @(@(($own | ConvertFrom-Json).enabled_mods) | Where-Object { $_ -and $_ -ne $script:HarnessModFile })
+        $enabled = @($others) + @($script:HarnessModFile)
+        Write-Host "  [INFO] the launcher's playset: $($others.Count) mods, then this mod" -ForegroundColor Gray
+    }
     if ($Vanilla) { $enabled = @() }
     # ConvertTo-Json turns an empty array inside a hashtable into null on PowerShell 5.1, so build the list by hand
     $modList = (@($enabled) | ForEach-Object { '"' + $_ + '"' }) -join ','
@@ -162,7 +170,9 @@ function Wait-HoiLog {
 # starts from. The game starts paused and is never unpaused or saved. Throws, with a capture in
 # scratch/checks, when the map does not load.
 function Start-HoiNewGame {
-    param([int]$TimeoutSec = 180)
+    # AfterLoad: steps for what a playset opens when the game starts (a welcome event, a splash window): they run
+    # once the map is up and before the clean state is made.
+    param([int]$TimeoutSec = 180, $AfterLoad)
 
     $paths = Get-HoiPaths
     $bounds = Get-HoiScreenBounds
@@ -179,6 +189,10 @@ function Start-HoiNewGame {
     }
     Start-Sleep -Seconds 6   # the map fades in after the log line
     Hide-HoiErrorLogWindows | Out-Null   # the game has just opened error.log in Notepad, if the load logged errors
+    if ($AfterLoad) {
+        Start-Sleep -Seconds 3   # the window that was minimised gives the screen back; the game needs a moment to be in front again
+        Invoke-HoiSteps -Steps $AfterLoad
+    }
     Reset-HoiState | Out-Null   # nothing open, land map mode, Home camera
     # once per game: what every recipe may rely on (all divisions in Army 1), then back to the clean state
     $moves = Get-HoiMoves
@@ -487,7 +501,7 @@ function Set-HoiForeground {
     if ($handle -eq [IntPtr]::Zero) { throw 'The game has no main window yet.' }
     if ([HoiInput]::GetForegroundWindow() -eq $handle) { return $handle }
     $current = [HoiInput]::GetCurrentThreadId()
-    for ($attempt = 0; $attempt -lt 3; $attempt++) {
+    for ($attempt = 0; $attempt -lt 6; $attempt++) {
         $foreground = [HoiInput]::GetForegroundWindow()
         $owner = [HoiInput]::GetWindowThreadProcessId($foreground, [IntPtr]::Zero)
         $target = [HoiInput]::GetWindowThreadProcessId($handle, [IntPtr]::Zero)
@@ -821,19 +835,30 @@ function Compare-HoiErrorLog {
         Write-Host "  [WARN] no baseline at $Baseline (Save-HoiErrorLogBaseline after a vanilla launch); showing the whole log" -ForegroundColor Yellow
     }
     $windowNames = @()
+    $spriteNames = @{}
     foreach ($file in @(Get-ChildItem -Path (Join-Path $script:HarnessRepoRoot 'interface') -Recurse -File -Filter '*.gui')) {
-        foreach ($w in @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)))) { $windowNames += $w.Name }
+        $text = Read-GuiText -Path $file.FullName
+        foreach ($w in @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $text))) { $windowNames += $w.Name }
+        foreach ($m in [regex]::Matches($text, '"(GFX_[A-Za-z0-9_\-]+)"')) { $spriteNames[$m.Groups[1].Value] = $true }
     }
     # mod1440_ is the prefix of the mod's script files under common/ and of its scripted GUI windows
     $pattern = '(zz_1440p|GFX_1440p|1440p_ui|mod1440_|' + (($windowNames | ForEach-Object { [regex]::Escape($_) }) -join '|') + ')'
     $new = @($current | Where-Object { -not $known.ContainsKey($_) })
-    $mod = @($new | Where-Object { $_ -match $pattern })
-    $other = @($new | Where-Object { $_ -notmatch $pattern })
+    # A sprite the mod's windows name and the loaded game does not have gives a line that names neither the mod
+    # nor a file. That happens next to a mod whose copy of a game .gfx file lacks the sprite (Engine Facts L10).
+    $isMods = {
+        param($line)
+        if ($line -match $pattern) { return $true }
+        if ($line -match 'Could not find sprite type \[([^\]]+)\]' -and $spriteNames.ContainsKey($Matches[1])) { return $true }
+        return $false
+    }
+    $mod = @($new | Where-Object { & $isMods $_ })
+    $other = @($new | Where-Object { -not (& $isMods $_) })
     if ($mod.Count) {
-        Write-Host "  [ERROR] $($mod.Count) error.log line(s) name the mod:" -ForegroundColor Red
+        Write-Host "  [ERROR] $($mod.Count) error.log line(s) name the mod or a sprite its windows name:" -ForegroundColor Red
         $mod | ForEach-Object { Write-Host "    $_" -ForegroundColor Red }
     } else {
-        Write-Host '  [OK] no error.log line names the mod' -ForegroundColor Green
+        Write-Host '  [OK] no error.log line names the mod or a sprite its windows name' -ForegroundColor Green
     }
     if ($other.Count) {
         Write-Host "  [INFO] $($other.Count) other new line(s) compared with the vanilla baseline:" -ForegroundColor Gray

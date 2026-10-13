@@ -11,7 +11,7 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
 - **Requires**: 2560x1440 or higher at 100% UI scale
 - **Ironman & Achievements**: Not compatible since version 1.5. The manager pages are scripted GUIs, and their script under `common/` changes the game checksum. In multiplayer every player needs the mod. The pages show values and keep records of their own; the one thing they write into the game is a line in a division's history (unit honours, see The Records).
 - **Status**: In development, one screen at a time. See [wiki/Roadmap.md](wiki/Roadmap.md).
-- **Tested with**: the vanilla game only. Behaviour next to other mods is untested.
+- **Tested with**: the vanilla game, and on 13 October 2026 in a playset of 55 other mods with Road to 56, Vanilla Navy Rework, RBM's GFX Overhaul and the Better Mechanics mods. What was found and fixed there, and what is not solved: `wiki/Compatibility.md`.
 
 ## Reworked Screens
 

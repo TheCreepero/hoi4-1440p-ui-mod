@@ -7,7 +7,8 @@
 Each effect is run from the console with nothing selected: effect mod1440_chk_<name>. They change the game of
 the check, which is never saved. What an effect finds out goes to game.log as a line "MOD1440 ...".
 
-They are for a new game as Germany on 1 January 1936, the clean state of tools/Invoke-GameSteps.ps1 -Start.
+They are for a new game as Germany on 1 January 1936, the clean state of tools/Invoke-GameSteps.ps1 -Start;
+those named rt56 are for the map of Road to 56, as the United States.
 The notes of each phase say which were used for what (wiki/phases/E1-war-diary.md, "Game checks").
 """
 import io
@@ -240,6 +241,48 @@ mod1440_chk_shift = {
 	if = { limit = { check_variable = { mod1440_of_sel > 5368 } } add_to_variable = { mod1440_of_sel = 0.00003 } }
 	add_to_variable = { global.mod1440_ch_top = 0.00003 }
 	log = "MOD1440 shift: [?sh] leaders moved, top [?global.mod1440_ch_top]"
+}
+
+# ---- with the map of Road to 56 (the playset of 2026-10-13), as the United States after the console's "tag USA"
+
+# Which map the mod takes the loaded game for: its number of states, and the table (0 is the game's own).
+mod1440_chk_map = {
+	mod1440_vp_map = yes
+	log = "MOD1440 check: [?vp_states] states, table [?vp_map], [?mod1440_vp_ctl^num] points copied, version [?mod1440_vp_ver]"
+}
+
+# War on Mexico.
+mod1440_chk_rt56_war = {
+	declare_war_on = { target = MEX type = annex_everything }
+}
+
+# Monterrey: 20 points in Tamaulipas on that map (the game's own: 10 points, and another state). Both logs.
+mod1440_chk_rt56_vp1 = {
+	set_province_controller = 12835
+	mod1440_vp_scan = yes
+}
+
+# Tampico: a point only that map has.
+mod1440_chk_rt56_vp2 = {
+	set_province_controller = 5021
+	mod1440_vp_scan = yes
+}
+
+# Eureka in California, a point only that map has, lost to Mexico.
+mod1440_chk_rt56_vp3 = {
+	MEX = { set_province_controller = 610 }
+	mod1440_vp_scan = yes
+}
+
+# Whether a condition on an idea nobody defined is an error: read error.log after the reload, then run it.
+mod1440_chk_idea = {
+	if = {
+		limit = { has_idea = mod1440_chk_no_such_idea }
+		log = "MOD1440 check: an idea nobody defined is held"
+	}
+	else = {
+		log = "MOD1440 check: an idea nobody defined is not held"
+	}
 }
 
 # ---- numbers into game.log

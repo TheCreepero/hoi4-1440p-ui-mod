@@ -3218,6 +3218,16 @@ mod1440_rec_show = {
 # row for each war that already runs and writes the first line.
 mod1440_ev_init = {
 	if = {
+		limit = { NOT = { check_variable = { global.mod1440_sr_named = 1 } } }
+		every_state = {
+			if = {
+				limit = { NOT = { has_variable = mod1440_sr_from } }
+				set_variable = { mod1440_sr_from = PREV }
+			}
+		}
+		set_variable = { global.mod1440_sr_named = 1 }
+	}
+	if = {
 		limit = { NOT = { check_variable = { mod1440_ev_begun = 1 } } }
 		set_variable = { mod1440_ev_begun = 1 }
 		set_variable = { mod1440_hn_auto = 1 }

@@ -157,6 +157,26 @@ Start-HoiNewGame
 - Another country: the console command `tag USA`. The scripted pages follow, and their first daily round for that country runs at the next midnight.
 - An event of the other mod: `event <id>` in the console, then a click on its option.
 
+## With the user's playset
+
+One mod beside this one shows what that mod does. The user plays with about 56, and some things only show with all of them: another map, pictures of another size, a second button on the same spot ([Compatibility](Compatibility.md)).
+
+```powershell
+python -I tools/check_playset.py          # first, from the files: seconds, no game
+.\build.ps1 -DevLink                      # after a copy of the launcher's file of this mod, as for every start
+.\tools\Invoke-GameSteps.ps1 -Start -Playset -TimeoutSec 900 -AfterLoad tools\playsets\reordered-pack-usa.json
+.\tools\Invoke-GameCheck.ps1 army_selection division_details fleet -NoRestart
+.\tools\Invoke-GameSteps.ps1 -Stop       # puts the playset back; then copy the launcher's file back
+```
+
+- **`-Playset`** leaves the launcher's list of mods as it is and puts this mod last. The launcher's file of this mod must point at the repository (`build.ps1 -DevLink`), or the start stops.
+- **`-AfterLoad`** takes steps, as JSON or as a file of them, that close what the playset opens when a game starts. They run once the map is up and before the clean state is made. `tools/playsets/reordered-pack-usa.json` has the twelve clicks for the user's playset of 2026-10-13. For another playset: start without `-AfterLoad`, look at the capture the failed start leaves, and close the windows one by one with `-Steps`, a capture after each.
+- **The menu** is the plain game's with Road to 56, except for the scenario screen, where the harness's click on the first scenario lands beside the picture and does no harm.
+- **The recipes work as Germany** in this playset too (30 divisions, a fleet, an airbase). `Invoke-GameCheck.ps1 ... -NoRestart` runs them in the open game; its comparison of `error.log` is with the plain game, so only its first line counts: whether a line names the mod or a sprite its windows name.
+- **The country the user plays:** `tag USA` in the console, with nothing selected.
+- **`error.log`** has about 9000 lines from such a playset. Read the whole of it once, not only the lines with the mod's name: "Could not find sprite type" and "invalid scope for var" name no file.
+
+
 ## Effects for a check
 
 `python -I tools/check_effects.py` writes `common/scripted_effects/mod1440_check.txt`, and a game left open reads it within seconds. `--restore` removes it; the test suite fails while it is there. Each effect is run from the console with nothing selected (`{"console":"effect mod1440_chk_war"}`) and changes the game of the check, which is never saved. What an effect finds out goes to `game.log` as a line that starts with "MOD1440".

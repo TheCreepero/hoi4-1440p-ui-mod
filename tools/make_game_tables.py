@@ -2,8 +2,10 @@
 
     python -I tools/make_game_tables.py            write tools/portraits_table.py and tools/victory_points_table.py
     python -I tools/make_game_tables.py --check    exit 1 when a table on disk differs from the game
-    python -I tools/make_game_tables.py --mods     write tools/portraits_mods_table.py from the mods of the
-                                                   launcher's playset (the officers those mods add)
+    python -I tools/make_game_tables.py --mods     write tools/portraits_mods_table.py (the officers the mods of
+                                                   the launcher's playset add) and
+                                                   tools/victory_points_mods_table.py (the victory points of a
+                                                   playset whose states are not the game's)
 
 To be run again after a game update: tools/build_managers.py reads the tables, not the game.
 
@@ -13,6 +15,10 @@ To be run again after a game update: tools/build_managers.py reads the tables, n
     portraits_mods_table.py   the same as portraits_table.py for characters that mods add. Optional: the build
                               tool uses it when it is there. A name the loaded game does not know is not found
                               and logs nothing, so the lookup is harmless without those mods.
+    victory_points_mods_table.py   the same as victory_points_table.py for a playset that brings states of its
+                              own (Road to 56: 1143 states for the game's 1081, and other numbers for many).
+                              Optional. Script counts the states of the loaded game and follows the points of
+                              the map with that number, so the game's own table stays in use without those mods.
 
 Script cannot ask the game for a character's portrait or for the name of a province. It can ask whether a
 character is a certain one (is_character) and who controls a province (province_controllers), so the mod
@@ -51,12 +57,13 @@ def without_comments(text):
     return re.sub(r"#[^\n]*", "", text)
 
 
-def portraits(game, by_effect=False):
+def portraits(game, by_effect=False, paths=None):
     """(character, file tag, army sprite, navy sprite, civilian sprite, roles) for every character with a sprite.
     by_effect: a character whose file gives him no role at all is taken as an officer too. That is how mods add
-    generals: the character is defined bare, and an event gives him his command (add_corps_commander_role)."""
+    generals: the character is defined bare, and an event gives him his command (add_corps_commander_role).
+    paths: these files instead of the folder's (tools/check_playset.py reads a playset file by file)."""
     rows = []
-    for path in sorted(glob.glob(os.path.join(game, "common", "characters", "*.txt"))):
+    for path in paths if paths is not None else sorted(glob.glob(os.path.join(game, "common", "characters", "*.txt"))):
         tag = os.path.splitext(os.path.basename(path))[0]
         text = without_comments(io.open(path, encoding="utf-8-sig", errors="replace").read())
         for top, body in blocks(text):
@@ -78,8 +85,8 @@ def portraits(game, by_effect=False):
 
 def playset(user):
     """(name, folder) of the mods of the launcher's playset, this mod left out. While a game check runs the
-    harness has its own playset in place and keeps the user's in scratch/dlc_load.backup.json."""
-    path = os.path.join(ROOT, "scratch", "dlc_load.backup.json")
+    harness has its own playset in place and keeps the user's in scratch/harness/dlc_load.backup.json."""
+    path = os.path.join(ROOT, "scratch", "harness", "dlc_load.backup.json")
     if not os.path.isfile(path):
         path = os.path.join(user, "dlc_load.json")
     mods = []
@@ -131,16 +138,20 @@ def country_tags(game):
     return tags
 
 
-def victory_points(game):
-    """(province, state, value) for every victory point, and which provinces have a name."""
-    rows = []
-    for path in sorted(glob.glob(os.path.join(game, "history", "states", "*.txt"))):
+def victory_points(game, state_files=None, text_files=None, count=None):
+    """(province, state, value) for every victory point that has a name. state_files, text_files: these files
+    instead of the game's folders (a playset). count: a list that gets the number of states."""
+    rows, states = [], 0
+    for path in state_files if state_files is not None else sorted(glob.glob(os.path.join(game, "history", "states", "*.txt"))):
         text = without_comments(io.open(path, encoding="utf-8-sig", errors="replace").read())
         state = re.search(r"\bid\s*=\s*(\d+)", text)
+        if not state:
+            continue
+        states += 1
         for m in re.finditer(r"victory_points\s*=\s*\{\s*(\d+)\s+([\d.]+)\s*\}", text):
             rows.append((int(m.group(1)), int(state.group(1)), int(float(m.group(2)))))
     names = set()
-    for path in glob.glob(os.path.join(game, "localisation", "english", "*.yml")):
+    for path in text_files if text_files is not None else glob.glob(os.path.join(game, "localisation", "english", "*.yml")):
         text = io.open(path, encoding="utf-8-sig", errors="replace").read()
         names.update(int(k) for k in re.findall(r"^\s*VICTORY_POINTS_(\d+):", text, re.M))
     seen, out = set(), []
@@ -148,7 +159,33 @@ def victory_points(game):
         if province in names and province not in seen:     # a point without a name could not be written down
             seen.add(province)
             out.append((province, state, value))
+    if count is not None:
+        count.append(states)
     return out
+
+
+def mod_victory_points(game):
+    """The victory points of the launcher's playset when its states are not the game's: (the mods the states
+    come from, the number of states, the rows), or None. The playset is read as the game loads it: a mod's
+    replace_path empties the game's folder (tools/check_playset.py, View)."""
+    from check_playset import View, playset as layers_of      # that tool imports this one
+    layers, _unread, _source = layers_of(guiparse.user_dir())
+    view = View(game, layers)
+    files = view.files("history/states", ".txt")
+    mods = sorted(set(layer.name for layer, _full, _rel in files.values() if layer is not view.game))
+    if not mods:
+        return None
+    texts = []
+    for layer in view.layers:
+        for dirpath, _dirs, names in os.walk(os.path.join(layer.folder, "localisation")):
+            texts += [os.path.join(dirpath, name) for name in names if name.lower().endswith("l_english.yml")]
+    count, own = [], []
+    rows = victory_points(game, [full for _key, (_layer, full, _rel) in sorted(files.items())], texts, count)
+    victory_points(game, count=own)
+    if count[0] == own[0]:
+        print("the playset has states of its own, and as many as the game (%d): script could not tell the two maps apart" % own[0])
+        return None
+    return " + ".join(mods), count[0], rows
 
 
 def version(game):
@@ -176,6 +213,19 @@ def main(argv):
             % (len(rows), "".join("    %r,\n" % line for line in used), "".join("    %r,\n" % (row,) for row in rows)))
         io.open(os.path.join(ROOT, "tools", "portraits_mods_table.py"), "w", encoding="utf-8", newline="\n").write(content)
         print("wrote tools/portraits_mods_table.py: %d characters of %d mods" % (len(rows), len(used)))
+        found = mod_victory_points(game)
+        maps = [found] if found else []
+        content = (
+            '"""Made by tools/make_game_tables.py --mods from the mods of the launcher\'s playset: run it again when the\n'
+            "playset changes. Delete this file for a build that knows the game's own map only.\n\n"
+            "A map is (the mods its states come from, its number of states, rows as in victory_points_table.py). Script\n"
+            "counts the states of the loaded game and follows the points of the map with that number; with any other\n"
+            'number it follows the game\'s own.\n%d maps."""\n\nMAPS = [\n%s]\n'
+            % (len(maps), "".join("    (%r, %d, [\n%s    ]),\n" % (name, states, "".join("        %r,\n" % (row,) for row in points))
+                                  for name, states, points in maps)))
+        io.open(os.path.join(ROOT, "tools", "victory_points_mods_table.py"), "w", encoding="utf-8", newline="\n").write(content)
+        print("wrote tools/victory_points_mods_table.py: %s" % (", ".join(
+            "%d victory points in %d states of %s" % (len(points), states, name) for name, states, points in maps) or "no map but the game's"))
         return 0
     made = version(game)
     people = portraits(game)

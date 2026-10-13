@@ -76,6 +76,8 @@ Commands new to the test's list: `is_in_array`, `has_war_with`, `is_capital`, `e
 
 A small strip in the vanilla state view: "Taken from France on 1940.6.14, held for 312 days", from variables the territory hook leaves on the state. The probe showed such a card: it appears while a state is selected, its scope is the state, and it may stand inside the state view or beside it (X47). Where it stands is chosen with a mock-up when the phase starts; [E6](E6-unit-honours.md) puts its Cite button on it.
 
+- **2026-10-13:** the card's line "Taken from ..." reads a country from `mod1440_sr_from`, and a state nobody took held none: the game logged "invalid scope for var" at every selection of such a state, although the line was hidden (X73). `mod1440_ev_init` now gives every state a country once (`global.mod1440_sr_named`). Seen: one line before, none for three selections after. Next to Landlord's buttons in the state view the card stands free.
+
 ## What the probe settled
 
 | Question | Answer | For this page |
@@ -142,3 +144,9 @@ The user had installed the build of 2026-10-12, played a war with it and wrote o
 - [x] Scene file and recipe (`tools/scenes/war_diary.json`), reference capture
 - [ ] The `log` lines of the landing, airborne and ace hooks taken out once each was seen in a game
 - [ ] The tester's judgement
+
+## Another map (2026-10-13)
+
+Road to 56 replaces `history/states`: 1143 states for the game's 1081, with other numbers for many. Of the 1495 points of the game's table 223 were in another state there, 252 had another value, 220 were no victory points, and 597 points of that map were not in the table. `python -I tools/make_game_tables.py --mods` now also writes `tools/victory_points_mods_table.py` when the playset has states of its own (1860 points). `mod1440_vp_map` counts the states of the loaded game, and `mod1440_vp_sync` and `mod1440_vp_scan` take the table of the map with that number (`_0` the game's, `_1` Road to 56's); a change of table is a change of version, so the copy is taken anew without a line.
+
+Seen with the user's playset as the United States: "1143 states, table 1", 1860 points copied; at war with Mexico, Monterrey (another state and value than in the game's table), Tampico and Eureka (points only that map has) each gave a line, and the war's file counts 2 taken and 1 lost. [Compatibility](../Compatibility.md).

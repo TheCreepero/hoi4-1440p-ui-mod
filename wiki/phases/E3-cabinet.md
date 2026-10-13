@@ -92,6 +92,8 @@ The user had installed the build of 2026-10-12, played a war with it and wrote o
 | 3 | 2026-10-13 | `9c832ae` +dirty | live session: the page as Germany | the flag beside the name and Hitler's portrait at 125x168 beside the party and the dates | `scratch/checks/gv1-*` | X58, X59 |
 | 4 | 2026-10-13 | the same build, cold start through `tools/Invoke-GameCheck.ps1` with ten other scenes | the page in a new game; `error.log` | the card 280 px high with flag and portrait; every expected widget found where the layout puts it; no line names the mod | `reference/mod/government-panel.png` | - |
 
+- **2026-10-13, with the user's playset:** a party name of Road to 56 took two lines and stood on the leader's name. The name's box has a fixed size of one line now and is cut with dots (W28; `M.text(..., fixed=True)`). The laws of other mods read "another law" and stay so: a condition on an idea the game does not know logs an error each time (X71). [Compatibility](../Compatibility.md).
+
 
 ## Close
 

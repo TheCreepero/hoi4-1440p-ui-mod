@@ -1485,7 +1485,12 @@ containerWindowType =
 			borderSize = {x = 0 y = 0}
 			text = ""
 			maxWidth = 121
-			maxHeight = 32
+			# Two lines and no more: a mod that puts an icon before each label (RBM's GFX Overhaul) pushes
+			# "Trickleback & War Support Protection:" to three, and the third stood on the value. A box of a
+			# fixed size shows as many lines as fit with room to spare: two of this font (16 px) need more than
+			# 32 px, or the label is cut after one (Engine Facts W28).
+			maxHeight = 34
+			fixedsize = yes
 			format = left
 		}
 

@@ -660,4 +660,144 @@ spriteTypes = {
 		tilingCenter = yes
 		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
 	}
+
+	# The handle of National Figures in the title strip of Politics: the game's 148 px button at 92 px.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_button_92"
+		size = { x = 92 y = 36 }
+		textureFile = "gfx//interface//button_148x34.dds"
+		borderSize = { x = 12 y = 12 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate.lua"
+	}
+
+	# The strips of medal pictures of the Officers page: the game's own pictures under names of this mod, because
+	# a mod that brings its own interface/medals.gfx drops the game's sprites its copy lacks (Road to 56: Ethiopia).
+	# Made with tools/list_medals.py --sprites.
+
+	spriteType = {
+		name = "GFX_1440p_medal_aus"
+		textureFile = "gfx//interface//medals//AUS_medal_large.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_chl"
+		textureFile = "gfx//interface//medals//CHL_medals_large_strip.dds"
+		noOfFrames = 12
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_communism"
+		textureFile = "gfx//interface//medals//generic_communism_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_cze"
+		textureFile = "gfx//interface//medals//cze_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_default"
+		textureFile = "gfx//interface//medals//generic_neutrality_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_democratic"
+		textureFile = "gfx//interface//medals//generic_democratic_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_den"
+		textureFile = "gfx//interface//medals//den_medal_strip_large.dds"
+		noOfFrames = 2
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_eng"
+		textureFile = "gfx//interface//medals//eng_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_eth"
+		textureFile = "gfx//interface//medals//ETH_medal_strip_large.dds"
+		noOfFrames = 6
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_fascism"
+		textureFile = "gfx//interface//medals//generic_fascism_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_fin"
+		textureFile = "gfx//interface//medals//FIN_medal_strip_large.dds"
+		noOfFrames = 5
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_fra"
+		textureFile = "gfx//interface//medals//fra_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_ger"
+		textureFile = "gfx//interface//medals//ger_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_hun"
+		textureFile = "gfx//interface//medals//HUN_medal_strip_large.dds"
+		noOfFrames = 10
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_ita"
+		textureFile = "gfx//interface//medals//ita_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_jap"
+		textureFile = "gfx//interface//medals//jap_medal_strip_large.dds"
+		noOfFrames = 7
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_men"
+		textureFile = "gfx//interface//medals//MEN_medal_large.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_nor"
+		textureFile = "gfx//interface//medals//nor_medal_strip_large.dds"
+		noOfFrames = 7
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_sov"
+		textureFile = "gfx//interface//medals//sov_medal_strip_large.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_swe"
+		textureFile = "gfx//interface//medals//swe_medal_strip_large.dds"
+		noOfFrames = 2
+	}
+
+	spriteType = {
+		name = "GFX_1440p_medal_usa"
+		textureFile = "gfx//interface//medals//usa_medal_strip_large.dds"
+		noOfFrames = 4
+	}
 }

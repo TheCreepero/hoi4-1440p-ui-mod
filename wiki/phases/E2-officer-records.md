@@ -63,6 +63,8 @@ A decoration is a record of the mod: five dates on the officer. It gives no bonu
 - **Names and icons (decision 5 of the Records):** either five neutral names with frames of the game's default medal strip (`GFX_medal_icon_default`), or the game's own medals of the country: vanilla has 103 unit medals in national sets, with names and icons. The second needs a table of sets per country in the tool and follows the vanilla triggers that say which country has which set. Start with the first; the second is an addition.
 - **Not planned:** a cost in command power or political power for a decoration. It could be added; then it is a real spending and is said so in the tooltip.
 
+- **2026-10-13:** the medal strips are sprites of this mod on the game's pictures, `GFX_1440p_medal_<set>` in `interface/1440p_ui.gfx`, made with `python -I tools/list_medals.py --sprites`. The game's own sprites are in `interface/medals.gfx`, and a mod that brings a file of that name drops the sets its copy lacks: with Road to 56 the game logged 19 lines for Ethiopia's (L10).
+
 ## Data and script
 
 A section `officers()` of `tools/build_managers.py`.
@@ -158,3 +160,8 @@ The user had deployed the build and tested with other mods: "generals added by m
 - [ ] Battles won and lost seen counting in a game with fighting
 - [ ] An officer's record after a save and a load, in the tester's game
 - [ ] The tester's judgement
+
+## With the user's playset (2026-10-13)
+
+- As the United States: 29 officers at the start, 102 after the event of "Add USA Generals" came by itself on 10 January. One of the 29 has no portrait.
+- As Germany: 36 officers, six of the first 23 with the outline of the unknown leader. Road to 56 gives 1451 portraits as a file (`large = "gfx/leaders/GER/r56_portrait_...dds"`) and not as a sprite, and script can show a sprite only. Not solved: a sprite of this mod for each file would log a missing texture for every player without that mod. [Compatibility](../Compatibility.md).

@@ -7,6 +7,7 @@
   - [Scripted GUIs](Scripted-GUIs.md)
   - [Roleplay Pages](Roleplay-Pages.md)
   - [Script Reference](Script-Reference.md)
+  - [Compatibility](Compatibility.md)
   - [Phase Template](Phase-Template.md)
   - [Contributing](Contributing.md)
 - **Phases**

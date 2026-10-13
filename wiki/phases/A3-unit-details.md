@@ -97,6 +97,8 @@ Part of the pass the user asked for after the Records had been polished ("run a 
 - **A card behind the adjusters row of the division window** (`mod1440_card_adjusters`, sprite `GFX_1440p_UD_card_adjusters`, 772x147 at 515,419): the label, the hardness bar and the terrain adjusters stand on a card as the stats above them. It is a sibling icon between `info` and `adjuster_container` in the file, drawn above the first and below the second because siblings are drawn in file order ([Engine Facts](../Engine-Facts.md) W27, confirmed by this card).
 - **Checked in game on 2026-10-13** (check 10 above), after the launch of 2026-10-12 had been refused by the permission system of the assistant's tool: the card lies behind the label, the hardness bar and the seven adjusters; "Trickleback & War Support Protection:" stands on two lines, clear of its value.
 
+- **2026-10-13, with the user's playset:** RBM's GFX Overhaul puts a text icon before every stat label, and "Trickleback & War Support Protection:" then took three lines, the third on the value. The label of `stat_entry` has a fixed size now, 34 px for two lines of 16 (W28): a third line is cut with dots. Seen with the playset: "Trickleback & / War Support Prote…", the two-line labels whole. [Compatibility](../Compatibility.md).
+
 ## Left for the tester
 
 1. Tooltips on stat rows, terrain adjusters and equipment rows.

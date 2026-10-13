@@ -238,153 +238,153 @@ guiTypes = {
 			instantTextboxType = { name = "of_c_dec_title" position = { x = 16 y = 332 } font = "hoi_24header" text = "MOD1440_OF_C_DEC_TITLE" maxWidth = 300 maxHeight = 30 format = left }
 			buttonType = { name = "of_takeback" position = { x = 510 y = 334 } quadTextureSprite = "GFX_sort_button_140x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_TAKEBACK" pdx_tooltip = "MOD1440_OF_TAKEBACK_TT" }
 			instantTextboxType = { name = "of_c_dec_none" position = { x = 18 y = 372 } font = "hoi_16mbs" text = "MOD1440_OF_C_DEC_NONE" maxWidth = 500 maxHeight = 22 format = left }
-			iconType = { name = "of_c_rack_0_aus" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_aus_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_chl" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_chl_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_communism" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_communism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_cze" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_cze_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_default" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_default_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_democratic" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_democratic_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_den" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_den_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_eng" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_eng_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_eth" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_eth_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_fascism" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_fascism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_fin" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_fin_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_fra" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_fra_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_ger" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_ger_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_hun" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_hun_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_ita" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_ita_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_jap" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_jap_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_men" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_men_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_nor" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_nor_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_sov" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_sov_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_swe" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_swe_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_0_usa" position = { x = 14 y = 366 } spriteType = "GFX_medal_icon_usa_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
-			iconType = { name = "of_c_rack_1_aus" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_aus_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_chl" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_chl_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_communism" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_communism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_cze" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_cze_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_default" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_default_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_democratic" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_democratic_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_den" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_den_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_eng" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_eng_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_eth" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_eth_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_fascism" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_fascism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_fin" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_fin_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_fra" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_fra_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_ger" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_ger_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_hun" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_hun_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_ita" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_ita_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_jap" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_jap_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_men" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_men_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_nor" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_nor_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_sov" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_sov_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_swe" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_swe_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_1_usa" position = { x = 74 y = 366 } spriteType = "GFX_medal_icon_usa_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
-			iconType = { name = "of_c_rack_2_aus" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_aus_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_chl" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_chl_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_communism" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_communism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_cze" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_cze_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_default" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_default_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_democratic" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_democratic_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_den" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_den_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_eng" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_eng_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_eth" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_eth_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_fascism" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_fascism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_fin" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_fin_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_fra" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_fra_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_ger" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_ger_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_hun" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_hun_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_ita" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_ita_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_jap" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_jap_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_men" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_men_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_nor" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_nor_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_sov" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_sov_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_swe" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_swe_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_2_usa" position = { x = 134 y = 366 } spriteType = "GFX_medal_icon_usa_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
-			iconType = { name = "of_c_rack_3_aus" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_aus_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_chl" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_chl_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_communism" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_communism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_cze" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_cze_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_default" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_default_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_democratic" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_democratic_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_den" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_den_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_eng" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_eng_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_eth" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_eth_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_fascism" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_fascism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_fin" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_fin_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_fra" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_fra_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_ger" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_ger_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_hun" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_hun_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_ita" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_ita_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_jap" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_jap_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_men" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_men_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_nor" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_nor_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_sov" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_sov_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_swe" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_swe_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_3_usa" position = { x = 194 y = 366 } spriteType = "GFX_medal_icon_usa_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
-			iconType = { name = "of_c_rack_4_aus" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_aus_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_chl" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_chl_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_communism" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_communism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_cze" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_cze_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_default" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_default_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_democratic" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_democratic_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_den" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_den_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_eng" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_eng_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_eth" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_eth_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_fascism" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_fascism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_fin" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_fin_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_fra" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_fra_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_ger" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_ger_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_hun" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_hun_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_ita" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_ita_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_jap" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_jap_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_men" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_men_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_nor" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_nor_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_sov" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_sov_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_swe" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_swe_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_4_usa" position = { x = 254 y = 366 } spriteType = "GFX_medal_icon_usa_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
-			iconType = { name = "of_c_rack_5_aus" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_aus_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_chl" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_chl_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_communism" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_communism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_cze" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_cze_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_default" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_default_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_democratic" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_democratic_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_den" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_den_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_eng" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_eng_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_eth" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_eth_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_fascism" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_fascism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_fin" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_fin_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_fra" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_fra_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_ger" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_ger_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_hun" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_hun_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_ita" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_ita_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_jap" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_jap_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_men" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_men_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_nor" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_nor_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_sov" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_sov_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_swe" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_swe_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_5_usa" position = { x = 314 y = 366 } spriteType = "GFX_medal_icon_usa_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
-			iconType = { name = "of_c_rack_6_aus" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_aus_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_chl" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_chl_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_communism" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_communism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_cze" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_cze_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_default" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_default_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_democratic" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_democratic_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_den" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_den_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_eng" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_eng_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_eth" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_eth_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_fascism" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_fascism_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_fin" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_fin_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_fra" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_fra_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_ger" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_ger_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_hun" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_hun_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_ita" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_ita_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_jap" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_jap_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_men" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_men_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_nor" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_nor_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_sov" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_sov_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_swe" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_swe_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
-			iconType = { name = "of_c_rack_6_usa" position = { x = 374 y = 366 } spriteType = "GFX_medal_icon_usa_large" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_0_aus" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_aus" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_chl" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_chl" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_communism" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_communism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_cze" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_cze" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_default" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_default" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_democratic" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_democratic" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_den" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_den" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_eng" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_eng" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_eth" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_eth" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_fascism" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_fascism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_fin" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_fin" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_fra" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_fra" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_ger" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_ger" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_hun" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_hun" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_ita" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_ita" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_jap" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_jap" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_men" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_men" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_nor" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_nor" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_sov" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_sov" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_swe" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_swe" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_0_usa" position = { x = 14 y = 366 } spriteType = "GFX_1440p_medal_usa" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_0_TT" }
+			iconType = { name = "of_c_rack_1_aus" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_aus" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_chl" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_chl" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_communism" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_communism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_cze" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_cze" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_default" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_default" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_democratic" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_democratic" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_den" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_den" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_eng" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_eng" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_eth" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_eth" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_fascism" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_fascism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_fin" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_fin" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_fra" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_fra" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_ger" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_ger" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_hun" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_hun" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_ita" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_ita" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_jap" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_jap" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_men" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_men" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_nor" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_nor" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_sov" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_sov" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_swe" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_swe" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_1_usa" position = { x = 74 y = 366 } spriteType = "GFX_1440p_medal_usa" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_1_TT" }
+			iconType = { name = "of_c_rack_2_aus" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_aus" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_chl" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_chl" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_communism" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_communism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_cze" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_cze" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_default" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_default" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_democratic" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_democratic" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_den" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_den" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_eng" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_eng" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_eth" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_eth" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_fascism" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_fascism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_fin" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_fin" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_fra" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_fra" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_ger" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_ger" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_hun" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_hun" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_ita" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_ita" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_jap" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_jap" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_men" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_men" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_nor" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_nor" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_sov" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_sov" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_swe" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_swe" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_2_usa" position = { x = 134 y = 366 } spriteType = "GFX_1440p_medal_usa" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_2_TT" }
+			iconType = { name = "of_c_rack_3_aus" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_aus" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_chl" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_chl" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_communism" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_communism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_cze" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_cze" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_default" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_default" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_democratic" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_democratic" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_den" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_den" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_eng" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_eng" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_eth" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_eth" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_fascism" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_fascism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_fin" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_fin" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_fra" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_fra" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_ger" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_ger" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_hun" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_hun" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_ita" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_ita" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_jap" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_jap" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_men" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_men" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_nor" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_nor" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_sov" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_sov" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_swe" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_swe" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_3_usa" position = { x = 194 y = 366 } spriteType = "GFX_1440p_medal_usa" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_3_TT" }
+			iconType = { name = "of_c_rack_4_aus" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_aus" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_chl" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_chl" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_communism" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_communism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_cze" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_cze" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_default" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_default" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_democratic" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_democratic" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_den" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_den" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_eng" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_eng" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_eth" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_eth" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_fascism" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_fascism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_fin" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_fin" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_fra" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_fra" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_ger" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_ger" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_hun" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_hun" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_ita" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_ita" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_jap" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_jap" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_men" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_men" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_nor" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_nor" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_sov" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_sov" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_swe" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_swe" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_4_usa" position = { x = 254 y = 366 } spriteType = "GFX_1440p_medal_usa" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_4_TT" }
+			iconType = { name = "of_c_rack_5_aus" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_aus" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_chl" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_chl" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_communism" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_communism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_cze" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_cze" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_default" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_default" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_democratic" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_democratic" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_den" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_den" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_eng" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_eng" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_eth" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_eth" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_fascism" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_fascism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_fin" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_fin" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_fra" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_fra" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_ger" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_ger" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_hun" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_hun" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_ita" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_ita" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_jap" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_jap" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_men" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_men" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_nor" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_nor" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_sov" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_sov" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_swe" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_swe" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_5_usa" position = { x = 314 y = 366 } spriteType = "GFX_1440p_medal_usa" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_5_TT" }
+			iconType = { name = "of_c_rack_6_aus" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_aus" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_chl" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_chl" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_communism" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_communism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_cze" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_cze" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_default" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_default" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_democratic" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_democratic" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_den" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_den" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_eng" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_eng" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_eth" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_eth" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_fascism" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_fascism" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_fin" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_fin" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_fra" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_fra" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_ger" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_ger" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_hun" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_hun" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_ita" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_ita" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_jap" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_jap" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_men" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_men" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_nor" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_nor" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_sov" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_sov" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_swe" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_swe" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
+			iconType = { name = "of_c_rack_6_usa" position = { x = 374 y = 366 } spriteType = "GFX_1440p_medal_usa" scale = 1.0 pdx_tooltip = "MOD1440_OF_C_RACK_6_TT" }
 			instantTextboxType = { name = "of_c_dec_0" position = { x = 18 y = 454 } font = "hoi_16mbs" text = "MOD1440_OF_C_DEC_0" maxWidth = 430 maxHeight = 22 format = left }
 			instantTextboxType = { name = "of_c_dec_0_d" position = { x = 460 y = 454 } font = "hoi_16mbs" text = "MOD1440_OF_C_DEC_0_D" maxWidth = 194 maxHeight = 22 format = left }
 			instantTextboxType = { name = "of_c_dec_1" position = { x = 18 y = 476 } font = "hoi_16mbs" text = "MOD1440_OF_C_DEC_1" maxWidth = 430 maxHeight = 22 format = left }
@@ -397,291 +397,291 @@ guiTypes = {
 			instantTextboxType = { name = "of_c_dec_4_d" position = { x = 460 y = 542 } font = "hoi_16mbs" text = "MOD1440_OF_C_DEC_4_D" maxWidth = 194 maxHeight = 22 format = left }
 			instantTextboxType = { name = "of_md_title" position = { x = 16 y = 570 } font = "hoi_24header" text = "MOD1440_OF_MD_TITLE" maxWidth = 400 maxHeight = 30 format = left }
 			instantTextboxType = { name = "of_md_hint" position = { x = 18 y = 602 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HINT" maxWidth = 634 maxHeight = 22 format = left }
-			iconType = { name = "of_md_0_aus" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_0_chl" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_0_communism" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_0_cze" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_0_default" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_0_democratic" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_0_den" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_0_eng" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_0_eth" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_0_fascism" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_0_fin" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_0_fra" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_0_ger" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_0_hun" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_0_ita" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_0_jap" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_0_men" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_0_nor" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_0_sov" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_0_swe" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_0_usa" position = { x = 16 y = 624 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_0_aus" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_0_chl" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_0_communism" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_0_cze" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_0_default" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_0_democratic" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_0_den" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_0_eng" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_0_eth" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_0_fascism" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_0_fin" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_0_fra" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_0_ger" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_0_hun" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_0_ita" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_0_jap" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_0_men" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_0_nor" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_0_sov" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_0_swe" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_0_usa" position = { x = 16 y = 624 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_0_name" position = { x = 58 y = 626 } font = "hoi_16mbs" text = "MOD1440_OF_MD_0_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_0" position = { x = 58 y = 645 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_0_held" position = { x = 166 y = 650 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_1_aus" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_1_chl" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_1_communism" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_1_cze" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_1_default" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_1_democratic" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_1_den" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_1_eng" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_1_eth" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_1_fascism" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_1_fin" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_1_fra" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_1_ger" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_1_hun" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_1_ita" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_1_jap" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_1_men" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_1_nor" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_1_sov" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_1_swe" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_1_usa" position = { x = 343 y = 624 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_1_aus" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_1_chl" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_1_communism" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_1_cze" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_1_default" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_1_democratic" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_1_den" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_1_eng" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_1_eth" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_1_fascism" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_1_fin" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_1_fra" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_1_ger" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_1_hun" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_1_ita" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_1_jap" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_1_men" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_1_nor" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_1_sov" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_1_swe" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_1_usa" position = { x = 343 y = 624 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_1_name" position = { x = 385 y = 626 } font = "hoi_16mbs" text = "MOD1440_OF_MD_1_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_1" position = { x = 385 y = 645 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_1_held" position = { x = 493 y = 650 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_2_aus" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_2_chl" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_2_communism" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_2_cze" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_2_default" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_2_democratic" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_2_den" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_2_eng" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_2_eth" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_2_fascism" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_2_fin" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_2_fra" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_2_ger" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_2_hun" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_2_ita" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_2_jap" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_2_men" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_2_nor" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_2_sov" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_2_swe" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_2_usa" position = { x = 16 y = 670 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_2_aus" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_2_chl" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_2_communism" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_2_cze" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_2_default" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_2_democratic" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_2_den" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_2_eng" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_2_eth" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_2_fascism" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_2_fin" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_2_fra" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_2_ger" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_2_hun" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_2_ita" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_2_jap" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_2_men" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_2_nor" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_2_sov" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_2_swe" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_2_usa" position = { x = 16 y = 670 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_2_name" position = { x = 58 y = 672 } font = "hoi_16mbs" text = "MOD1440_OF_MD_2_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_2" position = { x = 58 y = 691 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_2_held" position = { x = 166 y = 696 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_3_aus" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_3_chl" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_3_communism" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_3_cze" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_3_default" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_3_democratic" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_3_den" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_3_eng" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_3_eth" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_3_fascism" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_3_fin" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_3_fra" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_3_ger" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_3_hun" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_3_ita" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_3_jap" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_3_men" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_3_nor" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_3_sov" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_3_swe" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_3_usa" position = { x = 343 y = 670 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_3_aus" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_3_chl" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_3_communism" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_3_cze" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_3_default" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_3_democratic" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_3_den" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_3_eng" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_3_eth" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_3_fascism" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_3_fin" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_3_fra" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_3_ger" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_3_hun" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_3_ita" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_3_jap" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_3_men" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_3_nor" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_3_sov" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_3_swe" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_3_usa" position = { x = 343 y = 670 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_3_name" position = { x = 385 y = 672 } font = "hoi_16mbs" text = "MOD1440_OF_MD_3_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_3" position = { x = 385 y = 691 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_3_held" position = { x = 493 y = 696 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_4_aus" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_4_chl" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_4_communism" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_4_cze" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_4_default" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_4_democratic" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_4_den" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_4_eng" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_4_eth" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_4_fascism" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_4_fin" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_4_fra" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_4_ger" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_4_hun" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_4_ita" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_4_jap" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_4_men" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_4_nor" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_4_sov" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_4_swe" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_4_usa" position = { x = 16 y = 716 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_4_aus" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_4_chl" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_4_communism" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_4_cze" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_4_default" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_4_democratic" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_4_den" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_4_eng" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_4_eth" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_4_fascism" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_4_fin" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_4_fra" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_4_ger" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_4_hun" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_4_ita" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_4_jap" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_4_men" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_4_nor" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_4_sov" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_4_swe" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_4_usa" position = { x = 16 y = 716 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_4_name" position = { x = 58 y = 718 } font = "hoi_16mbs" text = "MOD1440_OF_MD_4_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_4" position = { x = 58 y = 737 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_4_held" position = { x = 166 y = 742 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_5_aus" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_5_chl" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_5_communism" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_5_cze" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_5_default" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_5_democratic" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_5_den" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_5_eng" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_5_eth" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_5_fascism" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_5_fin" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_5_fra" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_5_ger" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_5_hun" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_5_ita" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_5_jap" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_5_men" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_5_nor" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_5_sov" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_5_swe" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_5_usa" position = { x = 343 y = 716 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_5_aus" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_5_chl" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_5_communism" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_5_cze" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_5_default" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_5_democratic" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_5_den" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_5_eng" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_5_eth" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_5_fascism" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_5_fin" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_5_fra" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_5_ger" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_5_hun" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_5_ita" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_5_jap" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_5_men" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_5_nor" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_5_sov" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_5_swe" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_5_usa" position = { x = 343 y = 716 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_5_name" position = { x = 385 y = 718 } font = "hoi_16mbs" text = "MOD1440_OF_MD_5_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_5" position = { x = 385 y = 737 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_5_held" position = { x = 493 y = 742 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_6_aus" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_6_chl" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_6_communism" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_6_cze" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_6_default" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_6_democratic" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_6_den" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_6_eng" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_6_eth" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_6_fascism" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_6_fin" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_6_fra" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_6_ger" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_6_hun" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_6_ita" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_6_jap" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_6_men" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_6_nor" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_6_sov" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_6_swe" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_6_usa" position = { x = 16 y = 762 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_6_aus" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_6_chl" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_6_communism" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_6_cze" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_6_default" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_6_democratic" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_6_den" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_6_eng" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_6_eth" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_6_fascism" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_6_fin" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_6_fra" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_6_ger" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_6_hun" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_6_ita" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_6_jap" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_6_men" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_6_nor" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_6_sov" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_6_swe" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_6_usa" position = { x = 16 y = 762 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_6_name" position = { x = 58 y = 764 } font = "hoi_16mbs" text = "MOD1440_OF_MD_6_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_6" position = { x = 58 y = 783 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_6_held" position = { x = 166 y = 788 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_7_aus" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_7_chl" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_7_communism" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_7_cze" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_7_default" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_7_democratic" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_7_den" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_7_eng" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_7_eth" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_7_fascism" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_7_fin" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_7_fra" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_7_ger" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_7_hun" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_7_ita" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_7_jap" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_7_men" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_7_nor" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_7_sov" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_7_swe" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_7_usa" position = { x = 343 y = 762 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_7_aus" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_7_chl" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_7_communism" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_7_cze" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_7_default" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_7_democratic" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_7_den" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_7_eng" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_7_eth" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_7_fascism" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_7_fin" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_7_fra" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_7_ger" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_7_hun" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_7_ita" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_7_jap" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_7_men" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_7_nor" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_7_sov" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_7_swe" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_7_usa" position = { x = 343 y = 762 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_7_name" position = { x = 385 y = 764 } font = "hoi_16mbs" text = "MOD1440_OF_MD_7_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_7" position = { x = 385 y = 783 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_7_held" position = { x = 493 y = 788 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_8_aus" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_8_chl" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_8_communism" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_8_cze" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_8_default" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_8_democratic" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_8_den" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_8_eng" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_8_eth" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_8_fascism" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_8_fin" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_8_fra" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_8_ger" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_8_hun" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_8_ita" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_8_jap" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_8_men" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_8_nor" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_8_sov" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_8_swe" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_8_usa" position = { x = 16 y = 808 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_8_aus" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_8_chl" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_8_communism" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_8_cze" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_8_default" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_8_democratic" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_8_den" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_8_eng" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_8_eth" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_8_fascism" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_8_fin" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_8_fra" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_8_ger" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_8_hun" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_8_ita" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_8_jap" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_8_men" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_8_nor" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_8_sov" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_8_swe" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_8_usa" position = { x = 16 y = 808 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_8_name" position = { x = 58 y = 810 } font = "hoi_16mbs" text = "MOD1440_OF_MD_8_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_8" position = { x = 58 y = 829 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_8_held" position = { x = 166 y = 834 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_9_aus" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_9_chl" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_9_communism" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_9_cze" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_9_default" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_9_democratic" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_9_den" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_9_eng" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_9_eth" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_9_fascism" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_9_fin" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_9_fra" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_9_ger" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_9_hun" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_9_ita" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_9_jap" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_9_men" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_9_nor" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_9_sov" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_9_swe" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_9_usa" position = { x = 343 y = 808 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_9_aus" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_9_chl" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_9_communism" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_9_cze" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_9_default" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_9_democratic" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_9_den" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_9_eng" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_9_eth" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_9_fascism" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_9_fin" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_9_fra" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_9_ger" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_9_hun" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_9_ita" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_9_jap" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_9_men" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_9_nor" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_9_sov" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_9_swe" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_9_usa" position = { x = 343 y = 808 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_9_name" position = { x = 385 y = 810 } font = "hoi_16mbs" text = "MOD1440_OF_MD_9_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_9" position = { x = 385 y = 829 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_9_held" position = { x = 493 y = 834 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_10_aus" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_10_chl" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_10_communism" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_10_cze" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_10_default" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_10_democratic" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_10_den" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_10_eng" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_10_eth" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_10_fascism" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_10_fin" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_10_fra" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_10_ger" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_10_hun" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_10_ita" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_10_jap" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_10_men" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_10_nor" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_10_sov" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_10_swe" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_10_usa" position = { x = 16 y = 854 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_10_aus" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_10_chl" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_10_communism" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_10_cze" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_10_default" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_10_democratic" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_10_den" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_10_eng" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_10_eth" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_10_fascism" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_10_fin" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_10_fra" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_10_ger" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_10_hun" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_10_ita" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_10_jap" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_10_men" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_10_nor" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_10_sov" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_10_swe" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_10_usa" position = { x = 16 y = 854 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_10_name" position = { x = 58 y = 856 } font = "hoi_16mbs" text = "MOD1440_OF_MD_10_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_10" position = { x = 58 y = 875 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_10_held" position = { x = 166 y = 880 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
-			iconType = { name = "of_md_11_aus" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_aus_large" scale = 0.6 }
-			iconType = { name = "of_md_11_chl" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_chl_large" scale = 0.6 }
-			iconType = { name = "of_md_11_communism" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_communism_large" scale = 0.6 }
-			iconType = { name = "of_md_11_cze" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_cze_large" scale = 0.6 }
-			iconType = { name = "of_md_11_default" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_default_large" scale = 0.6 }
-			iconType = { name = "of_md_11_democratic" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_democratic_large" scale = 0.6 }
-			iconType = { name = "of_md_11_den" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_den_large" scale = 0.6 }
-			iconType = { name = "of_md_11_eng" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_eng_large" scale = 0.6 }
-			iconType = { name = "of_md_11_eth" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_eth_large" scale = 0.6 }
-			iconType = { name = "of_md_11_fascism" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_fascism_large" scale = 0.6 }
-			iconType = { name = "of_md_11_fin" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_fin_large" scale = 0.6 }
-			iconType = { name = "of_md_11_fra" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_fra_large" scale = 0.6 }
-			iconType = { name = "of_md_11_ger" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_ger_large" scale = 0.6 }
-			iconType = { name = "of_md_11_hun" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_hun_large" scale = 0.6 }
-			iconType = { name = "of_md_11_ita" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_ita_large" scale = 0.6 }
-			iconType = { name = "of_md_11_jap" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_jap_large" scale = 0.6 }
-			iconType = { name = "of_md_11_men" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_men_large" scale = 0.6 }
-			iconType = { name = "of_md_11_nor" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_nor_large" scale = 0.6 }
-			iconType = { name = "of_md_11_sov" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_sov_large" scale = 0.6 }
-			iconType = { name = "of_md_11_swe" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_swe_large" scale = 0.6 }
-			iconType = { name = "of_md_11_usa" position = { x = 343 y = 854 } spriteType = "GFX_medal_icon_usa_large" scale = 0.6 }
+			iconType = { name = "of_md_11_aus" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_aus" scale = 0.6 }
+			iconType = { name = "of_md_11_chl" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_chl" scale = 0.6 }
+			iconType = { name = "of_md_11_communism" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_communism" scale = 0.6 }
+			iconType = { name = "of_md_11_cze" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_cze" scale = 0.6 }
+			iconType = { name = "of_md_11_default" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_default" scale = 0.6 }
+			iconType = { name = "of_md_11_democratic" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_democratic" scale = 0.6 }
+			iconType = { name = "of_md_11_den" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_den" scale = 0.6 }
+			iconType = { name = "of_md_11_eng" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_eng" scale = 0.6 }
+			iconType = { name = "of_md_11_eth" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_eth" scale = 0.6 }
+			iconType = { name = "of_md_11_fascism" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_fascism" scale = 0.6 }
+			iconType = { name = "of_md_11_fin" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_fin" scale = 0.6 }
+			iconType = { name = "of_md_11_fra" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_fra" scale = 0.6 }
+			iconType = { name = "of_md_11_ger" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_ger" scale = 0.6 }
+			iconType = { name = "of_md_11_hun" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_hun" scale = 0.6 }
+			iconType = { name = "of_md_11_ita" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_ita" scale = 0.6 }
+			iconType = { name = "of_md_11_jap" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_jap" scale = 0.6 }
+			iconType = { name = "of_md_11_men" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_men" scale = 0.6 }
+			iconType = { name = "of_md_11_nor" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_nor" scale = 0.6 }
+			iconType = { name = "of_md_11_sov" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_sov" scale = 0.6 }
+			iconType = { name = "of_md_11_swe" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_swe" scale = 0.6 }
+			iconType = { name = "of_md_11_usa" position = { x = 343 y = 854 } spriteType = "GFX_1440p_medal_usa" scale = 0.6 }
 			instantTextboxType = { name = "of_md_11_name" position = { x = 385 y = 856 } font = "hoi_16mbs" text = "MOD1440_OF_MD_11_NAME" maxWidth = 281 maxHeight = 22 format = left }
 			buttonType = { name = "of_award_11" position = { x = 385 y = 875 } quadTextureSprite = "GFX_sort_button_100x29" clicksound = click_default buttonFont = "hoi_16mbs" buttonText = "MOD1440_OF_AWARD" }
 			instantTextboxType = { name = "of_md_11_held" position = { x = 493 y = 880 } font = "hoi_16mbs" text = "MOD1440_OF_MD_HELD" maxWidth = 150 maxHeight = 22 format = left }
@@ -786,19 +786,19 @@ guiTypes = {
 			size = { width = 542 height = 298 }
 			background = { name = "Background" quadTextureSprite = "GFX_tiled_plain_bg_small" }
 			instantTextboxType = { name = "gv_parties_title" position = { x = 14 y = 8 } font = "hoi_24header" text = "MOD1440_GV_PARTIES_TITLE" maxWidth = 514 maxHeight = 30 format = left }
-			instantTextboxType = { name = "gv_p_0" position = { x = 18 y = 44 } font = "hoi_16mbs" text = "MOD1440_GV_P_0" maxWidth = 432 maxHeight = 22 format = left }
+			instantTextboxType = { name = "gv_p_0" position = { x = 18 y = 44 } font = "hoi_16mbs" text = "MOD1440_GV_P_0" maxWidth = 432 maxHeight = 22 format = left fixedsize = yes }
 			instantTextboxType = { name = "gv_p_0_pop" position = { x = 446 y = 42 } font = "hoi_20b" text = "MOD1440_GV_P_0_POP" maxWidth = 80 maxHeight = 24 format = right }
 			instantTextboxType = { name = "gv_p_0_who" position = { x = 18 y = 64 } font = "hoi_16mbs" text = "MOD1440_GV_P_0_WHO" maxWidth = 506 maxHeight = 22 format = left }
 			iconType = { name = "gv_p_0_bar" position = { x = 18 y = 88 } spriteType = "GFX_1440p_SG_bar_wide" }
-			instantTextboxType = { name = "gv_p_1" position = { x = 18 y = 106 } font = "hoi_16mbs" text = "MOD1440_GV_P_1" maxWidth = 432 maxHeight = 22 format = left }
+			instantTextboxType = { name = "gv_p_1" position = { x = 18 y = 106 } font = "hoi_16mbs" text = "MOD1440_GV_P_1" maxWidth = 432 maxHeight = 22 format = left fixedsize = yes }
 			instantTextboxType = { name = "gv_p_1_pop" position = { x = 446 y = 104 } font = "hoi_20b" text = "MOD1440_GV_P_1_POP" maxWidth = 80 maxHeight = 24 format = right }
 			instantTextboxType = { name = "gv_p_1_who" position = { x = 18 y = 126 } font = "hoi_16mbs" text = "MOD1440_GV_P_1_WHO" maxWidth = 506 maxHeight = 22 format = left }
 			iconType = { name = "gv_p_1_bar" position = { x = 18 y = 150 } spriteType = "GFX_1440p_SG_bar_wide" }
-			instantTextboxType = { name = "gv_p_2" position = { x = 18 y = 168 } font = "hoi_16mbs" text = "MOD1440_GV_P_2" maxWidth = 432 maxHeight = 22 format = left }
+			instantTextboxType = { name = "gv_p_2" position = { x = 18 y = 168 } font = "hoi_16mbs" text = "MOD1440_GV_P_2" maxWidth = 432 maxHeight = 22 format = left fixedsize = yes }
 			instantTextboxType = { name = "gv_p_2_pop" position = { x = 446 y = 166 } font = "hoi_20b" text = "MOD1440_GV_P_2_POP" maxWidth = 80 maxHeight = 24 format = right }
 			instantTextboxType = { name = "gv_p_2_who" position = { x = 18 y = 188 } font = "hoi_16mbs" text = "MOD1440_GV_P_2_WHO" maxWidth = 506 maxHeight = 22 format = left }
 			iconType = { name = "gv_p_2_bar" position = { x = 18 y = 212 } spriteType = "GFX_1440p_SG_bar_wide" }
-			instantTextboxType = { name = "gv_p_3" position = { x = 18 y = 230 } font = "hoi_16mbs" text = "MOD1440_GV_P_3" maxWidth = 432 maxHeight = 22 format = left }
+			instantTextboxType = { name = "gv_p_3" position = { x = 18 y = 230 } font = "hoi_16mbs" text = "MOD1440_GV_P_3" maxWidth = 432 maxHeight = 22 format = left fixedsize = yes }
 			instantTextboxType = { name = "gv_p_3_pop" position = { x = 446 y = 228 } font = "hoi_20b" text = "MOD1440_GV_P_3_POP" maxWidth = 80 maxHeight = 24 format = right }
 			instantTextboxType = { name = "gv_p_3_who" position = { x = 18 y = 250 } font = "hoi_16mbs" text = "MOD1440_GV_P_3_WHO" maxWidth = 506 maxHeight = 22 format = left }
 			iconType = { name = "gv_p_3_bar" position = { x = 18 y = 274 } spriteType = "GFX_1440p_SG_bar_wide" }

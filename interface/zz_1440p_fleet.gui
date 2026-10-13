@@ -1177,7 +1177,9 @@ guiTypes = {
 		buttonType = {
 			name = "task_force_insignia"
 			quadTextureSprite = "GFX_theatre_army_shield"
-			position = { x=705 y=5 }
+			# 33 px wide in the game and 43 px with RBM's GFX Overhaul: placed so that the wider one ends at the
+			# edge of the panel (740)
+			position = { x=697 y=5 }
 			orientation = "UPPER_LEFT"
 			frame = 6
 		}

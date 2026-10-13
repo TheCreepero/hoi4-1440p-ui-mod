@@ -88,7 +88,9 @@ BeforeAll {
         # the conditions under which the game gives a country a medal, copied from the game (tools/unit_medals_table.py)
         'has_government', 'original_tag', 'has_completed_focus', 'has_country_flag', 'owns_state',
         # portraits and victory points (2026-10-13): whether a character is a certain one, whether the country is at war
-        'is_character', 'has_character', 'has_war'
+        'is_character', 'has_character', 'has_war',
+        # the map of another mod (2026-10-13): the states of the loaded game are counted to tell which map it is
+        'every_state'
     )
 
     # Adds to $Into every command of a block that is neither allowed nor an effect of the mod's own.

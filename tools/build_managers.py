@@ -69,8 +69,11 @@ def indent(text_block, tabs=1):
     return "".join(("\t" * tabs + line if line.strip() else line) for line in text_block.splitlines(True))
 
 
-def text(name, x, y, width, key, font=FONT_LABEL, fmt="left", height=24, tooltip=None):
+def text(name, x, y, width, key, font=FONT_LABEL, fmt="left", height=24, tooltip=None, fixed=False):
+    """fixed: the box keeps its height, and a text that needs more lines is cut there instead of running into
+    what stands below it (a name another mod makes longer)."""
     tip = ' pdx_tooltip = "%s"' % tooltip if tooltip else ""
+    tip += " fixedsize = yes" if fixed else ""
     return ('instantTextboxType = { name = "%s" position = { x = %d y = %d } font = "%s" text = "%s" '
             'maxWidth = %d maxHeight = %d format = %s%s }\n' % (name, x, y, font, key, width, height, fmt, tip))
 
@@ -946,9 +949,12 @@ def national_figures():
                    tooltip=B.key("nf_history_tt", "How twelve figures of your country have moved, month by month"))
     gui = box("mod1440_figures", NF_X, NF_Y, NF_W, max(bottoms) + 2, body, PAGE_BG)
     # the button that opens it sits in the title strip of the politics panel, between the title and the icons
-    handle = button("nf_toggle", 0, 0, "GFX_button_148x34", B.key("nf_toggle", "National Figures"), shortcut="shift+m",
-                    tooltip=B.key("nf_toggle_tt", "Show or hide the summed modifiers and figures of your country"))
-    gui += box("mod1440_figures_handle", 262, 12, 148, 34, handle)
+    # In the title strip of Politics, which cuts off what stands outside it. Between x 230 and 356 another mod
+    # has its own button there (Better Mechanics: Production, "Economy Status"), and the game's own stands from
+    # 454 on: the button takes the 92 px between them, with the short caption.
+    handle = button("nf_toggle", 0, 0, "GFX_1440p_SG_button_92", B.key("nf_toggle", "Figures"), shortcut="shift+m",
+                    tooltip=B.key("nf_toggle_tt", "National Figures: show or hide the summed modifiers and figures of your country"))
+    gui += box("mod1440_figures_handle", 359, 12, 92, 34, handle)
 
     script = scripted_gui("mod1440_figures", "mod1440_figures",
                           visible="check_variable = { mod1440_nf_open = 1 }\nNOT = { check_variable = { mod1440_nf_page = 1 } }\n",

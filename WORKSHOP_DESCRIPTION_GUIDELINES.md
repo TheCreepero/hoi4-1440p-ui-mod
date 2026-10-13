@@ -67,8 +67,10 @@ The Records button of the top bar or Shift+J opens a window that writes your cam
 - [b]Recruit & Deploy:[/b] A division in training shows its whole name in a larger font. The template list is a table with one template per line: the name in full with Train, Edit and the toggles beside it, so 22 templates fit before the list scrolls instead of 17. The template panel ends above the bottom bar. New hotkey: Shift+F opens the division designer.
 
 [h1]Compatibility:[/h1]
-- Built and tested against the vanilla game only.
-- Not tested with other mods. Mods that change the same screens may conflict.
+- Built against the vanilla game.
+- Checked in October 2026 in a playset with Road to 56, Vanilla Navy Rework, RBM's GFX Overhaul and the Better Mechanics mods: the reworked screens and the pages work there. The victory points of Road to 56's map are followed. Where another mod changes a screen this mod reworks, this mod's version is shown.
+- Known with those mods: laws, equipment, buildings and medals they add are not in the pages (a law of theirs reads "another law"), and officers whose portrait Road to 56 gives as a picture file show the unknown leader.
+- Other mods that change the same screens may still conflict.
 
 [h1]Feedback & Contributions:[/h1]
 Please report issues, suggestions, or feedback in the Steam Workshop discussion threads.
