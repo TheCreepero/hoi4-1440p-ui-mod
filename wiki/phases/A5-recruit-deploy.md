@@ -13,7 +13,7 @@ The two panels the `u` key opens: Recruit & Deploy (equipment priorities and the
   - A template takes two lines of a 72 px row, and its name wraps at 198 px ("Vozdushno-Desantnaya Brigada" is 212 px in `hoi_18mbs`). Italy's 14 templates fill 1008 px; 17 fit before the list scrolls.
   - The six priority rows take 282 px for a 72 px bar each.
   - No button of either panel has a hotkey, apart from Escape on Close.
-- Out of scope: the division designer that Edit opens (B1), the army HQ templates (`countryofficercorpview.gui`), any new value (see Inventory).
+- Out of scope: the division designer that Edit opens (out of scope, Roadmap Milestone B), the army HQ templates (`countryofficercorpview.gui`), any new value (see Inventory).
 
 ## Inventory
 

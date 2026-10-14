@@ -63,7 +63,7 @@ Left as they are for now (user, 2026-10-13).
 - **Not in the pages:** 27 kinds of land equipment of Road to 56 and Better Mechanics, 13 buildings of Road to 56, 76 medals of Road to 56 and Better Mechanics: Medals, the 24 kinds of law of Better Mechanics: Civilian and Military Laws. The pages name the game's own (rule 6 of [Scripted GUIs](Scripted-GUIs.md)).
 - **64 characters of the game** have another portrait in Road to 56 (none of the United States). The Records show the game's.
 - **Shift+G** is the fleet's Upgrade here and the GDP button of Better Mechanics: Economic Scales, which is always on screen: with a fleet open the key does both. Six more keys of this mod are also keys of Toolpack, which only count while a Toolpack window is open (Shift+A, C, F, R, T, U).
-- **Not looked at in a check with the playset:** the pages after a save and a load, a war fought by divisions, and the screens of Milestone B and C, which the mod does not rework.
+- **Not looked at in a check with the playset:** the pages after a save and a load, a war fought by divisions, and the screens of Milestone C, which the mod does not rework yet. The designers (Milestone B) are out of scope: RBM's GFX Overhaul and the navy mods of the playset rework them.
 
 ### The user's own play
 

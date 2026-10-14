@@ -64,10 +64,10 @@ Surveyed on game 1.19.3 on 2026-10-08, each recipe run unattended with the mod a
 | A6 | `army_overview` | `open_army_overview` (key `o`) | extra captures: navy (`p`) and air (`l`) tabs |
 | A7 | `air_wing_reorg` | `planes_into_reserve`, then click `airbase_selection_item/new_btn` | verified; disbands the Brandenburg wings, runs last |
 | A8 | `theatre_bar` | `select_army_1` | always on screen; the recipe selects its one army |
-| B1 | `division_designer` | `open_division_designer` | verified, mod and vanilla |
-| B2 | `tank_designer` | `open_tank_designer` | verified, mod and vanilla |
-| B3 | `plane_designer` | `open_plane_designer` | verified, mod and vanilla |
-| B4 | `ship_designer` | `open_ship_designer` | verified, mod and vanilla |
+| B1 | `division_designer` | `open_division_designer` | verified, mod and vanilla; screen out of scope |
+| B2 | `tank_designer` | `open_tank_designer` | verified, mod and vanilla; screen out of scope |
+| B3 | `plane_designer` | `open_plane_designer` | verified, mod and vanilla; screen out of scope |
+| B4 | `ship_designer` | `open_ship_designer` | verified, mod and vanilla; screen out of scope |
 | D2 | `army_readiness` | `open_recruit_deploy`: the page is docked to the tab and open by default | verified; mod only (a scripted GUI has no vanilla layout: the scene says `modOnly`) |
 | D3 | `states` | `open_construction`, then Shift+M; the `teardown` hides the page again | verified; mod only |
 | D4 | `national_figures` | `open_politics`, then Shift+M; the `teardown` closes the window | verified; mod only |

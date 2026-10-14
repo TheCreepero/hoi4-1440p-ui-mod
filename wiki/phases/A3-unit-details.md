@@ -76,7 +76,7 @@ Not seen in game (states a 1936 start does not show):
 - History entries and medals, on the division and the ship window.
 - An HQ division's Template tab (rendered as state `template-hq`).
 - A foreign, colonial or exiled division's flags in the header strip.
-- The Design tab of the ship window opens the ship designer (B4) and was not changed.
+- The Design tab of the ship window opens the ship designer, which is out of scope (Roadmap, Milestone B), and was not changed.
 
 ## A3 redo: cards and tiles (2026-10-09 to 2026-10-11)
 

@@ -14,7 +14,7 @@ The panel of a selected fleet: fleet card, toolbar, task force cards and the shi
   - A task force card is 125 px high, a third of it a tray with a few small counters, so 8 of the 12 task forces of the British Home Command fit on the screen.
   - Organisation and strength of a ship are two upright bars 6 px wide.
   - The commander's four stats sit 18 px apart, and 15 toolbar buttons form one run, 3 of them with a hotkey.
-- Out of scope: the navy overview list (A6), the mission bar at the bottom of the screen (`action_bar_window`, `target_bar_window`), the ship designer (B4), any new value (see Inventory).
+- Out of scope: the navy overview list (A6), the mission bar at the bottom of the screen (`action_bar_window`, `target_bar_window`), the ship designer (out of scope, Roadmap Milestone B), any new value (see Inventory).
 
 ## Inventory
 

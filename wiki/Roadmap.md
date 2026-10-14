@@ -7,10 +7,11 @@ The mod is built one screen at a time. Each phase reworks one screen for 2560x14
 - **Baseline:** vanilla 1.19. Every screen is built and checked in a playset that contains just this mod, and then looked at in the user's own playset at a compatibility checkpoint (see "Compatibility checkpoints"). The first was on 2026-10-13.
 - **Design target:** 2560x1440 at 100% UI scale. The mod does not fit smaller resolutions or a higher UI scale.
 - **Depth:** a redesign per screen, not only an enlargement. Each screen is re-laid out around what the player wants to see at once: regrouped panels, a place of its own for every value the screen already has, larger fonts and backgrounds, fixed captions, and hotkeys for buttons that have none. New live values and new working buttons are not possible in a vanilla window; the limits are in [Design Rules](Design-Rules.md), "What a redesign can add". The manager pages of Milestone D add both, as scripted GUIs beside the vanilla panels.
-- **Checksum:** changed since phase D2. The reworked screens (Milestones A and B) are interface and texture files, outside the checksum. The manager pages of Milestone D are scripted GUIs, the game's way to add new values and buttons; their script lives in `common/` and changes the checksum, so the mod no longer works with Ironman and achievements, and in multiplayer every player needs it. The user decided on 2026-10-12 that this is acceptable. Only four folders under `common/` are used, and the tests hold that line.
+- **Checksum:** changed since phase D2. The reworked screens (Milestone A) are interface and texture files, outside the checksum. The manager pages of Milestone D are scripted GUIs, the game's way to add new values and buttons; their script lives in `common/` and changes the checksum, so the mod no longer works with Ironman and achievements, and in multiplayer every player needs it. The user decided on 2026-10-12 that this is acceptable. Only four folders under `common/` are used, and the tests hold that line.
 - **What a page of the mod may write:** its own records, and lines the game keeps for show (a division's history). Nothing the game charges for. Until 2026-10-12 a page changed nothing in the game; the user loosened this for the role-play pages of Milestone E ([Roleplay Pages](Roleplay-Pages.md)).
 - **Art:** no AI-generated images. Backgrounds are built from vanilla game assets.
-- **Priority:** military lists, then designers, then the backlog.
+- **Priority:** military lists, then the backlog.
+- **Designers out of scope** (user, 2026-10-14): the division, tank, plane and ship designers are not reworked. Mods the user plays with already change them: in the playset "Reordered Pack (USA)" RBM's GFX Overhaul defines all four files, and the VNR patch and Road to 56 change the ship designer too. A `zz_1440p_` override would win over them and lose what they did.
 
 ## Status
 
@@ -29,7 +30,7 @@ Screen A1, air wings and airbases. Its backgrounds are tiled, popular overhaul m
    - Deferred to the first compatibility checkpoint: the same test against a mod that replaces the whole vanilla file.
 2. **Rework the screen.** Done (`interface/zz_1440p_air_selection.gui`). The selection list holds 20 rows instead of 9, rows are 671 wide instead of 548 so wing names fit, texts are one font size larger, the two toolbars and the list form one block without gaps, and the quick deploy popup is taller. It took three game checks: the first build left the real list frame (`unassigned_airwings_view`) at vanilla size, the second left gaps between the panels.
    - Not seen in game: gun emplacement and rocket rows. They were changed the same way as the wing rows but do not appear in a 1936 start.
-3. **Lock the shared rules.** Done for the override method, the font steps used in A1 and the height of docked panels. The size limit for centred windows stays provisional until B1. What A1 taught about the engine is in [Design Rules](Design-Rules.md).
+3. **Lock the shared rules.** Done for the override method, the font steps used in A1 and the height of docked panels. The size limit for centred windows stays provisional: no centred window has been reworked yet. What A1 taught about the engine is in [Design Rules](Design-Rules.md).
 
 ## Milestone A: military lists
 
@@ -77,18 +78,20 @@ Phases are independent after Phase 1 and can be reordered.
    - It took one game check. The layout was agreed on a mock-up composed from a screenshot before anything was built.
    - Not seen in game: commander traits and the preferred tactic icon in the right area, and the scrollbar of a long badge stack. The army group badge was checked by the tester without a screenshot.
 
-## Milestone B: designers
+## Milestone B: designers (dropped)
 
-| # | Screen | Vanilla file | Vanilla size | Background | Also changed by | Status |
-|---|---|---|---|---|---|---|
-| B1 | Division designer | `divisiondesignerview.gui`: `countrydivisiondesignerview` | 1200x720 | bitmap | RBM's GFX Overhaul | Not started |
-| B2 | Tank designer | `tank_designer_view.gui` | 1091x542 | bitmap | RBM's GFX Overhaul | Not started |
-| B3 | Plane designer | `plane_designer_view.gui` | 1091x542 | bitmap | RBM's GFX Overhaul | Not started |
-| B4 | Ship designer and refit | `equipmentdesignerview.gui`, plus `ship_refit_equipment_view` in `naviesview.gui` | 1097x542 | bitmap | RBM's GFX Overhaul, Vanilla Navy Rework | Not started |
+Dropped on 2026-10-14 before any phase started, for the reason under "Decisions": mods of the user's playset already rework these screens, and an override would undo their work.
 
-- B1 takes over the namelist dropdown from the Larger Selector addon (popup 340x440, slot width 304, scroll factor 60) and replaces that addon.
-- B2 and B3 share one structure, so B3 mostly reuses the B2 layout.
-- In B2 to B4 the hull and slot area keeps its vanilla size. Module slot positions are defined per hull in `interface/equipmentdesigner/` (253 tank files, 8 plane files, 6 ship files).
+| # | Screen | Vanilla file | Also changed by | Status |
+|---|---|---|---|---|
+| B1 | Division designer | `divisiondesignerview.gui`: `countrydivisiondesignerview` | RBM's GFX Overhaul | Dropped |
+| B2 | Tank designer | `tank_designer_view.gui` | RBM's GFX Overhaul | Dropped |
+| B3 | Plane designer | `plane_designer_view.gui` | RBM's GFX Overhaul | Dropped |
+| B4 | Ship designer and refit | `equipmentdesignerview.gui`, plus `ship_refit_equipment_view` in `naviesview.gui` | RBM's GFX Overhaul, VNR - RBM Compatibility Patch, Road to 56 (`interface/equipmentdesigner/`) | Dropped |
+
+- What stays: the recipes that open the four designers (`tools/scenes/*_designer.json`, [Game Recipes](Game-Recipes.md)) and their vanilla captures under `reference/vanilla/`. They are dev-only and back [Engine Facts](Engine-Facts.md) H22.
+- `shift+f` on Recruit & Deploy (A5) still opens the division designer. It is a hotkey on the mod's own window, not a change to the designer.
+- The Larger Selector addon, whose namelist dropdown B1 would have taken over, is not replaced.
 
 ## Milestone D: manager pages
 
@@ -163,7 +166,7 @@ The user asked for each page to be planned in detail and written down before any
 A checkpoint looks at the mod in the playset the user plays with: from the files with `tools/check_playset.py`, then in the game with that playset loaded. The method and every finding are in [Compatibility](Compatibility.md).
 
 - **Checkpoint 1, 2026-10-13, done.** The playset "Reordered Pack (USA)": 55 mods, among them Road to 56 with Vanilla Navy Rework, RBM's GFX Overhaul and the Better Mechanics mods. The question deferred from Phase 1 is answered: next to a mod that replaces the whole vanilla file the mod's windows win by file name, without a line in the log. No patch mod is needed. Seven things were fixed in the mod itself: the victory points of Road to 56's map, a medal sprite that mod drops, a button on another mod's button, two texts that other mods make longer, the place of a wider insignia, and an error line of the state card.
-- **Checkpoint 2: after Milestone B**, or when the playset changes much. The designers are the screens RBM's GFX Overhaul and Vanilla Navy Rework change most.
+- **Checkpoint 2:** when the playset changes much, or when a phase reworks a screen that a mod of the playset changes too.
 
 ## Risks
 

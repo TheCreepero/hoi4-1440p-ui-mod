@@ -7,7 +7,7 @@ Rules every reworked screen follows, what a redesign can and cannot add, and wha
 - 2560x1440 at 100% UI scale (`gui_scale=1.0`).
 - No `size` may exceed 2560x1440. The test suite enforces this.
 - Panels docked at the top left may run down to about y 1130. The A1 list ends there and leaves the bottom bar free.
-- **Provisional:** centred windows leave at least 100 px free above and below, so they are at most about 1240 px high. First judged in B1.
+- **Provisional:** centred windows leave at least 100 px free above and below, so they are at most about 1240 px high. Not judged yet: no centred window has been reworked (the designers, where it would have been, are out of scope).
 
 ## What a redesign can add
 
