@@ -200,37 +200,55 @@ function Get-GuiTopLevelWindows {
 }
 
 # One "parent/child/name|type" entry (lower case) per named block at or below $Node.
-# The engine finds widgets by name inside their parent, so both the name and the nesting matter.
+# The engine finds widgets by name inside their parent, so both the name and the nesting matter. A container whose
+# name starts with $WrapperPrefix is left out of the paths: it is one the mod put around vanilla widgets. With
+# -WrappedOnly only the widgets inside such a container are listed.
 function Get-GuiWidgetPaths {
-    param([Parameter(Mandatory)]$Node)
+    param([Parameter(Mandatory)]$Node, [string]$WrapperPrefix, [switch]$WrappedOnly)
 
     $stack = [System.Collections.Generic.Stack[object]]::new()
-    $stack.Push(@($Node, ''))
+    $stack.Push(@($Node, '', $false))
     while ($stack.Count -gt 0) {
         $item = $stack.Pop()
         $current = $item[0]
         $prefix = $item[1]
+        $wrapped = $item[2]
         $name = Get-GuiValue -Node $current -Key 'name'
-        if ($name) {
+        if ($name -and $WrapperPrefix -and $prefix -and $current.Key -ieq 'containerWindowType' -and $name -like "$WrapperPrefix*") {
+            $wrapped = $true
+        }
+        elseif ($name) {
             if ($prefix) { $prefix = "$prefix/$name" } else { $prefix = $name }
-            ('{0}|{1}' -f $prefix, $current.Key).ToLowerInvariant()
+            if ($wrapped -or -not $WrappedOnly) { ('{0}|{1}' -f $prefix, $current.Key).ToLowerInvariant() }
         }
         foreach ($child in $current.Children) {
-            if ($null -ne $child.Children) { $stack.Push(@($child, $prefix)) }
+            if ($null -ne $child.Children) { $stack.Push(@($child, $prefix, $wrapped)) }
         }
     }
 }
 
-# Widget paths present in $Baseline but missing from $Actual.
+# Widget paths present in $Baseline but missing from $Actual. With $WrapperPrefix a vanilla widget inside containers
+# the mod added counts as present at its vanilla path, as the game finds it once the Modding Manager's
+# Scripts\Executable\Set-HoiRecursiveLookups.ps1 has patched hoi4.exe. The patch covers the element types below; a
+# wrapped widget of another type (scrollbar, list box, browser, position) is still looked up among the direct
+# children only, and is reported with " (wrapped)".
 function Compare-GuiWidgetPaths {
-    param([Parameter(Mandatory)]$Baseline, [Parameter(Mandatory)]$Actual)
+    param([Parameter(Mandatory)]$Baseline, [Parameter(Mandatory)]$Actual, [string]$WrapperPrefix)
 
+    $wrappableTypes = @('buttontype', 'guibuttontype', 'icontype', 'instanttextboxtype', 'overlappingelementsboxtype', 'editboxtype', 'checkboxtype', 'smoothlistboxtype', 'containerwindowtype', 'gridboxtype', 'extendedscrollbartype', 'dropdownboxtype')
     $have = [System.Collections.Generic.HashSet[string]]::new()
-    foreach ($path in (Get-GuiWidgetPaths -Node $Actual)) { [void]$have.Add($path) }
+    foreach ($path in (Get-GuiWidgetPaths -Node $Actual -WrapperPrefix $WrapperPrefix)) { [void]$have.Add($path) }
 
+    $vanilla = [System.Collections.Generic.HashSet[string]]::new()
     $reported = [System.Collections.Generic.HashSet[string]]::new()
     foreach ($path in (Get-GuiWidgetPaths -Node $Baseline)) {
+        [void]$vanilla.Add($path)
         if (-not $have.Contains($path) -and $reported.Add($path)) { $path }
+    }
+    if (-not $WrapperPrefix) { return }
+    foreach ($path in (Get-GuiWidgetPaths -Node $Actual -WrapperPrefix $WrapperPrefix -WrappedOnly)) {
+        $type = $path.Substring($path.LastIndexOf('|') + 1)
+        if ($vanilla.Contains($path) -and $wrappableTypes -notcontains $type -and $reported.Add("$path (wrapped)")) { "$path (wrapped)" }
     }
 }
 

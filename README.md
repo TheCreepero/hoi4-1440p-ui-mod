@@ -10,7 +10,7 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
 - **Tags**: Graphics, Utilities, Fixes
 - **Requires**: 2560x1440 or higher at 100% UI scale
 - **Ironman & Achievements**: Not compatible since version 1.5. The manager pages are scripted GUIs, and their script under `common/` changes the game checksum. In multiplayer every player needs the mod. The pages show values and keep records of their own; the one thing they write into the game is a line in a division's history (unit honours, see The Records).
-- **Status**: In development, one screen at a time. Not published on the Steam Workshop; it may stay a local mod if a patch of the game's executable unlocks more for it. See [wiki/Roadmap.md](wiki/Roadmap.md), Decisions and Milestone F.
+- **Status**: In development, one screen at a time. Not published on the Steam Workshop, and local from the first screen that wraps vanilla widgets in containers of its own: that needs `hoi4.exe` patched with the Modding Manager's `Scripts\Executable\Set-HoiRecursiveLookups.ps1` (decided 2026-10-15). See [wiki/Roadmap.md](wiki/Roadmap.md), Decisions and Milestone F.
 - **Tested with**: the vanilla game, and on 13 October 2026 in a playset of 55 other mods with Road to 56, Vanilla Navy Rework, RBM's GFX Overhaul and the Better Mechanics mods; the army overview, the air wing reorganisation and the theatre boxes in the same playset on 14 October. What was found and fixed there, and what is not solved: `wiki/Compatibility.md`.
 
 ## Reworked Screens

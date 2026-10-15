@@ -112,6 +112,21 @@ guiTypes = {
         $missing | Should -Contain 'sample_window/list/grid|gridboxtype'
     }
 
+    It 'finds a vanilla widget inside a container the mod added' {
+        $changed = $script:Sample -replace 'instantTextBoxType = \{ name = "title" font = "hoi_18mbs" \}', 'containerWindowType = { name = "mod1440_card" instantTextBoxType = { name = "title" font = "hoi_18mbs" } }'
+        $actual = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $changed))[0]
+        @(Compare-GuiWidgetPaths -Baseline $script:SampleWindow.Node -Actual $actual.Node) | Should -Be @('sample_window/title|instanttextboxtype')
+        @(Compare-GuiWidgetPaths -Baseline $script:SampleWindow.Node -Actual $actual.Node -WrapperPrefix 'mod1440_') | Should -BeNullOrEmpty
+    }
+
+    It 'reports a wrapped widget whose type the game still looks up among direct children only' {
+        $sample = $script:Sample -replace 'instantTextBoxType = \{ name = "title" font = "hoi_18mbs" \}', 'listboxType = { name = "rows" }'
+        $baseline = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $sample))[0]
+        $changed = $sample -replace 'listboxType = \{ name = "rows" \}', 'containerWindowType = { name = "mod1440_card" listboxType = { name = "rows" } }'
+        $actual = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $changed))[0]
+        @(Compare-GuiWidgetPaths -Baseline $baseline.Node -Actual $actual.Node -WrapperPrefix 'mod1440_') | Should -Be @('sample_window/rows|listboxtype (wrapped)')
+    }
+
     It 'accepts an unchanged window and one with extra widgets' {
         $changed = $script:Sample -replace 'instantTextBoxType = \{ name = "title"', 'iconType = { name = "extra" } instantTextBoxType = { name = "title"'
         $actual = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $changed))[0]
@@ -286,14 +301,14 @@ if ($windowCases.Count -gt 0) {
             Find-GuiBaseline -BaselineDir $script:BaselineDir -Name $Window | Should -Not -BeNullOrEmpty -Because 'run tools/Export-VanillaBaseline.ps1 before reworking a vanilla window'
         }
 
-        It 'keeps every named vanilla widget under the same parent' {
+        It 'keeps every named vanilla widget under its vanilla parents, inside mod1440_ containers at most' {
             $baseline = Find-GuiBaseline -BaselineDir $script:BaselineDir -Name $Window
             if (-not $baseline) {
                 Set-ItResult -Skipped -Because 'there is no baseline to compare against'
                 return
             }
             $actual = Get-ModWindow -Path $FullPath -Name $Window
-            @(Compare-GuiWidgetPaths -Baseline $baseline.Node -Actual $actual.Node) | Should -BeNullOrEmpty -Because 'the engine binds data to widgets by name inside their parent'
+            @(Compare-GuiWidgetPaths -Baseline $baseline.Node -Actual $actual.Node -WrapperPrefix $script:ModWindowPrefix) | Should -BeNullOrEmpty -Because 'the engine binds data to widgets by name inside their parent; with the patched executable it also searches the containers the mod adds, for every element type but scrollbars, list boxes, browsers and positions'
         }
     }
 }
