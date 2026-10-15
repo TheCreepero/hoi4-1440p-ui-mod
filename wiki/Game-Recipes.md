@@ -30,7 +30,7 @@ Every step takes an optional `"wait": <seconds>` and a `"_note"`.
 
 **A widget that shows only in one state** is found with `"state": "<capture or state of the scene>"` on the step: the Back button of the symbol picker is laid out only in the scene's `icon-picker` state.
 
-**A widget the code moves needs an offset.** The game centres a ship's icon in its row, 12 px above where the file puts it, so the step that opens the ship details is `{ "clickWidget": "ship_entry_detailed/ship_button", "scene": "fleet", "offset": [0, -12] }`.
+**A widget the code moves needs an offset.** The game centres a ship's icon in its row, 12 px above where the file puts it ([Engine Facts](Engine-Facts.md) S36), so the step that opens the ship details is `{ "clickWidget": "ship_entry_detailed/ship_button", "scene": "fleet", "offset": [0, -12] }`.
 
 **Raw positions** are for the map and for vanilla panels the mod has not reworked yet. Map positions are measured in the Home view. A raw position inside a panel breaks the day that panel is reworked; the move's `_note` says so, and the fix is a `clickWidget` step.
 
@@ -56,14 +56,14 @@ Surveyed on game 1.19.3 on 2026-10-08, each recipe run unattended with the mod a
 | A3 | `division_details` | `select_army_1`, sort by name, then click `army_division_view/unitinfo_button` | verified, mod and vanilla; extra captures: History and Template tabs, both dropdowns, a tank and a motorised division (each a further window) |
 | A3 | `ship_details` | `open_ship_details` | verified, mod and vanilla; extra captures: History tab, a British carrier (`tag ENG`; the scene's `teardown` switches back) |
 | A3 | `air_wing_details` | `select_airbase`, then click `airwing_selection_item/unitinfo_button` | verified, mod and vanilla |
-| A4 | `fleet` | `select_fleet` | verified, mod and vanilla; extra captures: a selected ship, the task force list (Back), home base picker, composition editor, the British Home Fleet and its task force list (`tag ENG`; the scene's `teardown` switches back) |
+| A4 | `fleet` | `select_fleet` (since A6 a click on the first fleet row of the navy overview by name) | verified, mod and vanilla; extra captures: a selected ship, the task force list (Back), home base picker, composition editor, the British Home Fleet and its task force list (`tag ENG`; the scene's `teardown` switches back) |
 | A4 | `fleet_composition` | `select_fleet`, Back, then click `taskforce_view_entry/btn_composition_editor` | verified, mod and vanilla; the ship class picker opens with it |
 | A4 | `fleet_home_base` | `open_home_base_picker` | verified, mod and vanilla |
 | A4 | `fleet_transfer` | `select_fleet`, Back, then drag the first ship counter of the first task force onto the second task force | verified, mod and vanilla |
 | A5 | `recruit_deploy` | `open_recruit_deploy` (key `u`), Train on the first three templates and Add Unit three times on the first card | verified, mod and vanilla; extra captures: the name list of a line, the symbol picker, Italy's templates with the decommissioned ones (`tag ITA`); the scene's `teardown` switches back and cancels the training |
-| A6 | `army_overview` | `open_army_overview` (key `o`) | extra captures: navy (`p`) and air (`l`) tabs |
-| A7 | `air_wing_reorg` | `planes_into_reserve`, then click `airbase_selection_item/new_btn` | verified; disbands the Brandenburg wings, runs last |
-| A8 | `theatre_bar` | `select_army_1` | always on screen; the recipe selects its one army |
+| A6 | `army_overview` | `open_army_overview` (key `o`) | verified, mod and vanilla; extra captures: navy (`p`) and air (`l`) tabs, Sunk Ships, Equipment Details (`shift+i` with the mod), a row's details button |
+| A7 | `air_wing_reorg` | `planes_into_reserve`, then click `airbase_selection_item/new_btn` | verified, mod and vanilla; disbands the Brandenburg wings, runs last |
+| A8 | `theatre_bar` | `select_army_1` | verified, mod and vanilla; the theatre boxes at the top right; extra captures: navy (`select_fleet`) and air (`select_airbase`). With RBM's GFX Overhaul the boxes sit 24 px higher and the expect list misses them |
 | B1 | `division_designer` | `open_division_designer` | verified, mod and vanilla; screen out of scope |
 | B2 | `tank_designer` | `open_tank_designer` | verified, mod and vanilla; screen out of scope |
 | B3 | `plane_designer` | `open_plane_designer` | verified, mod and vanilla; screen out of scope |
@@ -195,6 +195,8 @@ python -I tools/check_playset.py          # first, from the files: seconds, no g
 
 - **State leaks between recipes.** Opening the navy overview switches the map mode, and the bottom bar then lists fleets where the army portraits were. The reset presses F1 for that reason; a recipe that needs another map mode must set it itself.
 - **The Home view is not the view a new game opens with.** Positions measured before the first reset are wrong afterwards. The harness resets right after loading, so measure only after a reset.
+- **The army of the clean state is sometimes not made.** In one of six starts on 2026-10-14 `prepare_game` left the 30 divisions unassigned ([Engine Facts](Engine-Facts.md) H37): the army overview then says "Unassigned", no theatre box shows and `select_army_1` clicks the map. Run the check again.
+- **An expect widget needs a fixed look.** The details button of a division row in the army overview is mostly transparent and was not found; the sort buttons were.
 - **A selection can move the camera.** Selecting an army by its portrait pans to it. Do map clicks before such a step, or reset in between.
 - **A recipe can change what the next one sees.** `Invoke-GameCheck.ps1` runs all scenes in one game, and the reset closes windows but does not undo what a recipe created. Creating the army a second time failed for that reason, so it now happens once, in `prepare_game`. A scene that leaves something behind which other screens show gets `"changesState": true` and runs last; `air_group` is the one so far.
 - **Earlier clicks shift later positions.** An air group badge pushes the wing list down by its height. A `clickWidget` step uses the layout of the scene it names, so name a scene that describes the state the click happens in.

@@ -6,12 +6,12 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
 
 - **Game**: Hearts of Iron IV
 - **Supported Version**: `1.19.*`
-- **Mod Version**: `1.6`
+- **Mod Version**: `1.7`
 - **Tags**: Graphics, Utilities, Fixes
 - **Requires**: 2560x1440 or higher at 100% UI scale
 - **Ironman & Achievements**: Not compatible since version 1.5. The manager pages are scripted GUIs, and their script under `common/` changes the game checksum. In multiplayer every player needs the mod. The pages show values and keep records of their own; the one thing they write into the game is a line in a division's history (unit honours, see The Records).
-- **Status**: In development, one screen at a time. See [wiki/Roadmap.md](wiki/Roadmap.md).
-- **Tested with**: the vanilla game, and on 13 October 2026 in a playset of 55 other mods with Road to 56, Vanilla Navy Rework, RBM's GFX Overhaul and the Better Mechanics mods. What was found and fixed there, and what is not solved: `wiki/Compatibility.md`.
+- **Status**: In development, one screen at a time. Not published on the Steam Workshop; it may stay a local mod if a patch of the game's executable unlocks more for it. See [wiki/Roadmap.md](wiki/Roadmap.md), Decisions and Milestone F.
+- **Tested with**: the vanilla game, and on 13 October 2026 in a playset of 55 other mods with Road to 56, Vanilla Navy Rework, RBM's GFX Overhaul and the Better Mechanics mods; the army overview, the air wing reorganisation and the theatre boxes in the same playset on 14 October. What was found and fixed there, and what is not solved: `wiki/Compatibility.md`.
 
 ## Reworked Screens
 
@@ -37,6 +37,12 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
   - The template list is a table: one template per line with its name in full, the cap, Train, Edit and the two toggles beside it, so 22 templates fit before the list scrolls instead of 17.
   - The template panel ends above the bottom bar, so the army portraits stay in reach; the symbol picker shows seven symbols per row.
   - New hotkey: `Shift+F` opens the division designer.
+- **Army overview** (the panel the `O`, `P` and `L` keys open: divisions, fleets, air wings):
+  - Every division, fleet and air wing takes one line with each column in full: names in a larger font (a division's name has 280 px instead of 170), theatre and army in a box each instead of two lines in one, organisation and strength as two lying bars.
+  - The panel is 900 px wide instead of 550. The modifier tiles fill its width, the counts by type run ten a row, the filter box is wider, and the air list starts as high as the division list.
+  - Equipment Details and Sunk Ships open beside the wider panel. New hotkey: `Shift+I` opens Equipment Details.
+- **Air wing reorganisation** (the window "Add new Air Wing" opens): 1240x995 instead of 1000x515, so each list shows ten plane types before it scrolls instead of four, and equipment names such as "Inter-War Medium Airframe" appear in full.
+- **Theatre boxes** (top right of the map): each theatre box and the rows under it are 420 px wide instead of 300, growing to the left: the theatre's name has more room, about twelve army shields fit side by side instead of eight, and the counts of the fleet rows no longer run into the next icon.
 
 ## Manager Pages
 
