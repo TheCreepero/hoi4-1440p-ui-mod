@@ -1,0 +1,458 @@
+# Vanilla 1.19.3.0, interface/countryarmyview.gui, lines 159-612.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "countryarmyview"
+		position = { x=-606 y=78 }
+		show_position = { x=-6 y =78 }
+		show_animation_type = decelerated
+		hide_animation_type = accelerated
+		animation_time = 300
+		size = { width=550 height=100%% }
+
+		#hide_sound = ui_window_hide
+		show_sound = menu_open_window
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_tiled_window_1b_border"
+		}
+
+		iconType ={
+			name ="army_header_bg"
+			spriteType = "GFX_header_bg"
+			position = { x= 5 y = 07 }
+			Orientation = "UPPER_LEFT"
+		}
+
+		instantTextboxType = {
+			name = "army_title"
+			position = { x = 45 y = 8 }
+			font = "hoi_36header"
+			borderSize = {x = 0 y = 0}
+			text = "ARMY_ARMY_LABEL"
+			maxWidth = 370
+			maxHeight = 20
+			format = left
+		}
+
+		buttonType = {
+			name = "close_button"
+			position = { x = -43 y = 10 }
+			quadTextureSprite ="GFX_closebutton"
+			buttonFont = "hoi_16mbs"
+			shortcut = "ESCAPE"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+		}
+
+		buttonType = {
+			name = "naval_hq_open"
+			position = {x=-171 y=8}
+			spriteType = "GFX_naval_hq_button"
+			orientation = "UPPER_RIGHT"
+			clicksound = click_default
+			pdx_tooltip = "naval_headquarters"
+		}
+
+		buttonType = {
+			name = "destroyed_ships_open"
+			position = {x=-131 y=8}
+			spriteType = "GFX_sunk_ships_button"
+			orientation = "UPPER_RIGHT"
+			clicksound = click_default
+			pdx_tooltip = "SUNK_SHIP_DETAILS"
+		}
+
+		buttonType = {
+			name = "details_open"
+			position = {x=-91 y=8}
+			spriteType = "GFX_equip_overview_button"
+			orientation = "UPPER_RIGHT"
+			clicksound = click_default
+			pdx_tooltip = "EQUIPMENT_DETAILS"
+		}
+
+		containerWindowType = {
+			name = "info"
+			position = { x = 0 y = 40 }
+			size = { width = 100% height = 100%% }
+			verticalScrollbar = "right_vertical_slider"
+			margin = { top = 13 left = 13 bottom = 0 right = 13}
+
+			background = {
+				name = "Background"
+				quadTextureSprite ="GFX_tiled_bg"
+			}
+
+			iconType ={
+				name ="army_overview_top"
+				quadTextureSprite = "GFX_overview_top_strip"
+				position = { x = 1 y = 2 }
+				Orientation = "UPPER_LEFT"
+			}
+
+			instantTextboxType = {
+				name = "filter_title"
+				position = { x = 330 y = 9 }
+				font = "hoi_20bs"
+				borderSize = {x = 0 y = 0}
+				text = "ARMY_FILTER_LABEL"
+				maxWidth = 180
+				maxHeight = 20
+				format = left
+			}
+
+			iconType ={
+				name ="temp_editbox_bg"
+				quadTextureSprite = "GFX_edittextbox_bg1"
+				position = { x = 320 y = 27 }
+				Orientation = "UPPER_LEFT"
+			}
+
+			editBoxType = {
+				name = "filter"
+				position = { x = 330 y = 32 }
+				size = {x=177 y=20}
+				font = "hoi_20b"
+				borderSize = {x = 0 y = 0}
+				text = ""
+			}
+
+			instantTextboxType = {
+				name = "unit_count"
+				position = { x = 170 y = 13 }
+				font = "hoi_18mbs"
+				borderSize = {x = 0 y = 0}
+				maxWidth = 140
+				maxHeight = 20
+				format = left
+			}
+
+			instantTextboxType = {
+				name = "battalion_count"
+				position = { x = 170 y = 30 }
+				font = "hoi_18mbs"
+				borderSize = {x = 0 y = 0}
+				maxWidth = 140
+				maxHeight = 20
+				format = left
+				text = "30 Battalions"
+			}
+
+			iconType = {
+				name = "special_forces_icon"
+				spriteType = "GFX_special_forces_icon"
+				position = { x = 274 y = 29 }
+				frame = 3
+			}
+
+			instantTextboxType = {
+				name = "special_forces_cap"
+				position = { x = 298 y = 30 }
+				font = "hoi_18mbs"
+				borderSize = {x = 0 y = 0}
+				maxWidth = 25
+				maxHeight = 20
+				format = left
+				text = "7"
+			}
+		}
+
+		containerWindowType = {
+			name = "army_header"
+			position = { x = 0 y = 40 }
+			size = { width = 100% height = 100%% }
+			verticalScrollbar = "right_vertical_slider"
+			margin = { top = 13 left = 13 bottom = 0 right = 25}
+
+			gridBoxType = {
+				name = "modifiers_grid"
+				position = { x = 2 y = 60 }
+				size = { width = 500 height = 35 }
+				slotsize = { width = 74 height = 33 }
+				max_slots_horizontal = 7
+				max_slots_vertical = 2
+				format = "UPPER_LEFT"
+			}
+
+			gridBoxType = {
+				name = "sub_units_grid"
+				position = { x = 16 y = 122 }
+				size = { width = 520 height = 54 }
+				slotsize = { width = 86 height = 29 }
+				max_slots_horizontal = 6
+				max_slots_vertical = 2
+				format = "UPPER_LEFT"
+			}
+
+			buttonType = {
+				name = "army_sort_name"
+				position = { x = 125 y = 185 }
+				size = { x = 179 y = 23 }
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_NAME"
+				quadTextureSprite = "GFX_tiling_sort_button"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "army_sort_theatre"
+				position = { x = 302 y = 185 }
+				size = { x = 148 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_THEATRE"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "army_sort_type"
+				position = { x = 1 y = 185 }
+				size = { x = 126 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_TYPE"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "army_sort_group"
+				position = { x = 447 y = 185 }
+				size = { x = 64 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_GROUP"
+				clicksound = click_default
+			}
+		}
+
+		containerWindowType = {
+			name = "army_units"
+			position = { x = 0 y = 257 }
+			size = { width = 100% height = 100%% }
+			verticalScrollbar = "right_vertical_slider"
+			scroll_wheel_factor = 70
+			smooth_scrolling = yes
+			margin = { top = 13 left = 13 bottom = 40 right = 25}
+
+			background = {
+				name = "Background"
+				quadTextureSprite ="GFX_tiled_window_1b_border"
+			}
+
+			gridBoxType = {
+				name = "item_grid"
+				position = { x = 0 y = 5 }
+				size = { width = 100%% height = 100%% }
+				slotsize = { width = 511 height = 35 }
+				max_slots_horizontal = 1
+				format = "UPPER_LEFT"
+			}
+		}
+
+		containerWindowType = {
+			name = "navy_header"
+			position = { x = 0 y = 40 }
+			size = { width = 100% height = 100%% }
+			verticalScrollbar = "right_vertical_slider"
+			margin = { top = 13 left = 13 bottom = 0 right = 25 }
+
+			gridBoxType = {
+				name = "modifiers_grid"
+				position = { x = 2 y = 60 }
+				size = { width = 500 height = 35 }
+				slotsize = { width = 74 height = 33 }
+				max_slots_horizontal = 7
+				max_slots_vertical = 1
+				format = "UPPER_LEFT"
+			}
+
+			gridBoxType = {
+				name = "ships_count_grid"
+				position = { x = 2 y = 95 }
+				size = { width = 500 height = 35 }
+				slotsize = { width = 86 height = 27 }
+				max_slots_horizontal = 6
+				max_slots_vertical = 2
+				format = "UPPER_LEFT"
+			}
+
+			buttonType = {
+				name = "navy_sort_type"
+				position = { x = 1 y = 160 }
+				size = { x = 164 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_TYPE"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "navy_sort_name"
+				position = { x = 163 y = 160 }
+				size = { x = 158 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_NAME"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "navy_sort_size"
+				position = { x = 445 y = 160 }
+				size = { x = 65 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_SIZE"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "navy_sort_region"
+				position = { x = 319 y = 160 }
+				size = { x = 128 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_REGION"
+				clicksound = click_default
+			}
+		}
+
+		containerWindowType = {
+			name = "navy_units"
+			position = { x = 0 y = 232 }
+			size = { width = 100% height = 100%% }
+			verticalScrollbar = "right_vertical_slider"
+			scroll_wheel_factor = 70
+			smooth_scrolling = yes
+			margin = { top = 13 left = 13 bottom = 40 right = 25}
+
+			background = {
+				name = "Background"
+				quadTextureSprite ="GFX_tiled_window_1b_border"
+			}
+
+			gridBoxType = {
+				name = "item_grid"
+				position = { x = 0 y = 5 }
+				size = { width = 100%% height = 100%% }
+				slotsize = { width = 511 height = 35 }
+				max_slots_horizontal = 1
+				format = "UPPER_LEFT"
+			}
+		}
+
+		containerWindowType = {
+			name = "air_header"
+			position = { x = 0 y = 40 }
+			size = { width = 100% height = 100%% }
+			verticalScrollbar = "right_vertical_slider"
+			margin = { top = 13 left = 13 bottom = 0 right = 25}
+
+			gridBoxType = {
+				name = "count_grid"
+				position = { x = 2 y = 130 }
+				size = { width = 500 height = 70 }
+				slotsize = { width = 86 height = 27 }
+				max_slots_horizontal = 6
+				max_slots_vertical = 2
+				format = "UPPER_LEFT"
+			}
+
+			gridBoxType = {
+				name = "modifiers_grid"
+				position = { x = 2 y = 60 }
+				size = { width = 500 height = 35 }
+				slotsize = { width = 74 height = 33 }
+				max_slots_horizontal = 7
+				max_slots_vertical = 2
+				format = "UPPER_LEFT"
+			}
+
+			buttonType = {
+				name = "air_sort_type"
+				position = { x = 2 y = 220 }
+				size = { x = 135 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_TYPE"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "air_sort_name"
+				position = { x = 138 y = 220 }
+				size = { x = 133 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_NAME"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "air_sort_region"
+				position = { x = 396 y = 220 }
+				size = { x = 116 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_REGION"
+				clicksound = click_default
+			}
+
+			buttonType = {
+				name = "air_sort_base"
+				position = { x = 270 y = 220 }
+				size = { x = 128 y = 23 }
+				quadTextureSprite = "GFX_tiling_sort_button"
+				font = "hoi_16mbs"
+				buttontext = "ARMY_SORT_BASE"
+				clicksound = click_default
+			}
+
+		}
+
+		containerWindowType = {
+			name = "air_units"
+			position = { x = 0 y = 292 }
+			size = { width = 100% height = 100%% }
+			verticalScrollbar = "right_vertical_slider"
+			scroll_wheel_factor = 70
+			smooth_scrolling = yes
+			margin = { top = 13 left = 13 bottom = 40 right = 25}
+
+			background = {
+				name = "Background"
+				quadTextureSprite ="GFX_tiled_window_1b_border"
+			}
+
+			gridBoxType = {
+				name = "item_grid"
+				position = { x = 0 y = 5 }
+				size = { width = 100%% height = 100%% }
+				slotsize = { width = 511 height = 35 }
+				max_slots_horizontal = 1
+				format = "UPPER_LEFT"
+			}
+		}
+
+		iconType = {
+			name = "overview_bottom"
+			spriteType = "GFX_trade_header"
+			position = { x=11 y=-44 }
+			orientation = "LOWER_LEFT"
+		}
+
+		instantTextboxType = {
+			name = "theatres_count"
+			position = { x = 26 y = -36 }
+			orientation = "LOWER_LEFT"
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			maxWidth = 490
+			maxHeight = 20
+			format = center
+		}
+	}
+}

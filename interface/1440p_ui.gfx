@@ -384,6 +384,102 @@ spriteTypes = {
 		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
 	}
 
+	# A6: the army overview tab, 900 wide. The textures are vanilla ones widened by
+	# tools/stretch_background.py: the rows of a division, a fleet and an air wing (861 wide), the title
+	# bar, the picture strip (three frames: army, navy, air), the filter box, the plate under the list
+	# and the plate of one modifier.
+	spriteType = {
+		name = "GFX_1440p_AO_army_entry"
+		texturefile = "gfx/interface/1440p_ui/ao_army_entry.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_AO_navy_entry"
+		texturefile = "gfx/interface/1440p_ui/ao_navy_entry.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_AO_air_entry"
+		texturefile = "gfx/interface/1440p_ui/ao_air_entry.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_AO_header_bg"
+		texturefile = "gfx/interface/1440p_ui/ao_header_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_AO_top_strip"
+		texturefile = "gfx/interface/1440p_ui/ao_top_strip.dds"
+		noOfFrames = 3
+	}
+
+	spriteType = {
+		name = "GFX_1440p_AO_filter_bg"
+		texturefile = "gfx/interface/1440p_ui/ao_filter_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_AO_bottom"
+		texturefile = "gfx/interface/1440p_ui/ao_bottom.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_AO_modifier_bg"
+		texturefile = "gfx/interface/1440p_ui/ao_modifier_bg.dds"
+	}
+
+	# A8: the theatre boxes at the top right, 120 wider. Vanilla textures of gfx/interface/theater widened by
+	# tools/stretch_background.py, with the frames of the vanilla sprites they stand in for.
+	spriteType = {
+		name = "GFX_1440p_TS_group_bg"
+		texturefile = "gfx/interface/1440p_ui/ts_group_bg.dds"
+		noOfFrames = 5
+	}
+
+	spriteType = {
+		name = "GFX_1440p_TS_assign_button"
+		texturefile = "gfx/interface/1440p_ui/ts_assign_button.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_TS_selected_frame"
+		texturefile = "gfx/interface/1440p_ui/ts_selected_frame.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_TS_dropdown_middle"
+		texturefile = "gfx/interface/1440p_ui/ts_dropdown_middle.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_TS_dropdown_bottom"
+		texturefile = "gfx/interface/1440p_ui/ts_dropdown_bottom.dds"
+		noOfFrames = 4
+	}
+
+	spriteType = {
+		name = "GFX_1440p_TS_new_group_button"
+		texturefile = "gfx/interface/1440p_ui/ts_new_group_button.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_TS_region_bg"
+		texturefile = "gfx/interface/1440p_ui/ts_region_bg.dds"
+		effectFile = "gfx/FX/buttonstate.lua"
+		noOfFrames = 3
+	}
+
+	# A7: a plane type in the air wing reorganisation window, 578 wide, two frames as the vanilla
+	# equipment_item_large_02.dds it is widened from.
+	spriteType = {
+		name = "GFX_1440p_AW_equipment_entry"
+		texturefile = "gfx/interface/1440p_ui/aw_equipment_entry.dds"
+		noOfFrames = 2
+	}
+
 	# Scripted GUIs (Milestone D). A bar that script fills through its "frame" property, 0 to 100
 	# (wiki/Engine-Facts.md, X17). Textures: the vanilla organisation bar of the navy list.
 	progressbartype = {

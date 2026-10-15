@@ -1,87 +1,18 @@
 BeforeAll {
-    $script:RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
-    $script:BuildScriptPath = Join-Path $script:RepoRoot "build.ps1"
-    $script:BuildContent = [System.IO.File]::ReadAllText($script:BuildScriptPath, [System.Text.Encoding]::UTF8)
-
-    $metaFuncMatch = [regex]::Match($script:BuildContent, '(?s)(function Get-ModMetadata\s*\{.*?\n\})')
-    $launcherFuncMatch = [regex]::Match($script:BuildContent, '(?s)(function New-LauncherModContent\s*\{.*?\n\})')
-
-    if ($metaFuncMatch.Success) {
-        . ([ScriptBlock]::Create($metaFuncMatch.Groups[1].Value))
-    }
-    if ($launcherFuncMatch.Success) {
-        . ([ScriptBlock]::Create($launcherFuncMatch.Groups[1].Value))
-    }
+    $script:RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+    . (Join-Path $script:RepoRoot 'tools\HoiModBuild.ps1')
+    $script:BuildConfig = Get-ModBuildConfig -RepoDir $script:RepoRoot
 }
 
-Describe "build.ps1 Helper: Get-ModMetadata" {
-    It "Parses mod metadata correctly from descriptor file" {
-        $tempFile = [System.IO.Path]::GetTempFileName()
-        try {
-            $sampleLines = @(
-                'version="1.0.0"',
-                'tags={',
-                "`t`"Historical`"",
-                "`t`"Military`"",
-                '}',
-                'name="HOI4 1440p UI Mod"',
-                'supported_version="1.19.*"',
-                'remote_file_id="1234567890"'
-            )
-            $sampleDescriptor = $sampleLines -join "`r`n"
-            [System.IO.File]::WriteAllText($tempFile, $sampleDescriptor, [System.Text.Encoding]::UTF8)
-
-            $meta = Get-ModMetadata -Path $tempFile
-            $meta.Version | Should -Be "1.0.0"
-            $meta.Name | Should -Be "HOI4 1440p UI Mod"
-            $meta.SupportedVersion | Should -Be "1.19.*"
-            $meta.RemoteFileId | Should -Be "1234567890"
-        }
-        finally {
-            if (Test-Path $tempFile) { Remove-Item -Force $tempFile }
-        }
-    }
-}
-
-Describe "build.ps1 Helper: New-LauncherModContent" {
-    It "Normalizes backslashes to forward slashes in target mod path" {
-        $tempFile = [System.IO.Path]::GetTempFileName()
-        try {
-            $sampleLines = @(
-                'version="1.0"',
-                'name="HOI4 1440p UI Mod"',
-                'supported_version="1.19.*"'
-            )
-            $sampleDescriptor = $sampleLines -join "`r`n"
-            [System.IO.File]::WriteAllText($tempFile, $sampleDescriptor, [System.Text.Encoding]::UTF8)
-
-            $result = New-LauncherModContent -DescriptorPath $tempFile -TargetModPath "C:\Games\Hearts of Iron IV\mod\hoi4-1440p-ui-mod"
-            $result | Should -Match 'path="C:/Games/Hearts of Iron IV/mod/hoi4-1440p-ui-mod"'
-            $result | Should -Not -Match '\\\\'
-        }
-        finally {
-            if (Test-Path $tempFile) { Remove-Item -Force $tempFile }
-        }
-    }
-}
-
-Describe "build.ps1 Packaging & Staging Exclusions" {
-    It "Build script must exclude tests directory from packages and deployment" {
-        $script:BuildContent | Should -Match "excludeDirs\s*=\s*@\([^)]*['`"]tests['`"]"
+Describe 'build.ps1 configuration' {
+    It 'ships the common, gfx, interface and localisation folders with the descriptor and thumbnail' {
+        $shippedTopLevel = @(Get-ModContentFiles -Config $script:BuildConfig | ForEach-Object { ($_ -split '/')[0] } | Sort-Object -Unique)
+        $shippedTopLevel | Should -Be @('common', 'descriptor.mod', 'gfx', 'interface', 'localisation', 'thumbnail.png') -Because 'tools, baseline and reference are development folders, and reference alone is tens of megabytes'
     }
 
-    It "Build script must exclude wiki directory from packages and deployment" {
-        $script:BuildContent | Should -Match "excludeDirs\s*=\s*@\([^)]*['`"]wiki['`"]"
-    }
-
-    It "Build script must exclude the reference captures and other dev-only folders from packages" {
-        foreach ($folder in 'reference', 'tools', 'baseline', 'scratch') {
-            $script:BuildContent | Should -Match "excludeDirs\s*=\s*@\([^)]*['`"]$folder['`"]" -Because "$folder is dev-only and reference alone is tens of megabytes"
-        }
-    }
-
-    It "Build script must exclude .git and dev tools from packaging" {
-        $script:BuildContent | Should -Match "excludeDirs\s*=\s*@\([^)]*['`"]\.git['`"]"
-        $script:BuildContent | Should -Match "excludeDirs\s*=\s*@\([^)]*['`"]\.github['`"]"
+    It 'installs as hoi4-1440p-ui-mod and packages hoi4-1440p-ui-mod.zip' {
+        $script:BuildConfig.ModFolderName | Should -Be 'hoi4-1440p-ui-mod'
+        $script:BuildConfig.ZipArchiveName | Should -Be 'hoi4-1440p-ui-mod.zip'
+        $script:BuildConfig.PackageLayout | Should -Be 'Flat'
     }
 }

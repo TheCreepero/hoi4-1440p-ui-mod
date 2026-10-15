@@ -1,0 +1,58 @@
+# Vanilla 1.19.3.0, interface/theatreselector.gui, lines 816-869.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "reserve_fleet_row_item_box"
+		position = { x=0 y=0 }
+		size = { width=23 height=33 }
+		clipping = no
+
+		buttonType = {
+			name = "army_group_box_middle_bg"
+			quadTextureSprite = "GFX_theatre_dropdown_middle"
+			position = { x = 0 y = -8 }
+		}
+
+		buttonType = {
+			name = "army_group_box_bottom_bg"
+			quadTextureSprite = "GFX_theatre_dropdown_bottom"
+			position = { x = 0 y = -8 }
+		}
+
+		buttonType = {
+			name = "reserve_fleet_btn"
+			position = { x=10 y=-7 }
+			spriteType = GFX_NV_icon_reserve_fleet
+			pdx_tooltip = RESERVE_FLEETS_FOR_THIS_THEATER
+			pdx_tooltip_delayed = RESERVE_FLEETS_FOR_THIS_THEATER_DESC
+		}
+
+		OverlappingElementsBoxType = {
+			name = "navy_box"
+			position = { x = 41 y = -6 }
+			size = { x = 223 y = 23 }
+			first_on_top = yes
+			format = left
+			spacing = 8.0
+		}
+
+		buttonType = {
+			name = "split_off_btn"
+			position = { x=264 y=-6 }
+			spriteType = GFX_NV_btn_repair_symbol
+			frame = 2
+		}
+
+		instantTextBoxType = {
+			name = "split_off_count"
+			position = { x = 260 y = 4 }
+			font = "hoi_18mbs"
+			maxWidth = 36
+			maxHeight = 23
+			fixedsize = yes
+			format = right
+			text = 9999
+			alwaystransparent = yes
+		}
+	}
+}

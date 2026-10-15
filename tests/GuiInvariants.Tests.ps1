@@ -331,14 +331,20 @@ if ($entryPairCases.Count -gt 0) {
         It 'uses a slot width equal to the entry row width' {
             $gridNode = $null
             $entryNode = $null
+            # one window can hold several grids of one name (the three item_grid of the army overview):
+            # a pair names the container around its grid as "container/grid", as the renderer does
+            $gridName = $Grid
+            $gridParent = $null
+            if ($Grid -like '*/*') { $gridParent, $gridName = $Grid -split '/', 2 }
             foreach ($file in @(Get-ModGuiFiles -Filter '*.gui')) {
                 $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)
                 # two vanilla windows can each have a grid of one name (templates_grid): a pair may name its window
                 $scopes = @($root)
                 if ($GridWindow) { $scopes = @(Get-GuiTopLevelWindows -Root $root | Where-Object { $_.Name -eq $GridWindow } | ForEach-Object { $_.Node }) }
+                if ($gridParent) { $scopes = @($scopes | ForEach-Object { Get-GuiNodes -Node $_ } | Where-Object { $_.Key -ieq 'containerWindowType' -and (Get-GuiValue -Node $_ -Key 'name') -eq $gridParent }) }
                 foreach ($scope in $scopes) {
                     foreach ($node in @(Get-GuiNodes -Node $scope)) {
-                        if ($node.Key -ieq 'gridBoxType' -and (Get-GuiValue -Node $node -Key 'name') -eq $Grid) { $gridNode = $node }
+                        if ($node.Key -ieq 'gridBoxType' -and (Get-GuiValue -Node $node -Key 'name') -eq $gridName) { $gridNode = $node }
                     }
                 }
                 $window = @(Get-GuiTopLevelWindows -Root $root | Where-Object { $_.Name -eq $Entry })[0]

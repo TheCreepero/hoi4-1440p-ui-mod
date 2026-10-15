@@ -7,10 +7,87 @@
   "screenshot": "reference/vanilla/air_wing_reorg.jpg",
   "windows": [
     {
-      "name": "air_wing_reorganization"
+      "name": "air_wing_reorganization",
+      "listRows": {
+        "list_left/list": "air_wing_reorganization_equipment_entry_left",
+        "list_right/list": "air_wing_reorganization_equipment_entry_right",
+        "plane_type_grid": "airwing_filter_item"
+      },
+      "rows": {
+        "list_left/list": 4,
+        "list_right/list": 0,
+        "plane_type_grid": 3
+      },
+      "place": {
+        "list_left/list": [
+          117,
+          13
+        ],
+        "list_right/list": [
+          15,
+          13
+        ]
+      },
+      "_note": "The game centres a plane type in the left list: (list width - slot width) / 2, 117 px with the mod's 618 and 385, as with vanilla's 498 and 265. 'place' puts the grid there and adds the 13 px top margin of the list; the renderer models neither."
+    },
+    {
+      "name": "airwing_filter_item",
+      "skip": true,
+      "hide": [
+        "highlight"
+      ]
+    },
+    {
+      "name": "air_wing_reorganization_equipment_entry_left",
+      "skip": true,
+      "hide": [
+        "carrier_capable_icon",
+        "design_team_icon"
+      ]
+    },
+    {
+      "name": "air_wing_reorganization_equipment_entry_right",
+      "skip": true,
+      "hide": [
+        "carrier_capable_icon",
+        "design_team_icon"
+      ]
     }
   ],
-  "samples": {},
+  "samples": {
+    "air_wing_reorganization": {
+      "action_name": "Create new Air Wing in Brandenburg",
+      "current_plane_count": "0",
+      "current_manpower_right": "0"
+    },
+    "air_wing_reorganization_equipment_entry_left": {
+      "type": [
+        "He 51",
+        "Do 23",
+        "Ju 86",
+        "He 45"
+      ],
+      "name": [
+        "Inter-War Small Airframe",
+        "Inter-War Medium Airframe",
+        "Inter-War Medium Airframe",
+        "Inter-War Close Air Support Airframe"
+      ],
+      "count": [
+        "80",
+        "80",
+        "40",
+        "80"
+      ]
+    },
+    "airwing_filter_item": {
+      "airwing_count": [
+        "1",
+        "2",
+        "1"
+      ]
+    }
+  },
   "setup": [
     {
       "move": "planes_into_reserve"
@@ -27,10 +104,10 @@
     "air_wing_reorganization/confirm_btn"
   ],
   "crop": [
-    820,
-    320,
-    1020,
-    520
+    640,
+    200,
+    1280,
+    1040
   ],
   "manual": [],
   "checklist": [],

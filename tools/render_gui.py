@@ -272,6 +272,12 @@ class Renderer:
         hv = self.num(block, None, "height", parent.h, None) if block.get("height") is not None else self.num(block, None, "y", parent.h, None)
         if wv is None and hv is None:
             return default
+        # a negative size is the parent's less that much: the naval losses window is "height = -165",
+        # the screen's height less 165
+        if wv is not None and wv < 0:
+            wv = max(0.0, parent.w + wv)
+        if hv is not None and hv < 0:
+            hv = max(0.0, parent.h + hv)
         return (wv or 0.0, hv or 0.0)
 
     def texture(self, sprite):
@@ -469,7 +475,12 @@ class Renderer:
 
     def anchor(self, node, parent, size):
         """Absolute top-left of a widget from position, orientation and origo inside the parent rect."""
-        placed = self.placements.get((self._window, node.name)) or self.placements.get(("*", node.name))
+        placed = None
+        for key in (self.list_keys(node.name) if node.name else [node.name]):
+            # "parent/widget" first, for a window with several widgets of one name (the overview's item_grid)
+            placed = self.placements.get((self._window, key)) or self.placements.get(("*", key))
+            if placed is not None:
+                break
         if placed is not None:
             return parent.x + placed[0], parent.y + placed[1]
         px = self.num(node, "position", "x", parent.w)

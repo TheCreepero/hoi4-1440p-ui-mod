@@ -1,5 +1,5 @@
 {
-  "_comment": "Links the engine makes in code between lists and the windows that fill them. Read by tests/GuiInvariants.Tests.ps1, tools/render_gui.py and tools/Invoke-GameCheck.ps1. Add a row per reworked list. An entry pair may name the top-level 'window' that holds its grid, for grid names that two windows share.",
+  "_comment": "Links the engine makes in code between lists and the windows that fill them. Read by tests/GuiInvariants.Tests.ps1, tools/render_gui.py and tools/Invoke-GameCheck.ps1. Add a row per reworked list. An entry pair may name the top-level 'window' that holds its grid, for grid names that two windows share. A window with several grids of one name (the army overview's three item_grid) names the container around the grid as 'container/grid'.",
   "entryPairs": [
     {
       "grid": "divisions_grid",
@@ -52,6 +52,36 @@
       "grid": "grid",
       "window": "military_deployment_line_view",
       "entry": "division_name_dropdown_entry"
+    },
+    {
+      "grid": "army_units/item_grid",
+      "window": "countryarmyview",
+      "entry": "armyview_army_entry"
+    },
+    {
+      "grid": "navy_units/item_grid",
+      "window": "countryarmyview",
+      "entry": "armyview_navy_entry"
+    },
+    {
+      "grid": "air_units/item_grid",
+      "window": "countryarmyview",
+      "entry": "armyview_air_entry"
+    },
+    {
+      "grid": "army_header/modifiers_grid",
+      "window": "countryarmyview",
+      "entry": "modifier_entry"
+    },
+    {
+      "grid": "navy_header/modifiers_grid",
+      "window": "countryarmyview",
+      "entry": "modifier_entry"
+    },
+    {
+      "grid": "air_header/modifiers_grid",
+      "window": "countryarmyview",
+      "entry": "modifier_entry"
     }
   ],
   "listRows": [

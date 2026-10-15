@@ -1,0 +1,51 @@
+# Vanilla 1.19.3.0, interface/theatreselector.gui, lines 768-814.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "fleet_row_item_box"
+		position = { x=0 y=0 }
+		size = { width=23 height=33 }
+		clipping = no
+		
+		buttonType = {
+			name = "army_group_box_middle_bg"
+			quadTextureSprite = "GFX_theatre_dropdown_middle"
+			position = { x = 0 y = -8 }
+		}
+
+		buttonType = {
+			name = "army_group_box_bottom_bg"
+			quadTextureSprite = "GFX_theatre_dropdown_bottom"
+			position = { x = 0 y = -8 }
+		}
+
+		OverlappingElementsBoxType = {
+			name = "navy_box"
+			position = { x = 6 y = -6 }
+			size = { x = 270 y = 23 }
+			first_on_top = yes
+			format = left
+			spacing = 8.0
+		}
+
+		buttonType = {
+			name = "split_off_btn"
+			position = { x=268 y=-6 }
+			spriteType = GFX_NV_btn_repair_symbol
+			frame = 2
+		}
+
+		instantTextBoxType = {
+			name = "split_off_count"
+			position = { x = 260 y = 4 }
+			font = "hoi_18mbs"
+			maxWidth = 36
+			maxHeight = 23
+			fixedsize = yes
+			format = right
+			text = 9999
+			alwaystransparent = yes
+		}
+
+	}
+}

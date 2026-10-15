@@ -6,10 +6,283 @@
   "screenshot": "reference/vanilla/army_overview.jpg",
   "windows": [
     {
-      "name": "countryarmyview"
+      "name": "countryarmyview",
+      "at": [
+        -6,
+        78
+      ],
+      "height": 1362,
+      "sidePanel": true,
+      "rows": {
+        "army_units/item_grid": 30,
+        "army_header/modifiers_grid": 14,
+        "army_header/sub_units_grid": 5
+      },
+      "listRows": {
+        "army_units/item_grid": "armyview_army_entry",
+        "navy_units/item_grid": "armyview_navy_entry",
+        "air_units/item_grid": "armyview_air_entry",
+        "army_header/modifiers_grid": "modifier_entry",
+        "navy_header/modifiers_grid": "modifier_entry",
+        "air_header/modifiers_grid": "modifier_entry",
+        "army_header/sub_units_grid": "army_view_subunit_entry",
+        "navy_header/ships_count_grid": "navy_view_ship_entry",
+        "air_header/count_grid": "air_view_plane_entry"
+      },
+      "hide": [
+        "navy_header",
+        "navy_units",
+        "air_header",
+        "air_units",
+        "naval_hq_open",
+        "destroyed_ships_open"
+      ],
+      "_note": "The three tabs are one window: the code shows the header and list of one of them and hides the other two. The default state is the army tab. 'place' adds the 13 px left and top margin of each scrolling list to its grid; the renderer does not model margins. The mod's header containers have no margin: their children carry the 13 px.",
+      "place": {
+        "army_units/item_grid": [
+          13,
+          18
+        ],
+        "navy_units/item_grid": [
+          13,
+          18
+        ],
+        "air_units/item_grid": [
+          13,
+          18
+        ]
+      }
+    },
+    {
+      "name": "armyview_army_entry",
+      "skip": true,
+      "hide": [
+        "battle_icon",
+        "obsolete_template_warning",
+        "expeditionary_flag",
+        "colonial_force_flag_frame",
+        "exile_force_flag_frame",
+        "foreign_template_flag"
+      ]
+    },
+    {
+      "name": "armyview_navy_entry",
+      "skip": true,
+      "hide": [
+        "battle_icon",
+        "pride"
+      ],
+      "_note": "No fleet of 1936 Germany is in battle; the pride mark shows on the fleet that holds the pride of the fleet only."
+    },
+    {
+      "name": "armyview_air_entry",
+      "skip": true,
+      "hide": [
+        "carrier_capable_icon",
+        "on_carrier_icon",
+        "exile_force_flag_frame",
+        "foreign_wing_flag",
+        "mission_icon_1",
+        "mission_icon_2",
+        "mission_icon_3",
+        "mission_icon_4",
+        "ace"
+      ],
+      "_note": "A 1936 wing has no ace, no mission and no region; the code puts the ace's portrait on the icon. Kampfgeschwader 253 'General Wever' is the name a wing has in the user's playset (2026-10-14); vanilla calls it Kampfgeschwader 253."
+    },
+    {
+      "name": "army_view_subunit_entry",
+      "skip": true,
+      "hide": [
+        "highlight"
+      ]
+    },
+    {
+      "name": "modifier_entry",
+      "skip": true
+    },
+    {
+      "name": "navy_view_ship_entry",
+      "skip": true,
+      "hide": [
+        "highlight"
+      ]
+    },
+    {
+      "name": "air_view_plane_entry",
+      "skip": true,
+      "hide": [
+        "highlight"
+      ]
     }
   ],
-  "samples": {},
+  "samples": {
+    "countryarmyview": {
+      "army_title": "Division Overview",
+      "unit_count": "30 Divisions",
+      "battalion_count": "315 Battalions",
+      "special_forces_cap": "24",
+      "theatres_count": "Active in 1 Theater(s)"
+    },
+    "armyview_army_entry": {
+      "name": [
+        "1. Infanterie-Division",
+        "1. Panzer-Division",
+        "10. Infanterie-Division",
+        "11. Infanterie-Division",
+        "12. Infanterie-Division",
+        "13. Infanterie-Division",
+        "14. Infanterie-Division",
+        "15. Infanterie-Division",
+        "16. Infanterie-Division",
+        "17. Infanterie-Division",
+        "18. Infanterie-Division",
+        "19. Infanterie-Division",
+        "2. Infanterie-Division (mot.)",
+        "2. Panzer-Division",
+        "20. Infanterie-Division",
+        "21. Infanterie-Division",
+        "22. Infanterie-Division",
+        "23. Infanterie-Division",
+        "24. Infanterie-Division",
+        "25. Infanterie-Division",
+        "3. Infanterie-Division",
+        "3. Panzer-Division",
+        "4. Infanterie-Division",
+        "5. Infanterie-Division",
+        "6. Infanterie-Division",
+        "7. Infanterie-Division",
+        "8. Infanterie-Division",
+        "9. Infanterie-Division",
+        "Gebirgs-Brigade",
+        "Kavallerie-Kommando Insterburg"
+      ],
+      "theatre": "German Theater 1",
+      "group": "Army 1"
+    },
+    "armyview_navy_entry": {
+      "unit_name": [
+        "Hochseeflotte",
+        "I. U-Boots Flottille Weddigen",
+        "II. U-Boots-Ausbildungsflottille",
+        "Marineschule Kiel",
+        "Ostseeflotte"
+      ],
+      "region": [
+        "North-West Germany",
+        "Jutland Peninsula",
+        "North-West Germany",
+        "Jutland Peninsula",
+        "Western Poland"
+      ],
+      "unit_count": [
+        "12",
+        "8",
+        "6",
+        "2",
+        "10"
+      ]
+    },
+    "armyview_air_entry": {
+      "unit_name": [
+        "K\u00fcstenfliegergruppe 106",
+        "KG 1 'Hindenburg'",
+        "Kampfgeschwader 153",
+        "KG 2 'Holzhammer'",
+        "Kampfgeschwader 253 'General Wever'",
+        "Kampfgeschwader 152",
+        "Kampfgeschwader 155",
+        "Jagdgeschwader 232",
+        "Jagdgeschwader 132",
+        "Jagdgeschwader 134",
+        "JG 1 'Oesau'",
+        "Jagdgeschwader 136",
+        "Sturzkampfgeschwader 162",
+        "Kampfgeschwader 154",
+        "LG 'Greifswald'"
+      ],
+      "base": [
+        "Holstein",
+        "Brandenburg",
+        "Niederschlesien",
+        "Niederschlesien",
+        "Westfalen",
+        "Westfalen",
+        "Oberbayern",
+        "K\u00f6nigsberg",
+        "Brandenburg",
+        "Westfalen",
+        "Westfalen",
+        "Oberbayern",
+        "Niederschlesien",
+        "Brandenburg",
+        "Brandenburg"
+      ],
+      "count": [
+        "72",
+        "80",
+        "60",
+        "60",
+        "80",
+        "80",
+        "80",
+        "40",
+        "80",
+        "60",
+        "60",
+        "40",
+        "80",
+        "40",
+        "80"
+      ],
+      "limit": "100"
+    },
+    "modifier_entry": {
+      "modifier_value": [
+        "-50%",
+        "10%",
+        "145%",
+        "30%",
+        "100%",
+        "5",
+        "100%",
+        "100%",
+        "2%",
+        "115%",
+        "100%",
+        "100%",
+        "108 H",
+        "-20%"
+      ]
+    },
+    "army_view_subunit_entry": {
+      "sub_units_count": [
+        "24",
+        "3",
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "navy_view_ship_entry": {
+      "ships_count": [
+        "2",
+        "2",
+        "8",
+        "12",
+        "14"
+      ]
+    },
+    "air_view_plane_entry": {
+      "count": [
+        "80",
+        "280",
+        "72",
+        "480",
+        "80"
+      ]
+    }
+  },
   "setup": [
     {
       "move": "open_army_overview"
@@ -23,7 +296,66 @@
           "key": "p",
           "wait": 1.2
         }
+      ],
+      "hide": {
+        "countryarmyview": [
+          "army_header",
+          "army_units",
+          "air_header",
+          "air_units",
+          "battalion_count",
+          "special_forces_icon",
+          "special_forces_cap"
+        ]
+      },
+      "rows": {
+        "navy_units/item_grid": 5,
+        "navy_header/modifiers_grid": 7,
+        "navy_header/ships_count_grid": 5
+      },
+      "samples": {
+        "countryarmyview": {
+          "army_title": "Navy Overview",
+          "unit_count": "5 Fleets"
+        }
+      },
+      "expect": [
+        "countryarmyview/naval_hq_open",
+        "countryarmyview/destroyed_ships_open"
       ]
+    },
+    {
+      "name": "sunk-ships",
+      "_note": "Sunk Ships of the navy tab: the naval losses window, beside the panel at x 890 (vanilla 540).",
+      "steps": [
+        {
+          "clickWidget": "countryarmyview/destroyed_ships_open",
+          "state": "navy",
+          "wait": 1.5
+        }
+      ],
+      "hide": {
+        "countryarmyview": [
+          "army_header",
+          "army_units",
+          "air_header",
+          "air_units",
+          "battalion_count",
+          "special_forces_icon",
+          "special_forces_cap"
+        ]
+      },
+      "rows": {
+        "navy_units/item_grid": 5,
+        "navy_header/modifiers_grid": 7,
+        "navy_header/ships_count_grid": 5
+      },
+      "samples": {
+        "countryarmyview": {
+          "army_title": "Navy Overview",
+          "unit_count": "5 Fleets"
+        }
+      }
     },
     {
       "name": "air",
@@ -32,17 +364,75 @@
           "key": "l",
           "wait": 1.2
         }
+      ],
+      "hide": {
+        "countryarmyview": [
+          "army_header",
+          "army_units",
+          "navy_header",
+          "navy_units",
+          "naval_hq_open",
+          "destroyed_ships_open",
+          "battalion_count",
+          "special_forces_icon",
+          "special_forces_cap"
+        ]
+      },
+      "rows": {
+        "air_units/item_grid": 15,
+        "air_header/modifiers_grid": 14,
+        "air_header/count_grid": 5
+      },
+      "samples": {
+        "countryarmyview": {
+          "army_title": "Air Forces Overview",
+          "unit_count": "15 Air Wings"
+        }
+      }
+    },
+    {
+      "name": "equipment",
+      "_note": "Shift+I on the army tab: Equipment Details, beside the panel at x 890 (vanilla 540).",
+      "steps": [
+        {
+          "key": "o",
+          "wait": 1.2
+        },
+        {
+          "key": "shift+i",
+          "wait": 1.5
+        }
+      ]
+    },
+    {
+      "name": "division-details",
+      "_note": "The details button of the first row: the division's own window, which the code places.",
+      "steps": [
+        {
+          "key": "shift+i",
+          "wait": 1.0,
+          "_note": "Equipment Details closes again"
+        },
+        {
+          "clickWidget": "armyview_army_entry/unit_details_button#0",
+          "wait": 1.5
+        }
       ]
     }
   ],
-  "expect": [],
+  "expect": [
+    "countryarmyview/close_button",
+    "countryarmyview/details_open",
+    "countryarmyview/army_sort_name",
+    "countryarmyview/army_sort_group"
+  ],
   "crop": [
     0,
     60,
-    480,
-    1140
+    1400,
+    1380
   ],
   "manual": [],
   "checklist": [],
-  "_note": "Surveyed on 2026-10-08: the recipe works and the vanilla reference is captured. 'at' of its windows is not measured yet; do that at the start of the phase (wiki/Game-Recipes.md, 'Measuring where a window sits')."
+  "_note": "Surveyed on 2026-10-08. A6 (2026-10-14): the panel is 900 wide; the header containers have no margin, so the file says where their widgets are."
 }

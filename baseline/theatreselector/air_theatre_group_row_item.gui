@@ -1,0 +1,31 @@
+# Vanilla 1.19.3.0, interface/theatreselector.gui, lines 1062-1088.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "air_theatre_group_row_item"
+		position = { x=0 y=0 }
+		size = { width=23 height=33 }
+		clipping = no
+
+		buttonType = {
+			name = "army_group_box_middle_bg"
+			quadTextureSprite = "GFX_theatre_dropdown_middle"
+			position = { x = 0 y = -8 }
+		}
+
+		buttonType = {
+			name = "army_group_box_bottom_bg"
+			quadTextureSprite = "GFX_theatre_dropdown_bottom"
+			position = { x = 0 y = -8 }
+		}
+
+		OverlappingElementsBoxType = {
+			name = "air_box"
+			position = { x = 6 y = -6 }
+			size = { x = 270 y = 23 }
+			first_on_top = yes
+			format = left
+			spacing = 8.0
+		}
+	}
+}

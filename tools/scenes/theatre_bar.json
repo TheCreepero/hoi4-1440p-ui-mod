@@ -4,20 +4,96 @@
   "phase": "A8",
   "file": "zz_1440p_theatre_bar.gui",
   "screenshot": "reference/vanilla/theatre_bar.jpg",
-  "windows": [],
-  "samples": {},
+  "windows": [
+    {
+      "name": "theatre_selection_window",
+      "at": [
+        1800,
+        117
+      ],
+      "rows": {
+        "elements_list": 1
+      },
+      "listRows": {
+        "elements_list": [
+          "theater_group_item"
+        ]
+      },
+      "_note": "Vanilla's own window, not overridden (RBM's GFX Overhaul moves it to y 93). It stacks the boxes in elements_list, a grid with a slot of 1x1, and honours each box's own position: x 430 in vanilla, 310 in the mod, so the right edge stays at 730. Its height is the screen's less 240.",
+      "height": 1200
+    },
+    {
+      "name": "theater_group_item",
+      "skip": true,
+      "hide": [
+        "alerts",
+        "attack_combat_count",
+        "defence_combat_count"
+      ],
+      "listRows": {
+        "orders_group_box": "orders_group_item"
+      },
+      "rows": {
+        "orders_group_box": 1
+      }
+    },
+    {
+      "name": "orders_group_item",
+      "skip": true,
+      "hide": [
+        "orders_group_item_training",
+        "icn_exercise_stop_at_max",
+        "orders_group_item_border_conflict"
+      ]
+    }
+  ],
+  "samples": {
+    "theater_group_item": {
+      "name_box": "German Theater 1",
+      "armies_count_box": "30"
+    },
+    "orders_group_item": {
+      "armies_count_box": "30"
+    }
+  },
   "setup": [
     {
       "move": "select_army_1"
     }
   ],
-  "captures": [],
-  "expect": [],
+  "captures": [
+    {
+      "name": "navy",
+      "_note": "A fleet selected: the theatre boxes of the navy.",
+      "steps": [
+        {
+          "move": "select_fleet"
+        }
+      ]
+    },
+    {
+      "name": "air",
+      "_note": "An airbase selected: the air theatres.",
+      "steps": [
+        {
+          "key": "escape",
+          "wait": 0.8
+        },
+        {
+          "move": "select_airbase"
+        }
+      ]
+    }
+  ],
+  "expect": [
+    "theater_group_item/settings_button",
+    "theater_group_item/combat_logs_btn"
+  ],
   "crop": [
-    900,
-    1180,
-    760,
-    260
+    1700,
+    100,
+    860,
+    420
   ],
   "manual": [],
   "checklist": [],

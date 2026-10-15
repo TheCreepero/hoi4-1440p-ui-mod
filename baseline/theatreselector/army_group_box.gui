@@ -1,0 +1,29 @@
+# Vanilla 1.19.3.0, interface/theatreselector.gui, lines 742-766.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "army_group_box"
+		position = { x=0 y=0 }
+		size = { width=23 height=33 }
+		
+		buttonType = {
+			name = "army_group_box_middle_bg"
+			quadTextureSprite = "GFX_theatre_dropdown_middle"	
+			position = { x = 0 y = -8 }
+		}
+
+		buttonType = {
+			name = "army_group_box_bottom_bg"
+			quadTextureSprite = "GFX_theatre_dropdown_bottom"	
+			position = { x = 0 y = -8 }
+		}
+
+		OverlappingElementsBoxType = {
+			name = "armies_box"
+			position = { x = 10 y = -6 }
+			size = { x = 260 y = 23 }
+			format = left
+			spacing = 8.0
+		}
+	}
+}

@@ -1,0 +1,80 @@
+# Vanilla 1.19.3.0, interface/theatreselector.gui, lines 408-483.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "reserve_navy_theater_group_item"
+		position = { x=430 y=18 }
+		size = { width=300 height=80 }
+
+		iconType = {
+			name ="background"
+			quadTextureSprite = "GFX_theater_group_bg"	
+			position = { x = 0 y = 0 }
+			frame = 4
+		}
+		
+		iconType = {
+			name ="selected_theatre_frame"
+			quadTextureSprite = "GFX_selected_theatre_frame"	
+			position = { x = 0 y = 2 }
+			alwaystransparent = yes
+		}
+		
+ 		buttonType = {
+			name = "assign_button"
+			position = { x = 3 y= 38 }
+			spriteType = "GFX_assign_group_button"
+			frame = 3
+		}
+		
+		buttonType = {
+			name = "settings_button"
+			position = { x=9 y=11 }	
+			spriteType = "GFX_theater_group_settings_btn"
+		}
+				
+		instantTextBoxType = {
+			name = "ship_count_box"
+			position = { x = 256 y = 46 }
+			font = "hoi_18mbs"
+			text = "999"
+			maxWidth = 40
+			maxHeight = 32
+			fixedsize = yes
+			format = right
+		}
+		
+		instantTextBoxType = {
+			name = "theater_name_box"
+			position = { x = 38 y = 13 }
+			font = "hoi_18mbs"
+			alwaystransparent = yes
+			text = "RESERVE_NAVY_THEATER_GROUP_NAME"
+		}
+		
+		OverlappingElementsBoxType = {
+			name = "fleets_box"
+			first_on_top = yes
+			position = { x = 10 y = 43 }
+			size = { x = 260 y = 23 }
+			format = left
+			spacing = 8.0
+		}
+		
+		OverlappingElementsBoxType = {
+			name = "alerts"
+			position = { x = -430 y = 0 }
+			size = { x = 130 y = 32 }
+			Orientation = "UPPER_RIGHT"
+			format = right
+			spacing = 1.0
+		}
+	
+		buttonType = {
+			name ="combat_logs_btn"
+			spriteType = "GFX_theatre_combat_log_icon"
+			position = { x = 209 y = 5 }
+			scale = 0.9
+		}
+	}
+}

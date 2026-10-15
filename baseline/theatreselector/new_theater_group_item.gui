@@ -1,0 +1,27 @@
+# Vanilla 1.19.3.0, interface/theatreselector.gui, lines 485-507.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "new_theater_group_item"
+		position = { x=430 y=18 }
+		size = { width=300 height=40 }
+		
+		buttonType = {
+			name = "new_theater_group_button"
+			position = { x = 0 y = 0 }
+			spriteType = "GFX_theater_group_assign_btn"
+		}
+		
+		instantTextBoxType = {
+			name ="text"
+			position = { x = 10 y = 8 }
+			font = "hoi_18mbs"
+			text = "100%"
+			format = centre
+			maxWidth = 280
+			maxHeight = 28
+			fixedsize = yes
+			alwaystransparent = yes
+		}
+	}
+}

@@ -1,0 +1,51 @@
+# Vanilla 1.19.3.0, interface/theatreselector.gui, lines 542-588.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "strategic_region_item"
+		position = { x = 430 y = 17 }
+		size = { width=300 height=50 }
+		
+		buttonType = {
+			name = "background"
+			position = { x = 82 y = 4 }
+			spriteType = "GFX_theatre_selection_background"
+		}
+		
+		buttonType = {
+			name = "pinned"
+			position = { x = 270 y = 6 }
+			spriteType ="GFX_pinned_theatre_checkbox"
+			frame = 1
+			pdx_tooltip = "THEATRE_PIN_AREA"
+			pdx_tooltip_delayed = "THEATRE_PIN_AREA_DESC"
+		}
+		
+		instantTextBoxType = {
+			name ="name"
+			position = { x = 118 y = 14 }
+			font = "hoi_18mbs"
+			text = "100%"
+			format = left
+			maxWidth = 155
+			maxHeight = 36
+			fixedsize = yes
+		}
+		
+		OverlappingElementsBoxType = {
+			name = "alerts"
+			position = { x = -347 y = 0 }
+			size = { x = 130 y = 32 }
+			Orientation = "UPPER_RIGHT"
+			format = right
+			spacing = 1.0
+		}
+
+		buttonType = {
+			name = "naval_access_rule"
+			position = { x = 85 y = 7 }
+			spriteType ="GFX_naval_access_rule"
+			frame = 1
+		}
+	}
+}

@@ -80,17 +80,16 @@
       ]
     },
     "select_fleet": {
-      "_note": "Navy overview (p), then the first row of the navy overview (Hochseeflotte): the fleet panel with that task force opened to its ship list. Raw position inside the navy overview, a vanilla panel (A6): when the mod reworks it, replace it with a clickWidget step.",
+      "_note": "Navy overview (p), then the first row of the navy overview (Hochseeflotte): the fleet panel with that task force opened to its ship list. The row is clicked by name in the layout of the overview's navy tab (A6).",
       "steps": [
         {
           "key": "p",
           "wait": 1.2
         },
         {
-          "click": [
-            250,
-            344
-          ],
+          "clickWidget": "armyview_navy_entry/btn_bg#0",
+          "scene": "army_overview",
+          "state": "navy",
           "wait": 1.5
         }
       ]

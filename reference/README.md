@@ -51,11 +51,16 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A5 | Recruit & Deploy and Division Templates panels, icon-picker | [recruit_deploy-icon-picker.jpg](vanilla/recruit_deploy-icon-picker.jpg) | [recruit_deploy-icon-picker-panel.png](vanilla/recruit_deploy-icon-picker-panel.png) | 1.19.3.0 | 2026-10-11 |
 | A5 | Recruit & Deploy and Division Templates panels, italy | [recruit_deploy-italy.jpg](vanilla/recruit_deploy-italy.jpg) | [recruit_deploy-italy-panel.png](vanilla/recruit_deploy-italy-panel.png) | 1.19.3.0 | 2026-10-11 |
 | A5 | Recruit & Deploy and Division Templates panels, name-dropdown | [recruit_deploy-name-dropdown.jpg](vanilla/recruit_deploy-name-dropdown.jpg) | [recruit_deploy-name-dropdown-panel.png](vanilla/recruit_deploy-name-dropdown-panel.png) | 1.19.3.0 | 2026-10-11 |
-| A6 | army overview tab | [army_overview.jpg](vanilla/army_overview.jpg) | [army_overview-panel.png](vanilla/army_overview-panel.png) | 1.19.3.0 | 2026-10-08 |
-| A6 | army overview tab, air | [army_overview-air.jpg](vanilla/army_overview-air.jpg) | [army_overview-air-panel.png](vanilla/army_overview-air-panel.png) | 1.19.3.0 | 2026-10-08 |
-| A6 | army overview tab, navy | [army_overview-navy.jpg](vanilla/army_overview-navy.jpg) | [army_overview-navy-panel.png](vanilla/army_overview-navy-panel.png) | 1.19.3.0 | 2026-10-08 |
+| A6 | army overview tab | [army_overview.jpg](vanilla/army_overview.jpg) | [army_overview-panel.png](vanilla/army_overview-panel.png) | 1.19.3.0 | 2026-10-14 |
+| A6 | army overview tab, air | [army_overview-air.jpg](vanilla/army_overview-air.jpg) | [army_overview-air-panel.png](vanilla/army_overview-air-panel.png) | 1.19.3.0 | 2026-10-14 |
+| A6 | army overview tab, division-details | [army_overview-division-details.jpg](vanilla/army_overview-division-details.jpg) | [army_overview-division-details-panel.png](vanilla/army_overview-division-details-panel.png) | 1.19.3.0 | 2026-10-14 |
+| A6 | army overview tab, equipment | [army_overview-equipment.jpg](vanilla/army_overview-equipment.jpg) | [army_overview-equipment-panel.png](vanilla/army_overview-equipment-panel.png) | 1.19.3.0 | 2026-10-14 |
+| A6 | army overview tab, navy | [army_overview-navy.jpg](vanilla/army_overview-navy.jpg) | [army_overview-navy-panel.png](vanilla/army_overview-navy-panel.png) | 1.19.3.0 | 2026-10-14 |
+| A6 | army overview tab, sunk-ships | [army_overview-sunk-ships.jpg](vanilla/army_overview-sunk-ships.jpg) | [army_overview-sunk-ships-panel.png](vanilla/army_overview-sunk-ships-panel.png) | 1.19.3.0 | 2026-10-14 |
 | A7 | air wing reorganisation window | [air_wing_reorg.jpg](vanilla/air_wing_reorg.jpg) | [air_wing_reorg-panel.png](vanilla/air_wing_reorg-panel.png) | 1.19.3.0 | 2026-10-08 |
-| A8 | theatre bar at the bottom | [theatre_bar.jpg](vanilla/theatre_bar.jpg) | [theatre_bar-panel.png](vanilla/theatre_bar-panel.png) | 1.19.3.0 | 2026-10-08 |
+| A8 | theatre bar at the bottom | [theatre_bar.jpg](vanilla/theatre_bar.jpg) | [theatre_bar-panel.png](vanilla/theatre_bar-panel.png) | 1.19.3.0 | 2026-10-14 |
+| A8 | theatre bar at the bottom, air | [theatre_bar-air.jpg](vanilla/theatre_bar-air.jpg) | [theatre_bar-air-panel.png](vanilla/theatre_bar-air-panel.png) | 1.19.3.0 | 2026-10-14 |
+| A8 | theatre bar at the bottom, navy | [theatre_bar-navy.jpg](vanilla/theatre_bar-navy.jpg) | [theatre_bar-navy-panel.png](vanilla/theatre_bar-navy-panel.png) | 1.19.3.0 | 2026-10-14 |
 | B1 | division designer | [division_designer.jpg](vanilla/division_designer.jpg) | [division_designer-panel.png](vanilla/division_designer-panel.png) | 1.19.3.0 | 2026-10-08 |
 | B2 | tank designer | [tank_designer.jpg](vanilla/tank_designer.jpg) | [tank_designer-panel.png](vanilla/tank_designer-panel.png) | 1.19.3.0 | 2026-10-08 |
 | B3 | plane designer | [plane_designer.jpg](vanilla/plane_designer.jpg) | [plane_designer-panel.png](vanilla/plane_designer-panel.png) | 1.19.3.0 | 2026-10-08 |
@@ -115,6 +120,16 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A5 | Recruit & Deploy and Division Templates panels, icon-picker | [recruit_deploy-icon-picker.jpg](mod/recruit_deploy-icon-picker.jpg) | [recruit_deploy-icon-picker-panel.png](mod/recruit_deploy-icon-picker-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
 | A5 | Recruit & Deploy and Division Templates panels, italy | [recruit_deploy-italy.jpg](mod/recruit_deploy-italy.jpg) | [recruit_deploy-italy-panel.png](mod/recruit_deploy-italy-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
 | A5 | Recruit & Deploy and Division Templates panels, name-dropdown | [recruit_deploy-name-dropdown.jpg](mod/recruit_deploy-name-dropdown.jpg) | [recruit_deploy-name-dropdown-panel.png](mod/recruit_deploy-name-dropdown-panel.png) | 1.19.3.0 | 1.4 | 2026-10-12 |
+| A6 | army overview tab | [army_overview.jpg](mod/army_overview.jpg) | [army_overview-panel.png](mod/army_overview-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| A6 | army overview tab, air | [army_overview-air.jpg](mod/army_overview-air.jpg) | [army_overview-air-panel.png](mod/army_overview-air-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| A6 | army overview tab, division-details | [army_overview-division-details.jpg](mod/army_overview-division-details.jpg) | [army_overview-division-details-panel.png](mod/army_overview-division-details-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| A6 | army overview tab, equipment | [army_overview-equipment.jpg](mod/army_overview-equipment.jpg) | [army_overview-equipment-panel.png](mod/army_overview-equipment-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| A6 | army overview tab, navy | [army_overview-navy.jpg](mod/army_overview-navy.jpg) | [army_overview-navy-panel.png](mod/army_overview-navy-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| A6 | army overview tab, sunk-ships | [army_overview-sunk-ships.jpg](mod/army_overview-sunk-ships.jpg) | [army_overview-sunk-ships-panel.png](mod/army_overview-sunk-ships-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| A7 | air wing reorganisation window | [air_wing_reorg.jpg](mod/air_wing_reorg.jpg) | [air_wing_reorg-panel.png](mod/air_wing_reorg-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| A8 | theatre bar at the bottom | [theatre_bar.jpg](mod/theatre_bar.jpg) | [theatre_bar-panel.png](mod/theatre_bar-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| A8 | theatre bar at the bottom, air | [theatre_bar-air.jpg](mod/theatre_bar-air.jpg) | [theatre_bar-air-panel.png](mod/theatre_bar-air-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| A8 | theatre bar at the bottom, navy | [theatre_bar-navy.jpg](mod/theatre_bar-navy.jpg) | [theatre_bar-navy-panel.png](mod/theatre_bar-navy-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
 | D2 | army_readiness | [army_readiness.jpg](mod/army_readiness.jpg) | [army_readiness-panel.png](mod/army_readiness-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
 | D3 | states | [states.jpg](mod/states.jpg) | [states-panel.png](mod/states-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
 | D4 | national_figures | [national_figures.jpg](mod/national_figures.jpg) | [national_figures-panel.png](mod/national_figures-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |

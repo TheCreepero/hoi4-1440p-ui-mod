@@ -1,0 +1,67 @@
+# Vanilla 1.19.3.0, interface/theatreselector.gui, lines 876-938.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "air_theatre_free_wings_item"
+		position = { x=430 y=15 }
+		size = { width=300 height=80 }
+
+		iconType = {
+			name ="unmoveable_background"
+			quadTextureSprite = "GFX_theater_group_bg"
+			position = { x = 0 y = 0 }
+			frame = 5
+		}
+
+		instantTextBoxType = {
+			name = "theater_name_box"
+			position = { x = 38 y = 13 }
+			font = "hoi_18mbs"
+			maxWidth = 170
+			maxHeight = 32
+			text = "UNASSIGNED_AIR_WINGS"
+			fixedsize = yes
+		}
+
+		buttonType = {
+			name = "unmoveable_assign_button"
+			position = { x = 3 y= 38 }
+			spriteType = "GFX_assign_group_button"
+			frame = 4
+		}
+
+		OverlappingElementsBoxType = {
+			name = "air_groups_box"
+			first_on_top = yes
+			position = { x = 10 y = 43 }
+			size = { x = 260 y = 23 }
+			format = left
+			spacing = 8.0
+		}
+
+		buttonType = {
+			name = "priority_1"
+			position = { x=225 y=13 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_deploy_priority"
+			frame = 1
+			clicksound = click_default
+		}
+		buttonType = {
+			name = "priority_2"
+			position = { x=247 y=13 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_deploy_priority"
+			frame = 1
+			clicksound = click_default
+		}
+		buttonType = {
+			name = "priority_3"
+			position = { x=269 y=13 }
+			buttonFont = "hoi_16mbs"
+			quadTextureSprite = "GFX_deploy_priority"
+			frame = 1
+			clicksound = click_default
+		}
+	}
+}

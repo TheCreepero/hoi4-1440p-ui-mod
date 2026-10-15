@@ -524,6 +524,86 @@ def template_row(mesh_rows, strip_rows, mesh_period):
     return compose
 
 
+# ---------------------------------------------------------------------------------------------
+# A6, the army overview tab (divisions, fleets, air wings). The numbers are shared with the widget
+# positions in interface/zz_1440p_army_overview.gui.
+
+OVERVIEW_GROWTH = 350     # panel 550 -> 900, rows 511 -> 861: every column on one line, names whole
+OVERVIEW_BARS = 48        # the olive part beside the type icon takes the two bars lying down
+
+
+def overview_army_row(source):
+    """Division row, 509x35 to 861x35. The vanilla row is an olive part (columns 0-123: details
+    button, type icon, bars, level), a dark name box (124-295), an olive gap (296-305), a dark box
+    for theatre and army on two lines (306-447) and an olive end with the army marker (448-508).
+    The wide row has the theatre and the army in a box each, on one line:
+      olive 172 | name 290 | gap 10 | theatre 170 | gap 10 | army 148 | end 61"""
+    left = grow(source.crop((0, 0, 124, 35)), "x", stretched(98, 120, OVERVIEW_BARS))
+    name = grow(source.crop((124, 0, 296, 35)), "x", stretched(12, 160, 118))
+    gap = source.crop((296, 0, 306, 35))
+    box = source.crop((306, 0, 448, 35))
+    theatre = grow(box, "x", stretched(12, 130, 28))
+    army = grow(box, "x", stretched(12, 130, 6))
+    end = source.crop((448, 0, 509, 35))
+    return join([left, name, gap, theatre, gap, army, end], "x")
+
+
+def overview_navy_row(source):
+    """Fleet row, 509x35 to 861x35: a dark icon box (0-110), an olive part with the pride mark, the
+    bars and the admiral (111-166), a dark name box (167-316), a gap (317-323), a dark region box
+    (324-447) and an olive end with the mission and the ship count (448-508).
+      icon 111 | olive 104 | name 370 | gap 7 | region 208 | end 61"""
+    return join([
+        source.crop((0, 0, 111, 35)),
+        grow(source.crop((111, 0, 167, 35)), "x", stretched(4, 22, OVERVIEW_BARS)),
+        grow(source.crop((167, 0, 317, 35)), "x", stretched(12, 138, 220)),
+        source.crop((317, 0, 324, 35)),
+        grow(source.crop((324, 0, 448, 35)), "x", stretched(12, 112, 84)),
+        source.crop((448, 0, 509, 35)),
+    ], "x")
+
+
+def overview_air_row(source):
+    """Air wing row, 509x35 to 861x35: a dark icon box with the plane count (0-96), an olive part with
+    the bar and the ace (97-136), then three dark boxes: name (137-266), base (267-392) and region with
+    the missions (393-508), the last one up to the row's end. The name box is the widest: a wing of
+    the user's playset is "Kampfgeschwader 253 'General Wever'" (258 px in hoi_18mbs).
+      icon 97 | olive 88 | name 290 | base 146 | region 240"""
+    return join([
+        source.crop((0, 0, 97, 35)),
+        grow(source.crop((97, 0, 137, 35)), "x", stretched(6, 34, OVERVIEW_BARS)),
+        grow(source.crop((137, 0, 267, 35)), "x", stretched(12, 118, 160)),
+        grow(source.crop((267, 0, 393, 35)), "x", stretched(12, 114, 20)),
+        grow(source.crop((393, 0, 509, 35)), "x", stretched(12, 100, 124)),
+    ], "x")
+
+
+# ---------------------------------------------------------------------------------------------
+# A8, the theatre boxes at the top right (theatreselector.gui). Every box and row grows by THEATRE_GROWTH
+# to the left; the numbers are shared with interface/zz_1440p_theatre_bar.gui.
+
+THEATRE_GROWTH = 120      # 300 -> 420: a theatre's name and up to 13 army shields side by side
+
+
+def theatre_box(frame):
+    """One frame of a theatre box, 305x77 to 425x77. Rows 0-36: a black name field (columns 13-204)
+    and two boxes at the right; the columns go into the name field. Rows 37-76: the tray of the army
+    shields, plain apart from an emblem at 120-175 in the grey frame; half the columns go in on each side
+    of it, so it stays in the middle."""
+    half = THEATRE_GROWTH // 2
+    return grow_bands(frame, "x", [
+        (0, 37, stretched(30, 190, THEATRE_GROWTH)),
+        (37, frame.height, stretched(60, 110, half) + stretched(190, 240, half)),
+    ])
+
+
+def theatre_strip(frame):
+    """One frame of the strip along the bottom of a box (assign_group_button), 299x35 to 419x35: oak
+    leaves at both ends; the grey frame has hands at 15-35 and 262-282 and an emblem at 129-168."""
+    half = THEATRE_GROWTH // 2
+    return grow(frame, "x", stretched(60, 115, half) + stretched(185, 240, half))
+
+
 # One entry per output texture. `frames` lists one widening call per frame of the source, left to right;
 # `compose` is a function that builds the whole output from the source instead.
 JOBS = [
@@ -804,6 +884,103 @@ JOBS = [
         "source": "gfx/interface/deployment_named_division_obsolete_bg.dds",
         "output": "rd_template_entry_obsolete.dds",
         "compose": template_row(mesh_rows=(13, 49), strip_rows=(52, 65), mesh_period=12),
+    },
+    {
+        # A6. Rows of the army overview: a division, a fleet, an air wing.
+        "source": "gfx/interface/armyoverview_entry_bg.dds",
+        "output": "ao_army_entry.dds",
+        "compose": overview_army_row,
+    },
+    {
+        "source": "gfx/interface/armyoverview_naval_entry_bg.dds",
+        "output": "ao_navy_entry.dds",
+        "compose": overview_navy_row,
+    },
+    {
+        "source": "gfx/interface/armyoverview_air_entry_bg.dds",
+        "output": "ao_air_entry.dds",
+        "compose": overview_air_row,
+    },
+    {
+        # Title bar, 543 to 893 wide: scratched metal up to the box of the close button at column 491.
+        "source": "gfx/interface/header_bg.dds",
+        "output": "ao_header_bg.dds",
+        "compose": lambda source: grow(source, "x", stretched(120, 480, OVERVIEW_GROWTH)),
+    },
+    {
+        # Picture strip under the title, three frames (army, navy, air) of 522 to 872: a painting that
+        # fades into a dark plate, plain from column 300 to the rim.
+        "source": "gfx/interface/overview_top_strip.dds",
+        "output": "ao_top_strip.dds",
+        "frames": [lambda f: grow(f, "x", stretched(320, 505, OVERVIEW_GROWTH))] * 3,
+    },
+    {
+        # Box of the filter, 190 to 320 wide: a dark field with rounded ends.
+        "source": "gfx/interface/edittextbox_bg1.dds",
+        "output": "ao_filter_bg.dds",
+        "compose": lambda source: grow(source, "x", stretched(20, 170, 130)),
+    },
+    {
+        # Plate under the list ("Active in 1 Theater(s)"), 516 to 866 wide.
+        "source": "gfx/interface/tradeview/trade_header.dds",
+        "output": "ao_bottom.dds",
+        "compose": lambda source: grow(source, "x", stretched(30, 490, OVERVIEW_GROWTH)),
+    },
+    {
+        # A8. A theatre box: five frames (army, grey, navy, reserve fleets, air).
+        "source": "gfx/interface/theater/theater_group_bg.dds",
+        "output": "ts_group_bg.dds",
+        "frames": [theatre_box] * 5,
+    },
+    {
+        "source": "gfx/interface/theater/assign_group_button.dds",
+        "output": "ts_assign_button.dds",
+        "frames": [theatre_strip] * 4,
+    },
+    {
+        # The frame around the chosen box, 303x74 to 423x74: lines, with marks at columns 12-42 and
+        # 274-302; plain between 183 and 274.
+        "source": "gfx/interface/theater/selected_theatre_frame.dds",
+        "output": "ts_selected_frame.dds",
+        "compose": lambda source: grow(source, "x", stretched(195, 265, THEATRE_GROWTH)),
+    },
+    {
+        # The rows under a box (an army group's armies, a fleet row), 301x33 and 301x39 to 421 wide,
+        # four frames each: plain between the edges at 3 and 298.
+        "source": "gfx/interface/theater/theatre_dropdown_middle.dds",
+        "output": "ts_dropdown_middle.dds",
+        "frames": [lambda f: grow(f, "x", stretched(60, 240, THEATRE_GROWTH))] * 4,
+    },
+    {
+        "source": "gfx/interface/theater/theatre_dropdown_bottom.dds",
+        "output": "ts_dropdown_bottom.dds",
+        "frames": [lambda f: grow(f, "x", stretched(60, 240, THEATRE_GROWTH))] * 4,
+    },
+    {
+        # The "new theatre" button under the boxes, 303x37 to 423x37: plain between its ends.
+        "source": "gfx/interface/theater/theater_group_assign_btn.dds",
+        "output": "ts_new_group_button.dds",
+        "compose": lambda source: grow(source, "x", stretched(40, 260, THEATRE_GROWTH)),
+    },
+    {
+        # A strategic region under a box, 198x39 to 318x39, three frames: plain between 30 and 165.
+        "source": "gfx/interface/theatre_selection_background.dds",
+        "output": "ts_region_bg.dds",
+        "frames": [lambda f: grow(f, "x", stretched(40, 160, THEATRE_GROWTH))] * 3,
+    },
+    {
+        # A7. A plane type in the air wing reorganisation window, 458 to 578 wide, two frames: olive
+        # bands, plain from column 60 to the dark column at 365; the clasps of the top and bottom edges
+        # sit at 212-245, so the columns go in after them.
+        "source": "gfx/interface/equipment_item_large_02.dds",
+        "output": "aw_equipment_entry.dds",
+        "frames": [lambda f: grow(f, "x", stretched(260, 355, 120))] * 2,
+    },
+    {
+        # Plate of one modifier, 74 to 120 wide: seven of them fill a row of the wider header.
+        "source": "gfx/interface/modifiers/MODIFIER_bg.dds",
+        "output": "ao_modifier_bg.dds",
+        "compose": lambda source: grow(source, "x", stretched(14, 56, 46)),
     },
 ]
 
