@@ -152,7 +152,8 @@
     "Portraits at 86x116 (scale 0.55): sharp, inside the white box",
     "Traits of a general with five (Guderian), Details and Promote, the capacity box",
     "The sort buttons over their columns: skill, name, the four skills, capacity",
-    "Field marshals and an army group's commander pick; Show Field Officers / New Commander; Unassign"
+    "Field marshals and an army group's commander pick; Show Field Officers / New Commander; Unassign",
+    "Row backgrounds the code swaps by state, each 760 wide like the row: an army group's pick (field marshals gold with the banner, generals grey), the assigned commander striped, a field marshal in an army's list"
   ],
   "_note": "C2 (2026-10-16): 800x1180 with eight generals of 128 px; portraits at scale 0.55. Recipe and vanilla reference from the survey of 2026-10-08; the vanilla crop is in the full frame (reference/vanilla/leader_selection.jpg)."
 }

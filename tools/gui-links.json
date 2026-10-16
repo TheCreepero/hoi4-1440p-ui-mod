@@ -84,6 +84,21 @@
       "entry": "modifier_entry"
     },
     {
+      "grid": "army_header/sub_units_grid",
+      "window": "countryarmyview",
+      "entry": "army_view_subunit_entry"
+    },
+    {
+      "grid": "navy_header/ships_count_grid",
+      "window": "countryarmyview",
+      "entry": "navy_view_ship_entry"
+    },
+    {
+      "grid": "air_header/count_grid",
+      "window": "countryarmyview",
+      "entry": "air_view_plane_entry"
+    },
+    {
       "grid": "item_grid",
       "entry": "production_military_line_entry",
       "window": "countryproductionlineview"
@@ -137,6 +152,18 @@
       "grid": "item_grid",
       "entry": "production_consumergoods_line_entry",
       "window": "countryproductionlineview"
+    },
+    {
+      "grid": "list_left/list",
+      "entry": "air_wing_reorganization_equipment_entry_left",
+      "window": "air_wing_reorganization",
+      "_comment": "a7-reorg: a plane card of the reserve list; the code fills the grid of list_left, one card per plane type."
+    },
+    {
+      "grid": "list_right/list",
+      "entry": "air_wing_reorganization_equipment_entry_right",
+      "window": "air_wing_reorganization",
+      "_comment": "a7-reorg: a plane card of the wing list; the code fills the grid of list_right, one card per plane type."
     }
   ],
   "listRows": [

@@ -1,73 +1,97 @@
 # Screen 'theatre_bar', reworked for 2560x1440.
 # Overrides single top-level windows of the vanilla interface files; the vanilla files stay in place and
 # supply every other window. The untouched vanilla text of each window is in baseline/.
+#
+# A8 redesign (2026-10-16): every box is a card of 424x86 drawn over its 420x88 window at x 310, so the
+# right edge stays at screen x 2530 (fix round 1: 8 px taller, so the 28 px chips at y 9 sit inside the
+# grey of the title plate). A card has a title plate (y 4-44, grey 8-37) and a units band (y 46-81) in its
+# texture (GFX_1440p_TS_card, tools/stretch_background.py), and a 6 px stripe down its left side in the
+# colour of the frame the code gives. The chips behind the battle widgets, the counts and the priorities
+# are mod1440_ts_* icons drawn behind widgets that stay where the code looks for them; they let every
+# click through (alwaystransparent). The rows under a box are drawers of the same width.
 guiTypes = {
 	# Windows from vanilla interface/theatreselector.gui
 	containerWindowType = {
 		name = "theater_group_item"
 		position = { x=310 y=15 }
-		size = { width=420 height=80 }
-		
+		size = { width=420 height=88 }
+
 		iconType = {
 			name ="background"
-			quadTextureSprite = "GFX_1440p_TS_group_bg"	
+			quadTextureSprite = "GFX_1440p_TS_card"
 			position = { x = 0 y = 0 }
 			frame = 2
 		}
-		
+
 		iconType = {
 			name ="selected_theatre_frame"
-			quadTextureSprite = "GFX_1440p_TS_selected_frame"	
-			position = { x = 0 y = 2 }
+			quadTextureSprite = "GFX_1440p_TS_selected_frame"
+			position = { x = 0 y = 0 }
 			alwaystransparent = yes
 		}
-		
+
  		buttonType = {
 			name = "assign_button"
-			position = { x = 3 y= 38 }
-			spriteType = "GFX_1440p_TS_assign_button"
+			position = { x = 12 y= 46 }
+			spriteType = "GFX_1440p_TS_band"
 		}
-		
+
+		# the battle chip left of the name: combat log, attack and defence, each count beside its icon
+		iconType = {
+			name = "mod1440_ts_battle_plate"
+			spriteType = "GFX_1440p_TS_chip_battle"
+			position = { x = 62 y = 9 }
+			alwaystransparent = yes
+		}
+
+		# the count of divisions on a chip of its own at the right end of the band
+		iconType = {
+			name = "mod1440_ts_count_plate"
+			spriteType = "GFX_1440p_TS_chip_count"
+			position = { x = 362 y = 50 }
+			alwaystransparent = yes
+		}
+
 		buttonType = {
 			name = "settings_button"
-			position = { x=9 y=11 }	
+			position = { x=17 y=11 }
 			spriteType = "GFX_theater_group_settings_btn"
 		}
-				
+
 		instantTextBoxType = {
 			name = "armies_count_box"
-			position = { x = 376 y = 46 }
+			position = { x = 362 y = 54 }
 			font = "hoi_18mbs"
-			maxWidth = 40
-			maxHeight = 32
+			maxWidth = 48
+			maxHeight = 22
 			fixedsize = yes
-			format = right
+			format = centre
 		}
 
 		editBoxType = {
 			name = "name_box"
-			position = { x = 38 y = 13 }
+			position = { x = 196 y = 11 }
 			font = "hoi_18mbs"
-			size = { x=265 y=32 }
+			size = { x=212 y=24 }
 			text = "NEW_THEATER_GROUP"
 		}
-		
+
 		iconType = {
 			name ="theater_supply_priority"
-			quadTextureSprite = "GFX_unitlist_priority_icon_strip"	
-			position = { x = 302 y = 9 }
+			quadTextureSprite = "GFX_unitlist_priority_icon_strip"
+			position = { x = 42 y = 11 }
 			frame = 2
 		}
-		
+
 		OverlappingElementsBoxType = {
 			name = "orders_group_box"
 			first_on_top = yes
-			position = { x = 10 y = 43 }
-			size = { x = 380 y = 23 }
+			position = { x = 18 y = 52 }
+			size = { x = 338 y = 23 }
 			format = left
 			spacing = 12.0
 		}
-		
+
 		OverlappingElementsBoxType = {
 			name = "alerts"
 			position = { x = -550 y = 0 }
@@ -76,21 +100,21 @@ guiTypes = {
 			format = right
 			spacing = 1.0
 		}
-		
+
 		buttonType = {
 			name ="attack_combat_btn"
 			spriteType = "GFX_theatre_battle_indicator"
-			position = { x = 352 y = 13 }
+			position = { x = 92 y = 10 }
 			frame = 1
-			scale= 0.9
+			scale= 0.8
 		}
-		
+
 		instantTextBoxType = {
 			name = "attack_combat_count"
-			position = { x = 355 y = 5 }
+			position = { x = 121 y = 14 }
 			font = "hoi_18mbs"
-			maxWidth = 32
-			maxHeight = 32
+			maxWidth = 20
+			maxHeight = 22
 			fixedsize = yes
 			format = left
 			text = "10"
@@ -100,26 +124,26 @@ guiTypes = {
 		buttonType = {
 			name ="combat_logs_btn"
 			spriteType = "GFX_theatre_combat_log_icon"
-			position = { x = 329 y = 5 }
-			scale = 0.9
+			position = { x = 66 y = 8 }
+			scale = 0.72
 		}
-		
+
 		buttonType = {
 			name ="defence_combat_btn"
 			spriteType = "GFX_theatre_battle_indicator"
-			position = { x = 389 y = 13 }
+			position = { x = 140 y = 10 }
 			frame = 2
-			scale = 0.9
+			scale = 0.8
 		}
-		
+
 		instantTextBoxType = {
 			name = "defence_combat_count"
-			position = { x = 383 y = 5 }
+			position = { x = 169 y = 14 }
 			font = "hoi_18mbs"
-			maxWidth = 32
-			maxHeight = 32
+			maxWidth = 20
+			maxHeight = 22
 			fixedsize = yes
-			format = right
+			format = left
 			text = "10"
 			alwaystransparent = yes
 		}
@@ -128,11 +152,11 @@ guiTypes = {
 	containerWindowType = {
 		name = "navy_theater_group_item"
 		position = { x=310 y=15 }
-		size = { width=420 height=80 }
+		size = { width=420 height=88 }
 
 		gridBoxType = {
 			name = "fleets_row_box"
-			position = { x = 0 y = 80 }
+			position = { x = 0 y = 88 }
 			Orientation = "UPPER_LEFT"
 			size = { width = 420 height = 260 }
 			max_slots_horizontal = 1
@@ -141,7 +165,7 @@ guiTypes = {
 
 		iconType = {
 			name ="background"
-			quadTextureSprite = "GFX_1440p_TS_group_bg"
+			quadTextureSprite = "GFX_1440p_TS_card"
 			position = { x = 0 y = 0 }
 			frame = 3
 		}
@@ -149,45 +173,60 @@ guiTypes = {
 		iconType = {
 			name ="selected_theatre_frame"
 			quadTextureSprite = "GFX_1440p_TS_selected_frame"
-			position = { x = 0 y = 2 }
+			position = { x = 0 y = 0 }
 			alwaystransparent = yes
 		}
 
 		buttonType = {
 			name = "assign_button"
-			position = { x = 3 y= 38 }
-			spriteType = "GFX_1440p_TS_assign_button"
+			position = { x = 12 y= 46 }
+			spriteType = "GFX_1440p_TS_band"
 			frame = 3
+		}
+
+		# the fleet priority on a chip at the right end of the title
+		iconType = {
+			name = "mod1440_ts_priority_plate"
+			spriteType = "GFX_1440p_TS_chip_title"
+			position = { x = 364 y = 9 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_ts_count_plate"
+			spriteType = "GFX_1440p_TS_chip_count"
+			position = { x = 362 y = 50 }
+			alwaystransparent = yes
 		}
 
 		instantTextBoxType = {
 			name = "ship_count_box"
-			position = { x = 376 y = 46 }
+			position = { x = 362 y = 54 }
 			font = "hoi_18mbs"
 			text = "999"
-			maxWidth = 40
-			maxHeight = 32
+			maxWidth = 48
+			maxHeight = 22
 			fixedsize = yes
-			format = right
+			format = centre
 		}
 
 		editBoxType = {
 			name = "theater_name_box"
-			position = { x = 38 y = 13 }
+			position = { x = 22 y = 11 }
 			font = "hoi_18mbs"
-			size = { x=290 y=32 }
+			size = { x=330 y=24 }
 			text = "NEW_THEATER_GROUP"
 		}
 
 		OverlappingElementsBoxType = {
 			name = "fleets_box"
 			first_on_top = yes
-			position = { x = 10 y = 43 }
-			size = { x = 380 y = 23 }
+			position = { x = 18 y = 52 }
+			size = { x = 338 y = 23 }
 			format = left
 			spacing = 8.0
 		}
-		
+
 		OverlappingElementsBoxType = {
 			name = "alerts"
 			position = { x = -550 y = 0 }
@@ -199,72 +238,88 @@ guiTypes = {
 
 		ButtonType = {
 			name = "priority_button"
-			position = { x = 385 y = 4 }
+			position = { x = 372 y = 7 }
 			quadTextureSprite ="GFX_fleet_theatre_priority_strip"
 			clicksound = click_default
+			scale = 0.85
 		}
 	}
 
 	containerWindowType = {
 		name = "reserve_navy_theater_group_item"
 		position = { x=310 y=18 }
-		size = { width=420 height=80 }
+		size = { width=420 height=88 }
 
 		iconType = {
 			name ="background"
-			quadTextureSprite = "GFX_1440p_TS_group_bg"	
+			quadTextureSprite = "GFX_1440p_TS_card"
 			position = { x = 0 y = 0 }
 			frame = 4
 		}
-		
+
 		iconType = {
 			name ="selected_theatre_frame"
-			quadTextureSprite = "GFX_1440p_TS_selected_frame"	
-			position = { x = 0 y = 2 }
+			quadTextureSprite = "GFX_1440p_TS_selected_frame"
+			position = { x = 0 y = 0 }
 			alwaystransparent = yes
 		}
-		
+
  		buttonType = {
 			name = "assign_button"
-			position = { x = 3 y= 38 }
-			spriteType = "GFX_1440p_TS_assign_button"
+			position = { x = 12 y= 46 }
+			spriteType = "GFX_1440p_TS_band"
 			frame = 3
 		}
-		
+
+		# the combat log on a chip at the right end of the title
+		iconType = {
+			name = "mod1440_ts_log_plate"
+			spriteType = "GFX_1440p_TS_chip_title"
+			position = { x = 362 y = 9 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_ts_count_plate"
+			spriteType = "GFX_1440p_TS_chip_count"
+			position = { x = 362 y = 50 }
+			alwaystransparent = yes
+		}
+
 		buttonType = {
 			name = "settings_button"
-			position = { x=9 y=11 }	
+			position = { x=17 y=11 }
 			spriteType = "GFX_theater_group_settings_btn"
 		}
-				
+
 		instantTextBoxType = {
 			name = "ship_count_box"
-			position = { x = 376 y = 46 }
+			position = { x = 362 y = 54 }
 			font = "hoi_18mbs"
 			text = "999"
-			maxWidth = 40
-			maxHeight = 32
+			maxWidth = 48
+			maxHeight = 22
 			fixedsize = yes
-			format = right
+			format = centre
 		}
-		
+
 		instantTextBoxType = {
 			name = "theater_name_box"
-			position = { x = 38 y = 13 }
+			position = { x = 46 y = 13 }
 			font = "hoi_18mbs"
 			alwaystransparent = yes
 			text = "RESERVE_NAVY_THEATER_GROUP_NAME"
 		}
-		
+
 		OverlappingElementsBoxType = {
 			name = "fleets_box"
 			first_on_top = yes
-			position = { x = 10 y = 43 }
-			size = { x = 380 y = 23 }
+			position = { x = 18 y = 52 }
+			size = { x = 338 y = 23 }
 			format = left
 			spacing = 8.0
 		}
-		
+
 		OverlappingElementsBoxType = {
 			name = "alerts"
 			position = { x = -550 y = 0 }
@@ -273,34 +328,34 @@ guiTypes = {
 			format = right
 			spacing = 1.0
 		}
-	
+
 		buttonType = {
 			name ="combat_logs_btn"
 			spriteType = "GFX_theatre_combat_log_icon"
-			position = { x = 329 y = 5 }
-			scale = 0.9
+			position = { x = 376 y = 10 }
+			scale = 0.72
 		}
 	}
 
 	containerWindowType = {
 		name = "new_theater_group_item"
 		position = { x=310 y=18 }
-		size = { width=420 height=40 }
-		
+		size = { width=420 height=36 }
+
 		buttonType = {
 			name = "new_theater_group_button"
-			position = { x = 0 y = 0 }
-			spriteType = "GFX_1440p_TS_new_group_button"
+			position = { x = 2 y = 0 }
+			spriteType = "GFX_1440p_TS_new_button"
 		}
-		
+
 		instantTextBoxType = {
 			name ="text"
-			position = { x = 10 y = 8 }
+			position = { x = 12 y = 7 }
 			font = "hoi_18mbs"
 			text = "100%"
 			format = centre
 			maxWidth = 400
-			maxHeight = 28
+			maxHeight = 24
 			fixedsize = yes
 			alwaystransparent = yes
 		}
@@ -310,13 +365,13 @@ guiTypes = {
 		name = "strategic_region_item"
 		position = { x = 310 y = 17 }
 		size = { width=420 height=50 }
-		
+
 		buttonType = {
 			name = "background"
 			position = { x = 82 y = 4 }
-			spriteType = "GFX_1440p_TS_region_bg"
+			spriteType = "GFX_1440p_TS_region_plate"
 		}
-		
+
 		buttonType = {
 			name = "pinned"
 			position = { x = 390 y = 6 }
@@ -325,7 +380,7 @@ guiTypes = {
 			pdx_tooltip = "THEATRE_PIN_AREA"
 			pdx_tooltip_delayed = "THEATRE_PIN_AREA_DESC"
 		}
-		
+
 		instantTextBoxType = {
 			name ="name"
 			position = { x = 118 y = 14 }
@@ -336,7 +391,7 @@ guiTypes = {
 			maxHeight = 36
 			fixedsize = yes
 		}
-		
+
 		OverlappingElementsBoxType = {
 			name = "alerts"
 			position = { x = -467 y = 0 }
@@ -354,27 +409,29 @@ guiTypes = {
 		}
 	}
 
+	# The rows under a box. The code sizes the row window (23x33) and shows either the middle or the
+	# bottom piece; both are 424 wide and continue the card's stripe in the frame the code gives.
 	containerWindowType = {
 		name = "army_group_box"
 		position = { x=0 y=0 }
 		size = { width=23 height=33 }
-		
+
 		buttonType = {
 			name = "army_group_box_middle_bg"
-			quadTextureSprite = "GFX_1440p_TS_dropdown_middle"	
+			quadTextureSprite = "GFX_1440p_TS_drawer_middle"
 			position = { x = 0 y = -8 }
 		}
 
 		buttonType = {
 			name = "army_group_box_bottom_bg"
-			quadTextureSprite = "GFX_1440p_TS_dropdown_bottom"	
+			quadTextureSprite = "GFX_theatre_dropdown_bottom"
 			position = { x = 0 y = -8 }
 		}
 
 		OverlappingElementsBoxType = {
 			name = "armies_box"
-			position = { x = 10 y = -6 }
-			size = { x = 380 y = 23 }
+			position = { x = 18 y = -6 }
+			size = { x = 338 y = 23 }
 			format = left
 			spacing = 12.0
 		}
@@ -385,23 +442,23 @@ guiTypes = {
 		position = { x=0 y=0 }
 		size = { width=23 height=33 }
 		clipping = no
-		
+
 		buttonType = {
 			name = "army_group_box_middle_bg"
-			quadTextureSprite = "GFX_1440p_TS_dropdown_middle"
+			quadTextureSprite = "GFX_1440p_TS_drawer_middle"
 			position = { x = 0 y = -8 }
 		}
 
 		buttonType = {
 			name = "army_group_box_bottom_bg"
-			quadTextureSprite = "GFX_1440p_TS_dropdown_bottom"
+			quadTextureSprite = "GFX_theatre_dropdown_bottom"
 			position = { x = 0 y = -8 }
 		}
 
 		OverlappingElementsBoxType = {
 			name = "navy_box"
-			position = { x = 6 y = -6 }
-			size = { x = 390 y = 23 }
+			position = { x = 18 y = -6 }
+			size = { x = 338 y = 23 }
 			first_on_top = yes
 			format = left
 			spacing = 20.0
@@ -409,14 +466,14 @@ guiTypes = {
 
 		buttonType = {
 			name = "split_off_btn"
-			position = { x=388 y=-6 }
+			position = { x=369 y=-8 }
 			spriteType = GFX_NV_btn_repair_symbol
 			frame = 2
 		}
 
 		instantTextBoxType = {
 			name = "split_off_count"
-			position = { x = 380 y = 4 }
+			position = { x = 361 y = 4 }
 			font = "hoi_18mbs"
 			maxWidth = 36
 			maxHeight = 23
@@ -436,19 +493,19 @@ guiTypes = {
 
 		buttonType = {
 			name = "army_group_box_middle_bg"
-			quadTextureSprite = "GFX_1440p_TS_dropdown_middle"
+			quadTextureSprite = "GFX_1440p_TS_drawer_middle"
 			position = { x = 0 y = -8 }
 		}
 
 		buttonType = {
 			name = "army_group_box_bottom_bg"
-			quadTextureSprite = "GFX_1440p_TS_dropdown_bottom"
+			quadTextureSprite = "GFX_theatre_dropdown_bottom"
 			position = { x = 0 y = -8 }
 		}
 
 		buttonType = {
 			name = "reserve_fleet_btn"
-			position = { x=10 y=-7 }
+			position = { x=18 y=-7 }
 			spriteType = GFX_NV_icon_reserve_fleet
 			pdx_tooltip = RESERVE_FLEETS_FOR_THIS_THEATER
 			pdx_tooltip_delayed = RESERVE_FLEETS_FOR_THIS_THEATER_DESC
@@ -456,8 +513,8 @@ guiTypes = {
 
 		OverlappingElementsBoxType = {
 			name = "navy_box"
-			position = { x = 41 y = -6 }
-			size = { x = 343 y = 23 }
+			position = { x = 52 y = -6 }
+			size = { x = 304 y = 23 }
 			first_on_top = yes
 			format = left
 			spacing = 20.0
@@ -465,14 +522,14 @@ guiTypes = {
 
 		buttonType = {
 			name = "split_off_btn"
-			position = { x=384 y=-6 }
+			position = { x=369 y=-8 }
 			spriteType = GFX_NV_btn_repair_symbol
 			frame = 2
 		}
 
 		instantTextBoxType = {
 			name = "split_off_count"
-			position = { x = 380 y = 4 }
+			position = { x = 361 y = 4 }
 			font = "hoi_18mbs"
 			maxWidth = 36
 			maxHeight = 23
@@ -486,44 +543,53 @@ guiTypes = {
 	containerWindowType = {
 		name = "air_theatre_free_wings_item"
 		position = { x=310 y=15 }
-		size = { width=420 height=80 }
+		size = { width=420 height=88 }
 
 		iconType = {
 			name ="unmoveable_background"
-			quadTextureSprite = "GFX_1440p_TS_group_bg"
+			quadTextureSprite = "GFX_1440p_TS_card"
 			position = { x = 0 y = 0 }
 			frame = 5
 		}
 
+		# the three priorities on a chip at the right end of the title
+		iconType = {
+			name = "mod1440_ts_priority_plate"
+			spriteType = "GFX_1440p_TS_chip_air"
+			position = { x = 330 y = 9 }
+			alwaystransparent = yes
+		}
+
 		instantTextBoxType = {
 			name = "theater_name_box"
-			position = { x = 38 y = 13 }
+			position = { x = 22 y = 13 }
 			font = "hoi_18mbs"
-			maxWidth = 290
-			maxHeight = 32
+			maxWidth = 300
+			maxHeight = 24
 			text = "UNASSIGNED_AIR_WINGS"
 			fixedsize = yes
 		}
 
 		buttonType = {
 			name = "unmoveable_assign_button"
-			position = { x = 3 y= 38 }
-			spriteType = "GFX_1440p_TS_assign_button"
+			position = { x = 12 y= 46 }
+			spriteType = "GFX_1440p_TS_band"
 			frame = 4
 		}
 
+		# no count in this box: the wings take the whole band
 		OverlappingElementsBoxType = {
 			name = "air_groups_box"
 			first_on_top = yes
-			position = { x = 10 y = 43 }
-			size = { x = 380 y = 23 }
+			position = { x = 18 y = 52 }
+			size = { x = 392 y = 23 }
 			format = left
 			spacing = 8.0
 		}
 
 		buttonType = {
 			name = "priority_1"
-			position = { x=345 y=13 }
+			position = { x=338 y=12 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1
@@ -531,7 +597,7 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "priority_2"
-			position = { x=367 y=13 }
+			position = { x=362 y=12 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1
@@ -539,7 +605,7 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "priority_3"
-			position = { x=389 y=13 }
+			position = { x=386 y=12 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1
@@ -550,26 +616,33 @@ guiTypes = {
 	containerWindowType = {
 		name = "air_theatre_item"
 		position = { x=310 y=15 }
-		size = { width=420 height=80 }
+		size = { width=420 height=88 }
 
 		iconType = {
 			name ="background"
-			quadTextureSprite = "GFX_1440p_TS_group_bg"
+			quadTextureSprite = "GFX_1440p_TS_card"
 			position = { x = 0 y = 0 }
 			frame = 5
 		}
 
+		iconType = {
+			name = "mod1440_ts_priority_plate"
+			spriteType = "GFX_1440p_TS_chip_air"
+			position = { x = 330 y = 9 }
+			alwaystransparent = yes
+		}
+
 		editBoxType = {
 			name = "theatre_name_box"
-			position = { x = 38 y = 13 }
+			position = { x = 22 y = 11 }
 			font = "hoi_18mbs"
-			size = { x=290 y=32 }
+			size = { x=300 y=24 }
 			text = "NEW_THEATER_GROUP"
 		}
 
 		buttonType = {
 			name = "priority_1"
-			position = { x=345 y=13 }
+			position = { x=338 y=12 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1
@@ -577,7 +650,7 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "priority_2"
-			position = { x=367 y=13 }
+			position = { x=362 y=12 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1
@@ -585,7 +658,7 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "priority_3"
-			position = { x=389 y=13 }
+			position = { x=386 y=12 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1
@@ -594,41 +667,48 @@ guiTypes = {
 
 		buttonType = {
 			name = "assign_button"
-			position = { x = 3 y= 38 }
-			spriteType = "GFX_1440p_TS_assign_button"
+			position = { x = 12 y= 46 }
+			spriteType = "GFX_1440p_TS_band"
 			frame = 4
+		}
+
+		iconType = {
+			name = "mod1440_ts_count_plate"
+			spriteType = "GFX_1440p_TS_chip_count"
+			position = { x = 362 y = 50 }
+			alwaystransparent = yes
 		}
 
 		OverlappingElementsBoxType = {
 			name = "air_groups_box"
 			first_on_top = yes
-			position = { x = 10 y = 43 }
-			size = { x = 380 y = 23 }
+			position = { x = 18 y = 52 }
+			size = { x = 338 y = 23 }
 			format = left
 			spacing = 8.0
 		}
 
 		instantTextBoxType = {
 			name = "air_wing_count_box"
-			position = { x = 376 y = 46 }
+			position = { x = 362 y = 54 }
 			font = "hoi_18mbs"
 			text = "999"
-			maxWidth = 40
-			maxHeight = 32
+			maxWidth = 48
+			maxHeight = 22
 			fixedsize = yes
-			format = right
+			format = centre
 		}
 
 		iconType = {
 			name ="selected_theatre_frame"
 			quadTextureSprite = "GFX_1440p_TS_selected_frame"
-			position = { x = 0 y = 2 }
+			position = { x = 0 y = 0 }
 			alwaystransparent = yes
 		}
 
 		gridBoxType = {
 			name = "air_groups_row_box"
-			position = { x = 0 y = 80 }
+			position = { x = 0 y = 88 }
 			Orientation = "UPPER_LEFT"
 			size = { width = 420 height = 260 }
 			max_slots_horizontal = 1
@@ -644,20 +724,20 @@ guiTypes = {
 
 		buttonType = {
 			name = "army_group_box_middle_bg"
-			quadTextureSprite = "GFX_1440p_TS_dropdown_middle"
+			quadTextureSprite = "GFX_1440p_TS_drawer_middle"
 			position = { x = 0 y = -8 }
 		}
 
 		buttonType = {
 			name = "army_group_box_bottom_bg"
-			quadTextureSprite = "GFX_1440p_TS_dropdown_bottom"
+			quadTextureSprite = "GFX_theatre_dropdown_bottom"
 			position = { x = 0 y = -8 }
 		}
 
 		OverlappingElementsBoxType = {
 			name = "air_box"
-			position = { x = 6 y = -6 }
-			size = { x = 390 y = 23 }
+			position = { x = 18 y = -6 }
+			size = { x = 338 y = 23 }
 			first_on_top = yes
 			format = left
 			spacing = 8.0

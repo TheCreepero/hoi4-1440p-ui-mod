@@ -54,3 +54,7 @@ The aces of the air force: who, in which wing, since when, and what became of th
 - [ ] Engine Facts rows; `wiki/Scripted-GUIs.md`
 - [ ] README and Workshop description, if Plan A
 - [ ] Scene file and recipe (`tools/scenes/aces.json`), if Plan A
+
+## Redesign build (2026-10-16)
+
+Status: **built and checked by render and tests; not seen in game.** Plan B stays. The three counters (aces promoted, aces lost, enemy aces down) stand among the twelve tiles of "The country at war" on the Wars page, beside the two counters of the prides of a fleet (`mod1440_ct` of the kinds `pride_sunk` and `pride_lost`); the diary's air and sea lines keep their family and filter. The tab bar of the Records window has a fifth place free for Plan A, a roll of aces, once an air war shows that an ace can be kept: the "MOD1440 listening" lines of the hooks are not in today's `game.log`, which the game writes anew at each start, so that says nothing yet. Game check and checklist: the [E4 notes](E4-war-ledger.md).

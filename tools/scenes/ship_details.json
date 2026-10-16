@@ -51,7 +51,8 @@
       "dominance_value": "352",
       "support_value": "0",
       "captain": "Kapitän zur See Hans Langsdorff",
-      "title": "Air Wings"
+      "title": "Air Wings",
+      "captain_experience": "Experience: 12"
     },
     "stat_entry": {
       "label": [
@@ -164,7 +165,35 @@
           "support_icon",
           "support_value"
         ]
-      }
+      },
+      "rows": {
+        "history_grid": 8
+      },
+      "samples": {
+        "army_history_entry": {
+          "date_field": [
+            "§Y1939.09.30§!",
+            "§Y1939.10.05§!",
+            "§Y1939.10.22§!",
+            "§Y1939.11.15§!",
+            "§Y1939.12.02§!",
+            "§Y1939.12.07§!",
+            "§Y1939.12.13§!",
+            "§Y1939.12.17§!"
+          ],
+          "text_field": [
+            "Sunk SS Clement (Cargo Ship)",
+            "Sunk SS Newton Beech (Cargo Ship)",
+            "Sunk SS Ashlea (Cargo Ship)",
+            "Sunk SS Africa Shell (Tanker)",
+            "Sunk SS Doric Star (Cargo Ship)",
+            "Sunk SS Streonshalh (Cargo Ship)",
+            "Took part in the Battle of the River Plate against HMS Exeter, HMS Ajax and HMNZS Achilles.",
+            "Scuttled off Montevideo."
+          ]
+        }
+      },
+      "_render_note": "Sample rows: a 1936 ship has no history."
     },
     {
       "name": "carrier",
@@ -225,15 +254,17 @@
     700
   ],
   "manual": [
-    "Tooltips on stat rows and sea terrain adjusters",
-    "Renaming the ship, Pride of the Fleet, Delete",
-    "States a 1936 start does not show: a captain, history entries and medals"
+    "Tooltips on stat tiles and sea terrain adjusters",
+    "Renaming the ship, Pride of the Fleet, Delete, Promote of a captain (also with shift+z)",
+    "States a 1936 start does not show: a captain (card at the top right, and on a carrier the wing card under it), history entries and medals"
   ],
   "checklist": [
-    "Stats tab: every label and value on its row",
-    "A carrier: the air wing list in the side panel",
-    "History and Design tabs",
-    "The window can be dragged by its title bar and its side panel"
+    "Stats tab of a ship without captain or air wings: the panel is 794 wide and nothing stands beside it",
+    "The title strip with the title, manpower, fuel, delete and close; the identity card with the class icon, the name field and the experience",
+    "Every stat on its tile; the picture band under the Misc card with the class picture, Pride of the Fleet, dominance and support values and the four sea terrain adjusters",
+    "A carrier: the Air Wings card beside the panel at the top, its rows inside the card",
+    "History tab: the summary card (Honors, captain experience) and the dark list card; no picture band",
+    "The window can be dragged by its panel and by the air wing card"
   ],
   "teardown": [
     {
@@ -244,7 +275,17 @@
   "states": [
     {
       "name": "captain",
-      "_note": "A ship with a captain: not reachable in a 1936 start, drawn by the renderer only.",
+      "_note": "A ship with a captain and no air wings: not reachable in a 1936 start, drawn by the renderer only. The captain card is the background of captain_window, beside the panel.",
+      "hide": {
+        "ship_stats_window": [
+          "air_wings",
+          "history"
+        ]
+      }
+    },
+    {
+      "name": "carrier-captain",
+      "_note": "A carrier with a captain: the code is expected to put air_wings at taog_carrier_air_wings_list_position (1058,116), under the captain card. Render with --state carrier-captain --place air_wings=1058,116.",
       "hide": {
         "ship_stats_window": [
           "history"

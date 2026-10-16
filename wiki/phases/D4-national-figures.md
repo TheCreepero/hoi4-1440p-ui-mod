@@ -1,6 +1,6 @@
 # Phases D4 and D5: National Figures and History, opened from Politics
 
-Two pages in one window beside the politics panel: the country's summed modifiers and figures today, and twelve of its figures month by month. Status: done on 2026-10-12. The user after playing: "This is good, everything seems to be working, including the history ticks", so the monthly recording of D5 runs. The pages are described in [Scripted GUIs](../Scripted-GUIs.md).
+Two pages in one window beside the politics panel: the country's summed modifiers and figures today, and twelve of its figures month by month. Status: done on 2026-10-12; redesigned on 2026-10-16 into one page docked to Politics, built and checked by render and tests, not seen in game (see "Redesign build" at the end). The user after playing: "This is good, everything seems to be working, including the history ticks", so the monthly recording of D5 runs. The pages are described in [Scripted GUIs](../Scripted-GUIs.md).
 
 ## Scope
 
@@ -78,3 +78,53 @@ Both: **not checked in game on 2026-10-12** (the launch was refused that session
 - [x] Finished pages stored under `reference/mod/`
 - [ ] The tester's judgement: which modifiers belong on the page, which figures on the graph
 - [x] The tester's look after 1 February of a game: the columns appear (reported 2026-10-12)
+
+## Redesign build (2026-10-16)
+
+Status: **built and checked by render and tests; not seen in game.** The user approved proposal d4-figures of the redesign pass and chose every decision (review page of 2026-10-16): docked to Politics, the ideology kept and moved, What applies by default, all twenty figures recorded, party popularity left to the panel.
+
+What was built:
+
+- **One page, docked.** National Figures and History are one page, `mod1440_figures`, 1680x1210, attached to `politics_tab` at 556,0 (screen 550,78 to 2230,1288, short of the theatre box). It opens and closes with Politics, is hidden by default and remembers per country whether it was open (`mod1440_nf_open`). Shift+M and the Figures button in the title strip of Politics (92 px at 359, beside Better Mechanics' button) fold it, and so does its own close button; Escape is left to the game, which closes Politics and the page with it. The History page, its window `mod1440_history` and its switch buttons are gone.
+- **The override of Politics:** `interface/zz_1440p_politics.gui` holds `countrypoliticsview` as vanilla has it (baseline under `baseline/countrypoliticsview/`), with `clipping = no` on the window so that the page is drawn beside it [SGUI-005]. Three more values, all read with `tools/Compare-Baseline.ps1 zz_1440p_politics.gui -Group`: the `ideology` text of `ruling_party_info` one line lower (y 8 to 27), the `elections` text under it (y 29 to 45, maxHeight 32 to 18), and `scroll_wheel_factor` of `ideas` 40 to 106 (a whole row of idea categories, as the tests ask of every list).
+- **The ideology and Road to 56.** The render found no free spot of a whole line inside the plate of 255x60 as vanilla lays it out: RT56's sub-ideology takes the first line (9,8, 155 px), the election text the rest, and the pie chart starts 19 px right of the plate. So the plate has three lines now: line 1 is left to RT56's `[GetSubIdeology]`, line 2 holds the ideology, line 3 the election text, which fits one line ("Next Election 1940.11.10" is 145 of 155 px). Without RT56 the first line is empty. The decision's fallback (moving `ideology` to y 600 and naming the ideology in the page's title strip) was not needed.
+- **Twenty tiles that choose the graph** (two rows, two groups of five, 155x62): civilian factories (with how many are free), military factories and dockyards (idle), research slots, technologies; political power and command power with their daily gain; stability and war support with their bars; states; free manpower, manpower in the field, divisions, infantry equipment, casualties; fuel with its bar; convoys, trains, ships, planes. Every tile is a button (its sprite is the plate) and the chosen one has the lighter pick plate; under the value stands the change in a month, green or red (red for a rise of casualties), or "no change".
+- **The graph across the page:** the chosen figure's name and unit, six plates (latest, in a month, in a year, highest, lowest, since the first month), the months on record and Zoom in; 120 columns of 10 px on 12 px steps, 240 high (one step per pixel), on two darker quarter bands; the scale, the year marks and the two dates as before.
+- **Four lists of modifiers** (cards of 404x576): Politics and Diplomacy, Industry with the live resource table under it, Army and Manpower, Navy, Air and Research. Each card is a scrolling list (`dynamic_lists`) of arrays of the country: a head per group ("Politics", "6 of 12") and one row per modifier. The effect `mod1440_nf_fill` makes them when the page opens, when the view changes and each day while the page is open: per group a head, then every modifier that is not 0, or in the All view every one, with its label as a text key held in an array [SCR-015] and a copy of its value. A row shows one of seven ways of writing a value by a `_visible` trigger on its kind [SGUI-021], and a white label or, for 0, a grey one. The card titles count what applies ("9 of 20 apply").
+- **The two views,** What applies (default) and All modifiers, are two buttons in the title strip; the chosen one has the second frame and a yellow caption.
+- **Twenty figures written down monthly.** The first twelve keep their arrays `mod1440_h_0` to `_11`; the eight new ones are `mod1440_h_12` to `_19` (research slots, technologies, command power, states, convoys, trains, ships, planes). A save of the build before has twelve: `mod1440_h_record` and `mod1440_h_draw` put -1 in front of a newer series for every month it was not written down. A -1 is drawn as no column (the column's `_visible` trigger) and counts for neither the highest, the lowest, the first month nor the changes. At most 2400 numbers per player country.
+- **No `dirty`:** the tiles and the resource table are live texts, so the page is drawn every tick, as the old National Figures was [SGUI-039]; the lists and the graph come from arrays that the effects make.
+- `tools/check_effects.py` fills all twenty figures, and its new `mod1440_chk_months_twelve` fills the first twelve only, as a save of the build before has them.
+
+Deviations from the design:
+
+- The view buttons are `GFX_sort_button_140x29` at 330 and 480, not `GFX_button_123x34`: the game's 123 px button has one frame, so it could not show which view is chosen.
+- The ideology moved one line down inside the plate and the election text with it (above); the design left the spot to the render.
+- The labels of the mod that script holds as tokens (the group names and the eleven labels of the mod) have keys in lower case (`mod1440_nf_grp_politics`, `mod1440_nf_politics_0`), as the Records' tokens do. The game's own modifier keys are upper case (`MODIFIER_POLITICAL_POWER_FACTOR`), as the game defines them.
+
+Not seen in game:
+
+- That the page shows beside the panel and takes clicks there with `clipping = no` on `countrypoliticsview` (expected from SGUI-005, seen on Recruit & Deploy).
+- That the advisor and law picker opens above the docked page.
+- The labels fetched with `GetTokenLocalizedKey` from the game's upper-case `MODIFIER_*` keys, and the two whose text starts with a text icon (`£prod_eff`, `£prod_eff_cap`).
+- Every value against the game: the list values against the tooltips of their sources; command power and its gain against the top bar; the changes under the tiles after two months.
+- The padding of a save made by the build before (the check effect `mod1440_chk_months_twelve` makes one up); the eight new series in the user's game after a month.
+- With the user's playset: RT56's sub-ideology on line 1 of the plate, Better Mechanics' button and container at 0,0 of the tab, the page over the RT56 interface.
+
+Game check, when the user allows a launch:
+
+```
+tools/Invoke-GameCheck.ps1 national_figures history politics
+```
+
+Checklist for the tester:
+
+1. Politics (Q): the panel as vanilla but for the ruling party plate, where the ideology stands on the second line and the election text on the third.
+2. Shift+M, the Figures button and the page's close button open and fold the page beside the panel; it takes clicks; Escape closes Politics and the page; Politics opened again shows the page as it was left.
+3. An advisor slot of the panel: the picker stands above the page.
+4. What applies lists only the modifiers that are not 0 (Germany 1936: about 28 rows and 8 heads); All modifiers lists all 103, those that are 0 in grey, and the long lists scroll. The counts in the heads and the card titles agree with the rows.
+5. The labels: every row has its name, also the two production efficiency rows of Industry (is the icon drawn?).
+6. Three modifiers against the tooltip of their source (a law, a spirit, an advisor); command power and its daily gain against the top bar.
+7. A click on a tile draws its figure; the chosen tile has the lighter plate; the six plates and the scale against the columns; Zoom in.
+8. `effect mod1440_chk_months` and `effect mod1440_chk_months_twelve` (after `python -I tools/check_effects.py`): 120 columns for every figure; with the second, the eight new figures without columns ("Nothing is written down for this figure yet").
+9. With the playset (`tools/Invoke-GameSteps.ps1 -Start -Playset`): RT56's sub-ideology on the first line of the plate, the ideology under it.

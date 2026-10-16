@@ -66,7 +66,9 @@ BeforeAll {
         'set_temp_variable', 'add_to_temp_variable', 'subtract_from_temp_variable', 'multiply_temp_variable',
         'divide_temp_variable', 'round_temp_variable', 'add_to_array', 'add_to_temp_array', 'remove_from_array', 'clear_array',
         'clear_temp_array', 'resize_array', 'find_highest_in_array', 'find_lowest_in_array',
-        'free_building_slots', 'is_in_array', 'has_country_leader', 'date'
+        'free_building_slots', 'is_in_array', 'has_country_leader', 'date',
+        # --- e-diary-wars and e-officers-gov (2026-10-16): the marks of a war's track; the count of an officer's traits
+        'clamp_temp_variable'
     )
     # Commands that write to the game itself, each with the page that needs it (wiki/Roleplay-Pages.md, the
     # changed rule). add_history_entry: a line in a division's own history, phase E6. Nothing else.
@@ -90,7 +92,13 @@ BeforeAll {
         # portraits and victory points (2026-10-13): whether a character is a certain one, whether the country is at war
         'is_character', 'has_character', 'has_war',
         # the map of another mod (2026-10-13): the states of the loaded game are counted to tell which map it is
-        'every_state'
+        'every_state',
+        # --- d3-states --- the band of the chosen state (2026-10-16): what is asked of a state for its card and chips
+        'is_owned_by', 'has_state_category', 'is_coastal', 'is_island_state', 'is_demilitarized_zone', 'has_border_war',
+        # --- e-diary-wars (2026-10-16): the days each state taken is held, for its card
+        'every_controlled_state',
+        # e-officers-gov (2026-10-16): an officer's traits, kept on him, and his status under his name
+        'has_trait', 'is_general_captured', 'is_leading_army_group'
     )
 
     # Adds to $Into every command of a block that is neither allowed nor an effect of the mod's own.
@@ -195,10 +203,10 @@ Describe 'Scripted GUIs' {
 
     It 'belong to the player and to nobody else' {
         # One exception: the card in the state view belongs to the state the player has selected, and shows
-        # itself only for a state the player controls.
+        # itself only for a state the player controls. So does its line of who took it (e-diary-wars).
         $problems = foreach ($gui in $script:Guis) {
             $context = Get-GuiValue -Node $gui.Node -Key 'context_type'
-            if ($gui.Name -eq 'mod1440_state_card') {
+            if ($gui.Name -eq 'mod1440_state_card' -or $gui.Name -eq 'mod1440_state_card_by') {
                 if ($context -ne 'selected_state_context') { "$($gui.Name): context is not selected_state_context" }
                 $visible = Get-GuiBlock -Node $gui.Node -Key 'visible'
                 if (-not $visible -or (Get-GuiValue -Node $visible -Key 'is_controlled_by') -ne 'ROOT') { "$($gui.Name): not limited to states the player controls" }

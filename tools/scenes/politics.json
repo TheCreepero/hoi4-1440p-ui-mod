@@ -1,18 +1,38 @@
 {
   "_comment": "Scene for the politics panel. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
   "screen": "politics",
-  "phase": "C",
+  "phase": "D4",
   "file": "zz_1440p_politics.gui",
   "screenshot": "reference/vanilla/politics.jpg",
-  "windows": [],
-  "samples": {},
+  "windows": [
+    {
+      "name": "countrypoliticsview",
+      "at": [
+        -6,
+        78
+      ],
+      "height": 1362,
+      "sidePanel": true,
+      "_note": "The vanilla window with clipping = no, so that the National Figures page docked to politics_tab shows beside it (D4)."
+    }
+  ],
+  "samples": {
+    "countrypoliticsview": {
+      "ideology": "Fascist",
+      "elections": "Next Election 1940.11.10",
+      "political_title": "Political",
+      "manage_occupied_button_text": "Occupied territories"
+    }
+  },
   "setup": [
     {
       "move": "open_politics"
     }
   ],
   "captures": [],
-  "expect": [],
+  "expect": [
+    "countrypoliticsview/political_title"
+  ],
   "crop": [
     0,
     60,
@@ -20,6 +40,9 @@
     1140
   ],
   "manual": [],
-  "checklist": [],
-  "_note": "Backlog screen: recipe and vanilla reference only. No windows listed yet; add them with tools/New-OverrideFile.ps1 when the phase starts."
+  "checklist": [
+    "The panel looks as vanilla: portrait, focus, spirits, faction, the ruling party plate, the parties, the three buttons, the idea categories",
+    "The Figures button in the title strip opens National Figures beside the panel; Escape closes the panel and the page with it"
+  ],
+  "_note": "Overridden since D4 for one line: clipping = no on countrypoliticsview, and the ideology text of ruling_party_info moved (wiki/phases/D4-national-figures.md)."
 }

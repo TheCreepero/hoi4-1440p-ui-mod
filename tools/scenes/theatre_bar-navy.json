@@ -1,0 +1,98 @@
+{
+  "_comment": "Scene for the theatre boxes at the top right (the navy theatre of a selected fleet). Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "screen": "theatre_bar-navy",
+  "phase": "A8",
+  "file": "zz_1440p_theatre_bar.gui",
+  "screenshot": "reference/vanilla/theatre_bar-navy.jpg",
+  "windows": [
+    {
+      "name": "theatre_selection_window",
+      "at": [
+        1800,
+        117
+      ],
+      "rows": {
+        "elements_list": 2
+      },
+      "listRows": {
+        "elements_list": [
+          "navy_theater_group_item",
+          "new_theater_group_item"
+        ]
+      },
+      "_note": "With a fleet selected the window holds the navy box of the theatre, with its fleet rows, then the New Theater button (reference/mod/theatre_bar-navy-panel.png). The boxes stack by their own height; the rows hang below the 88 px box from fleets_row_box.",
+      "height": 1200
+    },
+    {
+      "name": "navy_theater_group_item",
+      "skip": true,
+      "hide": [
+        "alerts"
+      ],
+      "rows": {
+        "fleets_row_box": 3
+      },
+      "listRows": {
+        "fleets_row_box": [
+          "fleet_row_item_box",
+          "fleet_row_item_box",
+          "reserve_fleet_row_item_box"
+        ]
+      },
+      "_note": "The box is followed by its rows, drawn by fleets_row_box: two fleet rows and the reserve row. The code puts the window of the box at the height of the box and its rows (the New Theater button follows the last row).",
+      "height": 187
+    },
+    {
+      "name": "fleet_row_item_box",
+      "skip": true,
+      "hide": [
+        "army_group_box_bottom_bg",
+        "split_off_btn",
+        "split_off_count"
+      ]
+    },
+    {
+      "name": "reserve_fleet_row_item_box",
+      "skip": true,
+      "hide": [
+        "army_group_box_middle_bg",
+        "split_off_btn",
+        "split_off_count"
+      ]
+    }
+  ],
+  "samples": {
+    "navy_theater_group_item": {
+      "theater_name_box": "German Theater 1",
+      "ship_count_box": "38"
+    },
+    "new_theater_group_item": {
+      "text": "New Theater"
+    }
+  },
+  "setup": [
+    {
+      "move": "select_fleet"
+    }
+  ],
+  "captures": [],
+  "expect": [
+    "navy_theater_group_item/priority_button"
+  ],
+  "crop": [
+    1700,
+    100,
+    860,
+    420
+  ],
+  "manual": [],
+  "checklist": [
+    "The navy box is a card with a blue stripe; the name at the left, the round fleet priority on a chip at the right end of the title. Click the priority: it changes.",
+    "The ship count stands on a chip of its own at the right end of the band; the fleet shields at the left, clear of it.",
+    "The fleet rows under the box are as wide as the card, each with the stripe in its own colour (blue for the selected fleet, grey for the others), and the reserve row closes the card at the bottom.",
+    "In a fleet row the ship icons and their counts do not run into each other; a split-off button, when the code shows one, stands at the right end clear of the icons.",
+    "Click a fleet row and the reserve icon: they select the fleet and the reserve as in vanilla.",
+    "New Theater below the rows: a plate as wide as the card, its text centred. Click it: a new theatre is made (then undo with the theatre settings)."
+  ],
+  "_note": "The navy theatre of the fleet the recipe selects; its own scene so that its capture keeps the reference name theatre_bar-navy."
+}

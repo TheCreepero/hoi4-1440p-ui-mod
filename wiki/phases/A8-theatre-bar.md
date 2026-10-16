@@ -1,6 +1,6 @@
 # Phase A8: theatre boxes
 
-The boxes at the top right of the map: an army theatre with its army shields, a navy theatre with its fleet rows, the air theatres, the button for a new theatre and the strategic region under the cursor. The roadmap called this "the theatre bar at the bottom"; `theatreselector.gui`, the file it named, holds the boxes at the top right, and the army portraits at the bottom are another file (`leadergroups.gui`, not reworked). Status: built and checked by the harness on 2026-10-14, while the user was away; awaiting the tester's judgement. Override file: `interface/zz_1440p_theatre_bar.gui`.
+The boxes at the top right of the map: an army theatre with its army shields, a navy theatre with its fleet rows, the air theatres, the button for a new theatre and the strategic region under the cursor. The roadmap called this "the theatre bar at the bottom"; `theatreselector.gui`, the file it named, holds the boxes at the top right, and the army portraits at the bottom are another file (`leadergroups.gui`, not reworked). Status: redesigned as cards on 2026-10-16 (see "Redesign build"): built and checked by render and tests; not seen in game. The first build (2026-10-14) was checked by the harness. Override file: `interface/zz_1440p_theatre_bar.gui`.
 
 ## Scope
 
@@ -56,6 +56,56 @@ Not seen in game:
 1. A theatre with more armies than fit, and an army group opened under its box.
 2. The settings button, renaming a theatre in its box, the combat log button.
 3. In the user's playset: the casualty counter over the box's right end, which this mod does not cause (the right edge is vanilla's).
+
+## Redesign build (2026-10-16)
+
+The user approved the redesign "Theatre cards at the top right" and its three decisions (battle chip left of the name, 420x80, plates behind the widgets; review page of 2026-10-16). Better Mechanics' casualty counter can be moved in game, so the layout is not drawn around it; the battle chip stays left of the name by the user's choice.
+
+What was built, in `interface/zz_1440p_theatre_bar.gui`:
+
+- Every box is a card of 424x78 over its 420x80 window, still at x 310 (right edge 2530): `GFX_1440p_TS_card`, five frames in the order of `theater_group_bg.dds` (army gold, grey, navy, reserve, air), composed by `theatre_card()` in `tools/stretch_background.py` from `tiled_plain_bg_small.dds`, a 6 px stripe copied from each vanilla frame, and `unit_list_header.dds` as the title plate.
+- The units band (`assign_button`, `unmoveable_assign_button`): `GFX_1440p_TS_band`, 404x35 at (12,38), four frames (`theatre_band()`).
+- Army box: gear (17,8), supply priority (42,8), the battle chip `mod1440_ts_battle_plate` 126x28 at (62,6) with the combat log (scale 0.72), attack (0.8) and its count at (121,11), defence and its count at (169,11); the name (196,8) 212x24; the shields in 338 px at (18,44), spacing 12; the division count on `mod1440_ts_count_plate` 48x28 at (362,42).
+- Navy box: name (22,8) 330x24, the fleet priority (scale 0.85) on a chip at (364,6), fleets in 338 px, the ship count on the count chip. Reserve box: gear, name at (46,10), the combat log on a chip at (362,6). Air theatre: name (22,8) 300x24, the three priorities at x 338, 362, 386 on an 82x28 chip, wings in 338 px, the count on the chip. Ungrouped wings: the same without a count, the wings across 392 px.
+- Rows under a box: 424 wide, the card's sides and stripe running on in the row's own frame colour, the vanilla dropdown frame spread to 404 as the plate (`theatre_drawer()`). The last row closes the card. `armies_box`, `navy_box`, `air_box` at (18,-6), 338 px; the reserve row's icon at (18,-7) and its ships at (52,-6), 304 px; the split-off button at (369,-8), its count at (361,4).
+- The selected frame and the New Theater button (420x34 at x 2, window 420x36) are tiles of vanilla textures; the region row's plate is a tile of `unit_list_header.dds` at 338x39 with `buttonstate.lua`.
+- Scenes: `tools/scenes/theatre_bar.json` (an army box; state `combat` for the battle counts) and the new `tools/scenes/theatre_bar-navy.json` (the navy box with two fleet rows, the reserve row and New Theater; its capture keeps the reference name `theatre_bar-navy`, so the `navy` capture left `theatre_bar.json`).
+- Retired: `GFX_1440p_TS_group_bg`, `_assign_button`, `_dropdown_middle`, `_dropdown_bottom`, `_new_group_button` and their textures. `GFX_1440p_TS_region_bg` stays declared as the fallback of the region plate.
+
+Deviations from the design:
+
+- **Only `GFX_theatre_dropdown_bottom` is declared again** (in `interface/zz_1440p_vanilla_sprites.gfx`). The design took both row pieces to be used by `theatreselector.gui` alone, but vanilla `interface/military_raids/country_raids_view.gui` puts `GFX_theatre_dropdown_middle` on `raid_instance_entry` (299 wide), and a sprite is declared again only when no other screen shows it (project rules, section 2). The middle rows name the mod's `GFX_1440p_TS_drawer_middle` (the same texture); the code was seen leaving the mod's sprite on the fleet rows (game check 4).
+- **No chip behind the split-off button** of a row: the code shows that button only now and then, and a plate cannot hide with it, so an empty chip would stand in every row. The design's own mock-up drew none.
+- **The count chip is 48x28** (design 48x30) and the chips use a tile border of 16x14, so that the tile's edge rows and columns do not repeat inside a chip as lines.
+- No `tools/gui-links.json` entries: `elements_list` is in `theatre_selection_window`, which the mod does not override, and the rows of `fleets_row_box` are 23 wide in a 420 slot; the test of each kind of link would fail on them. The scenes carry the rows.
+
+Not seen in game: everything above. In particular the rows of an army group, the frames 2 and 4 of the card, a theatre in combat, the scaled battle buttons and their click areas, clicks on the band through the count chip, the tile sprites of the New Theater button and the region row (hover, press, the region's three states), and the cards in the user's playset (RBM's 43 px shields).
+
+Fallbacks, ready:
+
+- The rows of an army group come out 301 px (the code puts the vanilla middle sprite on them): declare `GFX_theatre_dropdown_middle` again too, on `ts_drawer_middle.dds`, and decide what the raids view may show (its row would draw the left 299 px of the drawer).
+- The region row shows no hover or press, or the wrong state: put `GFX_1440p_TS_region_bg` (the widened bitmap, three frames) back on `strategic_region_item/background`.
+- A click on the band does not go through the count chip: move the chip below `assign_button` in the file, or drop it.
+- The combat log button at 0.72 is too small to hit: scale 0.8 at (64,3), and the chip 130 wide.
+
+Game check: `tools/Invoke-GameCheck.ps1 theatre_bar theatre_bar-navy`
+
+Checklist for the tester:
+
+1. The army box is a dark card with a gold stripe down its left side, as wide as before, its right edge where it was.
+2. Title strip from the left: gear, supply priority, the battle chip (combat log, attack, defence), the name. The gear opens the theatre settings, the name can be renamed, the combat log icon opens the combat log.
+3. In a theatre at war: the attack and defence counts stand beside their icons and the icons open the battles.
+4. The units band: shields at the left, the division count on its own chip at the right. Clicking the band and the chip assigns the selected divisions.
+5. The selected theatre's frame goes around the whole card.
+6. An army group's rows under its box are as wide as the card; the last row closes it.
+7. Navy (select a fleet): the blue card, the fleet priority on its chip (click changes it), the ship count on its chip, the fleet rows and the reserve row as drawers in their own colours, New Theater below, centred.
+8. Air (select an airbase): the red card, the three priorities on a chip, the wings across the band.
+9. With the user's playset: RBM's shields fit in the band.
+
+### Fix round 1
+
+- 2026-10-16, the division count off its chip (user's test, `theater_card.png`): the count was right-aligned to x 404 on a 48 px chip at 362, so it stood on the chip's right studs. `armies_count_box`, `ship_count_box` and `air_wing_count_box` are now centred over the whole chip (maxWidth 48, `format = centre`).
+- 2026-10-16, the battle chip taller than its row: the title plate (`unit_list_header` laid out at 32) is grey only on rows 8-29 of the card, so the 28 px chip at y 6 stood out 2 px above and 5 below. The plate is 40 high (`CARD_TITLE`, grey 8-37), the card 424x86 over a 420x88 window (frames and their order unchanged), the selected frame 86; title widgets +3 (chips at y 9), band widgets +8 (band at 46), the row grids at y 88, the navy scene's box 187. Re-test: the chips inside the grey of the title, the boxes stacked without overlap or gap (the code is expected to take the 88 from the window), the rows of a fleet, an air group and an army group right under their card.
 
 ## Close
 

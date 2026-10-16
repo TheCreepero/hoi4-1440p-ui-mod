@@ -1,6 +1,6 @@
 # Phase A4: navy and fleet view
 
-The panel of a selected fleet: fleet card, toolbar, task force cards and the ship list. Status: done. Both steps are built and checked by the harness, and the tester tried the deployed build in game on 2026-10-11 and found it good.
+The panel of a selected fleet: fleet card, toolbar, task force cards and the ship list. Status: steps 1 and 2 done (built, checked by the harness, and tried by the tester in game on 2026-10-11). The redesign of 2026-10-16 (section "Redesign build" below): built and checked by render and tests; not seen in game.
 
 ## Scope
 
@@ -134,6 +134,64 @@ Not seen in game (states a 1936 start does not show, or the harness cannot reach
 6. Composition editor: save a template, open the template list, load and delete one; add a class from the picker; the role picker of a row.
 7. Home base picker: the three filters, and a country with many bases.
 8. Transfer window: pick one ship, and "All ..." of a class.
+
+## Redesign build (2026-10-16)
+
+The user approved the A4 proposal of the redesign pass on 2026-10-16 with every decision as recommended: standing bars, the four orders in the title strip, plates as siblings (no wrapping, so the panel works on an unpatched game), the class picker at 450, and two fleet headers before the list scrolls. Built in `interface/zz_1440p_fleet.gui` at 740 px; the A9 fleet header is unchanged. Status: built and checked by render and tests; not seen in game.
+
+What was built:
+
+| Part | Before | Built |
+|---|---|---|
+| Task force card | widened vanilla bitmap; status icons in the title bar, the orders in the body at 608-729, six counters | plain tile (`GFX_1440p_FL_tf_bg`), title strip (the header's `GFX_1440p_CP_fleet_title`) with insignia 8, HQ icon 54, name 80 (220 px), pride 306, fuel 340 (warning 335), carrier base 372, dominance 404, replenishment 432, the four orders 470/500/530/560, fleet insignia 596, Select 637, Back 704; mission plate 6,39 (320x45) with the activity at 11-52 and the text at 58 (260 px, two lines); ships plate 330,39 (406x45) with `ships_compact` 334,44, 400 wide, clipped: eight counters |
+| Toolbar | widened vanilla bar, 40 px steps | plain tile and four plates (6, 60, 300, 543), buttons 36 px apart: delete 14; organise 68-248; upkeep 308-380; standing orders 551-695. Hotkeys unchanged |
+| Ship row | lying 46x8 bars, hull from 60 into the level at 143, name 170 | `bar_org` and `bar_str` standing 10x28 (`GFX_1440p_FL_bar_*_standing`, anchors 16,22 and 28,22, rotated [GUL-013]); hull from 36; rank group 133-174; activity 189; name 200, 188 px; class unchanged; action slot `damaged_part_report` 592, `btn_refit` 616 and `btn_repair_now` 652, `UPPER_LEFT`, the two buttons `scale = 0.86` |
+| Several fleets | list 400, slot 165 | `detailed_fleet_list` 332 (two headers), `scroll_wheel_factor` 166, slot 166 |
+| Composition editor | metal frame, rows from 113, written height 161 | plain frame, title strip (`header_bg` now carries it) with the title left at 16 and Close 566, template plate 6,42 with the five controls at y 48-49, `ships` from 92, written height 140, Cancel and OK 21 px higher; picker docked at `sub_unit_selection_window_default_pos` 610,1 |
+| Class picker | bordered frame | plain frame, title strip, rows plate 6,42 (388x402); rows unchanged |
+| Home base picker | 738,78, filters stacked over 126 px | 746,82, title strip with the title left, the three filters side by side in a plate 6,42 (labels in boxes of 62, 124, 108), the list from 6,90 on `GFX_tiled_plain_bg_small` |
+| Transfer window | bordered frame | plain frame, title strip (`header_bg`), title left at 16, Close 657; rows unchanged |
+| Refit window | 758,81 | `show_position` 746,82, title strip with the outdated filter and its label at the left, description plate 6,42, the list from 6,80 on `GFX_tiled_plain_bg_small`; grid and entry untouched |
+
+New sprites: 19 tiles and two bars in `interface/1440p_ui.gfx` (block `# --- a4-fleet ---`), all on vanilla textures (`tiled_plain_bg`, `tiled_plain_bg_small`, `unit_list_header`, `navieslist_bar_*`). No new bitmap, no vanilla sprite redeclared. Now unused: `GFX_1440p_FL_task_force_bg`, `GFX_1440p_FL_task_force_actions_bg`, `GFX_1440p_FL_bar_org`, `GFX_1440p_FL_bar_str`, `GFX_1440p_FL_comp_editor_bar`, `GFX_1440p_FL_transfer_header` and their `fl_*.dds`; left in place for the merge.
+
+The renderer drew a rotated bar to the right of its anchor; `tools/render_gui.py` now draws it as the game does [GUL-013], which also corrects the renders of every other standing bar (army badge, division and air wing rows).
+
+Checks: `build.ps1 -Check fleet` 547 passed, 1 failed (`Knowledge.Tests.ps1`: `wiki/Engine-Facts.md` stale against the register, the same on the untouched tree; regenerated after the merge). Renders of `fleet` (with the states `status` and `damaged`, new in the scene), `fleet_composition`, `fleet_home_base`, `fleet_transfer` and the refit window looked at; `Compare-Baseline -Group` read: only the intended changes. `tools/check_playset.py`: VNR - RBM's copy of `naviesview.gui` still loses its `ship_entry_detailed` changes under this mod (as before); RBM's `GFX_mapicon_air_base` is 41x48 a frame (see the fallbacks).
+
+Deviations from the design:
+
+- No plate behind the rows of the composition editor and of the transfer window: both windows take their height from the code (140 or 58 plus one row each), and a plate of fixed size would run past a short window or stop short of a long one. The rows keep their own row backgrounds on the plain frame.
+- `interrupted_mission` at 32,48 instead of 38,48: at 38 its 26 px ran 6 px into the mission text at 58.
+- The delete plate is 47 wide (6-53), as the other plates' 8 px margins give, not 42.
+- The refit list's entry (`naval_equipment_info_entry` of `countryproductionlineview.gui`) is not touched: the production screen's naval list uses it too (C1). The window is framed around the vanilla entry.
+
+Fallbacks for the game check:
+
+- The composition editor opens over the panel (about x 630, if it follows the button rather than the card's edge [GUL-021]): move `btn_composition_editor` back to the right end of the title strip's order group, or to the ships plate's right end.
+- RBM's carrier base icon (41x48, `GFX_mapicon_air_base`) runs over dominance and into the mission plate: move `air_base` to 368,0 or swap it with dominance.
+- The code puts the damaged ship's widgets elsewhere or shrinks the class name less: place the three by the capture; the vanilla offsets were `UPPER_RIGHT` -100, -50, -12.
+- `detailed_fleet_list` ignores 332 or the toolbar does not follow it: back to 400 and slot 165.
+- A list container (home base, refit) runs past the window's bottom: give it a fixed height (912 and 634 at 1440).
+
+Not seen in game: everything of this section. In particular the standing ship bars, the damaged ship's action slot, several fleets, the editor's position with its button in the title strip, Cancel and OK at the lower written height, the refit window and its rows, the status icons in their slots (replenishment, fuel warning, RBM's carrier base), a mission text on two lines of 260.
+
+Game check (with the user's permission): `tools/Invoke-GameCheck.ps1 fleet fleet_composition fleet_home_base fleet_transfer`, then with the user's playset (`tools/Invoke-GameSteps.ps1 -Start -Playset`) for RBM's insignia and carrier base.
+
+Checklist for the tester:
+
+1. Toolbar: four plates; every button inside its plate; the three dropdowns open under their buttons.
+2. Task force card: name, HQ icon, status icons each in its slot, the four orders at the title strip's right, fleet insignia, Select and Back; tooltips of the orders and the icons.
+3. Mission plate: activity icon and text; a long mission on two lines.
+4. Ships plate: counters of a task force with many ship types; the ninth cut at the plate.
+5. Twelve task forces of Home Command on the screen.
+6. Ship rows: organisation and strength standing at the left, silhouette clear of the level chevron, names to 188 px.
+7. A damaged ship: damage report, refit and repair now in the slot before the insignia; the class name ends before them.
+8. Composition editor: where it opens, the template plate, Cancel and OK under the last row; the class picker 6 px right of it.
+9. Home base picker: the filters side by side and working; the list scrolls to its end.
+10. Transfer window and refit window: frame, title, close.
+11. Two or three fleets selected (shift-click): two headers, the list scrolls, toolbar and cards under it.
+12. With the playset: RBM's insignia (43 px) beside Select, and its carrier base icon.
 
 ## Close
 

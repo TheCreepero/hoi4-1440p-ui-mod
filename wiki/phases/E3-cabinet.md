@@ -101,3 +101,30 @@ The user had installed the build of 2026-10-12, played a war with it and wrote o
 - [x] README and Workshop description
 - [x] Scene file and recipe (`tools/scenes/government.json`), reference capture
 - [ ] The tester's judgement
+
+## Redesign build (2026-10-16)
+
+Status: built and checked by render and tests; not seen in game. Design, decisions and mock-ups: `scratch/redesign/e-officers-gov/` of the main repository; the renders of the build in `build/`. The page stays in the Records window (user's decision).
+
+**What was built** (`tools/build_records.py`, `government()`, `advisor_portraits()`; `tools/make_game_tables.py`):
+
+- Three columns of 542 in the body of the Records frame (14,116, 1652x1090), cards sized to what they hold.
+- **Who rules.** Head of government 316: name, flag 82x52, portrait at full size 156x210 (was 125x168), the ideology group icon (`GFX_ideology_<group>_group` by `has_government`), party short and long, In office / Last election / Next election, tiles Elections and Changes of rule. Parties 274: four rows of 56 with the group icon, party, leader, share and a bar of 462; the ruling party's row lit. Laws 184: three plates with the kind, the law's own picture (`mod1440_gv_law_<n>_gfx`, from `tools/laws_table.py`: the `picture` of each law idea; `GFX_idea_unknown` for another mod's law) and its name. **Heads of government** 280, new: four rows of 54, newest first, portrait, name, the party of the ideology group at the time and the group, "from - to", "before the record began - today"; the title counts every head since the record began.
+- **Who serves.** Cabinet 380: four seats of 76 with the advisor's own small portrait (65x67), name, role (the first trait of the role he holds in that seat, e.g. "Reich Engineer"), since when; "No (other) political advisor is hired." after the last. High command (the rest, 698): the four offices as seats of 92 with the office as a grey caption, the holder as in the cabinet or the unknown portrait at 0.31 and "vacant"; then Members and three seats; "N appointed" counts both.
+- **Portraits and roles of advisors.** `make_game_tables.py` writes `ADVISORS` into `tools/portraits_table.py` (3765 roles of the game: character, file, sprite, seat, first trait, large) and into `portraits_mods_table.py` (3292 roles of the playset). The sprite is the character's `small` portrait when a `.gfx` declares it, else his large one (drawn at 0.31), else `GFX_idea_unknown`. One effect per seat, `mod1440_p_adv_<seat>`, asks `has_character` before `is_character` as the officers' lookup does. The daily comparison looks a new holder up once and keeps `_p`, `_r`, `_b` beside his `_since` and `_old`; a holder kept keeps them; a new table version looks everybody up again (`mod1440_gv_adv_ver`).
+- **Seats are fixed slots read by written index** (X42: an advisor has no scope in a row): the daily round copies the first holders into padded arrays `mod1440_gv_adv_d*`, `mod1440_gv_hc_d*`, `mod1440_gv_rd*`, so that a hidden seat reads an element that is there.
+- **Heads of government record** (`mod1440_gv_rul`, `_from`, `_old`, `_to`, `_end`, `_p`, `_g`): a row at index 0 when `country_leader` is another than the newest row's, the row before it closed with today's date; 100 kept. A game saved before gets its first row from `mod1440_gv_leader_since`. The heads are places in the list of characters and are put right by `mod1440_ch_remap` and marked by `mod1440_gv_marks`.
+- **The realm.** Faction 440: name, "led by" with the leader's flag in the text, members as flag tiles 122x90 (flag 82x52, the name in a fixed box of two lines), four to a row in a grid of slots 124x96 with `max_slots_horizontal = 4`, three rows in sight. Subjects 284: the same tiles, two rows. State and intelligence (the rest): capital, the agency's name, tiles Operatives, Appointments, New heads.
+
+**Deviations.** Cards are a little lower than drawn (body 1090 against 1144): Parties 274 (290), Laws 184 (196), the cabinet has four seats (five) and the high command three members (four); the game gives three of each. The heads of government are four fixed rows, not a list that scrolls: a list row cannot hold a character who is no unit leader (X42), and the title counts all of them. The party of a past head is the party of his ideology group as the country names it today; the game keeps no name of an old party. "led by" shows the flag inside the text (`GetNameWithFlag`) instead of a separate flag. The operatives table is not built (it needs a check that an operative has a scope in a row); the card shows the number. The tiles are 124 apart, not 128, so that four and the scrollbar fit in the card.
+
+**Not seen in game:** the advisors' small portraits and roles, also of other mods; a role text with a line break in a one-line box; the law pictures; the flag tiles four to a row; `[THIS.GetFlag]` in a country row; the heads card after a change of leader.
+
+**Fallbacks.** If the flag grid puts one tile per row: slot 512x26, rows with `[THIS.GetNameWithFlag]` (the build of 2026-10-13). If `is_character` logs for an advisor: the lookup is already guarded by `has_character`; drop the mods' ADVISORS. If a role shows two lines: fixed box height 20.
+
+Game check: `tools/Invoke-GameCheck.ps1 officers government`. Checklist: `tools/scenes/government.json`.
+
+### Fix round 1
+
+- Head of government's portrait small and wrong in the user's save (`records_government.png`): a stale text key (E1, Fix round 1). The leader's cache (`mod1440_ld_p_ver`), the seats (`mod1440_gv_adv_ver`, via `gv_stale`) and now the portraits of the heads since the record began (`mod1440_gv_rul_p`, looked up again by `mod1440_p_leader`) follow the stamp `global.mod1440_tk_ep`.
+- Faction and subjects did not scroll and ran over their cards: the four lists without a container `background` (these two and the two of Wars) neither cut off nor scrolled, every list with one does. They now have `GFX_tiled_window_transparent` (`LIST_BG`). Re-test: 41 members scroll by the wheel and the slider inside the Faction card.

@@ -1,6 +1,6 @@
 # Phase A3: unit details windows
 
-Division, ship, air wing and railway gun details. Status: built and checked by the harness; awaiting the tester's judgement on sizes and the manual list below.
+Division, ship, air wing and railway gun details. Status: redesign of 2026-10-16 built and checked by render and tests; not seen in game (see "Redesign build (2026-10-16)" at the end).
 
 ## Scope
 
@@ -115,3 +115,61 @@ Part of the pass the user asked for after the Records had been polished ("run a 
 - [x] Engine Facts rows confirmed or added
 - [x] Scene files final (`division_details`, `ship_details`, `air_wing_details`)
 - [x] Finished screens stored under `reference/mod/`
+
+## Redesign build (2026-10-16)
+
+Status: built and checked by render and tests; not seen in game.
+
+The redesign of the 2026-10-16 pass (design and decisions in `scratch/redesign/a3-unit-details/`, approved by the user with every recommendation taken). Cards are plates behind widgets that stay where the code looks them up, or the backgrounds of vanilla containers the code already shows and hides; nothing is wrapped, so the windows also work on an unpatched executable.
+
+What was built (`interface/zz_1440p_unit_details.gui`, sprites in the a3-unit-details block of `interface/1440p_ui.gfx`, textures from `tools/stretch_background.py`, layout script `scratch/a3_layout.py` of the worktree):
+
+- **One frame for four windows.** The window is the dark plain tile (`ud_division_bg.dds` 1186x609 and `ud_ship_bg.dds` 794x580, the tile laid out at the window's size, because both windows have a 10x10 rectangle; the air wing and railway gun windows take `GFX_tiled_plain_bg` as their Background [SPR-001]). A title strip of 1178 or 786 on `unit_list_header.dds` carries the title at the left and, from the right end, close, delete and the strength values in `hoi_20b` (division: manpower, equipment ratio; ship: manpower, fuel; air wing: equipment ratio). Under it the identity card 782x44 with a name field (the vanilla name field widened to 506) and, on the division and ship, an experience field (the vanilla one, 118 wide).
+- **Division window 1186x609.** Officer card 386x108 (caption bar `GFX_1440p_UD_caption_bar` as the Background of `commanding_officer_header_list_entry`, Promote at its right end, portrait and chevrons, the name in `hoi_20b` 294x44, two lines, fixed size [GUW-027]); equipment card 386x447 with the caption "Equipment" (`DIVISION_EQUIPMENT`) and the list 380x413 under it. Tabs hang under the frame at y 599.
+- **The Adjusters card bug is fixed.** `mod1440_card_adjusters` is now the first child of `adjuster_container`, so the code hides it with the adjusters; it no longer covers the History list and the Regimental Support row. The card is 772x152 (was 147) so that the second row of adjusters of a tank division ends inside it.
+- **Stats tab:** the cards as built, 11 px from the left and 92 from the top; `info` lost its own plate.
+- **History tab (division and ship), dark:** summary card 782x84 (division: "Command History", the two counts, Honors with the nine medal slots at x 300; ship: Honors and the captain's experience); list card under it with `army_history_entry` 744x48 rows on `GFX_1440p_UD_history_row` (the stat tile's metal widened), date in `hoi_18mbs` with `text_color_code = "Y"` (100 px), text in `hoi_18mbs` 576x40 (two lines). Division: 8.4 rows visible (list 405 high), ship 7.8 (376). The three vanilla backgrounds of `history_entry_container` are kept by name and drawn transparent.
+- **Template tab:** the board as built, at 6,90; the Regimental Support row shows again.
+- **Ship window 794x580, side cards only with content.** `captain_window` is 386x110 at 1058,0 with `GFX_tiled_plain_bg` as its Background (caption bar, Promote, portrait, name in `hoi_20b` two lines); `air_wings` is 386x320 (six rows of 46 before `list_window` scrolls) with the same Background, at `carrier_air_wings_list_position` 1058,0 and `taog_carrier_air_wings_list_position` 1058,116. The picture band (`GFX_1440p_UD_class_band`, cut from the first build's bitmap) is the first child of `equipment`, which moved to the top of the window, so the band hides with the class picture on the History tab and the pride button, dominance, support and sea terrain stand on it.
+- **Air wing window 794x590:** the side column is gone; the Base card is one row (380x84) and the plane type rows have a card of 380x104 under it (`equipment` 370x90, two rows of 45). Picture band `GFX_1440p_UD_air_band` 772x144. The air wing code fills no `experience` or `unit_level` [GUW-039]; none was added.
+- **Railway gun window 794x580:** own frame, no phantom side panel; the ship's picture band holds manpower, the fort adjuster and the gun. Render-only (H29).
+- **Promote hotkey `shift+z`** on `promote_officer` and `promote_captain`. The contract named `shift+k`, but vanilla uses `shift+k` on the exercise button of the battle plan tools (up whenever an army is selected, so beside the division window), on fleet mission 7 of the navy panel and in the air panel. `shift+y` and `shift+z` are used by no vanilla file, by no mod of the Workshop folder and by no other key of this mod; `shift+z` was taken.
+- **HQ division:** `GFX_army_hq_dropdown_button` is put on `unit_template_entry` of the HQ slot's deploy dropdown and on `designer_division_entry`, not on a widget of this window [GUW-037]; the identity card needs no room for it. The open item closes without a launch.
+- Unused now and removed: `GFX_1440p_UD_air_wing_bg`, `GFX_1440p_UD_history_divider`, `GFX_1440p_UD_medal_strip` and their textures; the old `division_details` compose of `tools/stretch_background.py`.
+
+Deviations from the design:
+
+- Promote is `shift+z`, not `shift+l` (design) or `shift+k` (contract): see above.
+- The equipment card of the division is a plate with the caption as a window child, and `equipment` sits inside it from y 30, instead of the card being the container's own Background: a caption inside a scrolling container would scroll away with the rows.
+- History rows are 744 wide, not 748, so that the list keeps vanilla's 7 px between the row and its listbox edge, where the slider and `scrollbar_background` stand.
+- The template change mark (`template_change_icon`, 32 px at scale 0.6) stands at the right end of the identity card after the experience field: there is no room for it between the name field and the experience.
+- Name and experience fields on the identity card: the mock-up showed the fields of the first build's bitmap, which the plain window no longer has; they are now plates of their own from the vanilla fields.
+- The counts of the History summary are 270 px wide (design 200), the medal label 60.
+- The adjusters card is 152 high (design 147).
+
+Not seen in game:
+
+- Everything above: the build was not launched.
+- A ship captain: the captain card, that `captain_window` is hidden without one, and which positionType the code takes for `air_wings` when the ship also has a captain.
+- History rows and medals with real texts, the medal dropdown on a row of 48, and whether `text_color_code = "Y"` colours the date (the code may put its own colour codes into the text).
+- That the windows still drag by their Background with the new textures and that clicks reach the side cards outside the 10x10 rectangle (S19, S20).
+- `shift+z` on Promote, and with both the division and the ship window open (W7).
+- The railway gun window as a whole.
+
+Game check, when the user allows a launch:
+
+`tools/Invoke-GameCheck.ps1 division_details ship_details air_wing_details`
+
+Checklist for the tester:
+
+1. Division Stats tab: one title strip (title, manpower, equipment, delete, close), the identity card with template button, name field and experience, the officer card, the equipment card with its caption; nothing else beside the window.
+2. Every stat on its tile; the Adjusters card behind the label, the hardness bar and the adjusters (two rows for the tank division, both inside the card).
+3. History tab: no Adjusters card; the summary card and the dark list card; the list reaches the bottom of its card.
+4. Template tab: the Regimental Support row with its five slots and its label is visible.
+5. `shift+z` presses Promote of the front division window (capture `hk-promote`).
+6. Both dropdowns open over the window; the name can still be edited.
+7. The window drags by its background; a division row in the strip between list and window can be clicked.
+8. Ship (Deutschland): 794 wide, nothing beside it; the picture band with class picture, pride button, dominance, support and the four sea terrain adjusters; History tab without the band.
+9. Carrier (HMS Furious): the Air Wings card beside the panel at the top, rows inside it; the card drags the window.
+10. Air wing: 794 wide, no side column; the plane type row on its card under the Base card; the picture band.
+11. `error.log`: no line that names the mod, no "Could not find" for these windows.

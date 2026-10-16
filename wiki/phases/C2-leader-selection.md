@@ -39,6 +39,13 @@ Agreed on mock-ups (design page, round 2, 2026-10-16).
 |---|---|---|---|---|---|---|
 | 1 | 2026-10-16 | working tree | the tester, in a 1944 game as the United States | no bugs, no change asked | - | - |
 
+## Fix round 1 (2026-10-16)
+
+From the user's in-game test (`found_issues_16102026.txt`, `fieldmarshal_selection.png`: Italy, the commander selection of an army group). Not seen in game yet.
+
+- The army group's list was "visually broken": every row showed a 510x98 vanilla background in the 760x124 row, so Details and Promote stood outside the paper. Cause (hoi4.exe 1.19.3, `FUN_141ad3580`, called from the row's update `FUN_141ad0cd0`): the code swaps the row's `Background` sprite by name for every state but the plain general's, which the constructor `FUN_141ab8b30` starts in: field marshal `GFX_marshal_selection_entry_bg` (assigned: `_active_`), a general who cannot take the command (an army group's list) `GFX_leader_selection_unavailable_entry_bg`, the assigned general `GFX_leader_selection_active_entry_bg` (and `_unavailable_active_`), a faction commander row the `_faction` pair. So an army's list showed it only on its assigned commander and on field marshals, an army group's list on every row. Fix: the seven names declared again at 760x124 in `interface/zz_1440p_vanilla_sprites.gfx` [LOAD-012], built by `tools/stretch_background.py` (jobs `ls_entry_*`: the plain-paper states take the paper's new columns from the plain row so the star stays single; the striped states grow by whole stripe periods with the seal lifted out and laid back) and listed in `tests/GuiInvariants.Tests.ps1`. Re-test: an army group's commander list (field marshals gold with the banner, generals grey), an army's list with its assigned commander (striped), and the faction commander window if the DLC is there.
+- Left as it is: `GFX_leader_selection_entry_bg` (the plain state) is also the vanilla background of `divisionleaderentry` and `advisorroleselectionview`, so it cannot be widened; a row that goes back to the plain state while the window is open (a general unassigned) would get the narrow vanilla paper until the list is rebuilt. And the code puts `GFX_leader_selection_active_entry_bg` on a captured general's row (`capturedarmyleaderentry`, 510 wide, `FUN_141ad5c40`), where it now runs 250 px past the row. Re-test both if they come up.
+
 ## Close
 
 - [ ] Roadmap status and link

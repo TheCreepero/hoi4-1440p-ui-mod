@@ -566,24 +566,21 @@ def part_content(view):
     def layers(table):
         return dict((k, v[1]) for k, v in table.items())
 
-    # equipment: archetypes the Army Readiness page lists
-    def archetypes(v):
-        return dict((k, val) for k, val in v.ids("common/units/equipment", "equipments").items()
-                    if re.search(r"\bis_archetype\s*=\s*yes", val[0]))
-
-    def land(body):
-        kind = re.search(r"\btype\s*=\s*(\{[^}]*\}|\w+)", body)
-        kind = kind.group(1) if kind else ""
-        return not re.search(r"\b(fighter|cas|naval_bomber|tactical_bomber|strategic_bomber|interceptor|suicide|scout_plane|"
-                             r"air_transport|capital_ship|screen_ship|submarine|carrier|convoy|missile|maritime_patrol_plane|"
-                             r"heavy_fighter|jet_fighter|rocket_interceptor|nuclear_missile|ballistic_missile|sam_missile|"
-                             r"anti_ship_missile|railway_gun|train|armored_train)\b", kind)
-
-    have = archetypes(view)
-    have_land = dict((k, v) for k, v in have.items() if land(v[0]))
-    game_land = dict((k, v) for k, v in archetypes(game).items() if land(v[0]))
-    compare("equipment (land archetypes, Army Readiness)", M.EQUIPMENT, layers(have_land), set(game_land),
-            "an archetype no page names is not in the Short column or the stock table; one that is gone logs an error per text")
+    # equipment: the kinds Army Readiness counts in a game with the playset's number of states (d2-readiness), against
+    # the archetypes the land sub-units of the playset need (tools/make_game_tables.py, equipment_kinds)
+    from make_game_tables import equipment_kinds, state_count
+    states = state_count(view)
+    tables = [rows for count, rows in M.AR_TABLES if count == states] or [M.AR_TABLES[0][1]]
+    counted = [row[0] for row in tables[0]]
+    needed = [row[0] for row in equipment_kinds(view)]
+    say("equipment (kinds of Army Readiness): the playset's land sub-units need %d kinds; the page counts %d for %d states (%s)"
+        % (len(needed), len(counted), states, "the playset's table" if tables[0] is not M.AR_TABLES[0][1] else "the game's table"))
+    missing = [k for k in needed if k not in counted]
+    if missing:
+        say("    !! needed in the playset, not counted (run tools/make_game_tables.py --mods): " + few(missing, 14))
+    gone = [k for k in counted if k not in needed]
+    if gone:
+        say("    counted, needed by no sub-unit of the playset (a row only while some are in stock): " + few(gone, 14))
 
     # buildings and resources of the States table
     named = []

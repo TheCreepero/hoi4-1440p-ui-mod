@@ -91,4 +91,90 @@ spriteTypes = {
 		name = "GFX_deploy_lendlease_entry"
 		textureFile = "gfx/interface/1440p_ui/rd_garrisons_entry.dds"
 	}
+
+	# --- a8-theatre ---
+	# A8, theatre boxes: the last row under a box (an army group's armies, a fleet row, a reserve row, an air
+	# group row), 424 wide (vanilla 301), the bottom drawer of the card above it. The code names this sprite
+	# itself; only theatreselector.gui uses it. Four frames in the vanilla order (grey, green, blue, red),
+	# which the code switches between. GFX_theatre_dropdown_middle is not declared again: the military raids
+	# view (raid_instance_entry, 299 wide) uses it too, so the middle rows name GFX_1440p_TS_drawer_middle.
+	spriteType = {
+		name = "GFX_theatre_dropdown_bottom"
+		texturefile = "gfx/interface/1440p_ui/ts_drawer_bottom.dds"
+		noOfFrames = 4
+	}
+	# --- end a8-theatre ---
+
+	# --- a5-recruit ---
+	# A5, Recruit & Deploy: the equipment and training bars of a division in training and the card's bar
+	# in its summary row, 120 long (vanilla 68). The code puts one of the two on each bar by its state
+	# (stalled or not), so the widget takes this size [SPR-015]. No vanilla .gui file but
+	# countrydeploymentview.gui names them; the vanilla textures at another size.
+	progressbartype = {
+		name = "GFX_deployment_entry_progressbar"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/deployment_entry_progressbar.dds"
+		textureFile2 = "gfx/interface/deployment_entry_progressbar_bg.dds"
+		size = { x = 120 y = 12 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+
+	progressbartype = {
+		name = "GFX_deployment_entry_stalled_progressbar"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/deployment_entry_stalled_progressbar.dds"
+		textureFile2 = "gfx/interface/deployment_entry_progressbar_bg.dds"
+		size = { x = 120 y = 12 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+	# --- end a5-recruit ---
+
+	# --- c2-state-rows ---
+	# C2, general selection: the backgrounds the code puts on a general's row (armyleaderentry, 760x124 in
+	# zz_1440p_leader_selection.gui) by its state, 760x124 like the row (vanilla 510x98). hoi4.exe 1.19.3,
+	# FUN_141ad3580: a field marshal row takes marshal_selection_entry_bg (active: _active_), a general who
+	# cannot take the command (an army group's list) leader_selection_unavailable_entry_bg, the assigned one
+	# the _active_ variant, a faction commander row the _faction pair; only the plain general keeps the row's
+	# own GFX_1440p_LS_entry_bg (the constructor starts in that state). The rows of the faction commander
+	# window are armyleaderentry too. No vanilla .gui file names these seven; the code also puts
+	# GFX_leader_selection_active_entry_bg on a captured general's row (capturedarmyleaderentry, 510 wide,
+	# not reworked), where it now runs 250 px past the row. Built by tools/stretch_background.py (ls_entry_*).
+	spriteType = {
+		name = "GFX_leader_selection_active_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/ls_entry_active_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_leader_selection_unavailable_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/ls_entry_unavailable_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_leader_selection_unavailable_active_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/ls_entry_unavailable_active_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_marshal_selection_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/ls_entry_marshal_bg.dds"
+		transparencecheck = yes
+	}
+
+	spriteType = {
+		name = "GFX_marshal_selection_active_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/ls_entry_marshal_active_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_leader_selection_entry_bg_faction"
+		texturefile = "gfx/interface/1440p_ui/ls_entry_faction_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_leader_selection_active_entry_bg_faction"
+		texturefile = "gfx/interface/1440p_ui/ls_entry_active_faction_bg.dds"
+	}
+	# --- end c2-state-rows ---
 }

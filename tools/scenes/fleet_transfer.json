@@ -187,6 +187,7 @@
     "Picking a ship moves it; 'All ...' moves every ship of the class"
   ],
   "checklist": [
+    "Plain frame, title strip with the title at the left and Close",
     "Rows: silhouette, name and class on one line",
     "A class with more ships than fit: scroll to the end"
   ]

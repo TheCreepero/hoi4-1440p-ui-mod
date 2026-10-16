@@ -103,3 +103,52 @@ The user had installed the build of 2026-10-12, played a war with it and wrote o
 - [x] Scene file and recipe (`tools/scenes/wars.json`), reference capture
 - [ ] The totals compared with the game's war overview in a game with fighting
 - [ ] The tester's judgement
+
+## Redesign build (2026-10-16)
+
+Status: **built and checked by render and tests; not seen in game.** The Wars page of the redesign pass (design `scratch/redesign/e-diary-wars/` of the main repository), in the frame described in the [E1 notes](E1-war-diary.md).
+
+- **The left column, 548 wide.** The country at war: twelve tiles of 123x64 (casualties, longest war, our surrender, convoys sunk; war support lost to casualties, convoys and bombing, prides of an enemy fleet sunk; aces promoted, aces lost, enemy aces down, our pride lost). At war with: one row per enemy on the game's own `GFX_war_participant_entry` (531x41, frame 2, the red plate), 46 apart, its flag and name on the striped part and days, states taken : lost, points taken : lost and surrender in the four dark slots, under a bar of heads that names them. The list has the enemy as its scope (`change_scope`), so the flag is `[THIS.GetFlag]`; the row's numbers are the country's arrays read as `[?ROOT.mod1440_wr_...^i]` (X36). A click finds the enemy in `mod1440_wr_enemy` and opens its file; the chosen row is lighter (`mod1440_wr_pk`). Finished wars: the same plate, its frame by the outcome (green when the enemy capitulated, was annexed, made a subject or is gone, blue for a peace), and the game's icon of the outcome in the fourth slot with the word as its tooltip; the list runs over `mod1440_wo_fr`, so the plate's frame is the row's `v`.
+- **The file of a war, 1092x1090** on the war overview's own frame: `gfx/interface/1440p_ui/wr_file_bg.dds`, made by `tools/stretch_background.py` (`war_file`) from `waroverview_bg_tiled.dds`: 76 columns taken out of the plain middle of the two panels (40 and 36, in multiples of the mesh's period of 4) and the panel bodies 584 rows higher in copies of 4 rows.
+  - The top plate: "The war with ..." and the two flags on the rays. Band A: both names and, between them, since, until or today, the days and the outcome (five texts for a war of today, one that has capitulated, a finished war, and each of them begun before the record). Band B, Day by day: the war overview's progress frame as a track from the war's first day to its last or today, with a mark for each of the newest 20 lines of the diary about this war at the place of its day (`x` by property from `mod1440_wr_mx`, the date and the words in its tooltip).
+  - Two panels of 522, each headed by its head of government: portrait at 0.8 (ours left, theirs right), party, ideology, faction (`GetFactionName` where there is one, the enemy's found by `mod1440_wr_card`), the surrender bar of each side, and three tiles: our casualties, states and points taken; their casualties, states and points lost. Their casualties are the enemy's whole loss since the war began (`ecas0` at the start, `ecas` each day).
+  - **Our commanders in this war:** up to six officers with portrait, name, rank and "States, Points, Capitals". **Counted per war and officer** (the user's choice): when a state or a point is taken, the general on the spot (`of_best`) adds it to arrays of his own, one element per war by the war's number (`mod1440_ow_id`, `_st`, `_vp`, `_cap`; each war row has its number `id`). The file gathers them from every officer the record knows and takes the best six (`find_highest_in_array`). Exact over any length of war; it starts counting with this build.
+  - **In the War Diary:** the newest 20 lines of this war, 26 high (the design's 30 did not fit 20 lines above the panel's foot): short date, icon, words, the place as a button that moves the camera.
+- **Records already in saves:** `mod1440_wr_grow` gives each war row of an older save a number of its own, the enemy's casualties of today as `ecas0` (their casualties count from the upgrade), and each finished war a first day "not known" (-1, the track then runs between its oldest and newest line), 0 casualties of theirs, and its outcome read from the text it kept. `mod1440_chk_old2` makes a game look like that.
+
+**Deviations from the design:**
+- Finished wars read their flag by row index (`[?mod1440_wo_enemy^i.GetFlag]`), because the list runs over the plates' frames as the design wants; only today's enemies have the enemy as their scope.
+- The plate is an icon with a static frame for today's enemies and an icon whose frame follows `v` for the finished wars; a click lands on a transparent button over the plate (`GFX_1440p_SG_hit_531x41`, the game's transparent window tile), so the plate stays as the game draws it.
+- A commander's tally reads "States 5  Points 2  Capitals 1" instead of "5 states, 2 points, 1 capital": a text cannot choose between "state" and "states".
+- The lines of the file are 26 high, see above. Their words are in hoi_16mbs in 200 px: "Our pride of the fleet was sunk by" did not fit 186 px in hoi_18mbs.
+- Finished wars with the blue plate (a peace) show the days on the plate's plain part: the blue frame has dark slots only for states and points.
+
+**Fallbacks:**
+- `[?mod1440_wo_enemy^i.GetFlag]` by index: if the finished wars show plain shields, those rows take `GetNameWithFlag` text.
+- `[?ROOT.<array>^i]` in the enemy rows is confirmed for texts (X36); if a `_visible` trigger with `ROOT.mod1440_wr_pk^i` does not work, the chosen enemy row loses its lighter band (the file still opens).
+- `x` by property on the icons of the track: if the marks stand all at the track's start, the marks are dropped and the track keeps its two dates.
+- `GetDateStringShortMonth` on a stored date (open): if it shows nothing, the dates of the file's lines take `GetDateStringNoHourLong` in 115 px.
+- `GetFactionName` of the enemy and the faction test `mod1440_wr_c_efac`: if the name is empty where there is a faction, the line reads only "in a faction".
+- Enemy casualties above zero have not been read (only 0, X40).
+
+**Not seen in game:** the whole page. Measured without the game: the counters per war and officer cost 4 entries per officer and war he took something in, about 24 KB for 30 officers in 5 wars, 163 KB for 60 in 20 (the save-size note of the [E1 notes](E1-war-diary.md)); the tally walks the record's officers once on a click.
+
+**Game check:** `tools/Invoke-GameCheck.ps1 war_diary wars`. The tester's checklist:
+
+1. Declare war on Poland (`mod1440_chk_war`): a red plate with Poland's flag and name under At war with, 0 days, "0 : 0".
+2. The file opens on it: the war overview frame, "The war with Poland", both flags on the rays, both names, "1 January, 1936 - today - 0 days".
+3. Both heads of government with portrait, party, ideology; the faction lines; both surrender bars.
+4. Take Danzig (`mod1440_chk_state2`) with a general there: a mark on the track, a line under In the War Diary, his face under Our commanders in this war with "States 1".
+5. A white peace (`mod1440_chk_peace`): the plate moves to Finished wars in blue with the peace icon; the file stays on it.
+6. Annex Czechoslovakia after a war (`mod1440_chk_war2`, `mod1440_chk_annex`): a green plate with the annex icon, its tooltip "Annexed".
+7. `effect mod1440_chk_card_time`: 20 files between two lines of `game.log`.
+8. `error.log`: no line that names the mod, no "invalid scope for var", no "Could not find sprite type".
+
+### Fix round 1
+
+- Flags at the wrong size and the head of government's portrait (`records_wars.png`), "GFX_portrait_..." under In the War Diary: as E1 and E3, Fix round 1 (flags `GFX_flag_small2`, kept keys written again, stale caches by `global.mod1440_tk_ep`; the ends of finished wars, `mod1440_wo_outcome`, are in the dictionary too). The rows ran over the note under today's wars: their lists got a background (E3, Fix round 1).
+- The flag of the State of Japan (a red, white and blue flag like Czechoslovakia's, also on the Subjects tile): `[?mod1440_wr_c_enemy.GetFlag]` gives that flag, at the right size; whether the game's own views draw another flag for that country (a puppet or cosmetic flag of the playset) needs the game. Not changed. Re-test: compare with the flag the diplomacy view draws for it.
+
+### Planned, not built: our war in the diplomacy view
+
+The user chose to plan it (2026-10-16). A strip of our war with the country selected in the diplomacy view: a scripted GUI of `selected_country_context` attached to `selected_country_view` (SGUI-045, documented), shown when the selected country is an enemy of today or of a finished war. It would show the plate of that war (days, states and points taken : lost, surrender) and a button that opens its file in the Records window. Open: the scopes of a selected-country GUI (THIS the selected country, ROOT the player, as the state card has it, SGUI-022?), whether `selected_country_view` takes a child without clipping, and the place in the view beside what other mods of the playset add there (`tools/check_playset.py`). Rule 2 holds: it shows our own record of the war, nothing the intelligence system hides.

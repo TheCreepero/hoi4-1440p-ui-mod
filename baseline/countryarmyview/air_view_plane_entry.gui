@@ -1,0 +1,43 @@
+# Vanilla 1.19.3.0, interface/countryarmyview.gui, lines 41-79.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "air_view_plane_entry"
+		position = {x=0 y=0}
+		size = { width=60 height=35 }
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			name = "background"
+			spriteType = "GFX_overview_filter_entry"
+		}
+
+		iconType = {
+			name = "highlight"
+			position = { x = 0 y = 0 }
+			spriteType = "GFX_overview_filter_entry_highlight"
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "count"
+			position = {x=6 y=2}
+			font = "hoi_18mbs"
+			maxWidth = 40
+			maxHeight = 23
+			format = left
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_air_overview_plane_strip"
+            position = {x=-2 y=16} 
+            Orientation = "Upper_Right"
+            centerposition = yes
+            scale = 0.9
+            alwaystransparent = yes
+		}
+	}
+}

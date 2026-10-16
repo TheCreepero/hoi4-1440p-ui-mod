@@ -70,8 +70,8 @@ Surveyed on game 1.19.3 on 2026-10-08, each recipe run unattended with the mod a
 | B4 | `ship_designer` | `open_ship_designer` | verified, mod and vanilla; screen out of scope |
 | D2 | `army_readiness` | `open_recruit_deploy`: the page is docked to the tab and open by default | verified; mod only (a scripted GUI has no vanilla layout: the scene says `modOnly`) |
 | D3 | `states` | `open_construction`, then Shift+M; the `teardown` hides the page again | verified; mod only |
-| D4 | `national_figures` | `open_politics`, then Shift+M; the `teardown` closes the window | verified; mod only |
-| D5 | `history` | as `national_figures`, then a click on `mod1440_figures/nf_history` | verified; mod only |
+| D4 | `national_figures` | `open_politics`, then Shift+M; a capture `all` clicks `mod1440_figures/nf_view_all`; the `teardown` gives the default view back and folds the page | verified before the redesign of 2026-10-16; the docked page not yet; mod only |
+| D5 | `history` | as `national_figures`, then a click on the tile `mod1440_figures/nf_t4` (Military factories) | verified before the redesign of 2026-10-16; the docked page not yet; mod only |
 | E1 | `war_diary` | Shift+J opens the Records window, then a click on its first page button; the `teardown` closes it | verified; mod only |
 | E2 | `officers` | Shift+J, then a click on `mod1440_records_wd/wd_tab_1` | verified; mod only |
 | E3 | `government` | Shift+J, then a click on `mod1440_records_wd/wd_tab_2` | verified; mod only |

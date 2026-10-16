@@ -90,3 +90,59 @@ The user, after the Records had been polished: "run a similar UI polishing pass 
 - [x] Finished page stored under `reference/mod/`
 - [ ] The tester's judgement: width, what the page shows, the look of the cards
 - [ ] The tester's look after a few days of game time
+
+## Redesign build (2026-10-16)
+
+Status: built and checked by render and tests; not seen in game. The design and the user's four decisions are on the review page of the redesign pass (proposal d2-readiness, "refine"); every decision was the recommended option.
+
+### What was built
+
+- **Two forms.** The page is now two scripted GUIs on `deployment_tab`, one under the other: `mod1440_army_readiness` (the head, 975x244: title strip and figures) and `mod1440_army_readiness_body` (975x966: equipment and armies), plus the handle as before. A group of widgets is hidden only as a scripted GUI of its own [SGUI-013]. Summary folds the page to its head, Full brings the body back (and counts). Shift+M stays hide and show on the close button and the handle; a hidden page comes back in the form it was left in.
+- **Title strip.** "Counted <date>" right-aligned, Count again and Summary/Full beside it, the close button. The hint text is gone: the game writes the shortcut into the tooltip [SGUI-008].
+- **Figures.** Two cards of 467x174, Manpower and Army, three tiles of 145x64 to a row. New: Fuel, `fuel_k` of `max_fuel_k` with a 117 px bar the count fills (orange below 75%).
+- **Equipment.** A list (`dynamic_lists` over `mod1440_ar_fill`, the bar's fill as `v`) of the kinds in use only: stock or need above 0. The count copies stock, in the field, needed, short, share, the kind's text key and its picture's sprite as text keys into arrays and sorts them, worst equipped first, then the kinds in stock only [SGUI-009, SGUI-023, SCR-015]. Row: the game's archetype picture (`image` from a token [SGUI-026]), the game's name of the kind, the numbers, Short red when the stock cannot fill the gap and orange when it can, the bar and its percentage. Caption "N of M kinds in use".
+- **The kinds come from a table.** `tools/make_game_tables.py` writes `tools/equipment_kinds_table.py` (the game: 44 kinds, every archetype a land sub-unit needs, duplicated archetypes such as tank destroyers included) and, with `--mods`, `tools/equipment_kinds_mods_table.py` (the user's playset: 55 kinds for 1143 states). Script counts the states once per country and counts the kinds of the table with that number, the game's otherwise [SCR-038]. Each row of a table carries the sprite of the kind's picture (`picture` of the archetype, as the loaded game declares it) and that picture's size.
+- **Pictures at several scales.** The game's pictures are 47x32 to 131x52 and an icon has one scale, so a row has seven icons, one per scale (1.0 to 0.4), and script shows the one at which the kind's picture fits its box (84x30 in an equipment row, 56x24 for the worst kind).
+- **Armies.** Ten rows of 50 px: portrait (`mod1440_p`, looked up once per table of portraits for a player's country, as the Officers page does), name, rank and skill; HQ as a button with the state of his deployed headquarters (`state_deployed` [SCR-069], a click moves the camera there with `goto_state` [SCR-001]) or "not deployed"; divisions; Inf, Arm, Mot and Mech (`num_mechanized`, new); fighting with "n att, n def" (`num_units_offensive_combats`, `num_units_defensive_combats`, new); planning as a percentage over a 68 px bar (counted); the worst equipped kind as its picture, its share and a 98 px bar. Battalions left the row.
+- **Left edge** `AR_X = 1256`, unchanged.
+- **Files:** `tools/build_managers.py` (the Army Readiness section, its scene, and the samples a scene may give per row of a list in `scene_files`), `tools/make_game_tables.py` (the two tables), `tools/check_playset.py` (the equipment check compares the playset with the table the page counts for it), `interface/1440p_ui.gfx` (the block `d2-readiness`: a 145x64 plate, two bands, a 136 px head for the HQ button, seven bars), and the generated files.
+
+### Do the tank rows read 0 with Road to 56?
+
+No, read from the files on 2026-10-16. Every tank battalion of the user's playset needs a chassis of No Step Back: `light_armor` of the RT56 standalone needs `light_tank_chassis`, and the medium, heavy and modern battalions come from the game's files and Better Mechanics: Extended Units Light. The standalone still defines those chassis as archetypes (`zz_FLTE_armor_equipment.txt`). The 21 `*_tank_equipment` archetypes it adds as well (`zz_FLTE_z_tank_chassis.txt`) are needed by no sub-unit of the playset, which is why `tools/check_playset.py` listed them as not named. What the old page missed were the kinds it never knew: the duplicated chassis (tank destroyers, self-propelled guns and anti-air, flame and amphibious tanks), super-heavy, para and wheeled tanks, motorcycles, the armoured and heavy mechanised kinds of RT56 and the six kinds of Better Mechanics: Extended Projects. The playset table holds all of them.
+
+### Deviations
+
+- The form is kept in two variables, not one: `mod1440_ar_folded` (hidden, as before, so a save keeps its state) and `mod1440_ar_small` (Summary). A hidden page comes back in the form it was left in.
+- Pictures stand at the left of their box and in the middle of its height for their scale; an icon cannot be centred per kind.
+- The worst kind is the lowest share; when every kind of an army is at 100% the first kind of the table it needs is shown.
+
+### Not seen in game
+
+- The two scripted GUIs one under the other: no seam beyond the two borders that meet at y 244; the body taking clicks while the head is in its short form.
+- `image` with an array element at the row's index (`[?mod1440_ar_pic^i.GetTokenKey]`) in a list without a scope; the names from tokens in the same row.
+- `frame = v` for the equipment bars in a list of numbers.
+- `state_deployed` in a general's scope, `[?mod1440_al_hq.GetName]`, and the HQ button's camera move.
+- Portraits in the armies rows, also for a commander without a number.
+- Fuel against the top bar; the attack and defence counts and the mechanised count above 0.
+- `num_equipment@` and its siblings with a kind the loaded game lacks, in the playset's table, while the game's own table is counted: no line in `error.log` expected, as that branch is not taken.
+
+### Game check
+
+`tools/Invoke-GameCheck.ps1 army_readiness`, and once with the playset (`tools/Invoke-GameSteps.ps1 -Start -Playset`). The tester's checklist is the scene's (`tools/scenes/army_readiness.json`):
+
+1. Shift+M hides the page and brings it back in the form it was left in; the handle beside the template panel does the same.
+2. Summary folds the page to its title strip and figures, with no seam left where the body was; Full brings the body back under them.
+3. The equipment card lists only the kinds you have or need, the worst equipped first, each with the game's picture of the kind at a size that fits its row.
+4. Short is red where the stock cannot fill the gap and orange where it can; In the field is red where it is short.
+5. Fuel reads the top bar's fuel (297K of 371K for Germany in 1936) and its bar is that share.
+6. Assign a general to an army, press Count again: the general is listed under Armies with his portrait, rank and skill.
+7. Deploy his HQ: the HQ button names its state and a click moves the camera there; without one it reads not deployed.
+8. Inf, Arm, Mot and Mech against the army badge; Worst kind shows a picture and its share.
+9. Train a division: In training rises at once; In stock falls at the next count.
+10. `error.log` names no mod1440 file and has no "Could not find sprite type" line for an archetype picture.
+
+### Fix round 1
+
+- Mechanized looked out of place (user's game, `army_readiness.png`): `KIND_SPRITE` gave it the technology picture `GFX_mechanised_infantry_medium`, a coloured halftrack with a level mark, 144x68 in the playset and drawn at 0.4 among the beige silhouettes. It now has `GFX_1440p_archetype_mechanized_equipment_medium` (63x28, `gfx/interface/1440p_ui/ar_mechanized_equipment.dds`): the same halftrack without its mark, in colours taken from three archetype pictures by rank of brightness (`archetype_picture` in `tools/stretch_background.py`). `make_game_tables.py` reads the size of a sprite of the mod from the repository; both kinds tables were made again (one row each changed; `write_mod_kinds` writes the playset's table alone). Re-test: the Mechanized row and a worst kind of Mechanized show a beige halftrack at full size; a new sprite and token need a fresh start.
+- Armies: wrong portraits in the user's save: the cached portrait was a stale text key (E1, Fix round 1). The row's lookup follows the stamp of `global.mod1440_tk_ep` (`build_records.portrait_stale`), and a count first checks the record's kept keys (`mod1440_tk_check`), since the count runs before the Records' daily round. Re-test: the user's save, Count again: each commander with his own portrait.

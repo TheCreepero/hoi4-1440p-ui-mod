@@ -86,3 +86,23 @@ The War Diary gets a line for a citation ("Divisions cited in ...", the state).
 - [ ] A division's History tab read with a line of the build (the probe's line was read; the build's count was)
 - [ ] A capital taken by fighting
 - [ ] The tester's judgement, and their answer on the medal offer
+
+## Redesign build (2026-10-16)
+
+Status: **built and checked by render and tests; not seen in game.**
+
+- **Three more occasions**, each with its switch on the War Diary's Battle honours card (decided by the user: landings and airborne on, a great city off):
+  - "Landed from the sea in $PROVINCE$": `on_naval_invasion` (the state invaded in scope, ROOT the country that lands), the player's divisions in that state (`mod1440_hn_landing`, switch `mod1440_hn_sea`).
+  - "Dropped from the air over $PROVINCE$": `on_units_paradropped_in_state` (ROOT the state, FROM the country), the divisions of FROM there (`mod1440_hn_drop`, switch `mod1440_hn_air`).
+  - "Fought for $PROVINCE$, where a great city fell": a victory point of 15 or more taken (`mod1440_vp_changed`), the divisions in the point's state (`mod1440_hn_city`, switch `mod1440_hn_vp`, off by default).
+  - `allow = no` on all three, as the capital's line; the citation keeps `allow = yes`. One line a day per division (X45): the first occasion of a day wins. The writing stays in `common/scripted_effects/mod1440_records.txt` (the test of the writing commands).
+- **Counts:** by themselves (`mod1440_hn_auto_n`) and cited by you (`mod1440_hn_cite_n`), two tiles on the card; `mod1440_hn_count` stays as their sum. A record of an earlier build had only the sum: it stands under "by themselves". The last citation's state and date (`mod1440_hn_last_s`, `_d`) stand under the tiles.
+- **The state card, 540x142** at 470,0 of the state view (500x94 before): a head strip "The record of <state>" with "N lines in the War Diary" (`mod1440_sr_lines`, raised when a line names the state or its victory point); the flag of whom it was taken from, "Taken from ... on ..., held N days" (`mod1440_sr_held`, worked out by the daily round for the player's states that were taken, `every_controlled_state`); "by the troops of <general>" with his portrait (`mod1440_sr_by`, `_by_p`, set from the general on the spot); Cite, "N cited today - N times in all" or "Cited N times before" (`mod1440_sr_cites`); "Its lines", which opens the War Diary on the lines of this state.
+- **"By the troops of" is a window of its own** (`mod1440_state_card_by`, the same context and parent), shown only for a state taken with a general on the spot: a window that is not drawn never asks for a character, and a text that names one through an empty variable logs "invalid scope for var" also while hidden (X73).
+
+**Fallbacks:**
+- `on_naval_invasion`: if the landing divisions do not yet stand in the state when the hook fires, the honour reaches nobody (the hook's `game.log` line says how many: "[?hn_n] divisions honoured"); then the honour moves to the first `on_state_control_changed` of that state within the day of the landing.
+- The second window of the state card: if it is drawn under the card (both are children of the state view), its line goes into the card itself with a default general for states nobody took.
+- The larger card in the user's playset (Devastation Overhaul draws at 451,194 of the same view, Landlord adds buttons): to be seen with `tools/Invoke-GameSteps.ps1 -Start -Playset`.
+
+**Not seen in game:** any of it. Game check `tools/Invoke-GameCheck.ps1 war_diary wars`; the tester's checklist is items 8 and 10 of the [E1 notes](E1-war-diary.md), and: a landing and an airborne drop in a game with fighting, with the History tab of a division that took part.

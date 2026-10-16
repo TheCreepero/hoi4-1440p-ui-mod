@@ -9,129 +9,41 @@ scripted_gui = {
 			NOT = { check_variable = { mod1440_ar_folded = 1 } }
 		}
 
-		dynamic_lists = {
-			ar_al_grid = {
-				array = mod1440_ar_leaders
-				change_scope = yes
-				entry_container = "mod1440_army_readiness_row"
-			}
-		}
-
 		properties = {
-			ar_eq_bar_0 = {
-				frame = mod1440_ar_fill_0
+			ar_fuel_bar = {
+				frame = mod1440_ar_fuel
 			}
-			ar_eq_low_0 = {
-				frame = mod1440_ar_fill_0
-			}
-			ar_eq_bar_1 = {
-				frame = mod1440_ar_fill_1
-			}
-			ar_eq_low_1 = {
-				frame = mod1440_ar_fill_1
-			}
-			ar_eq_bar_2 = {
-				frame = mod1440_ar_fill_2
-			}
-			ar_eq_low_2 = {
-				frame = mod1440_ar_fill_2
-			}
-			ar_eq_bar_3 = {
-				frame = mod1440_ar_fill_3
-			}
-			ar_eq_low_3 = {
-				frame = mod1440_ar_fill_3
-			}
-			ar_eq_bar_4 = {
-				frame = mod1440_ar_fill_4
-			}
-			ar_eq_low_4 = {
-				frame = mod1440_ar_fill_4
-			}
-			ar_eq_bar_5 = {
-				frame = mod1440_ar_fill_5
-			}
-			ar_eq_low_5 = {
-				frame = mod1440_ar_fill_5
-			}
-			ar_eq_bar_6 = {
-				frame = mod1440_ar_fill_6
-			}
-			ar_eq_low_6 = {
-				frame = mod1440_ar_fill_6
-			}
-			ar_eq_bar_7 = {
-				frame = mod1440_ar_fill_7
-			}
-			ar_eq_low_7 = {
-				frame = mod1440_ar_fill_7
-			}
-			ar_eq_bar_8 = {
-				frame = mod1440_ar_fill_8
-			}
-			ar_eq_low_8 = {
-				frame = mod1440_ar_fill_8
-			}
-			ar_eq_bar_9 = {
-				frame = mod1440_ar_fill_9
-			}
-			ar_eq_low_9 = {
-				frame = mod1440_ar_fill_9
-			}
-			ar_eq_bar_10 = {
-				frame = mod1440_ar_fill_10
-			}
-			ar_eq_low_10 = {
-				frame = mod1440_ar_fill_10
-			}
-			ar_eq_bar_11 = {
-				frame = mod1440_ar_fill_11
-			}
-			ar_eq_low_11 = {
-				frame = mod1440_ar_fill_11
-			}
-			ar_eq_bar_12 = {
-				frame = mod1440_ar_fill_12
-			}
-			ar_eq_low_12 = {
-				frame = mod1440_ar_fill_12
-			}
-			ar_eq_bar_13 = {
-				frame = mod1440_ar_fill_13
-			}
-			ar_eq_low_13 = {
-				frame = mod1440_ar_fill_13
-			}
-			ar_eq_bar_14 = {
-				frame = mod1440_ar_fill_14
-			}
-			ar_eq_low_14 = {
-				frame = mod1440_ar_fill_14
-			}
-			ar_eq_bar_15 = {
-				frame = mod1440_ar_fill_15
-			}
-			ar_eq_low_15 = {
-				frame = mod1440_ar_fill_15
-			}
-			ar_row_bar = {
-				frame = mod1440_al_fill
-			}
-			ar_row_low = {
-				frame = mod1440_al_fill
+			ar_fuel_low = {
+				frame = mod1440_ar_fuel
 			}
 		}
 
 		effects = {
-			ar_fold_click = {
-				set_variable = { mod1440_ar_folded = 1 }
-			}
 			ar_count_click = {
 				mod1440_ar_count = yes
+			}
+			ar_small_click = {
+				set_variable = { mod1440_ar_small = 1 }
+			}
+			ar_full_click = {
+				set_variable = { mod1440_ar_small = 0 }
+				mod1440_ar_count = yes
+			}
+			ar_fold_click = {
+				set_variable = { mod1440_ar_folded = 1 }
 			}
 		}
 
 		triggers = {
+			ar_counted_visible = {
+				check_variable = { mod1440_ar_counted > 0 }
+			}
+			ar_small_visible = {
+				NOT = { check_variable = { mod1440_ar_small = 1 } }
+			}
+			ar_full_visible = {
+				check_variable = { mod1440_ar_small = 1 }
+			}
 			ar_mp_training_visible = {
 				check_variable = { amount_manpower_in_deployment_queue > 0 }
 			}
@@ -156,744 +68,169 @@ scripted_gui = {
 			ar_low_org_z_visible = {
 				NOT = { check_variable = { mod1440_ar_low_org > 0 } }
 			}
-			ar_counted_visible = {
+			ar_fuel_bar_visible = {
 				check_variable = { mod1440_ar_counted > 0 }
+				NOT = { check_variable = { mod1440_ar_fuel < 75 } }
 			}
-			ar_eq_name_0_visible = {
-				OR = {
-					check_variable = { num_equipment@infantry_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@infantry_equipment > 0 }
-				}
-			}
-			ar_eq_stock_0_visible = {
-				OR = {
-					check_variable = { num_equipment@infantry_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@infantry_equipment > 0 }
-				}
-			}
-			ar_eq_need_0_visible = {
-				OR = {
-					check_variable = { num_equipment@infantry_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@infantry_equipment > 0 }
-				}
-			}
-			ar_eq_field_0_visible = {
-				OR = {
-					check_variable = { num_equipment@infantry_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@infantry_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@infantry_equipment value = num_target_equipment_in_armies@infantry_equipment compare = less_than } }
-			}
-			ar_eq_short_0_visible = {
-				check_variable = { var = num_equipment_in_armies@infantry_equipment value = num_target_equipment_in_armies@infantry_equipment compare = less_than }
-			}
-			ar_eq_lack_0_visible = {
-				check_variable = { mod1440_ar_short_0 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_0_visible = {
-				check_variable = { num_target_equipment_in_armies@infantry_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_0 < 75 } }
-			}
-			ar_eq_low_0_visible = {
-				check_variable = { num_target_equipment_in_armies@infantry_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_0 < 75 }
-			}
-			ar_eq_pct_0_visible = {
-				check_variable = { num_target_equipment_in_armies@infantry_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_1_visible = {
-				OR = {
-					check_variable = { num_equipment@support_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@support_equipment > 0 }
-				}
-			}
-			ar_eq_stock_1_visible = {
-				OR = {
-					check_variable = { num_equipment@support_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@support_equipment > 0 }
-				}
-			}
-			ar_eq_need_1_visible = {
-				OR = {
-					check_variable = { num_equipment@support_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@support_equipment > 0 }
-				}
-			}
-			ar_eq_field_1_visible = {
-				OR = {
-					check_variable = { num_equipment@support_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@support_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@support_equipment value = num_target_equipment_in_armies@support_equipment compare = less_than } }
-			}
-			ar_eq_short_1_visible = {
-				check_variable = { var = num_equipment_in_armies@support_equipment value = num_target_equipment_in_armies@support_equipment compare = less_than }
-			}
-			ar_eq_lack_1_visible = {
-				check_variable = { mod1440_ar_short_1 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_1_visible = {
-				check_variable = { num_target_equipment_in_armies@support_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_1 < 75 } }
-			}
-			ar_eq_low_1_visible = {
-				check_variable = { num_target_equipment_in_armies@support_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_1 < 75 }
-			}
-			ar_eq_pct_1_visible = {
-				check_variable = { num_target_equipment_in_armies@support_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_2_visible = {
-				OR = {
-					check_variable = { num_equipment@artillery_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@artillery_equipment > 0 }
-				}
-			}
-			ar_eq_stock_2_visible = {
-				OR = {
-					check_variable = { num_equipment@artillery_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@artillery_equipment > 0 }
-				}
-			}
-			ar_eq_need_2_visible = {
-				OR = {
-					check_variable = { num_equipment@artillery_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@artillery_equipment > 0 }
-				}
-			}
-			ar_eq_field_2_visible = {
-				OR = {
-					check_variable = { num_equipment@artillery_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@artillery_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@artillery_equipment value = num_target_equipment_in_armies@artillery_equipment compare = less_than } }
-			}
-			ar_eq_short_2_visible = {
-				check_variable = { var = num_equipment_in_armies@artillery_equipment value = num_target_equipment_in_armies@artillery_equipment compare = less_than }
-			}
-			ar_eq_lack_2_visible = {
-				check_variable = { mod1440_ar_short_2 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_2_visible = {
-				check_variable = { num_target_equipment_in_armies@artillery_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_2 < 75 } }
-			}
-			ar_eq_low_2_visible = {
-				check_variable = { num_target_equipment_in_armies@artillery_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_2 < 75 }
-			}
-			ar_eq_pct_2_visible = {
-				check_variable = { num_target_equipment_in_armies@artillery_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_3_visible = {
-				OR = {
-					check_variable = { num_equipment@anti_tank_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@anti_tank_equipment > 0 }
-				}
-			}
-			ar_eq_stock_3_visible = {
-				OR = {
-					check_variable = { num_equipment@anti_tank_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@anti_tank_equipment > 0 }
-				}
-			}
-			ar_eq_need_3_visible = {
-				OR = {
-					check_variable = { num_equipment@anti_tank_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@anti_tank_equipment > 0 }
-				}
-			}
-			ar_eq_field_3_visible = {
-				OR = {
-					check_variable = { num_equipment@anti_tank_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@anti_tank_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@anti_tank_equipment value = num_target_equipment_in_armies@anti_tank_equipment compare = less_than } }
-			}
-			ar_eq_short_3_visible = {
-				check_variable = { var = num_equipment_in_armies@anti_tank_equipment value = num_target_equipment_in_armies@anti_tank_equipment compare = less_than }
-			}
-			ar_eq_lack_3_visible = {
-				check_variable = { mod1440_ar_short_3 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_3_visible = {
-				check_variable = { num_target_equipment_in_armies@anti_tank_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_3 < 75 } }
-			}
-			ar_eq_low_3_visible = {
-				check_variable = { num_target_equipment_in_armies@anti_tank_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_3 < 75 }
-			}
-			ar_eq_pct_3_visible = {
-				check_variable = { num_target_equipment_in_armies@anti_tank_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_4_visible = {
-				OR = {
-					check_variable = { num_equipment@anti_air_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@anti_air_equipment > 0 }
-				}
-			}
-			ar_eq_stock_4_visible = {
-				OR = {
-					check_variable = { num_equipment@anti_air_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@anti_air_equipment > 0 }
-				}
-			}
-			ar_eq_need_4_visible = {
-				OR = {
-					check_variable = { num_equipment@anti_air_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@anti_air_equipment > 0 }
-				}
-			}
-			ar_eq_field_4_visible = {
-				OR = {
-					check_variable = { num_equipment@anti_air_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@anti_air_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@anti_air_equipment value = num_target_equipment_in_armies@anti_air_equipment compare = less_than } }
-			}
-			ar_eq_short_4_visible = {
-				check_variable = { var = num_equipment_in_armies@anti_air_equipment value = num_target_equipment_in_armies@anti_air_equipment compare = less_than }
-			}
-			ar_eq_lack_4_visible = {
-				check_variable = { mod1440_ar_short_4 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_4_visible = {
-				check_variable = { num_target_equipment_in_armies@anti_air_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_4 < 75 } }
-			}
-			ar_eq_low_4_visible = {
-				check_variable = { num_target_equipment_in_armies@anti_air_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_4 < 75 }
-			}
-			ar_eq_pct_4_visible = {
-				check_variable = { num_target_equipment_in_armies@anti_air_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_5_visible = {
-				OR = {
-					check_variable = { num_equipment@rocket_artillery_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@rocket_artillery_equipment > 0 }
-				}
-			}
-			ar_eq_stock_5_visible = {
-				OR = {
-					check_variable = { num_equipment@rocket_artillery_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@rocket_artillery_equipment > 0 }
-				}
-			}
-			ar_eq_need_5_visible = {
-				OR = {
-					check_variable = { num_equipment@rocket_artillery_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@rocket_artillery_equipment > 0 }
-				}
-			}
-			ar_eq_field_5_visible = {
-				OR = {
-					check_variable = { num_equipment@rocket_artillery_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@rocket_artillery_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@rocket_artillery_equipment value = num_target_equipment_in_armies@rocket_artillery_equipment compare = less_than } }
-			}
-			ar_eq_short_5_visible = {
-				check_variable = { var = num_equipment_in_armies@rocket_artillery_equipment value = num_target_equipment_in_armies@rocket_artillery_equipment compare = less_than }
-			}
-			ar_eq_lack_5_visible = {
-				check_variable = { mod1440_ar_short_5 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_5_visible = {
-				check_variable = { num_target_equipment_in_armies@rocket_artillery_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_5 < 75 } }
-			}
-			ar_eq_low_5_visible = {
-				check_variable = { num_target_equipment_in_armies@rocket_artillery_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_5 < 75 }
-			}
-			ar_eq_pct_5_visible = {
-				check_variable = { num_target_equipment_in_armies@rocket_artillery_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_6_visible = {
-				OR = {
-					check_variable = { num_equipment@motorized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@motorized_equipment > 0 }
-				}
-			}
-			ar_eq_stock_6_visible = {
-				OR = {
-					check_variable = { num_equipment@motorized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@motorized_equipment > 0 }
-				}
-			}
-			ar_eq_need_6_visible = {
-				OR = {
-					check_variable = { num_equipment@motorized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@motorized_equipment > 0 }
-				}
-			}
-			ar_eq_field_6_visible = {
-				OR = {
-					check_variable = { num_equipment@motorized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@motorized_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@motorized_equipment value = num_target_equipment_in_armies@motorized_equipment compare = less_than } }
-			}
-			ar_eq_short_6_visible = {
-				check_variable = { var = num_equipment_in_armies@motorized_equipment value = num_target_equipment_in_armies@motorized_equipment compare = less_than }
-			}
-			ar_eq_lack_6_visible = {
-				check_variable = { mod1440_ar_short_6 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_6_visible = {
-				check_variable = { num_target_equipment_in_armies@motorized_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_6 < 75 } }
-			}
-			ar_eq_low_6_visible = {
-				check_variable = { num_target_equipment_in_armies@motorized_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_6 < 75 }
+			ar_fuel_low_visible = {
+				check_variable = { mod1440_ar_counted > 0 }
+				check_variable = { mod1440_ar_fuel < 75 }
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	mod1440_army_readiness_body = {
+		context_type = player_context
+		window_name = "mod1440_army_readiness_body"
+		parent_window_token = deployment_tab
+
+		visible = {
+			NOT = { check_variable = { mod1440_ar_folded = 1 } }
+			NOT = { check_variable = { mod1440_ar_small = 1 } }
+		}
+
+		dynamic_lists = {
+			ar_eq_grid = {
+				array = mod1440_ar_fill
+				entry_container = "mod1440_army_readiness_eqrow"
 			}
-			ar_eq_pct_6_visible = {
-				check_variable = { num_target_equipment_in_armies@motorized_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_7_visible = {
-				OR = {
-					check_variable = { num_equipment@mechanized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@mechanized_equipment > 0 }
-				}
-			}
-			ar_eq_stock_7_visible = {
-				OR = {
-					check_variable = { num_equipment@mechanized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@mechanized_equipment > 0 }
-				}
-			}
-			ar_eq_need_7_visible = {
-				OR = {
-					check_variable = { num_equipment@mechanized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@mechanized_equipment > 0 }
-				}
-			}
-			ar_eq_field_7_visible = {
-				OR = {
-					check_variable = { num_equipment@mechanized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@mechanized_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@mechanized_equipment value = num_target_equipment_in_armies@mechanized_equipment compare = less_than } }
-			}
-			ar_eq_short_7_visible = {
-				check_variable = { var = num_equipment_in_armies@mechanized_equipment value = num_target_equipment_in_armies@mechanized_equipment compare = less_than }
-			}
-			ar_eq_lack_7_visible = {
-				check_variable = { mod1440_ar_short_7 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_7_visible = {
-				check_variable = { num_target_equipment_in_armies@mechanized_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_7 < 75 } }
-			}
-			ar_eq_low_7_visible = {
-				check_variable = { num_target_equipment_in_armies@mechanized_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_7 < 75 }
-			}
-			ar_eq_pct_7_visible = {
-				check_variable = { num_target_equipment_in_armies@mechanized_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_8_visible = {
-				OR = {
-					check_variable = { num_equipment@armored_car_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@armored_car_equipment > 0 }
-				}
-			}
-			ar_eq_stock_8_visible = {
-				OR = {
-					check_variable = { num_equipment@armored_car_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@armored_car_equipment > 0 }
-				}
-			}
-			ar_eq_need_8_visible = {
-				OR = {
-					check_variable = { num_equipment@armored_car_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@armored_car_equipment > 0 }
-				}
-			}
-			ar_eq_field_8_visible = {
-				OR = {
-					check_variable = { num_equipment@armored_car_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@armored_car_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@armored_car_equipment value = num_target_equipment_in_armies@armored_car_equipment compare = less_than } }
-			}
-			ar_eq_short_8_visible = {
-				check_variable = { var = num_equipment_in_armies@armored_car_equipment value = num_target_equipment_in_armies@armored_car_equipment compare = less_than }
-			}
-			ar_eq_lack_8_visible = {
-				check_variable = { mod1440_ar_short_8 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_8_visible = {
-				check_variable = { num_target_equipment_in_armies@armored_car_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_8 < 75 } }
-			}
-			ar_eq_low_8_visible = {
-				check_variable = { num_target_equipment_in_armies@armored_car_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_8 < 75 }
-			}
-			ar_eq_pct_8_visible = {
-				check_variable = { num_target_equipment_in_armies@armored_car_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_9_visible = {
-				OR = {
-					check_variable = { num_equipment@motorized_rocket_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@motorized_rocket_equipment > 0 }
-				}
-			}
-			ar_eq_stock_9_visible = {
-				OR = {
-					check_variable = { num_equipment@motorized_rocket_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@motorized_rocket_equipment > 0 }
-				}
-			}
-			ar_eq_need_9_visible = {
-				OR = {
-					check_variable = { num_equipment@motorized_rocket_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@motorized_rocket_equipment > 0 }
-				}
-			}
-			ar_eq_field_9_visible = {
-				OR = {
-					check_variable = { num_equipment@motorized_rocket_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@motorized_rocket_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@motorized_rocket_equipment value = num_target_equipment_in_armies@motorized_rocket_equipment compare = less_than } }
-			}
-			ar_eq_short_9_visible = {
-				check_variable = { var = num_equipment_in_armies@motorized_rocket_equipment value = num_target_equipment_in_armies@motorized_rocket_equipment compare = less_than }
-			}
-			ar_eq_lack_9_visible = {
-				check_variable = { mod1440_ar_short_9 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_9_visible = {
-				check_variable = { num_target_equipment_in_armies@motorized_rocket_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_9 < 75 } }
-			}
-			ar_eq_low_9_visible = {
-				check_variable = { num_target_equipment_in_armies@motorized_rocket_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_9 < 75 }
-			}
-			ar_eq_pct_9_visible = {
-				check_variable = { num_target_equipment_in_armies@motorized_rocket_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_10_visible = {
-				OR = {
-					check_variable = { num_equipment@light_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@light_tank_chassis > 0 }
-				}
-			}
-			ar_eq_stock_10_visible = {
-				OR = {
-					check_variable = { num_equipment@light_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@light_tank_chassis > 0 }
-				}
-			}
-			ar_eq_need_10_visible = {
-				OR = {
-					check_variable = { num_equipment@light_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@light_tank_chassis > 0 }
-				}
+			ar_al_grid = {
+				array = mod1440_ar_leaders
+				change_scope = yes
+				entry_container = "mod1440_army_readiness_row"
 			}
-			ar_eq_field_10_visible = {
-				OR = {
-					check_variable = { num_equipment@light_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@light_tank_chassis > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@light_tank_chassis value = num_target_equipment_in_armies@light_tank_chassis compare = less_than } }
-			}
-			ar_eq_short_10_visible = {
-				check_variable = { var = num_equipment_in_armies@light_tank_chassis value = num_target_equipment_in_armies@light_tank_chassis compare = less_than }
-			}
-			ar_eq_lack_10_visible = {
-				check_variable = { mod1440_ar_short_10 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_10_visible = {
-				check_variable = { num_target_equipment_in_armies@light_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_10 < 75 } }
-			}
-			ar_eq_low_10_visible = {
-				check_variable = { num_target_equipment_in_armies@light_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_10 < 75 }
-			}
-			ar_eq_pct_10_visible = {
-				check_variable = { num_target_equipment_in_armies@light_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_11_visible = {
-				OR = {
-					check_variable = { num_equipment@medium_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@medium_tank_chassis > 0 }
-				}
-			}
-			ar_eq_stock_11_visible = {
-				OR = {
-					check_variable = { num_equipment@medium_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@medium_tank_chassis > 0 }
-				}
+		}
+
+		properties = {
+			ar_er_pic_0 = {
+				image = "[?mod1440_ar_pic^i.GetTokenKey]"
 			}
-			ar_eq_need_11_visible = {
-				OR = {
-					check_variable = { num_equipment@medium_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@medium_tank_chassis > 0 }
-				}
-			}
-			ar_eq_field_11_visible = {
-				OR = {
-					check_variable = { num_equipment@medium_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@medium_tank_chassis > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@medium_tank_chassis value = num_target_equipment_in_armies@medium_tank_chassis compare = less_than } }
-			}
-			ar_eq_short_11_visible = {
-				check_variable = { var = num_equipment_in_armies@medium_tank_chassis value = num_target_equipment_in_armies@medium_tank_chassis compare = less_than }
-			}
-			ar_eq_lack_11_visible = {
-				check_variable = { mod1440_ar_short_11 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_bar_11_visible = {
-				check_variable = { num_target_equipment_in_armies@medium_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_11 < 75 } }
-			}
-			ar_eq_low_11_visible = {
-				check_variable = { num_target_equipment_in_armies@medium_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_11 < 75 }
-			}
-			ar_eq_pct_11_visible = {
-				check_variable = { num_target_equipment_in_armies@medium_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-			}
-			ar_eq_name_12_visible = {
-				OR = {
-					check_variable = { num_equipment@heavy_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@heavy_tank_chassis > 0 }
-				}
+			ar_er_pic_1 = {
+				image = "[?mod1440_ar_pic^i.GetTokenKey]"
 			}
-			ar_eq_stock_12_visible = {
-				OR = {
-					check_variable = { num_equipment@heavy_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@heavy_tank_chassis > 0 }
-				}
+			ar_er_pic_2 = {
+				image = "[?mod1440_ar_pic^i.GetTokenKey]"
 			}
-			ar_eq_need_12_visible = {
-				OR = {
-					check_variable = { num_equipment@heavy_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@heavy_tank_chassis > 0 }
-				}
+			ar_er_pic_3 = {
+				image = "[?mod1440_ar_pic^i.GetTokenKey]"
 			}
-			ar_eq_field_12_visible = {
-				OR = {
-					check_variable = { num_equipment@heavy_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@heavy_tank_chassis > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@heavy_tank_chassis value = num_target_equipment_in_armies@heavy_tank_chassis compare = less_than } }
+			ar_er_pic_4 = {
+				image = "[?mod1440_ar_pic^i.GetTokenKey]"
 			}
-			ar_eq_short_12_visible = {
-				check_variable = { var = num_equipment_in_armies@heavy_tank_chassis value = num_target_equipment_in_armies@heavy_tank_chassis compare = less_than }
+			ar_er_pic_5 = {
+				image = "[?mod1440_ar_pic^i.GetTokenKey]"
 			}
-			ar_eq_lack_12_visible = {
-				check_variable = { mod1440_ar_short_12 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
+			ar_er_pic_6 = {
+				image = "[?mod1440_ar_pic^i.GetTokenKey]"
 			}
-			ar_eq_bar_12_visible = {
-				check_variable = { num_target_equipment_in_armies@heavy_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_12 < 75 } }
+			ar_er_bar = {
+				frame = v
 			}
-			ar_eq_low_12_visible = {
-				check_variable = { num_target_equipment_in_armies@heavy_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_12 < 75 }
+			ar_er_low = {
+				frame = v
 			}
-			ar_eq_pct_12_visible = {
-				check_variable = { num_target_equipment_in_armies@heavy_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
+			ar_row_face = {
+				image = "[?mod1440_p.GetTokenKey]"
 			}
-			ar_eq_name_13_visible = {
-				OR = {
-					check_variable = { num_equipment@modern_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@modern_tank_chassis > 0 }
-				}
+			ar_row_plan_bar = {
+				frame = mod1440_al_plan
 			}
-			ar_eq_stock_13_visible = {
-				OR = {
-					check_variable = { num_equipment@modern_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@modern_tank_chassis > 0 }
-				}
+			ar_row_worst_0 = {
+				image = "[?mod1440_al_wpic.GetTokenKey]"
 			}
-			ar_eq_need_13_visible = {
-				OR = {
-					check_variable = { num_equipment@modern_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@modern_tank_chassis > 0 }
-				}
+			ar_row_worst_1 = {
+				image = "[?mod1440_al_wpic.GetTokenKey]"
 			}
-			ar_eq_field_13_visible = {
-				OR = {
-					check_variable = { num_equipment@modern_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@modern_tank_chassis > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@modern_tank_chassis value = num_target_equipment_in_armies@modern_tank_chassis compare = less_than } }
+			ar_row_worst_2 = {
+				image = "[?mod1440_al_wpic.GetTokenKey]"
 			}
-			ar_eq_short_13_visible = {
-				check_variable = { var = num_equipment_in_armies@modern_tank_chassis value = num_target_equipment_in_armies@modern_tank_chassis compare = less_than }
+			ar_row_worst_3 = {
+				image = "[?mod1440_al_wpic.GetTokenKey]"
 			}
-			ar_eq_lack_13_visible = {
-				check_variable = { mod1440_ar_short_13 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
+			ar_row_worst_4 = {
+				image = "[?mod1440_al_wpic.GetTokenKey]"
 			}
-			ar_eq_bar_13_visible = {
-				check_variable = { num_target_equipment_in_armies@modern_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_13 < 75 } }
+			ar_row_worst_5 = {
+				image = "[?mod1440_al_wpic.GetTokenKey]"
 			}
-			ar_eq_low_13_visible = {
-				check_variable = { num_target_equipment_in_armies@modern_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_13 < 75 }
+			ar_row_worst_6 = {
+				image = "[?mod1440_al_wpic.GetTokenKey]"
 			}
-			ar_eq_pct_13_visible = {
-				check_variable = { num_target_equipment_in_armies@modern_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
+			ar_row_bar = {
+				frame = mod1440_al_fill
 			}
-			ar_eq_name_14_visible = {
-				OR = {
-					check_variable = { num_equipment@amphibious_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@amphibious_tank_chassis > 0 }
-				}
+			ar_row_low = {
+				frame = mod1440_al_fill
 			}
-			ar_eq_stock_14_visible = {
-				OR = {
-					check_variable = { num_equipment@amphibious_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@amphibious_tank_chassis > 0 }
+		}
+
+		effects = {
+			ar_row_hq_click = {
+				set_temp_variable = { ar_hq = mod1440_al_hq }
+				var:ar_hq = {
+					ROOT = {
+						goto_state = PREV
+					}
 				}
 			}
-			ar_eq_need_14_visible = {
-				OR = {
-					check_variable = { num_equipment@amphibious_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@amphibious_tank_chassis > 0 }
-				}
+		}
+
+		triggers = {
+			ar_eq_none_visible = {
+				check_variable = { mod1440_ar_fill^num < 1 }
 			}
-			ar_eq_field_14_visible = {
-				OR = {
-					check_variable = { num_equipment@amphibious_tank_chassis > 0 }
-					check_variable = { num_target_equipment_in_armies@amphibious_tank_chassis > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@amphibious_tank_chassis value = num_target_equipment_in_armies@amphibious_tank_chassis compare = less_than } }
+			ar_er_stripe_visible = {
+				check_variable = { mod1440_ar_odd^i = 1 }
 			}
-			ar_eq_short_14_visible = {
-				check_variable = { var = num_equipment_in_armies@amphibious_tank_chassis value = num_target_equipment_in_armies@amphibious_tank_chassis compare = less_than }
+			ar_er_pic_0_visible = {
+				check_variable = { mod1440_ar_cls^i = 0 }
 			}
-			ar_eq_lack_14_visible = {
-				check_variable = { mod1440_ar_short_14 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
+			ar_er_pic_1_visible = {
+				check_variable = { mod1440_ar_cls^i = 1 }
 			}
-			ar_eq_bar_14_visible = {
-				check_variable = { num_target_equipment_in_armies@amphibious_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_14 < 75 } }
+			ar_er_pic_2_visible = {
+				check_variable = { mod1440_ar_cls^i = 2 }
 			}
-			ar_eq_low_14_visible = {
-				check_variable = { num_target_equipment_in_armies@amphibious_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_14 < 75 }
+			ar_er_pic_3_visible = {
+				check_variable = { mod1440_ar_cls^i = 3 }
 			}
-			ar_eq_pct_14_visible = {
-				check_variable = { num_target_equipment_in_armies@amphibious_tank_chassis > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
+			ar_er_pic_4_visible = {
+				check_variable = { mod1440_ar_cls^i = 4 }
 			}
-			ar_eq_name_15_visible = {
-				OR = {
-					check_variable = { num_equipment@amphibious_mechanized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@amphibious_mechanized_equipment > 0 }
-				}
+			ar_er_pic_5_visible = {
+				check_variable = { mod1440_ar_cls^i = 5 }
 			}
-			ar_eq_stock_15_visible = {
-				OR = {
-					check_variable = { num_equipment@amphibious_mechanized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@amphibious_mechanized_equipment > 0 }
-				}
+			ar_er_pic_6_visible = {
+				check_variable = { mod1440_ar_cls^i = 6 }
 			}
-			ar_eq_need_15_visible = {
-				OR = {
-					check_variable = { num_equipment@amphibious_mechanized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@amphibious_mechanized_equipment > 0 }
-				}
+			ar_er_field_visible = {
+				NOT = { check_variable = { mod1440_ar_short^i > 0 } }
 			}
-			ar_eq_field_15_visible = {
-				OR = {
-					check_variable = { num_equipment@amphibious_mechanized_equipment > 0 }
-					check_variable = { num_target_equipment_in_armies@amphibious_mechanized_equipment > 0 }
-				}
-				NOT = { check_variable = { var = num_equipment_in_armies@amphibious_mechanized_equipment value = num_target_equipment_in_armies@amphibious_mechanized_equipment compare = less_than } }
+			ar_er_field_short_visible = {
+				check_variable = { mod1440_ar_short^i > 0 }
 			}
-			ar_eq_short_15_visible = {
-				check_variable = { var = num_equipment_in_armies@amphibious_mechanized_equipment value = num_target_equipment_in_armies@amphibious_mechanized_equipment compare = less_than }
+			ar_er_short_visible = {
+				check_variable = { mod1440_ar_short^i > 0 }
+				check_variable = { mod1440_ar_red^i = 1 }
 			}
-			ar_eq_lack_15_visible = {
-				check_variable = { mod1440_ar_short_15 > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
+			ar_er_short_covered_visible = {
+				check_variable = { mod1440_ar_short^i > 0 }
+				check_variable = { mod1440_ar_red^i = 0 }
 			}
-			ar_eq_bar_15_visible = {
-				check_variable = { num_target_equipment_in_armies@amphibious_mechanized_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				NOT = { check_variable = { mod1440_ar_fill_15 < 75 } }
+			ar_er_bar_visible = {
+				check_variable = { mod1440_ar_need^i > 0 }
+				check_variable = { v > 74 }
 			}
-			ar_eq_low_15_visible = {
-				check_variable = { num_target_equipment_in_armies@amphibious_mechanized_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
-				check_variable = { mod1440_ar_fill_15 < 75 }
+			ar_er_low_visible = {
+				check_variable = { mod1440_ar_need^i > 0 }
+				check_variable = { v < 75 }
 			}
-			ar_eq_pct_15_visible = {
-				check_variable = { num_target_equipment_in_armies@amphibious_mechanized_equipment > 0 }
-				check_variable = { mod1440_ar_counted > 0 }
+			ar_er_pct_visible = {
+				check_variable = { mod1440_ar_need^i > 0 }
 			}
 			ar_al_none_visible = {
 				check_variable = { mod1440_ar_leaders^num < 1 }
@@ -901,28 +238,100 @@ scripted_gui = {
 			ar_row_stripe_visible = {
 				check_variable = { mod1440_al_odd = 1 }
 			}
-			ar_row_fighting_visible = {
-				check_variable = { num_units_in_combat > 0 }
+			ar_row_face_visible = {
+				check_variable = { mod1440_p_ver > 0 }
 			}
-			ar_row_inf_visible = {
-				check_variable = { num_infantry > 0 }
-			}
-			ar_row_arm_visible = {
-				check_variable = { num_armored > 0 }
-			}
-			ar_row_mot_visible = {
-				check_variable = { num_motorized > 0 }
+			ar_row_unknown_visible = {
+				NOT = { check_variable = { mod1440_p_ver > 0 } }
 			}
 			ar_row_fm_visible = {
 				is_field_marshal = yes
 			}
 			ar_row_gen_visible = {
-				is_corps_commander = yes
+				NOT = { is_field_marshal = yes }
+			}
+			ar_row_hq_visible = {
+				check_variable = { mod1440_al_hq > 0 }
+			}
+			ar_row_hq_icon_visible = {
+				check_variable = { mod1440_al_hq > 0 }
+			}
+			ar_row_hq_name_visible = {
+				check_variable = { mod1440_al_hq > 0 }
+			}
+			ar_row_hq_none_visible = {
+				NOT = { check_variable = { mod1440_al_hq > 0 } }
+			}
+			ar_row_inf_visible = {
+				check_variable = { num_infantry > 0 }
+			}
+			ar_row_inf_none_visible = {
+				NOT = { check_variable = { num_infantry > 0 } }
+			}
+			ar_row_arm_visible = {
+				check_variable = { num_armored > 0 }
+			}
+			ar_row_arm_none_visible = {
+				NOT = { check_variable = { num_armored > 0 } }
+			}
+			ar_row_mot_visible = {
+				check_variable = { num_motorized > 0 }
+			}
+			ar_row_mot_none_visible = {
+				NOT = { check_variable = { num_motorized > 0 } }
+			}
+			ar_row_mech_visible = {
+				check_variable = { num_mechanized > 0 }
+			}
+			ar_row_mech_none_visible = {
+				NOT = { check_variable = { num_mechanized > 0 } }
+			}
+			ar_row_fight_visible = {
+				check_variable = { num_units_in_combat > 0 }
+			}
+			ar_row_split_visible = {
+				check_variable = { num_units_in_combat > 0 }
+			}
+			ar_row_fight_none_visible = {
+				NOT = { check_variable = { num_units_in_combat > 0 } }
+			}
+			ar_row_worst_0_visible = {
+				check_variable = { mod1440_al_wk = 1 }
+				check_variable = { mod1440_al_wcls = 0 }
+			}
+			ar_row_worst_1_visible = {
+				check_variable = { mod1440_al_wk = 1 }
+				check_variable = { mod1440_al_wcls = 1 }
+			}
+			ar_row_worst_2_visible = {
+				check_variable = { mod1440_al_wk = 1 }
+				check_variable = { mod1440_al_wcls = 2 }
+			}
+			ar_row_worst_3_visible = {
+				check_variable = { mod1440_al_wk = 1 }
+				check_variable = { mod1440_al_wcls = 3 }
+			}
+			ar_row_worst_4_visible = {
+				check_variable = { mod1440_al_wk = 1 }
+				check_variable = { mod1440_al_wcls = 4 }
+			}
+			ar_row_worst_5_visible = {
+				check_variable = { mod1440_al_wk = 1 }
+				check_variable = { mod1440_al_wcls = 5 }
+			}
+			ar_row_worst_6_visible = {
+				check_variable = { mod1440_al_wk = 1 }
+				check_variable = { mod1440_al_wcls = 6 }
+			}
+			ar_row_pct_visible = {
+				check_variable = { mod1440_al_wk = 1 }
 			}
 			ar_row_bar_visible = {
+				check_variable = { mod1440_al_wk = 1 }
 				NOT = { check_variable = { mod1440_al_fill < 75 } }
 			}
 			ar_row_low_visible = {
+				check_variable = { mod1440_al_wk = 1 }
 				check_variable = { mod1440_al_fill < 75 }
 			}
 		}

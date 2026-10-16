@@ -1,43 +1,88 @@
-# Air wing and airbase selection, reworked for 2560x1440.
+# Air wing and airbase selection, reworked for 2560x1440 (A1, redesigned 2026-10-16).
 # Overrides eight top-level windows of vanilla interface/airselectionview.gui; the vanilla file stays in place
 # and supplies every other window. The untouched vanilla text of each window is in baseline/airselectionview/.
 #
 # Compared with vanilla:
-#   - the selection list holds 20 rows before it scrolls instead of 9. The frame and clipping list that hold
-#     the rows are unassigned_airwings_view (frame 582x430 -> 705x964), not air_selection_view.
-#   - airbase, wing, gun emplacement and rocket rows are 671 wide instead of 548, on new GFX_1440p_ backgrounds
-#   - name and status texts are wider and one font size larger
-#   - widgets right of the name moved right by 123
-#   - the mission toolbar, the selection toolbar and the list frame form one block: all three end at the same
-#     right edge. The mission toolbar keeps its vanilla width of 703 (15 missions x 45 + 2 x 14), which is the
-#     narrowest the block can be; the selection toolbar goes from 652 to 703 and the list frame to 705. They touch
-#     each other vertically (selection toolbar y 60 -> 51, list y 120 -> 91). The selection toolbar's right-hand
-#     group moved by 47, which puts its close button above the close buttons of the wing rows.
+#   - the panel is an 820 px stack of cards: a header plate (818x108) with a Missions card and five toolbar
+#     plates, then the list frame unassigned_airwings_view (818 wide, 19 rows of 48 before it scrolls instead
+#     of 9). The plates are icons drawn behind widgets that stay direct children of their vanilla windows.
+#   - the mission bar keeps its code-set width (slots x slotsize.width + 2 x position.x) on a transparent
+#     background; the Missions card under it has a fixed 806 px, so the panel width no longer follows the DLC.
+#     Slots are 52 instead of 45, so 15 missions fill the card.
+#   - airbase, wing, gun emplacement and rocket rows are 784 wide instead of 548, in fixed columns: aircraft
+#     0-207, mission efficiency 210, name (hoi_20b) and status (hoi_18mbs) at 240 with 282 px each, mission
+#     icons at 530, orders 640-747. The close buttons of the toolbar and of every row share one column.
+#   - the airbase row has a "Capacity" caption (vanilla key UNIT_LEADER_CAPACITY_SORT) and 220 px for the name
+#   - hotkeys shift+n on create air group and shift+u on unassign
 #   - the quick deploy popup is 900 high instead of 515, with a one size larger font
 guiTypes = {
 	containerWindowType = {
 		name = "air_selection_view"
 		position = {x=0 y=77}
-		size = { width=625 height=1056 } # height set in code, but initial value here is used for max allowed height
+		size = { width=820 height=1056 } # height set in code, but initial value here is used for max allowed height
 		Orientation = upper_left
 		clipping = no
 
+		# Cards behind the header (A1 redesign): drawn first, so every vanilla widget stays on top of them.
+		iconType = {
+			name = "mod1440_cp_header"
+			spriteType = "GFX_1440p_AV_header_bg"
+			position = { x = 2 y = 2 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_missions"
+			spriteType = "GFX_1440p_AV_card_wide"
+			position = { x = 8 y = 8 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_selection"
+			spriteType = "GFX_1440p_AV_plate_selection"
+			position = { x = 8 y = 60 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_organise"
+			spriteType = "GFX_1440p_AV_plate_tools"
+			position = { x = 262 y = 60 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_settings"
+			spriteType = "GFX_1440p_AV_plate_tools"
+			position = { x = 420 y = 60 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_select"
+			spriteType = "GFX_1440p_AV_plate_tools"
+			position = { x = 578 y = 60 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_close"
+			spriteType = "GFX_1440p_AV_plate_close"
+			position = { x = 741 y = 60 }
+			alwaystransparent = yes
+		}
+
 		containerWindowType = {
 			name = "mission_toolbar"
-			position = {x=2 y=5}
+			position = {x=8 y=6}	# on the Missions card; the code sets the width
 			size = { width=36 height=52 }
 			Orientation = upper_left
 			clipping = no
 			background = {
 				name = "Background"
-				quadTextureSprite ="GFX_tiled_plain_bg_small"
+				quadTextureSprite ="GFX_tiled_window_transparent"	# the card mod1440_cp_missions is the plate
 			}
 
 			gridBoxType = {
 				name = "missions_grid"
-				position = { x = 14 y = 8 } #X value becomes spacing on both sides of the window
+				position = { x = 16 y = 8 } #X value becomes spacing on both sides of the window
 				size = { width = 1 height = 34 }
-				slotsize = { width = 45 height = 34 }
+				slotsize = { width = 52 height = 34 }	# 15 missions fill the 806 px card
 				max_slots_vertical = 1
 				format = "UPPER_LEFT"
 			}
@@ -85,34 +130,34 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "air_wing_toolbar"
-			position = {x=2 y=51}	# overlaps the soft edge of the mission toolbar above, so no map shows between them
-			size = { width=703 height=48 }
+			position = {x=2 y=60}	# on the five plates mod1440_cp_selection .. mod1440_cp_close
+			size = { width=816 height=44 }
 			Orientation = upper_left
 			clipping = no
 
 			background = {
 				name = "Background"
-				quadTextureSprite ="GFX_tiled_plain_bg_small"
+				quadTextureSprite ="GFX_tiled_window_transparent"
 			}
 
 			iconType = {
 				name = "count_selected"
-				spriteType = "GFX_unit_list_header_air"
-				position = { x=27 y=7 }
+				spriteType = "GFX_1440p_AV_count_title"
+				position = { x=50 y=6 }
 			}
 
 			buttonType = {
 				name = "btn_delete"
-				position = { x=7 y=8 }
+				position = { x=14 y=6 }
 				spriteType = "GFX_NV_btn_delete"
 				clicksound = disband
 			}
 
 			instantTextboxType = {
 				name = "wings_count"
-				position = {x=47 y=13}
-				font = "hoi_18mbs"
-				maxWidth = 150
+				position = {x=60 y=12}
+				font = "hoi_20b"
+				maxWidth = 180
 				maxHeight = 23
 				format = left
 				text = "X divisions"
@@ -120,14 +165,15 @@ guiTypes = {
 
 			buttonType = {
 				name = "btn_create_air_group"
-				position = { x=155 y=8 }
+				position = { x=268 y=6 }
 				spriteType = "GFX_add_to_air_group"
 				clicksound = click_default
+				shortcut = "shift+n"
 			}
 
 			buttonType = {
 				name = "split_wing_btn"
-				position = { x=185 y=8 }
+				position = { x=304 y=6 }
 				spriteType = "GFX_NV_btn_split_in_half"
 				clicksound = click_default
 				shortcut = "d"
@@ -135,7 +181,7 @@ guiTypes = {
 
 			buttonType = {
 				name = "merge_wings_btn"
-				position = { x=215 y=8 }
+				position = { x=340 y=6 }
 				spriteType = "GFX_consolidate"
 				clicksound = click_default
 				shortcut = "g"
@@ -143,7 +189,7 @@ guiTypes = {
 
 			buttonType = {
 				name = "merge_groups_btn"
-				position = { x=245 y=8 }
+				position = { x=376 y=6 }
 				spriteType = "GFX_NV_btn_merge"
 				clicksound = click_default
 				shortcut = "o"
@@ -151,7 +197,7 @@ guiTypes = {
 			
 			dropDownBoxType = {
 				name = "reinforcement_preference_dropdown"
-				position = { x = 403 y = 6 }
+				position = { x = 426 y = 4 }
 				clipping = no
 				
 				expandButton = {
@@ -195,7 +241,7 @@ guiTypes = {
 			iconType = {
 				name = "niche_icon_bg"
 				spriteType = "GFX_role_icon_bg"
-				position = { x = 447 y = 23 }
+				position = { x = 475 y = 21 }
 				centerPosition = yes
 				alwaystransparent = yes
 				scale = 0.6
@@ -203,7 +249,7 @@ guiTypes = {
 
 			dropDownBoxType = {
 				name = "niche_selection_dropdown"
-				position = { x = 434 y = 8 }
+				position = { x = 462 y = 6 }
 				clipping = no
 				
 				expandButton = {
@@ -246,7 +292,7 @@ guiTypes = {
 
 			dropDownBoxType = {
 				name = "aggressiveness_dropdown"
-				position = { x = 462 y = 8 }
+				position = { x = 498 y = 6 }
 				clipping = no
 				
 				expandButton = {
@@ -289,7 +335,7 @@ guiTypes = {
 
 			dropDownBoxType = {
 				name = "day_night_dropdown"
-				position = { x = 492 y = 8 }
+				position = { x = 534 y = 6 }
 				clipping = no
 				
 				expandButton = {
@@ -332,7 +378,7 @@ guiTypes = {
 
 			buttonType = {
 				name = "select_all_wings_btn"
-				position = { x=522 y=8 }
+				position = { x=584 y=6 }
 				spriteType = "GFX_air_base_select_all_btn"
 				clicksound = click_default
 				shortcut = "a"
@@ -341,28 +387,29 @@ guiTypes = {
 
 			buttonType = {
 				name = "btn_select_half"
-				position = { x=552 y=8 }
+				position = { x=620 y=6 }
 				spriteType = "GFX_select_half"
 				shortcut = "s"
 			}
 
 			buttonType = {
 				name = "btn_hold"
-				position = { x=582 y=8 }
+				position = { x=656 y=6 }
 				spriteType = "GFX_hold"
 				shortcut = "h"
 			}	
 
 			buttonType = {
 				name = "btn_unassign"
-				position = { x=612 y=8}
+				position = { x=692 y=6 }
 				spriteType = "GFX_UV_btn_unassign"
 				clicksound = click_default
+				shortcut = "shift+u"
 			}
 
 			buttonType = {
 				name = "btn_close"
-				position = { x=642 y=8 }
+				position = { x=753 y=6 }	# the column of every row's close button
 				spriteType = "GFX_NV_btn_close"
 				pdx_tooltip = "DESELECT_UNIT"
 			}
@@ -371,8 +418,8 @@ guiTypes = {
 	
 		smoothListBoxType = {
 			name = "air_selection"
-			position = { x = 2 y = 91 }	# vanilla 120; the list frame now touches the toolbar above
-			size = { x = 723 y = 0 } #Height set in code
+			position = { x = 2 y = 104 }	# vanilla 120; the list frame starts 6 px into the header plate
+			size = { x = 836 y = 0 } #Height set in code
 			clipping = no
 		}
 	}
@@ -380,7 +427,7 @@ guiTypes = {
 	containerWindowType = {
 		name = "unassigned_airwings_view"
 		position = {x=0 y=0}
-		size = { width=705 height=964 } # height set in code, but initial value here is used for max allowed height
+		size = { width=818 height=951 } # height set in code, but initial value here is used for max allowed height
 		Orientation = upper_left
 		clipping = no
 
@@ -419,7 +466,7 @@ guiTypes = {
 		smoothListBoxType = {
 			name = "air_wings_list"
 			position = { x = 6 y = 6 }
-			size = { x = 673 y = 962 } # Only max size before we start scrolling, will scale to lower if needed
+			size = { x = 786 y = 949 } # Only max size before we start scrolling, will scale to lower if needed
 			clipping = yes
 			scrollbartype = "standardlistbox_slider"
 		}
@@ -431,7 +478,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "bottom_window"
-			position = {x=0 y=914}
+			position = {x=0 y=901}
 			size = { width = 422 height= 50 } # height set in code, but initial value here is used for max allowed height
 			clipping = no
 
@@ -457,13 +504,13 @@ guiTypes = {
 		name = "airbase_selection_item"
 		position = {x=0 y=0}
 		Orientation = upper_left
-		size = {width=671 height=48}
+		size = {width=784 height=48}
 		clipping = no
 
 		buttonType = {
 			name = "btn_bg"
 			position = {x=3 y=3}
-			size = { x = 671 y = 48 }
+			size = { x = 781 y = 45 }	# ends with the wing rows at 784x48
 			quadTextureSprite = "GFX_1440p_AV_base_entry_bg"
 			clicksound = click_default
 		}
@@ -493,7 +540,7 @@ guiTypes = {
 			name = "base_name"
 			position = { x = 67 y = 10 }
 			font = "hoi_20b"
-			maxWidth = 197
+			maxWidth = 220
 			maxHeight = 23
 			text = "Super Maga Wing"
 			format = left
@@ -501,9 +548,22 @@ guiTypes = {
 			alwaystransparent = yes
 		}
 
+		# Fixed caption of the capacity (vanilla key, "Capacity").
+		instantTextboxType = {
+			name = "mod1440_cp_capacity_caption"
+			position = { x = 300 y = 14 }
+			font = "hoi_16mbs"
+			text = "UNIT_LEADER_CAPACITY_SORT"
+			maxWidth = 60
+			maxHeight = 20
+			format = left
+			fixedsize = yes
+			alwaystransparent = yes
+		}
+
 		instantTextboxType = {
 			name = "capacity"
-			position = {x=285 y=12}
+			position = {x=364 y=12}
 			font = "hoi_18mbs"
 			maxWidth = 90
 			maxHeight = 23
@@ -515,7 +575,7 @@ guiTypes = {
 		iconType ={
 			name ="permission_wings_bg"
 			spriteType = "GFX_generic_box_smallest"
-			position = { x=374 y=12 }
+			position = { x=522 y=12 }
 			Orientation = "UPPER_LEFT"
 			scale = 0.8
 			pdx_tooltip = "AIR_VOLUNTEERS_LIMIT"
@@ -523,7 +583,7 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "permission_wings_count"
-			position = { x=377 y=13 }
+			position = { x=525 y=13 }
 			font = "hoi_16mbs"
 			text = "100/200"
 			maxWidth = 49
@@ -536,7 +596,7 @@ guiTypes = {
 			name = "quick_wing_deployment"
 			Orientation = upper_left
 			size = {width=200 height=30}
-			position = {x=573 y=8}
+			position = {x=676 y=8}	# quick buttons grow left from here
 			clipping = no
 			
 			gridBoxType = {
@@ -560,7 +620,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "new_btn"
-			position = {x=612 y=8}
+			position = {x=712 y=8}
 			spriteType = "GFX_air_base_create_new_btn"
 			clicksound = click_default
 			shortcut = "n"
@@ -568,7 +628,7 @@ guiTypes = {
 
 		iconType = {
 			name = "create_new_wing_glow"
-			position = {x=612 y=9}
+			position = {x=712 y=9}
 			spriteType = "GFX_air_base_create_new_glow"
 			alwaystransparent = yes
 			scale = 0.8
@@ -577,12 +637,12 @@ guiTypes = {
 		iconType = {
 			name = "sticky_mission_area_icon"
 			spriteType = "GFX_sticky_mission_area"
-			position = { x=345 y=7 }
+			position = { x=458 y=7 }
 		}
 
 		buttonType = {
 			name = "sticky_mission_area_btn"
-			position = { x = 378 y = 10 }
+			position = { x = 489 y = 10 }
 			quadTextureSprite ="GFX_generic_checkbox3"
 			clicksound = click_checkbox
 			frame = 1
@@ -591,7 +651,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_close"
-			position = {x=642 y=8}
+			position = {x=747 y=8}
 			spriteType = "GFX_NV_btn_close"
 			pdx_tooltip = "DESELECT_UNIT"
 			clicksound = click_close
@@ -602,7 +662,7 @@ guiTypes = {
 		name = "airwing_selection_item"
 		position = {x=0 y=0}
 		Orientation = upper_left
-		size = {width=671 height=48}
+		size = {width=784 height=48}
 
 		buttonType = {
 			name = "btn_bg"
@@ -678,9 +738,9 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "unit_name"
-			position = {x=233 y=4}
-			font = "hoi_18mbs"
-			maxWidth = 243
+			position = {x=240 y=3}
+			font = "hoi_20b"
+			maxWidth = 282
 			maxHeight = 23
 			text = "Super Maga Wing 1"
 			format = left
@@ -692,13 +752,13 @@ guiTypes = {
 			pdx_tooltip = "ATTACHED_AIR_WING_DESC"
 			pdx_tooltip_delayed = "ATTACHED_AIR_WING_DELAYED_DESC"
 			spriteType = "GFX_theatre_army_shield"
-			position = { x = 443 y = 10 }
+			position = { x = 640 y = 10 }
 			scale = 0.8
 		}
 
 		instantTextBoxType = {
 			name = "armies_count_box"
-			position = { x = 442 y = 13 }
+			position = { x = 639 y = 13 }
 			font = "hoi_16mbs"
 			maxWidth = 28
 			maxHeight = 23
@@ -731,7 +791,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_close"
-			position = {x=636 y=7}
+			position = {x=747 y=7}
 			spriteType = "GFX_NV_btn_close"
 			pdx_tooltip = "DESELECT_UNIT"
 			clicksound = click_close
@@ -745,9 +805,9 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "mission_state"
-			position = {x=233 y=22}
+			position = {x=240 y=24}
 			font = "hoi_18mbs"
-			maxWidth = 243
+			maxWidth = 282
 			maxHeight = 23
 			text = "Standing by"
 			format = left
@@ -772,12 +832,12 @@ guiTypes = {
 		iconType = {
 			name ="air_mission_efficiency_strip"
 			spriteType = "GFX_air_mission_efficiency_strip"
-			position = { x=206 y=10 }
+			position = { x=210 y=10 }
 		}
 
 		gridboxtype = {
 			name = "mission_grid"
-			position = { x = 463 y = 5 }
+			position = { x = 530 y = 5 }
 			size = { width = 100 height = 34 }
 			slotsize = { width = 25 height = 17 }
 			max_slots_vertical = 1
@@ -787,7 +847,7 @@ guiTypes = {
 
 		dropDownBoxType = {
 			name = "aggressiveness_dropdown"
-			position = { x = 576 y = 7 }
+			position = { x = 674 y = 7 }
 			clipping = no
 			
 			expandButton = {
@@ -831,7 +891,7 @@ guiTypes = {
 
 		dropDownBoxType = {
 			name = "day_night_dropdown"
-			position = { x = 606 y = 7 }
+			position = { x = 709 y = 7 }
 			clipping = no
 			
 			expandButton = {
@@ -878,7 +938,7 @@ guiTypes = {
 		name = "gun_emplacement_selection_item"
 		position = {x=0 y=0}
 		Orientation = upper_left
-		size = {width=671 height=48}
+		size = {width=784 height=48}
 
 		buttonType = {
 			name = "btn_bg"
@@ -897,14 +957,14 @@ guiTypes = {
 
 		iconType = {
 			name = "mission_background"
-			position = {x=527 y=8}
+			position = {x=530 y=8}
 			spriteType = "GFX_strategicair_mission_btn_bg"
 			frame = 2
 		}
 
 		iconType = {
 			name = "mission_icon"
-			position = {x=529 y=8}
+			position = {x=532 y=8}
 			spriteType = "GFX_strategicair_mission_types"
 			frame = 17
 			alwaystransparent = yes
@@ -912,23 +972,23 @@ guiTypes = {
 		
 		buttonType = {
 			name = "mission_targets"
-			position = {x=573 y=8}
+			position = {x=576 y=8}
 			spriteType = "GFX_air_target_icon"
 			clicksound = click_close
 		}
 		
 		buttonType = {
 			name = "btn_hold"
-			position = { x=607 y=8 }
+			position = { x=674 y=8 }
 			spriteType = "GFX_hold"
 			shortcut = "h"
 		}
 
 		instantTextboxType = {
 			name = "unit_name"
-			position = {x=133 y=4}
-			font = "hoi_18mbs"
-			maxWidth = 323
+			position = {x=240 y=3}
+			font = "hoi_20b"
+			maxWidth = 282
 			maxHeight = 23
 			text = "Super Maga Wing 1"
 			format = left
@@ -937,7 +997,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_close"
-			position = {x=639 y=7}
+			position = {x=747 y=7}
 			spriteType = "GFX_NV_btn_close"
 			pdx_tooltip = "DESELECT_UNIT"
 			clicksound = click_close
@@ -945,9 +1005,9 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "mission_state"
-			position = {x=133 y=22}
+			position = {x=240 y=24}
 			font = "hoi_18mbs"
-			maxWidth = 243
+			maxWidth = 282
 			maxHeight = 23
 			text = "Standing by"
 			format = left
@@ -959,7 +1019,7 @@ guiTypes = {
 		name = "rocket_selection_item"
 		position = {x=0 y=0}
 		Orientation = upper_left
-		size = {width=671 height=48}
+		size = {width=784 height=48}
 
 		buttonType = {
 			name = "btn_bg"
@@ -986,9 +1046,9 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "count"
-			position = {x=473 y=13}
+			position = {x=140 y=13}	# in the aircraft zone, where a wing row shows its planes
 			font = "hoi_18mbs"
-			maxWidth = 450
+			maxWidth = 60
 			maxHeight = 23
 			format = left
 			alwaystransparent = yes
@@ -996,14 +1056,14 @@ guiTypes = {
 
 		iconType = {
 			name = "mission_background"
-			position = {x=527 y=8}
+			position = {x=530 y=8}
 			spriteType = "GFX_strategicair_mission_btn_bg"
 			frame = 2
 		}
 		
 		buttonType = {
 			name = "nuclear_button"
-			position = {x=533 y=7}
+			position = {x=536 y=7}
 			spriteType = "GFX_generic_square_button"
 			clicksound = click_default
 			scale = 0.76
@@ -1011,7 +1071,7 @@ guiTypes = {
 
 		iconType = {
 			name = "mission_icon"
-			position = {x=529 y=8}
+			position = {x=532 y=8}
 			spriteType = "GFX_strategicair_mission_types"
 			frame = 0
 			alwaystransparent = yes
@@ -1019,23 +1079,23 @@ guiTypes = {
 		
 		buttonType = {
 			name = "mission_targets"
-			position = {x=573 y=8}
+			position = {x=576 y=8}
 			spriteType = "GFX_air_target_icon"
 			clicksound = click_close
 		}
 		
 		buttonType = {
 			name = "btn_hold"
-			position = { x=607 y=8 }
+			position = { x=674 y=8 }
 			spriteType = "GFX_hold"
 			shortcut = "h"
 		}
 
 		instantTextboxType = {
 			name = "unit_name"
-			position = {x=133 y=4}
-			font = "hoi_18mbs"
-			maxWidth = 323
+			position = {x=240 y=3}
+			font = "hoi_20b"
+			maxWidth = 282
 			maxHeight = 23
 			text = "Super Maga Wing 1"
 			format = left
@@ -1045,7 +1105,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_close"
-			position = {x=639 y=7}
+			position = {x=747 y=7}
 			spriteType = "GFX_NV_btn_close"
 			pdx_tooltip = "DESELECT_UNIT"
 			clicksound = click_close
@@ -1053,9 +1113,9 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "mission_state"
-			position = {x=133 y=22}
+			position = {x=240 y=24}
 			font = "hoi_18mbs"
-			maxWidth = 273
+			maxWidth = 282
 			maxHeight = 23
 			text = "Standing by"
 			format = left
@@ -1084,9 +1144,9 @@ guiTypes = {
 		
 		instantTextboxType = {
 			name = "select_wing_desc"
-			position = {x=200 y=12}
+			position = {x=240 y=13}
 			font = "hoi_18mbs"
-			maxWidth = 200
+			maxWidth = 282
 			maxHeight = 23
 			format = center
 			text = SELECT_ROCKET

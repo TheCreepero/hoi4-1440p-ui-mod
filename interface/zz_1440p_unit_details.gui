@@ -19,7 +19,7 @@ guiTypes = {
 		buttonType = {
 			name = "stats_tab_button"
 			spriteType = "GFX_unit_stats_view_tabs"
-			position = { x=515 y=577 }
+			position = { x=515 y=599 }
 			buttonText = "UNIT_STATS_STATS_TAB"
 			font = "hoi_18mbs"
 			shortcut = "shift+a"
@@ -28,7 +28,7 @@ guiTypes = {
 		buttonType = {
 			name = "template_tab_button"
 			spriteType = "GFX_unit_stats_view_tabs"
-			position = { x=735 y=577 }
+			position = { x=735 y=599 }
 			buttonText = "UNIT_STATS_TEMPLATE_TAB"
 			font = "hoi_18mbs"
 			shortcut = "shift+t"
@@ -37,7 +37,7 @@ guiTypes = {
 		buttonType = {
 			name = "history_tab_button"
 			spriteType = "GFX_unit_stats_view_tabs"
-			position = { x=625 y=577 }
+			position = { x=625 y=599 }
 			buttonText = "UNIT_STATS_HISTORY_TAB"
 			font = "hoi_18mbs"
 			shortcut = "shift+h"
@@ -49,16 +49,73 @@ guiTypes = {
 			quadTextureSprite = "GFX_1440p_UD_division_bg"
 		}
 
+		# Redesign of 2026-10-16 (a3-unit-details): the window is the dark tile at 1186x609 (content 505 px
+		# right of the 10x10 rectangle, S20). Plates behind widgets that stay window children, drawn first
+		# because siblings are drawn in file order [GUW-026]: the title strip, the identity card (template
+		# button, name, experience), the officer card and the equipment card of the right column.
+		iconType = {
+			name = "mod1440_title_strip"
+			spriteType = "GFX_1440p_UD_title_strip"
+			position = { x = 509 y = 4 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_card_identity"
+			spriteType = "GFX_1440p_UD_card_identity"
+			position = { x = 511 y = 42 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_name_field"
+			spriteType = "GFX_1440p_UD_name_field"
+			position = { x = 612 y = 49 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_experience_field"
+			spriteType = "GFX_1440p_UD_experience_field"
+			position = { x = 1124 y = 49 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_card_officer"
+			spriteType = "GFX_1440p_UD_card_officer"
+			position = { x = 1299 y = 42 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_card_equipment"
+			spriteType = "GFX_1440p_UD_card_equipment"
+			position = { x = 1299 y = 156 }
+			alwaystransparent = yes
+		}
+
+		# Caption of the equipment card: the vanilla key of the division designer's equipment list.
+		instantTextboxType = {
+			name = "mod1440_equipment_label"
+			position = { x = 1311 y = 162 }
+			font = "hoi_18mbs"
+			text = "DIVISION_EQUIPMENT"
+			maxWidth = 200
+			maxHeight = 20
+			format = left
+		}
+
 		buttonType = {
 			name = "btn_delete"
-			position = { x= 1299 y = 2 }
+			position = { x= 1617 y = 6 }
 			spriteType = "GFX_NV_btn_delete"
 			clicksound = disband
 		}
 
 		buttonType = {
 			name = "btn_close"
-			position = { x = 1651 y = 2 }
+			position = { x = 1655 y = 6 }
 			quadTextureSprite ="GFX_NV_btn_close"
 			buttonFont = "Main_14_black"
 			shortcut = "ESCAPE"
@@ -68,7 +125,7 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "unit_title"
-			position = { x = 540 y = -1 }
+			position = { x = 535 y = -1 }
 			textureFile = ""
 			font = "hoi_36header"
 			borderSize = {x = 0 y = 0}
@@ -81,7 +138,7 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "experience"
-			position = { x = 1124 y = 41 }
+			position = { x = 1133 y = 54 }
 			font = "hoi_18mbs"
 			text = ""
 			maxWidth = 150
@@ -91,22 +148,22 @@ guiTypes = {
 		containerWindowType =
 		{
 			name = "commanding_officer_header_list_entry"
-			position = { x = 1301 y = 34 }
-			size = { width = 360 height = 30 }
+			position = { x = 1303 y = 46 }
+			size = { width = 378 height = 28 }
 
 			Background = {
 				name = "commanding_officer_list_entry_bg"
-				quadTextureSprite = "GFX_1440p_UD_list_entry_bg"
+				quadTextureSprite = "GFX_1440p_UD_caption_bar"
 				alwaystransparent = yes
 			}
 		}
 
 		instantTextboxType = {
 			name = "commanding_officer_title_text"
-			position = { x = 1313 y = 39 }
+			position = { x = 1313 y = 50 }
 			font = "hoi_18mbs"
 			text = "COMMANDER_TITLE_TEXT_DIVISION"
-			maxWidth = 340
+			maxWidth = 266
 			maxHeight = 20
 			format = left
 		}
@@ -134,7 +191,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "portraittime"
-			position = { x = 1307 y = 60 }
+			position = { x = 1313 y = 82 }
 			quadTextureSprite = "GFX_idea_HOL_wilhelmina"
 			alwaystransparent= yes
 		}
@@ -142,15 +199,16 @@ guiTypes = {
 		buttonType = {
 			name = "promote_officer"
 			quadTextureSprite ="GFX_leader_selection_button"
-			position = { x=1569 y=34 }
+			position = { x=1589 y=45 }
 			buttonText = "PROMOTE"
 			font = "hoi_16mbs"
 			frame = 1
+			shortcut = "shift+z"
 		 }
 
 		iconType = {
 			name = "idea_traits"
-			position = { x = 1350 y = 104 }
+			position = { x = 1356 y = 126 }
 			spriteType = "GFX_chevrons"
 			centerposition = yes
 			alwaystransparent = yes
@@ -160,24 +218,27 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "commanding_officer"
-			position = { x = 1371  y = 72 }
-			font = "hoi_18mbs"
+			position = { x = 1383  y = 90 }
+			font = "hoi_20b"
 			text = ""
-			maxWidth = 280
-			maxHeight = 20
+			# Two lines of hoi_20b and no more: 44 is more than twice its line height of 20 [GUW-027].
+			maxWidth = 294
+			maxHeight = 44
+			fixedsize = yes
 			format = left
+			vertical_alignment = center
 		}
 
 		iconType = {
 			name = "unit_level"
 			spriteType = "GFX_unit_level"
-			position = { x = 1203 y = 38 }
+			position = { x = 1212 y = 51 }
 		}
 
 		iconType = {
 			name = "unitlist_priority_icon"
 			spriteType = "GFX_unitlist_priority_icon_strip"
-			position = { x = 598 y = 36 }
+			position = { x = 597 y = 49 }
 			frame = 1
 			alwaystransparent = yes
 		}
@@ -185,7 +246,7 @@ guiTypes = {
 		iconType = {
 			name = "expeditionary_force_icon"
 			quadTextureSprite = "GFX_expeditionary_force_icon"
-			position = { x= 1211 y = 7 }
+			position = { x= 1211 y = 10 }
 			alwaystransparent = yes
 			scale = 0.6
 		}
@@ -193,14 +254,14 @@ guiTypes = {
 		iconType = {
 			name = "country_flag"
 			quadTextureSprite ="GFX_flag_small"
-			position = { x= 1237 y = 7}
+			position = { x= 1237 y = 10}
 			alwaystransparent = yes
 		}
 
 		iconType ={
 			name ="country_flag_frame"
 			spriteType = "GFX_flag_small_golden_frame"
-			position = { x= 1237 y = 9 }
+			position = { x= 1237 y = 12 }
 			Orientation = "UPPER_LEFT"
 			alwaystransparent = yes
 		}
@@ -208,14 +269,14 @@ guiTypes = {
 		iconType = {
 			name = "foreign_template_flag"
 			quadTextureSprite ="GFX_flag_small"
-			position = { x= 1182 y = 7}
+			position = { x= 1182 y = 10}
 			alwaystransparent = yes
 		}
 
 		iconType = {
 			name ="colonial_force_flag_frame"
 			spriteType = "GFX_colonial_flag_small_golden_frame"
-			position = { x= 1158 y = 8 }
+			position = { x= 1158 y = 11 }
 			Orientation = "UPPER_LEFT"
 			alwaystransparent = yes
 		}
@@ -223,7 +284,7 @@ guiTypes = {
 		iconType = {
 			name ="exile_force_flag_frame"
 			spriteType = "GFX_exile_flag_small_golden_frame"
-			position = { x= 1158 y = 8 }
+			position = { x= 1158 y = 11 }
 			Orientation = "UPPER_LEFT"
 			alwaystransparent = yes
 		}
@@ -231,7 +292,7 @@ guiTypes = {
 		containerWindowType = {
 			name = "template_tab"
 			size = { width=782 height=450 }
-			position = { x = 518 y = 70 }
+			position = { x = 520 y = 91 }
 			clipping = no
 
 			iconType = {
@@ -435,12 +496,8 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "info"
-			position = { x=508 y=75 }
+			position = { x=509 y=86 }
 			size = { width=787 height=495 }
-			Background = {
-				name = "mod1440_info_bg"
-				quadTextureSprite = "GFX_tiled_plain_bg_small"
-			}
 
 			iconType = {
 				name = "mod1440_card_base"
@@ -544,43 +601,59 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "history_tab"
-			position = { x=505 y=65}
-			size = { width=791 height=438}
+			position = { x=511 y=92}
+			size = { width=782 height=511}
 			#verticalScrollbar = "right_vertical_slider"
 
+			# Redesign of 2026-10-16: dark cards instead of the parchment. A summary card (label, the two
+			# counts, the honours of medal_instance_container) and a list card with eight rows of 48.
 			containerWindowType = {
 				name = "history_entry_container"
 				position = { x=0 y=0 }
 				size = { width=100% height=100% }
-				margin = { left = 14 }
+				margin = { left = 0 }
 				clipping = no
+
+				iconType = {
+					name = "mod1440_card_history_summary"
+					spriteType = "GFX_1440p_UD_card_history_summary"
+					position = { x = 0 y = 0 }
+					alwaystransparent = yes
+				}
+
+				iconType = {
+					name = "mod1440_card_history_list"
+					spriteType = "GFX_1440p_UD_card_history_list"
+					position = { x = 0 y = 90 }
+					alwaystransparent = yes
+				}
 
 				instantTextboxType = {
 					name = "history_entry_label"
-					position = { x = 5 y = 12 }
+					position = { x = 12 y = 8 }
 					font = "hoi_24header"
 					text = "HISTORY_ENTRY_LABEL"
-					maxWidth = 180
-					maxHeight = 20
+					maxWidth = 270
+					maxHeight = 24
 					format = left
 				}
 
 				instantTextboxType = {
 					name = "history_kill_count"
-					position = { x = 524 y = 15 }
+					position = { x = 12 y = 40 }
 					font = "hoi_18mbs"
 					text = "Kill Count"
-					maxWidth = 260
+					maxWidth = 270
 					maxHeight = 20
 					format = left
 				}
 
 				instantTextboxType = {
 					name = "history_experience_count"
-					position = { x = 524 y = 35 }
+					position = { x = 12 y = 60 }
 					font = "hoi_18mbs"
 					text = "Experience Count"
-					maxWidth = 260
+					maxWidth = 270
 					maxHeight = 20
 					format = left
 				}
@@ -589,21 +662,23 @@ guiTypes = {
 				buttonType = {
 					name = "scrollbar_background"
 					quadTextureSprite = "GFX_scrollbar_vertical_bg"
-					position = { x = 755 y = 95 }
+					position = { x = 758 y = 95 }
 					size = { x=18 y=410 }
 					alwaystransparent = yes
 				}
 
 				listboxType = {
 					name = "history_entry_grid"
-					position = { x = 0 y = 98 }
-					size = { x = 756 y = 405}
+					position = { x = 8 y = 98 }
+					size = { x = 751 y = 405}
 					scrollbartype = "standardlistbox_slider"
 				}
 
+				# The three vanilla backgrounds (frame, paper, medal strip) are kept by name and drawn
+				# transparent: the cards above take their place.
 				background = {
 					name = "Background_1"
-					quadTextureSprite ="GFX_tiled_window2_2b_border"
+					quadTextureSprite ="GFX_tiled_window_transparent"
 					size = { x = 100% y = 56 }
 					position = { x=0 y=0 }
 					alwaysTransparent = yes
@@ -611,14 +686,14 @@ guiTypes = {
 
 				background = {
 					name = "paper_background"
-					quadTextureSprite ="GFX_tiled_paper_w_frame_one_border_2"
+					quadTextureSprite ="GFX_tiled_window_transparent"
 					position = { x=0 y=84 }
 					alwaysTransparent = yes
 				}
 
 				background = {
     				name = "Background"
-    				quadTextureSprite ="GFX_1440p_UD_medal_strip"
+    				quadTextureSprite ="GFX_tiled_window_transparent"
     				position = { x=6 y=56 }
     				alwaysTransparent = yes
 				}
@@ -626,24 +701,24 @@ guiTypes = {
 
 			containerWindowType = {
 				name = "medal_instance_container"
-				position = { x=10 y=3 }
-				size = { width=105 height=200 }
+				position = { x=300 y=0 }
+				size = { width=424 height=84 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "base_medals_label"
-					position = { x = 14 y = 59 }
+					position = { x = 0 y = 8 }
 					font = "hoi_18mbs"
 					text = "INSTANCED_MEDALS"
-					maxWidth = 100
+					maxWidth = 60
 					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "medals_grid"
-					position = { x = 100 y = 48 }
-					size = { width = 155 height = 80 }
+					position = { x = 64 y = 14 }
+					size = { width = 360 height = 60 }
 					slotsize = { width = 40 height = 60 }
 					max_slots_horizontal = 9
 					format = "UPPER_LEFT"
@@ -654,8 +729,8 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "equipment"
-			position = { x=1299 y=118 }
-			size = { width=386 height=449 }
+			position = { x=1301 y=186 }
+			size = { width=380 height=413 }
 			verticalScrollbar = "right_vertical_slider"
 			scroll_wheel_factor = 40
 			smooth_scrolling = yes
@@ -667,7 +742,7 @@ guiTypes = {
 
 			gridBoxType = {
 				name = "equipment_list"
-				position = { x = 2 y = 3 }
+				position = { x = 4 y = 0 }
 				size = { width = 100% height = 100%%}
 				slotsize = { width = 1 height = 1 }
 				max_slots_horizontal = 1
@@ -675,20 +750,23 @@ guiTypes = {
 			}
 		}
 
-		iconType = {
-			name = "mod1440_card_adjusters"
-			spriteType = "GFX_1440p_UD_card_adjusters"
-			position = { x = 515 y = 419 }
-			alwaystransparent = yes
-		}
-
 		containerWindowType = {
 			name = "adjuster_container"
-			position = { x = 515 y = 424 }
+			position = { x = 516 y = 432 }
+
+			# The card of the adjusters row is the container's first child, so the code hides it with the
+			# adjusters on the History and Template tabs. As a window child after the tabs it was drawn on
+			# every tab and covered the History list and the Regimental Support row (redesign of 2026-10-16).
+			iconType = {
+				name = "mod1440_card_adjusters"
+				spriteType = "GFX_1440p_UD_card_adjusters"
+				position = { x = 0 y = 0 }
+				alwaystransparent = yes
+			}
 
 			instantTextboxType = {
 				name = "adjuster_label"
-				position = { x = 10 y = 0 }
+				position = { x = 10 y = 4 }
 				font = "hoi_18mbs"
 				text = "PRODUCTION_ADJUSTERS_LABEL"
 				maxWidth = 150
@@ -698,7 +776,7 @@ guiTypes = {
 
 			containerWindowType = {
 				name = "adjuster_stats"
-				position = { x=0 y= 22 }
+				position = { x=0 y= 24 }
 				size = { width=779 height=124 }
 				clipping = yes
 				verticalScrollbar = "right_vertical_slider"
@@ -724,38 +802,38 @@ guiTypes = {
 		iconType = {
 			name = "template_change_icon"
 			spriteType = "GFX_upgrades_icon"
-			position = { x=1114 y=5 }
+			position = { x=1251 y=51 }
 			scale = 0.6
 		}
 
 		iconType = {
 			name = "manpower_icon"
 			spriteType = "GFX_manpower_icon"
-			position = { x=1429 y=3 }
+			position = { x=1390 y=8 }
 		}
 
 		instantTextboxType = {
 			name = "current_manpower"
-			position = { x = 1472 y = 8 }
-			font = "hoi_18mbs"
+			position = { x = 1421 y = 11 }
+			font = "hoi_20b"
 			text = "Stuff"
-			maxWidth = 60
+			maxWidth = 90
 			maxHeight = 20
-			format = center
+			format = left
 		}
 
 		iconType = {
 			name = "equipment_icon"
 			spriteType = "GFX_equipment_icon"
-			position = { x = 1564 y = 8 }
+			position = { x = 1527 y = 12 }
 		}
 
 		instantTextboxType = {
 			name = "equipment_ratio"
-			position = { x = 1597 y = 8 }
-			font = "hoi_18mbs"
+			position = { x = 1553 y = 11 }
+			font = "hoi_20b"
 			text = "Stuff"
-			maxWidth = 60
+			maxWidth = 48
 			maxHeight = 20
 			format = left
 		}
@@ -763,37 +841,37 @@ guiTypes = {
 		iconType = {
 			name = "softness"
 			spriteType = "GFX_1440p_UD_softness_ratio"
-			position = {x=870 y=426}
+			position = {x=871 y=439}
 		}
 
 		iconType = {
 			name = "softness_ratio_frame"
 			spriteType = "GFX_1440p_UD_softness_frame"
-			position = {x=865 y=421}
+			position = {x=866 y=434}
 			alwaystransparent = yes
 		}
 
 		iconType = {
 			name = "composition_icon"
 			spriteType = "GFX_army_composition_icon"
-			position = {x=788 y=421}
+			position = {x=789 y=434}
 		}
 
 		iconType = {
 			name = "armor_softness_icon"
 			spriteType = "GFX_armor_softness_icon"
-			position = {x=826 y=426}
+			position = {x=827 y=439}
 		}
 
 		iconType = {
 			name = "inf_softness_icon"
 			spriteType = "GFX_inf_softness_icon"
-			position = {x=1240 y=425}
+			position = {x=1241 y=438}
 		}
 
 		dropDownBoxType = {
 			name = "divisions"
-			position = { x = 521 y = 40 }
+			position = { x = 520 y = 53 }
 			size = { width = 200 height = 30 }
 			#clipping = no
 
@@ -811,9 +889,9 @@ guiTypes = {
 				show_animation_type = decelerated
 				hide_animation_type = accelerated
 				animation_time = 300
-				size = { width=382 height=265 }	
+				size = { width=392 height=234 }	
 				verticalScrollbar = "right_vertical_slider"
-				scroll_wheel_factor = 50
+				scroll_wheel_factor = 44
 				smooth_scrolling = yes
 				margin = { top = 7 bottom = 7 right = 6 }
 				#clipping = no
@@ -827,8 +905,8 @@ guiTypes = {
 				gridBoxType = {
 					name = "divisions_grid"
 					position = { x = 8 y = 0 }
-					size = { width = 351 height = 100%% }
-					slotsize = { width = 350 height = 50 }
+					size = { width = 361 height = 100%% }
+					slotsize = { width = 360 height = 44 }
 					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
@@ -838,7 +916,7 @@ guiTypes = {
 		iconType = {
 			name = "type_icon"
 			spriteType = "GFX_unit_infantry_icon_medium" # <- Replaced in code
-			position = { x=525 y=35 }
+			position = { x=524 y=48 }
 			scale = 0.8
 			alwaystransparent = yes
 		}
@@ -846,7 +924,7 @@ guiTypes = {
 		iconType = {
 			name = "change_template_icon"
 			quadTextureSprite ="GFX_change_template_icon"
-			position = { x = 584 y = 40 }
+			position = { x = 583 y = 53 }
 			scale = 0.7
 			alwaystransparent = yes
 		}
@@ -854,13 +932,13 @@ guiTypes = {
 		iconType = {
 			name = "obsolete_template_warning"
 			quadTextureSprite ="GFX_obsolete_template_warning"
-			position = { x= 528 y = 40 }
+			position = { x= 527 y = 53 }
 			pdx_tooltip = "DECOMMISSIONED_TEMPLATE_WARNING_TOOLTIP"
 		}
 
 		dropDownBoxType = {
 			name = "division_name_dropdown"
-			position = { x = 613 y = 37 }
+			position = { x = 614 y = 50 }
 			size = { width = 506 height = 30 }
 
 			editBoxType = {
@@ -940,15 +1018,75 @@ guiTypes = {
 			quadTextureSprite = "GFX_1440p_UD_ship_bg"
 		}
 
+		# Redesign of 2026-10-16 (a3-unit-details): the main panel is the dark tile at 794x580, 258 px right
+		# of the 10x10 rectangle. The captain and air wing cards are the backgrounds of captain_window and
+		# air_wings, which the code hides when the ship has no captain or is no carrier. Plates first, as
+		# siblings are drawn in file order [GUW-026]; the equipment container with the picture band next, so
+		# that the pride button, the dominance values and the sea terrain stand on the band.
+		iconType = {
+			name = "mod1440_title_strip"
+			spriteType = "GFX_1440p_UD_title_strip_s"
+			position = { x = 262 y = 4 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_card_identity"
+			spriteType = "GFX_1440p_UD_card_identity"
+			position = { x = 264 y = 42 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_name_field"
+			spriteType = "GFX_1440p_UD_name_field"
+			position = { x = 365 y = 49 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_experience_field"
+			spriteType = "GFX_1440p_UD_experience_field"
+			position = { x = 877 y = 49 }
+			alwaystransparent = yes
+		}
+
+		containerWindowType = {
+			name = "equipment"
+			position = { x=269 y=440 }
+			size = { width=772 height=134 }
+			clipping = no
+
+			# The picture band of the Stats tab: the container's first child, so it is hidden with the
+			# class picture on the History tab.
+			iconType = {
+				name = "mod1440_class_band"
+				spriteType = "GFX_1440p_UD_class_band"
+				position = { x = 0 y = 0 }
+				alwaystransparent = yes
+			}
+
+			gridboxtype = {
+				name = "equipment_grid"
+				position = { x = 161 y = 29 }
+				size = { width = 250 height = 100%% }
+				slotsize = { width = 60 height = 60 }
+				#max_slots_horizontal = 3
+				#max_slots_vertical = 3
+				format = "UPPER_LEFT"
+			}
+		}
+
+
 		buttonType = {
 			name = "btn_pride"
-			position = {x=271 y=455}
+			position = {x=278 y=449}
 			spriteType = "GFX_NV_btn_pride"
 		}
 
 		instantTextboxType = {
 			name = "ship_title"
-			position = { x = 293 y = 0 }
+			position = { x = 288 y = 0 }
 			textureFile = ""
 			font = "hoi_36header"
 			borderSize = {x = 0 y = 0}
@@ -960,7 +1098,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "tab_stats"
-			position = { x = 268 y = 564 }
+			position = { x = 268 y = 560 }
 			Orientation = "LOWER_LEFT"
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_STATS_LABEL"
@@ -970,7 +1108,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "tab_history"
-			position = { x = 378 y = 564 }
+			position = { x = 378 y = 560 }
 			Orientation = "LOWER_LEFT"
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_HISTORY_LABEL"
@@ -980,7 +1118,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "tab_design"
-			position = { x = 485 y = 564 }
+			position = { x = 485 y = 560 }
 			Orientation = "LOWER_LEFT"
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_DESIGN_LABEL"
@@ -991,12 +1129,12 @@ guiTypes = {
 		iconType = {
 			name = "type_icon"
 			spriteType = "GFX_unit_infantry_icon_medium" # <- Replaced in code
-			position = { x=275 y=43 }
+			position = { x=275 y=56 }
 		}
 
 		editBoxType = {
 			name = "ship_name"
-			position = { x = 371 y = 42 }
+			position = { x = 371 y = 55 }
 			size = {x=498 y=20}
 			#textureFile = ""
 			font = "hoi_20b"
@@ -1009,7 +1147,7 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "experience"
-			position = { x = 877 y = 41 }
+			position = { x = 886 y = 54 }
 			font = "hoi_18mbs"
 			text = ""
 			maxWidth = 150
@@ -1019,18 +1157,18 @@ guiTypes = {
 		iconType = {
 			name = "unit_level"
 			spriteType = "GFX_unit_level"
-			position = { x = 988 y = 38 }
+			position = { x = 965 y = 51 }
 		}
 		
 		iconType = {
 			name = "dominance_icon"
-			position = {x=278 y=505}
+			position = {x=285 y=499}
 			spriteType = "GFX_naval_dominance_texticon"
 		}
 
 		instantTextboxType = {
 			name = "dominance_value"
-			position = { x = 308 y = 507 }
+			position = { x = 315 y = 501 }
 			textureFile = ""
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
@@ -1042,14 +1180,14 @@ guiTypes = {
 		
 		iconType = {
 			name = "support_icon"
-			position = {x=278 y=475}
+			position = {x=285 y=469}
 			spriteType = "GFX_naval_dominance_support_strip"
 			frame = 2
 		}
 
 		instantTextboxType = {
 			name = "support_value"
-			position = { x = 308 y = 473 }
+			position = { x = 315 y = 467 }
 			textureFile = ""
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
@@ -1062,31 +1200,31 @@ guiTypes = {
 		iconType = {
 			name = "manpower_icon"
 			spriteType = "GFX_manpower_icon"
-			position = { x=1182 y=3 }
+			position = { x=779 y=8 }
 		}
 
 		instantTextboxType = {
 			name = "current_manpower"
-			position = { x = 1225 y = 8 }
-			font = "hoi_18mbs"
+			position = { x = 810 y = 11 }
+			font = "hoi_20b"
 			text = "Stuff"
-			maxWidth = 60
+			maxWidth = 56
 			maxHeight = 20
-			format = center
+			format = left
 		}
 		
 		iconType = {
 			name = "fuel_icon"
 			spriteType = "GFX_fuel"
-			position = { x = 1317 y = 8 }
+			position = { x = 882 y = 9 }
 		}
 
 		instantTextboxType = {
 			name = "fuel_consumption"
-			position = { x = 1350 y = 8 }
-			font = "hoi_18mbs"
+			position = { x = 910 y = 11 }
+			font = "hoi_20b"
 			text = "Stuff"
-			maxWidth = 60
+			maxWidth = 52
 			maxHeight = 20
 			format = left
 		}
@@ -1094,32 +1232,39 @@ guiTypes = {
 		# captain
 		containerWindowType = {
 			name = "captain_window"
-			position = { x=258 y=0 }
+			position = { x=1058 y=0 }
+			size = { width=386 height=110 }
+
+			Background = {
+				name = "mod1440_captain_bg"
+				quadTextureSprite = "GFX_tiled_plain_bg"
+			}
+
 			containerWindowType = {
 				name = "captain_header_list_entry"
-				position = { x = 796 y = 34 }
-				size = { width = 360 height = 30 }
+				position = { x = 4 y = 4 }
+				size = { width = 378 height = 28 }
 
 				Background = {
 					name = "captain_list_entry_bg"
-					quadTextureSprite = "GFX_1440p_UD_list_entry_bg"
+					quadTextureSprite = "GFX_1440p_UD_caption_bar"
 					alwaystransparent = yes
 				}
 			}
 
 			instantTextboxType = {
 				name = "captain_title_text"
-				position = { x = 808 y = 39 }
+				position = { x = 14 y = 9 }
 				font = "hoi_18mbs"
 				text = "CAPTAIN_TITLE_TEXT"
-				maxWidth = 340
+				maxWidth = 266
 				maxHeight = 20
 				format = left
 			}
 
 			buttonType = {
 				name = "portraittime"
-				position = { x = 802 y = 60 }
+				position = { x = 14 y = 40 }
 				quadTextureSprite = "GFX_idea_HOL_wilhelmina"
 				alwaystransparent= yes
 			}
@@ -1127,15 +1272,16 @@ guiTypes = {
 			buttonType = {
 				name = "promote_captain"
 				quadTextureSprite ="GFX_leader_selection_button"
-				position = { x=1064 y=34 }
+				position = { x=285 y=3 }
 				buttonText = "PROMOTE"
 				font = "hoi_16mbs"
 				frame = 1
+				shortcut = "shift+z"
 			}
 
 			iconType = {
 				name = "idea_traits"
-				position = { x = 845 y = 104 }
+				position = { x = 57 y = 84 }
 				spriteType = "GFX_chevrons"
 				centerposition = yes
 				alwaystransparent = yes
@@ -1145,18 +1291,21 @@ guiTypes = {
 
 			instantTextboxType = {
 				name = "captain"
-				position = { x = 866  y = 72 }
-				font = "hoi_18mbs"
+				position = { x = 84  y = 48 }
+				font = "hoi_20b"
 				text = "captain haddock"
-				maxWidth = 280
-				maxHeight = 20
+				# Two lines of hoi_20b and no more [GUW-027].
+				maxWidth = 294
+				maxHeight = 44
+				fixedsize = yes
 				format = left
+				vertical_alignment = center
 			}
 		}
 
 		containerWindowType = {
 			name = "terrain"
-			position = { x=652 y=437}
+			position = { x=659 y=431}
 			size = { width=410 height=210}
 			margin = { top = 13 left = 13 bottom = 15 right = 25}
 			verticalScrollbar = "right_vertical_slider"
@@ -1174,12 +1323,8 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "info"
-			position = { x=261 y=75 }
+			position = { x=262 y=86 }
 			size = { width=787 height=355 }
-			Background = {
-				name = "mod1440_info_bg"
-				quadTextureSprite = "GFX_tiled_plain_bg_small"
-			}
 
 			iconType = {
 				name = "mod1440_card_base"
@@ -1281,59 +1426,43 @@ guiTypes = {
 			}
 		}
 
-		containerWindowType = {
-			name = "equipment"
-			position = { x=268 y=465 }
-			size = { width=250 height=200 }
-			clipping = no
-
-			gridboxtype = {
-				name = "equipment_grid"
-				position = { x = 155 y = 10 }
-				size = { width = 250 height = 100%% }
-				slotsize = { width = 60 height = 60 }
-				#max_slots_horizontal = 3
-				#max_slots_vertical = 3
-				format = "UPPER_LEFT"
-			}
-		}
-
 		positionType = {
 			name = "carrier_air_wings_list_position"
-			position = { x=1039 y=0 }
+			position = { x=1058 y=0 }
 		}
 		positionType = {
 			name = "taog_carrier_air_wings_list_position"
-			position = { x=1039 y=90 }
+			position = { x=1058 y=116 }
 		}
 
 		containerWindowType = {
 			name = "air_wings"
-			position = { x=1039 y=90 }
-			size = { width=390 height=580 }
+			position = { x=1058 y=0 }
+			size = { width=386 height=320 }
 			margin = { bottom = 8 }
 			clipping = no
 
 			containerWindowType = {
 				name = "captain_header_list_entry"
-				position = { x = 15 y = 34 }
-				size = { width = 360 height = 30 }
+				position = { x = 4 y = 4 }
+				size = { width = 378 height = 28 }
 
 				Background = {
 					name = "captain_list_entry_bg"
-					quadTextureSprite = "GFX_1440p_UD_list_entry_bg"
+					quadTextureSprite = "GFX_1440p_UD_caption_bar"
 					alwaystransparent = yes
 				}
 			}
 
+			# The card: shown only on a carrier, as the code hides air_wings on other ships.
 			background = {
 				name = "Background"
-				quadTextureSprite ="GFX_tiled_window_transparent"
+				quadTextureSprite ="GFX_tiled_plain_bg"
 			}
 
 			instantTextboxType = {
 				name = "title"
-				position = { x = 27 y = 39 }
+				position = { x = 14 y = 9 }
 				textureFile = ""
 				font = "hoi_18mbs"
 				borderSize = {x = 0 y = 0}
@@ -1345,8 +1474,8 @@ guiTypes = {
 
 			containerWindowType = {
 				name = "list_window"
-				position = { x=0 y=65}
-				size = { width=400 height=100%% }
+				position = { x=0 y=34}
+				size = { width=386 height=276 }
 				clipping = yes
 				verticalScrollbar = "right_vertical_slider"
 
@@ -1357,7 +1486,7 @@ guiTypes = {
 
 				gridboxtype = {
 					name = "list"
-					position = { x = 15 y = 0 }
+					position = { x = 14 y = 0 }
 					size = { width = 370 height = 100%% }
 					slotsize = { width = 370 height = 46 }
 					max_slots_horizontal = 1
@@ -1368,34 +1497,35 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "history"
-			position = { x=260 y=70}
-			size = { width=791 height=276}
+			position = { x=264 y=92}
+			size = { width=782 height=482}
 
 			containerWindowType = {
 				name = "medal_instance_container"
-				position = { x = 4 y = 0 }
-				size = { width = 100% height = 30 }
+				position = { x = 0 y = 0 }
+				size = { width = 782 height = 84 }
 
+				# Summary card: the honours and the captain's experience.
 				background = {
 					name = "Background"
-					quadTextureSprite ="GFX_1440p_UD_medal_strip"
+					quadTextureSprite ="GFX_tiled_plain_bg_small"
 					alwaysTransparent = yes
 				}
 
 				instantTextboxType = {
 					name = "base_medals_label"
-					position = { x = 19 y = 5 }
+					position = { x = 300 y = 8 }
 					font = "hoi_18mbs"
 					text = "INSTANCED_MEDALS"
-					maxWidth = 100
+					maxWidth = 60
 					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "medals_grid"
-					position = { x = 105 y = -6 }
-					size = { width = 155 height = 80 }
+					position = { x = 364 y = 14 }
+					size = { width = 360 height = 60 }
 					slotsize = { width = 40 height = 60 }
 					max_slots_horizontal = 9
 					format = "UPPER_LEFT"
@@ -1403,25 +1533,26 @@ guiTypes = {
 				
 				instantTextboxType = {
 					name = "captain_experience"
-					position = { x = 464 y = 5 }
+					position = { x = 12 y = 8 }
 					font = "hoi_18mbs"
 					text = "Experience Count"
-					maxWidth = 250
+					maxWidth = 270
 					maxHeight = 20
-					format = right
+					format = left
 				}
 
 			}
 
 			containerWindowType = {
 				name = "history_grid_container"
-				position = { x=-2 y=28}
-				size = { width=100% height=334 }
-				margin = { top = 13 left = 13 bottom = 0 }
+				position = { x=0 y=90}
+				size = { width=782 height=392 }
+				margin = { top = 0 left = 0 bottom = 0 }
 
+				# List card, as on the division window.
 				background = {
 					name = "Background"
-					quadTextureSprite ="GFX_tiled_paper_w_frame_one_border_2"
+					quadTextureSprite ="GFX_tiled_plain_bg_small"
 					alwaysTransparent = yes
 				}
 
@@ -1430,15 +1561,15 @@ guiTypes = {
 				buttonType = {
 					name = "scrollbar_background"
 					quadTextureSprite = "GFX_scrollbar_vertical_bg"
-					position = { x = 755 y = 0 }
-					size = { x=18 y=312 }
+					position = { x = 758 y = 5 }
+					size = { x=18 y=381 }
 					alwaystransparent = yes
 				}
 
 				listboxType = {
 					name = "history_grid"
-					position = { x = 0 y = 2 }
-					size = { x = 756 y = 307 }
+					position = { x = 8 y = 8 }
+					size = { x = 751 y = 376 }
 					scrollbartype = "standardlistbox_slider"
 				}
 			}
@@ -1446,7 +1577,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_delete"
-			position = { x = 1042 y = 3 }
+			position = { x = 968 y = 6 }
 			spriteType = "GFX_NV_btn_delete"
 			clicksound = disband
 			Orientation = "UPPER_RIGHT"
@@ -1454,7 +1585,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_close"
-			position = { x = 1394 y = 3 }
+			position = { x = 1006 y = 6 }
 			quadTextureSprite ="GFX_NV_btn_close"
 			buttonFont = "Main_14_black"
 			shortcut = "ESCAPE"
@@ -1602,19 +1733,22 @@ containerWindowType =
 
 	containerWindowType = {
 		name = "army_history_entry"
-		size = { width = 749 height = 52 }
+		size = { width = 744 height = 48 }
 		clipping = no
+
+		# Redesign of 2026-10-16 (a3-unit-details): a dark row in place of the line on the parchment, shared by
+		# the division and ship History tabs. The row plate comes first so that the vanilla red rule between
+		# date and text stands on it.
+		iconType = {
+			name = "sunk_ships_entry_divider"
+			spriteType = "GFX_1440p_UD_history_row"
+			position = { x = 0 y = 1 }
+		}
 
 		iconType = {
 			name = "sunk_ships_entry_divider_2"
 			spriteType = "GFX_sunk_ships_entry_divider_2"
-			position = { x = 198 y = 0 }
-		}
-
-		iconType = {
-			name = "sunk_ships_entry_divider"
-			spriteType = "GFX_1440p_UD_history_divider"
-			position = { x = 0 y = 0 }
+			position = { x = 154 y = -2 }
 		}
 
 		iconType = {
@@ -1670,12 +1804,13 @@ containerWindowType =
 
 		instantTextboxType = {
 			name = "date_field"
-			position = { x = 55 y = 13 }
-			font = "hoi4_typewriter22"
+			position = { x = 52 y = 14 }
+			font = "hoi_18mbs"
+			text_color_code = "Y"
 			borderSize = { x = 0 y = 0 }
 			text = "Maus"
-			maxWidth = 140
-			maxHeight = 24
+			maxWidth = 100
+			maxHeight = 20
 			format = left
 			vertical_alignment = center
 			alwaystransparent = yes
@@ -1683,12 +1818,12 @@ containerWindowType =
 
 		instantTextboxType = {
 			name = "text_field"
-			position = { x = 208 y = 3 }
-			font = "hoi4_typewriter22"
+			position = { x = 160 y = 4 }
+			font = "hoi_18mbs"
 			borderSize = { x = 0 y = 0 }
 			text = "Maus"
-			maxWidth = 504
-			maxHeight = 46
+			maxWidth = 576
+			maxHeight = 40
 			format = left
 			vertical_alignment = center
 			alwaystransparent = yes
@@ -1768,7 +1903,7 @@ containerWindowType =
 		name = "air_wing_stats_window"
 		moveable = yes
 		position = { x=-275 y=-235 }
-		size = { width = 1180 height = 584 }
+		size = { width = 794 height = 590 }
 		Orientation = center
 		clipping = no
 		fade_time = 300
@@ -1778,12 +1913,50 @@ containerWindowType =
 		
 		Background = {
 			name = "air_wing_stats_bg"
-			quadTextureSprite = "GFX_1440p_UD_air_wing_bg"
+			quadTextureSprite = "GFX_tiled_plain_bg"
+		}
+
+		# Redesign of 2026-10-16 (a3-unit-details): the window is the dark tile at 794x590, the side column of
+		# the first build is gone: the equipment rows have a card under the one-row Base card. Plates
+		# first, as siblings are drawn in file order [GUW-026].
+		iconType = {
+			name = "mod1440_title_strip"
+			spriteType = "GFX_1440p_UD_title_strip_s"
+			position = { x = 4 y = 4 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_card_identity"
+			spriteType = "GFX_1440p_UD_card_identity"
+			position = { x = 6 y = 42 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_name_field"
+			spriteType = "GFX_1440p_UD_name_field"
+			position = { x = 107 y = 49 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_card_air_equipment"
+			spriteType = "GFX_1440p_UD_card_air_equipment"
+			position = { x = 11 y = 182 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_picture_band"
+			spriteType = "GFX_1440p_UD_air_band"
+			position = { x = 11 y = 440 }
+			alwaystransparent = yes
 		}
 		
 		buttonType = {
 			name = "btn_delete"
-			position = { x = -385 y = 3 }
+			position = { x = -74 y = 6 }
 			spriteType = "GFX_NV_btn_delete"
 			pdx_tooltip = "AIRWING_DELETE"
 			clicksound = disband
@@ -1792,7 +1965,7 @@ containerWindowType =
 		
 		buttonType = {
 			name = "btn_close"
-			position = { x = -35 y = 3 }
+			position = { x = -36 y = 6 }
 			quadTextureSprite ="GFX_NV_btn_close"
 			buttonFont = "Main_14_black"
 			shortcut = "ESCAPE"
@@ -1803,7 +1976,7 @@ containerWindowType =
 		
 		instantTextboxType = {
 			name = "ship_title"
-			position = { x = 35 y = 0 }
+			position = { x = 30 y = 0 }
 			textureFile = ""
 			font = "hoi_36header"
 			borderSize = {x = 0 y = 0}
@@ -1816,7 +1989,7 @@ containerWindowType =
 		iconType = {
 			name ="carrier_capable_icon"
 			spriteType = "GFX_airwing_carrier_icon"
-			position = { x=27 y=53 }
+			position = { x=23 y=66 }
 			centerposition = yes
 			pdx_tooltip = AIR_CARRIER_CAPABLE
 		}
@@ -1824,13 +1997,13 @@ containerWindowType =
 		iconType = { 
 			name = "type_icon"
 			spriteType = "GFX_technology_medium" # <- Replaced in code
-			position = { x=27 y=43 }
+			position = { x=23 y=56 }
 			scale = 0.5
 		}
 				
 		editBoxType = {
 			name = "air_wing_name"
-			position = { x = 113 y = 42 }
+			position = { x = 113 y = 55 }
 			size = {x=501 y=20}
 			#textureFile = ""
 			font = "hoi_20b"
@@ -1844,12 +2017,12 @@ containerWindowType =
 		iconType = {
 			name = "manpower_icon"
 			spriteType = "GFX_manpower_icon"
-			position = { x=20 y=539 }
+			position = { x=27 y=542 }
 		}
 		
 		instantTextboxType = {
 			name = "current_manpower"
-			position = { x = 50 y = 544  }
+			position = { x = 57 y = 547  }
 			font = "hoi_18mbs"
 			text = "Stuff"
 			maxWidth = 60
@@ -1859,7 +2032,7 @@ containerWindowType =
 
 		containerWindowType = {
 			name = "missions"
-			position = { x = 20 y = 490 }
+			position = { x = 27 y = 493 }
 			size = { width = 150 height = 20 }
 
 			gridboxtype = {
@@ -1874,15 +2047,15 @@ containerWindowType =
 		iconType = {
 			name = "equipment_icon"
 			spriteType = "GFX_equipment_icon"
-			position = { x = 962 y = 8 }
+			position = { x = 630 y = 12 }
 		}
 		
 		instantTextboxType = {
 			name = "equipment_ratio"
-			position = { x = 1014 y = 8 }
-			font = "hoi_18mbs"
+			position = { x = 656 y = 11 }
+			font = "hoi_20b"
 			text = "Stuff"
-			maxWidth = 60
+			maxWidth = 48
 			maxHeight = 20
 			format = left
 		}
@@ -1890,7 +2063,7 @@ containerWindowType =
 		containerWindowType = {
 			name = "niche_selection_container"
 			orientation = lower_left
-			position = {x = 734 y = -100 }
+			position = {x = 741 y = -103 }
 			positionType = {
 				name = "niche_selection_position"
 				position = { x = 0 y = 0 }
@@ -1899,16 +2072,12 @@ containerWindowType =
 	
 		containerWindowType = {
 			name = "info"
-			position = { x=3 y=75 }
+			position = { x=4 y=86 }
 			size = { width=787 height=355 }
-			Background = {
-				name = "mod1440_info_bg"
-				quadTextureSprite = "GFX_tiled_plain_bg_small"
-			}
 
 			iconType = {
 				name = "mod1440_card_base"
-				spriteType = "GFX_1440p_UD_card_stats_s"
+				spriteType = "GFX_1440p_UD_card_stats_row"
 				position = { x = 7 y = 6 }
 				alwaystransparent = yes
 			}
@@ -1930,7 +2099,7 @@ containerWindowType =
 			containerWindowType = {
 				name = "base_stats"
 				position = { x=7 y=6 }
-				size = { width=380 height=194 }
+				size = { width=380 height=84 }
 				clipping = no
 
 				instantTextboxType = {
@@ -2008,13 +2177,13 @@ containerWindowType =
 		
 		iconType = {
 			name = "ace_icon"
-			position = {x=714 y=525}
+			position = {x=721 y=528}
 			spriteType = "GFX_ace_none"
 		}
 		
 		instantTextboxType = {
 			name = "ace_name"
-			position = {x=459 y=545}
+			position = {x=466 y=548}
 			font = "hoi_18mbs"
 			text = ""
 			maxWidth = 250
@@ -2025,7 +2194,7 @@ containerWindowType =
 		containerWindowType = 
 		{
 			name = "stat_equipment_entry_large"
-			position = {x=117 y=475}
+			position = {x=124 y=478}
 			size = { width = 50 height = 50 }
 			
 			iconType =
@@ -2060,8 +2229,8 @@ containerWindowType =
 		
 		containerWindowType = {
 			name = "equipment"
-			position = { x=795 y=30 }	
-			size = { width=358 height=577 }
+			position = { x=17 y=189 }	
+			size = { width=370 height=90 }
 			orientation = upper_left
 			clipping = yes
 			verticalScrollbar = "right_vertical_slider"
@@ -2142,7 +2311,7 @@ containerWindowType = {
 		moveable = yes
 		click_to_front = yes
 		position = { x=-275 y=-235 }
-		size = { width = 791 height = 584 }
+		size = { width = 794 height = 580 }
 		Orientation = center
 		clipping = no
 		fade_time = 300
@@ -2152,12 +2321,43 @@ containerWindowType = {
 
 		Background = {
 			name = "railway_gun_stats_bg"
-			quadTextureSprite = "GFX_1440p_UD_ship_bg"
+			quadTextureSprite = "GFX_tiled_plain_bg"
+		}
+
+		# Redesign of 2026-10-16 (a3-unit-details): the window is the dark tile at 794x580, without the ship's
+		# side panel; the picture band of the ship window holds the manpower, the fort adjuster and the gun. Plates
+		# first, as siblings are drawn in file order [GUW-026].
+		iconType = {
+			name = "mod1440_title_strip"
+			spriteType = "GFX_1440p_UD_title_strip_s"
+			position = { x = 4 y = 4 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_card_identity"
+			spriteType = "GFX_1440p_UD_card_identity"
+			position = { x = 6 y = 42 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_name_field"
+			spriteType = "GFX_1440p_UD_name_field"
+			position = { x = 107 y = 49 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_picture_band"
+			spriteType = "GFX_1440p_UD_class_band"
+			position = { x = 11 y = 440 }
+			alwaystransparent = yes
 		}
 
 		instantTextboxType = {
 			name = "railway_gun_title"
-			position = { x = 35 y = 0 }
+			position = { x = 30 y = 0 }
 			textureFile = ""
 			font = "hoi_36header"
 			borderSize = {x = 0 y = 0}
@@ -2170,12 +2370,12 @@ containerWindowType = {
 		iconType = {
 			name = "type_icon"
 			spriteType = "GFX_unit_railway_gun_icon_medium" # <- Replaced in code
-			position = { x=24 y=29 }
+			position = { x=17 y=46 }
 		}
 
 		editBoxType = {
 			name = "railway_gun_name"
-			position = { x = 113 y = 42 }
+			position = { x = 113 y = 55 }
 			size = {x=498 y=20}
 			#textureFile = ""
 			font = "hoi_20b"
@@ -2189,12 +2389,12 @@ containerWindowType = {
 		iconType = {
 			name = "manpower_icon"
 			spriteType = "GFX_manpower_icon"
-			position = { x=20 y=539 }
+			position = { x=27 y=533 }
 		}
 
 		instantTextboxType = {
 			name = "current_manpower"
-			position = { x = 50 y = 544 }
+			position = { x = 57 y = 538 }
 			font = "hoi_18mbs"
 			text = "Stuff"
 			maxWidth = 60
@@ -2205,7 +2405,7 @@ containerWindowType = {
 		containerWindowType = {
 			name = "forts_modifier"
 			size = { width = 50 height = 70 }
-			position = { x = 682 y = 499 }
+			position = { x = 689 y = 493 }
 			clipping = no
 
 			iconType = {
@@ -2248,12 +2448,8 @@ containerWindowType = {
 
 		containerWindowType = {
 			name = "info"
-			position = { x=3 y=75 }
+			position = { x=4 y=86 }
 			size = { width=787 height=355 }
-			Background = {
-				name = "mod1440_info_bg"
-				quadTextureSprite = "GFX_tiled_plain_bg_small"
-			}
 
 			iconType = {
 				name = "mod1440_card_base"
@@ -2357,7 +2553,7 @@ containerWindowType = {
 
 		containerWindowType = {
 			name = "equipment"
-			position = { x=10 y=465 }
+			position = { x=17 y=459 }
 			size = { width=250 height=200 }
 			clipping = no
 
@@ -2374,7 +2570,7 @@ containerWindowType = {
 
 		buttonType = {
 			name = "btn_delete"
-			position = { x = 3 y = 3 }
+			position = { x = -74 y = 6 }
 			spriteType = "GFX_NV_btn_delete"
 			clicksound = disband
 			Orientation = "UPPER_RIGHT"
@@ -2382,7 +2578,7 @@ containerWindowType = {
 
 		buttonType = {
 			name = "btn_close"
-			position = { x = 355 y = 3 }
+			position = { x = -36 y = 6 }
 			quadTextureSprite ="GFX_NV_btn_close"
 			buttonFont = "Main_14_black"
 			shortcut = "ESCAPE"

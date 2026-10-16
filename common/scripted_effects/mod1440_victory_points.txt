@@ -43743,6 +43743,10 @@ mod1440_vp_changed = {
 				add_to_variable = { mod1440_of_vps = 1 }
 			}
 		}
+		if = {
+			limit = { check_variable = { vp_v > 14 } }
+			mod1440_hn_city = yes
+		}
 	}
 	else_if = {
 		limit = { check_variable = { vp_old = vp_me } OR = { is_in_array = { array = enemies value = vp_now } is_in_array = { array = mod1440_ev_enemies value = vp_now } } }

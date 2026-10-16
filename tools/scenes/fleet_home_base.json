@@ -8,8 +8,8 @@
     {
       "name": "home_base_selection_window",
       "at": [
-        738,
-        78
+        746,
+        82
       ],
       "atVanilla": [
         490,
@@ -19,7 +19,7 @@
       "rows": {
         "home_base_selection_grid": 8
       },
-      "_note": "Sits where its file position puts it (Engine Facts S22): beside the fleet panel. 70 % of the screen high."
+      "_note": "Sits where its file position puts it [GUL-021]: 6 px right of the fleet panel, its top with the header's. 70 % of the screen high."
     },
     {
       "name": "naval_base_selection_item",
@@ -65,7 +65,8 @@
     "A country with more bases than fit: scroll to the end"
   ],
   "checklist": [
-    "Rows: icon, base name and count in full",
-    "Filters and title"
+    "Title strip with the title at the left and Close at the right",
+    "The three filters side by side in one plate, each label whole",
+    "Rows: icon, base name and count in full, the list from y 90"
   ]
 }

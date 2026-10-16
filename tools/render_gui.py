@@ -229,6 +229,13 @@ class Renderer:
             self.across |= set(w.get("rowsAcross") or [])
         self.clip_default = self.options.get("clip_default", "no") == "yes"
         self.frame_override = self.options.get("frame")
+        # frames the code picks for single widgets (a selected row): "frames" per window in the scene, and
+        # per window name in a state, which wins
+        self.frames = {}
+        state_frames = self.state.get("frames") or {}
+        for w in self.scene.get("windows") or []:
+            for n, f in (state_frames.get(w["name"]) or w.get("frames") or {}).items():
+                self.frames[(w["name"], n)] = int(f)
 
     # ------------------------------------------------------------ helpers
 
@@ -417,10 +424,12 @@ class Renderer:
                 img = img.resize((max(1, int(img.width * scale)), max(1, int(img.height * scale))), Image.BILINEAR)
         x, y = rect.x, rect.y
         if rotation and abs(abs(rotation) - 1.5708) < 0.05:
-            # 90 degrees anticlockwise about the widget's top-left corner: the bar stands up from its anchor.
+            # 90 degrees: the bar stands up from its anchor. The game draws an L x t bar left of the anchor's x,
+            # its foot t below the anchor's y: x - t to x, y - (L - t) to y + t [GUL-013].
             img = img.rotate(90 if rotation > 0 else -90, expand=True)
             if rotation > 0:
-                y = rect.y - img.height
+                x = rect.x - img.width
+                y = rect.y - img.height + img.width
         drawn = Rect(x, y, img.width, img.height)
         self.paste(canvas, img, drawn, clip)
         return drawn
@@ -732,6 +741,9 @@ class Renderer:
         sprite_name = self.value(node.get("quadTextureSprite")) or self.value(node.get("spriteType"))
         sprite = self.sprite(sprite_name)
         frame = int(gp.number(self.value(node.get("frame")), 1) or 1)
+        picked = self.frames.get((window_name, name))
+        if picked and sprite is not None and sprite.frames >= picked:
+            frame = picked
         if self.frame_override and sprite is not None and sprite.frames >= self.frame_override:
             frame = self.frame_override
         scale = gp.number(self.value(node.get("scale")), 1.0) or 1.0

@@ -15,19 +15,19 @@
       "sidePanel": true,
       "rows": {
         "army_units/item_grid": 30,
-        "army_header/modifiers_grid": 14,
-        "army_header/sub_units_grid": 5
+        "mod1440_ao_army_mods/modifiers_grid": 14,
+        "mod1440_ao_army_types/sub_units_grid": 5
       },
       "listRows": {
         "army_units/item_grid": "armyview_army_entry",
         "navy_units/item_grid": "armyview_navy_entry",
         "air_units/item_grid": "armyview_air_entry",
-        "army_header/modifiers_grid": "modifier_entry",
-        "navy_header/modifiers_grid": "modifier_entry",
-        "air_header/modifiers_grid": "modifier_entry",
-        "army_header/sub_units_grid": "army_view_subunit_entry",
-        "navy_header/ships_count_grid": "navy_view_ship_entry",
-        "air_header/count_grid": "air_view_plane_entry"
+        "mod1440_ao_army_mods/modifiers_grid": "modifier_entry",
+        "mod1440_ao_navy_mods/modifiers_grid": "modifier_entry",
+        "mod1440_ao_air_mods/modifiers_grid": "modifier_entry",
+        "mod1440_ao_army_types/sub_units_grid": "army_view_subunit_entry",
+        "mod1440_ao_navy_types/ships_count_grid": "navy_view_ship_entry",
+        "mod1440_ao_air_types/count_grid": "air_view_plane_entry"
       },
       "hide": [
         "navy_header",
@@ -37,7 +37,7 @@
         "naval_hq_open",
         "destroyed_ships_open"
       ],
-      "_note": "The three tabs are one window: the code shows the header and list of one of them and hides the other two. The default state is the army tab. 'place' adds the 13 px left and top margin of each scrolling list to its grid; the renderer does not model margins. The mod's header containers have no margin: their children carry the 13 px.",
+      "_note": "The three tabs are one window: the code shows the header and list of one of them and hides the other two. The default state is the army tab. 'place' adds the 13 px left and top margin of each scrolling list to its grid; the renderer does not model margins. Since the redesign of 2026-10-16 each tab's modifiers and counts by type stand in cards of the rail (mod1440_ao_<tab>_mods, mod1440_ao_<tab>_types): the renderer names a grid by the nearest container around it, so the keys here name the cards; tools/gui-links.json names the vanilla header containers, as the tests do. The navy capture draws 10 modifier tiles: the code adds 9 or 10 (GUL-044), vanilla's 7 x 1 grid showed 7; the values are samples.",
       "place": {
         "army_units/item_grid": [
           13,
@@ -310,13 +310,14 @@
       },
       "rows": {
         "navy_units/item_grid": 5,
-        "navy_header/modifiers_grid": 7,
-        "navy_header/ships_count_grid": 5
+        "mod1440_ao_navy_mods/modifiers_grid": 10,
+        "mod1440_ao_navy_types/ships_count_grid": 5
       },
       "samples": {
         "countryarmyview": {
           "army_title": "Navy Overview",
-          "unit_count": "5 Fleets"
+          "unit_count": "5 Fleets",
+          "theatres_count": "Active in 3 Strategic area(s)"
         }
       },
       "expect": [
@@ -347,13 +348,14 @@
       },
       "rows": {
         "navy_units/item_grid": 5,
-        "navy_header/modifiers_grid": 7,
-        "navy_header/ships_count_grid": 5
+        "mod1440_ao_navy_mods/modifiers_grid": 10,
+        "mod1440_ao_navy_types/ships_count_grid": 5
       },
       "samples": {
         "countryarmyview": {
           "army_title": "Navy Overview",
-          "unit_count": "5 Fleets"
+          "unit_count": "5 Fleets",
+          "theatres_count": "Active in 3 Strategic area(s)"
         }
       }
     },
@@ -380,13 +382,14 @@
       },
       "rows": {
         "air_units/item_grid": 15,
-        "air_header/modifiers_grid": 14,
-        "air_header/count_grid": 5
+        "mod1440_ao_air_mods/modifiers_grid": 14,
+        "mod1440_ao_air_types/count_grid": 5
       },
       "samples": {
         "countryarmyview": {
           "army_title": "Air Forces Overview",
-          "unit_count": "15 Air Wings"
+          "unit_count": "15 Air Wings",
+          "theatres_count": "Active in 0 Strategic area(s)"
         }
       }
     },
@@ -433,6 +436,16 @@
     1380
   ],
   "manual": [],
-  "checklist": [],
-  "_note": "Surveyed on 2026-10-08. A6 (2026-10-14): the panel is 900 wide; the header containers have no margin, so the file says where their widgets are."
+  "checklist": [
+    "1. Division Overview (o): the banner shows '30 Divisions', the battalion count, 'Active in 1 Theater(s)' and the special forces count; the rail at the right holds the 14 modifiers in one column and the 5 division types in one column. If the tiles run in a row instead, note it (the fallback is the build's two header rows).",
+    "2. Hover three modifier tiles, a division type chip, a row's bars, its level and its army shield: each tooltip shows.",
+    "3. Click a division type chip: the list shows that type only; click it again to clear. Type a name into the filter box: the list narrows.",
+    "4. Click each of the four sort buttons over the list.",
+    "5. Scroll the division list to its end: the scrollbar runs between the list and the rail, and the last row is whole above the panel's foot.",
+    "6. Navy Overview (p): count the modifier tiles in the rail (vanilla's grid showed 7; the code adds 9 or 10, GUL-044, so 2 or 3 more may show) and the ship chips; the region of each fleet whole. Press shift+l: Sunk Ships opens beside the panel at x 890; press it again or Escape to close it. Click a ship chip: does it filter?",
+    "7. Air Forces Overview (l): 14 modifiers and the plane chips in the rail; click a plane chip: does it filter? Press shift+l on this tab: note whether anything happens (the button is hidden here).",
+    "8. Shift+i: Equipment Details beside the panel at x 890, next to the rail.",
+    "9. error.log: no 'Could not find' line, no line naming zz_1440p_army_overview.gui or GFX_1440p_AO."
+  ],
+  "_note": "Surveyed on 2026-10-08. A6 (2026-10-14): the panel is 900 wide; the header containers have no margin, so the file says where their widgets are. Redesign of 2026-10-16: a banner card and a rail of cards; rows of 738, 34 division rows in view (rows start at screen y 234)."
 }

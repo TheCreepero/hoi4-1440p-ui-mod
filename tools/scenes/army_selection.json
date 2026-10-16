@@ -12,10 +12,12 @@
         218
       ],
       "rows": {
-        "divisions_window": 30
+        "divisions_window": 19,
+        "unit_land_combat_grid": 0
       },
       "listRows": {
-        "divisions_window": "army_division_view"
+        "divisions_window": "army_division_view",
+        "unit_land_combat_grid": "unit_land_combat_entry"
       },
       "height": 760,
       "hide": [
@@ -23,7 +25,44 @@
         "bottom_window",
         "select_hq_shortcut_anchor"
       ],
-      "_note": "Measured with render_gui.py --verify on a game capture: the toolbar sits at y 187 + its file position. The frame itself starts at the top of the badge (y 83) and runs behind it; the code hides hq_window unless an HQ can be deployed and shows bottom_window only for the unassigned list. A9 (2026-10-16): the badge is 31 px taller (128); the code is expected to put the list under it, at 218 (not yet seen in the game)."
+      "_note": "Measured with render_gui.py --verify on a game capture: the toolbar sits at y 187 + its file position. The frame itself starts at the top of the badge (y 83) and runs behind it; the code hides hq_window unless an HQ can be deployed and shows bottom_window only for the unassigned list. A9 (2026-10-16): the badge is 31 px taller (128); the code is expected to put the list under it, at 218 (not yet seen in the game). A2 redesign (2026-10-16): rows of 44 [GUL-043], 22 cards drawn (271 + 22 x 44 = 1239); the code stretches the frame to them (to about 1240 in game), the render keeps the file's 760. Fix round 1 (2026-10-16): rows of 50 (card 48), 19 cards drawn (271 + 19 x 50 = 1221)."
+    },
+    {
+      "name": "army_division_view",
+      "skip": true,
+      "hide": [
+        "invalid_orders",
+        "low_supply",
+        "attrition",
+        "obsolete_template",
+        "unitlist_priority_icon",
+        "hq_template_frame",
+        "fake_unit_icon_indicator",
+        "unitlist_exiled_icon",
+        "flag",
+        "colonial_force_flag_frame",
+        "exile_force_flag_frame",
+        "foreign_template_flag",
+        "available_medals",
+        "unitlist_movement_icon",
+        "btn_close"
+      ],
+      "frames": {
+        "btn_bg": 2
+      },
+      "_note": "A row window, listed for its hide list and frames: the markers the code hides on a 1936 German division, and the selected card (frame 2), as every division of a selected army is selected."
+    },
+    {
+      "name": "unit_template_entry",
+      "skip": true,
+      "hide": [
+        "unitlist_priority_icon",
+        "colonial_force_flag_frame",
+        "exile_force_flag_frame",
+        "foreign_template_flag",
+        "cp_cost_icon"
+      ],
+      "_note": "A dropdown entry, listed for its hide list: German 1936 templates have no priority, no flag and no command power cost."
     },
     {
       "name": "army_badge_view",
@@ -76,14 +115,46 @@
     "army_division_list_view": {
       "selected_division_count": "30 Selected",
       "transport_weight": "96",
-      "divisions_count": "30 divisions"
+      "divisions_count": "30 divisions",
+      "deploy_button_label": "Deploy HQ",
+      "deploy_button_template_name": "Armee-Hauptquartier",
+      "deploy_button_cost": "25"
     },
     "army_division_view": {
-      "unit_name": "Kavallerie-Kommando Insterburg"
+      "unit_name": [
+        "3. Infanterie-Division",
+        "23. Infanterie-Division",
+        "1. Panzer-Division",
+        "2. Panzer-Division",
+        "3. Panzer-Division",
+        "2. Infanterie-Division (mot.)",
+        "12. Infanterie-Division",
+        "17. Infanterie-Division",
+        "10. Infanterie-Division",
+        "Gebirgs-Brigade",
+        "21. Infanterie-Division",
+        "Kavallerie-Kommando Insterburg",
+        "13. Infanterie-Division",
+        "25. Infanterie-Division",
+        "1. Infanterie-Division",
+        "11. Infanterie-Division",
+        "4. Infanterie-Division",
+        "14. Infanterie-Division",
+        "24. Infanterie-Division",
+        "19. Infanterie-Division",
+        "5. Infanterie-Division",
+        "20. Infanterie-Division"
+      ]
     },
     "unit_template_entry": {
-      "name": "Infanterie-Division",
-      "cp_cost_text": "10"
+      "name": [
+        "Infanterie-Division",
+        "Panzer-Division",
+        "Infanterie-Division (mot.)",
+        "Gebirgs-Brigade",
+        "Kavallerie-Brigade"
+      ],
+      "cp_cost_text": ""
     }
   },
   "setup": [
@@ -99,7 +170,13 @@
           "clickWidget": "army_division_list_view/expand_button",
           "wait": 1.0
         }
-      ]
+      ],
+      "expand": [
+        "divisions"
+      ],
+      "rows": {
+        "divisions_grid": 5
+      }
     }
   ],
   "expect": [
@@ -114,18 +191,130 @@
     1200
   ],
   "manual": [
-    "Tooltips and click targets",
+    "Tooltips and click targets (the row's tooltips are set in code)",
     "Hotkeys shift+u and shift+c",
-    "States a 1936 start does not show: combat icons, low supply, attrition, exile markers, a commander with traits"
+    "States a 1936 start does not show: combat entries (the second spilling out), low supply, attrition, exile and colonial frames, the flag, the reinforce priority chevron, the medal indicator, the fake-intel indicator, the HQ bar and its dropdown"
   ],
   "checklist": [
-    "Division list: every row background, bars, warnings column, names in full",
-    "Scroll the list to the end",
-    "Open the change-template dropdown (12 templates, names on one line)",
-    "Selected and unselected row states",
+    "Division list: 50 px cards, one army shows about 19 before it scrolls (count them, and note where the list ends)",
+    "Scroll the list to the end: the scrollbar steps by one card",
+    "Selected card: dark tile with the green wash and the green rail; deselect one division (ctrl+click) and see the hatch",
+    "Each card: bars on the left, template tile with the icon inside the card, level with its bar under it, the name whole on line 1, the warning tray on line 2 (no-orders mark) ending before the preparation bar, which shows on its own background, then acclimatisation and fuel; the experience bar, the warning marks and the entrenchment bar inside the card, the spade over its bar, the army shield in its slot",
+    "Sort heads: captions Template, Exp., Name; icons on Warning, Fuel, Status (spade), Army (shield); each sorts its column",
+    "Open the change-template dropdown: card entries of 44, names on one line, up to 13 before it scrolls",
+    "If an HQ can be deployed: the HQ bar at the list's width, the template name whole, the cost at the right end; open its dropdown (cards over the HQ plate, nothing of the plate showing between them)",
+    "Tooltips of the moved markers and click targets of the tile, the medal and the shield",
     "Hotkeys shift+u and shift+c",
-    "Army badge (A9): title strip, commander card with a commander (portrait, name whole, traits, skill, the four stats), divisions card with the counters inside it, orders card with its buttons",
-    "The division list starts under the 128 px badge (expected at y 218), not under it",
-    "Two armies selected: the badges stack; an army group's badge with its buttons in their army group places"
+    "Army badge (A9): unchanged"
+  ],
+  "states": [
+    {
+      "name": "every-marker",
+      "_note": "Every marker the code can show on a row, all at once, and two combat entries (the second spills out of the card): checks that each has its own slot. Not a state the game shows.",
+      "hide": {
+        "army_division_list_view": [
+          "hq_window",
+          "bottom_window",
+          "select_hq_shortcut_anchor"
+        ],
+        "army_division_view": [
+          "invalid_orders",
+          "unitlist_movement_icon",
+          "btn_close"
+        ]
+      },
+      "rows": {
+        "divisions_window": 4,
+        "unit_land_combat_grid": 2
+      },
+      "frames": {
+        "army_division_view": {
+          "btn_bg": 1
+        }
+      }
+    },
+    {
+      "name": "unassigned",
+      "_note": "The unassigned list: the close button in the shield's slot, moving instead of dug in.",
+      "hide": {
+        "army_division_list_view": [
+          "hq_window",
+          "select_hq_shortcut_anchor"
+        ],
+        "army_division_view": [
+          "invalid_orders",
+          "low_supply",
+          "attrition",
+          "obsolete_template",
+          "unitlist_priority_icon",
+          "hq_template_frame",
+          "fake_unit_icon_indicator",
+          "unitlist_exiled_icon",
+          "flag",
+          "colonial_force_flag_frame",
+          "exile_force_flag_frame",
+          "foreign_template_flag",
+          "available_medals",
+          "btn_army",
+          "unitlist_dig_in_icon"
+        ]
+      },
+      "rows": {
+        "divisions_window": 6,
+        "unit_land_combat_grid": 0
+      }
+    },
+    {
+      "name": "hq",
+      "_note": "An HQ can be deployed: the HQ bar at y -37 of the content. The render draws it where the file puts it; the code is expected to move the toolbar down by the bar (GUL-012, not seen).",
+      "hide": {
+        "army_division_list_view": [
+          "bottom_window",
+          "select_hq_shortcut_anchor",
+          "deploy_button_no_commander_message"
+        ]
+      },
+      "rows": {
+        "divisions_window": 6,
+        "unit_land_combat_grid": 0
+      }
+    },
+    {
+      "name": "hq-dropdown",
+      "_note": "The HQ deploy dropdown opened: five card entries. In the game the code puts GFX_army_hq_dropdown_button (198x58) on each entry's Background, behind the card (GUW-037).",
+      "hide": {
+        "army_division_list_view": [
+          "bottom_window",
+          "select_hq_shortcut_anchor",
+          "deploy_button_no_commander_message"
+        ],
+        "unit_template_entry": [
+          "unitlist_priority_icon",
+          "colonial_force_flag_frame",
+          "exile_force_flag_frame",
+          "foreign_template_flag"
+        ]
+      },
+      "rows": {
+        "divisions_window": 6,
+        "unit_land_combat_grid": 0,
+        "templates_grid": 5
+      },
+      "expand": [
+        "deploy_dropdown"
+      ],
+      "samples": {
+        "unit_template_entry": {
+          "name": [
+            "Armee-Hauptquartier",
+            "Korps-Hauptquartier",
+            "Heeresgruppen-Kommando",
+            "Gebirgskorps-Stab",
+            "Panzergruppe-Stab"
+          ],
+          "cp_cost_text": "25"
+        }
+      }
+    }
   ]
 }

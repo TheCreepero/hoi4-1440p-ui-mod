@@ -346,15 +346,18 @@
     1260
   ],
   "manual": [
-    "Tooltips on a line's two bars, on a card and on a template row",
+    "Tooltips on a line's two bars (equipment over training, 6 px apart), on a card and on a template row",
     "States a paused 1936 start does not show: a line ready to deploy, a card with a location or an order, the foreign templates list, a list long enough to scroll"
   ],
   "checklist": [
     "Width: both panels together are 1246 px (vanilla 913); the template panel ends above the army portraits",
-    "A line: rename it in its box, pick a name from the list, the deploy and cancel buttons",
-    "A card: set a location (the button, then the map), assign an order, the series - and +, the three priority dots, fold and unfold, the two order arrows",
-    "A template: Train (and Shift+click for five), Edit, the decommission toggle, delete on a template of your own",
-    "The symbol picker: pick a symbol, Default symbol, Back",
+    "Cards (redesign 2026-10-16): every template in training is one frame from its head to its foot on the 575 px spine of the priority rows; no seam between head, band, lines and foot, also with lines added and with a card folded (band right on the foot)",
+    "Bars: equipment over training, 120 px each, on every line and the card's bar in the band; the stalled (red) bar is 120 too; the training icon is small (scale 0.67) and shows the right level",
+    "A line: rename it in its box (262 px), pick a name from the list (it opens under the name field), the deploy and cancel buttons",
+    "A card: set a location (the 283 px button, then the map; the chevron frame), assign an order, the series - and +, the three priority dots, fold and unfold, the two order arrows",
+    "A template: Train (and Shift+click for five), Edit or View (56 px buttons), the decommission toggle, delete on a template of your own; the brown plate of a decommissioned template",
+    "Tool strip: Show decommissioned templates sits between the special forces count and Division Designer; Shift+V ticks and unticks it and the list follows; 23 templates fit before the list scrolls",
+    "The symbol picker: it opens over the template panel with 7 symbols a row (Back and Default symbol side by side), nothing of it under the Recruit & Deploy panel; pick a symbol, Default symbol, Back, Escape",
     "Shift+F opens the division designer",
     "Priority rows (step 2): six rows as wide as the cards under them, each in its own colour, label and meter whole, the three dots"
   ],

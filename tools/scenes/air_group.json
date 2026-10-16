@@ -7,20 +7,67 @@
   "screenshot": "reference/vanilla/air_group.jpg",
   "windows": [
     {
-      "name": "air_groups_view",
+      "name": "air_selection_view",
       "at": [
         0,
         77
       ],
+      "hide": [
+        "strategic_air_priorities_window"
+      ]
+    },
+    {
+      "name": "air_groups_view",
+      "at": [
+        2,
+        181
+      ],
       "rows": {
-        "air_group_view_entries": 6
+        "air_group_view_entries": 2,
+        "air_wings_list": 4
       },
       "listRows": {
-        "air_group_view_entries": "air_group_view_entry"
-      }
+        "air_group_view_entries": [
+          "air_group_view_entry",
+          "unassigned_airwings_view"
+        ],
+        "air_wings_list": [
+          "airbase_selection_item",
+          "airwing_selection_item",
+          "airwing_selection_item",
+          "airwing_selection_item"
+        ]
+      },
+      "_note": "With a group selected the code puts the group badge and the whole wing list frame into this list (S35). 'at' assumes the list docks where the wing frame docks without a group (2,181); not measured."
+    },
+    {
+      "name": "unassigned_airwings_view",
+      "skip": true,
+      "height": 214,
+      "hide": [
+        "bottom_window"
+      ]
     }
   ],
-  "samples": {},
+  "samples": {
+    "air_selection_view": {
+      "wings_count": "3 Selected"
+    },
+    "air_group_view_entry": {
+      "unit_name": "German Air Group 1"
+    },
+    "airbase_selection_item": {
+      "base_name": "Canton and Enderbury Islands",
+      "capacity": "280/1200",
+      "permission_wings_count": "0"
+    },
+    "airwing_selection_item": {
+      "count": "80",
+      "unit_name": "Kampfgeschwader 253 'General Wever'",
+      "mission_state": "On Mission in Western Mediterranean Sea",
+      "armies_count_box": "1"
+    }
+  },
   "setup": [
     {
       "move": "select_airbase"
@@ -36,15 +83,20 @@
   "crop": [
     0,
     60,
-    780,
-    1200
+    860,
+    640
   ],
   "manual": [
-    "Tooltips and click targets"
+    "Tooltips and click targets",
+    "A group of 13 to 15 wings: the compact wings stay single until 15 (wings_compact_number_of_elements 15)",
+    "The playset: RBM's 43 px army shields as the group insignia"
   ],
   "checklist": [
+    "Group badge 818x96: title strip with the insignia, the name, fuel, Select and the close button in the close column",
+    "Wings card: 'Air Wings' caption and the compact wings beside it",
+    "The wing frame under the badge is as wide as the badge and the header",
     "Group rows in full",
     "Scroll the list to the end"
   ],
-  "_note": "Creates an air group, whose badge appears above the airbase row and moves the wing list down in every later air capture of the same game; 'changesState' makes the harness run this scene last. 'at' is not measured yet."
+  "_note": "Creates an air group, whose badge appears above the airbase row and moves the wing list down in every later air capture of the same game; 'changesState' makes the harness run this scene last. 'at' of air_groups_view is not measured yet."
 }

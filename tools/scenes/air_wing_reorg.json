@@ -20,15 +20,27 @@
       },
       "place": {
         "list_left/list": [
-          117,
-          13
+          10,
+          10
         ],
         "list_right/list": [
-          15,
-          13
+          10,
+          10
         ]
       },
-      "_note": "The game centres a plane type in the left list: (list width - slot width) / 2, 117 px with the mod's 618 and 385, as with vanilla's 498 and 265. 'place' puts the grid there and adds the 13 px top margin of the list; the renderer models neither."
+      "_note": "Both grids are UPPER_LEFT at x 10 (S31, S40), so the cards start 10 px in; 'place' adds the 10 px top margin of the list, which the renderer does not model. The left manpower icon and text show only when an existing wing is reorganised.",
+      "hide": [
+        "manpower_icon_left",
+        "current_manpower_left"
+      ]
+    },
+    {
+      "name": "reinforce_preferences",
+      "at": [
+        1768,
+        185
+      ],
+      "_note": "Vanilla window the code places at the window's reinforcement_preferences_position (1103,50); drawn about 5 px right of and below the point, as the capture of A7 check 2 showed for the old point. Open in game."
     },
     {
       "name": "airwing_filter_item",
@@ -42,21 +54,25 @@
       "skip": true,
       "hide": [
         "carrier_capable_icon",
-        "design_team_icon"
-      ]
+        "design_team_icon",
+        "niche_icon"
+      ],
+      "_note": "The code shows the company, role and carrier badges only for a type that has them; none of the 1936 German types does."
     },
     {
       "name": "air_wing_reorganization_equipment_entry_right",
       "skip": true,
       "hide": [
         "carrier_capable_icon",
-        "design_team_icon"
-      ]
+        "design_team_icon",
+        "niche_icon"
+      ],
+      "_note": "The code shows the company, role and carrier badges only for a type that has them; none of the 1936 German types does."
     }
   ],
   "samples": {
     "air_wing_reorganization": {
-      "action_name": "Create new Air Wing in Brandenburg",
+      "action_name": "Create new Air Wing in §YBrandenburg§!",
       "current_plane_count": "0",
       "current_manpower_right": "0"
     },
@@ -65,13 +81,13 @@
         "He 51",
         "Do 23",
         "Ju 86",
-        "He 45"
+        "Ju 24"
       ],
       "name": [
         "Inter-War Small Airframe",
         "Inter-War Medium Airframe",
         "Inter-War Medium Airframe",
-        "Inter-War Close Air Support Airframe"
+        "Inter-War Transport Plane"
       ],
       "count": [
         "80",
@@ -98,18 +114,177 @@
       "wait": 2.5
     }
   ],
-  "captures": [],
+  "captures": [
+    {
+      "name": "moved",
+      "_note": "Clicks the first reserve card twice: He 51, then Do 23 (now first), go into the wing.",
+      "rows": {
+        "list_left/list": 2,
+        "list_right/list": 2,
+        "plane_type_grid": 3
+      },
+      "samples": {
+        "air_wing_reorganization": {
+          "action_name": "Create new Air Wing in §YBrandenburg§!",
+          "current_plane_count": "160",
+          "current_manpower_right": "4800"
+        },
+        "air_wing_reorganization_equipment_entry_left": {
+          "type": [
+            "Ju 86",
+            "Ju 24"
+          ],
+          "name": [
+            "Inter-War Medium Airframe",
+            "Inter-War Transport Plane"
+          ],
+          "count": [
+            "40",
+            "80"
+          ]
+        },
+        "air_wing_reorganization_equipment_entry_right": {
+          "type": [
+            "He 51",
+            "Do 23"
+          ],
+          "name": [
+            "Inter-War Small Airframe",
+            "Inter-War Medium Airframe"
+          ],
+          "count": [
+            "80",
+            "80"
+          ]
+        }
+      },
+      "steps": [
+        {
+          "clickWidget": "air_wing_reorganization_equipment_entry_left/bg#0",
+          "wait": 1.0
+        },
+        {
+          "clickWidget": "air_wing_reorganization_equipment_entry_left/bg#0",
+          "wait": 1.0
+        }
+      ]
+    }
+  ],
   "expect": [
     "air_wing_reorganization/close_button",
     "air_wing_reorganization/confirm_btn"
   ],
   "crop": [
     640,
-    200,
+    110,
     1280,
-    1040
+    1220
   ],
-  "manual": [],
-  "checklist": [],
-  "_note": "The window opens from an airbase's 'Add new Air Wing' button, which needs planes in reserve; the recipe disbands the Brandenburg wings first, so the scene runs last ('changesState'). Surveyed on 2026-10-08: the recipe works, the vanilla reference is captured, and the window sits exactly where its file puts it (centred), so no 'at' is needed and the 'expect' widgets verify."
+  "manual": [
+    "Reorganising an existing wing, a carrier-capable type, a designer plane with a role icon and more than ten types are not in a 1936 start."
+  ],
+  "checklist": [
+    "1. The window, 1240x1180 centred, 130 px free above and below: is that too much for this window?",
+    "2. Both columns start with their caption: Reserves on the left, Reinforcements on the right with the four set-all buttons at the header's right end, inside the header strip.",
+    "3. The plane picture sits centred in the dark well of each card (centerposition on the code-set picture); a company icon at the well's top right.",
+    "4. Click a reserve card, on the arrow and elsewhere: the whole type goes into the wing. Hover a card: the second frame shows.",
+    "5. In the wing column the Planes and Manpower totals change with every card moved; the flag dropdown opens downward over the wing list.",
+    "6. The reinforcement dropdown at a wing card's dark end opens to the left and sets the type's preference; the set-all buttons set every type.",
+    "7. Tooltips of the set-all buttons, the reinforcement dropdown and (on a carrier type) the carrier icon.",
+    "8. If possible: reorganise an existing wing (the left manpower at the right end of the Reserves header), an air force with seven roles or more (a second row of filters), more than ten types (the slider right of the cards)."
+  ],
+  "_note": "The window opens from an airbase's 'Add new Air Wing' button, which needs planes in reserve; the recipe disbands the Brandenburg wings first, so the scene runs last ('changesState'). Surveyed on 2026-10-08: the recipe works, the vanilla reference is captured, and the window sits exactly where its file puts it (centred), so no 'at' is needed and the 'expect' widgets verify. A7 redesign (2026-10-16): 1240x1180 centred, two labelled columns, plane cards of 572x86 at a pitch of 90; state 'midgame' is a made-up 1940 air force for the renderer only.",
+  "states": [
+    {
+      "name": "midgame",
+      "_note": "A made-up 1940 air force: ten types in reserve, three in the wing, seven filters (the second row of the band), every badge of a card shown, the left manpower of an existing wing. Not reachable in a 1936 start; drawn by the renderer only.",
+      "rows": {
+        "list_left/list": 10,
+        "list_right/list": 3,
+        "plane_type_grid": 7
+      },
+      "hide": {
+        "air_wing_reorganization": [],
+        "airwing_filter_item": [
+          "highlight"
+        ],
+        "air_wing_reorganization_equipment_entry_left": [],
+        "air_wing_reorganization_equipment_entry_right": []
+      },
+      "samples": {
+        "air_wing_reorganization": {
+          "action_name": "Create new Air Wing in §YOstpreußen§!",
+          "current_plane_count": "1400",
+          "current_manpower_right": "28000",
+          "current_manpower_left": "2400"
+        },
+        "airwing_filter_item": {
+          "airwing_count": [
+            "14",
+            "3",
+            "6",
+            "5",
+            "2",
+            "1",
+            "2"
+          ]
+        },
+        "air_wing_reorganization_equipment_entry_left": {
+          "type": [
+            "Bf 109 E-3",
+            "He 123 B",
+            "Bf 110 C-4 Zerstörer",
+            "Ju 87 B-2",
+            "Ju 87 C (Träger)",
+            "Do 17 Z-2",
+            "He 111 H-6",
+            "He 115 B",
+            "Fw 200 C Condor",
+            "Ju 52/3m"
+          ],
+          "name": [
+            "Basic Small Airframe",
+            "Inter-War Close Air Support Airframe",
+            "Basic Medium Airframe",
+            "Basic Close Air Support",
+            "Basic Carrier Close Air Support",
+            "Basic Medium Airframe",
+            "Improved Medium Airframe",
+            "Basic Naval Bomber",
+            "Basic Large Airframe",
+            "Inter-War Transport Plane"
+          ],
+          "count": [
+            "412",
+            "96",
+            "120",
+            "240",
+            "24",
+            "180",
+            "300",
+            "60",
+            "18",
+            "120"
+          ]
+        },
+        "air_wing_reorganization_equipment_entry_right": {
+          "type": [
+            "Bf 109 E-3",
+            "Bf 110 C-4 Zerstörer",
+            "Ju 87 B-2"
+          ],
+          "name": [
+            "Basic Small Airframe",
+            "Basic Medium Airframe",
+            "Basic Close Air Support"
+          ],
+          "count": [
+            "1240",
+            "60",
+            "100"
+          ]
+        }
+      }
+    }
+  ]
 }

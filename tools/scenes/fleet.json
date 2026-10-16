@@ -53,7 +53,7 @@
         "fuel_efficiency_warning_icon",
         "slider"
       ],
-      "_note": "The first task force card: 43 px below the toolbar. A card opened with Select shows alone, with its ships in ships_detailed (35 px per ship)."
+      "_note": "The first task force card: 43 px below the toolbar. A card opened with Select shows alone, with its ships in ships_detailed (35 px per ship). Since the redesign of 2026-10-16 the card is a title strip (name, status icons each in a slot of its own, the four orders at 470-591, Select, Back) over a mission plate (320) and a ships plate (406, eight counters, clipped)."
     },
     {
       "name": "fleet_view_header",
@@ -88,7 +88,7 @@
         "btn_repair_now",
         "btn_refit"
       ],
-      "_note": "A ship without planes, medals or damage: the code hides those widgets."
+      "_note": "A ship without planes, medals or damage: the code hides those widgets. Organisation and strength stand 10x28 at 6-16 and 18-28 (anchors 16,22 and 28,22, rotated) [GUL-013]; the action slot for a damaged ship is 592-684."
     },
     {
       "name": "ship_entry_compact",
@@ -326,23 +326,71 @@
   ],
   "knownCuts": [],
   "manual": [
-    "Tooltips and click targets",
+    "Tooltips and click targets, the orders in the title strip (30 px apart) and the status icons",
     "Hotkeys shift+o, shift+g, shift+p on the toolbar (shift+n and shift+r are confirmed)",
-    "States a 1936 start does not show: a commander with traits, a damaged ship (repair and refit buttons), a mission in several regions, a carrier's plane bar, several fleets selected at once"
+    "States a 1936 start does not show: a commander with traits, a damaged ship (repair and refit buttons, where the code moves them), a mission in several regions, a carrier's plane bar, several fleets selected at once (the list at most 332 high), the replenishment and fuel warning icons"
   ],
   "checklist": [
-    "Toolbar: every button, the three dropdowns opened",
-    "Task force cards: name, mission line, the four order buttons, composition counters",
-    "Ship list: both bars, silhouette, level, name and class on one line, insignia; scroll a long list to its end",
+    "Toolbar: four plates (delete; organise; upkeep; standing orders), every button inside its plate, the three dropdowns opened",
+    "Task force card: title strip with insignia, HQ icon, name (220 px), pride, fuel, carrier base, dominance and replenishment each in its own slot, the four orders at 470-591, fleet insignia, Select and Back; mission plate with the activity and two lines of text; ships plate with the counters",
+    "Twelve task forces of Home Command on the screen, 84 px apart",
+    "Ship rows: organisation and strength standing 10x28 at the left edge, silhouette clear of the level chevron, name 188 px, class name whole, insignia at the right",
+    "A damaged ship: damage report, refit and repair-now buttons in the slot before the insignia, the class name cut before them",
     "Selected and unselected ship rows",
-    "Home base picker and composition editor open clear of the panel",
-    "Fleet card (A9): title strip with Select All and the count, commander card with an admiral, ships card with every class inside it, base card",
-    "The toolbar still 168 px below the top of the panel with one fleet"
+    "Fleet card (A9) unchanged: title strip with Select All and the count, commander card, ships card, base card",
+    "The toolbar still 168 px below the top of the panel with one fleet; with three fleets selected two headers show and the list scrolls"
   ],
   "teardown": [
     {
       "console": "tag GER",
       "wait": 2.0
+    }
+  ],
+  "states": [
+    {
+      "name": "status",
+      "_note": "Every status icon of the task force title strip shown at once (pride, fuel and its warning, carrier base, dominance, underway replenishment) and the interrupted-mission mark: no 1936 state shows them together. Drawn by the renderer only.",
+      "hide": {
+        "taskforce_view_entry": [
+          "reserve_fleet_icon",
+          "current_mission",
+          "slider"
+        ]
+      }
+    },
+    {
+      "name": "damaged",
+      "_note": "Every ship damaged, repairing and refittable: the damage report, the refit and repair-now buttons in the action slot (592-684) and the repair symbol over the hull. Where the code moves the three widgets and how far it shrinks the class name is not seen; the renderer draws the file positions. Drawn by the renderer only.",
+      "hide": {
+        "ship_entry_detailed": [
+          "highlight",
+          "plane_icon",
+          "bar_planes",
+          "pride",
+          "history_report_button",
+          "exile_force_flag_frame",
+          "foreign_ship_flag",
+          "available_medals"
+        ]
+      },
+      "samples": {
+        "ship_entry_detailed": {
+          "ship_type": [
+            "Panzerschiff (Deutsch...",
+            "Panzerschiff (Deutsch...",
+            "Basic Cruiser (Leipzig ...",
+            "Basic Cruiser (Leipzig ...",
+            "Early Cruiser (Königsb...",
+            "Early Cruiser (Königsb...",
+            "Early Cruiser (Königsb...",
+            "Early Cruiser (Emden A...",
+            "Early Destroyer (Type ...",
+            "Early Destroyer (Type ...",
+            "Early Destroyer (Type ...",
+            "Early Destroyer (Type ..."
+          ]
+        }
+      }
     }
   ]
 }

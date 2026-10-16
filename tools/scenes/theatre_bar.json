@@ -1,5 +1,5 @@
 {
-  "_comment": "Scene for the theatre bar at the bottom. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
+  "_comment": "Scene for the theatre boxes at the top right (an army theatre). Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
   "screen": "theatre_bar",
   "phase": "A8",
   "file": "zz_1440p_theatre_bar.gui",
@@ -19,7 +19,7 @@
           "theater_group_item"
         ]
       },
-      "_note": "Vanilla's own window, not overridden (RBM's GFX Overhaul moves it to y 93). It stacks the boxes in elements_list, a grid with a slot of 1x1, and honours each box's own position: x 430 in vanilla, 310 in the mod, so the right edge stays at 730. Its height is the screen's less 240.",
+      "_note": "Vanilla's own window, not overridden (RBM's GFX Overhaul moves it to y 93). It stacks the boxes in elements_list, a grid with a slot of 1x1, and honours each box's own position: x 430 in vanilla, 310 in the mod, so the right edge stays at 730 (screen 2530). Its height is the screen's less 240. A card is drawn 424 wide over its 420 window, as vanilla's 305 over 300.",
       "height": 1200
     },
     {
@@ -50,7 +50,9 @@
   "samples": {
     "theater_group_item": {
       "name_box": "German Theater 1",
-      "armies_count_box": "30"
+      "armies_count_box": "30",
+      "attack_combat_count": "4",
+      "defence_combat_count": "2"
     },
     "orders_group_item": {
       "armies_count_box": "30"
@@ -62,15 +64,6 @@
     }
   ],
   "captures": [
-    {
-      "name": "navy",
-      "_note": "A fleet selected: the theatre boxes of the navy.",
-      "steps": [
-        {
-          "move": "select_fleet"
-        }
-      ]
-    },
     {
       "name": "air",
       "_note": "An airbase selected: the air theatres.",
@@ -96,6 +89,31 @@
     420
   ],
   "manual": [],
-  "checklist": [],
-  "_note": "Always on screen; the recipe only makes sure an army exists so the bar has an entry. Much of it is positioned by the engine."
+  "checklist": [
+    "The army box is a dark card 420 wide with its right edge where vanilla's is; a gold stripe runs down its left side (the frame the code gives an army theatre).",
+    "Title strip from the left: the gear, the supply priority, the battle chip (combat log, attack, defence), then the name. Click the gear: the theatre settings open. Click the name: it can be renamed.",
+    "Click the combat log icon in the chip (it is smaller than vanilla's, 21x27): the combat log opens.",
+    "In a theatre at war: the attack and defence counts stand beside their icons, readable, and the icons open the battles on a click.",
+    "The units band: the army shield sits at the left, the division count on a chip of its own at the right end. Click the empty band and the count chip: both assign the selected divisions to the theatre (the chip lets the click through).",
+    "The selected theatre shows its frame around the whole card.",
+    "Open a theatre that has an army group: its rows are as wide as the card, with the stripe running on, and the last row closes the card.",
+    "With the user's playset: RBM's larger shields fit in the band, and Better Mechanics' casualty counter covers no battle widget (it can be moved)."
+  ],
+  "_note": "Always on screen; the recipe only makes sure an army exists so the bar has an entry. Much of it is positioned by the engine. The battle counts are hidden in this state (peace); the 'combat' state draws them.",
+  "states": [
+    {
+      "name": "combat",
+      "_note": "A theatre in combat: the attack and defence counts beside their icons in the battle chip. Not reachable by the harness, which stays paused in peace on 1 January 1936; drawn by the renderer only.",
+      "hide": {
+        "theater_group_item": [
+          "alerts"
+        ]
+      },
+      "samples": {
+        "theater_group_item": {
+          "armies_count_box": "312"
+        }
+      }
+    }
+  ]
 }

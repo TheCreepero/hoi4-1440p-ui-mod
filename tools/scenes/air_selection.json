@@ -14,16 +14,16 @@
       "hide": [
         "strategic_air_priorities_window"
       ],
-      "_note": "The mission toolbar grid is filled by code with one button per mission; strategic_air_priorities_window opens on a click."
+      "_note": "The mission bar is filled by code with one button per mission the DLC allows and sized by it (slots x 52 + 2 x 16 from x 8: 820 with 15 missions); the render shows the Missions card without the buttons. strategic_air_priorities_window opens on a click."
     },
     {
       "name": "unassigned_airwings_view",
       "at": [
         2,
-        168
+        181
       ],
       "rows": {
-        "air_wings_list": 20
+        "air_wings_list": 19
       },
       "listRows": {
         "air_wings_list": [
@@ -37,7 +37,7 @@
       "hide": [
         "bottom_window"
       ],
-      "_note": "Measured with render_gui.py --verify: the code places this frame under the toolbars, so it sits at 2,168 with the mod and at 2,197 in vanilla ('atVanilla'). An air group badge pushes it further down. bottom_window is the footer of the unassigned list only.",
+      "_note": "The code docks this frame at air_selection_view.y + air_selection.position.y: 77 + 91 = 168 measured with the 705 px build and 77 + 120 = 197 in vanilla ('atVanilla', measured with render_gui.py --verify). With the redesign (air_selection y 104) it is expected at 2,181; not measured in game yet. An air group badge pushes it further down. bottom_window is the footer of the unassigned list only.",
       "atVanilla": [
         2,
         197
@@ -46,18 +46,18 @@
   ],
   "samples": {
     "air_selection_view": {
-      "wings_count": "4 Selected",
+      "wings_count": "30 Selected",
       "strategic_priorities_label": "Strategic air priorities"
     },
     "airbase_selection_item": {
-      "base_name": "Brandenburg",
+      "base_name": "Canton and Enderbury Islands",
       "capacity": "280/1200",
       "permission_wings_count": "0"
     },
     "airwing_selection_item": {
       "count": "80",
-      "unit_name": "Jagdgeschwader 132",
-      "mission_state": "Standing by",
+      "unit_name": "Kampfgeschwader 253 'General Wever'",
+      "mission_state": "On Mission in Western Mediterranean Sea",
       "armies_count_box": "1"
     },
     "unassigned_airwings_view": {
@@ -71,6 +71,15 @@
     "quick_wing_deploy_plane_type_entry_item": {
       "plane_name": "Bf 109 E",
       "plane_count": "120"
+    },
+    "gun_emplacement_selection_item": {
+      "unit_name": "Kampfgeschwader 253 'General Wever'",
+      "mission_state": "On Mission in Labrador and Newfoundland"
+    },
+    "rocket_selection_item": {
+      "count": "12",
+      "unit_name": "Kampfgeschwader 253 'General Wever'",
+      "mission_state": "On Mission in Western Mediterranean Sea"
     }
   },
   "setup": [
@@ -87,18 +96,25 @@
   "crop": [
     0,
     60,
-    780,
-    1200
+    860,
+    1100
   ],
   "manual": [
-    "Tooltips and click targets",
+    "Tooltips and click targets of the toolbar buttons and of the plates between them",
+    "A wing on a mission: mission icons and efficiency strip beside the green region name",
+    "shift+n creates an air group without also firing the airbase row's n (new wing); shift+u unassigns",
     "Quick deploy popup: open it, scroll its list",
     "Gun emplacement and rocket rows (none in a 1936 start)"
   ],
   "checklist": [
-    "Mission toolbar, wing toolbar and list form one block without gaps",
-    "Wing rows: name and status in full, 20 rows before scrolling",
-    "Airbase row: name, capacity, quick deploy buttons",
+    "Header: the mission buttons sit on the Missions card (52 px apart, the bar ends at the panel edge with 15 missions), the toolbar buttons on five plates, no map between the cards",
+    "The list frame starts 6 px into the header plate (expected y 181), 818 wide, 19 rows before scrolling",
+    "Wing rows: name in hoi_20b and status in hoi_18mbs, both whole; the two lines clear the row's bottom border",
+    "Close buttons of the toolbar, the airbase row and the wing rows in one column",
+    "Airbase row: name, 'Capacity' caption, capacity, quick deploy buttons growing left of the edit button",
+    "Give a wing a mission: the mission icons start 8 px right of the longest status",
+    "Open strategic air priorities: it opens above the mission bar as before",
+    "shift+n creates an air group; shift+u unassigns the selected wings",
     "Scroll the list to the end",
     "Quick deploy popup: open it, scroll its list"
   ]

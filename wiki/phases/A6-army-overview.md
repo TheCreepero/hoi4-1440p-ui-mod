@@ -1,6 +1,6 @@
 # Phase A6: army overview tab
 
-The panel the `o`, `p` and `l` keys open: Division Overview, Navy Overview and Air Forces Overview, three tabs of one window. Status: built and checked by the harness on 2026-10-14, while the user was away; awaiting the tester's judgement. Override file: `interface/zz_1440p_army_overview.gui`.
+The panel the `o`, `p` and `l` keys open: Division Overview, Navy Overview and Air Forces Overview, three tabs of one window. Status: redesigned on 2026-10-16 (banner and rail of cards, see "Redesign build"): built and checked by render and tests; not seen in game. The first build (2026-10-14) was checked by the harness. Override file: `interface/zz_1440p_army_overview.gui`.
 
 ## Scope
 
@@ -81,6 +81,42 @@ Not seen in game (states a paused 1936 start does not show):
 3. The sort buttons, and typing a name into the filter.
 4. A division in combat and a wing on a mission: the battle icon and the four mission icons beside the area.
 5. Sunk Ships from a sea region's logbook button: it opens at x 890 now.
+
+## Redesign build (2026-10-16)
+
+The user approved the redesign proposal of the redesign pass (review page of 2026-10-16) and chose: the panel stays 900 wide; cards as `mod1440_*` containers that own their widgets (patched executable only, W34); the rail at the right; `shift+l` on Sunk Ships. Built while the user was away, without a game launch.
+
+What was built:
+
+- **Banner** `mod1440_ao_banner` in `info` at 14,48 (872x59): the tab's picture strip (`army_overview_top`), `unit_count` (`hoi_20b`) and `battalion_count` at x 168, the special forces at x 330, `filter_title`, the 320 px plate and the 300 px filter box at the right. `theatres_count` stands at x 330 of the banner (window 344,56, 190 px) in a card of its own, `mod1440_ao_theatres`, because its vanilla parent is `countryarmyview` and the test suite allows only `mod1440_*` containers between a widget and its vanilla parent. The plate under the list (`overview_bottom`) is parked at x -2000.
+- **Sort header** at y 112 over the list only (x 13 to 751), vanilla captions: divisions Type 0-166, Name 164-428, Theater 426-594, Army 592-738; fleets 0-217, 215-489, 487-679, 677-738; wings 0-187, 185-453, 451-587, 585-738 (row coordinates).
+- **Lists** `army_units`, `navy_units`, `air_units` at 0,138, 776 wide, margin 13/13/12/25, slot 738x35: rows start at window y 156 (screen 234), 34 division rows in view instead of 30. The scrollbars stay on the lists.
+- **Rows** of 738, rebuilt by `tools/stretch_background.py` from the vanilla row art (jobs `ao_army_entry`, `ao_navy_entry`, `ao_air_entry`; constant `OVERVIEW_ROW`): division olive 164 | name 262 | gap 6 | theatre 160 | gap 6 | army 140, name at 170 (254), theatre at 434 (152), shield at 600 and army name at 636 (98) in one box; fleet name at 222 (262), region at 500 (176), count and mission at the end; wing name at 189 (260), base centred at 455 (126), area `assigned_region` at 591,1 in `hoi_16mbs` (145) over the four mission icons at y 15, 26 apart.
+- **Rail** at x 780, 108 wide, from y 112, cards on `GFX_tiled_plain_bg_small` with `clipping = yes` and a caption strip (`GFX_1440p_AO_card_head`, the vanilla unit list header at 104x24). Per tab `mod1440_ao_<tab>_mods` holds `modifiers_grid` (slot 100x32, one column, `max_slots_vertical = 14`) and `mod1440_ao_<tab>_types` 6 below it, down to y 1350, holds the counts by type (slot 100x31, one column; 23 chips fit on the army and air tabs, 27 on the navy tab). Captions: `MOD1440_AO_MODIFIERS` ("Modifiers", new, written by `tools/build_managers.py`, `screen_texts()`), `ARMY_TAB`, `naval_equipment`, `AIR_SORT_PLANES`. The Modifiers card holds 14 tiles on the army and air tabs and 10 on the navy tab.
+- **Tiles and chips**: `modifier_entry` 100x32 (plate `ao_modifier_bg` widened to 100, icon at 4,4, value right-aligned in 56 px at x 40, `hoi_18mbs`). The three chip windows `army_view_subunit_entry`, `navy_view_ship_entry`, `air_view_plane_entry` joined the override file with baselines, 100x29, on `GFX_1440p_AO_filter_entry` and its highlight (vanilla 90 px chips widened to 100): count at the left, type icon at the right (army 0.7 centred at x 74, ship 0.9 centred, plane 0.9 centred at x 70; the plane icon's orientation is upper left now, since vanilla's upper right was measured from a 60 px window).
+- **Hotkey** `shift+l` on `destroyed_ships_open`. Free in vanilla, in the mod and in the user's playset (`tools/check_playset.py`, 2026-10-16).
+- Equipment Details and Sunk Ships unchanged at x 890; Equipment Details now stands next to the rail.
+
+Read in the executable on 2026-10-16 (GUL-044): the modifier and count fills add items slot by slot by the grid's settings, so one column works, but an item past `max_slots_vertical` is dropped. The four modifier fills add 14, 14, 10 and 9 items; vanilla's navy grid (7 x 1) showed 7, so the navy card may now show two or three modifiers vanilla dropped. Every modifier grid therefore has `max_slots_vertical = 14`.
+
+Deviations from the design:
+
+- `theatres_count` stands in its own card over the banner instead of inside `mod1440_ao_banner` (see above); it sits at x 330 on every tab, also on the navy and air tabs, where the mock-ups drew it under the count.
+- The caption key is `MOD1440_AO_MODIFIERS`, the generator's form, instead of `mod1440_ao_modifiers`.
+- The navy Modifiers card holds 10 tiles (the design: 7), after GUL-044.
+- `max_slots_vertical` of the count grids is what the card holds (23, 27) instead of 24.
+- The header containers' right margin is 0 (was 25), so the rail at x 780 to 888 is not cut by the margin.
+
+Fallbacks, if the game check shows:
+
+- the tiles or chips in a row instead of a column (against GUL-044): go back to the build of 2026-10-14's two header rows over the list (modifiers 7 a row, counts 10 a row) and the list at y 257;
+- the banner, the rail or `theatres_count` empty (`hoi4.exe` not patched, `Set-HoiRecursiveLookups.ps1 -Status`): patch again, or plates behind widgets left where they are (as A9);
+- the cards not clipping a long list of types: they have `clipping = yes`; otherwise lower `max_slots_vertical` to the count that fits;
+- the navy card with 9 modifiers: the card is one tile too high; lower it to 9 tiles.
+
+Not seen in game: everything above. In particular whether the 14/10 tiles and the chips stack in one column, the navy's modifier count, the banner's widgets filled and the filter typed in, chip filtering at 100 px, `shift+l` on the navy tab and on the tabs where the button is hidden, tooltips at the new places, a wing with a mission (region over the icons), a division in combat, a list scrolled to its end, and the playset's sprites (RT56's 174 px unknown ship icon is clipped by the type card).
+
+Game check (with the user's permission): `tools/Invoke-GameCheck.ps1 army_overview`, then the same with the playset (`tools/Invoke-GameSteps.ps1 -Start -Playset`). Tester's checklist: the scene's `checklist` in `tools/scenes/army_overview.json`.
 
 ## Close
 

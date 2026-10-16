@@ -1,19 +1,25 @@
-# Screen 'air_group', reworked for 2560x1440.
+# Screen 'air_group', reworked for 2560x1440 (A1, redesigned 2026-10-16).
 # Overrides single top-level windows of the vanilla interface files; the vanilla files stay in place and
 # supply every other window. The untouched vanilla text of each window is in baseline/.
+#
+# Compared with vanilla: the air group badge is 818x96 (in an entry 90 high) instead of 580x88, the width of the air panel's list
+# frame, which sits in the same list (air_groups_view) while a group is selected. The painted badge is replaced
+# by a badge tile with a title strip (insignia, name, fuel, Select, close in the column of every close button)
+# and a wings card with an "Air Wings" caption (vanilla key AIR_WINGS) that holds 15 compact wings before they
+# consolidate instead of 12.
 guiTypes = {
 	# Windows from vanilla interface/airgroupview.gui
 	containerWindowType = {
 		name = "air_groups_view"
 		position = {x=0 y=-0}
-		size = { width=705 height=1000 } # Height set in code, this is max size
+		size = { width=818 height=951 } # Height set in code, this is max size; vanilla 1000. Docked at y 181 it ends at 1132 with the wing frame
 		Orientation = upper_left
 		clipping = no
 
 		smoothListBoxType = {
 				name = "air_group_view_entries"
 				position = {x=0 y=0}
-				size = { x=705 y=0 } #Height set in code
+				size = { x=818 y=0 } #Height set in code
 				scrollbartype = "standardlistbox_slider"
 		}
 	}
@@ -21,7 +27,7 @@ guiTypes = {
 	containerWindowType = {
 		name = "air_group_view_entry"
 		position = {x=0 y=-0}
-		size = { width=704 height=88 }
+		size = { width=818 height=90 }	# the badge tile is 96 high; the wing frame drawn after it covers its last 6 px (A1 overlap rule)
 		Orientation = upper_left
 		clipping = no
 
@@ -32,28 +38,52 @@ guiTypes = {
 
 		iconType = {
 			name = "background_sprite"
-			spriteType = "GFX_1440p_AV_air_group_bg"
+			spriteType = "GFX_1440p_AV_group_bg"
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "mod1440_cp_title"
+			spriteType = "GFX_1440p_AV_group_title"
+			position = { x = 6 y = 6 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_wings"
+			spriteType = "GFX_1440p_AV_card_wide"
+			position = { x = 6 y = 44 }
+			alwaystransparent = yes
+		}
+		instantTextboxType = {
+			name = "mod1440_cp_wings_caption"
+			position = { x = 16 y = 57 }
+			font = "hoi_18mbs"
+			text = "AIR_WINGS"
+			maxWidth = 74
+			maxHeight = 23
+			format = left
+			fixedsize = yes
 			alwaystransparent = yes
 		}
 
 		buttonType = {
 			name = "insigna"
-			position = {x=8 y=5}
+			position = {x=10 y=5}
 			spriteType = "GFX_theatre_army_shield"
 		}
 
 		editBoxType = {
 			name = "unit_name"
-			position = {x=70 y=8}
-			font = "hoi_18"
-			size = { x=212 y=23 }
+			position = {x=56 y=10}
+			font = "hoi_20b"
+			size = { x=300 y=25 }
 			orientation = left
 			text = "Unnamed Air Group"
 		}
 
 		buttonType = {
 			name = "select_btn"
-			position = { x=594 y=3 }
+			position = { x=658 y=7 }
 			spriteType = "GFX_NV_btn_select"
 			text = "SELECT"
 			font = "hoi_16mbs"
@@ -61,7 +91,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "deselect_btn"
-			position = {x=664 y=3}
+			position = {x=753 y=7}
 			spriteType = "GFX_NV_btn_close"
 			pdx_tooltip = "DESELECT_UNIT"
 			clicksound = click_default
@@ -69,8 +99,8 @@ guiTypes = {
 
 		gridBoxType = {
 			name = "wings_compact"
-			position = {x=10 y=40}
-			size = { width=584 height=81 }
+			position = {x=94 y=50}
+			size = { width=690 height=81 }
 			format = "UPPER_LEFT"
 			slotsize = {width=46 height=34}
 		}
@@ -78,12 +108,12 @@ guiTypes = {
 		positionType = {
 			name = "wings_compact_number_of_elements"
 			#How many wings can fit inside of the wings_compact gridbox before we need to consolidate. Only the X is used.
-			position = { x = 12 y = 0 }
+			position = { x = 15 y = 0 }
 		}
 
 		iconType = {
 			name = "fuel_stocks_icon"
-			position = {x=305 y=5}
+			position = {x=383 y=9}
 			spriteType = "GFX_fuel_extended_strip"
 			frame = 7
 		}
@@ -91,7 +121,7 @@ guiTypes = {
 		iconType = {
 			name = "fuel_efficiency_warning_icon"
 			spriteType = "GFX_mapicon_unit_invalid_orders"
-			position = { x=300 y=5 }
+			position = { x=378 y=9 }
 		}
 	}
 }

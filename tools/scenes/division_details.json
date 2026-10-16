@@ -56,6 +56,18 @@
         "support_grid": 2,
         "regiment_support_grid": 5
       }
+    },
+    {
+      "name": "unit_template_entry",
+      "skip": true,
+      "hide": [
+        "unitlist_priority_icon",
+        "colonial_force_flag_frame",
+        "exile_force_flag_frame",
+        "foreign_template_flag",
+        "cp_cost_icon"
+      ],
+      "_note": "a2-division-list: a dropdown entry, listed for its hide list (German 1936 templates have no priority, flag or cost)."
     }
   ],
   "samples": {
@@ -152,6 +164,16 @@
     "army_history_entry": {
       "date_field": "1939.09.01",
       "text_field": "Took part in the Battle of Warsaw against the 12. Dywizja Piechoty and won."
+    },
+    "unit_template_entry": {
+      "name": [
+        "Infanterie-Division",
+        "Panzer-Division",
+        "Infanterie-Division (mot.)",
+        "Gebirgs-Brigade",
+        "Kavallerie-Brigade"
+      ],
+      "cp_cost_text": ""
     }
   },
   "setup": [
@@ -231,7 +253,41 @@
           "inf_softness_icon",
           "template_tab"
         ]
-      }
+      },
+      "rows": {
+        "history_entry_grid": 9
+      },
+      "samples": {
+        "army_division_stats_view": {
+          "history_kill_count": "Casualties taken: §R1,214§!",
+          "history_experience_count": "Officer Experience: §R37§!"
+        },
+        "army_history_entry": {
+          "date_field": [
+            "§Y1938.03.12§!",
+            "§Y1938.10.01§!",
+            "§Y1939.03.15§!",
+            "§Y1939.09.01§!",
+            "§Y1939.09.27§!",
+            "§Y1940.05.10§!",
+            "§Y1940.05.28§!",
+            "§Y1940.06.14§!",
+            "§Y1940.06.22§!"
+          ],
+          "text_field": [
+            "Took part in the occupation of Wien, former seat of Austrian government.",
+            "Took part in the occupation of Sudetenland.",
+            "Took part in the occupation of Praha, former seat of Czechoslovak government.",
+            "Took part in the Battle of Katowice against the 23. Dywizja Piechoty and won.",
+            "Took part in the siege of Warszawa.",
+            "Took part in the Battle of Liège against the 7e Division d'Infanterie and the 2e Division d'Infanterie Nord-Africaine and won.",
+            "Took part in the siege of Antwerpen.",
+            "Took part in the siege of Paris.",
+            "Took part in the occupation of Bordeaux."
+          ]
+        }
+      },
+      "_render_note": "Sample rows: a 1936 division has no history. The date is drawn yellow as text_color_code = \"Y\" should show it; the texts follow vanilla history keys."
     },
     {
       "name": "template",
@@ -280,7 +336,10 @@
       ],
       "expand": [
         "divisions"
-      ]
+      ],
+      "rows": {
+        "divisions_grid": 5
+      }
     },
     {
       "name": "name-dropdown",
@@ -468,6 +527,16 @@
           "_note": "the third window, at 180,300"
         }
       ]
+    },
+    {
+      "name": "hk-promote",
+      "steps": [
+        {
+          "key": "shift+z",
+          "wait": 1.5
+        }
+      ],
+      "_note": "Last capture of the run: shift+z on Promote of the front window (the motorised division). What opens is the game's promotion step; nothing is saved."
     }
   ],
   "expect": [
@@ -481,17 +550,21 @@
     900
   ],
   "manual": [
-    "Tooltips on stat rows, adjusters and equipment rows",
-    "Dragging the window by its title bar",
-    "Renaming the division, Promote, Delete",
-    "States a 1936 start does not show: history entries and medals, an HQ division, a foreign or colonial division"
+    "Tooltips on stat tiles, adjusters, equipment rows and the officer portrait",
+    "Renaming the division, Promote (also with shift+z), Delete",
+    "States a 1936 start does not show: history entries and medals (a veteran division), an HQ division, a foreign, colonial or exiled division's flags in the title strip"
   ],
   "checklist": [
-    "Stats tab: every label and value on its row, nothing cut except the Trickleback label",
-    "A tank division: equipment list and adjusters, with as little scrolling as the size allows",
-    "History and Template tabs fill the frame",
+    "Stats tab: one title strip with the title, manpower, equipment ratio, delete and close; the identity card with the template button, the name field and the experience; the officer card; the equipment card with its caption",
+    "Stats tab: every label and value on its tile, nothing cut except the Trickleback label; the Adjusters card behind the label, the hardness bar and the adjusters",
+    "History tab: no Adjusters card any more; the summary card (Command History, the two counts, Honors) and the list card with dark rows; the list goes to the bottom of the card",
+    "Template tab: the Regimental Support row with its five slots and its label is visible again (the Adjusters card no longer covers it)",
+    "shift+z presses Promote (an officer can be promoted; Escape or right click leaves the picker)",
+    "A tank division: equipment list with five archetypes, scrolls only beyond that; the adjusters",
     "Both dropdowns open over the window",
-    "A division row can be clicked in the strip between the list and the window"
+    "The window drags by its background, also by the officer and equipment cards",
+    "A division row can be clicked in the strip between the list and the window",
+    "Template dropdown: card entries of 44 (as in the division list), five before it scrolls"
   ],
   "states": [
     {
@@ -523,6 +596,15 @@
       "samples": {
         "unit_hq_modifier_entry": {
           "text": "Division Attack on core territory: +5.0%"
+        }
+      }
+    },
+    {
+      "name": "officer-long",
+      "_note": "The longest officer name measured (341 px in hoi_20b) on two lines of the 294 px name box.",
+      "samples": {
+        "army_division_stats_view": {
+          "commanding_officer": "Generalleutnant Friedrich-Wilhelm von Chappuis"
         }
       }
     }

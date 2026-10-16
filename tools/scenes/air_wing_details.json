@@ -109,8 +109,10 @@
     "A wing with an ace, a carrier wing"
   ],
   "checklist": [
-    "Stats: every label and value on its row",
-    "The plane type row in the side panel: name on one line",
+    "The window is 794 wide: no side column any more",
+    "The title strip with the title, equipment ratio, delete and close; the identity card with the plane icon and the name field",
+    "Stats: the Base card one row high and the plane type row on its own card under it, name on one line; Combat and Misc cards as before",
+    "The picture band: plane picture and name, mission icons, manpower",
     "The window can be dragged"
   ]
 }

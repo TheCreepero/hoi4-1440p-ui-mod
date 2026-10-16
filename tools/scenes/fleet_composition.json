@@ -15,7 +15,7 @@
         520,
         292
       ],
-      "height": 333,
+      "height": 312,
       "rows": {
         "ships_grid": 4
       },
@@ -27,22 +27,22 @@
           "task_force_composition_editor_new_entry"
         ]
       },
-      "_note": "Centred in its file, but the code opens it beside the composition button it was opened from (Engine Facts S22). Its height is 161 plus 43 per row. The code moves Cancel and OK below the last row.",
+      "_note": "Centred in its file, but the code opens it beside the task force card: at 520,292 in vanilla and 768,292 with the mod, which fits the card's right edge plus 28 as well as the button [GUL-021]. The redesign moves btn_composition_editor from 608,43 to 470,3: the check shows which rule holds. Its height is 140 plus 43 per row (161 before the redesign). The code moves Cancel and OK below the last row.",
       "place": {
         "btn_cancel": [
           155,
-          283
+          262
         ],
         "btn_accept": [
           305,
-          283
+          262
         ]
       }
     },
     {
       "name": "task_force_composition_editor_sub_unit_selection_window",
       "at": [
-        1364,
+        1378,
         293
       ],
       "atVanilla": [
@@ -52,7 +52,7 @@
       "rows": {
         "sub_unit_box": 9
       },
-      "_note": "The code puts it at sub_unit_selection_window_default_pos of the editor. The game has nine ship classes; vanilla shows seven and scrolls."
+      "_note": "The code puts it at sub_unit_selection_window_default_pos of the editor (610,1 since the redesign: 6 px right of the editor, 596 put it 8 px over it). The game has nine ship classes; vanilla shows seven and scrolls; 450 px show nine, the playset's 14 scroll."
     }
   ],
   "samples": {
@@ -125,8 +125,9 @@
     "Saving a template and opening the template list: not seen in a check"
   ],
   "checklist": [
-    "Editor: class names and counts, the + row, Cancel and OK",
-    "Class picker: all nine classes without scrolling"
+    "Editor: plain frame, title strip with the title at the left and Close, template plate (reset, clear, template dropdown, save, delete), class rows from y 92, Cancel and OK under the last row",
+    "Editor opens beside the task force card (x 768) although its button moved to the title strip",
+    "Class picker: 6 px right of the editor, same top, title strip, all nine classes without scrolling"
   ],
   "states": [
     {

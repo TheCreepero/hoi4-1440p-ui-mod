@@ -24,10 +24,8 @@ on_actions = {
 				mod1440_nf_bars = yes
 				if = {
 					limit = { check_variable = { mod1440_nf_open = 1 } }
-					if = {
-						limit = { check_variable = { mod1440_nf_page = 1 } }
-						mod1440_h_draw = yes
-					}
+					mod1440_nf_fill = yes
+					mod1440_h_draw = yes
 				}
 				mod1440_rec_daily = yes
 			}
@@ -260,7 +258,11 @@ on_actions = {
 				ROOT = {
 					mod1440_ev_add = yes
 				}
-				log = "MOD1440 listening: on_naval_invasion, state [THIS.GetName], by [ROOT.GetName]"
+				if = {
+					limit = { ROOT = { check_variable = { mod1440_hn_sea = 1 } } has_dlc = "By Blood Alone" }
+					mod1440_hn_landing = yes
+				}
+				log = "MOD1440 listening: on_naval_invasion, state [THIS.GetName], by [ROOT.GetName], [?hn_n] divisions honoured"
 			}
 		}
 	}
@@ -493,7 +495,11 @@ on_actions = {
 				FROM = {
 					mod1440_ev_add = yes
 				}
-				log = "MOD1440 listening: on_units_paradropped_in_state, state [THIS.GetName], by [FROM.GetName]"
+				if = {
+					limit = { FROM = { check_variable = { mod1440_hn_air = 1 } } has_dlc = "By Blood Alone" }
+					mod1440_hn_drop = yes
+				}
+				log = "MOD1440 listening: on_units_paradropped_in_state, state [THIS.GetName], by [FROM.GetName], [?hn_n] divisions honoured"
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 # Phase A5: recruit and deploy
 
-The two panels the `u` key opens: Recruit & Deploy (equipment priorities and the divisions in training) and Division Templates beside it. Status: done. Built and checked by the harness on 2026-10-11; the tester tried it in game on 2026-10-12 and found it good. Override file: `interface/zz_1440p_recruit_deploy.gui`.
+The two panels the `u` key opens: Recruit & Deploy (equipment priorities and the divisions in training) and Division Templates beside it. Status: done. Built and checked by the harness on 2026-10-11; the tester tried it in game on 2026-10-12 and found it good. The redesign of 2026-10-16 (below): built and checked by render and tests; not seen in game. Override file: `interface/zz_1440p_recruit_deploy.gui`.
 
 ## Scope
 
@@ -82,6 +82,57 @@ Additions, each with the row of "What a redesign can add" that allows it:
 - 2026-10-11: Train and Edit sit in the dark name box, where the metal strip under it was. The strip is gone with the second line.
 - 2026-10-12: **the tester judged the phase finished.** The width of 1246 px is fine, the narrower priority rows are fine and stay as they are, and everything on the list under "Left for the tester" works: tooltips, the clicks, a line becoming ready and a long list. The tester also opened the list of foreign templates, which the harness could not reach, and it works.
 - 2026-10-16: **step 2, the priority rows as wide as the training cards** (user, after a mock-up on the design page). Roadmap F3 showed that the code draws a row at the size of the sprite it puts there, so the six row sprites are declared again under their vanilla names with textures 575 wide (`interface/zz_1440p_vanilla_sprites.gfx`, jobs `rd_*_entry`; only Recruit & Deploy uses them). The rows stand at x 2 of the list, from 22 to 597 on the screen like the cards; the label plate is 211 px (159), the equipment meter 148 (108) with a bar of 112 (72) on new `GFX_1440p_RD_` sprites; the priority dots keep their place from the right end. The meter's bar is `GFX_deployment_progressbar`, named in the file, so the bars of the training lines keep their vanilla length. Built and rendered; no game check yet. Open for it: each of the six rows in its own colour, the label of the longest priority in each language whole.
+
+## Redesign build (2026-10-16)
+
+The redesign agreed on the design page of 2026-10-16 (one card per template in training, stacked bars, wider template names, the checkbox in the tool strip, the symbol picker over both panels; every decision as recommended). Layout script: `scratch/a5/layout_a5r.py` (absolute values; kept beside the design under `scratch/redesign/a5-recruit/`).
+
+What was built:
+
+- **One card per template in training on the 575 px spine.** Head, band, lines and foot all stand at x 2 of the list, 575 wide, like the step-2 priority rows. Their backgrounds are one frame, `tiles/tiled_window2_1b_border.dds` drawn at 575 and cut into four slices (`card_slice` in `tools/stretch_background.py`, same sprite and file names as before): the head 575x84 with a transparent gap of 6 on top, the band 575x32, a line 575x40 and the foot 575x9 (the rim). Band and line are rows of the frame's plain inside, so they join in any order and a folded card (band on foot) stays closed. Per card: 125 + 40 per line.
+- **Head:** symbol tile 78x66 at 8,12 (`GFX_1440p_RD_card_icon_tile`), the symbol at 9,24 with its marks; title strip 475x32 at 92,12 (`GFX_1440p_RD_card_title`, the unit list header tile) with the name (290, `hoi_20b`), series - amount + at 404 to 503 and the three priority dots at 508, 528, 548; action strip at y 48: location button 283x31 at 92 (was 313) with the group button in its left end, Add Unit at 384, deploy and cancel at 505 and 536.
+- **Band:** 32 high (was 40) on a dark strip 559x28 (`GFX_1440p_RD_card_band`): order arrows at 12 and 41, the count left-aligned at 82 (200 px), the card's equipment icon and bar at 306 and 332, straight above the bars of the lines, fold at 539.
+- **Line:** name field 292x30 at 8,5 (`GFX_1440p_RD_line_name_field`) holding the dropdown, edit box 262x22 at 14,9 and the expand button at 278; a bar holder 156x36 at 302,2 (`GFX_1440p_RD_line_bars`) with equipment over training: `army_equipment` 306,3 and `equipment_progressbar` 332,6; `army_training` 308,20 at `scale = 0.67` and `training_progressbar` 332,23. Series 44 px at 458, deploy at 512, cancel at 542.
+- **Bars of 120 px:** `GFX_deployment_entry_progressbar` and `GFX_deployment_entry_stalled_progressbar` declared again at 120x12 on their vanilla textures in `interface/zz_1440p_vanilla_sprites.gfx` and listed in `tests/GuiInvariants.Tests.ps1`. The code puts them on the line bars and the band's bar [SPR-015]; only `countrydeploymentview.gui` names them in vanilla, and no mod of the playset declares them.
+- **Template row (581x48):** the plate and the symbol's tile are one bitmap per state, so that the code's swap of `Background` and `Background_obsolete` swaps the tile too: `GFX_1440p_RD_template_plate` (tiled_plain_bg_small with the 84x40 tile of the priority rows at 3,4) and `GFX_1440p_RD_template_plate_obsolete` (the brown `deployment_item_bg` frame with the copper symbol box of the vanilla decommissioned row), both made by `template_plate` in `tools/stretch_background.py`. Name field 306x36 at 92,6, the name at 100 with 258 px (was 218), the cap 38 px at 356 inside the field, Train and Edit 56x26 at 404 and 462 on `GFX_1440p_RD_button_56` (the 71x26 button's texture tiled), the decommission toggle at 524, delete at 548. The old one-line bitmaps (`GFX_1440p_RD_template_entry`, `_obsolete`) stay declared as the fallback.
+- **One tool strip:** `show_decommissioned_templates_window` 276x44 at 144,52 on a transparent background, its checkbox at 0,6 with **`shift+v`** and its text at 38,13 in `hoi_16mbs`, fixed 236 px; the special forces icon and count at 62 and 92; Division Designer at 434. The list starts at y 96 (was 138) and is 1110 high: 23 templates before it scrolls. `tools/check_playset.py` reports no other user of `shift+v`.
+- **Symbol picker:** `div_templ_custom_icon_view` 1252x1114 at -634,96 of the template panel (screen -6 to 1246, y 174 to 1288), Back and Default symbol side by side at 374 and 630, `symbols_grid` at 38,47 with 14 slots a row (1176 wide): 21 rows, 294 symbols on screen.
+- Both panels still end at x 1246, with `clipping = no` on both; Army Readiness keeps its x of 1256.
+
+Deviations from the design:
+
+- Every second line is not 16 % darker: all lines are one row window, which the code repeats, so a line cannot know its place.
+- The location button is 283 px, not 284: its chevron frame repeats every 15 columns, so it grows by 60.
+- The template row's icon tile is part of the two plate bitmaps, not an icon on a tiled plate: an icon would lie above `Background_obsolete` and hide the copper box that marks a decommissioned template (the mock-up took that box from a capture).
+- The symbol picker starts at y 174 as designed, so the upper 36 px of the first priority row stay visible above it (the mock-up drew the left panel without its rows).
+
+Not seen in game:
+
+- Whether the code draws the redeclared bar sprites at 120x12 on the line bars and the band, normal and stalled; whether `scale = 0.67` on `army_training` survives the code setting its frame (Better Mechanics' `GFX_unit_level` has 10 frames, RT56's 21, all 27 px).
+- The card frame across head, band, lines and foot with lines added, a card folded, a line ready to deploy and a card with a location set.
+- The picker drawn left of the template panel: whether it lies above the Recruit & Deploy panel and takes clicks there, Back and Escape.
+- The tooltips of the two stacked bars; the checkbox text in the tool strip in other languages; `shift+v` and the moved checkbox window toggling the list; the brown plate and the 56 px buttons of a decommissioned template (View).
+
+Game check, when the user allows a launch:
+
+    tools/Invoke-GameCheck.ps1 recruit_deploy
+
+The tester's checklist (the scene's `checklist` in `tools/scenes/recruit_deploy.json`):
+
+1. Width: both panels together are 1246 px (vanilla 913); the template panel ends above the army portraits
+2. Cards (redesign 2026-10-16): every template in training is one frame from its head to its foot on the 575 px spine of the priority rows; no seam between head, band, lines and foot, also with lines added and with a card folded (band right on the foot)
+3. Bars: equipment over training, 120 px each, on every line and the card's bar in the band; the stalled (red) bar is 120 too; the training icon is small (scale 0.67) and shows the right level
+4. A line: rename it in its box (262 px), pick a name from the list (it opens under the name field), the deploy and cancel buttons
+5. A card: set a location (the 283 px button, then the map; the chevron frame), assign an order, the series - and +, the three priority dots, fold and unfold, the two order arrows
+6. A template: Train (and Shift+click for five), Edit or View (56 px buttons), the decommission toggle, delete on a template of your own; the brown plate of a decommissioned template
+7. Tool strip: Show decommissioned templates sits between the special forces count and Division Designer; Shift+V ticks and unticks it and the list follows; 23 templates fit before the list scrolls
+8. The symbol picker: it opens over the template panel with 7 symbols a row (Back and Default symbol side by side), nothing of it under the Recruit & Deploy panel; pick a symbol, Default symbol, Back, Escape
+9. Shift+F opens the division designer
+10. Priority rows (step 2): six rows as wide as the cards under them, each in its own colour, label and meter whole, the three dots
+
+### Fix round 1
+
+- 2026-10-16, the symbol picker partly under Recruit & Deploy (user's test, `template_icons.png`): the game draws the Recruit & Deploy panel above the picker where the picker reaches left of its own panel, so the left half (and Back) was hidden. The design's fallback: `div_templ_custom_icon_view` 612x1111 at 6,95 (the left panel ends 6 px into the template panel), `symbols_grid` 7 a row at 4,47; Back and Default symbol stay side by side (54 and 310), so the grid starts at 47 instead of 88. Re-test: the whole picker visible and clickable, 7 a row, Back.
 
 ## Game checks
 

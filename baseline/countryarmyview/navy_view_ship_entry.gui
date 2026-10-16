@@ -1,0 +1,41 @@
+# Vanilla 1.19.3.0, interface/countryarmyview.gui, lines 3-39.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "navy_view_ship_entry"
+		position = {x=0 y=0}
+		Orientation = upper_left
+		clipping = no
+
+		background = {
+			name = "background"
+			spriteType = "GFX_overview_filter_entry"
+		}
+
+		iconType = {
+			name = "highlight"
+			position = { x = 0 y = 0 }
+			spriteType = "GFX_overview_filter_entry_highlight"
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "ships_count"
+			position = {x=4 y=0}
+			font = "hoi_18mbs"
+			maxWidth = 30
+			maxHeight = 23
+			format = left
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "ship_icon"
+			position = {x=44 y=16} # Y is centered in code
+			spriteType = "GFX_navalcombat_ship_icon_unknown"
+			centerposition = yes
+			scale = 0.9
+			alwaystransparent = yes
+		}
+	}
+}

@@ -285,6 +285,42 @@ mod1440_chk_idea = {
 	}
 }
 
+# ---- the officers' traits and the file's new values (e-officers-gov, 2026-10-16)
+
+# The cost of the trait round: every officer's traits made again ten times, between two lines of game.log
+# (the daily round does it once, for an officer whose num_traits has changed). Then what each officer holds.
+mod1440_chk_traits = {
+	log = "MOD1440 traits: start"
+	for_loop_effect = {
+		start = 0
+		end = 10
+		value = chk_n
+		every_army_leader = { mod1440_of_traits = yes }
+		every_navy_leader = { mod1440_of_traits = yes }
+	}
+	log = "MOD1440 traits: 10 rounds done"
+	every_army_leader = {
+		log = "MOD1440 traits: [THIS.GetName] num_traits [?num_traits] named [?mod1440_of_tr_k] icons [?mod1440_of_tr_i] plus [?mod1440_of_tr_plus] first [?mod1440_of_tr^0.GetTokenKey] max [?num_max_traits] planning [?avg_unit_planning_ratio] battalions [?num_battalions] fighting [?num_units_in_combat] armoured [?num_armored]"
+	}
+	every_navy_leader = {
+		log = "MOD1440 traits: [THIS.GetName] num_traits [?num_traits] named [?mod1440_of_tr_k] ships [?num_ships] carrier [?num_ships_with_type@carrier] capital [?num_ships_with_type@capital] screen [?num_ships_with_type@screen] submarine [?num_ships_with_type@submarine]"
+	}
+}
+
+# Whether a condition on a trait the loaded game does not define is an error: read error.log after it.
+mod1440_chk_trait_unknown = {
+	every_army_leader = {
+		limit = { is_field_marshal = yes }
+		if = {
+			limit = { has_trait = mod1440_chk_no_such_trait }
+			log = "MOD1440 check: a trait nobody defined is held by [THIS.GetName]"
+		}
+		else = {
+			log = "MOD1440 check: a trait nobody defined is not held by [THIS.GetName]"
+		}
+	}
+}
+
 # ---- numbers into game.log
 
 # Who the game counts as an officer, each way script can ask (the generals another mod adds were missing).
@@ -318,18 +354,113 @@ mod1440_chk_sizes = {
 mod1440_chk_log = {
 	log = "MOD1440 check: ev [?mod1440_ev_date^num] tr [?mod1440_tr_date^num] c [?mod1440_tr_c^num] x [?mod1440_tr_x^num] enemies [?mod1440_ev_enemies^num] wr [?mod1440_wr_enemy^num] vpt [?mod1440_wr_vpt^num] wo [?mod1440_wo_enemy^num] sel [?mod1440_wr_sel_kind]/[?mod1440_wr_sel_i] has [?mod1440_wr_c_has] lines [?mod1440_wr_ln_n] view [?mod1440_wd_fam^num] ctl [?mod1440_vp_ctl^num] ver [?mod1440_vp_ver]"
 }
+
+# ---- e-diary-wars (2026-10-16): logs of 1000 lines, marks, the per-war counters
+
+# Both logs filled to their 1000 lines with made-up lines (Danzig taken from Poland, at war with Poland), between two
+# lines of game.log: two lines with the same second mean the 2000 writes took less than one.
+mod1440_chk_fill = {
+	log = "MOD1440 fill: start, ev [?mod1440_ev_date^num] tr [?mod1440_tr_date^num]"
+	POL = { set_temp_variable = { chk_pol = THIS } }
+	for_loop_effect = {
+		start = 0
+		end = 1000
+		value = chk_n
+		set_temp_variable = { ev_kind = token:mod1440_ev_state_taken }
+		set_temp_variable = { ev_fam = 2 }
+		set_temp_variable = { ev_kid = 14 }
+		set_temp_variable = { ev_sa = 2 }
+		set_temp_variable = { ev_a = 85 }
+		set_temp_variable = { ev_sb = 1 }
+		set_temp_variable = { ev_b = chk_pol }
+		set_temp_variable = { ev_so = 0 }
+		set_temp_variable = { ev_o = 0 }
+		set_temp_variable = { ev_p = 0 }
+		set_temp_variable = { ev_x = 0 }
+		mod1440_tr_add = yes
+		set_temp_variable = { ev_kind = token:mod1440_ev_war_with }
+		set_temp_variable = { ev_fam = 1 }
+		set_temp_variable = { ev_kid = 3 }
+		set_temp_variable = { ev_sa = 0 }
+		set_temp_variable = { ev_a = 0 }
+		mod1440_ev_add = yes
+	}
+	log = "MOD1440 fill: done, ev [?mod1440_ev_date^num] tr [?mod1440_tr_date^num] ids [?mod1440_ev_id^num]/[?mod1440_tr_id^num] next [?mod1440_ln_next]"
+}
+
+# The diary's All view (both logs together, 200 rows with day headers) made 20 times, between lines of game.log.
+mod1440_chk_list_time = {
+	set_variable = { mod1440_wd_filter = 0 }
+	set_variable = { mod1440_wd_from = 0 }
+	log = "MOD1440 list: start"
+	for_loop_effect = {
+		start = 0
+		end = 20
+		value = chk_n
+		mod1440_wd_list = yes
+	}
+	log = "MOD1440 list: 20 views done, rows [?mod1440_wd_fam^num] lines [?mod1440_wd_shown] of [?mod1440_wd_total]"
+}
+
+# The file of the chosen war made 20 times (its lines, the marks of its track, the commanders' tally).
+mod1440_chk_card_time = {
+	log = "MOD1440 card: start"
+	for_loop_effect = {
+		start = 0
+		end = 20
+		value = chk_n
+		mod1440_wr_card = yes
+	}
+	log = "MOD1440 card: 20 files done, lines [?mod1440_wr_ln_n] commanders [?mod1440_wr_k_n] id [?mod1440_wr_c_id] first mark x [?mod1440_wr_mx^0]"
+}
+
+# The newest line of the main log marked, as its box would: the chronicle and the mark in both logs.
+mod1440_chk_mark = {
+	set_temp_variable = { mk_src = 1 }
+	set_temp_variable = { mk_si = mod1440_ev_date^num }
+	subtract_from_temp_variable = { mk_si = 1 }
+	mod1440_wd_mark = yes
+	log = "MOD1440 mark: chronicle [?mod1440_kp_date^num], the line's mark [?mod1440_ev_k^mk_si], its number [?mod1440_ev_id^mk_si]"
+}
+
+# As a game saved with the build of 2026-10-13: the logs without marks and numbers, the wars without their numbers,
+# the enemy's casualties and the outcome as a number, the honours with one switch.
+mod1440_chk_old2 = {
+	clear_array = mod1440_ev_k
+	clear_array = mod1440_ev_id
+	clear_array = mod1440_tr_k
+	clear_array = mod1440_tr_id
+	clear_array = mod1440_wr_id
+	clear_array = mod1440_wr_ecas0
+	clear_array = mod1440_wr_ecas
+	clear_array = mod1440_wo_id
+	clear_array = mod1440_wo_day0
+	clear_array = mod1440_wo_ecas
+	clear_array = mod1440_wo_oc
+	clear_array = mod1440_wo_fr
+	clear_variable = mod1440_hn_v
+	clear_variable = mod1440_hn_sea
+	clear_variable = mod1440_hn_air
+	mod1440_chk_sizes2 = yes
+}
+
+# How long the newer parts are, and the honour switches.
+mod1440_chk_sizes2 = {
+	log = "MOD1440 check: sizes2 ev [?mod1440_ev_date^num]/[?mod1440_ev_k^num]/[?mod1440_ev_id^num] tr [?mod1440_tr_date^num]/[?mod1440_tr_k^num]/[?mod1440_tr_id^num] kp [?mod1440_kp_date^num] wr [?mod1440_wr_enemy^num]/[?mod1440_wr_id^num]/[?mod1440_wr_ecas0^num] wo [?mod1440_wo_enemy^num]/[?mod1440_wo_id^num]/[?mod1440_wo_oc^num]/[?mod1440_wo_fr^num] honours [?mod1440_hn_v] [?mod1440_hn_auto] [?mod1440_hn_sea] [?mod1440_hn_air] [?mod1440_hn_vp]"
+}
 """
 
 
-def history_months(name, months, years):
+def history_months(name, months, years, filled=20):
     """An effect that fills the arrays of the History page with made-up months, without running time: a rising
     figure, a falling one and a wave, by turns. years: with the year of each month, or without as a game saved
-    before 2026-10-12 has them."""
+    before 2026-10-12 has them. filled: how many of the twenty figures get months; 12 leaves the eight of
+    2026-10-16 empty, as a game saved by the build before has them (the drawing pads them with -1)."""
     series = "".join(("\t\tadd_to_array = { mod1440_h_%d = up }\n" if n % 3 == 0 else
                       "\t\tadd_to_array = { mod1440_h_%d = down }\n" if n % 3 == 1 else
-                      "\t\tadd_to_array = { mod1440_h_%d = wave }\n") % n for n in range(12))
-    forget = "".join("\t\t\tremove_from_array = { array = mod1440_h_%d index = 0 }\n" % n for n in range(12))
-    clear = "".join("\tclear_array = mod1440_h_%d\n" % n for n in range(12))
+                      "\t\tadd_to_array = { mod1440_h_%d = wave }\n") % n for n in range(filled))
+    forget = "".join("\t\t\tremove_from_array = { array = mod1440_h_%d index = 0 }\n" % n for n in range(filled))
+    clear = "".join("\tclear_array = mod1440_h_%d\n" % n for n in range(20))
     year = """		set_temp_variable = { mo = t }
 		modulo_temp_variable = { mo = 12 }
 		set_temp_variable = { yr = t }
@@ -367,10 +498,11 @@ def history_months(name, months, years):
 """ % (name, clear, months, series, year, forget, forget_year)
 
 
-# 130 months with years (the oldest ten are forgotten), the same as an older save has them, and seven months
+# 130 months with years (the oldest ten are forgotten), the same as an older save has them, seven months, and
+# 130 months of the twelve figures a save of the build before 2026-10-16 has
 HISTORY = ("\n# ---- the History page: made-up months\n"
            + history_months("mod1440_chk_months", 130, True) + history_months("mod1440_chk_months_old", 130, False)
-           + history_months("mod1440_chk_months_few", 7, True))
+           + history_months("mod1440_chk_months_few", 7, True) + history_months("mod1440_chk_months_twelve", 130, True, 12))
 
 if __name__ == "__main__":
     if "--restore" in sys.argv:

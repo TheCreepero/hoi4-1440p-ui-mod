@@ -255,6 +255,19 @@ Describe 'Mod sprites' {
             'GFX_deploy_operations_entry'        = 'A5 priority rows of Recruit & Deploy'
             'GFX_deploy_garrisons_entry'         = 'A5 priority rows of Recruit & Deploy'
             'GFX_deploy_lendlease_entry'         = 'A5 priority rows of Recruit & Deploy'
+            # --- a8-theatre ---
+            'GFX_theatre_dropdown_bottom'        = 'A8 last row under a theatre box'
+            # --- a5-recruit ---
+            'GFX_deployment_entry_progressbar'         = 'A5 bars of the training lines of Recruit & Deploy'
+            'GFX_deployment_entry_stalled_progressbar' = 'A5 bars of the training lines of Recruit & Deploy'
+            # --- c2-state-rows ---
+            'GFX_leader_selection_active_entry_bg'             = 'C2 general rows (also captured generals, see the gfx)'
+            'GFX_leader_selection_unavailable_entry_bg'        = 'C2 general rows'
+            'GFX_leader_selection_unavailable_active_entry_bg' = 'C2 general rows'
+            'GFX_marshal_selection_entry_bg'                   = 'C2 general rows'
+            'GFX_marshal_selection_active_entry_bg'            = 'C2 general rows'
+            'GFX_leader_selection_entry_bg_faction'            = 'C2 general rows (faction commander window)'
+            'GFX_leader_selection_active_entry_bg_faction'     = 'C2 general rows (faction commander window)'
         }
         $redefinitionFile = 'zz_1440p_vanilla_sprites.gfx'
         $wrong = foreach ($file in @(Get-ModGuiFiles -Filter '*.gfx')) {
