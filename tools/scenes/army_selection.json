@@ -281,7 +281,7 @@
     },
     {
       "name": "hq-dropdown",
-      "_note": "The HQ deploy dropdown opened: five card entries. In the game the code puts GFX_army_hq_dropdown_button (198x58) on each entry's Background, behind the card (GUW-037).",
+      "_note": "The HQ deploy dropdown opened: five entries. In the game the code puts GFX_army_hq_dropdown_button (198x58) on each entry's Background in place of GFX_mini_tooltip (GUW-037), which a render does not show.",
       "hide": {
         "army_division_list_view": [
           "bottom_window",

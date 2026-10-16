@@ -67,15 +67,6 @@ spriteTypes = {
 		noOfFrames = 2
 	}
 
-	# Card of a template entry in the three template dropdowns, 360x42: the badge's card tile at a size, drawn
-	# above the entry's Background so that the HQ plate the code puts there [GUW-037] stays behind it.
-	corneredTileSpriteType = {
-		name = "GFX_1440p_UV_template_card"
-		size = { x = 360 y = 42 }
-		textureFile = "gfx/interface/tiles/tiled_plain_bg_small.dds"
-		borderSize = { x = 16 y = 16 }
-		tilingCenter = yes
-	}
 	# --- end a2-division-list ---
 
 	# Toolbar plate above the division list. The vanilla texture itself, tiled to 640 wide.

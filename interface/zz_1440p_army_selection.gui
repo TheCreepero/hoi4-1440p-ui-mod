@@ -851,20 +851,14 @@ guiTypes = {
 		size = { width = 360 height = 44 }
 		clipping = no
 
+		# The click on a template goes to Background alone, so nothing but vanilla's own transparent icons and
+		# texts lies over it. The code puts GFX_mini_tooltip on it, or GFX_army_hq_dropdown_button (198x58)
+		# in the HQ slot's dropdown [GUW-037]; the file names the first so that a render shows the game.
+		# The card drawn over it in the redesign build left every template unclickable (2026-10-16).
 		buttonType = {
 			name = "Background"
-			quadTextureSprite ="GFX_tiled_plain_bg_small"
-			size = { x = 360 y = 42 }
-		}
-
-		# The card, not in vanilla. In the HQ slot's dropdown the code puts GFX_army_hq_dropdown_button
-		# (198x58) on Background [GUW-037]; the card is drawn above it, so every entry looks alike and the
-		# next card covers the 16 rows the HQ plate runs below this one. Clicks pass to Background.
-		iconType = {
-			name = "mod1440_card"
-			spriteType = "GFX_1440p_UV_template_card"
-			position = { x=0 y=0 }
-			alwaystransparent = yes
+			quadTextureSprite ="GFX_mini_tooltip"
+			size = { x = 360 y = 44 }
 		}
 
 		iconType = {
