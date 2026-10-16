@@ -46,6 +46,7 @@ Shift+M shows and hides the page of the open tab.
 - [b]States[/b] (beside Construction): every state you control as a table: free building slots, building levels, resources, population, compliance and resistance. Click a column head to sort. Click a state and the camera goes there. The totals of the listed states stand under the list.
 - [b]National Figures[/b] (from Politics): the summed modifiers of your country, 101 of them: what all your laws, spirits, advisors and technologies together add to factory output, construction speed, research speed, organisation, compliance and the rest; what does not apply is grey. With factories, stability, war support, fuel and party popularity as tiles and bars, and a table of resources.
 - [b]History[/b] (in National Figures): twelve figures of your country month by month: manpower, divisions, factories, stability, war support, fuel and more. A table with the change in a month and in a year, and a graph of the one you click, with a zoom.
+- [b]Top bar strip[/b] (every screen): the numbers the top bar keeps in its tooltips, as chips in its empty middle: political power and command power per day, stability and war support per week, free civilian factories, idle military factories and dockyards, fuel in store. An edit button opens a panel where you choose among eighteen values; the choice is kept with your country.
 - The pages show your own country only. Equipment, buildings and resources added by other mods do not appear in them.
 
 [h1]The Records:[/h1]

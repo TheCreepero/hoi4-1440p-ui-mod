@@ -1982,16 +1982,7 @@ spriteTypes = {
 		effectFile = "gfx/FX/buttonstate.lua"
 	}
 
-	# The Records button of the top bar, the game's 148 px button at 168x36, and its badge.
-	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_button_168"
-		size = { x = 168 y = 36 }
-		textureFile = "gfx//interface//button_148x34.dds"
-		borderSize = { x = 12 y = 12 }
-		tilingCenter = yes
-		effectFile = "gfx/FX/buttonstate.lua"
-	}
-
+	# The badge of the Records button of the top bar (the button itself: GFX_1440p_SG_button_150x28, block D7).
 	corneredTileSpriteType = {
 		name = "GFX_1440p_SG_tile_30x24"
 		size = { x = 30 y = 24 }
@@ -2408,4 +2399,123 @@ spriteTypes = {
 		texturefile = "gfx/interface/1440p_ui/ar_mechanized_equipment.dds"
 	}
 	# --- end d2-readiness ---
+
+	# --- D7 ---
+	# The top bar strip (tools/build_managers.py, "Top bar strip (D7)"): the game's value box of the top bar
+	# (generic_box_smallest.dds, 70x26) tiled to the width of each chip, the same box as the edit button, the
+	# Records button lowered to 28 px, and the band of every second row of the panel.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_61x26"
+		size = { x = 61 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_74x26"
+		size = { x = 74 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_87x26"
+		size = { x = 87 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_90x26"
+		size = { x = 90 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_105x26"
+		size = { x = 105 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_106x26"
+		size = { x = 106 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_107x26"
+		size = { x = 107 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_115x26"
+		size = { x = 115 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_119x26"
+		size = { x = 119 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_128x26"
+		size = { x = 128 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_139x26"
+		size = { x = 139 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbtn_28x26"
+		size = { x = 28 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_button_150x28"
+		size = { x = 150 y = 28 }
+		textureFile = "gfx//interface//button_148x34.dds"
+		borderSize = { x = 12 y = 12 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_stripe_384x32"
+		size = { x = 384 y = 32 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+	}
+	# --- end D7 ---
 }

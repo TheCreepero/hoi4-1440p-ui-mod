@@ -65,6 +65,10 @@ Pages of the mod's own that stand beside a vanilla panel and use the width of th
   - Twelve figures of your country month by month, ten years at most: manpower, divisions, factories, stability, war support, fuel and others. The mod writes them down on the first of each month, from the day it is active in a game.
   - A table lists the twelve with their newest month and the change in a month and in a year; a click on one draws it as a column graph with its highest and lowest month, the years under it, and a zoom that lets the columns start at the lowest month.
 
+- **Top bar strip** (on every screen, in the empty middle of the top bar):
+  - Chips drawn like the vanilla values: by default political power and command power per day, stability and war support per week, civilian factories with how many are free, military factories and dockyards with how many are idle, and fuel in store of capacity. The label is the tooltip.
+  - An edit button beside the Records button opens a panel where you choose among eighteen values (consumer goods, manpower in the field and in training, the seven resource balances too). What does not fit is refused; Default brings the eight back; the choice is kept with your country.
+
 Limits: the game gives script no list of templates, training lines, production lines or queues, so the pages have none; an army without a commander is not listed; equipment, buildings and resources that another mod adds do not appear.
 
 ## The Records

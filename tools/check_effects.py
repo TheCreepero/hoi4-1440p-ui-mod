@@ -444,6 +444,23 @@ mod1440_chk_old2 = {
 	mod1440_chk_sizes2 = yes
 }
 
+# ---- the top bar strip (D7)
+
+# As a save of a build before D7: the strip's variables gone, so the fixed twin of the eight defaults shows until
+# the first click on the edit button or the next day.
+mod1440_chk_tb_old = {
+	clear_variable = mod1440_tb_ver
+	clear_variable = mod1440_tb_setup
+	log = "MOD1440 tb: as an earlier build, version [?mod1440_tb_ver]"
+}
+
+# Every value the strip can show, and its placement, in game.log: compare with the game's tooltips.
+mod1440_chk_tb_log = {
+	log = "MOD1440 tb: pp [?political_power_daily|2] cp [?command_power_daily|2] stab [?modifier@stability_weekly|3] ws [?modifier@war_support_weekly|3] civ [?num_of_civilian_factories] free [?num_of_civilian_factories_available_for_projects] mil [?num_of_military_factories] idle [?num_of_available_military_factories] dock [?num_of_naval_factories] idle [?num_of_available_naval_factories] cg [?modifier@consumer_goods_factor|3] fuel [?fuel_k|1]/[?max_fuel_k|1] field [?deployed_total_manpower_k|1] training [?amount_manpower_in_deployment_queue]"
+	log = "MOD1440 tb: oil [?resource@oil] alu [?resource@aluminium] rubber [?resource@rubber] tungsten [?resource@tungsten] steel [?resource@steel] chromium [?resource@chromium] coal [?resource@coal]"
+	log = "MOD1440 tb: version [?mod1440_tb_ver] used [?mod1440_tb_used] room [?mod1440_tb_room] pct [?mod1440_tb_used_pct|1] x pp [?mod1440_tb_x_pp] cp [?mod1440_tb_x_cp] stab [?mod1440_tb_x_stab] fuel [?mod1440_tb_x_fuel]"
+}
+
 # How long the newer parts are, and the honour switches.
 mod1440_chk_sizes2 = {
 	log = "MOD1440 check: sizes2 ev [?mod1440_ev_date^num]/[?mod1440_ev_k^num]/[?mod1440_ev_id^num] tr [?mod1440_tr_date^num]/[?mod1440_tr_k^num]/[?mod1440_tr_id^num] kp [?mod1440_kp_date^num] wr [?mod1440_wr_enemy^num]/[?mod1440_wr_id^num]/[?mod1440_wr_ecas0^num] wo [?mod1440_wo_enemy^num]/[?mod1440_wo_id^num]/[?mod1440_wo_oc^num]/[?mod1440_wo_fr^num] honours [?mod1440_hn_v] [?mod1440_hn_auto] [?mod1440_hn_sea] [?mod1440_hn_air] [?mod1440_hn_vp]"

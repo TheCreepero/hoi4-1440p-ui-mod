@@ -2823,12 +2823,14 @@ def open_war(country, old=0):
 def frame(portrait_version):
     """The top bar button, the card in the state view, and the script that ties the pages together."""
     # ---- the top bar button: the diary's icon, and a badge with the lines written since the window was last closed
-    handle = M.button("rec_toggle", 0, 0, "GFX_1440p_SG_button_168", shortcut="shift+j",
+    # d7-top-bar: at the right end of the top bar beside the clock, 150x28 inside the band's flat interior (y 3 to
+    # 31), where it was 168x36 at 1300,4 and ran over the band's lower edge (user, 2026-10-16)
+    handle = M.button("rec_toggle", 0, 0, "GFX_1440p_SG_button_150x28", shortcut="shift+j",
                       tooltip=B.key("rec_toggle_tt", "The War Diary, your wars, your officers and your government (Shift+J)"))
-    handle += plain("rec_toggle_l", 16, 8, 116, B.key("rec_toggle", "£army_experience  Records"))
-    handle += M.icon("rec_badge_bg", 130, 6, M.tile_sprite(30, 24))
-    handle += plain("rec_badge", 130, 8, 30, B.key("rec_badge", "§Y[?mod1440_rec_new|0]§!"), M.FONT_SMALL, "centre", 20)
-    gui = M.box("mod1440_records_handle", 1300, 4, 168, 36, handle)
+    handle += plain("rec_toggle_l", 12, 5, 98, B.key("rec_toggle", "£army_experience  Records"), height=22)
+    handle += M.icon("rec_badge_bg", 114, 2, M.tile_sprite(30, 24))
+    handle += plain("rec_badge", 114, 5, 30, B.key("rec_badge", "§Y[?mod1440_rec_new|0]§!"), M.FONT_SMALL, "centre", 20)
+    gui = M.box("mod1440_records_handle", 2002, 3, 150, 28, handle)
     script = M.scripted_gui("mod1440_records_handle", "mod1440_records_handle", "top_bar", effects=block(
         "rec_toggle_click", "mod1440_ev_init = yes\n" + iff(is_one("mod1440_rec_open"), "mod1440_rec_close = yes\n")
         + els(setv("mod1440_rec_open", 1) + "mod1440_rec_show = yes\n")),

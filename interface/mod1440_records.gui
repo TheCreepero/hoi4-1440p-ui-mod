@@ -1439,12 +1439,12 @@ guiTypes = {
 	}
 	containerWindowType = {
 		name = "mod1440_records_handle"
-		position = { x = 1300 y = 4 }
-		size = { width = 168 height = 36 }
-		buttonType = { name = "rec_toggle" position = { x = 0 y = 0 } quadTextureSprite = "GFX_1440p_SG_button_168" clicksound = click_default shortcut = "shift+j" pdx_tooltip = "MOD1440_REC_TOGGLE_TT" }
-		instantTextboxType = { name = "rec_toggle_l" position = { x = 16 y = 8 } font = "hoi_18mbs" text = "MOD1440_REC_TOGGLE" maxWidth = 116 maxHeight = 24 format = left alwaystransparent = yes }
-		iconType = { name = "rec_badge_bg" position = { x = 130 y = 6 } spriteType = "GFX_1440p_SG_tile_30x24" }
-		instantTextboxType = { name = "rec_badge" position = { x = 130 y = 8 } font = "hoi_16mbs" text = "MOD1440_REC_BADGE" maxWidth = 30 maxHeight = 20 format = centre alwaystransparent = yes }
+		position = { x = 2002 y = 3 }
+		size = { width = 150 height = 28 }
+		buttonType = { name = "rec_toggle" position = { x = 0 y = 0 } quadTextureSprite = "GFX_1440p_SG_button_150x28" clicksound = click_default shortcut = "shift+j" pdx_tooltip = "MOD1440_REC_TOGGLE_TT" }
+		instantTextboxType = { name = "rec_toggle_l" position = { x = 12 y = 5 } font = "hoi_18mbs" text = "MOD1440_REC_TOGGLE" maxWidth = 98 maxHeight = 22 format = left alwaystransparent = yes }
+		iconType = { name = "rec_badge_bg" position = { x = 114 y = 2 } spriteType = "GFX_1440p_SG_tile_30x24" }
+		instantTextboxType = { name = "rec_badge" position = { x = 114 y = 5 } font = "hoi_16mbs" text = "MOD1440_REC_BADGE" maxWidth = 30 maxHeight = 20 format = centre alwaystransparent = yes }
 	}
 	containerWindowType = {
 		name = "mod1440_state_card"

@@ -607,7 +607,7 @@ def main(argv):
     for rel, content in files.items():
         path = os.path.join(ROOT, rel)
         current = io.open(path, encoding="utf-8", newline="").read() if os.path.isfile(path) else None
-        if current != content:
+        if current is None or current.replace("\r\n", "\n") != content:   # a checkout may carry CRLF
             stale.append(rel)
             if "--check" not in argv:
                 io.open(path, "w", encoding="utf-8", newline="\n").write(content)

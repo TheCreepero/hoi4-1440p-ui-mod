@@ -214,10 +214,11 @@ class Renderer:
         self.hidden = set()
         self.placements = {}
         state_hide = self.state.get("hide") or {}
+        state_place = self.state.get("place") or {}     # d7-top-bar: a state may move widgets too (script's x)
         for w in self.scene.get("windows") or []:
             for n in (state_hide[w["name"]] if w["name"] in state_hide else (w.get("hide") or [])):
                 self.hidden.add((w["name"], n))
-            for n, at in (w.get("place") or {}).items():
+            for n, at in list((w.get("place") or {}).items()) + list((state_place.get(w["name"]) or {}).items()):
                 self.placements[(w["name"], n)] = (float(at[0]), float(at[1]))
         for n in self.options.get("hide") or []:
             self.hidden.add(("*", n))
@@ -1149,6 +1150,9 @@ def layout_scene(renderer, scene, canvas):
     rects = []
     for w in scene.get("windows", []):
         if w.get("skip"):   # a row window, listed for its "hide" list only: another window draws it
+            continue
+        # d7-top-bar: a window script shows in some states only ("" is the scene's own state)
+        if w.get("drawIn") is not None and (renderer.options.get("state") or "") not in w["drawIn"]:
             continue
         at = w.get("at")
         if renderer.vanilla_only and w.get("atVanilla") is not None:

@@ -593,7 +593,7 @@ def part_content(view):
             set(game.ids("common/buildings", "buildings")))
     compare("resources (States, National Figures)", M.RESOURCES, layers(view.ids("common/resources", "resources")),
             set(game.ids("common/resources", "resources")))
-    compare("ideology groups (National Figures, Government)", M.IDEOLOGIES, layers(view.ids("common/ideologies", "ideologies")),
+    compare("ideology groups (Government)", [group for _, group in R.IDEOLOGIES], layers(view.ids("common/ideologies", "ideologies")),
             set(game.ids("common/ideologies", "ideologies")))
 
     # laws of the Government page: the ideas of three categories

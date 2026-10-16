@@ -1859,6 +1859,457 @@ def nf_scene_windows():
                         + ["nf_r%d_v%d" % (c, k) for k in range(2, len(NF_FORMATS) + 1)]})
     return windows
 
+
+# ---------------------------------------------------------------- Top bar strip (D7), on the top bar of every screen
+
+# Values the vanilla top bar keeps in its tooltips, in the empty middle of the bar (x 1042 to 2152, the band's
+# flat interior y 3 to 31; scratch/phases/D7/design.json, round 2). The user chose on 2026-10-17 that the values
+# are chosen in the game: an edit button opens a panel of eighteen, each with its width and a switch; the chips
+# stand in the order of the catalogue and close up from the left. A chip is the game's value box at its own width,
+# the game's icon and the value in the top bar's font; its label is in the tooltip.
+#
+# A chip is three widgets side by side in the strip's container (a nested container follows no x and no _visible,
+# Engine Facts X15). Each has an x from a country variable and shows while its switch is on (X4). The effect
+# mod1440_tb_place sets those variables on a click only, never on a tick (rule 5); the texts read game values
+# directly and follow them without a dirty variable (X2). A save of an earlier build has none of the variables:
+# the fixed twin, the eight defaults at fixed places, shows until the first click on the edit button or the next
+# day sets them (on_startup does not run when a save is loaded).
+TB_X, TB_Y = 1042, 3            # the strip's container, 912x28: y 3 to 31 is the band's flat interior
+TB_ROOM = 912                   # px for chips, 1042 to 1954: 16 before the edit button
+TB_BOX_Y, TB_H = 1, 26          # a chip's box: 26 high at screen y 4 (the vanilla boxes: 26 at y 5)
+TB_TEXT_Y = TB_BOX_Y + 4        # the value at box y + 4, as on the vanilla bar (box y 5, text y 8)
+TB_PAD_L, TB_ICON_GAP = 3, 4    # the icon 3 px into the box, the value 4 px after it
+TB_GAP, TB_GROUP_GAP = 4, 16    # between chips of a group, and where the group changes
+TB_EDIT = (1970, 4, 28, 26)     # the edit button, 4 px left of the Records handle (2002)
+TB_VER = 1                      # mod1440_tb_ver: the strip of this build is set up for the country
+TB_PANEL_X, TB_PANEL_Y, TB_PANEL_W = 2152 - 842, 40, 842    # under the band, its right edge on the handle's
+TB_GROUPS = ["Gains", "Factories", "Fuel", "Manpower", "Resources"]
+TB_COLUMNS = [["Gains", "Factories", "Fuel"], ["Manpower", "Resources"]]
+TB_RES_NAMES = ["Oil", "Aluminium", "Rubber", "Tungsten", "Steel", "Chromium", "Coal"]
+TB_RES_TIP = "%s balance: produced and bought, less what your lines use and what you sell. Red, with the game's crossed icon, below 0."
+
+
+def tb_chip(name, group, label, width, sprite, frame, scale, icon_w, icon_h, text_x, value, tip, default, twin=None, below=None):
+    """One value of the catalogue. Sizes measured by the design (scratch/phases/D7/custom-layout.json): 3 px,
+    the icon, 4 px, the value at its widest, 5 px. twin: the value in another colour, shown while `below`
+    (a trigger) holds; for a resource also the game's crossed icon."""
+    return {"name": name, "group": group, "label": label, "width": width, "sprite": sprite, "frame": frame, "scale": scale,
+            "icon": (icon_w, icon_h), "text_x": text_x, "text_w": width - text_x - 5, "value": value, "tip": tip,
+            "default": default, "twin": twin, "below": below}
+
+
+def tb_idle(variable):
+    return "check_variable = { %s > 0 }" % variable
+
+
+# The catalogue, in the order the chips stand. Every value is in the game's documentation folder: the dynamic
+# variables political_power_daily, command_power_daily, num_of_*_factories, num_of_available_*_factories,
+# num_of_civilian_factories_available_for_projects, fuel_k, max_fuel_k, deployed_total_manpower_k,
+# amount_manpower_in_deployment_queue, resource@<r> and modifier@<m>; stability_weekly, war_support_weekly and
+# consumer_goods_factor are modifiers.
+TB_CHIPS = [
+    tb_chip("pp", "Gains", "Political power per day", 90, "GFX_pol_power_icon", 1, 1.0, 27, 27, 34,
+            "[?political_power_daily|+=2]§g/d§!", "Political power you gain each day. The top bar shows the stock.", True),
+    tb_chip("cp", "Gains", "Command power per day", 87, "GFX_command_power", 1, 1.0, 24, 22, 31,
+            "[?command_power_daily|+=2]§g/d§!", "Command power you gain each day, up to the most you can hold.", True),
+    tb_chip("stab", "Gains", "Stability per week", 106, "GFX_stability_icon", 1, 1.0, 27, 24, 34,
+            "[?modifier@stability_weekly|+=%1]§g/wk§!",
+            "Stability changes by this much each week (the weekly modifiers). The top bar shows where it stands.", True),
+    tb_chip("ws", "Gains", "War support per week", 105, "GFX_war_support_icon", 1, 1.0, 26, 24, 33,
+            "[?modifier@war_support_weekly|+=%1]§g/wk§!",
+            "War support changes by this much each week (the weekly modifiers). The top bar shows where it stands.", True),
+    tb_chip("civ", "Factories", "Civilian factories, free", 119, "GFX_civ_factory", 1, 1.2, 22, 22, 29,
+            "[?num_of_civilian_factories|0]  §g[?num_of_civilian_factories_available_for_projects|0] free§!",
+            "Civilian factories, and how many are free for construction once consumer goods and trade have taken theirs.", True),
+    tb_chip("mil", "Factories", "Military factories, idle", 115, "GFX_mil_factory", 1, 1.2, 22, 22, 29,
+            "[?num_of_military_factories|0]  §g[?num_of_available_military_factories|0] idle§!",
+            "Military factories, and how many have no production line. Yellow while any stands idle.", True,
+            twin="[?num_of_military_factories|0]  §Y[?num_of_available_military_factories|0] idle§!",
+            below=tb_idle("num_of_available_military_factories")),
+    tb_chip("dock", "Factories", "Dockyards, idle", 107, "GFX_nav_dockyard_texticon", 1, 1.1, 22, 22, 29,
+            "[?num_of_naval_factories|0]  §g[?num_of_available_naval_factories|0] idle§!",
+            "Dockyards, and how many have no production line. Yellow while any stands idle.", True,
+            twin="[?num_of_naval_factories|0]  §Y[?num_of_available_naval_factories|0] idle§!",
+            below=tb_idle("num_of_available_naval_factories")),
+    tb_chip("cg", "Factories", "Consumer goods", 74, "GFX_consumer_goods_texticon", 1, 1.0, 20, 20, 27,
+            "[?modifier@consumer_goods_factor|%1]", "Consumer goods: the share of your civilian factories that the people's needs take.", False),
+    tb_chip("fuel", "Fuel", "Fuel in store", 128, "GFX_fuel_state", 1, 1.0, 26, 24, 33,
+            "[?fuel_k|0]K§g/[?max_fuel_k|0]K§!",
+            "Fuel in store, of what your silos and refineries can hold. The top bar shows how long it lasts.", True),
+    tb_chip("mp_field", "Manpower", "Manpower in the field", 119, "GFX_manpower_icon", 1, 0.9, 24, 24, 31,
+            "[?deployed_total_manpower_k|0]K§g field§!", "Men in your divisions, ships and air wings.", False),
+    tb_chip("mp_train", "Manpower", "Manpower in training", 139, "GFX_manpower_icon", 1, 0.9, 24, 24, 31,
+            "[?amount_manpower_in_deployment_queue|*1]§g training§!", "Men of the divisions in training.", False),
+] + [tb_chip("res_" + res, "Resources", TB_RES_NAMES[r], 61, "GFX_resources_strip", r + 1, 0.7, 19, 19, 26,
+             "[?resource@%s|0]" % res, TB_RES_TIP % TB_RES_NAMES[r], False,
+             twin="§R[?resource@%s|0]§!" % res, below="check_variable = { resource@%s < 0 }" % res)
+     for r, res in enumerate(RESOURCES)]
+TB_DEFAULT = [c["name"] for c in TB_CHIPS if c["default"]]
+
+
+def tb_place(on):
+    """What mod1440_tb_place does, for the .gui positions and the scenes: in catalogue order each chip that is on
+    stands at the cursor, which then moves by the chip's width and 4, or 16 where the group changes. Returns the
+    right end (px used) and the x of each chip in the strip's container."""
+    x, last, out = 0, None, {}
+    for c in TB_CHIPS:
+        if c["name"] not in on:
+            continue
+        if last is not None:
+            x += TB_GAP if c["group"] == last else TB_GROUP_GAP
+        out[c["name"]] = x
+        x += c["width"]
+        last = c["group"]
+    return x, out
+
+
+def tb_icon(name, x, y, sprite, frame=None, scale=None, tooltip=None, transparent=False):
+    extra = (" frame = %d" % frame if frame else "") + (" scale = %s" % scale if scale and scale != 1.0 else "")
+    extra += ' pdx_tooltip = "%s"' % tooltip if tooltip else ""
+    extra += " alwaystransparent = yes" if transparent else ""
+    return 'iconType = { name = "%s" position = { x = %d y = %d } spriteType = "%s"%s }\n' % (name, x, y, sprite, extra)
+
+
+def tb_icon_dy(c):
+    """The icon in the middle of the box's height, never above the band's interior (screen y 3)."""
+    return max((TB_H - c["icon"][1]) // 2, -1)
+
+
+def tb_parts(c, x):
+    """Where each widget of a chip stands with its box at x: {widget suffix: (x, y)}."""
+    n = c["name"]
+    icon = (x + TB_PAD_L, TB_BOX_Y + tb_icon_dy(c))
+    value = (x + c["text_x"], TB_TEXT_Y)
+    parts = {n + "_bg": (x, TB_BOX_Y), n + "_icon": icon, n: value}
+    if c["twin"]:
+        parts[n + ("_neg" if n.startswith("res_") else "_idle")] = value
+    if n.startswith("res_"):
+        parts[n + "_miss"] = icon
+    return parts
+
+
+def tb_widgets(prefix, c, x):
+    """The widgets of one chip, named <prefix>_<chip>..., with the box at x."""
+    n = c["name"]
+    tip = B.key("tb_%s_tt" % n, c["tip"])
+    pos = tb_parts(c, x)
+    out = tb_icon("%s_%s_bg" % (prefix, n), pos[n + "_bg"][0], pos[n + "_bg"][1], "GFX_1440p_SG_topbox_%dx%d" % (c["width"], TB_H), tooltip=tip)
+    out += tb_icon("%s_%s_icon" % (prefix, n), pos[n + "_icon"][0], pos[n + "_icon"][1], c["sprite"], c["frame"], c["scale"], tooltip=tip)
+    if n.startswith("res_"):
+        out += tb_icon("%s_%s_miss" % (prefix, n), pos[n + "_miss"][0], pos[n + "_miss"][1], "GFX_missing_resources_strip", c["frame"], c["scale"], tooltip=tip)
+    out += text("%s_%s" % (prefix, n), pos[n][0], pos[n][1], c["text_w"], B.key("tb_%s" % n, c["value"]), FONT_LABEL, height=22, tooltip=tip, fixed=True)
+    if c["twin"]:
+        twin = n + ("_neg" if n.startswith("res_") else "_idle")
+        out += text("%s_%s" % (prefix, twin), pos[twin][0], pos[twin][1], c["text_w"], B.key("tb_%s" % twin, c["twin"]), FONT_LABEL, height=22, tooltip=tip, fixed=True)
+    return out
+
+
+def tb_triggers(prefix, c, on):
+    """What shows of a chip: everything while its switch is on (on: a trigger, or "" for the fixed twin); a value
+    with a twin shows the one its trigger asks for."""
+    n = c["name"]
+    shown = on + "\n" if on else ""
+    out = block("%s_%s_bg_visible" % (prefix, n), shown) if on else ""
+    if c["twin"]:
+        twin = n + ("_neg" if n.startswith("res_") else "_idle")
+        out += block("%s_%s_visible" % (prefix, n), shown + "NOT = { %s }\n" % c["below"])
+        out += block("%s_%s_visible" % (prefix, twin), shown + c["below"] + "\n")
+    elif on:
+        out += block("%s_%s_visible" % (prefix, n), shown)
+    if n.startswith("res_"):
+        out += block("%s_%s_icon_visible" % (prefix, n), shown + "NOT = { %s }\n" % c["below"])
+        out += block("%s_%s_miss_visible" % (prefix, n), shown + c["below"] + "\n")
+    elif on:
+        out += block("%s_%s_icon_visible" % (prefix, n), shown)
+    return out
+
+
+def tb_switch(n):
+    return "check_variable = { mod1440_tb_on_%s = 1 }" % n
+
+
+def tb_refused(c):
+    """Off, and less room left than the chip and a group gap need: the most a chip can add to the strip."""
+    return "NOT = { %s } check_variable = { mod1440_tb_room < %d }" % (tb_switch(c["name"]), c["width"] + TB_GROUP_GAP)
+
+
+def tb_strip():
+    """The moving strip, its fixed twin and the edit button: three scripted GUIs on the top bar."""
+    _right, at = tb_place(TB_DEFAULT)
+    body, triggers, properties = "", "", ""
+    fixed, fixed_triggers = "", ""
+    for c in TB_CHIPS:
+        n = c["name"]
+        # the .gui places a chip where the defaults put it; script moves it (a chip that is off stands at 0, hidden)
+        body += tb_widgets("tb", c, at.get(n, 0))
+        triggers += tb_triggers("tb", c, tb_switch(n))
+        for suffix, variable in ((("_bg", "x"), ("_icon", "xi"), ("_miss", "xi"), ("", "xt"), ("_idle", "xt"), ("_neg", "xt"))):
+            if n + suffix in tb_parts(c, 0):
+                properties += block("tb_%s%s" % (n, suffix), "x = mod1440_tb_%s_%s\n" % (variable, n))
+        if c["default"]:
+            fixed += tb_widgets("tbf", c, at[n])
+            fixed_triggers += tb_triggers("tbf", c, "")
+    gui = box("mod1440_top_bar_strip", TB_X, TB_Y, TB_ROOM, 28, body)
+    gui += box("mod1440_top_bar_fixed", TB_X, TB_Y, TB_ROOM, 28, fixed)
+    current = "check_variable = { mod1440_tb_ver = %d }\n" % TB_VER
+    script = scripted_gui("mod1440_top_bar_strip", "mod1440_top_bar_strip", "top_bar", visible=current,
+                          triggers=triggers, properties=properties)
+    script += scripted_gui("mod1440_top_bar_fixed", "mod1440_top_bar_fixed", "top_bar", visible="NOT = { %s }\n" % current.strip(),
+                           triggers=fixed_triggers)
+    # the edit button: the chip's box as a button with the game's edit-list picture, in a container of its own so
+    # that it stays when every chip is off
+    ex, ey, ew, eh = TB_EDIT
+    edit = button("tb_edit", 0, 0, "GFX_1440p_SG_topbtn_%dx%d" % (ew, eh),
+                  tooltip=B.key("tb_edit_tt", "Choose the values of this strip."))
+    edit += tb_icon("tb_edit_icon", (ew - 22) // 2, (eh - 22) // 2, "GFX_edit_list_icon", transparent=True)
+    gui += box("mod1440_top_bar_edit", ex, ey, ew, eh, edit)
+    script += scripted_gui("mod1440_top_bar_edit", "mod1440_top_bar_edit", "top_bar", effects=block(
+        "tb_edit_click", iff("NOT = { %s }" % current.strip(), "mod1440_tb_default = yes\n") + flip("mod1440_tb_setup")))
+    return gui, script
+
+
+TB_CARD_Y, TB_CARD_W, TB_CARD_GAP, TB_MARGIN = 84, 400, 14, 14
+TB_HEAD_H, TB_ROW = 30, 32
+
+
+def tb_rows():
+    """Each value's row in the panel: (chip, card x, row y), relative to the panel; and the cards' height."""
+    rows, heights = [], []
+    for col, groups in enumerate(TB_COLUMNS):
+        cx = TB_MARGIN + col * (TB_CARD_W + TB_CARD_GAP)
+        y = TB_CARD_Y + 8
+        for group in groups:
+            rows.append((None, cx, y, group))
+            y += TB_HEAD_H + 2
+            for c in TB_CHIPS:
+                if c["group"] == group:
+                    rows.append((c, cx, y, group))
+                    y += TB_ROW
+        heights.append(y - TB_CARD_Y)
+    return rows, max(heights) + 8
+
+
+def tb_panel():
+    """The panel of the edit button: the width used, the eighteen values in five groups with their width and a
+    switch, Default and close."""
+    rows, card_h = tb_rows()
+    foot_y = TB_CARD_Y + card_h + 12
+    height = foot_y + 34 + 14
+    body = box("tb_head", 3, 3, TB_PANEL_W - 6, 44, "", "GFX_tiled_header")
+    body += text("tb_title", 16, 11, 500, B.key("tb_title", "Top bar values"), FONT_CARD, height=30)
+    body += button("tb_close", TB_PANEL_W - 50, 8, "GFX_closebutton", shortcut="ESCAPE", tooltip=B.key("tb_close_tt", "Close"))
+    body += icon("tb_used_bar", 16, 60, bar_sprite(300))
+    body += text("tb_used", 330, 56, TB_PANEL_W - 330 - 16, B.key(
+        "tb_used", "[?mod1440_tb_used|0] of %d px used, [?mod1440_tb_room|0] left. A value that needs more stays off." % TB_ROOM), FONT_SMALL, height=20)
+    properties = block("tb_used_bar", "frame = mod1440_tb_used_pct\n")
+    triggers, effects = "", ""
+    for col in range(len(TB_COLUMNS)):
+        body += box("tb_card_%d" % col, TB_MARGIN + col * (TB_CARD_W + TB_CARD_GAP), TB_CARD_Y, TB_CARD_W, card_h, "", CARD_BG)
+    n_in_group = 0
+    for c, cx, y, group in rows:
+        if c is None:
+            body += heads("tb_head_%d" % TB_GROUPS.index(group), cx + 8, y, TB_CARD_W - 16, [
+                (8, 200, group, "left", None), (242, 60, "Width", "left", None), (322, 60, "Shown", "left", None)])
+            n_in_group = 0
+            continue
+        n = c["name"]
+        if n_in_group % 2:
+            body += icon("tb_s_%s_stripe" % n, cx + 8, y, STRIPE % (TB_CARD_W - 16, TB_ROW))
+        n_in_group += 1
+        tip = B.key("tb_%s_tt" % n, c["tip"])
+        # the chip's icon at most 24 px high, in the middle of a 26 px column
+        k = min(1.0, 24.0 / c["icon"][1])
+        w, h = int(round(c["icon"][0] * k)), int(round(c["icon"][1] * k))
+        body += tb_icon("tb_s_%s_icon" % n, cx + 16 + (26 - w) // 2, y + (TB_ROW - h) // 2, c["sprite"], c["frame"], round(c["scale"] * k, 3), tooltip=tip)
+        label = B.key("tb_s_%s" % n, c["label"])
+        body += text("tb_s_%s_name" % n, cx + 50, y + 5, 220, label, FONT_LABEL, height=22, tooltip=tip, fixed=True)
+        body += text("tb_s_%s_name_off" % n, cx + 50, y + 5, 220, B.key("tb_s_%s_grey" % n, "§g%s§!" % c["label"]), FONT_LABEL, height=22, tooltip=tip, fixed=True)
+        need = c["width"] + TB_GROUP_GAP
+        need_tip = B.key("tb_s_%s_need_tt" % n, "Needs %d px of the strip: %d for the value and up to %d between groups. "
+                         "[?mod1440_tb_room|0] px are left; turn another value off first." % (need, c["width"], TB_GROUP_GAP))
+        body += text("tb_s_%s_w" % n, cx + 230, y + 7, 70, B.key("tb_s_w_%d" % c["width"], "§g%d px§!" % c["width"]), FONT_SMALL, "right", 20)
+        body += text("tb_s_%s_w_off" % n, cx + 230, y + 7, 70, B.key("tb_s_w_%d_off" % c["width"], "§R%d px§!" % c["width"]), FONT_SMALL, "right", 20, tooltip=need_tip)
+        # the switch: the game's gold box, empty while the value is off, ticked while it is on (two buttons, X4)
+        body += ('buttonType = { name = "tb_s_%s_off" position = { x = %d y = %d } quadTextureSprite = "GFX_checkbox_gold_32" frame = 1 '
+                 'clicksound = click_default pdx_tooltip = "%s" }\n' % (n, cx + 338, y, B.key("tb_s_%s_on_tt" % n, "Show %s on the top bar. It needs %d px of the strip; a value that does not fit stays off." % (c["label"].lower() if not n.startswith("res_") else c["label"], need))))
+        body += ('buttonType = { name = "tb_s_%s_on" position = { x = %d y = %d } quadTextureSprite = "GFX_checkbox_gold_32" frame = 2 '
+                 'clicksound = click_default pdx_tooltip = "%s" }\n' % (n, cx + 338, y, B.key("tb_s_off_tt", "Take this value off the top bar.")))
+        refused = tb_refused(c)
+        triggers += block("tb_s_%s_name_visible" % n, "NOT = { AND = { %s } }\n" % refused)
+        triggers += block("tb_s_%s_name_off_visible" % n, refused + "\n")
+        triggers += block("tb_s_%s_w_visible" % n, "NOT = { AND = { %s } }\n" % refused)
+        triggers += block("tb_s_%s_w_off_visible" % n, refused + "\n")
+        triggers += block("tb_s_%s_off_visible" % n, "NOT = { %s }\n" % tb_switch(n))
+        triggers += block("tb_s_%s_off_click_enabled" % n, "NOT = { check_variable = { mod1440_tb_room < %d } }\n" % need)
+        triggers += block("tb_s_%s_on_visible" % n, tb_switch(n) + "\n")
+        effects += block("tb_s_%s_off_click" % n, setv("mod1440_tb_on_%s" % n, 1) + "mod1440_tb_place = yes\n")
+        effects += block("tb_s_%s_on_click" % n, setv("mod1440_tb_on_%s" % n, 0) + "mod1440_tb_place = yes\n")
+    body += button("tb_default", 16, foot_y, "GFX_button_123x34", B.key("tb_default", "Default"), tooltip=B.key(
+        "tb_default_tt", "The eight values the strip starts with: political power and command power per day, stability and "
+                         "war support per week, the three kinds of factories, and fuel."))
+    body += text("tb_foot", 156, foot_y + 8, TB_PANEL_W - 156 - 16, B.key(
+        "tb_foot", "§gThe values stand in the order of this list. Your choice is kept with your country.§!"), FONT_SMALL, height=20)
+    effects += block("tb_close_click", setv("mod1440_tb_setup", 0))
+    effects += block("tb_default_click", "mod1440_tb_default = yes\n")
+    gui = box("mod1440_top_bar_setup", TB_PANEL_X, TB_PANEL_Y, TB_PANEL_W, height, body, PAGE_BG)
+    script = scripted_gui("mod1440_top_bar_setup", "mod1440_top_bar_setup", "top_bar", visible=is_one("mod1440_tb_setup") + "\n",
+                          effects=effects, triggers=triggers, properties=properties)
+    return gui, script, height
+
+
+def tb_effects():
+    """mod1440_tb_place: the x of every chip that is on, the width used and the room left; mod1440_tb_default:
+    the eight defaults on, the rest off. Both run on a click, on the first day of a save without them, and once
+    at the start of a game."""
+    place = tmp("tb_c", 0) + tmp("tb_g", 0)
+    for c in TB_CHIPS:
+        n, g = c["name"], TB_GROUPS.index(c["group"]) + 1
+        place += iff(tb_switch(n), (
+            iff("check_variable = { tb_g = %d }" % g, "add_to_temp_variable = { tb_c = %d }\n" % TB_GAP)
+            + iff("check_variable = { tb_g > 0 }", "add_to_temp_variable = { tb_c = %d }\n" % TB_GROUP_GAP, "else_if")
+            + setv("mod1440_tb_x_%s" % n, "tb_c")
+            + setv("mod1440_tb_xi_%s" % n, "tb_c") + "add_to_variable = { mod1440_tb_xi_%s = %d }\n" % (n, TB_PAD_L)
+            + setv("mod1440_tb_xt_%s" % n, "tb_c") + "add_to_variable = { mod1440_tb_xt_%s = %d }\n" % (n, c["text_x"])
+            + "add_to_temp_variable = { tb_c = %d }\n" % c["width"] + tmp("tb_g", g)))
+    place += setv("mod1440_tb_used", "tb_c") + setv("mod1440_tb_room", TB_ROOM) + "subtract_from_variable = { mod1440_tb_room = tb_c }\n"
+    place += (setv("mod1440_tb_used_pct", "tb_c") + "multiply_variable = { mod1440_tb_used_pct = 100 }\n"
+              + "divide_variable = { mod1440_tb_used_pct = %d }\n" % TB_ROOM)
+    default = "".join(setv("mod1440_tb_on_%s" % c["name"], 1 if c["default"] else 0) for c in TB_CHIPS)
+    default += setv("mod1440_tb_ver", TB_VER) + "mod1440_tb_place = yes\n"
+    # the effect that another one calls stands first in the file (Engine Facts X70)
+    return block("mod1440_tb_place", place) + "\n" + block("mod1440_tb_default", default)
+
+
+def tb_daily():
+    """A save of an earlier build, or a country the player takes over later: the defaults on the next day."""
+    return iff("NOT = { check_variable = { mod1440_tb_ver = %d } }" % TB_VER, "mod1440_tb_default = yes\n")
+
+
+def top_bar():
+    gui, script = tb_strip()
+    panel_gui, panel_script, _height = tb_panel()
+    return gui + panel_gui, script + panel_script, tb_effects()
+
+
+# The scene: samples of Germany on 1 January 1936 where they are known (35, 28 and 10 factories, 8 military
+# factories idle, fuel 297K of 371K, the resource balance D4 checked), the others as the design drew them.
+TB_SAMPLES = {
+    "pp": "§G+2.00§!§g/d§!", "cp": "§G+0.85§!§g/d§!", "stab": "§G+0.2%§!§g/wk§!", "ws": "§G+0.3%§!§g/wk§!",
+    "civ": "35  §g3 free§!", "mil": "28  §g8 idle§!", "mil_idle": "28  §Y8 idle§!", "dock": "10  §g0 idle§!", "dock_idle": "10  §Y0 idle§!",
+    "cg": "25.0%", "fuel": "297K§g/371K§!", "mp_field": "1310K§g field§!", "mp_train": "38.4K§g training§!",
+}
+for _r, (_res, _value) in enumerate(zip(RESOURCES, ["3", "104", "-5", "3", "177", "1", "195"])):
+    TB_SAMPLES["res_" + _res] = _value
+    TB_SAMPLES["res_%s_neg" % _res] = "§R%s§!" % _value
+TB_CHOSEN = ["pp", "stab", "ws", "civ", "mil", "dock", "res_oil", "res_rubber", "res_steel"]   # figure custom-chosen-detail
+
+
+def tb_strip_hide(on, below=()):
+    """What script hides of the moving strip with these values on; below: the chips whose twin shows (8 military
+    factories idle; rubber below 0)."""
+    hide = []
+    for c in TB_CHIPS:
+        n = c["name"]
+        parts = list(tb_parts(c, 0))
+        if n not in on:
+            hide += ["tb_" + p for p in parts]
+        elif c["twin"]:
+            twin = n + ("_neg" if n.startswith("res_") else "_idle")
+            hide += ["tb_" + (n if n in below else twin)]
+            if n.startswith("res_"):
+                hide += ["tb_" + n + ("_icon" if n in below else "_miss")]
+    return hide
+
+
+def tb_panel_hide(on):
+    used, _at = tb_place(on)
+    hide = []
+    for c in TB_CHIPS:
+        n = c["name"]
+        refused = n not in on and TB_ROOM - used < c["width"] + TB_GROUP_GAP
+        hide.append("tb_s_%s_%s" % (n, "off" if n in on else "on"))
+        hide += ["tb_s_%s_name" % n, "tb_s_%s_w" % n] if refused else ["tb_s_%s_name_off" % n, "tb_s_%s_w_off" % n]
+    return hide
+
+
+def tb_used_sample(on):
+    used, _at = tb_place(on)
+    return "%d of %d px used, %d left. A value that needs more stays off." % (used, TB_ROOM, TB_ROOM - used)
+
+
+def tb_scene():
+    right, at = tb_place(TB_DEFAULT)
+    chosen_right, chosen_at = tb_place(TB_CHOSEN)
+    # the design measured these (scratch/phases/D7/custom-layout.json): the build must stand where it drew them
+    assert (right, [TB_X + at[n] for n in TB_DEFAULT]) == (909, [1042, 1136, 1227, 1337, 1458, 1581, 1700, 1823]), at
+    assert chosen_right == 881, chosen_right
+    assert right <= TB_ROOM
+    samples = {"tb_" + k: v for k, v in TB_SAMPLES.items()}
+    place = {}
+    for n, x in chosen_at.items():
+        c = next(c for c in TB_CHIPS if c["name"] == n)
+        for part, (px, py) in tb_parts(c, x).items():
+            place["tb_" + part] = [px, py]
+    strip_states = ["", "panel", "escape", "chosen"]
+    windows = [
+        {"name": "mod1440_top_bar_strip", "at": [TB_X, TB_Y], "drawIn": strip_states,
+         "hide": tb_strip_hide(TB_DEFAULT, below=("mil",)),
+         "_note": "The moving strip with its eight defaults. Script shows the yellow twin of military factories (8 idle) and the grey dockyards (0 idle), and hides the ten values that are off."},
+        {"name": "mod1440_top_bar_fixed", "at": [TB_X, TB_Y], "drawIn": ["old_save"], "hide": ["tbf_mil", "tbf_dock_idle"],
+         "_note": "The fixed twin: the eight defaults at fixed places, shown instead of the moving strip in a save of an earlier build until the first click on the edit button or the next day."},
+        {"name": "mod1440_top_bar_edit", "at": [TB_EDIT[0], TB_EDIT[1]]},
+        {"name": "mod1440_records_handle", "at": [2002, 3], "_note": "From mod1440_records.gui (tools/build_records.py): moved to the right end and lowered to 28 px in D7."},
+        {"name": "mod1440_top_bar_setup", "at": [TB_PANEL_X, TB_PANEL_Y], "drawIn": ["panel", "chosen"], "hide": tb_panel_hide(TB_DEFAULT),
+         "_note": "The panel of the edit button, shown while mod1440_tb_setup is 1. With the defaults 3 px are left, so every value that is off is refused."},
+    ]
+    return {
+        "phase": "D7", "file": "mod1440_top_bar.gui", "screenshot": "reference/vanilla/politics.jpg",
+        "windows": windows,
+        "samples": {"mod1440_top_bar_strip": samples, "mod1440_top_bar_fixed": {"tbf_" + k: v for k, v in TB_SAMPLES.items()},
+                    "mod1440_top_bar_setup": {"tb_used": tb_used_sample(TB_DEFAULT)}},
+        "setup": [{"wait": 1.0, "_note": "the clean state: the strip is on the top bar of every screen"}],
+        "captures": [
+            {"name": "panel", "steps": [{"clickWidget": "mod1440_top_bar_edit/tb_edit", "wait": 1.2}]},
+            {"name": "escape", "steps": [{"key": "escape", "wait": 1.0, "_note": "the panel's close button takes Escape (SGUI-008); the game menu must not open"}]},
+        ],
+        "states": [
+            {"name": "chosen", "_note": "Another choice, drawn by the renderer only (figure custom-chosen-detail of the design): command power and fuel off, oil, rubber (below 0, red with the crossed icon) and steel on; the panel open over it, 31 px left, so every value that is off is refused.",
+             "hide": {"mod1440_top_bar_strip": tb_strip_hide(TB_CHOSEN, below=("mil", "res_rubber")),
+                      "mod1440_top_bar_setup": tb_panel_hide(TB_CHOSEN)},
+             "place": {"mod1440_top_bar_strip": place},
+             "samples": {"mod1440_top_bar_setup": {"tb_used": tb_used_sample(TB_CHOSEN)}}},
+            {"name": "old_save", "_note": "A save of a build before D7, until the first click on the edit button or the next day: the fixed twin of the eight defaults."},
+        ],
+        "expect": ["mod1440_top_bar_strip/tb_mil_bg", "mod1440_top_bar_strip/tb_fuel_bg", "mod1440_top_bar_edit/tb_edit", "mod1440_records_handle/rec_toggle"],
+        "crop": [1030, 0, 1130, 600],
+        "manual": [
+            "Every value against the game's own number (Scripted GUIs rule 3); hover the tooltips",
+            "A save of a build before D7: the fixed twin until the first click on the edit button or the next day",
+            "A switch and the chips moving (a capture shows one state; the checker clicks a switch by hand in an open game, or the user does)",
+            "A country with nuclear bombs: the nukes counter (x 970 to 1026) stays clear of the strip",
+        ],
+        "checklist": TB_CHECKLIST,
+    }
+
+
+TB_CHECKLIST = [
+    "The strip stands inside the top bar's dark band: the chips' boxes at y 4 to 29 (or 6 to 31 if the 2 px of SGUI-007 apply), never on the band's lower edge (y 32 to 35) or the alerts row (y 40); measure in the 1:1 capture",
+    "Eight chips from x 1042 to 1951 in this order: political power per day, command power per day, stability per week, war support per week, civilian factories (free), military factories (idle), dockyards (idle), fuel; then the edit button at 1970 and the Records handle at 2002 to 2152, 28 px high, clear of the clock plate (2168)",
+    "Political power per day against the political power tooltip of the top bar",
+    "Command power per day against the command power tooltip",
+    "Stability and war support per week against the weekly change in their tooltips (the chip reads the modifiers stability_weekly and war_support_weekly; the tooltip may also apply a weekly factor)",
+    "Civilian factories and free against the factory tooltip of the top bar (35, and the free ones once consumer goods and trade have taken theirs)",
+    "Military factories and idle against the factory tooltip and the production screen (28 and 8 idle for Germany 1936): the idle count yellow while above 0; dockyards 10 and 0 idle, grey",
+    "Fuel against the fuel tooltip of the top bar (297K of 371K for Germany 1936)",
+    "Hover every chip: its tooltip names the value and says what the number means",
+    "The edit button opens the panel at 1310,40 (842x544) under the band, clear of the alerts row; Escape and the close button close it, and Escape does not open the game menu",
+    "With the defaults the panel says 909 of 912 px used, 3 left: every value that is off is refused (dimmed box, grey name, red width; its tooltip names the room it needs)",
+    "Untick command power: the six chips after it move 91 px left at once, 94 px are left, and consumer goods and the seven resources become free to tick; tick oil: it stands after fuel with its own icon",
+    "Consumer goods, manpower in the field and in training, and each resource against the game's numbers (production tab, Recruit & Deploy, trade tab) once ticked",
+    "Default brings the eight back, in their places; the choice survives a save and a load",
+    "error.log names no mod1440 file and has no Could not find sprite type line for a GFX_1440p_SG_topbox, topbtn or button_150x28 sprite",
+]
+
 # ---------------------------------------------------------------- scenes: what the renderer and the harness need
 
 # One scene per page (tools/scenes/<name>.json, see wiki/Game-Recipes.md): where the page stands on the screen,
@@ -2020,6 +2471,7 @@ SCENES = {
                       "The tooltip of a column gives its month and value",
                       "Zoom in: the columns start at the lowest month", "The six numbers against the columns"],
     },
+    "top_bar": tb_scene(),      # d7-top-bar
 }
 
 SAMPLE_VALUES = {
@@ -2145,6 +2597,11 @@ def build():
     B.files["interface/mod1440_figures.gui"] = HEADER_GUI + "guiTypes = {\n" + indent(gui) + "}\n"
     B.files["common/scripted_guis/mod1440_figures.txt"] = HEADER_TXT + block("scripted_gui", script)
     B.files["common/scripted_effects/mod1440_effects.txt"] = HEADER_TXT + count + "\n" + listing + "\n" + shares + "\n" + recording
+    # The top bar strip (D7): the strip, its fixed twin, the edit button and the panel
+    gui, script, tb_script = top_bar()
+    B.files["interface/mod1440_top_bar.gui"] = HEADER_GUI + "guiTypes = {\n" + indent(gui) + "}\n"
+    B.files["common/scripted_guis/mod1440_top_bar.txt"] = HEADER_TXT + block("scripted_gui", script)
+    B.files["common/scripted_effects/mod1440_top_bar.txt"] = HEADER_TXT + tb_script
     # The Records window of Milestone E: its pages, its recording and its hooks (tools/build_records.py)
     gui, script, records_effects, hooks, more_files = build_records.build(sys.modules[__name__])
     for rel, content in more_files.items():
@@ -2156,9 +2613,9 @@ def build():
     # player takes has its numbers from the first day. After that only a player's country costs time.
     B.files["common/on_actions/mod1440_on_actions.txt"] = HEADER_TXT + block("on_actions", (
         block("on_startup", block("effect", block("every_country", "mod1440_ar_count = yes\n" + monthly
-                                                 + block("if", "limit = { is_ai = no }\nmod1440_ev_init = yes\n"))))
+                                                 + block("if", "limit = { is_ai = no }\nmod1440_ev_init = yes\nmod1440_tb_default = yes\n"))))
         + block("on_daily", block("effect", block("if", "limit = { is_ai = no }\nmod1440_ar_count = yes\n" + states_daily
-                                                  + figures_daily + history_daily + "mod1440_rec_daily = yes\n")))
+                                                  + figures_daily + history_daily + "mod1440_rec_daily = yes\n" + tb_daily())))
         + block("on_monthly", block("effect", block("if", "limit = { is_ai = no }\n" + monthly)))
         + "".join(block(name, block("effect", body)) for name, body in sorted(hooks.items()))))
 
@@ -2197,7 +2654,7 @@ def main(argv):
     for rel, content in sorted(B.files.items()):
         path = os.path.join(ROOT, rel)
         current = io.open(path, encoding="utf-8", newline="").read() if os.path.isfile(path) else None
-        if current == content:
+        if current is not None and current.replace("\r\n", "\n") == content:   # a checkout may carry CRLF
             continue
         stale.append(rel)
         if "--check" not in argv:
