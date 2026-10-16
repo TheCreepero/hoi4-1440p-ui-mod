@@ -613,7 +613,7 @@
     {
       "widget": "stat_entry/label",
       "text": "Trickleback & War Support Protection: ",
-      "why": "The tile label wraps in the game (Engine Facts W16): 'Trickleback & War' (107 px) and 'Support Protection:' (115 px) in hoi_16mbs, two lines in a 116 px box. The renderer clips at one line."
+      "why": "The one label longer than its 160 px column (261 px in hoi_18mbs): the game cuts it with dots [GUW-009], as vanilla cuts it after War. Every other label of the four windows is 130 px or less (second redesign, 2026-10-16)."
     }
   ]
 }

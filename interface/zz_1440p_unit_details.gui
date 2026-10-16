@@ -19,7 +19,7 @@ guiTypes = {
 		buttonType = {
 			name = "stats_tab_button"
 			spriteType = "GFX_unit_stats_view_tabs"
-			position = { x=515 y=599 }
+			position = { x=515 y=552 }
 			buttonText = "UNIT_STATS_STATS_TAB"
 			font = "hoi_18mbs"
 			shortcut = "shift+a"
@@ -28,7 +28,7 @@ guiTypes = {
 		buttonType = {
 			name = "template_tab_button"
 			spriteType = "GFX_unit_stats_view_tabs"
-			position = { x=735 y=599 }
+			position = { x=735 y=552 }
 			buttonText = "UNIT_STATS_TEMPLATE_TAB"
 			font = "hoi_18mbs"
 			shortcut = "shift+t"
@@ -37,7 +37,7 @@ guiTypes = {
 		buttonType = {
 			name = "history_tab_button"
 			spriteType = "GFX_unit_stats_view_tabs"
-			position = { x=625 y=599 }
+			position = { x=625 y=552 }
 			buttonText = "UNIT_STATS_HISTORY_TAB"
 			font = "hoi_18mbs"
 			shortcut = "shift+h"
@@ -49,7 +49,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_1440p_UD_division_bg"
 		}
 
-		# Redesign of 2026-10-16 (a3-unit-details): the window is the dark tile at 1186x609 (content 505 px
+		# Second redesign (2026-10-16, form B): the window is the dark tile at 1186x562 (content 505 px
 		# right of the 10x10 rectangle, S20). Plates behind widgets that stay window children, drawn first
 		# because siblings are drawn in file order [GUW-026]: the title strip, the identity card (template
 		# button, name, experience), the officer card and the equipment card of the right column.
@@ -95,17 +95,6 @@ guiTypes = {
 			alwaystransparent = yes
 		}
 
-		# Caption of the equipment card: the vanilla key of the division designer's equipment list.
-		instantTextboxType = {
-			name = "mod1440_equipment_label"
-			position = { x = 1311 y = 162 }
-			font = "hoi_18mbs"
-			text = "DIVISION_EQUIPMENT"
-			maxWidth = 200
-			maxHeight = 20
-			format = left
-		}
-
 		buttonType = {
 			name = "btn_delete"
 			position = { x= 1617 y = 6 }
@@ -149,18 +138,18 @@ guiTypes = {
 		{
 			name = "commanding_officer_header_list_entry"
 			position = { x = 1303 y = 46 }
-			size = { width = 378 height = 28 }
+			size = { width = 378 height = 26 }
 
 			Background = {
 				name = "commanding_officer_list_entry_bg"
-				quadTextureSprite = "GFX_1440p_UD_caption_bar"
+				quadTextureSprite = "GFX_1440p_UD_head_378"
 				alwaystransparent = yes
 			}
 		}
 
 		instantTextboxType = {
 			name = "commanding_officer_title_text"
-			position = { x = 1313 y = 50 }
+			position = { x = 1313 y = 51 }
 			font = "hoi_18mbs"
 			text = "COMMANDER_TITLE_TEXT_DIVISION"
 			maxWidth = 266
@@ -199,7 +188,7 @@ guiTypes = {
 		buttonType = {
 			name = "promote_officer"
 			quadTextureSprite ="GFX_leader_selection_button"
-			position = { x=1589 y=45 }
+			position = { x=1589 y=46 }
 			buttonText = "PROMOTE"
 			font = "hoi_16mbs"
 			frame = 1
@@ -353,7 +342,7 @@ guiTypes = {
 
 				instantTextboxType = {
 					name = "regimental_support_header_label"
-					position = { x = 209 y = 463 }
+					position = { x = 209 y = 423 }
 					font = "hoi_16mbs"
 					text = "REGIMENTAL_SUPPORT_HEADER"
 					maxWidth = 250
@@ -366,7 +355,7 @@ guiTypes = {
 					name = "support_grid"
 					position = { x = 674 y = 99 }
 					size = { width = 85 height = 100%% }
-					slotsize = { width = 82 height = 50 }
+					slotsize = { width = 82 height = 42 }
 					format = "UPPER_LEFT"
 				}
 
@@ -374,13 +363,13 @@ guiTypes = {
 					name = "regiments_grid"
 					position = { x = 15 y = 81 }
 					size = { width = 675 height = 100%% }
-					slotsize = { width = 131 height = 62 }
+					slotsize = { width = 131 height = 54 }
 					format = "UPPER_LEFT"
 				}
 
 				gridboxtype = {
 					name = "regiment_support_grid"
-					position = { x = 19 y = 396 }
+					position = { x = 19 y = 356 }
 					size = { width = 675 height = 100%% }
 					slotsize = { width = 131 height = 36 }
 					format = "UPPER_LEFT"
@@ -443,7 +432,7 @@ guiTypes = {
 				containerWindowType = {
 					name = "hq_modifiers_list"
 					position = { x = 328 y = 40 }
-					size = { width = 450 height = 442 }
+					size = { width = 450 height = 394 }
 					verticalScrollbar = "right_vertical_slider"
 
 					# An (invisible) background is required so the list reports its content bounds
@@ -497,103 +486,135 @@ guiTypes = {
 		containerWindowType = {
 			name = "info"
 			position = { x=509 y=86 }
-			size = { width=787 height=495 }
+			size = { width=787 height=308 }
 
+			# Second redesign (2026-10-16, form B): one table card for the three stat groups. The head bar
+			# carries the vanilla captions, every second row stands on a darker band, and each group is a
+			# column of one-line rows (stat_entry, 255x24). Plates first: siblings are drawn in file order
+			# [GUW-026]. The bands are fixed plates because the code fills a fixed number of rows per window.
 			iconType = {
-				name = "mod1440_card_base"
-				spriteType = "GFX_1440p_UD_card_stats"
-				position = { x = 7 y = 6 }
+				name = "mod1440_card_table"
+				spriteType = "GFX_1440p_UD_card_table"
+				position = { x = 2 y = 6 }
 				alwaystransparent = yes
 			}
 
 			iconType = {
-				name = "mod1440_card_combat"
-				spriteType = "GFX_1440p_UD_card_stats"
-				position = { x = 399 y = 6 }
+				name = "mod1440_table_head"
+				spriteType = "GFX_1440p_UD_head_766"
+				position = { x = 10 y = 10 }
 				alwaystransparent = yes
 			}
 
 			iconType = {
-				name = "mod1440_card_misc"
-				spriteType = "GFX_1440p_UD_card_misc"
-				position = { x = 7 y = 254 }
+				name = "mod1440_table_band_1"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 62 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_3"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 110 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_5"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 158 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_7"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 206 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_9"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 254 }
 				alwaystransparent = yes
 			}
 
 			containerWindowType = {
 				name = "base_stats"
-				position = { x=7 y=6 }
-				size = { width=380 height=242 }
+				position = { x=10 y=10 }
+				size = { width=255 height=288 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "base_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "DESIGNER_BASE_STATS_LABEL"
-					maxWidth = 356
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 1 y = 30 }
-					size = { width = 378 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 3
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "combat_stats"
-				position = { x=399 y=6 }
-				size = { width=380 height=242 }
+				position = { x=265 y=10 }
+				size = { width=255 height=288 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "combat_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "DESIGNER_COMBAT_STATS_LABEL"
-					maxWidth = 356
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 1 y = 30 }
-					size = { width = 378 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 3
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "misc_stats"
-				position = { x=7 y=254 }
-				size = { width=772 height=86 }
+				position = { x=520 y=10 }
+				size = { width=255 height=288 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "misc_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "FE_MISC_STATS"
-					maxWidth = 748
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 8 y = 30 }
-					size = { width = 756 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 6
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
@@ -602,7 +623,7 @@ guiTypes = {
 		containerWindowType = {
 			name = "history_tab"
 			position = { x=511 y=92}
-			size = { width=782 height=511}
+			size = { width=782 height=464}
 			#verticalScrollbar = "right_vertical_slider"
 
 			# Redesign of 2026-10-16: dark cards instead of the parchment. A summary card (label, the two
@@ -663,14 +684,14 @@ guiTypes = {
 					name = "scrollbar_background"
 					quadTextureSprite = "GFX_scrollbar_vertical_bg"
 					position = { x = 758 y = 95 }
-					size = { x=18 y=410 }
+					size = { x=18 y=363 }
 					alwaystransparent = yes
 				}
 
 				listboxType = {
 					name = "history_entry_grid"
 					position = { x = 8 y = 98 }
-					size = { x = 751 y = 405}
+					size = { x = 751 y = 358}
 					scrollbartype = "standardlistbox_slider"
 				}
 
@@ -729,8 +750,8 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "equipment"
-			position = { x=1301 y=186 }
-			size = { width=380 height=413 }
+			position = { x=1301 y=164 }
+			size = { width=380 height=384 }
 			verticalScrollbar = "right_vertical_slider"
 			scroll_wheel_factor = 40
 			smooth_scrolling = yes
@@ -752,11 +773,11 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "adjuster_container"
-			position = { x = 516 y = 432 }
+			position = { x = 511 y = 394 }
 
-			# The card of the adjusters row is the container's first child, so the code hides it with the
-			# adjusters on the History and Template tabs. As a window child after the tabs it was drawn on
-			# every tab and covered the History list and the Regimental Support row (redesign of 2026-10-16).
+			# The card and the head bar of the adjusters row are the container's first children, so the code
+			# hides them with the adjusters on the History and Template tabs. The hardness caption stands
+			# here for the same reason; the bar and its icons are window children, as in vanilla.
 			iconType = {
 				name = "mod1440_card_adjusters"
 				spriteType = "GFX_1440p_UD_card_adjusters"
@@ -764,9 +785,16 @@ guiTypes = {
 				alwaystransparent = yes
 			}
 
+			iconType = {
+				name = "mod1440_adjusters_head"
+				spriteType = "GFX_1440p_UD_head_766"
+				position = { x = 8 y = 4 }
+				alwaystransparent = yes
+			}
+
 			instantTextboxType = {
 				name = "adjuster_label"
-				position = { x = 10 y = 4 }
+				position = { x = 16 y = 8 }
 				font = "hoi_18mbs"
 				text = "PRODUCTION_ADJUSTERS_LABEL"
 				maxWidth = 150
@@ -774,10 +802,21 @@ guiTypes = {
 				format = left
 			}
 
+			# Caption of the hardness bar: the vanilla key of the stat ("Hardness: ").
+			instantTextboxType = {
+				name = "mod1440_hardness_label"
+				position = { x = 235 y = 8 }
+				font = "hoi_18mbs"
+				text = "STAT_ARMY_HARDNESS"
+				maxWidth = 80
+				maxHeight = 20
+				format = left
+			}
+
 			containerWindowType = {
 				name = "adjuster_stats"
-				position = { x=0 y= 24 }
-				size = { width=779 height=124 }
+				position = { x=8 y= 32 }
+				size = { width=766 height=124 }
 				clipping = yes
 				verticalScrollbar = "right_vertical_slider"
 				scroll_wheel_factor = 62
@@ -792,7 +831,7 @@ guiTypes = {
 					name = "stats_grid"
 					position = { x = 0 y = 0 }
 					size = { width = 100%% height = 100%% }
-					slotsize = { width = 110 height = 62 }
+					slotsize = { width = 109 height = 62 }
 					max_slots_horizontal = 7
 					format = "UPPER_LEFT"
 				}
@@ -841,32 +880,32 @@ guiTypes = {
 		iconType = {
 			name = "softness"
 			spriteType = "GFX_1440p_UD_softness_ratio"
-			position = {x=871 y=439}
+			position = {x=891 y=403}
 		}
 
 		iconType = {
 			name = "softness_ratio_frame"
 			spriteType = "GFX_1440p_UD_softness_frame"
-			position = {x=866 y=434}
+			position = {x=886 y=398}
 			alwaystransparent = yes
 		}
 
 		iconType = {
 			name = "composition_icon"
 			spriteType = "GFX_army_composition_icon"
-			position = {x=789 y=434}
+			position = {x=821 y=398}
 		}
 
 		iconType = {
 			name = "armor_softness_icon"
 			spriteType = "GFX_armor_softness_icon"
-			position = {x=827 y=439}
+			position = {x=857 y=403}
 		}
 
 		iconType = {
 			name = "inf_softness_icon"
 			spriteType = "GFX_inf_softness_icon"
-			position = {x=1241 y=438}
+			position = {x=1249 y=402}
 		}
 
 		dropDownBoxType = {
@@ -1018,7 +1057,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_1440p_UD_ship_bg"
 		}
 
-		# Redesign of 2026-10-16 (a3-unit-details): the main panel is the dark tile at 794x580, 258 px right
+		# Second redesign (2026-10-16, form B): the main panel is the dark tile at 794x462, 258 px right
 		# of the 10x10 rectangle. The captain and air wing cards are the backgrounds of captain_window and
 		# air_wings, which the code hides when the ship has no captain or is no carrier. Plates first, as
 		# siblings are drawn in file order [GUW-026]; the equipment container with the picture band next, so
@@ -1053,7 +1092,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "equipment"
-			position = { x=269 y=440 }
+			position = { x=269 y=322 }
 			size = { width=772 height=134 }
 			clipping = no
 
@@ -1080,7 +1119,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "btn_pride"
-			position = {x=278 y=449}
+			position = {x=278 y=331}
 			spriteType = "GFX_NV_btn_pride"
 		}
 
@@ -1098,7 +1137,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "tab_stats"
-			position = { x = 268 y = 560 }
+			position = { x = 268 y = 452 }
 			Orientation = "LOWER_LEFT"
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_STATS_LABEL"
@@ -1108,7 +1147,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "tab_history"
-			position = { x = 378 y = 560 }
+			position = { x = 378 y = 452 }
 			Orientation = "LOWER_LEFT"
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_HISTORY_LABEL"
@@ -1118,7 +1157,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "tab_design"
-			position = { x = 485 y = 560 }
+			position = { x = 485 y = 452 }
 			Orientation = "LOWER_LEFT"
 			quadTextureSprite = "GFX_unit_stats_view_tabs"
 			buttonText = "NAVAL_DESIGN_LABEL"
@@ -1162,13 +1201,13 @@ guiTypes = {
 		
 		iconType = {
 			name = "dominance_icon"
-			position = {x=285 y=499}
+			position = {x=285 y=381}
 			spriteType = "GFX_naval_dominance_texticon"
 		}
 
 		instantTextboxType = {
 			name = "dominance_value"
-			position = { x = 315 y = 501 }
+			position = { x = 315 y = 383 }
 			textureFile = ""
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
@@ -1180,14 +1219,14 @@ guiTypes = {
 		
 		iconType = {
 			name = "support_icon"
-			position = {x=285 y=469}
+			position = {x=285 y=351}
 			spriteType = "GFX_naval_dominance_support_strip"
 			frame = 2
 		}
 
 		instantTextboxType = {
 			name = "support_value"
-			position = { x = 315 y = 467 }
+			position = { x = 315 y = 349 }
 			textureFile = ""
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
@@ -1243,18 +1282,18 @@ guiTypes = {
 			containerWindowType = {
 				name = "captain_header_list_entry"
 				position = { x = 4 y = 4 }
-				size = { width = 378 height = 28 }
+				size = { width = 378 height = 26 }
 
 				Background = {
 					name = "captain_list_entry_bg"
-					quadTextureSprite = "GFX_1440p_UD_caption_bar"
+					quadTextureSprite = "GFX_1440p_UD_head_378"
 					alwaystransparent = yes
 				}
 			}
 
 			instantTextboxType = {
 				name = "captain_title_text"
-				position = { x = 14 y = 9 }
+				position = { x = 14 y = 8 }
 				font = "hoi_18mbs"
 				text = "CAPTAIN_TITLE_TEXT"
 				maxWidth = 266
@@ -1272,7 +1311,7 @@ guiTypes = {
 			buttonType = {
 				name = "promote_captain"
 				quadTextureSprite ="GFX_leader_selection_button"
-				position = { x=285 y=3 }
+				position = { x=285 y=4 }
 				buttonText = "PROMOTE"
 				font = "hoi_16mbs"
 				frame = 1
@@ -1305,7 +1344,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "terrain"
-			position = { x=659 y=431}
+			position = { x=659 y=313}
 			size = { width=410 height=210}
 			margin = { top = 13 left = 13 bottom = 15 right = 25}
 			verticalScrollbar = "right_vertical_slider"
@@ -1324,103 +1363,128 @@ guiTypes = {
 		containerWindowType = {
 			name = "info"
 			position = { x=262 y=86 }
-			size = { width=787 height=355 }
+			size = { width=787 height=236 }
 
+			# Second redesign (2026-10-16, form B): one table card for the three stat groups. The head bar
+			# carries the vanilla captions, every second row stands on a darker band, and each group is a
+			# column of one-line rows (stat_entry, 255x24). Plates first: siblings are drawn in file order
+			# [GUW-026]. The bands are fixed plates because the code fills a fixed number of rows per window.
 			iconType = {
-				name = "mod1440_card_base"
-				spriteType = "GFX_1440p_UD_card_stats_s"
-				position = { x = 7 y = 6 }
+				name = "mod1440_card_table"
+				spriteType = "GFX_1440p_UD_card_table_s"
+				position = { x = 2 y = 6 }
 				alwaystransparent = yes
 			}
 
 			iconType = {
-				name = "mod1440_card_combat"
-				spriteType = "GFX_1440p_UD_card_stats_s"
-				position = { x = 399 y = 6 }
+				name = "mod1440_table_head"
+				spriteType = "GFX_1440p_UD_head_766"
+				position = { x = 10 y = 10 }
 				alwaystransparent = yes
 			}
 
 			iconType = {
-				name = "mod1440_card_misc"
-				spriteType = "GFX_1440p_UD_card_misc_s"
-				position = { x = 7 y = 206 }
+				name = "mod1440_table_band_1"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 62 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_3"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 110 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_5"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 158 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_7"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 206 }
 				alwaystransparent = yes
 			}
 
 			containerWindowType = {
 				name = "base_stats"
-				position = { x=7 y=6 }
-				size = { width=380 height=194 }
+				position = { x=10 y=10 }
+				size = { width=255 height=216 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "base_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "DESIGNER_BASE_STATS_LABEL"
-					maxWidth = 356
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 1 y = 30 }
-					size = { width = 378 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 3
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "combat_stats"
-				position = { x=399 y=6 }
-				size = { width=380 height=194 }
+				position = { x=265 y=10 }
+				size = { width=255 height=216 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "combat_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "DESIGNER_COMBAT_STATS_LABEL"
-					maxWidth = 356
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 1 y = 30 }
-					size = { width = 378 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 3
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "misc_stats"
-				position = { x=7 y=206 }
-				size = { width=772 height=142 }
+				position = { x=520 y=10 }
+				size = { width=255 height=216 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "misc_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "FE_MISC_STATS"
-					maxWidth = 748
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 8 y = 30 }
-					size = { width = 756 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 6
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
@@ -1445,11 +1509,11 @@ guiTypes = {
 			containerWindowType = {
 				name = "captain_header_list_entry"
 				position = { x = 4 y = 4 }
-				size = { width = 378 height = 28 }
+				size = { width = 378 height = 26 }
 
 				Background = {
 					name = "captain_list_entry_bg"
-					quadTextureSprite = "GFX_1440p_UD_caption_bar"
+					quadTextureSprite = "GFX_1440p_UD_head_378"
 					alwaystransparent = yes
 				}
 			}
@@ -1462,7 +1526,7 @@ guiTypes = {
 
 			instantTextboxType = {
 				name = "title"
-				position = { x = 14 y = 9 }
+				position = { x = 14 y = 8 }
 				textureFile = ""
 				font = "hoi_18mbs"
 				borderSize = {x = 0 y = 0}
@@ -1498,7 +1562,7 @@ guiTypes = {
 		containerWindowType = {
 			name = "history"
 			position = { x=264 y=92}
-			size = { width=782 height=482}
+			size = { width=782 height=364}
 
 			containerWindowType = {
 				name = "medal_instance_container"
@@ -1546,7 +1610,7 @@ guiTypes = {
 			containerWindowType = {
 				name = "history_grid_container"
 				position = { x=0 y=90}
-				size = { width=782 height=392 }
+				size = { width=782 height=274 }
 				margin = { top = 0 left = 0 bottom = 0 }
 
 				# List card, as on the division window.
@@ -1562,14 +1626,14 @@ guiTypes = {
 					name = "scrollbar_background"
 					quadTextureSprite = "GFX_scrollbar_vertical_bg"
 					position = { x = 758 y = 5 }
-					size = { x=18 y=381 }
+					size = { x=18 y=263 }
 					alwaystransparent = yes
 				}
 
 				listboxType = {
 					name = "history_grid"
 					position = { x = 8 y = 8 }
-					size = { x = 751 y = 376 }
+					size = { x = 751 y = 258 }
 					scrollbartype = "standardlistbox_slider"
 				}
 			}
@@ -1595,47 +1659,40 @@ guiTypes = {
 		}
 	}
 
-containerWindowType =
+	containerWindowType =
 	{
 		name = "stat_entry"
 		position = {x=0 y=0}
-		size = { width = 126 height = 52 }
+		size = { width = 255 height = 24 }
 
-		iconType = {
-			name = "mod1440_tile_bg"
-			spriteType = "GFX_1440p_UD_stat_tile"
-			position = { x = 2 y = 0 }
-			alwaystransparent = yes
-		}
-
+		# Second redesign (2026-10-16, form B): one line of a table, shared by the division, ship, air wing
+		# and railway gun windows. The label has 160 px: every label of the four windows fits but
+		# "Trickleback & War Support Protection:", which is cut with dots [GUW-009] and listed under
+		# knownCuts of the division scene. The value is right-aligned 8 px from the row's end.
 		instantTextBoxType = {
 			name = "label"
-			position = { x = 5 y = 2 }
+			position = { x = 8 y = 3 }
 			textureFile = ""
-			font = "hoi_16mbs"
+			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
 			text = ""
-			maxWidth = 121
-			# Two lines and no more: a mod that puts an icon before each label (RBM's GFX Overhaul) pushes
-			# "Trickleback & War Support Protection:" to three, and the third stood on the value. A box of a
-			# fixed size shows as many lines as fit with room to spare: two of this font (16 px) need more than
-			# 32 px, or the label is cut after one (Engine Facts W28).
-			maxHeight = 34
+			maxWidth = 160
+			maxHeight = 20
 			fixedsize = yes
 			format = left
 		}
 
 		instantTextBoxType = {
 			name = "value"
-			position = { x = 5 y = 32 }
+			position = { x = 167 y = 3 }
 			textureFile = ""
-			font = "hoi_20b"
+			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
 			text = ""
-			maxWidth = 121
+			maxWidth = 80
 			maxHeight = 20
 			fixedsize = yes
-			format = left
+			format = right
 		}
 	}
 
@@ -1643,16 +1700,16 @@ containerWindowType =
 	{
 		name = "stat_archetype_header_list_entry"
 		position = { x = 0 y = 0 }
-		size = { width = 360 height = 30 }
+		size = { width = 360 height = 26 }
 
 		Background = {
 			name = "unit_stats_list_entry_bg"
-			quadTextureSprite = "GFX_1440p_UD_list_entry_bg"
+			quadTextureSprite = "GFX_1440p_UD_head_360"
 		}
 
 		instantTextBoxType = {
 			name = "archetype_name"
-			position = { x = 10 y = 5 }
+			position = { x = 10 y = 4 }
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
 			text = ""
@@ -1664,7 +1721,7 @@ containerWindowType =
 
 		instantTextBoxType = {
 			name = "archetype_amount"
-			position = { x = 280 y = 5 }
+			position = { x = 280 y = 4 }
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
 			text = ""
@@ -1678,7 +1735,7 @@ containerWindowType =
 	{
 		name = "stat_equipment_entry"
 		position = { x = 0 y = 0 }
-		size = { width = 360 height = 50 }
+		size = { width = 360 height = 44 }
 
 		iconType =
 		{
@@ -1691,7 +1748,7 @@ containerWindowType =
 		{
 			name ="equipment_icon"
 			spriteType = "GFX_equipment_item"
-			position = { x= 50 y = 30 }
+			position = { x= 50 y = 22 }
 			Orientation = "UPPER_LEFT"
 			scale = 0.65
 			centerposition = yes
@@ -1701,7 +1758,7 @@ containerWindowType =
 		iconType = {
 			name = "creator_flag"
 			quadTextureSprite ="GFX_flag_small"
-			position = { x = 70 y = 25 }
+			position = { x = 70 y = 22 }
 			alwaystransparent = yes
 		}
 
@@ -1712,7 +1769,7 @@ containerWindowType =
 			borderSize = {x = 0 y = 0}
 			text = ""
 			maxWidth = 190
-			maxHeight = 50
+			maxHeight = 44
 			vertical_alignment = center
 			alwaystransparent = yes
 		}
@@ -1724,7 +1781,7 @@ containerWindowType =
 			borderSize = {x = 0 y = 0}
 			text = ""
 			maxWidth = 80
-			maxHeight = 50
+			maxHeight = 44
 			format = right
 			vertical_alignment = center
 			alwaystransparent = yes
@@ -1733,16 +1790,16 @@ containerWindowType =
 
 	containerWindowType = {
 		name = "army_history_entry"
-		size = { width = 744 height = 48 }
+		size = { width = 744 height = 44 }
 		clipping = no
 
-		# Redesign of 2026-10-16 (a3-unit-details): a dark row in place of the line on the parchment, shared by
-		# the division and ship History tabs. The row plate comes first so that the vanilla red rule between
-		# date and text stands on it.
+		# Second redesign (2026-10-16, form B): a row of 44 px on the darker band of the tables, shared by the
+		# division and ship History tabs. The band comes first so that the vanilla red rule between date and
+		# text stands on it.
 		iconType = {
 			name = "sunk_ships_entry_divider"
-			spriteType = "GFX_1440p_UD_history_row"
-			position = { x = 0 y = 1 }
+			spriteType = "GFX_1440p_UD_stripe_744"
+			position = { x = 0 y = 2 }
 		}
 
 		iconType = {
@@ -1804,7 +1861,7 @@ containerWindowType =
 
 		instantTextboxType = {
 			name = "date_field"
-			position = { x = 52 y = 14 }
+			position = { x = 52 y = 12 }
 			font = "hoi_18mbs"
 			text_color_code = "Y"
 			borderSize = { x = 0 y = 0 }
@@ -1818,7 +1875,7 @@ containerWindowType =
 
 		instantTextboxType = {
 			name = "text_field"
-			position = { x = 160 y = 4 }
+			position = { x = 160 y = 2 }
 			font = "hoi_18mbs"
 			borderSize = { x = 0 y = 0 }
 			text = "Maus"
@@ -1903,7 +1960,7 @@ containerWindowType =
 		name = "air_wing_stats_window"
 		moveable = yes
 		position = { x=-275 y=-235 }
-		size = { width = 794 height = 590 }
+		size = { width = 794 height = 584 }
 		Orientation = center
 		clipping = no
 		fade_time = 300
@@ -1916,9 +1973,9 @@ containerWindowType =
 			quadTextureSprite = "GFX_tiled_plain_bg"
 		}
 
-		# Redesign of 2026-10-16 (a3-unit-details): the window is the dark tile at 794x590, the side column of
-		# the first build is gone: the equipment rows have a card under the one-row Base card. Plates
-		# first, as siblings are drawn in file order [GUW-026].
+		# Second redesign (2026-10-16, form B): the window is the dark tile at 794x584; the stat table, the plane
+		# type card under it (782x106, two rows of 45) and the picture band. Plates first, as siblings are
+		# drawn in file order [GUW-026].
 		iconType = {
 			name = "mod1440_title_strip"
 			spriteType = "GFX_1440p_UD_title_strip_s"
@@ -1943,14 +2000,14 @@ containerWindowType =
 		iconType = {
 			name = "mod1440_card_air_equipment"
 			spriteType = "GFX_1440p_UD_card_air_equipment"
-			position = { x = 11 y = 182 }
+			position = { x = 6 y = 322 }
 			alwaystransparent = yes
 		}
 
 		iconType = {
 			name = "mod1440_picture_band"
 			spriteType = "GFX_1440p_UD_air_band"
-			position = { x = 11 y = 440 }
+			position = { x = 11 y = 434 }
 			alwaystransparent = yes
 		}
 		
@@ -2017,12 +2074,12 @@ containerWindowType =
 		iconType = {
 			name = "manpower_icon"
 			spriteType = "GFX_manpower_icon"
-			position = { x=27 y=542 }
+			position = { x=27 y=536 }
 		}
 		
 		instantTextboxType = {
 			name = "current_manpower"
-			position = { x = 57 y = 547  }
+			position = { x = 57 y = 541  }
 			font = "hoi_18mbs"
 			text = "Stuff"
 			maxWidth = 60
@@ -2032,7 +2089,7 @@ containerWindowType =
 
 		containerWindowType = {
 			name = "missions"
-			position = { x = 27 y = 493 }
+			position = { x = 27 y = 487 }
 			size = { width = 150 height = 20 }
 
 			gridboxtype = {
@@ -2073,103 +2130,128 @@ containerWindowType =
 		containerWindowType = {
 			name = "info"
 			position = { x=4 y=86 }
-			size = { width=787 height=355 }
+			size = { width=787 height=236 }
 
+			# Second redesign (2026-10-16, form B): one table card for the three stat groups. The head bar
+			# carries the vanilla captions, every second row stands on a darker band, and each group is a
+			# column of one-line rows (stat_entry, 255x24). Plates first: siblings are drawn in file order
+			# [GUW-026]. The bands are fixed plates because the code fills a fixed number of rows per window.
 			iconType = {
-				name = "mod1440_card_base"
-				spriteType = "GFX_1440p_UD_card_stats_row"
-				position = { x = 7 y = 6 }
+				name = "mod1440_card_table"
+				spriteType = "GFX_1440p_UD_card_table_s"
+				position = { x = 2 y = 6 }
 				alwaystransparent = yes
 			}
 
 			iconType = {
-				name = "mod1440_card_combat"
-				spriteType = "GFX_1440p_UD_card_stats_s"
-				position = { x = 399 y = 6 }
+				name = "mod1440_table_head"
+				spriteType = "GFX_1440p_UD_head_766"
+				position = { x = 10 y = 10 }
 				alwaystransparent = yes
 			}
 
 			iconType = {
-				name = "mod1440_card_misc"
-				spriteType = "GFX_1440p_UD_card_misc_s"
-				position = { x = 7 y = 206 }
+				name = "mod1440_table_band_1"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 62 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_3"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 110 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_5"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 158 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_7"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 206 }
 				alwaystransparent = yes
 			}
 
 			containerWindowType = {
 				name = "base_stats"
-				position = { x=7 y=6 }
-				size = { width=380 height=84 }
+				position = { x=10 y=10 }
+				size = { width=255 height=216 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "base_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "DESIGNER_BASE_STATS_LABEL"
-					maxWidth = 356
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 1 y = 30 }
-					size = { width = 378 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 3
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "combat_stats"
-				position = { x=399 y=6 }
-				size = { width=380 height=194 }
+				position = { x=265 y=10 }
+				size = { width=255 height=216 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "combat_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "DESIGNER_COMBAT_STATS_LABEL"
-					maxWidth = 356
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 1 y = 30 }
-					size = { width = 378 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 3
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "misc_stats"
-				position = { x=7 y=206 }
-				size = { width=772 height=142 }
+				position = { x=520 y=10 }
+				size = { width=255 height=216 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "misc_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "FE_MISC_STATS"
-					maxWidth = 748
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 8 y = 30 }
-					size = { width = 756 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 6
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
@@ -2177,13 +2259,13 @@ containerWindowType =
 		
 		iconType = {
 			name = "ace_icon"
-			position = {x=721 y=528}
+			position = {x=721 y=522}
 			spriteType = "GFX_ace_none"
 		}
 		
 		instantTextboxType = {
 			name = "ace_name"
-			position = {x=466 y=548}
+			position = {x=466 y=542}
 			font = "hoi_18mbs"
 			text = ""
 			maxWidth = 250
@@ -2194,7 +2276,7 @@ containerWindowType =
 		containerWindowType = 
 		{
 			name = "stat_equipment_entry_large"
-			position = {x=124 y=478}
+			position = {x=124 y=472}
 			size = { width = 50 height = 50 }
 			
 			iconType =
@@ -2229,7 +2311,7 @@ containerWindowType =
 		
 		containerWindowType = {
 			name = "equipment"
-			position = { x=17 y=189 }	
+			position = { x=14 y=330 }	
 			size = { width=370 height=90 }
 			orientation = upper_left
 			clipping = yes
@@ -2311,7 +2393,7 @@ containerWindowType = {
 		moveable = yes
 		click_to_front = yes
 		position = { x=-275 y=-235 }
-		size = { width = 794 height = 580 }
+		size = { width = 794 height = 462 }
 		Orientation = center
 		clipping = no
 		fade_time = 300
@@ -2324,7 +2406,7 @@ containerWindowType = {
 			quadTextureSprite = "GFX_tiled_plain_bg"
 		}
 
-		# Redesign of 2026-10-16 (a3-unit-details): the window is the dark tile at 794x580, without the ship's
+		# Second redesign (2026-10-16, form B): the window is the dark tile at 794x462, without the ship's
 		# side panel; the picture band of the ship window holds the manpower, the fort adjuster and the gun. Plates
 		# first, as siblings are drawn in file order [GUW-026].
 		iconType = {
@@ -2351,7 +2433,7 @@ containerWindowType = {
 		iconType = {
 			name = "mod1440_picture_band"
 			spriteType = "GFX_1440p_UD_class_band"
-			position = { x = 11 y = 440 }
+			position = { x = 11 y = 322 }
 			alwaystransparent = yes
 		}
 
@@ -2389,12 +2471,12 @@ containerWindowType = {
 		iconType = {
 			name = "manpower_icon"
 			spriteType = "GFX_manpower_icon"
-			position = { x=27 y=533 }
+			position = { x=27 y=415 }
 		}
 
 		instantTextboxType = {
 			name = "current_manpower"
-			position = { x = 57 y = 538 }
+			position = { x = 57 y = 420 }
 			font = "hoi_18mbs"
 			text = "Stuff"
 			maxWidth = 60
@@ -2405,7 +2487,7 @@ containerWindowType = {
 		containerWindowType = {
 			name = "forts_modifier"
 			size = { width = 50 height = 70 }
-			position = { x = 689 y = 493 }
+			position = { x = 689 y = 375 }
 			clipping = no
 
 			iconType = {
@@ -2449,103 +2531,128 @@ containerWindowType = {
 		containerWindowType = {
 			name = "info"
 			position = { x=4 y=86 }
-			size = { width=787 height=355 }
+			size = { width=787 height=236 }
 
+			# Second redesign (2026-10-16, form B): one table card for the three stat groups. The head bar
+			# carries the vanilla captions, every second row stands on a darker band, and each group is a
+			# column of one-line rows (stat_entry, 255x24). Plates first: siblings are drawn in file order
+			# [GUW-026]. The bands are fixed plates because the code fills a fixed number of rows per window.
 			iconType = {
-				name = "mod1440_card_base"
-				spriteType = "GFX_1440p_UD_card_stats_s"
-				position = { x = 7 y = 6 }
+				name = "mod1440_card_table"
+				spriteType = "GFX_1440p_UD_card_table_s"
+				position = { x = 2 y = 6 }
 				alwaystransparent = yes
 			}
 
 			iconType = {
-				name = "mod1440_card_combat"
-				spriteType = "GFX_1440p_UD_card_stats_s"
-				position = { x = 399 y = 6 }
+				name = "mod1440_table_head"
+				spriteType = "GFX_1440p_UD_head_766"
+				position = { x = 10 y = 10 }
 				alwaystransparent = yes
 			}
 
 			iconType = {
-				name = "mod1440_card_misc"
-				spriteType = "GFX_1440p_UD_card_misc_s"
-				position = { x = 7 y = 206 }
+				name = "mod1440_table_band_1"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 62 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_3"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 110 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_5"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 158 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name = "mod1440_table_band_7"
+				spriteType = "GFX_1440p_UD_stripe_766"
+				position = { x = 10 y = 206 }
 				alwaystransparent = yes
 			}
 
 			containerWindowType = {
 				name = "base_stats"
-				position = { x=7 y=6 }
-				size = { width=380 height=194 }
+				position = { x=10 y=10 }
+				size = { width=255 height=216 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "base_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "DESIGNER_BASE_STATS_LABEL"
-					maxWidth = 356
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 1 y = 30 }
-					size = { width = 378 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 3
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "combat_stats"
-				position = { x=399 y=6 }
-				size = { width=380 height=194 }
+				position = { x=265 y=10 }
+				size = { width=255 height=216 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "combat_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "DESIGNER_COMBAT_STATS_LABEL"
-					maxWidth = 356
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 1 y = 30 }
-					size = { width = 378 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 3
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
 
 			containerWindowType = {
 				name = "misc_stats"
-				position = { x=7 y=206 }
-				size = { width=772 height=142 }
+				position = { x=520 y=10 }
+				size = { width=255 height=216 }
 				clipping = no
 
 				instantTextboxType = {
 					name = "misc_stats_label"
-					position = { x = 12 y = 5 }
-					font = "hoi_20b"
+					position = { x = 8 y = 4 }
+					font = "hoi_18mbs"
 					text = "FE_MISC_STATS"
-					maxWidth = 748
-					maxHeight = 22
+					maxWidth = 240
+					maxHeight = 20
 					format = left
 				}
 
 				gridboxtype = {
 					name = "stats_grid"
-					position = { x = 8 y = 30 }
-					size = { width = 756 height = 100%% }
-					slotsize = { width = 126 height = 52 }
-					max_slots_horizontal = 6
+					position = { x = 0 y = 28 }
+					size = { width = 255 height = 100%% }
+					slotsize = { width = 255 height = 24 }
+					max_slots_horizontal = 1
 					format = "UPPER_LEFT"
 				}
 			}
@@ -2553,7 +2660,7 @@ containerWindowType = {
 
 		containerWindowType = {
 			name = "equipment"
-			position = { x=17 y=459 }
+			position = { x=17 y=341 }
 			size = { width=250 height=200 }
 			clipping = no
 

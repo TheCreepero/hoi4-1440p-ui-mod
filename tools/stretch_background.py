@@ -302,11 +302,10 @@ def band_of(compose, box):
 
 
 # Sizes of the redesigned unit details windows (interface/zz_1440p_unit_details.gui).
-UD_DIVISION_SIZE = (1186, 609)
-UD_SHIP_SIZE = (794, 580)
+UD_DIVISION_SIZE = (1186, 562)
+UD_SHIP_SIZE = (794, 462)
 UD_SHIP_BAND = (4, 446, 776, 580)       # 772x134 out of the first build's ship bitmap
 UD_AIR_BAND = (4, 437, 776, 581)        # 772x144 out of the first build's air wing bitmap
-UD_HISTORY_ROW = (744, 46)              # a history row: the stat tile widened
 # --- end a3-unit-details ---
 
 
@@ -352,11 +351,11 @@ def small_details(frame_band, bottom_inserts):
 # at columns 18, 103, 188, 273 and 358, hanging from a line in row 83), a support box (columns
 # 447-518, rows 91-294) and a regimental support box (columns 25-437, rows 332-400).
 TEMPLATE_COLUMN = 46      # 85 -> 131 px per regiment column; 5 columns and 4 px in the support box
-TEMPLATE_ROW = 16         # 46 -> 62 px per regiment row
+TEMPLATE_ROW = 8          # 46 -> 54 px per regiment row
 
 
 def template_board(source):
-    """The template board, 548x423 to 782x513: it fills the main part of the enlarged window.
+    """The template board, 548x423 to 782x465: it fills the main part of the enlarged window.
 
     Columns: each regiment column is stretched between its line and the next; the ornament above
     the tree (rows 28-82, columns 115-385) moves as a whole so its stem still meets the middle of
@@ -375,7 +374,7 @@ def template_board(source):
         (402, h, [(300, MAIN_GROWTH)]),
     ])
     rows = 5 * TEMPLATE_ROW
-    rest = 90 - rows
+    rest = 42 - rows
     support = 447 + 5 * TEMPLATE_COLUMN - 1      # first column of the support box after the growth
     return grow_bands(board, "y", [
         (0, support, stretched(90, 326, rows) + stretched(360, 395, rest)),
@@ -384,37 +383,10 @@ def template_board(source):
 
 
 def hq_board(source):
-    """The picture behind an HQ template, 521x388 to 755x478. The painting (columns 0-313) keeps
+    """The picture behind an HQ template, 521x388 to 755x430. The painting (columns 0-313) keeps
     its size; the dark panel beside it grows, and the plain strip below the painting is repeated."""
     board = grow(source, "x", [(515, MAIN_GROWTH)])
-    return grow(board, "y", [(386, 84)] + stretched(348, 384, 6))
-
-
-def stat_tile(source, width=122, height=52, cap=6, top=16, bottom=4, plain_columns=(20, 160), plain_rows=(18, 26)):
-    """A tile for one stat: the plain part of the vanilla header bar (dark metal, lighter top edge),
-    with its left end copied to both ends (the right end of the bar is slanted and lighter) and its
-    top and bottom rows kept. The plain middle is spread over the new width and height."""
-    src_w, src_h = source.size
-    out = Image.new("RGBA", (width, height))
-    px, spx = out.load(), source.load()
-    first, last = plain_columns
-    first_row, last_row = plain_rows
-    for y in range(height):
-        if y < top:
-            sy = y
-        elif y >= height - bottom:
-            sy = src_h - (height - y)
-        else:
-            sy = first_row + (y - top) % (last_row - first_row + 1)
-        for x in range(width):
-            if x < cap:
-                sx = x
-            elif x >= width - cap:
-                sx = width - 1 - x
-            else:
-                sx = first + (x - cap) % (last - first + 1)
-            px[x, y] = spx[sx, sy]
-    return out
+    return grow(board, "y", [(386, 36)] + stretched(348, 384, 6))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1140,20 +1112,6 @@ JOBS = [
         "compose": tiled_window(*UD_SHIP_SIZE),
     },
     {
-        # Header bar of the officer block and of each equipment group, 268 to 358 wide: dark metal
-        # up to a slanted lighter end that starts at column 175.
-        "source": "gfx/interface/unit_stats_list_entry2.dds",
-        "output": "ud_list_entry_bg.dds",
-        "compose": lambda source: grow(source, "x", stretched(20, 160, SIDE_GROWTH)),
-    },
-    {
-        # Tile behind one stat on the division Stats tab (A3 redo), 122x52, from the plain part of the
-        # same header bar.
-        "source": "gfx/interface/unit_stats_list_entry2.dds",
-        "output": "ud_stat_tile.dds",
-        "compose": stat_tile,
-    },
-    {
         # Frame of the hard and soft attack bar, 207 to 363 wide: plain lines between its ends.
         "source": "gfx/interface/softness_ratio_frame.dds",
         "output": "ud_softness_frame.dds",
@@ -1171,12 +1129,6 @@ JOBS = [
         "source": "gfx/interface/unit_stats_bg.dds",
         "output": "ud_experience_field.dds",
         "compose": lambda source: cut(source.crop((382, 36, 526, 67)), "x", [(40 + 2 * i, 1) for i in range(26)]),
-    },
-    {
-        # Row of the History tabs (a3-unit-details redesign): the stat tile's plain metal at 744x46.
-        "source": "gfx/interface/unit_stats_list_entry2.dds",
-        "output": "ud_history_row.dds",
-        "compose": lambda source: stat_tile(source, *UD_HISTORY_ROW),
     },
     {
         # Picture band of the ship and railway gun windows (a3-unit-details redesign): the blue band of the
