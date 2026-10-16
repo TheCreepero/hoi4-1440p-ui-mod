@@ -1,0 +1,70 @@
+# Vanilla 1.19.3.0, interface/countryproductionlineview.gui, lines 1406-1471.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "production_deployment_window"
+		position = { x=-356 y=78}
+		show_position = { x=540 y =78 }
+		show_animation_type = decelerated
+		hide_animation_type = accelerated
+		animation_time = 300
+		size = { width=375 height=70%% }
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_tiled_plain_bg"
+		}
+
+		iconType = {
+			name ="header_bg"
+			spriteType = "GFX_ship_name_title_bg"
+			position = { x = 5 y = 7 }
+
+		}
+
+		instantTextboxType = {
+			name = "title"
+			position = { x = 35 y = 4 }
+			textureFile = ""
+			font = "hoi_36header"
+			borderSize = {x = 0 y = 0}
+			text = "PRODUCTION_NAVAL_DEPLOY_LIST"
+			maxWidth = 340
+			maxHeight = 20
+		}
+
+		containerWindowType = {
+			name = "deployments"
+			position = { x=0 y=43 }
+			size = { width=100%% height=100%% }
+			verticalScrollbar = "right_vertical_slider"
+			smooth_scrolling = yes
+			margin = { top = 14 bottom = 12 }
+
+			background = {
+				name = "Background"
+				quadTextureSprite ="GFX_tiled_bg_1_scrollbar"
+			}
+
+			gridboxtype = {
+				name = "deployments_grid"
+				position = { x = 12 y = 0 }
+				size = { width = 100%% height = 100%% }
+				slotsize = { width = 335 height = 36 }
+				format = "UPPER_LEFT"
+				max_slots_horizontal = 1
+			}
+		}
+
+		buttonType = {
+			name = "close"
+			position = { x = -43 y = 9 }
+			quadTextureSprite ="GFX_closebutton"
+			buttonFont = "Main_14_black"
+			shortcut = "ESCAPE"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+		}
+	}
+}

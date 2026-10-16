@@ -9,7 +9,7 @@
       "name": "army_division_list_view",
       "at": [
         1,
-        187
+        218
       ],
       "rows": {
         "divisions_window": 30
@@ -23,7 +23,7 @@
         "bottom_window",
         "select_hq_shortcut_anchor"
       ],
-      "_note": "Measured with render_gui.py --verify on a game capture: the toolbar sits at y 187 + its file position. The frame itself starts at the top of the badge (y 83) and runs behind it; the code hides hq_window unless an HQ can be deployed and shows bottom_window only for the unassigned list."
+      "_note": "Measured with render_gui.py --verify on a game capture: the toolbar sits at y 187 + its file position. The frame itself starts at the top of the badge (y 83) and runs behind it; the code hides hq_window unless an HQ can be deployed and shows bottom_window only for the unassigned list. A9 (2026-10-16): the badge is 31 px taller (128); the code is expected to put the list under it, at 218 (not yet seen in the game)."
     },
     {
       "name": "army_badge_view",
@@ -32,9 +32,31 @@
         80
       ],
       "hide": [
-        "army_color_button"
+        "army_color_button",
+        "army_group_bg",
+        "army_group_item_button",
+        "army_group_count_box",
+        "group_div_count_bg",
+        "unassign_army_button",
+        "group_leader_portrait_frame",
+        "pending_leader_icon",
+        "leader_coming",
+        "leader_enroute",
+        "unit_leader_tutorial_glow",
+        "toggle_armies_divisions_button"
       ],
-      "_note": "army_color_button is hidden by the code unless a colour is being picked."
+      "_note": "army_color_button is hidden by the code unless a colour is being picked.",
+      "rows": {
+        "divisions_summary": 5,
+        "traits_grid": 3
+      },
+      "listRows": {
+        "divisions_summary": "divisions_summary_item",
+        "traits_grid": "unit_leader_trait_entry"
+      },
+      "rowsAcross": [
+        "divisions_summary"
+      ]
     }
   ],
   "samples": {
@@ -101,7 +123,9 @@
     "Scroll the list to the end",
     "Open the change-template dropdown (12 templates, names on one line)",
     "Selected and unselected row states",
-    "Army badge: name field, commander name, four stats, right area",
-    "Hotkeys shift+u and shift+c"
+    "Hotkeys shift+u and shift+c",
+    "Army badge (A9): title strip, commander card with a commander (portrait, name whole, traits, skill, the four stats), divisions card with the counters inside it, orders card with its buttons",
+    "The division list starts under the 128 px badge (expected at y 218), not under it",
+    "Two armies selected: the badges stack; an army group's badge with its buttons in their army group places"
   ]
 }

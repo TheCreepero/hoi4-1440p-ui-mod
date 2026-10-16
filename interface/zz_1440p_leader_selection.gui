@@ -1,0 +1,542 @@
+# Screen 'leader_selection', reworked for 2560x1440.
+# Overrides single top-level windows of the vanilla interface files; the vanilla files stay in place and
+# supply every other window. The untouched vanilla text of each window is in baseline/.
+guiTypes = {
+	# Windows from vanilla interface/unitleaderwindow.gui
+	containerWindowType = {
+		name = "armyleaderwindow"
+		position = { x=-400 y=-590 }
+		size = { width=800 height=1180 }
+		orientation = center
+		moveable = yes
+		fade_time = 500
+		fade_type = linear
+		click_to_front = yes
+
+		positionType = {
+			name = "pos_roster_overview_orientation_top_left"
+			position = { x = 540 y = 80 }
+		}
+
+		background = {
+			name = "Background"
+			spriteType ="GFX_1440p_LS_window_bg"
+		}
+
+		instantTextboxType = {
+			name = "header_text"
+			position = { x = 20 y = 9 }
+			textureFile = ""
+			font = "hoi_20bs"
+			borderSize = {x = 0 y = 0}
+			text = "CHOOSE_LEADER"
+			maxWidth = 590
+			maxHeight = 20
+			fixedsize = yes
+			format = left
+		}	
+
+		ButtonType = {
+			name = "sort_name"
+			position = {x=95 y=39}
+			spriteType = "GFX_sort_up_down_button_83x29"
+			buttonText = UNIT_LEADER_NAME_SORT
+			buttonFont = "hoi_16mbs"
+			clicksound = click_scroll
+			frame = 1
+		}
+		
+		editBoxType = {
+			name = "leader_view_search"
+			position = { x = 201 y = 44 }
+			size = {x=267 y=20}
+			#textureFile = ""
+			font = "hoi_20b"
+			borderSize = {x = 0 y = 0}
+			text = UNIT_LEADER_SEARCH
+			#maxWidth = 300
+			#maxHeight = 20
+			#format = left
+		}
+			
+		ButtonType = {
+			name = "sort_skills"
+			position = {x=16 y=39}
+			spriteType = "GFX_sort_skill"
+			buttonFont = "hoi_16mbs"
+			clicksound = click_scroll
+			frame = 1
+		}
+		ButtonType = {
+			name = "sort_advisor"
+			position = {x=42 y=39}
+			spriteType = "GFX_sort_adviser"
+			buttonFont = "hoi_16mbs"
+			clicksound = click_scroll
+			frame = 1
+		}
+		ButtonType = {
+			name = "sort_capacity"
+			position = {x=690 y=39}
+			spriteType = "GFX_sort_up_down_button_83x29"
+			buttonText = UNIT_LEADER_CAPACITY_SORT
+			buttonFont = "hoi_16mbs"
+			clicksound = click_scroll
+			frame = 1
+		}
+		
+		ButtonType = {
+			name = "sort_attack_skill"
+			position = {x=401 y=39}
+			spriteType = "GFX_sort_attack_trait"
+			buttonFont = "hoi_16mbs"
+			clicksound = click_scroll
+			frame = 1
+		}
+		
+		ButtonType = {
+			name = "sort_defense_skill"
+			position = {x=427 y=39}
+			spriteType = "GFX_sort_defense_trait"
+			buttonFont = "hoi_16mbs"
+			clicksound = click_scroll
+			frame = 1
+		}
+		
+		ButtonType = {
+			name = "sort_planning_skill"
+			position = {x=453 y=39}
+			spriteType = "GFX_sort_planning_trait"
+			buttonFont = "hoi_16mbs"
+			clicksound = click_scroll
+			frame = 1
+		}
+		
+		ButtonType = {
+			name = "sort_supply_skill"
+			position = {x=479 y=39}
+			spriteType = "GFX_sort_supply_trait"
+			buttonFont = "hoi_16mbs"
+			clicksound = click_scroll
+			frame = 1
+		}
+
+		containerWindowType = {
+			name = "leaders"
+			position = { x = 0 y = 60 }
+			size = { width = 100%% height = 1097 }
+			verticalScrollbar = "right_vertical_slider"
+			margin = { top = 14 bottom = 22}
+			scroll_wheel_factor = 128
+			smooth_scrolling = yes
+			
+			background = {
+				name = "Background"		
+				spriteType ="GFX_tiled_window_transparent"
+			}
+			
+			gridBoxType = {
+				name = "leaders_grid"
+				position = { x = 13 y = 1 }
+				size = { width = 100%% height = 100%% }
+				slotsize = { width = 760 height = 128 }
+				max_slots_horizontal = 1
+				format = "UPPER_LEFT"
+			}
+		}
+		
+		buttonType = {
+			name = "no_leader_button"
+			position = { x = -250 y = -32 }
+			quadTextureSprite ="GFX_button_221x34"
+			buttonFont = "hoi_18mbs"
+			Orientation = "LOWER_RIGHT"
+			buttonText = "UNASSIGN"
+			pdx_tooltip = "UNASSIGN"
+		}
+		
+		buttonType = {
+			name = "new_leader_button"
+			position = { x = -785 y = -32 }
+			quadTextureSprite = "GFX_button_261x34"
+			buttonFont = "hoi_18mbs"
+			Orientation = "LOWER_RIGHT"
+			buttonText = "UNIT_LEADER_NEW_LEADER"
+		}
+		
+		buttonType = {
+			name = "show_divisional_commanders_button"
+			position = { x = -785 y = -31 }
+			quadTextureSprite = "GFX_button_261x34"
+			buttonFont = "hoi_18mbs"
+			Orientation = "LOWER_RIGHT"
+			buttonText = "UNIT_LEADER_NEW_LEADER_DIVC"
+		}
+		
+		buttonType = {
+			name = "close_button"
+			position = { x = -38 y = 4 }
+			quadTextureSprite ="GFX_closebutton"
+			buttonFont = "Main_14_black"
+			shortcut = "ESCAPE"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+		}
+		
+		instantTextboxType = {
+			name = "show_assigned_text"
+			position = { x = 575 y = 10 }
+			textureFile = ""
+			font = "hoi_18mbs"
+			borderSize = {x = 0 y = 0}
+			text = "SHOW_ACTIVE"
+			maxWidth = 140
+			maxHeight = 20
+			fixedsize = yes
+			format = right
+		}
+		
+		checkboxType = {
+			name = "show_assigned"
+			position = { x = 720  y = 5 }
+			quadTextureSprite ="GFX_generic_checkbox"	
+			Orientation = "UPPER_LEFT"
+			clicksound = click_default
+		}
+	}
+
+	containerWindowType = {
+		name = "armyleaderentry"
+		size = { width=760 height=124 }
+		clipping = no
+		fade_time = 500
+		fade_type = linear
+				
+		background = {
+			name = "Background"		
+			spriteType ="GFX_1440p_LS_entry_bg"
+		}
+		
+		buttonType = {
+			name = "leader_button"
+			position = {x=61 y=4}
+			quadTextureSprite ="GFX_leader_unknown"
+			scale = 0.55
+		}
+
+		iconType = {
+			name = "clip_icon"
+			position = {x=55 y=0}
+			quadTextureSprite ="GFX_clip"
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "army_hq_icon"
+			position = {x=61 y=4}
+			spriteType ="GFX_hq_badge_bg"
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "leader_enroute"
+			position = {x=61 y=4}
+			quadTextureSprite ="GFX_leader_en_route"
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "skill_tooltip_icon"
+			position = {x=0 y=6}
+			quadTextureSprite ="GFX_skill_transparent"
+		}	
+
+		buttonType = {
+			name = "generate_advisor_button"
+			position = {x=13 y=78}	
+			quadTextureSprite ="GFX_give_role_leader_strip"
+			buttonFont = "hoi_16mbs"	
+			clicksound = click_default
+			frame = 1
+		}
+		iconType = {
+			name = "advisor_role_icon"
+			position = {x=3 y=58}	
+			spriteType = "GFX_empty_paper"
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "advisor_role_traits_icon"
+			position = { x = 28 y = 83 }
+			spriteType = "GFX_idea_traits_strip"
+			centerposition = yes
+			alwaystransparent = yes
+			frame = 1
+		}
+		buttonType = {
+			name = "promote_btn"
+			position = {x=566 y=78}	
+			quadTextureSprite ="GFX_leader_selection_button"
+			buttonText = UNIT_LEADER_PROMOTE
+			buttonFont = "hoi_16mbs"	
+			clicksound = click_default		
+			frame = 1
+		}
+		
+		buttonType = {
+			name = "traits_btn"
+			position = {x=470 y=78}	
+			quadTextureSprite ="GFX_leader_selection_button"
+			buttonText = UNIT_LEADER_TRAITS
+			buttonFont = "hoi_16mbs"	
+			pdx_tooltip = "OPEN_LEADER_DETAILS"	
+			clicksound = click_default
+			frame = 1
+		}
+		
+		instantTextboxType = {
+			name = "divisions_count"
+			position = {x=674 y=17}
+			font = "hoi_18mbs"
+			maxWidth = 85
+			maxHeight = 23
+			format = centre
+		}
+		
+		instantTextboxType = {
+			name = "title"
+			position = { x = 160 y = 12 }
+			font = "hoi4_typewriter16"
+			text = "Mr."
+			maxWidth = 210
+			maxHeight = 18
+		}
+		
+		instantTextboxType = {
+			name = "name"
+			position = { x = 160 y = 32 }
+			font = "hoi4_typewriter16"
+			text = "name"
+			fixedsize = yes
+			maxWidth = 210
+			maxHeight = 18
+		}
+		
+		instantTextboxType = {
+			name = "skill"
+			position = { x = 1 y = 19 }
+			font = "hoi_30header"
+			text = "skill"
+			maxWidth = 50
+			maxHeight = 18
+			format =center
+			alwaystransparent = yes
+		}
+		
+		gridBoxType = {    
+			name = "traits_grid"
+			position = { x = 158 y = 74 }
+			size = { width = 300 height = 50 }
+			slotsize = { width=24 height=32 }
+			max_slots_vertical = 1			
+			format = "UPPER_LEFT"
+		}
+		
+		iconType = {
+			name = "medal_collection"
+			spriteType = "GFX_medal_collection"
+			position = { x=430 y=80 }
+		}
+
+		containerWindowType = {
+		name = "skill_container"
+		
+			iconType = {
+				name = "leader_stat_attack_bg"
+				spriteType = "GFX_trait_attack"
+				position = { x=388 y=15 }
+			}
+			
+			instantTextboxType = {
+				name = "leader_stat_attack"
+				position = {x=386 y=33}
+				font = "hoi_16mbs"
+				maxWidth = 30
+				maxHeight = 23
+				format = center
+				text = "7"
+			}
+
+			iconType = {
+				name = "leader_stat_defense_bg"
+				spriteType = "GFX_trait_defense"
+				position = { x=415 y=14 }
+			}
+			
+			instantTextboxType = {
+				name = "leader_stat_defense"
+				position = {x=413 y=33}
+				font = "hoi_16mbs"
+				maxWidth = 30
+				maxHeight = 23
+				format = center
+				text = "8"
+			}
+
+			iconType = {
+				name = "leader_stat_planning_bg"
+				spriteType = "GFX_trait_planning"
+				position = { x=442 y=15 }
+			}
+			
+			instantTextboxType = {
+				name = "leader_stat_planning"
+				position = {x=440 y=33}
+				font = "hoi_16mbs"
+				maxWidth = 30
+				maxHeight = 23
+				format = center
+				text = "9"
+			}
+
+			iconType = {
+				name = "leader_stat_logistics_bg"
+				spriteType = "GFX_trait_logistics"
+				position = { x=468 y=15 }
+			}
+			
+			instantTextboxType = {
+				name = "leader_stat_logistics"
+				position = {x=466 y=33}
+				font = "hoi_16mbs"
+				maxWidth = 30
+				maxHeight = 23
+				format = center
+				text = "10"
+			}
+		}
+		buttonType = {
+			name = "country_flag"
+			quadTextureSprite ="GFX_flag_small2"
+			position = { x = 695 y = 72 }
+		}
+		
+		containerWindowType = {
+			name = "faction_commander"
+			position = { x = 386 y = 8 }
+			size = { width= 200 height=52 }
+			
+			containerWindowType = {
+				name = "mastery"
+				position = {x=8 y=12}
+
+				instantTextBoxType = {
+						name = "mastery_value"
+						font = "hoi_16mbs"
+						position = { x=0 y=18 }
+						maxWidth = 40
+						maxHeight = 23
+						format = center
+						fixedsize = yes
+						text = "0%"
+					}
+
+					iconType = {
+						name = "mastery_icon"
+						spriteType = "GFX_doctrine_mastery"
+						position = { x=9 y=0 }
+					}
+				}	
+			
+		containerWindowType = {
+				name = "supply_divisions"
+				position = {x=43 y=12}
+
+					instantTextBoxType = {
+						name = "supply_value"
+						font = "hoi_16mbs"
+						position = { x=0 y=18 }
+						maxWidth = 40
+						maxHeight = 23
+						format = center
+						fixedsize = yes
+						text = "0"
+					}
+
+					iconType = {
+						name = "supply_icon"
+						spriteType = "GFX_MODIFIER_SUPPLY_CONSUMPTION_FACTOR"
+						position = { x=5 y=0 }
+					}
+				}
+
+				containerWindowType = {
+					name = "supply_navy"
+					position = {x=78 y=12}
+
+					instantTextBoxType = {
+						name = "supply_navy_value"
+						font = "hoi_16mbs"
+						position = { x=0 y=18 }
+						maxWidth = 40
+						maxHeight = 23
+						format = center
+						fixedsize = yes
+						text = "0"
+					}
+
+					iconType = {
+						name = "supply_navy_icon"
+						spriteType = "GFX_MODIFIER_NAVAL_SUPPLY_CONSUMPTION_FACTOR"
+						position = { x=5 y=0 }
+					}
+				}	
+				
+				containerWindowType = {
+				name = "countries"
+				position = {x=113 y=12}
+
+				instantTextBoxType = {
+					name = "assigned_countries"
+					font = "hoi_16mbs"
+					position = { x=0 y=18 }
+					maxWidth = 40
+					maxHeight = 23
+					format = center
+					fixedsize = yes
+					text = "0/0"
+				}
+
+				iconType = {
+					name = "assigned_countries_icon"
+					spriteType = "GFX_assigned_countries_icon"
+					position = { x=5 y=-8 }
+				}
+			}
+
+			containerWindowType = {
+				name = "regions"
+				position = {x=148 y=12}
+
+				instantTextBoxType = {
+					name = "assigned_regions"
+					font = "hoi_16mbs"
+					position = { x=0 y=18 }
+					maxWidth = 40
+					maxHeight = 23
+					format = center
+					fixedsize = yes
+					text = "0/0"
+				}
+
+				iconType = {
+					name = "assigned_regions_icon"
+					spriteType = "GFX_icon_occupied_territories"
+					position = { x=5 y=-8 }
+				}								
+			}	
+			
+		}
+	}
+}

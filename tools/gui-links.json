@@ -82,6 +82,61 @@
       "grid": "air_header/modifiers_grid",
       "window": "countryarmyview",
       "entry": "modifier_entry"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_military_line_entry",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_military_line_entry_collapsed",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_military_new_line_entry",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_naval_line_entry",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_naval_line_entry_collapsed",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_ship_refit_line_entry",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_ship_refit_line_entry_collapsed",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_railway_gun_line_entry",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_railway_gun_line_entry_collapsed",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_naval_new_line_entry",
+      "window": "countryproductionlineview"
+    },
+    {
+      "grid": "item_grid",
+      "entry": "production_consumergoods_line_entry",
+      "window": "countryproductionlineview"
     }
   ],
   "listRows": [

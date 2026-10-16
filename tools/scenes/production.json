@@ -1,18 +1,256 @@
 {
   "_comment": "Scene for the production panel. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
   "screen": "production",
-  "phase": "C",
+  "phase": "C1",
   "file": "zz_1440p_production.gui",
   "screenshot": "reference/vanilla/production.jpg",
-  "windows": [],
-  "samples": {},
+  "windows": [
+    {
+      "name": "countryproductionlineview",
+      "at": [
+        -6,
+        78
+      ],
+      "height": 1362,
+      "sidePanel": true,
+      "rows": {
+        "production_lines/item_grid": 10,
+        "resource_strip_container/resources_grid": 7
+      },
+      "listRows": {
+        "production_lines/item_grid": "production_naval_line_entry",
+        "resource_strip_container/resources_grid": "resource_strip_item"
+      },
+      "place": {
+        "production_lines/item_grid": [
+          14,
+          41
+        ]
+      },
+      "hide": [
+        "infantry_button_glow",
+        "tank_button_glow",
+        "aircraft_button_glow",
+        "naval_button_glow",
+        "tutorial_glow",
+        "tutorial_glow_2"
+      ],
+      "_note": "The naval tab, as the vanilla reference shows it. 'place' adds the 36 px top margin of the scrolling list to its grid; the renderer does not model margins."
+    },
+    {
+      "name": "production_naval_line_entry",
+      "skip": true,
+      "hide": [
+        "has_mio_background",
+        "production_line_selected",
+        "change_manufacturer",
+        "outdated_equipment_overlay",
+        "equipment_designer_can_upgrade",
+        "carrier_air_wing_composition",
+        "need_state_icon",
+        "total_need",
+        "prod_line_glow",
+        "factories_sub_5x",
+        "factories_sub_10x",
+        "factories_add_5x",
+        "factories_add_10x",
+        "deploy_icon"
+      ],
+      "_note": "The code shows one of each pair of factory buttons, one manufacturer button, and the overlays only in their states."
+    },
+    {
+      "name": "production_military_line_entry",
+      "skip": true,
+      "hide": [
+        "has_mio_background",
+        "production_line_selected",
+        "change_manufacturer",
+        "outdated_equipment_overlay",
+        "equipment_designer_can_upgrade",
+        "carrier_air_wing_composition",
+        "prod_line_glow",
+        "factories_sub_5x",
+        "factories_sub_10x",
+        "factories_add_5x",
+        "factories_add_10x",
+        "efficiency_progressbar_to_max",
+        "convert"
+      ]
+    },
+    {
+      "name": "production_military_line_entry_collapsed",
+      "skip": true,
+      "hide": [
+        "has_mio_background",
+        "production_line_selected",
+        "change_manufacturer",
+        "outdated_equipment_overlay",
+        "carrier_air_wing_composition",
+        "factories_sub_5x",
+        "factories_sub_10x",
+        "factories_add_5x",
+        "factories_add_10x",
+        "efficiency_progressbar_to_max",
+        "convert"
+      ]
+    },
+    {
+      "name": "production_naval_line_entry_collapsed",
+      "skip": true,
+      "hide": [
+        "has_mio_background",
+        "production_line_selected",
+        "change_manufacturer",
+        "outdated_equipment_overlay",
+        "carrier_air_wing_composition",
+        "factories_sub_5x",
+        "factories_sub_10x",
+        "factories_add_5x",
+        "factories_add_10x",
+        "deploy_icon"
+      ]
+    }
+  ],
+  "samples": {
+    "countryproductionlineview": {
+      "production_title": "Production",
+      "operational_factories": "Military Factories",
+      "operational_factories_value": "20/28",
+      "operational_naval_factories": "Dockyards",
+      "operational_naval_factories_value": "10/10",
+      "operational_naval_factories_repair_value": "0/3",
+      "docyards_output_value": "+17%",
+      "production_output_value": "+17%",
+      "efficiency_cap_value": "50%",
+      "production_efficiency_loss_value": "+0%",
+      "efficiency_growth_value": "+0%",
+      "factory_bombing_defence_value": "+0%",
+      "factories_used_equipment": "15",
+      "factories_used_armor": "2",
+      "factories_used_air": "3",
+      "factories_used_capital_ships": "4",
+      "factories_used_screen_ships": "2",
+      "factories_used_other_ships": "4",
+      "factories_used_refitting": "0",
+      "factories_used_resources": "4",
+      "factories_used_outdated": "6",
+      "factories_used_stockpiling": "4",
+      "factories_used_reinforcing": "3",
+      "factories_used_upgrading": "1"
+    },
+    "production_naval_line_entry": {
+      "name": [
+        "Zerstörer 1934",
+        "Zerstörer 1934",
+        "Deutschland",
+        "Admiral Hipper",
+        "Scharnhorst",
+        "Scharnhorst",
+        "Zerstörer 1934A",
+        "Zerstörer 1934A",
+        "Zerstörer 1934A",
+        "Zerstörer 1934A"
+      ],
+      "general_name": [
+        "Basic Destroyer",
+        "Basic Destroyer",
+        "Panzerschiff",
+        "Basic Cruiser",
+        "Basic Heavy Ship",
+        "Basic Heavy Ship",
+        "Basic Destroyer",
+        "Basic Destroyer",
+        "Basic Destroyer",
+        "Basic Destroyer"
+      ],
+      "speed": [
+        "11 Apr 1936",
+        "22 May 1936",
+        "19 Apr 1936",
+        "4 Jun 1939",
+        "21 Mar 1941",
+        "8 Jan 1942",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "deploy_name": "USN Pacific Fleet",
+      "factories_used_txt": "1",
+      "amount": [
+        "2",
+        "2",
+        "1",
+        "1",
+        "1",
+        "1",
+        "4",
+        "4",
+        "4",
+        "4"
+      ],
+      "name_list_btn": [
+        "Z1 Leberecht Maass",
+        "Z2 Georg Thiele",
+        "Admiral Graf Spee",
+        "Admiral Hipper",
+        "Scharnhorst",
+        "Gneisenau",
+        "Z3 Max Schultz",
+        "Z4 Richard Beitzen",
+        "Z5 Paul Jacobi",
+        "Z6 Theodor Riedel"
+      ],
+      "priority": [
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22"
+      ]
+    },
+    "production_military_line_entry": {
+      "name": "Gewehr 98",
+      "general_name": "Infantry Equipment I",
+      "speed": "3 Jan 1936",
+      "factories_used_txt": "15",
+      "total_need": "Total need: 200"
+    },
+    "production_naval_line_entry_collapsed": {
+      "deploy_name": "Auto"
+    },
+    "production_ship_refit_line_entry": {
+      "deploy_name": "Auto"
+    },
+    "production_ship_refit_line_entry_collapsed": {
+      "deploy_name": "Auto"
+    },
+    "production_railway_gun_line_entry": {
+      "deploy_name": "Auto"
+    },
+    "production_railway_gun_line_entry_collapsed": {
+      "deploy_name": "Auto"
+    },
+    "production_military_line_entry_collapsed": {
+      "total_need": "200"
+    }
+  },
   "setup": [
     {
       "move": "open_production"
     }
   ],
   "captures": [],
-  "expect": [],
+  "expect": [
+    "countryproductionlineview/close_button",
+    "countryproductionlineview/infantry_button",
+    "countryproductionlineview/naval_button"
+  ],
   "crop": [
     0,
     60,
@@ -20,6 +258,15 @@
     1140
   ],
   "manual": [],
-  "checklist": [],
-  "_note": "Backlog screen: recipe and vanilla reference only. No windows listed yet; add them with tools/New-OverrideFile.ps1 when the phase starts."
+  "checklist": [
+    "Width: the panel is 820 px (vanilla 550); ten lines on the screen with the naval tab",
+    "Top: resources and factories in use; add-line buttons and the six efficiency figures; the twelve filters in one row, each clickable with its count",
+    "A naval line: the ship picture (does it fill the wider frame?), manufacturer and deploy location, ready date, factories - n +, the slots, amount + and -, the next ship's name, resources, delete",
+    "A land line: efficiency bar beside the manufacturer, ready date and total need, x10 and x5, the 5x3 slots",
+    "A collapsed line (the expand arrow), a refit line, a railway gun line",
+    "The equipment pickers, the deployment and ship name windows and naval repair open beside the panel, not under it",
+    "Priority arrows and drag order; scroll the list to its end"
+  ],
+  "_note": "C1 round 3 (2026-10-16): the panel is 820 wide, the lines 780, the top in three rows. Round 1 was 1044 wide.",
+  "knownCuts": []
 }

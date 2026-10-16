@@ -604,6 +604,101 @@ def theatre_strip(frame):
     return grow(frame, "x", stretched(60, 115, half) + stretched(185, 240, half))
 
 
+# ---------------------------------------------------------------------------------------------
+# Production (phase C1). A production line is painted as a header band (rows 0-27) over a body: the
+# equipment plate (columns 2-278, a clasp at 122-150 of its top and bottom edge), a dark gap
+# (278-320, plain to 300), the factory slots (320-470) and the resource column (470-510). A line grows
+# from 511 to 780 columns: the plate by PROD_PLATE in its plain middle (160-260), the dark gap by
+# PROD_GAP. The numbers are shared with the widget positions in interface/zz_1440p_production.gui.
+# (Round 1 made the lines 1000 wide and the plate 142 wider; the game draws the picture at a fixed
+# place [GUL-041] and the tester found the panel too wide and empty, 2026-10-16.)
+
+PROD_PLATE = 20           # equipment plate 278 -> 298: 20 free on each side of the picture
+PROD_GAP = 249            # the gap becomes the column of manufacturer, deploy location and ready date
+
+
+def production_columns(frame, gap=True):
+    """A production line bitmap, or a piece of one (the equipment plate, an overlay), grown by the
+    plate insert and, unless `gap` is false, the gap insert."""
+    inserts = stretched(160, 260, PROD_PLATE)
+    if gap:
+        inserts += stretched(284, 300, PROD_GAP)
+    return grow(frame, "x", inserts)
+
+
+PROD_HEADER_WIDTH = 796
+PROD_FILTER_CELL = 66     # a filter cell: the checkbox (45 wide, 44 columns of the cell) and the count (22)
+
+
+def production_header(source):
+    """The top of the production panel (production_win_top.dds, 550x253: resources, efficiency,
+    factories and two rows of filters stacked) as three rows, 796x126.
+
+    Row 1 (44 rows): the resources band (rows 8-52), then a piece of the plain efficiency band for the
+    factories in use. Row 2 (48): the factories band where its add-line buttons stand (rows 114-162),
+    grown by 286 columns in its plain parts, beside the plain efficiency band for the six efficiency
+    figures. Row 3 (34): the twelve filter cells in one row; each cell of the source (85 columns,
+    starting at column 13) keeps its checkbox part and the end of its count part.
+    """
+    out = Image.new("RGBA", (PROD_HEADER_WIDTH, 126), (0, 0, 0, 0))
+    out.paste(source.crop((20, 8, 530, 52)), (0, 0))
+    plain = grow(source.crop((20, 52, 306, 88)), "y", [(18, 8)])          # 286 x 44
+    out.paste(plain, (510, 0))
+    factories = grow(source.crop((20, 114, 530, 162)), "x", stretched(120, 240, 143) + stretched(300, 420, 143))
+    out.paste(factories.crop((0, 0, 430, 48)), (0, 44))
+    out.paste(grow(source.crop((20, 52, 386, 88)), "y", [(18, 12)]), (430, 44))
+    x = 0
+    for top in (176, 207):
+        for k in range(6):
+            c = 13 + 85 * k
+            out.paste(source.crop((c, top, c + 44, top + 34)), (x, 92))
+            out.paste(source.crop((c + 63, top, c + 85, top + 34)), (x + 44, 92))
+            x += PROD_FILTER_CELL
+    return out
+
+
+# ---------------------------------------------------------------------------------------------
+# General selection (phase C2). The window grows from 550x607 to 800x1180, a general's row from 510x98
+# to 760x124 with a portrait box 32 wider. Shared with interface/zz_1440p_leader_selection.gui.
+
+LEADER_ROW_WIDTH = 760
+LEADER_ROW_HEIGHT = 124
+LEADER_PORTRAIT_GROWTH = 32   # the white portrait box, 64 -> 96 columns
+
+
+def leader_window(source):
+    """The window: its header band holds a painted search field (columns 175-315), so the columns go in
+    to its right (375-500, plain); the rows go in across the plain dark middle (110-520), which darkens
+    towards the bottom, as many single rows so the gradient stays smooth."""
+    out = grow(source, "x", [(500, 250)])
+    return grow(out, "y", stretched(110, 520, 1180 - source.height))
+
+
+def leader_row(source):
+    """A general's row: the white portrait box (56-120) takes columns from its plain inside; the paper
+    takes a mirrored insert from the plain right half (321-430); the rows go in across the stripes of
+    the emblem column and the plain paper under the name (66-79)."""
+    paper = LEADER_ROW_WIDTH - source.width - LEADER_PORTRAIT_GROWTH
+    out = grow(source, "x", [(100, LEADER_PORTRAIT_GROWTH), (430, paper)])
+    return grow(out, "y", [(79, LEADER_ROW_HEIGHT - source.height)])
+
+
+# ---------------------------------------------------------------------------------------------
+# Priority rows of Recruit & Deploy (A5, step 2): 493 to 575 columns, as wide as the training cards
+# under them. A row is the icon box (0-95), a plain band (100-350), a lighter band behind the priority
+# buttons (355-385) and the end. The columns go in from the plain band. The code puts these
+# backgrounds on the rows by their vanilla names, which the mod declares again
+# (interface/zz_1440p_vanilla_sprites.gfx). The label plate and the equipment meter grow with them.
+
+PRIORITY_ROW_WIDTH = 575
+PRIORITY_TITLE_GROWTH = 52    # label plate 159 -> 211
+PRIORITY_METER_GROWTH = 40    # equipment meter 108 -> 148
+
+
+def priority_row(source):
+    return grow(source, "x", [(300, PRIORITY_ROW_WIDTH - source.width)])
+
+
 # One entry per output texture. `frames` lists one widening call per frame of the source, left to right;
 # `compose` is a function that builds the whole output from the source instead.
 JOBS = [
@@ -981,6 +1076,145 @@ JOBS = [
         "source": "gfx/interface/modifiers/MODIFIER_bg.dds",
         "output": "ao_modifier_bg.dds",
         "compose": lambda source: grow(source, "x", stretched(14, 56, 46)),
+    },
+    # C1. Production: the lines 1000 wide, the equipment plates and overlays 142 wider, the panel top
+    # rearranged. production_item and the naval strip keep their vanilla sprite names (the code sets
+    # them), the others get GFX_1440p_ names.
+    {
+        "source": "gfx/interface/production_win_top.dds",
+        "output": "pd_header.dds",
+        "compose": production_header,
+    },
+    {
+        "source": "gfx/interface/production_item.dds",
+        "output": "pd_line.dds",
+        "frames": [production_columns],
+    },
+    {
+        # Three frames: one, two and three rows of factory slots.
+        "source": "gfx/interface/naval_production_item_slots_strip.dds",
+        "output": "pd_naval_line.dds",
+        "frames": [production_columns] * 3,
+    },
+    {
+        "source": "gfx/interface/production_item_collapsed.dds",
+        "output": "pd_line_collapsed.dds",
+        "frames": [production_columns],
+    },
+    {
+        "source": "gfx/interface/production_line_selected.dds",
+        "output": "pd_line_selected.dds",
+        "frames": [production_columns],
+    },
+    {
+        "source": "gfx/interface/naval_production_line_selected.dds",
+        "output": "pd_naval_line_selected.dds",
+        "frames": [production_columns],
+    },
+    {
+        "source": "gfx/interface/production_item_selected_collapsed.dds",
+        "output": "pd_line_selected_collapsed.dds",
+        "frames": [production_columns],
+    },
+    {
+        # The marker of a line that a military-industrial organisation produces: the header band only.
+        "source": "gfx/interface/military_industrial_organization/production_item_has_mio.dds",
+        "output": "pd_line_has_mio.dds",
+        "frames": [production_columns],
+    },
+    {
+        "source": "gfx/interface/prod_land_equipment_item_large.dds",
+        "output": "pd_land_item_large.dds",
+        "frames": [lambda f: production_columns(f, gap=False)],
+    },
+    {
+        "source": "gfx/interface/prod_naval_equipment_item_large.dds",
+        "output": "pd_naval_item_large.dds",
+        "frames": [lambda f: production_columns(f, gap=False)],
+    },
+    {
+        "source": "gfx/interface/equipment_item_collapsed.dds",
+        "output": "pd_item_collapsed.dds",
+        "frames": [lambda f: production_columns(f, gap=False)],
+    },
+    {
+        "source": "gfx/interface/naval_item_collapsed.dds",
+        "output": "pd_naval_item_collapsed.dds",
+        "frames": [lambda f: production_columns(f, gap=False)],
+    },
+    {
+        "source": "gfx/interface/outdated_equipment_overlay.dds",
+        "output": "pd_outdated_overlay.dds",
+        "frames": [lambda f: production_columns(f, gap=False)],
+    },
+    {
+        "source": "gfx/interface/outdated_naval_equipment_overlay.dds",
+        "output": "pd_outdated_naval_overlay.dds",
+        "frames": [lambda f: production_columns(f, gap=False)],
+    },
+    {
+        "source": "gfx/interface/outdated_equipment_overlay_collapsed.dds",
+        "output": "pd_outdated_overlay_collapsed.dds",
+        "frames": [lambda f: production_columns(f, gap=False)],
+    },
+    {
+        "source": "gfx/interface/outdated_naval_overlay_collapsed.dds",
+        "output": "pd_outdated_naval_overlay_collapsed.dds",
+        "frames": [lambda f: production_columns(f, gap=False)],
+    },
+    {
+        # The deploy location button of a ship line, 124 to 185 wide: a round badge (0-36), a plain bar.
+        "source": "gfx/interface/naval_deploy_button.dds",
+        "output": "pd_deploy_button.dds",
+        "compose": lambda source: grow(source, "x", stretched(50, 110, 61)),
+    },
+    # C2. General selection: the window and a general's row.
+    {
+        "source": "gfx/interface/leader_selection_bg.dds",
+        "output": "ls_window_bg.dds",
+        "compose": leader_window,
+    },
+    {
+        "source": "gfx/interface/leader_selection_entry_bg.dds",
+        "output": "ls_entry_bg.dds",
+        "compose": leader_row,
+    },
+    # A5, step 2. The priority rows of Recruit & Deploy (the lend-lease row uses the garrisons texture),
+    # their label plate and their equipment meter.
+    {
+        "source": "gfx/interface/deploy_reinforcements_entry.dds",
+        "output": "rd_reinforcements_entry.dds",
+        "compose": priority_row,
+    },
+    {
+        "source": "gfx/interface/deploy_upgrades_entry.dds",
+        "output": "rd_upgrades_entry.dds",
+        "compose": priority_row,
+    },
+    {
+        "source": "gfx/interface/deploy_supply_entry.dds",
+        "output": "rd_supply_entry.dds",
+        "compose": priority_row,
+    },
+    {
+        "source": "gfx/interface/deploy_operations_entry.dds",
+        "output": "rd_operations_entry.dds",
+        "compose": priority_row,
+    },
+    {
+        "source": "gfx/interface/deploy_garrisons_entry.dds",
+        "output": "rd_garrisons_entry.dds",
+        "compose": priority_row,
+    },
+    {
+        "source": "gfx/interface/deploy_priority_title_bg.dds",
+        "output": "rd_priority_title_bg.dds",
+        "compose": lambda source: grow(source, "x", [(80, PRIORITY_TITLE_GROWTH)]),
+    },
+    {
+        "source": "gfx/interface/deploy_priority_equipment_meter_bg.dds",
+        "output": "rd_priority_meter_bg.dds",
+        "compose": lambda source: grow(source, "x", [(80, PRIORITY_METER_GROWTH)]),
     },
 ]
 

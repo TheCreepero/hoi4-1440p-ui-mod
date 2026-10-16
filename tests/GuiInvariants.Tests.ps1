@@ -239,9 +239,33 @@ Describe 'Mod sprites' {
         $missing | Should -BeNullOrEmpty
     }
 
-    It 'gives every declared sprite the GFX_1440p_ prefix' {
-        $foreign = @($script:DeclaredSprites | Where-Object { $_.Name -notlike 'GFX_1440p_*' } | ForEach-Object { $_.Name })
-        $foreign | Should -BeNullOrEmpty -Because 'redefining a vanilla sprite name changes every screen that uses it'
+    It 'gives every declared sprite the GFX_1440p_ prefix, but the listed vanilla names' {
+        # A vanilla name is declared again only where the code puts the sprite on a widget itself, only in
+        # interface/zz_1440p_vanilla_sprites.gfx (it must sort after the vanilla file, LOAD-012), and only when
+        # the screen named here is the only one that shows it (Design Rules, "Sprites and backgrounds").
+        $allowed = @{
+            'GFX_production_item'                = 'C1 production lines'
+            'GFX_naval_production_item_bg_strip' = 'C1 production lines'
+            'GFX_prod_progress_bar2'             = 'C1 production lines'
+            'GFX_prod_progress_bar2_red'         = 'C1 production lines'
+            'GFX_prod_progress_bar2_yellow'      = 'C1 production lines'
+            'GFX_deploy_reinforcements_entry'    = 'A5 priority rows of Recruit & Deploy'
+            'GFX_deploy_upgrades_entry'          = 'A5 priority rows of Recruit & Deploy'
+            'GFX_deploy_supply_entry'            = 'A5 priority rows of Recruit & Deploy'
+            'GFX_deploy_operations_entry'        = 'A5 priority rows of Recruit & Deploy'
+            'GFX_deploy_garrisons_entry'         = 'A5 priority rows of Recruit & Deploy'
+            'GFX_deploy_lendlease_entry'         = 'A5 priority rows of Recruit & Deploy'
+        }
+        $redefinitionFile = 'zz_1440p_vanilla_sprites.gfx'
+        $wrong = foreach ($file in @(Get-ModGuiFiles -Filter '*.gfx')) {
+            $text = Read-GuiText -Path $file.FullName
+            foreach ($sprite in @(Get-GuiSpriteDeclarations -Root (ConvertFrom-GuiText -Text $text))) {
+                if ($sprite.Name -like 'GFX_1440p_*') { continue }
+                if (-not $allowed.ContainsKey($sprite.Name)) { "$($file.Name): $($sprite.Name) is a vanilla name that is not listed"; continue }
+                if ($file.Name -ne $redefinitionFile) { "$($file.Name): $($sprite.Name) belongs in $redefinitionFile" }
+            }
+        }
+        $wrong | Should -BeNullOrEmpty -Because 'redefining a vanilla sprite name changes every screen that uses it'
     }
 
     It 'points every declared sprite at a texture that exists' {

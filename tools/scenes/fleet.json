@@ -331,12 +331,13 @@
     "States a 1936 start does not show: a commander with traits, a damaged ship (repair and refit buttons), a mission in several regions, a carrier's plane bar, several fleets selected at once"
   ],
   "checklist": [
-    "Fleet card: name, commander box, composition counters, home base name in full, Select All",
     "Toolbar: every button, the three dropdowns opened",
     "Task force cards: name, mission line, the four order buttons, composition counters",
     "Ship list: both bars, silhouette, level, name and class on one line, insignia; scroll a long list to its end",
     "Selected and unselected ship rows",
-    "Home base picker and composition editor open clear of the panel"
+    "Home base picker and composition editor open clear of the panel",
+    "Fleet card (A9): title strip with Select All and the count, commander card with an admiral, ships card with every class inside it, base card",
+    "The toolbar still 168 px below the top of the panel with one fleet"
   ],
   "teardown": [
     {

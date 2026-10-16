@@ -146,7 +146,7 @@
         "Panzer-Division",
         "Infanterie-Division (mot.)"
       ],
-      "amount": "\u221e",
+      "amount": "∞",
       "deploy_location_button": "No location set"
     },
     "military_deployment_conveyor_summary_view": {
@@ -165,7 +165,7 @@
         "4. Panzer-Division",
         "29. Infanterie-Division (mot.)"
       ],
-      "series_number": "1/\u221e"
+      "series_number": "1/∞"
     },
     "templatedeploymentwindow": {
       "special_forces_cap": "6/24"
@@ -355,7 +355,8 @@
     "A card: set a location (the button, then the map), assign an order, the series - and +, the three priority dots, fold and unfold, the two order arrows",
     "A template: Train (and Shift+click for five), Edit, the decommission toggle, delete on a template of your own",
     "The symbol picker: pick a symbol, Default symbol, Back",
-    "Shift+F opens the division designer"
+    "Shift+F opens the division designer",
+    "Priority rows (step 2): six rows as wide as the cards under them, each in its own colour, label and meter whole, the three dots"
   ],
   "teardown": [
     {

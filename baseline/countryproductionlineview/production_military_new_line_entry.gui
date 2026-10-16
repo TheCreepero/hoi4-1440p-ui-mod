@@ -1,0 +1,101 @@
+# Vanilla 1.19.3.0, interface/countryproductionlineview.gui, lines 2137-2233.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "production_military_new_line_entry"
+		position = { x=0 y=0 }
+		size = { width=500 height= 108 }
+		clipping = no
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_production_item"
+		}
+
+		iconType = {
+			name ="production_line_selected"
+			spriteType = "GFX_production_line_selected"
+			position = { x= 0 y = 0 }
+		}
+
+		#iconType = {
+		#	name ="efficiency_progressbar_to_max"
+		#	spriteType = "GFX_efficiency_progressbar_to_max"
+		#	position = { x= 328 y = 8 }
+		#}
+		#iconType = {
+		#	name ="efficiency_progressbar"
+		#	spriteType = "GFX_efficiency_progressbar"
+		#	position = { x= 328 y = 8 }
+		#
+		#}
+		#iconType = {
+		#	name ="efficiency_progressbar_frame"
+		#	spriteType = "GFX_efficiency_progressbar_frame"
+		#	position = { x= 324 y = 6 }
+		#}
+#
+		#iconType = {
+		#	name ="efficiency_icon"
+		#	spriteType = "GFX_efficiency_icon"
+		#	position = { x= 289 y = 4 }
+		#}
+
+		buttonType = {
+			name = "btn_x10"
+			position = { x=278 y=30	 }
+			quadTextureSprite = "GFX_btn_x10"
+			clicksound = click_close
+		}
+		buttonType = {
+			name = "btn_x5"
+			position = { x=278 y=68	 }
+			quadTextureSprite = "GFX_btn_x5"
+			clicksound = click_close
+		}
+
+		iconType = {
+			name = "equipment_button"
+			position = { x=1 y=27 }
+			spriteType = "GFX_prod_land_equipment_item_large"
+		}
+
+		iconType = {
+			name ="equipment_icon"
+			spriteType = "GFX_technology_medium"
+			position = { x=140 y=68 }
+			centerposition = yes
+			alwaystransparent = yes
+		}
+
+		#iconType = {
+		#	name ="progressbar"
+		#	spriteType = "GFX_prod_progress_bar2"
+		#	position = { x= 158 y = 31 }
+		#	alwaystransparent = yes
+		#}
+		#
+		#instantTextboxType = {
+		#	name = "speed"
+		#	position = { x = 157 y = 32 }
+		#	textureFile = ""
+		#	font = "hoi_18mbs"
+		#	text = "--"
+		#	maxWidth = 120
+		#	maxHeight = 20
+		#	format = center
+		#}
+
+		#iconType = {
+		#	name = "increase_priority"
+		#	position = { x=488 y=41 }
+		#	spriteType = "GFX_arrow_up_small"
+		#}
+		#
+		#iconType = {
+		#	name = "decrease_priority"
+		#	position = { x=488 y=70	 }
+		#	spriteType = "GFX_arrow_down_small"
+		#}
+	}
+}

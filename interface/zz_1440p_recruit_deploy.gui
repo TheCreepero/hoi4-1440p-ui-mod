@@ -455,8 +455,8 @@ guiTypes = {
 
 	containerWindowType = {
 		name = "deploy_entry"
-		position = { x = 45 y = 0}
-		size = { width = 493 height = 47 }
+		position = { x = 2 y = 0}
+		size = { width = 575 height = 47 }
 
 		background = {
 			name = "Background"
@@ -485,7 +485,7 @@ guiTypes = {
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
 			text = "Maus"
-			maxWidth = 159
+			maxWidth = 211
 			maxHeight = 20
 			format = center
 			alwaystransparent = yes
@@ -493,7 +493,7 @@ guiTypes = {
 
 		background = {
 			name = "deploy_priority_title_bg"
-			spriteType = "GFX_deploy_priority_title_bg"
+			spriteType = "GFX_1440p_RD_priority_title_bg"
 			alwaystransparent = no
 			position = { x = 110 y = 12 }
 			alwaystransparent = yes
@@ -502,27 +502,27 @@ guiTypes = {
 		iconType = {
 			name = "army_equipment"
 			spriteType = "GFX_equipment_icon"
-			position = { x=285 y=15 }
+			position = { x=337 y=15 }
 			alwaystransparent = yes
 		}
 
 		iconType = {
 			name = "equipment_progressbar"
-			spriteType = "GFX_deployment_progressbar"
-			position = { x=310 y=19 }
+			spriteType = "GFX_1440p_RD_priority_meter_bar"
+			position = { x=362 y=19 }
 			alwaystransparent = yes
 		}
 
 		background = {
 			name = "deploy_priority_equipment_meter_bg"
-			spriteType = "GFX_deploy_priority_equipment_meter_bg"
+			spriteType = "GFX_1440p_RD_priority_meter_bg"
 			alwaystransparent = no
-			position = { x = 280 y = 10 }
+			position = { x = 332 y = 10 }
 		}
 
 		buttonType = {
 			name = "low_prio"
-			position = { x = 415 y = 15 }
+			position = { x = 497 y = 15 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1
@@ -531,7 +531,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "medium_prio"
-			position = { x = 435 y = 15 }
+			position = { x = 517 y = 15 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 3
@@ -540,7 +540,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "high_prio"
-			position = { x = 455 y = 15 }
+			position = { x = 537 y = 15 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1
@@ -550,8 +550,8 @@ guiTypes = {
 
 	containerWindowType = {
 		name = "supply_deploy_entry"
-		position = { x = 45 y = 0}
-		size = { width = 493 height = 47 }
+		position = { x = 2 y = 0}
+		size = { width = 575 height = 47 }
 
 		background = {
 			name = "Background"
@@ -579,7 +579,7 @@ guiTypes = {
 			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
 			text = "Maus"
-			maxWidth = 159
+			maxWidth = 211
 			maxHeight = 20
 			format = center
 			alwaystransparent = yes
@@ -587,7 +587,7 @@ guiTypes = {
 
 		background = {
 			name = "deploy_priority_title_bg"
-			spriteType = "GFX_deploy_priority_title_bg"
+			spriteType = "GFX_1440p_RD_priority_title_bg"
 			alwaystransparent = no
 			position = { x = 110 y = 12 }
 			alwaystransparent = yes
@@ -596,27 +596,27 @@ guiTypes = {
 		iconType = {
 			name = "army_equipment"
 			spriteType = "GFX_equipment_icon"
-			position = { x=285 y=15 }
+			position = { x=337 y=15 }
 			alwaystransparent = yes
 		}
 
 		iconType = {
 			name = "equipment_progressbar"
-			spriteType = "GFX_deployment_progressbar"
-			position = { x=310 y=20 }
+			spriteType = "GFX_1440p_RD_priority_meter_bar"
+			position = { x=362 y=20 }
 			alwaystransparent = yes
 		}
 
 		background = {
 			name = "deploy_priority_equipment_meter_bg"
-			spriteType = "GFX_deploy_priority_equipment_meter_bg"
+			spriteType = "GFX_1440p_RD_priority_meter_bg"
 			alwaystransparent = no
-			position = { x = 280 y = 11 }
+			position = { x = 332 y = 11 }
 		}
 
 		buttonType = {
 			name = "low_prio"
-			position = { x = 415 y = 15 }
+			position = { x = 497 y = 15 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1
@@ -625,7 +625,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "medium_prio"
-			position = { x = 435 y = 15 }
+			position = { x = 517 y = 15 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 3
@@ -634,7 +634,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "high_prio"
-			position = { x = 455 y = 15 }
+			position = { x = 537 y = 15 }
 			buttonFont = "hoi_16mbs"
 			quadTextureSprite = "GFX_deploy_priority"
 			frame = 1

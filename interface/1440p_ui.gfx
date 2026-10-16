@@ -480,6 +480,238 @@ spriteTypes = {
 		noOfFrames = 2
 	}
 
+	# C1: production. The top of the panel (resources, efficiency, factories, filters in two rows,
+	# 1020x134) and the parts of a line that the files name, widened as the lines are (1000 wide; the
+	# equipment plate 142 wider). The line backgrounds the code sets keep their vanilla names and are
+	# redefined in interface/zz_1440p_vanilla_sprites.gfx. Textures: tools/stretch_background.py, pd_*.
+	spriteType = {
+		name = "GFX_1440p_PD_header"
+		texturefile = "gfx/interface/1440p_ui/pd_header.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_line_collapsed"
+		texturefile = "gfx/interface/1440p_ui/pd_line_collapsed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_line_selected"
+		texturefile = "gfx/interface/1440p_ui/pd_line_selected.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_naval_line_selected"
+		texturefile = "gfx/interface/1440p_ui/pd_naval_line_selected.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_line_selected_collapsed"
+		texturefile = "gfx/interface/1440p_ui/pd_line_selected_collapsed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_line_has_mio"
+		texturefile = "gfx/interface/1440p_ui/pd_line_has_mio.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_land_item_large"
+		texturefile = "gfx/interface/1440p_ui/pd_land_item_large.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_naval_item_large"
+		texturefile = "gfx/interface/1440p_ui/pd_naval_item_large.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_item_collapsed"
+		texturefile = "gfx/interface/1440p_ui/pd_item_collapsed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_naval_item_collapsed"
+		texturefile = "gfx/interface/1440p_ui/pd_naval_item_collapsed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_outdated_overlay"
+		texturefile = "gfx/interface/1440p_ui/pd_outdated_overlay.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_outdated_naval_overlay"
+		texturefile = "gfx/interface/1440p_ui/pd_outdated_naval_overlay.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_outdated_overlay_collapsed"
+		texturefile = "gfx/interface/1440p_ui/pd_outdated_overlay_collapsed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_outdated_naval_overlay_collapsed"
+		texturefile = "gfx/interface/1440p_ui/pd_outdated_naval_overlay_collapsed.dds"
+	}
+
+	# The deploy location button of a ship line, 185 wide: the fleet name has 150 px.
+	spriteType = {
+		name = "GFX_1440p_PD_deploy_button"
+		texturefile = "gfx/interface/1440p_ui/pd_deploy_button.dds"
+	}
+
+	# C2: general selection. The window, 800x1180, and a general's row, 760x124 with a portrait box of
+	# 96 columns, widened from the vanilla bitmaps by tools/stretch_background.py (ls_*).
+	spriteType = {
+		name = "GFX_1440p_LS_window_bg"
+		texturefile = "gfx/interface/1440p_ui/ls_window_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_LS_entry_bg"
+		texturefile = "gfx/interface/1440p_ui/ls_entry_bg.dds"
+	}
+
+	# A5, step 2: the label plate and the equipment meter of a priority row, which grow with the row
+	# (the rows themselves are redefined under their vanilla names, zz_1440p_vanilla_sprites.gfx).
+	spriteType = {
+		name = "GFX_1440p_RD_priority_title_bg"
+		texturefile = "gfx/interface/1440p_ui/rd_priority_title_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_RD_priority_meter_bg"
+		texturefile = "gfx/interface/1440p_ui/rd_priority_meter_bg.dds"
+	}
+
+	# The equipment bar in the meter, 112 long instead of 72: the vanilla textures at another size.
+	progressbartype = {
+		name = "GFX_1440p_RD_priority_meter_bar"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/deployment_progressbar.dds"
+		textureFile2 = "gfx/interface/deployment_progressbar_bg.dds"
+		size = { x = 112 y = 12 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+
+	# A9: card pass on the army badge and the navy header. Vanilla tiles at the size of each plate: the
+	# header, its title strip (the toolbar plate of the division list) and one plate per card.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_badge_bg"
+		size = { x = 685 y = 128 }
+		textureFile = "gfx/interface/tiles/tiled_plain_bg.dds"
+		borderSize = { x = 64 y = 64 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_badge_group_bg"
+		size = { x = 685 y = 128 }
+		textureFile = "gfx/interface/tiles/tiled_window.dds"
+		borderSize = { x = 64 y = 64 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_badge_title"
+		size = { x = 677 y = 32 }
+		textureFile = "gfx/interface/unitcontrol/unit_list_header.dds"
+		borderSize = { x = 24 y = 12 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_card_commander"
+		size = { x = 350 y = 87 }
+		textureFile = "gfx/interface/tiles/tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_card_strength"
+		size = { x = 44 y = 87 }
+		textureFile = "gfx/interface/tiles/tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+	}
+
+	# The army's organisation and strength in the strength card, standing 70 px high (rotated as the
+	# vanilla bars, which are 28): the vanilla textures at another size.
+	progressbartype = {
+		name = "GFX_1440p_CP_bar_org"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/army_badge_bar_bg.dds"
+		size = { x = 70 y = 10 }
+		effectFile = "gfx/FX/progress.lua"
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_CP_bar_str"
+		textureFile1 = "gfx/interface/navieslist_bar_str.dds"
+		textureFile2 = "gfx/interface/army_badge_bar_bg.dds"
+		size = { x = 70 y = 10 }
+		effectFile = "gfx/FX/progress.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_card_divisions"
+		size = { x = 272 y = 42 }
+		textureFile = "gfx/interface/tiles/tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_card_orders"
+		size = { x = 272 y = 41 }
+		textureFile = "gfx/interface/tiles/tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_fleet_bg"
+		size = { x = 740 y = 166 }
+		textureFile = "gfx/interface/tiles/tiled_plain_bg.dds"
+		borderSize = { x = 64 y = 64 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_fleet_title"
+		size = { x = 732 y = 34 }
+		textureFile = "gfx/interface/unitcontrol/unit_list_header.dds"
+		borderSize = { x = 24 y = 12 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_card_fleet_commander"
+		size = { x = 320 y = 118 }
+		textureFile = "gfx/interface/tiles/tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_card_ships"
+		size = { x = 406 y = 56 }
+		textureFile = "gfx/interface/tiles/tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_CP_card_base"
+		size = { x = 406 y = 58 }
+		textureFile = "gfx/interface/tiles/tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+	}
+
 	# Scripted GUIs (Milestone D). A bar that script fills through its "frame" property, 0 to 100
 	# (wiki/Engine-Facts.md, X17). Textures: the vanilla organisation bar of the navy list.
 	progressbartype = {

@@ -884,7 +884,7 @@ guiTypes = {
 		name = "army_badge_view"
 		position = {x=0 y=0}
 		Orientation = upper_left
-		size = {width=685 height=97}
+		size = {width=685 height=128}
 		clipping = no
 
 		background = {
@@ -901,18 +901,58 @@ guiTypes = {
 
 		iconType = {
 			name = "army_bg"
-			spriteType = "GFX_1440p_UV_army_bg"
+			spriteType = "GFX_1440p_CP_badge_bg"
 			position = { x=0 y=0 }
 			alwaystransparent = yes
 		}
 
 		iconType = {
 			name = "army_group_bg"
-			spriteType = "GFX_1440p_UV_army_group_bg"
+			spriteType = "GFX_1440p_CP_badge_group_bg"
 			position = { x=0 y=0 }
 			alwaystransparent = yes
 		}
 
+		iconType = {
+			name = "mod1440_cp_title"
+			spriteType = "GFX_1440p_CP_badge_title"
+			position = { x = 4 y = 3 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_commander"
+			spriteType = "GFX_1440p_CP_card_commander"
+			position = { x = 6 y = 37 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_strength"
+			spriteType = "GFX_1440p_CP_card_strength"
+			position = { x = 362 y = 37 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_divisions"
+			spriteType = "GFX_1440p_CP_card_divisions"
+			position = { x = 412 y = 37 }
+			alwaystransparent = yes
+		}
+		iconType = {
+			name = "mod1440_cp_orders"
+			spriteType = "GFX_1440p_CP_card_orders"
+			position = { x = 412 y = 83 }
+			alwaystransparent = yes
+		}
+		instantTextboxType = {
+			name = "mod1440_cp_divisions_caption"
+			position = { x = 422 y = 49 }
+			font = "hoi_16mbs"
+			text = "DIVISIONS"
+			maxWidth = 70
+			maxHeight = 18
+			format = left
+			alwaystransparent = yes
+		}
 		buttonType = {
 			name ="army_item_bg"
 			quadTextureSprite = "GFX_theatre_army_shield"
@@ -1018,7 +1058,7 @@ guiTypes = {
 		iconType = {
             name = "army_leader_prefered_tactic_type_icon"
             spriteType = "GFX_attacker_damage_icon"
-            position = { x=666 y=65 }
+            position = { x=254 y=104 }
             centerposition = yes
         }
 
@@ -1031,7 +1071,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "leader_button"
-			position = {x=9 y=32}
+			position = {x=14 y=45}
 			spriteType = "GFX_leader_unknown"
 			scale = 0.33
 			clicksound = click_default
@@ -1040,7 +1080,7 @@ guiTypes = {
 
 		iconType = {
 			name = "leader_icon"
-			position = {x=9 y=32}
+			position = {x=14 y=45}
 			quadTextureSprite ="GFX_leader_unknown"
 			alwaystransparent = yes
 			scale = 0.33
@@ -1048,7 +1088,7 @@ guiTypes = {
 
 		iconType = {
 			name = "pending_leader_icon"
-			position = {x=9 y=32}
+			position = {x=14 y=45}
 			quadTextureSprite ="GFX_leader_unknown"
 			scale = 0.15
 		}
@@ -1056,27 +1096,27 @@ guiTypes = {
 		iconType = {
 			name = "leader_coming"
 			spriteType = "GFX_opinion_arrow_right"
-			position = { x=22 y=32 }
+			position = { x=27 y=45 }
 			alwaystransparent = yes
 		}
 
 		iconType = {
 			name = "leader_portrait_frame"
-			position = {x=5 y=27}
+			position = {x=10 y=40}
 			quadTextureSprite ="GFX_unit_leader_portrait_frame_badge"
 			alwaystransparent = yes
 		}
 
 		iconType = {
 			name = "group_leader_portrait_frame"
-			position = {x=5 y=27}
+			position = {x=10 y=40}
 			quadTextureSprite ="GFX_group_leader_portrait_frame_badge"
 			alwaystransparent = yes
 		}
 
 		instantTextBoxType = {
 			name = "click_to_assign"
-			position = { x = 0 y = 48 }
+			position = { x = 5 y = 61 }
 			font = "hoi_16mbs"
 			borderSize = { x = 2 y = 2 }
 			text = "CLICK_TO_ASSIGN"
@@ -1091,13 +1131,13 @@ guiTypes = {
 			name = "leader_details_button"
 			quadTextureSprite = "GFX_leader_details_icon"
 			size = { x = 25 y = 25 }
-			position = { x=4 y = 81}
+			position = { x=9 y = 94}
 			clicksound = click_default
 		}
 
 		buttonType = {
 			name = "assign_staff_office"
-			position = { x=38 y = 81}
+			position = { x=43 y = 94}
 			quadTextureSprite ="GFX_give_role_leader_strip"
 			buttonFont = "hoi_16mbs"
 			clicksound = click_default
@@ -1107,7 +1147,7 @@ guiTypes = {
 
 		iconType = {
 			name = "leader_enroute"
-			position = {x=8 y=32}
+			position = {x=13 y=45}
 			quadTextureSprite ="GFX_leader_en_route"
 			alwaystransparent = yes
 		}
@@ -1120,7 +1160,7 @@ guiTypes = {
 
 		iconType = {
 			name = "unit_leader_tutorial_glow"
-			position = {x=4 y=28}
+			position = {x=9 y=41}
 			spriteType ="GFX_tutorial_leader_glow"
 			alwaystransparent = yes
 			hide = yes
@@ -1130,13 +1170,13 @@ guiTypes = {
 			name = "skill_bg"
 			spriteType = "GFX_land_battle_leader_skill_bg"
 			centerposition = yes
-			position = { x=311 y=55 }
+			position = { x=246 y=56 }
 			scale = 0.7
 		}
 
 		instantTextboxType = {
 			name = "leader_skill"
-			position = {x=296 y=41}
+			position = {x=231 y=42}
 			font = "hoi_18mbs"
 			maxWidth = 30
 			maxHeight = 23
@@ -1146,9 +1186,9 @@ guiTypes = {
 
 		instantTextBoxType = {
 			name = "title"
-			position = {x=70 y=36}
+			position = {x=76 y=42}
 			font = "hoi_18mbs"
-			maxWidth = 233
+			maxWidth = 160
 			maxHeight = 23
 			format = left
 			fixedsize = yes
@@ -1156,9 +1196,9 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "leader_name"
-			position = {x=70 y=53}
+			position = {x=76 y=59}
 			font = "hoi_18mbs"
-			maxWidth = 233
+			maxWidth = 160
 			maxHeight = 23
 			format = left
 			fixedsize = yes
@@ -1167,12 +1207,12 @@ guiTypes = {
 		iconType = {
 			name = "leader_stat_attack_bg"
 			spriteType = "GFX_trait_attack"
-			position = { x=323 y=39 }
+			position = { x=290 y=41 }
 		}
 
 		instantTextboxType = {
 			name = "leader_stat_attack"
-			position = {x=321 y=56}
+			position = {x=288 y=58}
 			font = "hoi_18mbs"
 			maxWidth = 30
 			maxHeight = 23
@@ -1183,12 +1223,12 @@ guiTypes = {
 		iconType = {
 			name = "leader_stat_defense_bg"
 			spriteType = "GFX_trait_defense"
-			position = { x=353 y=38 }
+			position = { x=320 y=40 }
 		}
 
 		instantTextboxType = {
 			name = "leader_stat_defense"
-			position = {x=351 y=56}
+			position = {x=318 y=58}
 			font = "hoi_18mbs"
 			maxWidth = 30
 			maxHeight = 23
@@ -1199,12 +1239,12 @@ guiTypes = {
 		iconType = {
 			name = "leader_stat_planning_bg"
 			spriteType = "GFX_trait_planning"
-			position = { x=383 y=39 }
+			position = { x=290 y=81 }
 		}
 
 		instantTextboxType = {
 			name = "leader_stat_planning"
-			position = {x=381 y=56}
+			position = {x=288 y=98}
 			font = "hoi_18mbs"
 			maxWidth = 30
 			maxHeight = 23
@@ -1215,12 +1255,12 @@ guiTypes = {
 		iconType = {
 			name = "leader_stat_logistics_bg"
 			spriteType = "GFX_trait_logistics"
-			position = { x=413 y=39 }
+			position = { x=320 y=81 }
 		}
 
 		instantTextboxType = {
 			name = "leader_stat_logistics"
-			position = {x=411 y=56}
+			position = {x=318 y=98}
 			font = "hoi_18mbs"
 			maxWidth = 30
 			maxHeight = 23
@@ -1230,8 +1270,8 @@ guiTypes = {
 
 		gridBoxType = {
 			name = "traits_grid"
-			position = {x=452 y=48}
-			size = {width=450 height=50}
+			position = {x=76 y=86}
+			size = {width=160 height=34}
 			slotsize = {width=21 height=32}
 			max_slots_vertical = 1
 			format = "UPPER_LEFT"
@@ -1239,8 +1279,8 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "army_org_str_indicator"
-			position = { x=62 y=70 }
-			size = { width=21 height=36 }
+			position = { x=366 y=40 }
+			size = { width=36 height=81 }
 
 			background = {
 				name = "Background"
@@ -1249,16 +1289,16 @@ guiTypes = {
 
 			iconType = {
 				name = "bar_org"
-				spriteType = "GFX_army_badge_bar_org"
-				position = { x=9 y=25 }
+				spriteType = "GFX_1440p_CP_bar_org"
+				position = { x=16 y=68 }
 				rotation = 1.5708
 				alwaystransparent = yes
 			}
 
 			iconType = {
 				name = "bar_str"
-				spriteType = "GFX_army_badge_bar_str"
-				position = { x=16 y=25 }
+				spriteType = "GFX_1440p_CP_bar_str"
+				position = { x=28 y=68 }
 				rotation = 1.5708
 				alwaystransparent = yes
 			}
@@ -1266,62 +1306,62 @@ guiTypes = {
 			iconType = {
 				name = "bar_org_median"
 				spriteType = "GFX_army_badge_bar_org_median"
-				position = { x=4 y=31 }
+				position = { x=8 y=78 }
 				alwaystransparent = yes
 			}
 
 			iconType = {
 				name = "bar_str_median"
 				spriteType = "GFX_army_badge_bar_str_median"
-				position = { x=11 y=31 }
+				position = { x=20 y=78 }
 				alwaystransparent = yes
 			}
 		}
 
 		buttonType = {
 			name = "select_all_button"
-			position = {x=508 y=77}
+			position = {x=422 y=92}
 			spriteType = "GFX_select_all_armylist_short_btn"
 			font = "hoi_18mbs"
 			clicksound = click_default
 		}
 		positionType = {
 			name = "select_all_button_army_group_position"
-			position = {x=549 y=77}
+			position = {x=463 y=92}
 		}
 
 		buttonType = {
 			name = "army_motorization_priority_button"
-			position = {x=553 y=77}
+			position = {x=467 y=92}
 			spriteType = "GFX_motorization_level_toggle_btn"
 			clicksound = click_default
 		}
 		positionType = {
 			name = "army_motorization_priority_button_army_group_position"
-			position = {x=594 y=77}
+			position = {x=508 y=92}
 		}
 
 		iconType = {
 			name = "army_motorization_priority_button_overlay"
-			position = {x=560 y=77}
+			position = {x=474 y=92}
 			spriteType = "GFX_motorization_level_toggle_strip"
 			alwaystransparent = yes
 		}
 		positionType = {
 			name = "army_motorization_priority_button_overlay_army_group_position"
-			position = {x=601 y=77}
+			position = {x=515 y=92}
 		}
 
 		buttonType = {
 			name = "army_railway_gun_attachment_button"
-			position = {x=594 y=77}
+			position = {x=508 y=92}
 			spriteType = "GFX_railway_gun_toggle_btn"
 			clicksound = click_default
 		}
 
 		buttonType = {
 			name = "toggle_armies_divisions_button"
-			position = {x=635 y=77}
+			position = {x=549 y=92}
 			spriteType = "GFX_army_group_toggle_armies_divisions_btn"
 			clicksound = click_default
 			pdx_tooltip = "TOGGLE_ARMY_GROUP_VIEW_ARMIES_DIVISIONS"
@@ -1329,7 +1369,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "select_all_wings_button"
-			position = {x=635 y=77}
+			position = {x=549 y=92}
 			spriteType = "GFX_army_select_wings_btn"
 			buttonFont = "hoi_18mbs"
 			clicksound = click_default
@@ -1337,8 +1377,8 @@ guiTypes = {
 
 		OverlappingElementsBoxType = {
 			name = "divisions_summary"
-			position = { x=79 y=75 }
-			size = { x=420 y=27 }
+			position = { x=496 y=45 }
+			size = { x=182 y=27 }
 			spacing = 0
 		}
 		positionType = {

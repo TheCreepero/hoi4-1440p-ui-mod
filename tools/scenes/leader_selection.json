@@ -1,11 +1,129 @@
 {
   "_comment": "Scene for the general selection popup. Renderer keys: 'windows' with 'at' (where the engine puts each top-level window on a 2560x1440 screen; leave it out to use the file's own position until it is measured with render_gui.py --verify), 'rows' and 'listRows' (sample rows per list), 'height', 'hide' and 'place' (what the code sizes, hides or moves in this state); 'samples' (texts for named text boxes). Harness keys: 'setup' (recipe steps from the clean state; see wiki/Game-Recipes.md), 'captures' (extra named captures with their own steps), 'expect' (widgets that must be visible in the capture: proof that the recipe brought the screen up), 'crop' (x, y, width, height cut out of a capture). 'manual' and 'checklist' are what is left for a human.",
   "screen": "leader_selection",
-  "phase": "C",
+  "phase": "C2",
   "file": "zz_1440p_leader_selection.gui",
   "screenshot": "reference/vanilla/leader_selection.jpg",
-  "windows": [],
-  "samples": {},
+  "windows": [
+    {
+      "name": "armyleaderwindow",
+      "at": [
+        880,
+        130
+      ],
+      "atVanilla": [
+        1055,
+        425
+      ],
+      "rows": {
+        "leaders/leaders_grid": 8
+      },
+      "listRows": {
+        "leaders/leaders_grid": "armyleaderentry"
+      },
+      "place": {
+        "leaders/leaders_grid": [
+          13,
+          15
+        ]
+      },
+      "hide": [
+        "show_divisional_commanders_button"
+      ],
+      "_note": "Centred: the file puts it 400 px left and 590 up from the middle of the screen. 'place' adds the 14 px top margin of the list to its grid. The code shows one of the two buttons at the bottom left."
+    },
+    {
+      "name": "armyleaderentry",
+      "skip": true,
+      "hide": [
+        "army_hq_icon",
+        "leader_enroute",
+        "generate_advisor_button",
+        "advisor_role_traits_icon",
+        "medal_collection",
+        "country_flag",
+        "faction_commander",
+        "skill_tooltip_icon"
+      ],
+      "_note": "The code hides the HQ, en route and advisor marks and the faction commander's figures unless they apply.",
+      "rows": {
+        "traits_grid": 3
+      },
+      "listRows": {
+        "traits_grid": "unit_leader_trait_entry"
+      }
+    }
+  ],
+  "samples": {
+    "armyleaderwindow": {
+      "header_text": "Select Commander for §YArmy 1§!",
+      "show_assigned_text": "Show active"
+    },
+    "armyleaderentry": {
+      "title": "General",
+      "name": [
+        "Gerd von Rundstedt",
+        "Günther von Kluge",
+        "Erich von Manstein",
+        "Fedor von Bock",
+        "Maximilian von Weichs",
+        "Wilhelm Ritter von Leeb",
+        "Wilhelm List",
+        "Johannes Blaskowitz"
+      ],
+      "skill": [
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "3",
+        "3",
+        "3"
+      ],
+      "leader_stat_attack": [
+        "5",
+        "5",
+        "4",
+        "5",
+        "4",
+        "3",
+        "3",
+        "2"
+      ],
+      "leader_stat_defense": [
+        "3",
+        "3",
+        "3",
+        "3",
+        "2",
+        "3",
+        "3",
+        "3"
+      ],
+      "leader_stat_planning": [
+        "5",
+        "4",
+        "5",
+        "5",
+        "3",
+        "2",
+        "2",
+        "3"
+      ],
+      "leader_stat_logistics": [
+        "2",
+        "3",
+        "2",
+        "3",
+        "4",
+        "2",
+        "3",
+        "2"
+      ],
+      "divisions_count": "24"
+    }
+  },
   "setup": [
     {
       "move": "select_army_1"
@@ -17,14 +135,24 @@
     }
   ],
   "captures": [],
-  "expect": [],
+  "expect": [
+    "armyleaderwindow/close_button",
+    "armyleaderwindow/sort_name",
+    "armyleaderwindow/no_leader_button"
+  ],
   "crop": [
-    1300,
-    900,
-    1300,
-    400
+    860,
+    110,
+    840,
+    1220
   ],
   "manual": [],
-  "checklist": [],
-  "_note": "Backlog screen: recipe and vanilla reference only. No windows listed yet; add them with tools/New-OverrideFile.ps1 when the phase starts."
+  "checklist": [
+    "Size: 800x1180, eight generals before the list scrolls",
+    "Portraits at 86x116 (scale 0.55): sharp, inside the white box",
+    "Traits of a general with five (Guderian), Details and Promote, the capacity box",
+    "The sort buttons over their columns: skill, name, the four skills, capacity",
+    "Field marshals and an army group's commander pick; Show Field Officers / New Commander; Unassign"
+  ],
+  "_note": "C2 (2026-10-16): 800x1180 with eight generals of 128 px; portraits at scale 0.55. Recipe and vanilla reference from the survey of 2026-10-08; the vanilla crop is in the full frame (reference/vanilla/leader_selection.jpg)."
 }

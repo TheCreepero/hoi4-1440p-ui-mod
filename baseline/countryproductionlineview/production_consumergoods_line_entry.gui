@@ -1,0 +1,43 @@
+# Vanilla 1.19.3.0, interface/countryproductionlineview.gui, lines 4275-4313.
+# Reference copy for the name-parity test. Do not edit; regenerate with tools/Export-VanillaBaseline.ps1.
+guiTypes = {
+	containerWindowType = {
+		name = "production_consumergoods_line_entry"
+		position = { x=0 y=0 }
+		size = { width = 500 height = 75 }
+		clipping = no
+
+		background = {
+			name = "Background"
+			quadTextureSprite ="GFX_tiled_window"
+		}
+
+			iconType = {
+			name = "picture"
+			position = { x = 165 y = 5 }
+			spriteType = "GFX_consumer_goods"
+		}
+
+		instantTextboxType = {
+			name = "goods"
+			position = { x = 210 y = 20 }
+			textureFile = ""
+			font = "hoi_18b"
+			text = "consumer goods"
+			maxWidth = 120
+			maxHeight = 20
+			format = center
+		}
+
+		instantTextboxType = {
+			name = "factories"
+			position = { x = 310 y = 20 }
+			textureFile = ""
+			font = "hoi_18b"
+			text = "-"
+			maxWidth = 120
+			maxHeight = 20
+			format = center
+		}
+	}
+}

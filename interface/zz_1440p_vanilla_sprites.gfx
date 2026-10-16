@@ -1,0 +1,94 @@
+# Vanilla sprite names this mod declares again, with its own textures.
+#
+# The game's code puts these sprites on widgets itself, by name, so a widget in an override file cannot
+# be given another sprite: a wider texture has to go in under the vanilla name [SPR-015]. A sprite declared
+# again takes the vanilla sprite's place everywhere the name is used [LOAD-012], which was seen from a file
+# that sorts after the vanilla one; hence the zz_ name. Each name here is used by no screen but the one
+# named beside it (searched in vanilla interface/ and in the Modding Manager's
+# Artifacts/executable/code-set-sprites.md). tests/GuiInvariants.Tests.ps1 holds the list.
+spriteTypes = {
+
+	# C1, production: a production line, 1000 wide (vanilla 511). Only the production panel uses it.
+	spriteType = {
+		name = "GFX_production_item"
+		texturefile = "gfx/interface/1440p_ui/pd_line.dds"
+	}
+
+	# C1, production: a naval, refit or railway gun line, 1000 wide, three frames for one, two and three
+	# rows of factory slots. Only the production panel uses it.
+	spriteType = {
+		name = "GFX_naval_production_item_bg_strip"
+		texturefile = "gfx/interface/1440p_ui/pd_naval_line.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+		noOfFrames = 3
+	}
+
+	# C1, production: the bar of a line's progress and ready date, 221 long (vanilla 118), across the column
+	# after the picture. The code switches between the three by the line's state; only production uses them.
+	progressbartype = {
+		name = "GFX_prod_progress_bar2"
+		color = { 0.0 0.5 0.0 }
+		colortwo = { 1.0 0.0 0.0 }
+		textureFile1 = "gfx/interface/prod_progress_bar2.dds"
+		textureFile2 = "gfx/interface/prod_progress_bar2_bg.dds"
+		size = { x = 221 y = 21 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+
+	progressbartype = {
+		name = "GFX_prod_progress_bar2_red"
+		color = { 0.0 0.5 0.0 }
+		colortwo = { 1.0 0.0 0.0 }
+		textureFile1 = "gfx/interface/prod_progress_bar2_red.dds"
+		textureFile2 = "gfx/interface/prod_progress_bar2_bg.dds"
+		size = { x = 221 y = 21 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+
+	progressbartype = {
+		name = "GFX_prod_progress_bar2_yellow"
+		color = { 0.0 0.5 0.0 }
+		colortwo = { 1.0 0.0 0.0 }
+		textureFile1 = "gfx/interface/prod_progress_bar2_yellow.dds"
+		textureFile2 = "gfx/interface/prod_progress_bar2_bg.dds"
+		size = { x = 221 y = 21 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+
+	# A5, Recruit & Deploy: the six priority rows, 575 wide (vanilla 493; supply 491), as wide as the
+	# training cards under them. Only Recruit & Deploy uses them; the code puts one on each row.
+	SpriteType = {
+		name = "GFX_deploy_reinforcements_entry"
+		textureFile = "gfx/interface/1440p_ui/rd_reinforcements_entry.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	SpriteType = {
+		name = "GFX_deploy_upgrades_entry"
+		textureFile = "gfx/interface/1440p_ui/rd_upgrades_entry.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	SpriteType = {
+		name = "GFX_deploy_supply_entry"
+		textureFile = "gfx/interface/1440p_ui/rd_supply_entry.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	SpriteType = {
+		name = "GFX_deploy_operations_entry"
+		textureFile = "gfx/interface/1440p_ui/rd_operations_entry.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	SpriteType = {
+		name = "GFX_deploy_garrisons_entry"
+		textureFile = "gfx/interface/1440p_ui/rd_garrisons_entry.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	SpriteType = {
+		name = "GFX_deploy_lendlease_entry"
+		textureFile = "gfx/interface/1440p_ui/rd_garrisons_entry.dds"
+	}
+}

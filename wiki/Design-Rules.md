@@ -21,7 +21,7 @@ A screen is re-laid out around what the player wants to see at once, not only en
 | Fixed text and icons: column captions, legends, static tooltips | Yes | A vanilla text key needs no file; new text needs a file under `localisation/` |
 | Stat rows as tiles: a grid with two or more columns, a wrapped label over a larger value | Yes | `max_slots_horizontal` and `slotsize` of the grid, layout of the row window ([Engine Facts](Engine-Facts.md) W16); labels that vanilla cuts can be shown whole |
 | Tab hotkeys | Yes | `shortcut` on the tab buttons (W19) |
-| Cards, panels, grouped headers | Yes | A container named `mod1440_*` holds the card's background and the vanilla widgets that belong in it (W34). A background drawn behind widgets that stay where they are works too |
+| Cards, panels, grouped headers | Yes | A container named `mod1440_*` holds the card's background and the vanilla widgets that belong in it (W34). A background drawn behind widgets that stay where they are works too, and is the way when a widget has alternative positions: the code finds `positionType` entries only among the window's own children (W34), so such a widget stays there. A9 builds its cards that way |
 | New live values the screen does not show today | Not in a vanilla window; yes in a scripted GUI, for values of the country, its states and its generals | The game fills only the widgets its code asks for. A scripted GUI reads script variables ([Engine Facts](Engine-Facts.md) X1, X2, X19 to X21) and changes the checksum |
 | A value shown in two places | No | A second widget with the same name is dropped (W14) |
 | Wrapping widgets in a new container (cards that own their content) | Yes, on the patched executable | Name the container `mod1440_*`. With `hoi4.exe` patched by the Modding Manager's `Scripts\Executable\Set-HoiRecursiveLookups.ps1` the game finds a vanilla widget inside it, for every element type but scrollbars, list boxes and browsers (W34); the test suite checks both. On an unpatched game such a widget stays empty unless its view searches nested containers (W15, W31) |
@@ -58,10 +58,9 @@ Where a row says No, the reason is in the game's code, which the Modding Manager
 ## Overriding vanilla windows
 
 - **Method:** one file per screen, `interface/zz_1440p_<screen>.gui`, containing only the reworked top-level windows. The vanilla file is not copied or replaced.
-- **Why the `zz_` prefix:** when two loaded files define a window with the same name, the game uses the definition it loads last, and it loads `.gui` files in `interface/` in file name order. The mod's file must therefore sort after the vanilla file. (L1, L2)
+- **Why the `zz_` prefix:** when two loaded files define a window with the same name, the game uses the definition it loads last, and it loads `.gui` files in `interface/` in file name order. The mod's file must therefore sort after the vanilla file, and its name is written in small letters, since capitals sort before them. (L1, L2, L11)
 - **Evidence** (override test, game 1.19.3, vanilla playset): a redefinition in `interface/zz_*.gui` took effect, one in `interface/aa_*.gui` did not, and one in `interface/1440p_ui/override_test.gui` did. `error.log` had no line about the duplicates. (L1 to L3, L5)
-- **Not yet tested:**
-  - Windows whose vanilla file sits in a subfolder of `interface/` (factions, international market and similar). The subfolder result fits two load orders (subfolders after the root, or sorting by bare file name), so repeat the test before the first such screen. (L4)
+- **Windows whose vanilla file sits in a subfolder of `interface/`** (factions, international market, military industrial organisation, special projects): every subfolder loads after the root files, so a root `zz_` file does not override them. The override goes into that subfolder, `interface/<subfolder>/zz_1440p_<screen>.gui`, or into a subfolder of the mod's own that sorts after it; `interface/1440p_ui/` sorts before `factions`. Read in the code and seen in the game on 2026-10-15 with the international market: a copy in a root `zz_` file lost, one in `interface/international_market/zz_*.gui` won, and one in `interface/international_market/ZZ_*.gui` lost to the vanilla file. (L4, L11)
 - **Next to a mod that replaces the whole vanilla file** the mod's window wins the same way (seen on 2026-10-13 with RBM's GFX Overhaul and the VNR - RBM patch, [Engine Facts](Engine-Facts.md) L7), and what that mod changed in the window is lost. What else two mods share, and how a playset is checked: [Compatibility](Compatibility.md).
 - **How to test an override:** copy the vanilla window into a test file and add one extra icon and text box near the top (for example sprite `GFX_header_bg` and text "OVERRIDE TEST A"). If the marker shows in game, that file won. Use windows that open from a top bar tab, so the check takes seconds.
 - **Widget names stay; the nesting may grow.** The engine binds data to widgets by `name` (without regard to case, W32). A reworked window keeps every named vanilla widget with its element type and the same chain of named vanilla parents. Between them it may add containers of its own, named `mod1440_*`, which the patched executable searches (W34); scrollbars, list boxes and browsers stay directly under their vanilla parent. Position, size, font and sprite are free to change. The test suite compares each window with its baseline this way. (W1, W15)
@@ -87,6 +86,21 @@ The `.gui` files do not state these outright, and the static tests cannot catch 
   - `GFX_tiled_plain_bg_small`: visible area starts about 3 px inside the box on each side.
   - `GFX_tiled_window_1b_thin_border`: about 4 px at the top, 5 px at the right.
   - Values that gave touching, aligned panels in A1: place a `plain_bg_small` panel 6 px into the `plain_bg_small` panel above it, place a `thin_border` frame 8 px into the `plain_bg_small` panel above it, and make the `plain_bg_small` panel 2 px narrower than the frame.
+
+## Spacing
+
+The same distances everywhere, so that cards, columns and pictures read as one design (user, 2026-10-16). Measured in the file's pixels at 2560x1440.
+
+| Between | Space |
+|---|---|
+| An icon and its text, a value and its unit | 4 |
+| Content and the edge of its card or plate; the items of one group | 8 |
+| Two cards side by side or stacked | 6 (a tiled plate shows its edge about 3 px inside its size, G5, so the gap reads as 12) |
+| Two columns or groups of a row; a group and the card after it | 16 |
+| A picture and its frame | the same at both ends; where the code places the picture itself, measure it in the game first and size the frame around it |
+
+- A new layout uses these values, and a layout script names them (`INFO_X = 298 + 16`). Screens built before 2026-10-16 follow them when a phase touches them again.
+- First used by the card pass (A9: cards 6 apart) and production (C1: the column after the equipment plate starts 16 after it; the plate leaves 20 on each side of a picture that the code places at a fixed spot).
 
 ## Fonts
 
@@ -117,7 +131,7 @@ Larger text means choosing a larger font that vanilla already ships. Sizes in us
 
 ## Sprites and backgrounds
 
-- New sprites are named `GFX_1440p_*` and declared in `interface/1440p_ui.gfx`. A vanilla sprite name is declared again only when every place that shows the sprite should change, and those places are now known: the `.gui` files that name it (search vanilla `interface/`) and the code that sets it (the Manager's `Artifacts/executable/code-set-sprites.md`). The priority rows of Recruit & Deploy are such a case: the code puts the six row sprites only on those rows, and a wider texture under their names widens the rows (G16, Roadmap F3) [LOAD-012].
+- New sprites are named `GFX_1440p_*` and declared in `interface/1440p_ui.gfx`. A vanilla sprite name is declared again only when every place that shows the sprite should change, and those places are now known: the `.gui` files that name it (search vanilla `interface/`) and the code that sets it (the Manager's `Artifacts/executable/code-set-sprites.md`). The priority rows of Recruit & Deploy are such a case: the code puts the six row sprites only on those rows, and a wider texture under their names widens the rows (G16, Roadmap F3) [LOAD-012]. Such declarations go into `interface/zz_1440p_vanilla_sprites.gfx`, which sorts after the vanilla files, and each name into the list of the test "gives every declared sprite the GFX_1440p_ prefix, but the listed vanilla names" in `tests/GuiInvariants.Tests.ps1` (user's decision of 2026-10-16; used by A5 and C1).
 - **No AI-generated images.** Every image is built from vanilla game assets.
 - For a window or row that needs a larger background, use the first option that gives a clean result:
   1. An existing vanilla tiled window sprite, used as it is (for example `GFX_tiled_window_1b_thin_border`).
@@ -210,6 +224,10 @@ What A6, A7 and A8 showed (army overview, air wing reorganisation, theatre boxes
    - Cover every panel that is on screen together, not only the ones being resized: say where each panel's visible edges end up and whether each gap between panels stays or closes.
    - Name each addition (a column, a caption, a hotkey) and the row of the table in "What a redesign can add" that makes it possible.
    - Where width or empty space is a matter of judgement, add a mock-up composed from the screenshot: draw the widened background and paste the screenshot's own widgets at their new positions. In A2 the badge was agreed on a mock-up and needed one game check; the division list was agreed on a table of numbers and needed four.
+   - **Design page first** (user, 2026-10-16). Before any override file is written, the proposal goes on one page that the user reviews: each screen's vanilla capture beside its mock-up at the same scale, what changes and why, and what is still open. The user marks it up, the mock-ups are redrawn, and only an agreed design is built. After the build, the page gets the renders of the mod's files, so the user can compare design and build before the game check. C1, C2, A9 and step 2 of A5 went this way in two rounds of feedback without touching the game.
+     - Mock-ups are composed at 1:1 with `tools/mockup.py`: the game's own sprites and fonts through the renderer, pieces of the reference captures for what the code draws (pictures, portraits, values), widened bitmaps from `tools/stretch_background.py`. Keep the mock-up scripts under `scratch/` like the layout scripts.
+     - The page is an HTML page with the images embedded. An agent that can publish one (Claude Code's Artifact tool) publishes it and gives the user the link; otherwise it is written to `scratch/design/<round>.html` for the user to open.
+     - Every claim on the page is one the inventory backs: the window bindings, the sprites the code sets, the playset's mods that change the same file. What only the game can show is listed as open, not promised.
 3. **Baseline and starting file.** `tools/New-OverrideFile.ps1 <screen> <file.gui> <window> [<window> ...]` exports the missing baselines and creates `interface/zz_1440p_<screen>.gui` with untouched vanilla copies of the windows. Run it again to add windows later; it never overwrites existing content.
 4. **Background.** Only for bitmap backgrounds: work down the four options, judge them in previews, declare the sprite.
 5. **Build.** Edit values in the override file; leave names alone, and add containers only as `mod1440_*` cards around vanilla widgets. Add each list and its row window to `tools/gui-links.json`. Then run `tools/Compare-Baseline.ps1 zz_1440p_<screen>.gui` (`-Group` for one line per widget) and read every changed value before the game check.
