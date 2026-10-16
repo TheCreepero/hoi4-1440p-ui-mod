@@ -92,7 +92,7 @@ Built in E1 and used by every page.
 
 ## Checking without running time
 
-A check stays paused on 1 January 1936 and saves nothing (GEMINI.md, "Never Run Time, Never Save"). The game of a check is thrown away, so its state may be changed by effects from the console.
+A check stays paused on 1 January 1936 and saves nothing, or runs at most ten days with the autosave copied first (GEMINI.md, "Ten Days At Most, Never Save"). The game of a check is thrown away, so its state may be changed by effects from the console.
 
 - **Paused, by effects:** a declared war, a state changing hands, an annexation, a promotion, a new general, a retired general, hired advisors, a history entry. The probe did all of these; each fired its hook at once. The console runs an effect in the scope of whatever is selected, so a check deselects first (X49).
 - **Needs time:** a battle won or lost, a real conquest, a capitulation by fighting, a landing, an ace, the daily comparison. Two ways: the user plays, and the hooks write a line to `game.log` until seen; or a check may run a few days inside January 1936, which is a decision for the user (below).

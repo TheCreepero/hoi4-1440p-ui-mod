@@ -1,6 +1,6 @@
 # Roadmap
 
-The mod is built one screen at a time. Each phase reworks one screen for 2560x1440 and can be tested and released on its own. The rules every phase follows are in [Design Rules](Design-Rules.md).
+The mod is built one screen at a time. Each phase reworks one screen for 2560x1440 and can be tested and released on its own. The rules every phase follows are in [Design Rules](Design-Rules.md); who does each step, and where the user decides, is in [Workflow](Workflow.md).
 
 ## Decisions
 
@@ -16,6 +16,7 @@ The mod is built one screen at a time. Each phase reworks one screen for 2560x14
 - **Workshop and the game executable** (user, 2026-10-15): the mod has not been published on the Steam Workshop. The user accepts keeping it a local mod if changes to the game's executable unlock more for it. Reading `hoi4.exe` with the Modding Manager's Ghidra project changes nothing in the game and comes first (Milestone F). A patch of the executable works only on this machine, so the first feature that needs one makes the mod local-only. The user decides each patch, and the decision is recorded here. The tools and their runbook are in the Manager's `Scripts\Executable`.
 - **Local only** (user, 2026-10-15): the mod stays a local mod; screens may rely on the patched executable.
 - **Vanilla sprite names** (user, 2026-10-16): where the code puts a sprite on a widget by its vanilla name, the mod may declare that name again with a wider texture, in `interface/zz_1440p_vanilla_sprites.gfx`, when only the reworked screen shows it. Used for the production lines (C1) and the priority rows of Recruit & Deploy (A5, step 2); the test suite holds the list.
+- **Orchestrated phases** (user, 2026-10-16): a phase is run by an orchestrator (the interactive Claude Fable 5.1 session) with three kinds of agent: a designer (Claude Opus 5.5), a builder (Claude Sonnet 5.5 for a vanilla screen, Claude Opus 5.5 for a scripted page or a fix whose cause is unknown) and a game checker (Claude Opus 5.5). The orchestrator reviews every handoff and reads the captures itself; the user decides at three gates: the design page, the launches, the final report and their own test. Fix rounds go back to the same builder. The page is [Workflow](Workflow.md); the agent definitions are under `.claude/agents/`. The redesign pass of the same day ran this way before the rule was written.
 
 ## Status
 

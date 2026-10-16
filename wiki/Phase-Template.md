@@ -1,12 +1,20 @@
 # Phase <id>: <screen name>
 
-Copy this file to `wiki/phases/<screen>.md` when a phase starts and fill it in as the phase goes. The [Roadmap](../Roadmap.md) keeps only the status and a link here.
+Copy this file to `wiki/phases/<screen>.md` when a phase starts (stage 1 of [Workflow](Workflow.md)) and fill it in as the phase goes: the orchestrator writes Scope, Roles and handoffs, Decisions and Close; the designer's work lands in Inventory and Proposal; the builder writes Build and the Fix rounds; the game checker adds the rows of Game checks. The [Roadmap](Roadmap.md) keeps only the status and a link here.
 
 ## Scope
 
 - Vanilla file and windows:
 - What the vanilla screen crams or hides (from the screenshot):
 - Out of scope:
+
+## Roles and handoffs
+
+- Handoff folder: `scratch/phases/<id>/` (not in the repository)
+- Builder: `builder-screen` or `builder-script`, and why
+- Design page: link, and the date of each round
+- Contracts written (hotkeys, shared rows, shared files): yes / none needed
+- Worktrees (several screens at once): paths, or "main tree"
 
 ## Inventory
 
@@ -33,19 +41,38 @@ Additions, each with the row of "What a redesign can add" that allows it:
 
 ## Decisions
 
-Dated, one line each: what was agreed, what was sent back and why.
+Dated, one line each: what was agreed, what was sent back and why. The user's answers to the design page's questions go here, with the date (they are also in `decisions-final.json`).
 
 - 
 
+## Build (<date>)
+
+Status: built and checked by render and tests; not seen in game.
+
+- What was built:
+- Deviations from the design, each with its reason:
+- Not seen in game (what only a launch can show, and the fallback if it fails):
+- Game check: `tools/Invoke-GameCheck.ps1 <scene> [...]`
+- Checklist for the game checker (also in `tools/scenes/<scene>.json`):
+  1. 
+
 ## Game checks
 
-One row per launch. Build = `git rev-parse --short HEAD` plus "+dirty" when uncommitted, or the file hash.
+One row per launch. Build = `git rev-parse --short HEAD` plus "+dirty" when uncommitted, or the file hash. By = `game-checker`, the orchestrator, or the user (their own game and playset).
 
-| # | Date | Build | Checked | Result | Screenshot | Taught |
-|---|---|---|---|---|---|---|
-| 1 | | | | | `scratch/checks/...` | |
+| # | Date | Build | By | Checked | Result | Screenshot | Taught |
+|---|---|---|---|---|---|---|---|
+| 1 | | | | | | `scratch/checks/...` | |
 
 Not seen in game (states the save did not show):
+
+- 
+
+## Fix rounds
+
+One line per fix, under a heading per round: issue, cause, fix, what the re-test should look at. Findings from the user's own game name their screenshot.
+
+### Fix round 1 (<date>)
 
 - 
 

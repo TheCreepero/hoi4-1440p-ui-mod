@@ -186,6 +186,7 @@ File `interface/mod1440_records.gui`, written by `tools/build_records.py`: a win
 
 ## Working on a page
 
+- **Who does what:** a page goes through the stages of [Workflow](Workflow.md) like a screen: the designer proposes it, the user approves the design page, `builder-script` changes the generator and the game checker brings the page up. The rest of this section is what each of them uses.
 - **Two tables of game content** stand beside the tools: every character's portrait sprite and every victory point (`tools/portraits_table.py`, `tools/victory_points_table.py`). `python -I tools/make_game_tables.py` makes them from the installed game; run it after a game update. A test fails when they differ from the game.
 - **One tool writes everything:** `python -I tools/build_managers.py`. The tables at the top of each section of that file are the pages: change them there. `--check` fails when the files on disk differ, and the test suite runs it. The Records window is in `tools/build_records.py`, which the tool imports; the game's medals are a table in `tools/unit_medals_table.py`, made with `tools/list_medals.py` and to be made again after a game update.
 - **Time in a check:** since 2026-10-12 a check may run up to ten days inside January 1936, with a copy of the user's `autosave.hoi4` made first. How to set the speed and read the clock: [Game Recipes](Game-Recipes.md), "Letting time run".
