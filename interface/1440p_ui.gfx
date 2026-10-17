@@ -1885,35 +1885,9 @@ spriteTypes = {
 	}
 
 	# --- d4-figures ---
-	# National Figures and History as one page (redesign of 2026-10-16): the figure tile that is also a button, its
-	# pick plate, the six plates of the chosen figure, the head and the band of a row of the modifier lists, the
-	# bands of the wider graph and its column, 10 px on 12 px steps. Tiles of vanilla textures as above.
-	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_tile_155x62"
-		size = { x = 155 y = 62 }
-		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
-		borderSize = { x = 8 y = 8 }
-		tilingCenter = yes
-		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
-	}
-
-	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_pick_149x56"
-		size = { x = 149 y = 56 }
-		textureFile = "gfx//interface//tiles//tiled_bg_noframe.dds"
-		borderSize = { x = 12 y = 12 }
-		tilingCenter = yes
-	}
-
-	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_tile_150x48"
-		size = { x = 150 y = 48 }
-		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
-		borderSize = { x = 8 y = 8 }
-		tilingCenter = yes
-		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
-	}
-
+	# National Figures and History as one page (redesign of 2026-10-16): the head and the band of a row of the
+	# modifier lists. Tiles of vanilla textures as above. (The tiles, plates and the 10 px column of that build
+	# went with round 2, 2026-10-17.)
 	corneredTileSpriteType = {
 		name = "GFX_1440p_SG_head_358x26"
 		size = { x = 358 y = 26 }
@@ -1930,25 +1904,145 @@ spriteTypes = {
 		borderSize = { x = 3 y = 3 }
 		tilingCenter = yes
 	}
+	# --- end d4-figures ---
+
+	# --- D4 round 2 ---
+	# National Figures, round 2 (2026-10-17): the head bars of the two figure tables, of the resource table and of
+	# the chosen figure's seven numbers; the bands and the transparent hit area of a table row (the game's
+	# skill_transparent.dds, as the Officers rows); a sparkline column, 4x18 on 18 steps; the columns of the three
+	# ranges of the graph, 200 high on 200 steps; the quarter bands of the graph and its zero line (the strength
+	# bar's texture). Tiles and bars of vanilla textures, as the blocks above.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_584x28"
+		size = { x = 584 y = 28 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
 
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_stripe_1440x60"
-		size = { x = 1440 y = 60 }
+		name = "GFX_1440p_SG_head_424x28"
+		size = { x = 424 y = 28 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_826x26"
+		size = { x = 826 y = 26 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_stripe_584x26"
+		size = { x = 584 y = 26 }
 		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
 		borderSize = { x = 3 y = 3 }
 		tilingCenter = yes
 	}
 
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_stripe_424x26"
+		size = { x = 424 y = 26 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_stripe_1560x50"
+		size = { x = 1560 y = 50 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_pick_584x26"
+		size = { x = 584 y = 26 }
+		textureFile = "gfx//interface//tiles//tiled_bg_noframe.dds"
+		borderSize = { x = 12 y = 12 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_pick_424x26"
+		size = { x = 424 y = 26 }
+		textureFile = "gfx//interface//tiles//tiled_bg_noframe.dds"
+		borderSize = { x = 12 y = 12 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_hit_584x26"
+		size = { x = 584 y = 26 }
+		textureFile = "gfx/interface/skill_transparent.dds"
+		borderSize = { x = 0 y = 0 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_hit_424x26"
+		size = { x = 424 y = 26 }
+		textureFile = "gfx/interface/skill_transparent.dds"
+		borderSize = { x = 0 y = 0 }
+		tilingCenter = yes
+	}
+
 	progressbartype = {
-		name = "GFX_1440p_SG_column_10x240"
+		name = "GFX_1440p_SG_spark_4x18"
 		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
 		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
-		size = { x = 10 y = 240 }
+		size = { x = 4 y = 18 }
 		effectFile = "gfx/FX/progress.lua"
 		horizontal = no
-		steps = 240
+		steps = 18
 	}
-	# --- end d4-figures ---
+
+	progressbartype = {
+		name = "GFX_1440p_SG_column_57x200"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 57 y = 200 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = no
+		steps = 200
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_SG_column_22x200"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 22 y = 200 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = no
+		steps = 200
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_SG_column_11x200"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 11 y = 200 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = no
+		steps = 200
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_line_1560x2"
+		size = { x = 1560 y = 2 }
+		textureFile = "gfx/interface/navieslist_bar_str.dds"
+		borderSize = { x = 0 y = 0 }
+		tilingCenter = yes
+	}
+	# --- end D4 round 2 ---
 
 	# --- e-diary-wars ---
 	# The Records frame, War Diary and Wars of 2026-10-16 (tools/build_records.py). The tabs of the window: the intel

@@ -57,6 +57,16 @@ Agreed on mock-ups on 2026-10-15 and 2026-10-16 (round 2 of the design page): ta
 | - | 2026-10-16 | working tree | round 3 on the design page | the user: much better; the manufacturer, deploy location and date were bunched together in their column. Built at 820 px with the deploy location button 185 wide (the fleet name whole) and the date bar across the column (221, the three bar sprites declared again) | (design page) | - |
 | 3 | 2026-10-16 | working tree | the tester, the user's playset | looks very good. RBM's GFX Overhaul draws the fleet insignia on the deploy button about 40 px wide, over the start of the fleet name: the name moved 12 px right (maxWidth 138) | `Screenshots/hoi4_27.png` | - |
 
+## Round 2: redesign (opened 2026-10-17)
+
+The user, 2026-10-17: "I am still a bit unhappy with the production window. In game it doesn't feel much better to use than in vanilla, and it doesn't look any better either." The first build kept the vanilla textures and stretched them; this round asks for a redesign of how the panel is used and how it looks, run by the workflow of `wiki/Workflow.md`.
+
+### Roles and handoffs
+
+- Orchestrator: the interactive session. Designer: agent `designer`. Builder: `builder-screen` (vanilla screen). Game checker: `game-checker`.
+- Handoffs: `scratch/phases/C1/` (`contracts.md`, `design.json`, mock-ups, `decisions-final.json`, `build/`, `checks/`).
+- Design page: https://claude.ai/artifact/8ebSX87ogb4owqPeCKy1Sg (published 2026-10-17; designer's proposal `scratch/phases/C1/design.json`, gate A passed with one question added by the orchestrator: whether the look goes far enough)
+
 ## Close
 
 - [ ] Roadmap status and link

@@ -22,7 +22,6 @@ on_actions = {
 					limit = { check_variable = { mod1440_st_open = 1 } }
 					mod1440_st_list = yes
 				}
-				mod1440_nf_bars = yes
 				if = {
 					limit = { check_variable = { mod1440_nf_open = 1 } }
 					mod1440_nf_fill = yes

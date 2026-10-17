@@ -247,6 +247,16 @@ class Renderer:
             for n, rows in (state_only.get(w["name"]) if w["name"] in state_only else (w.get("only") or {})).items():
                 self.only[(w["name"], n)] = set(int(r) for r in rows)
         # --- end D2 round 2 ---
+        # --- D4 round 2 --- how far script fills a bar in each row (the columns of a graph, a sparkline): "fills"
+        # per window, {widget: [0 to 1 per instance, in drawing order]}; an upright bar fills from its foot. A
+        # state's "fills" of a window replaces the window's own.
+        self.fills = {}
+        self._fill_index = {}
+        state_fills = self.state.get("fills") or {}
+        for w in self.scene.get("windows") or []:
+            for n, values in (state_fills.get(w["name"]) if w["name"] in state_fills else (w.get("fills") or {})).items():
+                self.fills[(w["name"], n)] = [float(v) for v in values]
+        # --- end D4 round 2 ---
 
     # ------------------------------------------------------------ helpers
 
@@ -391,7 +401,7 @@ class Renderer:
                     out.alpha_composite(piece.resize((dw, dh), Image.BILINEAR), (dx1, dy1))
         return out
 
-    def draw_sprite(self, canvas, sprite, rect, frame=1, scale=1.0, clip=None, rotation=0.0, fill=0.7):
+    def draw_sprite(self, canvas, sprite, rect, frame=1, scale=1.0, clip=None, rotation=0.0, fill=0.7, upright=False):
         """Draw a sprite into rect (rect.w/h may be None to use the sprite's own size). Returns the drawn Rect."""
         if sprite is None:
             return None
@@ -413,7 +423,12 @@ class Renderer:
             img = Image.new("RGBA", (max(1, int(w)), max(1, int(h))), (0, 0, 0, 0))
             if bg is not None:
                 img.alpha_composite(bg.resize(img.size, Image.BILINEAR))
-            if fg is not None:
+            if fg is not None and upright and img.height > img.width:     # D4 round 2: a column fills from its foot
+                tall = int(round(img.height * max(0.0, min(1.0, fill))))
+                if tall > 0:
+                    filled = fg.rotate(90, expand=True).resize(img.size, Image.BILINEAR).crop((0, img.height - tall, img.width, img.height))
+                    img.alpha_composite(filled, (0, img.height - tall))
+            elif fg is not None:
                 filled = fg.resize(img.size, Image.BILINEAR).crop((0, 0, max(1, int(img.width * fill)), img.height))
                 img.alpha_composite(filled)
         elif kind == "corneredtilespritetype":
@@ -777,7 +792,13 @@ class Renderer:
             target = Rect(x, y, size[0] if explicit else None, size[1] if explicit else None)
             if sprite.kind.lower() == "corneredtilespritetype" and not explicit:
                 target = Rect(x, y, size[0], size[1])
-            drawn = self.draw_sprite(canvas, sprite, target, frame=frame, scale=1.0 if explicit else scale, clip=clip, rotation=rotation)
+            fill = {}
+            if (window_name, name) in self.fills:      # D4 round 2: this row's fill of a bar script fills
+                k = self._fill_index.get((window_name, name), 0)
+                self._fill_index[(window_name, name)] = k + 1
+                values = self.fills[(window_name, name)]
+                fill = {"fill": values[k % len(values)] if values else 0.0, "upright": True}
+            drawn = self.draw_sprite(canvas, sprite, target, frame=frame, scale=1.0 if explicit else scale, clip=clip, rotation=rotation, **fill)
             if drawn is not None:
                 rect = drawn
         else:

@@ -1826,9 +1826,9 @@ FIGURES = [
         ("Air experience gain", "modifier@experience_gain_air_factor", "+=%1"),
     ]),
 ]
-# The four lists, left to right: (title, the groups they hold in this order, rows on the screen)
-NF_COLUMNS = [("Politics and Diplomacy", ["politics", "occupation"], 20), ("Industry", ["industry"], 11),
-              ("Army and Manpower", ["manpower", "army"], 20), ("Navy, Air and Research", ["research", "navy", "air"], 20)]
+# The four lists, left to right: (title, the groups they hold in this order)
+NF_COLUMNS = [("Politics and Diplomacy", ["politics", "occupation"]), ("Industry", ["industry"]),
+              ("Army and Manpower", ["manpower", "army"]), ("Navy, Air and Research", ["research", "navy", "air"])]
 # How a value of a list row is written: the kind a row carries in its list (0 is the head of a group)
 NF_FORMATS = ["+=%1", "-=%1", "+=%2", "+=2", "+=0", "%1", "%2"]
 RESOURCES = ["oil", "aluminium", "rubber", "tungsten", "steel", "chromium", "coal"]
@@ -1859,62 +1859,21 @@ SERIES = [
     ("Trains in stock", "num_equipment@train_equipment", 1, "", 0, "+"),
     ("Ships", "num_ships", 1, "", 0, "+"),
     ("Planes on airfields", "num_deployed_planes", 1, "", 0, "+"),
+    # --- D4 round 2 (2026-10-17): eleven more, written down from the first month of a game with this build; a save
+    # of an earlier build gets their padding for the months before (resource@<r>, army_experience, navy_experience,
+    # air_experience and party_popularity_100@ruling_party: dynamic_variables_documentation.md, country scope)
+] + [("$PRODUCTION_MATERIALS_%s$ balance" % r.upper(), "resource@" + r, 1, "", 0, "+") for r in RESOURCES] + [
+    ("Army experience", "army_experience", 1, "", 1, "+"),
+    ("Navy experience", "navy_experience", 1, "", 1, "+"),
+    ("Air experience", "air_experience", 1, "", 1, "+"),
+    ("Ruling party popularity", "party_popularity_100@ruling_party", 1, "in percent", 1, "+"),
 ]
 H_OLD = 12              # series a save of the build before 2026-10-16 has
-
-# The tiles, in two rows of two groups of five: (series, value of today, tooltip, bar variable or None). The
-# tile's label is its series' caption; under the value stands its change in a month, or a bar.
-NF_TILES = [
-    [(3, "£civ_factory [?num_of_civilian_factories|0]  §g[?num_of_civilian_factories_available_for_projects|0] free§!",
-      "Your civilian factories, and how many of them are free for construction once consumer goods and trade have taken theirs.", None),
-     (4, "£mil_factory [?num_of_military_factories|0]  §g[?num_of_available_military_factories|0] idle§!",
-      "Your military factories, and how many of them have no production line.", None),
-     (5, "£nav_dockyard_texticon [?num_of_naval_factories|0]  §g[?num_of_available_naval_factories|0] idle§!",
-      "Your dockyards, and how many of them have no production line.", None),
-     (12, "[?amount_research_slots|0]", "Your research slots.", None),
-     (13, "[?num_researched_technologies|0]", "Technologies you have researched.", None),
-     (11, "[?political_power|0]  [?political_power_daily|+=2]", "Political power, and what you gain each day.", None),
-     (14, "[?command_power|0]  [?command_power_daily|+=2]", "Command power, and what you gain each day.", None),
-     (6, "[?stability|%1]", "Stability.", "mod1440_nf_stab"),
-     (7, "[?has_war_support|%1]", "War support.", "mod1440_nf_ws"),
-     (15, "[?num_controlled_states|0]", "States you control.", None)],
-    [(0, "[?manpower_k|1]K", "Men you can still call up: the manpower of the top bar.", None),
-     (1, "[?deployed_total_manpower_k|1]K", "Men in your divisions, ships and air wings.", None),
-     (2, "[?num_divisions|0]", "Divisions in the field.", None),
-     (9, "[?num_equipment@infantry_equipment|0]", "Infantry equipment in the stockpile.", None),
-     (10, "[?casualties_k|1]K", "Men lost in all your wars.", None),
-     (8, "[?fuel_k|0]K of [?max_fuel_k|0]K", "Fuel in your stockpile, and what the stockpile can hold.", "mod1440_nf_fuel"),
-     (16, "[?num_equipment@convoy|0]", "Convoys that no trade, supply route or naval invasion uses.", None),
-     (17, "[?num_equipment@train_equipment|0]", "Trains in the stockpile.", None),
-     (18, "[?num_ships|0]", "Your ships.", None),
-     (19, "[?num_deployed_planes|0]", "Planes in your air wings.", None)],
-]
-
-# From the corner of the politics panel (screen -6,78): beside the panel, which is 550 wide, and short of the
-# theatre box under the clock (screen x 2234); from under the top bar to above the army portraits.
-NF_X, NF_Y, NF_W, NF_H = 556, 0, 1680, 1210
-NF_IN = NF_W - 28                       # a card, between the margins of the page
-NF_TW, NF_TH, NF_TGAP, NF_TSPLIT = 155, 62, 6, 18   # a tile, the gap between tiles and between the two groups
-NF_TILE_SPRITE = "GFX_1440p_SG_tile_%dx%d" % (NF_TW, NF_TH)
-NF_PICK_SPRITE = PICK % (NF_TW - 6, NF_TH - 6)
-NF_FIG_Y, NF_FIG_H = 56, 188            # the card of the tiles
-NF_GRAPH_Y, NF_GRAPH_H = 256, 352       # the card of the graph
-NF_COL_Y, NF_COL_W, NF_COL_H = 620, 404, 576    # the four cards of modifiers
-NF_ROW = 26                             # a row of a list of modifiers
-NF_LIST_W = NF_COL_W - 16               # a list in its card, with its scrollbar
-NF_ROW_W = NF_LIST_W - 30               # a row of it
-NF_PLATE_W, NF_PLATE_H = 150, 48        # the six numbers of the chosen figure
-
-H_KEEP = 120            # months on the graph: ten years
-H_COLUMN = 12           # px from one column to the next
-H_CHART_W, H_CHART_H = H_KEEP * H_COLUMN, 240
-H_STEPS = H_CHART_H     # heights a column can have (the "steps" of the column sprite): one per pixel
-H_AXIS = 20             # under the columns: the years
-H_YEARS = 10            # year marks under the graph: ten years have at most ten first months
-H_INSET = 4             # the columns stand this far inside the frame of the graph
-H_CHART_X, H_CHART_Y = 80, 64           # the frame of the graph in its card
-H_COLUMN_SPRITE = "GFX_1440p_SG_column_%dx%d" % (H_COLUMN - 2, H_CHART_H)
-
+# A resource balance can be -1 or lower, so its series (20 to 26) pad with a number below every balance, and a month
+# counts above H_RES_LOW; the other newer series pad with -1 (D4 round 2, deviation accepted with the design).
+H_RES = list(range(20, 27))
+H_RES_PAD = -2100000
+H_RES_LOW = -2000000
 
 # A share on a plate, as the Records' pages use it (tools/build_records.py): the National Figures page had it first.
 NF_GAP = 5                      # between the tiles of a band of ten
@@ -1961,216 +1920,242 @@ def label_token(name, i, label):
     return nf_token("nf_%s_%d" % (name, i), label.strip())
 
 
-def figure_tiles():
-    """The card of twenty tiles. Returns its inside, triggers, properties and effects."""
-    inner = text("nf_fig_hint", NF_IN - 14 - 700, 14, 700, B.key(
-        "nf_fig_hint", "§gThe change in a month under each; written down on the first of each month§!"), FONT_SMALL, "right", 20)
-    triggers, properties, effects = "", "", ""
-    for r, tiles in enumerate(NF_TILES):
-        for c, (n, value, tip, bar) in enumerate(tiles):
-            x = 14 + c * (NF_TW + NF_TGAP) + (NF_TSPLIT if c >= 5 else 0)
-            y = 44 + r * (NF_TH + 6)
-            caption, variable, factor, unit, decimals, rise = SERIES[n]
-            name = "nf_t%d" % n
-            inner += button(name, x, y, NF_TILE_SPRITE, tooltip=B.key(name + "_tt", tip + "\\nClick to see its months on the graph."))
-            inner += through(name + "_pick", x + 3, y + 3, NF_PICK_SPRITE)
-            triggers += block(name + "_pick_visible", "check_variable = { mod1440_h_series = %d }\n" % n)
-            effects += block(name + "_click", "set_variable = { mod1440_h_series = %d }\nmod1440_h_draw = yes\n" % n)
-            inner += plain(name + "_l", x + 6, y + 4, NF_TW - 12, B.key("h_series_%d" % n, caption), FONT_SMALL, "centre", 20)
-            inner += plain(name + "_v", x + 6, y + 21, NF_TW - 12, B.key(name + "_v", value), FONT_VALUE, "centre", 24)
-            if bar:
-                inner += through(name + "_bar", x + 8, y + 46, bar_sprite(140))
-                properties += block(name + "_bar", "frame = %s\n" % bar)
-                continue
-            # the change since the month before, written down by mod1440_h_draw
-            month = "check_variable = { mod1440_h_tab_hm^%d = 1 }\n" % n
-            same = "check_variable = { mod1440_h_tab_m^%d = 0 }\n" % n
-            inner += plain(name + "_dm", x + 6, y + 42, NF_TW - 12, B.key(name + "_dm", "[?mod1440_h_tab_m^%d|%s=%d] §gin a month§!" % (n, rise, decimals)),
-                           FONT_SMALL, "centre", 20)
-            inner += plain(name + "_same", x + 6, y + 42, NF_TW - 12, B.key("nf_t_same", "§gno change§!"), FONT_SMALL, "centre", 20)
-            triggers += block(name + "_dm_visible", month + "NOT = { %s }\n" % same.strip()) + block(name + "_same_visible", month + same)
-    return inner, triggers, properties, effects
+# --- D4 round 2 (2026-10-17) ---
+# The figures as two banded tables, the resources as a third card whose rows also draw the graph, a graph of 2, 5
+# or 10 years across the card, and a Changed view of the modifiers (scratch/phases/D4/design.json; the user chose
+# every recommended option on 2026-10-17). The widget names nf_t<series> of the rows stay those of the tiles, so a
+# recipe's click on nf_t4 still chooses Military factories.
+
+# The two tables of figures, left to right: (head, series) per group, two groups per card.
+NF_TABLES = [
+    [("Government", [11, 14, 6, 7, 30, 15]), ("Industry and research", [3, 4, 5, 8, 12, 13])],
+    [("Manpower", [0, 1, 2, 10]), ("Stock and experience", [9, 16, 17, 18, 19, 27, 28, 29])],
+]
+NF_SPARKS = [n for table in NF_TABLES for _head, rows in table for n in rows]     # the 24 rows with a sparkline
+
+# A row of a table: (its value today, a grey value beside it or None, tooltip). Every value is a dynamic variable
+# of the game's documentation/dynamic_variables_documentation.md (country scope).
+NF_ROWS = {
+    11: ("[?political_power|0]", "[?political_power_daily|=2] a day", "Political power, and what you gain each day."),
+    14: ("[?command_power|1]", "[?command_power_daily|=2] a day", "Command power, and what you gain each day."),
+    6: ("[?stability|%1]", "[?modifier@stability_weekly|=%2] a week", "Stability, and what the weekly modifiers add to it each week."),
+    7: ("[?has_war_support|%1]", "[?modifier@war_support_weekly|=%2] a week", "War support, and what the weekly modifiers add to it each week."),
+    30: ("[?party_popularity_100@ruling_party|1]%", None, "The popularity of the party in power, as the politics panel shows it among the parties."),
+    15: ("[?num_controlled_states|0]", "[?num_core_states|0] cores", "States you control, and how many states are your cores."),
+    3: ("£civ_factory [?num_of_civilian_factories|0]", "[?num_of_civilian_factories_available_for_projects|0] free",
+        "Your civilian factories, and how many of them are free for construction once consumer goods and trade have taken theirs."),
+    4: ("£mil_factory [?num_of_military_factories|0]", "[?num_of_available_military_factories|0] idle",
+        "Your military factories, and how many of them have no production line."),
+    5: ("£nav_dockyard_texticon [?num_of_naval_factories|0]", "[?num_of_available_naval_factories|0] idle",
+        "Your dockyards, and how many of them have no production line."),
+    8: ("[?fuel_k|1]K", "of [?max_fuel_k|1]K", "Fuel in your stockpile, and what the stockpile can hold."),
+    12: ("[?amount_research_slots|0]", None, "Your research slots."),
+    13: ("[?num_researched_technologies|0]", None, "Technologies you have researched."),
+    0: ("[?manpower_k|1]K", "[?amount_manpower_in_deployment_queue|*1] training",
+        "Men you can still call up: the manpower of the top bar. Beside it, the men of the divisions in training."),
+    1: ("[?deployed_total_manpower_k|1]K", None, "Men in your divisions, ships and air wings."),
+    2: ("[?num_divisions|0]", None, "Divisions in the field."),
+    10: ("[?casualties_k|1]K", None, "Men lost in all your wars. A rise is red."),
+    9: ("[?num_equipment@infantry_equipment|0]", None, "Infantry equipment in the stockpile."),
+    16: ("[?num_equipment@convoy|0]", None, "Convoys that no trade, supply route or naval invasion uses."),
+    17: ("[?num_equipment@train_equipment|0]", None, "Trains in the stockpile."),
+    18: ("[?num_ships|0]", None, "Your ships."),
+    19: ("[?num_deployed_planes|0]", None, "Planes in your air wings."),
+    27: ("[?army_experience|1]", None, "Army experience, which templates, doctrines and designs cost. The top bar shows it too."),
+    28: ("[?navy_experience|1]", None, "Navy experience, which ship designs and doctrines cost. The top bar shows it too."),
+    29: ("[?air_experience|1]", None, "Air experience, which aircraft designs and doctrines cost. The top bar shows it too."),
+}
+
+# From the corner of the politics panel (screen -6,78): beside the panel, which is 550 wide, and short of the
+# theatre box under the clock (screen x 2234); from under the top bar to above the army portraits.
+NF_X, NF_Y, NF_W, NF_H = 556, 0, 1680, 1210
+NF_IN = NF_W - 28                       # a band of cards between the margins of the page: 1652
+NF_CARD_GAP = 6                              # between the cards of a band
+NF_HEAD_H = 28                          # the head bar of a table
+NF_ROW = 26                             # a row of a table and of a list of modifiers
+# band 1: two tables of figures and the resources
+NF_FIG_Y, NF_FIG_H, NF_FIG_W = 56, 388, 600
+NF_FROW_W = NF_FIG_W - 16               # a row of a figure table: 584
+NF_RES_X = 14 + 2 * (NF_FIG_W + NF_CARD_GAP)                 # 1226
+NF_RES_W = NF_IN - 2 * (NF_FIG_W + NF_CARD_GAP)              # 440
+NF_RROW_W = NF_RES_W - 16               # a row of the resource table: 424
+# the columns of a figure row, from the row's left edge (design.json, measured in mock_figures.py)
+NF_C_NAME, NF_C_NAME_W = 8, 150         # the longest name, "Ruling party popularity", is 138 px
+NF_C_NOW = 250                          # right edge of the value; "12500.0K" is 63 px
+NF_C_EXTRA, NF_C_EXTRA_W = 258, 96      # grey, a box of its own size; "125.4K training" is 89 px
+NF_C_MONTH, NF_C_YEAR, NF_C_CHANGE_W = 428, 502, 72     # right edges; "+12500.0K" is 71 px
+NF_C_SPARK = 512                        # twelve columns 4 px wide on 6 px steps, 18 high: to 584
+NF_SPARK_N, NF_SPARK_STEP, NF_SPARK_W, NF_SPARK_H = 12, 6, 4, 18
+# the columns of the resource table: right edges of Balance, Made, Used, Import, Export, Month, 52 px each
+NF_R_COLS = [164, 216, 268, 320, 372, 420]
+# band 2: the graph
+NF_GRAPH_Y, NF_GRAPH_H = NF_FIG_Y + NF_FIG_H + NF_CARD_GAP, 322      # 450
+NF_NUM_X, NF_NUM_W = 330, 118           # the seven numbers of the chosen figure: a head bar and one row
+NF_RANGE_X, NF_RANGE_W, NF_ZOOM_X = 1172, 100, 1498
+# band 3: four lists of modifiers
+NF_COL_Y = NF_GRAPH_Y + NF_GRAPH_H + NF_CARD_GAP                     # 778
+NF_COL_W, NF_COL_H = 404, NF_H - 14 - NF_COL_Y                 # 404 x 418
+NF_LIST_ROWS = 14
+NF_LIST_W = NF_COL_W - 16               # a list in its card, with its scrollbar
+NF_ROW_W = NF_LIST_W - 30               # a row of it: 358
+
+H_KEEP = 120            # months kept: ten years
+H_CHART_X, H_CHART_Y = 70, 72           # the frame of the graph in its card
+H_CHART_W, H_CHART_H = 1560, 200        # the columns: as wide in every range
+H_STEPS = H_CHART_H     # heights a column can have (the "steps" of the column sprite): one per pixel
+H_AXIS = 20             # under the columns: the years
+H_YEARS = 10            # year marks under the graph: ten years have at most ten first months
+H_INSET = 4             # the columns stand this far inside the frame of the graph
+# The ranges: (months, px from one column to the next, a column's width, caption). 24 x 65 = 60 x 26 = 120 x 13.
+H_RANGES = [(24, 65, 57, "2 years"), (60, 26, 22, "5 years"), (120, 13, 11, "10 years")]
+H_CHART_TOP = NF_GRAPH_Y + H_CHART_Y    # page y of the columns' top: the zero line counts from here
 
 
-def figure_graph():
-    """The card of the chosen figure: its name, six numbers, and its months as columns. Returns its inside, the
-    year marks (which belong to the page: script moves them), the column entry, triggers, properties, effects
-    and the script that places the year marks."""
-    triggers, properties, effects = "", "", ""
-    some = more_than_zero("mod1440_h_valid")
-    inner = ""
-    for n, (caption, variable, factor, unit, decimals, rise) in enumerate(SERIES):
-        # the name, and under it in grey the unit of its numbers
-        chosen = "check_variable = { mod1440_h_series = %d }\n" % n
-        inner += text("h_name_%d" % n, 14, 10, 312, B.key("h_name_%d" % n, caption), FONT_CARD, height=30)
-        triggers += block("h_name_%d_visible" % n, chosen)
-        if unit:
-            inner += text("h_unit_%d" % n, 14, 36, 312, B.key("h_unit_%d" % n, "§g%s§!" % unit), FONT_SMALL, height=20)
-            triggers += block("h_unit_%d_visible" % n, chosen)
-
-    def number(name, x, y, width, variable, font, fmt, signed=False, when=""):
-        """A number of the chosen figure with its own decimals, and a change in the colours of its figure: one text
-        for each way of writing, of which a trigger shows one."""
-        out, extra = "", ""
-        for decimals in (0, 1):
-            for rise in (("+", "-") if signed else ("",)):
-                widget = "%s_%d%s" % (name, decimals, {"+": "", "-": "r", "": ""}[rise])
-                out += text(widget, x, y, width, B.key(widget, "[?%s|%s%s%d]" % (variable, rise, "=" if signed else "", decimals)), font, fmt, 24)
-                shown = some + when + "check_variable = { mod1440_h_dec = %d }\n" % decimals
-                if signed:
-                    shown += "check_variable = { mod1440_h_rise = %d }\n" % (1 if rise == "+" else 0)
-                extra += block(widget + "_visible", shown)
-        return out, extra
-
-    plates = [("latest", "Latest", "mod1440_h_latest", False, "", "The newest month written down."),
-              ("dm", "In a month", "mod1440_h_dm", True, is_one("mod1440_h_has_m") + "\n", "The change since the month before."),
-              ("dy", "In a year", "mod1440_h_dy", True, is_one("mod1440_h_has_y") + "\n", "The change since twelve months before."),
-              ("max", "Highest", "mod1440_h_max", False, "", "The highest month on the graph."),
-              ("min", "Lowest", "mod1440_h_min", False, "", "The lowest month on the graph."),
-              ("change", "Since the first month", "mod1440_h_change", True, "", "The newest month less the oldest month on the graph.")]
-    for k, (name, label, variable, signed, when, tip) in enumerate(plates):
-        x = 330 + k * (NF_PLATE_W + 6)
-        inner += icon("h_%s_bg" % name, x, 6, tile_sprite(NF_PLATE_W, NF_PLATE_H))
-        inner += text("h_%s_l" % name, x + 4, 9, NF_PLATE_W - 8, B.key("h_%s_l" % name, "§g%s§!" % label), FONT_SMALL, "centre", 18,
-                      tooltip=B.key("h_%s_tt" % name, tip))
-        part, more = number("h_" + name, x + 4, 26, NF_PLATE_W - 8, variable, FONT_VALUE, "centre", signed, when)
-        inner += part
-        triggers += more
-    inner += text("h_months", NF_IN - 14 - 150 - 10 - 200, 20, 200, B.key("h_months", "§g[?mod1440_h_valid|0] months§!"), FONT_SMALL, "right", 20,
-                  tooltip=B.key("h_months_tt", "Months written down for this figure, 120 at most."))
-    inner += button("h_zoom", NF_IN - 14 - 140, 14, "GFX_sort_button_140x29", B.key("h_zoom", "Zoom in"), tooltip=B.key(
-        "h_zoom_tt", "The columns start at the lowest month instead of at zero, so that small changes show."))
-    effects += block("h_zoom_click", flip("mod1440_h_zoom") + "mod1440_h_draw = yes\n")
-    properties += block("h_zoom", "frame = mod1440_h_zoom_frame\n")
-    # the scale on the left: five heights, from the foot of the columns to the highest month
-    for k in range(5):
-        part, more = number("h_scale_%d" % k, 14, H_CHART_Y + H_CHART_H - k * (H_CHART_H // 4) - 10, H_CHART_X - 20,
-                            "mod1440_h_s%d" % k, FONT_SMALL, "right")
-        inner += part
-        triggers += more
-    # the columns stand on bands a quarter of the height each, and have the years under them
-    bands = "".join(icon("h_band_%d" % k, H_INSET, k * (H_CHART_H // 4), STRIPE % (H_CHART_W, H_CHART_H // 4)) for k in (1, 3))
-    grid = ('gridboxtype = {\n\tname = "h_grid"\n\tposition = { x = %d y = 0 }\n\tsize = { width = %d height = %d }\n'
-            '\tslotsize = { width = %d height = %d }\n\tadd_horizontal = yes\n\tmax_slots_horizontal = %d\n\tformat = "UPPER_LEFT"\n}\n'
-            % (H_INSET, H_CHART_W, H_CHART_H + H_AXIS, H_COLUMN, H_CHART_H + H_AXIS, H_KEEP))
-    inner += box("h_chart", H_CHART_X, H_CHART_Y, H_CHART_W + 2 * H_INSET, H_CHART_H + H_AXIS, bands + grid, CARD_BG)
-    below = H_CHART_Y + H_CHART_H + H_AXIS + 4
-    inner += text("h_from", H_CHART_X + H_INSET, below, 300, B.key("h_from", "[?mod1440_h_first.GetDateStringNoHourLong]"), FONT_SMALL, height=20)
-    inner += text("h_to", H_CHART_X + H_INSET + H_CHART_W - 300, below, 300, B.key("h_to", "[?mod1440_h_last.GetDateStringNoHourLong]"), FONT_SMALL, "right", 20)
-    # a game that got the mod after its start, and a figure the build before this one did not write down, have
-    # nothing until the first of the next month
-    inner += text("h_none", H_CHART_X + 20, H_CHART_Y + 100, 1000, B.key(
-        "h_none", "Nothing is written down for this figure yet. The first column comes on the first of next month."), FONT_LABEL)
-    triggers += block("h_none_visible", "NOT = { %s }\n" % some.strip())
-    for name in ("h_from", "h_to", "h_months"):
-        triggers += block(name + "_visible", some)
-
-    # Under the columns, the year at each first month written down in a new year. The texts belong to the
-    # page and script moves them (the x property, as the arrow of a sorted column: Engine Facts X4).
-    marks = ""          # script: the k-th year mark gets its year and its place
-    years = ""
-    first_x = 14 + H_CHART_X + H_INSET + H_COLUMN // 2 - 20
-    for k in range(H_YEARS):
-        years += text("h_year_%d" % k, first_x, NF_GRAPH_Y + H_CHART_Y + H_CHART_H + 1, 40,
-                      B.key("h_year_%d" % k, "[?mod1440_h_yl_%d|0]" % k), FONT_SMALL, "centre", 18)
-        properties += block("h_year_%d" % k, "x = mod1440_h_yx_%d\n" % k)
-        triggers += block("h_year_%d_visible" % k, more_than_zero("mod1440_h_yl_%d" % k))
-        marks += iff("check_variable = { h_slot = %d }" % k, setv("mod1440_h_yl_%d" % k, "h_y") + setv("mod1440_h_yx_%d" % k, "h_x"),
-                     "if" if k == 0 else "else_if")
-    # a column: a month that was not written down for this figure (-1) is left out
-    column = ('iconType = { name = "h_bar" position = { x = 1 y = 0 } spriteType = "%s" pdx_tooltip = "%s" }\n'
-              % (H_COLUMN_SPRITE, B.key("h_bar_tt", "[?mod1440_h_date^i.GetDateStringNoHourLong]: [?mod1440_h_now^i|1]")))
-    properties += block("h_bar", "frame = v\n")
-    triggers += block("h_bar_visible", "check_variable = { v > -1 }\n")
-    place = (block("for_loop_effect", "start = 0\nend = %d\nvalue = h_pad\n" % H_KEEP + iff(
-        "check_variable = { mod1440_h_year^num < mod1440_h_date^num }", "add_to_array = { array = mod1440_h_year value = 0 index = 0 }\n"))
-        + "".join(setv("mod1440_h_yl_%d" % k, 0) for k in range(H_YEARS)) + tmp("h_before", 0) + tmp("h_slot", 0)
-        + block("for_each_loop", (
-            "array = mod1440_h_year\nvalue = h_y\nindex = h_yi\n"
-            + iff("check_variable = { h_yi > 0 }", iff("check_variable = { h_y > 0 }", iff("NOT = { check_variable = { h_y = h_before } }", (
-                tmp("h_x", "h_yi") + "multiply_temp_variable = { h_x = %d }\nadd_to_temp_variable = { h_x = %d }\n" % (H_COLUMN, first_x)
-                + marks + "add_to_temp_variable = { h_slot = 1 }\n"))))
-            + tmp("h_before", "h_y"))))
-    return inner, years, column, triggers, properties, effects, place
+def h_floor(n):
+    """A month of series n counts when its value is above this: every month of the first twelve; a month written
+    down of a newer series, which has the padding below it for the months before it was written down."""
+    if n < H_OLD:
+        return None
+    return H_RES_LOW if n in H_RES else -1
 
 
-def modifier_lists():
-    """The four cards of summed modifiers, each one list of the groups it holds, and the resource table under
-    Industry. Returns the cards, the four row containers, the dynamic lists, triggers and the fill effect."""
-    cards, rows, lists, triggers, fill = "", "", "", "", ""
-    groups = {name: (title, column, entries) for name, title, column, entries in FIGURES}
-    for c, (title, names, shown) in enumerate(NF_COLUMNS):
-        x = 14 + c * (NF_COL_W + 12)
-        total = sum(len(groups[g][2]) for g in names)
-        inner = text("nf_c%d_count" % c, NF_COL_W - 14 - 200, 16, 200, B.key("nf_c%d_count" % c, "§g[?mod1440_nf_a%d|0] of %d apply§!" % (c, total)),
-                     FONT_SMALL, "right", 20)
-        inner += listing("nf_l%d" % c, "nf_l%d_grid" % c, 8, 44, NF_LIST_W, shown * NF_ROW + 8, NF_ROW)
-        lists += block("nf_l%d_grid" % c, 'array = mod1440_nf_c%d_k\nentry_container = "mod1440_figures_row_%d"\n' % (c, c))
-        if "industry" in names:
-            inner += resource_table(14 + 2, 44 + shown * NF_ROW + 8 + 16)
-        cards += card("nf_col%d" % c, x, NF_COL_Y, NF_COL_W, NF_COL_H, title, inner)
-
-        # A row of the list: the head of a group (kind 0), or a modifier with the kind of its format. The label is
-        # a text key held in an array; the value a copy of the modifier when the list was made.
-        arr = "mod1440_nf_c%d_" % c
-        p = "nf_r%d_" % c
-        head = "check_variable = { v = 0 }\n"
-        line = "check_variable = { v > 0 }\n"
-        zero = "check_variable = { %sv^i = 0 }\n" % arr
-        some = "NOT = { %s }\n" % zero.strip()
-        entry = icon(p + "stripe", 0, 0, STRIPE % (NF_ROW_W, NF_ROW))
-        entry += icon(p + "head", 0, 0, "GFX_1440p_SG_head_%dx%d" % (NF_ROW_W, NF_ROW))
-        entry += text(p + "hname", 8, 4, 240, B.key(p + "hname", "§Y[?%st^i.GetTokenLocalizedKey]§!" % arr), FONT_SMALL, height=20)
-        entry += text(p + "hcount", NF_ROW_W - 8 - 100, 4, 100, B.key(p + "hcount", "§g[?%sv^i|0] of [?%sn^i|0]§!" % (arr, arr)), FONT_SMALL, "right", 20)
-        entry += text(p + "label", 8, 4, 250, B.key(p + "label", "[?%st^i.GetTokenLocalizedKey]" % arr), FONT_SMALL, height=20, fixed=True)
-        entry += text(p + "dim", 8, 4, 250, B.key(p + "dim", "§g[?%st^i.GetTokenLocalizedKey]§!" % arr), FONT_SMALL, height=20, fixed=True)
-        row_triggers = block(p + "stripe_visible", line + "check_variable = { mod1440_odd^i = 1 }\n")
-        for part in ("head", "hname", "hcount"):
-            row_triggers += block(p + part + "_visible", head)
-        row_triggers += block(p + "label_visible", line + some) + block(p + "dim_visible", line + zero)
-        for k, fmt in enumerate(NF_FORMATS, start=1):
-            entry += text(p + "v%d" % k, NF_ROW_W - 8 - 86, 2, 86, B.key(p + "v%d" % k, "[?%sv^i|%s]" % (arr, fmt)), FONT_LABEL, "right", 22)
-            row_triggers += block(p + "v%d_visible" % k, "check_variable = { v = %d }\n" % k + some)
-        rows += row("mod1440_figures_row_%d" % c, NF_ROW_W, NF_ROW, entry)
-        triggers += row_triggers
-
-        # the script that makes the list: a head per group, then each modifier that applies, or every one
-        fill += "".join("clear_array = %s%s\n" % (arr, part) for part in "ktvn") + setv("mod1440_nf_a%d" % c, 0)
-        for g in names:
-            title_g, column, entries = groups[g]
-            fill += (tmp("nf_h", arr + "k^num") + "add_to_array = { %sk = 0 }\n" % arr
-                     + "add_to_array = { %st = %s }\n" % (arr, nf_token("nf_grp_%s" % g, title_g))
-                     + "add_to_array = { %sv = 0 }\nadd_to_array = { %sn = %d }\n" % (arr, arr, len(entries)) + tmp("nf_g", 0))
-            for i, (label, value, fmt) in enumerate(entries):
-                fill += tmp("nf_x", value) + iff("NOT = { check_variable = { nf_x = 0 } }", "add_to_temp_variable = { nf_g = 1 }\n")
-                fill += iff("OR = { %s NOT = { check_variable = { nf_x = 0 } } }" % is_one("mod1440_nf_all"), (
-                    "add_to_array = { %sk = %d }\n" % (arr, NF_FORMATS.index(fmt) + 1)
-                    + "add_to_array = { %st = %s }\n" % (arr, label_token(g, i, label))
-                    + "add_to_array = { %sv = nf_x }\nadd_to_array = { %sn = 0 }\n" % (arr, arr)))
-            fill += "set_variable = { %sv^nf_h = nf_g }\nadd_to_variable = { mod1440_nf_a%d = nf_g }\n" % (arr, c)
-    return cards, rows, lists, triggers, fill
+def h_known(n, index):
+    """A trigger: the month at index of series n was written down (always yes for the first twelve)."""
+    low = h_floor(n)
+    return "always = yes" if low is None else "check_variable = { mod1440_h_%d^%s > %d }" % (n, index, low)
 
 
-def resource_table(x, y):
-    """Resources: a small table, live, under the list of Industry."""
-    width = NF_COL_W - 32
+def h_suffix(n):
+    unit = SERIES[n][3]
+    return "K" if unit == "in thousands" else ("%" if unit == "in percent" else "")
+
+
+def head_bar(name, x, y, width, title, caps=(), height=NF_HEAD_H):
+    """The head bar of a table: the vanilla header tile, the title in yellow, the column heads in white
+    (x, width, text, format, tooltip or None each)."""
+    out = icon(name, x, y, "GFX_1440p_SG_head_%dx%d" % (width, height))
+    out += text(name + "_t", x + 8, y + 5, 220, B.key(name + "_t", "§Y%s§!" % title), FONT_SMALL, height=20)
+    for k, (cx, cw, label, fmt, tip) in enumerate(caps):
+        out += text("%s_%d" % (name, k), x + cx, y + 5, cw, B.key("%s_%d" % (name, k), label), FONT_SMALL, fmt, 20,
+                    tooltip=B.key("%s_%d_tt" % (name, k), tip) if tip else None)
+    return out
+
+
+def nf_change(name, right, y, variable, has, rise, decimals, suffix):
+    """A change in a table: green for a gain, red for a loss (for a figure whose rise is bad, casualties, the other
+    way round), a grey dash for no change, nothing while there is no month to compare with. Three texts, of which a
+    trigger shows one. Returns the widgets and their triggers."""
+    number = "[?%s|=%d]%s" % (variable, decimals, suffix)
+    up, down = ("§G", "§R") if rise == "+" else ("§R", "§G")
+    x = right - NF_C_CHANGE_W
+    out = plain(name + "_up", x, y, NF_C_CHANGE_W, B.key(name + "_up", up + number + "§!"), FONT_LABEL, "right", 22)
+    out += plain(name + "_down", x, y, NF_C_CHANGE_W, B.key(name + "_down", down + number + "§!"), FONT_LABEL, "right", 22)
+    out += plain(name + "_same", x, y, NF_C_CHANGE_W, B.key("nf_same", DASH), FONT_LABEL, "right", 22)
+    known = "check_variable = { %s = 1 }\n" % has
+    triggers = (block(name + "_up_visible", known + "check_variable = { %s > 0 }\n" % variable)
+                + block(name + "_down_visible", known + "check_variable = { %s < 0 }\n" % variable)
+                + block(name + "_same_visible", known + "check_variable = { %s = 0 }\n" % variable))
+    return out, triggers
+
+
+def nf_pick(n, x, y, width, name):
+    """The hit area of a row that chooses series n for the graph, its pick band and its name, white or, chosen,
+    yellow. Returns the widgets (the band before the hit area, the texts after it), the triggers and the effect."""
+    chosen = "check_variable = { mod1440_h_series = %d }\n" % n
+    out = through(name + "_pick", x, y, PICK % (width, NF_ROW))
+    return (out, block(name + "_pick_visible", chosen)
+            + block(name + "_l_visible", "NOT = { %s }\n" % chosen.strip()) + block(name + "_ly_visible", chosen),
+            block(name + "_click", "set_variable = { mod1440_h_series = %d }\nmod1440_h_draw = yes\n" % n))
+
+
+def figure_tables():
+    """Band 1: the two tables of figures and the resource card. Returns the cards, the sparkline containers,
+    the dynamic lists, triggers, properties and effects."""
+    cards, sparks, lists, triggers, properties, effects = "", "", "", "", "", ""
+    click = "\\nClick to see its months on the graph."
+    for c, groups in enumerate(NF_TABLES):
+        inner = ""
+        y = 8
+        for g, (title, rows) in enumerate(groups):
+            caps = [(NF_C_NOW - 60, 60, "Now", "right", "Today's value; beside it in grey what goes with it."),
+                    (NF_C_MONTH - 66, 66, "Month", "right", "The change since the month before: the newest month written down less the one before."),
+                    (NF_C_YEAR - 66, 66, "Year", "right", "The change since twelve months before."),
+                    (NF_C_SPARK, 72, "12 months", "left", "The last twelve months, a column each, from the lowest of them to the highest.")] if g == 0 else []
+            inner += head_bar("nf_fh_%d_%d" % (c, g), 8, y, NF_FROW_W, title, caps)
+            y += NF_HEAD_H
+            for r, n in enumerate(rows):
+                ry = y + r * NF_ROW
+                caption, variable, factor, unit, decimals, rise = SERIES[n]
+                now, extra, tip = NF_ROWS[n]
+                name = "nf_t%d" % n
+                if r % 2:
+                    inner += icon(name + "_band", 8, ry, STRIPE % (NF_FROW_W, NF_ROW))
+                band, more, clicked = nf_pick(n, 8, ry, NF_FROW_W, name)
+                inner += band
+                triggers += more
+                effects += clicked
+                inner += button(name, 8, ry, "GFX_1440p_SG_hit_%dx%d" % (NF_FROW_W, NF_ROW), tooltip=B.key(name + "_tt", tip + click))
+                label = B.key("h_series_%d" % n, caption)
+                inner += plain(name + "_l", 8 + NF_C_NAME, ry + 4, NF_C_NAME_W, label, FONT_SMALL, height=20)
+                inner += plain(name + "_ly", 8 + NF_C_NAME, ry + 4, NF_C_NAME_W, B.key(name + "_ly", "§Y%s§!" % caption), FONT_SMALL, height=20)
+                inner += plain(name + "_v", 8 + NF_C_NOW - 92, ry + 2, 92, B.key(name + "_v", now), FONT_LABEL, "right", 22)
+                if extra:
+                    inner += ar_text(name + "_x", 8 + NF_C_EXTRA, ry + 4, NF_C_EXTRA_W, B.key(name + "_x", "§g%s§!" % extra), FONT_SMALL, height=20, fixed=True)
+                for part, right, has in (("m", NF_C_MONTH, "hm"), ("y", NF_C_YEAR, "hy")):
+                    out, more = nf_change("%s_%s" % (name, part), 8 + right, ry + 2, "mod1440_h_tab_d%s^%d" % (part, n),
+                                          "mod1440_h_tab_%s^%d" % (has, n), rise, decimals, h_suffix(n))
+                    inner += out
+                    triggers += more
+                # the sparkline: a grid of twelve columns from the array mod1440_h_sp_<n>, with its own row container
+                inner += ('gridboxtype = {\n\tname = "nf_sp%d_grid"\n\tposition = { x = %d y = %d }\n\tsize = { width = %d height = %d }\n'
+                          '\tslotsize = { width = %d height = %d }\n\tadd_horizontal = yes\n\tmax_slots_horizontal = %d\n\tformat = "UPPER_LEFT"\n}\n'
+                          % (n, 8 + NF_C_SPARK, ry + 4, NF_SPARK_N * NF_SPARK_STEP, NF_SPARK_H, NF_SPARK_STEP, NF_SPARK_H, NF_SPARK_N))
+                lists += block("nf_sp%d_grid" % n, 'array = mod1440_h_sp_%d\nentry_container = "mod1440_figures_spark_%d"\n' % (n, n))
+                sparks += row("mod1440_figures_spark_%d" % n, NF_SPARK_STEP, NF_SPARK_H, (
+                    'iconType = { name = "nf_sp%d" position = { x = 0 y = 0 } spriteType = "GFX_1440p_SG_spark_%dx%d" pdx_tooltip = "%s" }\n'
+                    % (n, NF_SPARK_W, NF_SPARK_H, B.key("nf_sp_tt", "A month of the last twelve: the lowest of them stands lowest, the highest full."))))
+                properties += block("nf_sp%d" % n, "frame = v\n")
+                triggers += block("nf_sp%d_visible" % n, "check_variable = { v > -1 }\n")
+            y += len(rows) * NF_ROW + 4
+        cards += box("nf_fig_%d" % c, 14 + c * (NF_FIG_W + NF_CARD_GAP), NF_FIG_Y, NF_FIG_W, NF_FIG_H, inner, CARD_BG)
+
+    # the resources: the live table of the build before, with the change of the balance in a month; a row draws
+    # the balance on the graph (series 20 to 26)
     cols = [("balance", "Balance", "resource", "+=0", "What is left after your own use and your exports."),
             ("made", "Made", "resource_produced", "0", "Produced in your states."),
             ("used", "Used", "resource_consumed", "0", "Used by your production lines."),
             ("in", "Import", "resource_imported", "0", "Bought from other countries."),
             ("out", "Export", "resource_exported", "0", "Sold to other countries.")]
-    name_w, col_w = 112, 52
-    out = heads("nf_res_heads", x, y, width, [(8, 100, "Resource", "left", None)] + [
-        (name_w + c * col_w, col_w - 4, caption, "right", tip) for c, (cname, caption, variable, fmt, tip) in enumerate(cols)])
-    out += stripes("nf_res_stripe", x, y + 30, width, NF_ROW, len(RESOURCES))
+    caps = [(right - 48, 48, caption, "right", tip) for (cname, caption, variable, fmt, tip), right in zip(cols, NF_R_COLS)]
+    caps.append((NF_R_COLS[5] - 48, 48, "Month", "right", "The change of the balance since the month before."))
+    inner = head_bar("nf_rh", 8, 8, NF_RROW_W, "Resources", caps)
     for r, resource in enumerate(RESOURCES):
-        ry = y + 30 + r * NF_ROW
-        out += text("nf_res_name_%d" % r, x + 8, ry + 2, name_w - 10, B.key(
-            "nf_res_name_%d" % r, "£resources_strip|%d  $PRODUCTION_MATERIALS_%s$" % (r + 1, resource.upper())), FONT_SMALL, height=22)
-        for c, (cname, caption, variable, fmt, tip) in enumerate(cols):
-            out += text("nf_res_%s_%d" % (cname, r), x + name_w + c * col_w, ry, col_w - 4,
-                        B.key("nf_res_%s_%d" % (cname, r), "[?%s@%s|%s]" % (variable, resource, fmt)), FONT_LABEL, "right", 22)
-    return out
+        n = H_RES[r]
+        ry = 8 + NF_HEAD_H + r * NF_ROW
+        name = "nf_t%d" % n
+        if r % 2:
+            inner += icon(name + "_band", 8, ry, STRIPE % (NF_RROW_W, NF_ROW))
+        band, more, clicked = nf_pick(n, 8, ry, NF_RROW_W, name)
+        inner += band
+        triggers += more
+        effects += clicked
+        inner += button(name, 8, ry, "GFX_1440p_SG_hit_%dx%d" % (NF_RROW_W, NF_ROW), tooltip=B.key(name + "_tt", "The balance of this resource: made and bought, less what your lines use and what you sell." + click))
+        label = "£resources_strip|%d  $PRODUCTION_MATERIALS_%s$" % (r + 1, resource.upper())
+        inner += plain(name + "_l", 16, ry + 2, 110, B.key("nf_res_name_%d" % r, label), FONT_SMALL, height=22)
+        inner += plain(name + "_ly", 16, ry + 2, 110, B.key(name + "_ly", "£resources_strip|%d  §Y$PRODUCTION_MATERIALS_%s$§!" % (r + 1, resource.upper())), FONT_SMALL, height=22)
+        for (cname, caption, variable, fmt, tip), right in zip(cols, NF_R_COLS):
+            inner += plain("nf_res_%s_%d" % (cname, r), 8 + right - 48, ry + 2, 48,
+                           B.key("nf_res_%s_%d" % (cname, r), "[?%s@%s|%s]" % (variable, resource, fmt)), FONT_LABEL, "right", 22)
+        out, more = nf_change("%s_m" % name, 8 + NF_R_COLS[5], ry + 2, "mod1440_h_tab_dm^%d" % n, "mod1440_h_tab_hm^%d" % n, "+", 0, "")
+        inner += out
+        triggers += more
+    inner += text("nf_legend", 16, 8 + NF_HEAD_H + len(RESOURCES) * NF_ROW + 16, NF_RROW_W - 16, B.key(
+        "nf_legend", "A click on a row draws its months below. §gMonth§!, §gYear§!: the change since the month and the year "
+        "before. §g12 months§!: a column a month, from the year's lowest to its highest. §GGreen§! is a gain, §Rred§! a loss; "
+        "for casualties and costs the other way round."), FONT_SMALL, height=130)
+    cards += box("nf_res", NF_RES_X, NF_FIG_Y, NF_RES_W, NF_FIG_H, inner, CARD_BG)
+    triggers += resource_triggers()
+    return cards, sparks, lists, triggers, properties, effects
 
 
 def resource_triggers():
@@ -2180,50 +2165,307 @@ def resource_triggers():
                                            ("in", "resource_imported"), ("out", "resource_exported")))
 
 
-def national_figures():
-    triggers = resource_triggers()
-    properties = ""
-    effects = ""
+def h_first_x(step):
+    """Page x of the first year mark (a text 40 wide under the middle of the first column)."""
+    return 14 + H_CHART_X + H_INSET + step // 2 - 20
 
-    # ---- title strip: the title, the two views of the modifiers, a hint and the button that folds the page
+
+def figure_graph():
+    """Band 2: the chosen figure's name, seven numbers, the range, and its months as columns. Returns its inside,
+    the widgets of the page (year marks and zero line: script moves them), the column entries, the dynamic lists,
+    triggers, properties, effects and the script that places the year marks."""
+    triggers, properties, effects = "", "", ""
+    some = more_than_zero("mod1440_h_valid")
+    inner = ""
+    for n, (caption, variable, factor, unit, decimals, rise) in enumerate(SERIES):
+        # the name, and under it in grey what the columns show
+        chosen = "check_variable = { mod1440_h_series = %d }\n" % n
+        inner += text("h_name_%d" % n, 14, 10, 312, B.key("h_name_%d" % n, caption), FONT_CARD, height=30)
+        inner += text("h_unit_%d" % n, 14, 42, 312, B.key("h_unit_%d" % n, "§gThe last [?mod1440_h_yrs|0] years of [?mod1440_h_total|0] months%s§!"
+                                                           % (", " + unit if unit else "")), FONT_SMALL, height=20)
+        triggers += block("h_name_%d_visible" % n, chosen) + block("h_unit_%d_visible" % n, chosen + some)
+
+    def number(name, x, y, width, variable, font, fmt, signed=False, when="", tooltip=None):
+        """A number of the chosen figure with its own decimals, and a change in the colours of its figure: one text
+        for each way of writing, of which a trigger shows one."""
+        out, extra = "", ""
+        for decimals in (0, 1):
+            for rise in (("+", "-") if signed else ("",)):
+                widget = "%s_%d%s" % (name, decimals, {"+": "", "-": "r", "": ""}[rise])
+                out += text(widget, x, y, width, B.key(widget, "[?%s|%s%s%d]" % (variable, rise, "=" if signed else "", decimals)), font, fmt, 24,
+                            tooltip=tooltip)
+                shown = some + when + "check_variable = { mod1440_h_dec = %d }\n" % decimals
+                if signed:
+                    shown += "check_variable = { mod1440_h_rise = %d }\nNOT = { check_variable = { %s = 0 } }\n" % (1 if rise == "+" else 0, variable)
+                extra += block(widget + "_visible", shown)
+        if signed:
+            # no change: a grey dash, as in the tables
+            out += text(name + "_same", x, y, width, B.key("nf_same", DASH), font, fmt, 24, tooltip=tooltip)
+            extra += block(name + "_same_visible", some + when + "check_variable = { %s = 0 }\n" % variable)
+        return out, extra
+
+    # The seven numbers as one row of a table. Latest stays: it is the month the changes count from, which is not
+    # today's value in the table above until the next first of the month.
+    plates = [("latest", "Latest", "mod1440_h_latest", False, "", "The newest month written down: the changes count from it."),
+              ("dm", "In a month", "mod1440_h_dm", True, is_one("mod1440_h_has_m") + "\n", "The change since the month before."),
+              ("dy", "In a year", "mod1440_h_dy", True, is_one("mod1440_h_has_y") + "\n", "The change since twelve months before."),
+              ("max", "Highest", "mod1440_h_max", False, "", "The highest month on the graph: [?mod1440_h_max_date.GetDateStringNoHourLong]."),
+              ("min", "Lowest", "mod1440_h_min", False, "", "The lowest month on the graph: [?mod1440_h_min_date.GetDateStringNoHourLong]."),
+              ("change", "Over the range", "mod1440_h_change", True, "", "The newest month less the oldest month on the graph.")]
+    inner += icon("h_nums_head", NF_NUM_X, 8, "GFX_1440p_SG_head_%dx26" % (NF_NUM_W * (len(plates) + 1)))
+    for k, (name, label, variable, signed, when, tip) in enumerate(plates):
+        x = NF_NUM_X + k * NF_NUM_W
+        tooltip = B.key("h_%s_tt" % name, tip)
+        inner += text("h_%s_l" % name, x, 12, NF_NUM_W, B.key("h_%s_l" % name, "§g%s§!" % label), FONT_SMALL, "centre", 18, tooltip=tooltip)
+        part, more = number("h_" + name, x, 36, NF_NUM_W, variable, FONT_LABEL, "centre", signed, when, tooltip)
+        inner += part
+        triggers += more
+    x = NF_NUM_X + len(plates) * NF_NUM_W
+    tooltip = B.key("h_months_tt", "Months on the graph, of the months written down for this figure (120 at most).")
+    inner += text("h_months_l", x, 12, NF_NUM_W, B.key("h_months_l", "§gMonths§!"), FONT_SMALL, "centre", 18, tooltip=tooltip)
+    inner += text("h_months", x, 36, NF_NUM_W, B.key("h_months", "[?mod1440_h_valid|0] of [?mod1440_h_total|0]"), FONT_LABEL, "centre", 24, tooltip=tooltip)
+
+    # the range: 2, 5 or 10 years; until the player picks one, the shortest that holds every month written down
+    for k, (span, step, width, caption) in enumerate(H_RANGES):
+        x = NF_RANGE_X + k * (NF_RANGE_W + 4)
+        name = "h_range_%d" % span
+        inner += button(name, x, 10, "GFX_sort_button_100x29", tooltip=B.key(name + "_tt", (
+            "The last %s on the graph, a column a month. Until you pick a range, the graph takes the shortest that holds "
+            "every month written down." % caption)))
+        inner += plain(name + "_off", x, 15, NF_RANGE_W, B.key(name + "_off", caption), FONT_SMALL, "centre", 20)
+        inner += plain(name + "_on", x, 15, NF_RANGE_W, B.key(name + "_on", "§Y%s§!" % caption), FONT_SMALL, "centre", 20)
+        on = "check_variable = { mod1440_h_span = %d }\n" % span
+        triggers += block(name + "_on_visible", on) + block(name + "_off_visible", "NOT = { %s }\n" % on.strip())
+        effects += block(name + "_click", setv("mod1440_h_range", span) + "mod1440_h_draw = yes\n")
+        properties += block(name, "frame = mod1440_h_rf_%d\n" % span)
+    inner += button("h_zoom", NF_ZOOM_X, 10, "GFX_sort_button_140x29", B.key("h_zoom", "Zoom in"), tooltip=B.key(
+        "h_zoom_tt", "The columns start at the lowest month instead of at zero, so that small changes show."))
+    effects += block("h_zoom_click", flip("mod1440_h_zoom") + "mod1440_h_draw = yes\n")
+    properties += block("h_zoom", "frame = mod1440_h_zoom_frame\n")
+
+    # the scale on the left: five heights, from the foot of the columns to the top
+    for k in range(5):
+        part, more = number("h_scale_%d" % k, 14, H_CHART_Y + H_CHART_H - k * (H_CHART_H // 4) - 10, H_CHART_X - 20,
+                            "mod1440_h_s%d" % k, FONT_SMALL, "right")
+        inner += part
+        triggers += more
+    # the columns stand on bands a quarter of the height each, and have the years under them; one grid per range,
+    # of which script fills one and empties the other two (a nested container cannot be hidden, X15)
+    chart = "".join(icon("h_band_%d" % k, H_INSET, k * (H_CHART_H // 4), STRIPE % (H_CHART_W, H_CHART_H // 4)) for k in (1, 3))
+    columns, lists = "", ""
+    tip = B.key("h_bar_tt", "[?mod1440_h_sdate^i.GetDateStringNoHourLong]: [?mod1440_h_now^i|1]")
+    for span, step, width, caption in H_RANGES:
+        chart += ('gridboxtype = {\n\tname = "h_grid_%d"\n\tposition = { x = %d y = 0 }\n\tsize = { width = %d height = %d }\n'
+                  '\tslotsize = { width = %d height = %d }\n\tadd_horizontal = yes\n\tmax_slots_horizontal = %d\n\tformat = "UPPER_LEFT"\n}\n'
+                  % (span, H_INSET, H_CHART_W, H_CHART_H + H_AXIS, step, H_CHART_H + H_AXIS, span))
+        lists += block("h_grid_%d" % span, 'array = mod1440_h_bars_%d\nentry_container = "mod1440_figures_col_%d"\n' % (span, span))
+        # a column: a month that was not written down for this figure (-1) is left out
+        columns += row("mod1440_figures_col_%d" % span, step, H_CHART_H + H_AXIS, (
+            'iconType = { name = "h_bar%d" position = { x = %d y = 0 } spriteType = "GFX_1440p_SG_column_%dx%d" pdx_tooltip = "%s" }\n'
+            % (span, (step - width) // 2, width, H_CHART_H, tip)))
+        properties += block("h_bar%d" % span, "frame = v\n")
+        triggers += block("h_bar%d_visible" % span, "check_variable = { v > -1 }\n")
+    inner += box("h_chart", H_CHART_X, H_CHART_Y, H_CHART_W + 2 * H_INSET, H_CHART_H + H_AXIS, chart, CARD_BG)
+    below = H_CHART_Y + H_CHART_H + H_AXIS + 4
+    inner += text("h_from", H_CHART_X + H_INSET, below, 300, B.key("h_from", "[?mod1440_h_first.GetDateStringNoHourLong]"), FONT_SMALL, height=20)
+    inner += text("h_to", H_CHART_X + H_INSET + H_CHART_W - 300, below, 300, B.key("h_to", "[?mod1440_h_last.GetDateStringNoHourLong]"), FONT_SMALL, "right", 20)
+    # a game that got the mod after its start, and a figure the build before this one did not write down, have
+    # nothing until the first of the next month
+    inner += text("h_none", H_CHART_X + 20, H_CHART_Y + 80, 1000, B.key(
+        "h_none", "Nothing is written down for this figure yet. The first column comes on the first of next month."), FONT_LABEL)
+    triggers += block("h_none_visible", "NOT = { %s }\n" % some.strip())
+    for name in ("h_from", "h_to", "h_months", "h_months_l"):
+        triggers += block(name + "_visible", some)
+
+    # Under the columns, the year at each first month of a new year on the graph; a 2 px line at zero for a figure
+    # that goes below it. They belong to the page, and script moves them (x and y properties, Engine Facts X4).
+    page = ""
+    marks = ""          # script: the k-th year mark gets its year and its place
+    for k in range(H_YEARS):
+        page += text("h_year_%d" % k, h_first_x(H_RANGES[0][1]), H_CHART_TOP + H_CHART_H + 1, 40,
+                     B.key("h_year_%d" % k, "[?mod1440_h_yl_%d|0]" % k), FONT_SMALL, "centre", 18)
+        properties += block("h_year_%d" % k, "x = mod1440_h_yx_%d\n" % k)
+        triggers += block("h_year_%d_visible" % k, more_than_zero("mod1440_h_yl_%d" % k))
+        marks += iff("check_variable = { h_slot = %d }" % k, setv("mod1440_h_yl_%d" % k, "h_y") + setv("mod1440_h_yx_%d" % k, "h_x"),
+                     "if" if k == 0 else "else_if")
+    page += 'iconType = { name = "h_zero" position = { x = %d y = %d } spriteType = "GFX_1440p_SG_line_%dx2" alwaystransparent = yes }\n' % (
+        14 + H_CHART_X + H_INSET, H_CHART_TOP + H_CHART_H - 1, H_CHART_W)
+    properties += block("h_zero", "y = mod1440_h_zero_y\n")
+    triggers += block("h_zero_visible", is_one("mod1440_h_zero") + "\n")
+    # the years of the months on the graph get a mark under the first month of each year after the first
+    place = ("".join(setv("mod1440_h_yl_%d" % k, 0) for k in range(H_YEARS)) + tmp("h_before", 0) + tmp("h_slot", 0)
+        + block("for_each_loop", (
+            "array = mod1440_h_syear\nvalue = h_y\nindex = h_yi\n"
+            + iff("check_variable = { h_yi > 0 }", iff("check_variable = { h_y > 0 }", iff("NOT = { check_variable = { h_y = h_before } }", (
+                tmp("h_x", "h_yi") + "multiply_temp_variable = { h_x = h_step }\nadd_to_temp_variable = { h_x = h_off }\n"
+                + marks + "add_to_temp_variable = { h_slot = 1 }\n"))))
+            + tmp("h_before", "h_y"))))
+    return inner, page, columns, lists, triggers, properties, effects, place
+
+
+# How the change of a modifier is coloured in the Changed view: a row whose format is plain (no colour for its
+# value) gets the sense of its change here; the others take it from their format.
+NF_CHANGE_SENSE = {"modifier@consumer_goods_expected_value": "-", "modifier@min_export": "-"}
+
+
+def nf_change_format(value, fmt):
+    sense = fmt[0] if fmt[0] in "+-" else NF_CHANGE_SENSE.get(value, "+")
+    return sense + "=" + fmt.lstrip("+-").lstrip("=")
+
+
+NF_CHANGES = []         # the ways a change is written, in the order first met
+for _name, _title, _column, _entries in FIGURES:
+    for _label, _value, _fmt in _entries:
+        if nf_change_format(_value, _fmt) not in NF_CHANGES:
+            NF_CHANGES.append(nf_change_format(_value, _fmt))
+NF_NOW = [fmt.lstrip("+-") for fmt in NF_FORMATS]       # the value now, grey, in the Changed view
+NF_VIEWS = [("applies", "What applies", "Only the modifiers that are not 0."),
+            ("all", "All modifiers", "Every modifier the page knows, those that are 0 in grey."),
+            ("changed", "Changed", "The modifiers that are not what they were on the first of the month, with the change "
+                                   "and the value now. The first of each month writes the values down again.")]
+NF_MODIFIERS = [value for _name, _title, _column, entries in FIGURES for _label, value, _fmt in entries]    # mod1440_nf_was
+
+
+def modifier_lists():
+    """The four cards of summed modifiers, each one list of the groups it holds. Returns the cards, the four row
+    containers, the dynamic lists, triggers and the fill effect."""
+    cards, rows, lists, triggers, fill = "", "", "", "", ""
+    groups = {name: (title, column, entries) for name, title, column, entries in FIGURES}
+    first = {}          # the index in mod1440_nf_was of each group's first modifier
+    count = 0
+    for name, title, column, entries in FIGURES:
+        first[name] = count
+        count += len(entries)
+    changed = "check_variable = { mod1440_nf_all = 2 }"
+    was = "check_variable = { mod1440_nf_was^num > 0 }"
+    for c, (title, names) in enumerate(NF_COLUMNS):
+        x = 14 + c * (NF_COL_W + 12)
+        total = sum(len(groups[g][2]) for g in names)
+        inner = text("nf_c%d_count" % c, NF_COL_W - 14 - 200, 16, 200, B.key("nf_c%d_count" % c, "§g[?mod1440_nf_a%d|0] of %d apply§!" % (c, total)),
+                     FONT_SMALL, "right", 20)
+        inner += text("nf_c%d_since" % c, NF_COL_W - 14 - 200, 16, 200, B.key(
+            "nf_c%d_since" % c, "§g[?mod1440_nf_a%d|0] since [?mod1440_nf_was_date.GetDateStringNoHourLong]§!" % c), FONT_SMALL, "right", 20)
+        triggers += (block("nf_c%d_count_visible" % c, "NOT = { %s }\n" % changed)
+                     + block("nf_c%d_since_visible" % c, changed + "\n" + was + "\n"))
+        inner += listing("nf_l%d" % c, "nf_l%d_grid" % c, 8, 44, NF_LIST_W, NF_LIST_ROWS * NF_ROW + 8, NF_ROW)
+        inner += text("nf_c%d_none" % c, 20, 56, NF_LIST_W - 50, B.key("nf_none", "§gThe first comparison comes on the first of next month.§!"),
+                      FONT_SMALL, height=44)
+        triggers += block("nf_c%d_none_visible" % c, changed + "\nNOT = { %s }\n" % was)
+        lists += block("nf_l%d_grid" % c, 'array = mod1440_nf_c%d_k\nentry_container = "mod1440_figures_row_%d"\n' % (c, c))
+        cards += card("nf_col%d" % c, x, NF_COL_Y, NF_COL_W, NF_COL_H, title, inner)
+
+        # A row of the list: the head of a group (kind 0), a modifier with the kind of its format (1 to 7), or in
+        # the Changed view a modifier that changed (10 + kind). The label is a text key held in an array; the value
+        # a copy of the modifier when the list was made; in the Changed view also the change and how it is written.
+        arr = "mod1440_nf_c%d_" % c
+        p = "nf_r%d_" % c
+        head = "check_variable = { v = 0 }\n"
+        line = "check_variable = { v > 0 }\ncheck_variable = { v < 10 }\n"
+        moved = "check_variable = { v > 10 }\n"
+        zero = "check_variable = { %sv^i = 0 }\n" % arr
+        some = "NOT = { %s }\n" % zero.strip()
+        entry = icon(p + "stripe", 0, 0, STRIPE % (NF_ROW_W, NF_ROW))
+        entry += icon(p + "head", 0, 0, "GFX_1440p_SG_head_%dx%d" % (NF_ROW_W, NF_ROW))
+        entry += text(p + "hname", 8, 4, 220, B.key(p + "hname", "§Y[?%st^i.GetTokenLocalizedKey]§!" % arr), FONT_SMALL, height=20)
+        entry += text(p + "hcount", NF_ROW_W - 8 - 100, 4, 100, B.key(p + "hcount", "§g[?%sv^i|0] of [?%sn^i|0]§!" % (arr, arr)), FONT_SMALL, "right", 20)
+        entry += text(p + "hchange", 232, 4, 56, B.key("nf_r_hchange", "§gchange§!"), FONT_SMALL, "right", 20)
+        entry += text(p + "hnow", 294, 4, 56, B.key("nf_r_hnow", "§gnow§!"), FONT_SMALL, "right", 20)
+        entry += text(p + "label", 8, 4, 250, B.key(p + "label", "[?%st^i.GetTokenLocalizedKey]" % arr), FONT_SMALL, height=20, fixed=True)
+        entry += text(p + "dim", 8, 4, 250, B.key(p + "dim", "§g[?%st^i.GetTokenLocalizedKey]§!" % arr), FONT_SMALL, height=20, fixed=True)
+        entry += text(p + "clabel", 8, 4, 220, B.key(p + "label", "[?%st^i.GetTokenLocalizedKey]" % arr), FONT_SMALL, height=20, fixed=True)
+        row_triggers = block(p + "stripe_visible", "check_variable = { v > 0 }\ncheck_variable = { mod1440_odd^i = 1 }\n")
+        for part in ("head", "hname"):
+            row_triggers += block(p + part + "_visible", head)
+        row_triggers += block(p + "hcount_visible", head + "NOT = { %s }\n" % changed)
+        row_triggers += block(p + "hchange_visible", head + changed + "\n") + block(p + "hnow_visible", head + changed + "\n")
+        row_triggers += block(p + "label_visible", line + some) + block(p + "dim_visible", line + zero) + block(p + "clabel_visible", moved)
+        for k, fmt in enumerate(NF_FORMATS, start=1):
+            entry += text(p + "v%d" % k, NF_ROW_W - 8 - 86, 2, 86, B.key(p + "v%d" % k, "[?%sv^i|%s]" % (arr, fmt)), FONT_LABEL, "right", 22)
+            row_triggers += block(p + "v%d_visible" % k, "check_variable = { v = %d }\n" % k + some)
+            entry += text(p + "n%d" % k, 292, 2, 58, B.key(p + "n%d" % k, "§g[?%sv^i|%s]§!" % (arr, NF_NOW[k - 1])), FONT_LABEL, "right", 22)
+            row_triggers += block(p + "n%d_visible" % k, "check_variable = { v = %d }\n" % (10 + k))
+        for k, fmt in enumerate(NF_CHANGES, start=1):
+            entry += text(p + "d%d" % k, 218, 2, 70, B.key(p + "d%d" % k, "[?%sd^i|%s]" % (arr, fmt)), FONT_LABEL, "right", 22)
+            row_triggers += block(p + "d%d_visible" % k, moved + "check_variable = { %sx^i = %d }\n" % (arr, k))
+        rows += row("mod1440_figures_row_%d" % c, NF_ROW_W, NF_ROW, entry)
+        triggers += row_triggers
+
+        # The script that makes the list. Per group: count what applies and what changed, then a head (in the
+        # Changed view only for a group with a change), then each modifier that applies, every one, or each that
+        # changed since mod1440_h_record wrote mod1440_nf_was on the first of the month.
+        def add(kind, token, value, total, how, change):
+            return "".join("add_to_array = { %s%s = %s }\n" % (arr, part, v) for part, v in
+                           (("k", kind), ("t", token), ("v", value), ("n", total), ("x", how), ("d", change)))
+        fill += "".join("clear_array = %s%s\n" % (arr, part) for part in "ktvnxd") + setv("mod1440_nf_a%d" % c, 0)
+        for g in names:
+            title_g, column, entries = groups[g]
+            fill += tmp("nf_g", 0) + tmp("nf_c", 0)
+            for i, (label, value, fmt) in enumerate(entries):
+                at = first[g] + i
+                fill += tmp("nf_x", value) + iff("NOT = { check_variable = { nf_x = 0 } }", "add_to_temp_variable = { nf_g = 1 }\n")
+                fill += iff("check_variable = { mod1440_nf_was^num > %d }" % at, tmp("nf_w", "mod1440_nf_was^%d" % at) + iff(
+                    "NOT = { check_variable = { nf_x = nf_w } }", "add_to_temp_variable = { nf_c = 1 }\n"))
+            fill += iff(changed, iff("check_variable = { nf_c > 0 }", add(0, nf_token("nf_grp_%s" % g, title_g), "nf_c", len(entries), 0, 0))
+                        + "add_to_variable = { mod1440_nf_a%d = nf_c }\n" % c)
+            fill += els(add(0, nf_token("nf_grp_%s" % g, title_g), "nf_g", len(entries), 0, 0) + "add_to_variable = { mod1440_nf_a%d = nf_g }\n" % c)
+            for i, (label, value, fmt) in enumerate(entries):
+                at = first[g] + i
+                kind = NF_FORMATS.index(fmt) + 1
+                token = label_token(g, i, label)
+                fill += tmp("nf_x", value)
+                fill += iff(changed, iff("check_variable = { mod1440_nf_was^num > %d }" % at, tmp("nf_w", "mod1440_nf_was^%d" % at) + iff(
+                    "NOT = { check_variable = { nf_x = nf_w } }", tmp("nf_d", "nf_x") + "subtract_from_temp_variable = { nf_d = nf_w }\n"
+                    + add(10 + kind, token, "nf_x", 0, NF_CHANGES.index(nf_change_format(value, fmt)) + 1, "nf_d"))))
+                fill += iff("OR = { %s NOT = { check_variable = { nf_x = 0 } } }" % is_one("mod1440_nf_all"),
+                            add(kind, token, "nf_x", 0, 0, 0), "else_if")
+    return cards, rows, lists, triggers, fill
+
+
+def national_figures():
+    triggers, properties, effects = "", "", ""
+
+    # ---- title strip: the title, the date of the last record, the three views of the modifiers, the close button
     body = box("nf_head", 3, 3, NF_W - 6, 50, "", "GFX_tiled_header")
     body += text("nf_title", 22, 8, 300, B.key("nf_title", "National Figures"), FONT_TITLE, height=40)
-    views = [("applies", "What applies", 0, "Only the modifiers that are not 0."),
-             ("all", "All modifiers", 1, "Every modifier the page knows, those that are 0 in grey.")]
-    for k, (name, caption, value, tip) in enumerate(views):
-        x = 330 + k * 150
+    body += text("nf_last", 330, 18, 720, B.key(
+        "nf_last", "§gWritten down on the first of each month, the last on [?mod1440_h_last.GetDateStringNoHourLong]§!"), FONT_SMALL, height=20,
+        tooltip=B.key("nf_last_tt", "The figures of the tables are today's; their months, the changes and the graph come from what is written down."))
+    body += text("nf_last_none", 330, 18, 720, B.key("nf_last_none", "§gWritten down on the first of each month§!"), FONT_SMALL, height=20)
+    recorded = "check_variable = { mod1440_h_date^num > 0 }"
+    triggers += block("nf_last_visible", recorded + "\n") + block("nf_last_none_visible", "NOT = { %s }\n" % recorded)
+    body += text("nf_views", 1060, 18, 76, B.key("nf_views", "§gModifiers:§!"), FONT_SMALL, "right", 20, tooltip=B.key(
+        "nf_views_tt", "The summed modifiers below: the sums over every law, spirit, advisor, technology and focus."))
+    for k, (name, caption, tip) in enumerate(NF_VIEWS):
+        x = 1146 + k * 144
         body += button("nf_view_%s" % name, x, 13, "GFX_sort_button_140x29", tooltip=B.key("nf_view_%s_tt" % name, tip))
         body += plain("nf_view_%s_off" % name, x, 18, 140, B.key("nf_view_%s" % name, caption), FONT_SMALL, "centre", 20)
         body += plain("nf_view_%s_on" % name, x, 18, 140, B.key("nf_view_%s_on" % name, "§Y%s§!" % caption), FONT_SMALL, "centre", 20)
-        chosen = "check_variable = { mod1440_nf_all = %d }\n" % value
+        chosen = "check_variable = { mod1440_nf_all = %d }\n" % k
         triggers += block("nf_view_%s_on_visible" % name, chosen) + block("nf_view_%s_off_visible" % name, "NOT = { %s }\n" % chosen.strip())
-        effects += block("nf_view_%s_click" % name, setv("mod1440_nf_all", value) + "mod1440_nf_fill = yes\n")
+        effects += block("nf_view_%s_click" % name, setv("mod1440_nf_all", k) + "mod1440_nf_fill = yes\n")
         properties += block("nf_view_%s" % name, "frame = mod1440_nf_frame_%s\n" % name)
-    body += text("nf_hint", NF_W - 84 - 980, 18, 980, B.key(
-        "nf_hint", "§gSums over every law, spirit, advisor, technology and focus. Click a figure for its months.§!"), FONT_SMALL, "right")
     body += button("nf_fold", NF_W - 66, 10, "GFX_closebutton",
                    tooltip=B.key("nf_fold_tt", "Hide this page and give the map back. Shift+M or the Figures button brings it back."))
     effects += block("nf_fold_click", "set_variable = { mod1440_nf_open = 0 }\n")
 
-    # ---- twenty figures, the graph of the chosen one, the modifiers
-    inner, more, props, clicks = figure_tiles()
+    # ---- the tables, the graph of the chosen figure, the modifiers
+    cards, sparks, lists, more, props, clicks = figure_tables()
+    body += cards
     triggers += more
     properties += props
     effects += clicks
-    body += card("nf_figures", 14, NF_FIG_Y, NF_IN, NF_FIG_H, "Figures", inner)
-    inner, years, column, more, props, clicks, place = figure_graph()
+    inner, page, columns, graph_lists, more, props, clicks, place = figure_graph()
     triggers += more
     properties += props
     effects += clicks
     body += box("nf_graph", 14, NF_GRAPH_Y, NF_IN, NF_GRAPH_H, inner, CARD_BG)
-    body += years
-    cards, rows, lists, more, fill = modifier_lists()
+    body += page
+    cards, rows, list_lists, more, fill = modifier_lists()
     body += cards
     triggers += more
 
     gui = box("mod1440_figures", NF_X, NF_Y, NF_W, NF_H, body, PAGE_BG)
-    gui += row("mod1440_figures_column", H_COLUMN, H_CHART_H + H_AXIS, column)
-    gui += rows
+    gui += columns + sparks + rows
     # The button that opens it sits in the title strip of Politics. Between x 230 and 356 another mod has its own
     # button there (Better Mechanics: Production, "Economy Status"), and the game's own stands from 454 on: the
     # button takes the 92 px between them, with the short caption.
@@ -2232,161 +2474,416 @@ def national_figures():
     gui += box("mod1440_figures_handle", 359, 12, 92, 34, handle)
 
     # Docked to the tab, as Army Readiness and States: it opens and closes with Politics, whose window lets it
-    # out (interface/zz_1440p_politics.gui, clipping = no). No dirty: the tiles and the resource table are live.
+    # out (interface/zz_1440p_politics.gui, clipping = no). No dirty: the tables are live texts.
     script = scripted_gui("mod1440_figures", "mod1440_figures", "politics_tab",
                           visible="check_variable = { mod1440_nf_open = 1 }\n",
-                          lists=block("h_grid", 'array = mod1440_h_bars\nentry_container = "mod1440_figures_column"\n') + lists,
-                          effects=effects, triggers=triggers, properties=properties)
-    opened = "mod1440_nf_bars = yes\nmod1440_nf_fill = yes\nmod1440_h_draw = yes\n"
+                          lists=graph_lists + lists + list_lists, effects=effects, triggers=triggers, properties=properties)
+    opened = "mod1440_nf_fill = yes\nmod1440_h_draw = yes\n"
     script += "\n" + scripted_gui("mod1440_figures_handle", "mod1440_figures_handle", "politics_tab",
                                   effects=block("nf_toggle_click", flip("mod1440_nf_open") + iff(is_one("mod1440_nf_open"), opened)))
 
-    # A bar is filled by a variable and by nothing else (Engine Facts X26), so the shares are worked out here.
-    bars = (setv("mod1440_nf_stab", "stability") + "multiply_variable = { mod1440_nf_stab = 100 }\n"
-            + setv("mod1440_nf_ws", "has_war_support") + "multiply_variable = { mod1440_nf_ws = 100 }\n"
-            + setv("mod1440_nf_fuel", 0) + iff("check_variable = { max_fuel_k > 0 }", (
-                setv("mod1440_nf_fuel", "fuel_k") + "divide_variable = { mod1440_nf_fuel = max_fuel_k }\n"
-                "multiply_variable = { mod1440_nf_fuel = 100 }\nclamp_variable = { var = mod1440_nf_fuel min = 0 max = 100 }\n")))
-    frames = setv("mod1440_nf_frame_applies", 2) + setv("mod1440_nf_frame_all", 1) + iff(
-        is_one("mod1440_nf_all"), setv("mod1440_nf_frame_applies", 1) + setv("mod1440_nf_frame_all", 2))
+    frames = "".join(setv("mod1440_nf_frame_%s" % name, 1) for name, caption, tip in NF_VIEWS) + "".join(
+        iff("check_variable = { mod1440_nf_all = %d }" % k, setv("mod1440_nf_frame_%s" % name, 2), "if" if k == 0 else "else_if")
+        for k, (name, caption, tip) in enumerate(NF_VIEWS))
     script_effects = (
-        "# National Figures: how far the bars of the page are filled, 0 to 100, for the country in scope. Runs when\n"
-        "# the page opens and each day for a player; the numbers beside the bars follow the game by themselves.\n"
-        + block("mod1440_nf_bars", bars)
-        + "\n# National Figures: the four lists of summed modifiers, for the country in scope: per group a head and each\n"
-        "# modifier that is not 0, or every one in the All view, with a copy of its value. Runs when the page opens,\n"
-        "# when the view changes and each day while it is open.\n"
+        "# National Figures: the four lists of summed modifiers, for the country in scope: per group a head and each\n"
+        "# modifier that is not 0, every one in the All view, or each that is not what it was on the first of the month\n"
+        "# in the Changed view, with a copy of its value. Runs when the page opens, when the view changes and each day\n"
+        "# while it is open.\n"
         + block("mod1440_nf_fill", "mod1440_rec_odd = yes\n" + fill + frames))
-    # Each day: the bars, open or not (a few lines of script); the lists and the graph while the page is open, so
-    # that a page left open in a saved game is right again after a day at most.
-    daily = "mod1440_nf_bars = yes\n" + iff(is_one("mod1440_nf_open"), "mod1440_nf_fill = yes\nmod1440_h_draw = yes\n")
+    # Each day while the page is open: the lists and the graph, so that a page left open in a saved game is right
+    # again after a day at most.
+    daily = iff(is_one("mod1440_nf_open"), "mod1440_nf_fill = yes\nmod1440_h_draw = yes\n")
     return gui, script, script_effects, daily, place
 
 
 def history_script(place):
-    """The monthly record of the twenty figures and the drawing of the chosen one. Returns the effects and the
-    monthly hook."""
-    pad = ""            # script: a figure of the newer build gets -1 for the months it was not written down
+    """The monthly record of the figures and of the modifiers for the Changed view, and the drawing of the tables'
+    changes, the sparklines and the chosen figure. Returns the effects and the monthly hook."""
+    pad = ""            # script: a figure of a newer build gets its padding for the months it was not written down
     for n in range(H_OLD, len(SERIES)):
         pad += (tmp("h_p", "mod1440_h_date^num") + "subtract_from_temp_variable = { h_p = mod1440_h_%d^num }\n" % n
                 + iff("check_variable = { h_p > 0 }", block("for_loop_effect", (
-                    "start = 0\nend = h_p\nvalue = h_q\nadd_to_array = { array = mod1440_h_%d value = -1 index = 0 }\n" % n))))
+                    "start = 0\nend = h_p\nvalue = h_q\nadd_to_array = { array = mod1440_h_%d value = %d index = 0 }\n"
+                    % (n, H_RES_PAD if n in H_RES else -1)))))
     record = "".join(
         ("add_to_array = { mod1440_h_%d = %s }\n" % (n, value)) if factor == 1 else (
             "set_temp_variable = { h_v = %s }\nmultiply_temp_variable = { h_v = %d }\nadd_to_array = { mod1440_h_%d = h_v }\n" % (value, factor, n))
         for n, (caption, value, factor, unit, decimals, rise) in enumerate(SERIES))
     forget = "".join("remove_from_array = { array = mod1440_h_%d index = 0 }\n" % n for n in range(len(SERIES)))
+    # the modifiers as they are on the first of the month, for the Changed view
+    was = "clear_array = mod1440_nf_was\n" + "".join("add_to_array = { mod1440_nf_was = %s }\n" % value for value in NF_MODIFIERS)
+    was += setv("mod1440_nf_was_date", "global.date")
 
-    def known(n, index):
-        """A month of a figure that was written down: for the newer eight, not the -1 of the months before."""
-        return "check_variable = { mod1440_h_%d^%s > -1 }" % (n, index) if n >= H_OLD else "always = yes"
-
-    table = ""          # script: today's value of each figure, its change in a month and in a year
-    copies = ""         # script: the chosen figure's months and how it is written
+    table = ""          # script: today's value of each figure, its change in a month and in a year, its sparkline
+    copies = ""         # script: the chosen figure's months on the graph and how it is written
     for n, (caption, value, factor, unit, decimals, rise) in enumerate(SERIES):
         s = "mod1440_h_%d" % n
         table += (tmp("h_now", 0) + tmp("h_dm", 0) + tmp("h_hm", 0) + tmp("h_dy", 0) + tmp("h_hy", 0)
                   + iff("check_variable = { h_n > 0 }", tmp("h_now", "%s^h_i1" % s))
-                  + iff("check_variable = { h_n > 1 } %s %s" % (known(n, "h_i1"), known(n, "h_i2")),
-                        tmp("h_dm", "%s^h_i1" % s) + "subtract_from_temp_variable = { h_dm = %s^h_i2 }\n" % s + tmp("h_hm", 1))
-                  + iff("check_variable = { h_n > 12 } %s %s" % (known(n, "h_i1"), known(n, "h_i13")),
-                        tmp("h_dy", "%s^h_i1" % s) + "subtract_from_temp_variable = { h_dy = %s^h_i13 }\n" % s + tmp("h_hy", 1))
+                  + iff("check_variable = { h_n > 1 }", iff("%s %s" % (h_known(n, "h_i1"), h_known(n, "h_i2")),
+                        tmp("h_dm", "%s^h_i1" % s) + "subtract_from_temp_variable = { h_dm = %s^h_i2 }\n" % s + tmp("h_hm", 1)))
+                  + iff("check_variable = { h_n > 12 }", iff("%s %s" % (h_known(n, "h_i1"), h_known(n, "h_i13")),
+                        tmp("h_dy", "%s^h_i1" % s) + "subtract_from_temp_variable = { h_dy = %s^h_i13 }\n" % s + tmp("h_hy", 1)))
                   + "".join("add_to_array = { mod1440_h_tab_%s = h_%s }\n" % (part, part) for part in ("now", "dm", "hm", "dy", "hy")))
+        if n in NF_SPARKS:
+            # the last twelve months, the oldest first; a month before the record or not written down is the padding
+            table += ("clear_array = mod1440_h_spin\n" + block("for_loop_effect", (
+                "start = 0\nend = %d\nvalue = h_k\n" % NF_SPARK_N + tmp("h_j", "h_n")
+                + "subtract_from_temp_variable = { h_j = %d }\nadd_to_temp_variable = { h_j = h_k }\n" % NF_SPARK_N + tmp("h_sv", H_RES_PAD)
+                + iff("check_variable = { h_j > -1 }", iff(h_known(n, "h_j"), tmp("h_sv", "%s^h_j" % s)))
+                + "add_to_array = { mod1440_h_spin = h_sv }\n"))
+                + "mod1440_h_spark = yes\nclear_array = mod1440_h_sp_%d\n" % n
+                + block("for_each_loop", "array = mod1440_h_spout\nvalue = h_sv\nadd_to_array = { mod1440_h_sp_%d = h_sv }\n" % n))
+        low = h_floor(n)
         copies += iff("check_variable = { mod1440_h_series = %d }" % n, (
-            block("for_each_loop", "array = %s\nvalue = h_v\nadd_to_array = { mod1440_h_now = h_v }\n" % s)
-            + setv("mod1440_h_dec", decimals) + setv("mod1440_h_rise", 1 if rise == "+" else 0) + tmp("h_skip", 1 if n >= H_OLD else 0)
+            block("for_loop_effect", "start = 0\nend = h_cnt\nvalue = h_k\n" + tmp("h_j", "h_k") + "add_to_temp_variable = { h_j = h_from }\n"
+                  + tmp("h_v", "%s^h_j" % s) + "add_to_array = { mod1440_h_now = h_v }\n")
+            + setv("mod1440_h_dec", decimals) + setv("mod1440_h_rise", 1 if rise == "+" else 0) + tmp("h_floor", H_RES_PAD - 1 if low is None else low)
+            + block("for_each_loop", "array = %s\nvalue = h_v\n" % s + iff("check_variable = { h_v > h_floor }", "add_to_temp_variable = { h_total = 1 }\n"))
             + "".join(setv("mod1440_h_%s" % part, "mod1440_h_tab_%s^%d" % (part, n)) for part in ("dm", "dy"))
             + setv("mod1440_h_has_m", "mod1440_h_tab_hm^%d" % n) + setv("mod1440_h_has_y", "mod1440_h_tab_hy^%d" % n)), "if" if n == 0 else "else_if")
-    # a month that counts: every month of the first twelve figures, a month written down of the newer eight
-    counts = "OR = { check_variable = { h_skip = 0 } check_variable = { h_v > -1 } }"
-    scale = (tmp("h_base", 0) + iff(is_one("mod1440_h_zoom"), tmp("h_base", "h_min"))
-             + tmp("h_range", "h_max") + "subtract_from_temp_variable = { h_range = h_base }\n"
+    counts = "check_variable = { h_v > h_floor }"
+    spans = "".join(iff("check_variable = { h_span = %d }" % span, tmp("h_step", step) + tmp("h_off", h_first_x(step))
+                        + setv("mod1440_h_rf_%d" % span, 2), "if" if k == 0 else "else_if")
+                    for k, (span, step, width, caption) in enumerate(H_RANGES))
+    # the range: the player's, or the shortest that holds every month written down
+    span = (tmp("h_span", "mod1440_h_range")
+            + iff("check_variable = { h_span = 0 }", tmp("h_span", H_RANGES[0][0])
+                  + "".join(iff("check_variable = { h_n > %d }" % H_RANGES[k - 1][0], tmp("h_span", H_RANGES[k][0])) for k in range(1, len(H_RANGES))))
+            + setv("mod1440_h_span", "h_span") + setv("mod1440_h_yrs", "h_span") + "divide_variable = { mod1440_h_yrs = 12 }\n"
+            + "".join(setv("mod1440_h_rf_%d" % r[0], 1) for r in H_RANGES) + spans
+            + tmp("h_from", "h_n") + "subtract_from_temp_variable = { h_from = h_span }\n"
+            + iff("check_variable = { h_from < 0 }", tmp("h_from", 0))
+            + tmp("h_cnt", "h_n") + "subtract_from_temp_variable = { h_cnt = h_from }\n")
+    # the months on the graph, their dates and years
+    shown = ("".join("clear_array = mod1440_h_%s\n" % a for a in ("now", "sdate", "syear"))
+             + block("for_loop_effect", "start = 0\nend = h_cnt\nvalue = h_k\n" + tmp("h_j", "h_k") + "add_to_temp_variable = { h_j = h_from }\n"
+                     + tmp("h_v", "mod1440_h_date^h_j") + "add_to_array = { mod1440_h_sdate = h_v }\n"
+                     + tmp("h_v", "mod1440_h_year^h_j") + "add_to_array = { mod1440_h_syear = h_v }\n"))
+    # the foot of the columns: zero; the lowest month when zoomed in or when the figure goes below zero (a resource
+    # balance); the top: the highest month, or zero for a figure below zero all along
+    scale = (tmp("h_base", 0) + iff("OR = { %s check_variable = { h_min < 0 } }" % is_one("mod1440_h_zoom"), tmp("h_base", "h_min"))
+             + tmp("h_top", "h_max") + iff("NOT = { %s } check_variable = { h_top < 0 }" % is_one("mod1440_h_zoom"), tmp("h_top", 0))
+             + tmp("h_range", "h_top") + "subtract_from_temp_variable = { h_range = h_base }\n"
              + tmp("h_quarter", "h_range") + "divide_temp_variable = { h_quarter = 4 }\n"
              + setv("mod1440_h_s0", "h_base")
              + "".join(setv("mod1440_h_s%d" % k, "mod1440_h_s%d" % (k - 1)) + "add_to_variable = { mod1440_h_s%d = h_quarter }\n" % k for k in (1, 2, 3))
-             + setv("mod1440_h_s4", "h_max"))
-    bars = ("clear_array = mod1440_h_bars\n" + block("for_each_loop", (
+             + setv("mod1440_h_s4", "h_top")
+             # a 2 px line at zero while the foot is below it
+             + setv("mod1440_h_zero", 0)
+             + iff("check_variable = { h_base < 0 } check_variable = { h_top > -0.001 } check_variable = { h_range > 0 }", (
+                 setv("mod1440_h_zero", 1) + tmp("h_z", 0) + "subtract_from_temp_variable = { h_z = h_base }\n"
+                 "divide_temp_variable = { h_z = h_range }\nmultiply_temp_variable = { h_z = %d }\n" % H_CHART_H
+                 + setv("mod1440_h_zero_y", H_CHART_TOP + H_CHART_H - 1) + "subtract_from_variable = { mod1440_h_zero_y = h_z }\n")))
+    bars = ("".join("clear_array = mod1440_h_bars_%d\n" % r[0] for r in H_RANGES) + block("for_each_loop", (
         "array = mod1440_h_now\nvalue = h_v\n" + tmp("h_bar", -1) + iff(counts, (
             tmp("h_bar", 0)
             + iff("check_variable = { h_range > 0 }", tmp("h_bar", "h_v") + "subtract_from_temp_variable = { h_bar = h_base }\n"
                   "divide_temp_variable = { h_bar = h_range }\nmultiply_temp_variable = { h_bar = %d }\n" % H_STEPS)
             # every month the same: the columns stand at full height
-            + iff("check_variable = { h_v > 0 }", tmp("h_bar", H_STEPS), "else_if")
-            # zoomed in, the lowest month keeps a sliver: it was written down
-            + iff(is_one("mod1440_h_zoom"), iff("check_variable = { h_bar < 4 }", tmp("h_bar", 4)))
+            + iff("NOT = { check_variable = { h_v = 0 } }", tmp("h_bar", H_STEPS), "else_if")
+            # from the lowest month, the lowest keeps a sliver: it was written down
+            + iff("NOT = { check_variable = { h_base = 0 } }", iff("check_variable = { h_bar < 4 }", tmp("h_bar", 4)))
             + iff("check_variable = { h_bar < 0 }", tmp("h_bar", 0)) + iff("check_variable = { h_bar > %d }" % H_STEPS, tmp("h_bar", H_STEPS))))
-        + "add_to_array = { mod1440_h_bars = h_bar }\n")))
+        + "".join(iff("check_variable = { h_span = %d }" % r[0], "add_to_array = { mod1440_h_bars_%d = h_bar }\n" % r[0], "if" if k == 0 else "else_if")
+                  for k, r in enumerate(H_RANGES)))))
+    spark = (
+        "# National Figures: the sparkline of a row, from mod1440_h_spin (twelve months, the padding %d for a month not\n" % H_RES_PAD
+        + "# written down) into mod1440_h_spout: heights 2 to %d between the lowest and the highest of the twelve, %d for\n" % (NF_SPARK_H, NF_SPARK_H)
+        + "# twelve equal months that are not 0, -1 for no column.\n"
+        + block("mod1440_h_spark", (
+            tmp("h_shi", H_RES_PAD) + tmp("h_slo", -H_RES_PAD)
+            + block("for_each_loop", "array = mod1440_h_spin\nvalue = h_sv\n" + iff("check_variable = { h_sv > %d }" % H_RES_LOW, (
+                iff("check_variable = { h_sv > h_shi }", tmp("h_shi", "h_sv")) + iff("check_variable = { h_sv < h_slo }", tmp("h_slo", "h_sv")))))
+            + tmp("h_sr", "h_shi") + "subtract_from_temp_variable = { h_sr = h_slo }\n" + "clear_array = mod1440_h_spout\n"
+            + block("for_each_loop", "array = mod1440_h_spin\nvalue = h_sv\n" + tmp("h_sh", -1) + iff("check_variable = { h_sv > %d }" % H_RES_LOW, (
+                tmp("h_sh", 0)
+                + iff("check_variable = { h_sr > 0 }", tmp("h_sh", "h_sv") + "subtract_from_temp_variable = { h_sh = h_slo }\n"
+                      "divide_temp_variable = { h_sh = h_sr }\nmultiply_temp_variable = { h_sh = %d }\nadd_to_temp_variable = { h_sh = 2 }\n" % (NF_SPARK_H - 2))
+                + iff("NOT = { check_variable = { h_sv = 0 } }", tmp("h_sh", NF_SPARK_H), "else_if")))
+                + "add_to_array = { mod1440_h_spout = h_sh }\n"))))
     effects = (
-        "# History: writes today's twenty figures of the country in scope down, and forgets the oldest month past ten\n"
-        "# years. Runs at the start of a game for every country and on the first of each month for a player.\n"
+        "# History: writes today's figures of the country in scope down, and forgets the oldest month past ten years;\n"
+        "# then the summed modifiers as they are today, for the Changed view of National Figures. Runs at the start of a\n"
+        "# game for every country and on the first of each month for a player.\n"
         + block("mod1440_h_record", (
             record + "add_to_array = { mod1440_h_date = global.date }\nadd_to_array = { mod1440_h_year = global.year }\n" + pad
             + iff("check_variable = { mod1440_h_date^num > %d }" % H_KEEP, forget
                   + "remove_from_array = { array = mod1440_h_date index = 0 }\nremove_from_array = { array = mod1440_h_year index = 0 }\n")
-            + iff(is_one("mod1440_nf_open"), "mod1440_h_draw = yes\n")))
-        + "\n# History: today's value and the changes of each figure for the tiles, then the chosen figure as column\n"
-        + "# heights, 0 to %d, between the foot of the graph (zero, or the lowest month when zoomed in) and the highest\n" % H_STEPS
-        + "# month. A month of a newer figure that was not written down (-1) is drawn as no column and counts for nothing.\n"
+            + was
+            + iff(is_one("mod1440_nf_open"), "mod1440_nf_fill = yes\nmod1440_h_draw = yes\n")))
+        + "\n" + spark
+        + "\n# History: today's value, the changes and the sparkline of each figure for the tables, then the chosen figure's\n"
+        + "# months in the range as column heights, 0 to %d, between the foot of the graph (zero, or the lowest month) and\n" % H_STEPS
+        + "# its top. A month of a newer figure that was not written down (its padding) is drawn as no column and counts for nothing.\n"
         + block("mod1440_h_draw", (
             pad + tmp("h_n", "mod1440_h_date^num")
             + "".join(tmp("h_i%d" % k, "h_n") + "subtract_from_temp_variable = { h_i%d = %d }\n" % (k, k) for k in (1, 2, 13))
             + "".join("clear_array = mod1440_h_tab_%s\n" % part for part in ("now", "dm", "hm", "dy", "hy"))
             + table
-            + "clear_array = mod1440_h_now\n" + copies
+            # an older save has months without a year: they get 0 in front, which draws no mark
+            + block("for_loop_effect", "start = 0\nend = %d\nvalue = h_pad\n" % H_KEEP + iff(
+                "check_variable = { mod1440_h_year^num < mod1440_h_date^num }", "add_to_array = { array = mod1440_h_year value = 0 index = 0 }\n"))
+            + span + shown + tmp("h_total", 0) + copies
             + tmp("h_max", 0)
             + block("find_highest_in_array", "array = mod1440_h_now\nvalue = h_max\nindex = h_at\n")
             # the lowest month, the first month and how many count, with a loop of the page's own: no script of the
             # game uses find_lowest_in_array
-            + tmp("h_min", "h_max") + tmp("h_valid", 0) + tmp("h_first", 0)
-            + block("for_each_loop", "array = mod1440_h_now\nvalue = h_v\n" + iff(counts, (
+            + tmp("h_min", "h_max") + tmp("h_min_at", 0) + tmp("h_valid", 0) + tmp("h_first", 0)
+            + block("for_each_loop", "array = mod1440_h_now\nvalue = h_v\nindex = h_vi\n" + iff(counts, (
                 iff("check_variable = { h_valid = 0 }", tmp("h_first", "h_v"))
-                + "add_to_temp_variable = { h_valid = 1 }\n" + iff("check_variable = { h_v < h_min }", tmp("h_min", "h_v")))))
-            + iff("check_variable = { h_valid = 0 }", tmp("h_max", 0) + tmp("h_min", 0))
-            + setv("mod1440_h_max", "h_max") + setv("mod1440_h_min", "h_min") + setv("mod1440_h_valid", "h_valid")
+                + "add_to_temp_variable = { h_valid = 1 }\n" + iff("check_variable = { h_v < h_min }", tmp("h_min", "h_v") + tmp("h_min_at", "h_vi")))))
+            + iff("check_variable = { h_valid = 0 }", tmp("h_max", 0) + tmp("h_min", 0) + tmp("h_at", 0))
+            + setv("mod1440_h_max", "h_max") + setv("mod1440_h_min", "h_min") + setv("mod1440_h_valid", "h_valid") + setv("mod1440_h_total", "h_total")
+            + iff("check_variable = { h_cnt > 0 }", setv("mod1440_h_max_date", "mod1440_h_sdate^h_at") + setv("mod1440_h_min_date", "mod1440_h_sdate^h_min_at"))
             + scale + bars
             + place
             + setv("mod1440_h_latest", 0) + setv("mod1440_h_change", 0)
-            + iff("check_variable = { h_n > 0 }", (
-                setv("mod1440_h_latest", "mod1440_h_now^h_i1")
+            + iff("check_variable = { h_cnt > 0 }", (
+                tmp("h_last", "h_cnt") + "subtract_from_temp_variable = { h_last = 1 }\n"
+                + setv("mod1440_h_latest", "mod1440_h_now^h_last")
                 + setv("mod1440_h_change", "mod1440_h_latest") + "subtract_from_variable = { mod1440_h_change = h_first }\n"
-                + setv("mod1440_h_first", "mod1440_h_date^0") + setv("mod1440_h_last", "mod1440_h_date^h_i1")))
+                + setv("mod1440_h_first", "mod1440_h_sdate^0") + setv("mod1440_h_last", "mod1440_h_date^h_i1")))
             + setv("mod1440_h_zoom_frame", 1) + iff(is_one("mod1440_h_zoom"), setv("mod1440_h_zoom_frame", 2)))))
     monthly = "mod1440_h_record = yes\n"
     return effects, monthly
 
 
-NF_SCENE_CHOSEN = 4         # the scenes draw the page with Military factories chosen, as the design did
+# The scenes draw the page as Germany might stand on 1 July 1938 after 31 months, with made-up figures (those of the
+# design's mock-ups, scratch/phases/D4/mock_figures.py): Military factories chosen, the 2-year range of the fit, the
+# lists of What applies; the capture "changed" draws the Changed view.
+NF_SCENE_CHOSEN = 4
+NF_SAMPLE = {   # series: (now, extra, change in a month, in a year, the twelve months of the sparkline)
+    11: ("412", "+2.15 a day", -38, 105, [300, 330, 365, 290, 330, 360, 400, 250, 300, 380, 450, 412]),
+    14: ("87.4", "+0.92 a day", 12.0, 44.0, [40, 45, 50, 55, 60, 50, 58, 64, 70, 75, 75, 87]),
+    6: ("74.0%", "+0.10% a week", -1.0, -7.0, [81, 81, 80, 80, 79, 78, 78, 77, 76, 76, 75, 74]),
+    7: ("52.0%", "+0.25% a week", 2.0, 17.0, [35, 36, 38, 39, 41, 43, 44, 46, 47, 49, 50, 52]),
+    30: ("72.0%", None, 1.0, 12.0, [60, 61, 62, 63, 64, 65, 67, 68, 69, 70, 71, 72]),
+    15: ("27", "25 cores", 1, 3, [24, 24, 24, 24, 24, 24, 24, 25, 26, 26, 26, 27]),
+    3: ("£civ_factory 52", "11 free", 1, 9, [43, 44, 45, 45, 46, 47, 48, 49, 49, 50, 51, 52]),
+    4: ("£mil_factory 61", "2 idle", 0, 15, [48, 50, 52, 54, 56, 58, 58, 59, 60, 60, 61, 61]),
+    5: ("£nav_dockyard_texticon 14", "0 idle", 0, 2, [12, 12, 12, 13, 13, 13, 13, 14, 14, 14, 14, 14]),
+    8: ("412.6K", "of 520.0K", -8.4, 96.2, [316, 330, 345, 360, 372, 380, 391, 400, 410, 418, 421, 412]),
+    12: ("5", None, 0, 1, [4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5]),
+    13: ("98", None, 3, 31, [67, 70, 72, 75, 78, 80, 83, 86, 89, 92, 95, 98]),
+    0: ("1902.3K", "28.8K training", -45.1, 312.4, [1590, 1630, 1680, 1720, 1760, 1800, 1840, 1880, 1910, 1940, 1947, 1902]),
+    1: ("1104.2K", None, 40.0, 410.2, [694, 720, 760, 790, 820, 860, 900, 940, 980, 1020, 1064, 1104]),
+    2: ("74", None, 3, 31, [43, 46, 48, 51, 53, 56, 59, 62, 65, 68, 71, 74]),
+    10: ("0.0K", None, 0, 0, [0] * 12),
+    9: ("41200", None, 2100, 15200, [26000, 27100, 28500, 29800, 31000, 32500, 34000, 35400, 36800, 38200, 39100, 41200]),
+    16: ("214", None, -12, 18, [196, 200, 204, 208, 212, 216, 220, 224, 228, 230, 226, 214]),
+    17: ("412", None, 6, 40, [372, 375, 378, 382, 386, 390, 394, 398, 401, 404, 406, 412]),
+    18: ("61", None, 1, 8, [53, 54, 55, 55, 56, 57, 57, 58, 59, 59, 60, 61]),
+    19: ("1840", None, 120, 920, [920, 1000, 1080, 1160, 1240, 1320, 1400, 1480, 1560, 1640, 1720, 1840]),
+    27: ("48.0", None, 12.0, -12.0, [60, 66, 70, 40, 46, 52, 58, 20, 26, 30, 36, 48]),
+    28: ("12.4", None, 3.0, 10.1, [2, 3, 4, 5, 6, 7, 8, 9, 9, 10, 9, 12]),
+    29: ("30.0", None, 5.0, 18.0, [12, 14, 16, 17, 19, 20, 22, 23, 24, 25, 25, 30]),
+}
+# the chosen figure, Military factories, 1 January 1936 to 1 July 1938
+NF_SAMPLE_MONTHS = [28, 28, 29, 30, 31, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 43, 44, 46, 48, 50, 52, 54, 56, 58, 58, 59, 60, 60, 61, 61]
+# the resources: balance, made, used, import, export, balance a month before
+NF_SAMPLE_RES = [(-18, 9, 27, 0, 0, -12), (-6, 32, 38, 0, 0, -4), (-21, 0, 21, 0, 0, -18), (-9, 3, 12, 0, 0, -9),
+                 (58, 182, 124, 0, 0, 66), (-11, 4, 15, 0, 0, -7), (172, 264, 52, 0, 40, 180)]
+# the lists of What applies: (group, applies, of, [(label, value, colour)]); colour + green, - red, 0 white
+NF_SAMPLE_LISTS = [
+    [("Politics", 12, [("Political power per day", "+2.15", "+"), ("Political Power Gain", "+15.0%", "+"),
+                       ("Weekly Stability", "+0.10%", "+"), ("Stability from modifiers", "+10.0%", "+"),
+                       ("War support from modifiers", "+15.0%", "+"), ("Ideology drift defense", "+20.0%", "+"),
+                       ("Command power per day", "+0.92", "+")]),
+     ("Occupation and Diplomacy", 8, [("Compliance Growth Speed", "-2.0%", "-"), ("Resistance Target", "+5.0%", "-"),
+                                      ("Surrender Limit", "-9.0%", "-")])],
+    [("Industry", 19, [("Factory Output", "+15.0%", "+"), ("Dockyard Output", "+10.0%", "+"),
+                       ("£prod_eff_cap  Production Efficiency Cap", "+10.0%", "+"), ("£prod_eff Production Efficiency growth", "+10.0%", "+"),
+                       ("Construction Speed", "+20.0%", "+"), ("Share of factories on consumer goods", "20.0%", "0"),
+                       ("Consumer Goods Factories factor", "-5.0%", "+"), ("Resources to Market", "25.0%", "0")])],
+    [("Manpower", 8, [("Recruitable Population", "5.00%", "0"), ("Recruitable Population Factor", "+5.0%", "+"),
+                      ("Division training time", "-10.0%", "+")]),
+     ("Army", 19, [("Division Organization", "+5.0%", "+"), ("Max planning", "+10.0%", "+"), ("Reinforce Rate", "+5.0%", "+"),
+                   ("Supply Consumption", "-5.0%", "+"), ("Army experience gain", "+10.0%", "+")])],
+    [("Research and Intelligence", 6, [("Research Speed", "+5.0%", "+"), ("Encryption", "+10.0%", "+")]),
+     ("Navy", 15, [("Naval Speed", "+5.0%", "+")]),
+     ("Air Force", 16, [("Air Mission Efficiency", "+5.0%", "+"), ("Air Accidents Chance", "-10.0%", "+")])],
+]
+# the Changed view, what is not as it was on 1 June 1938: (group, [(label, change, now, colour of the change)])
+NF_SAMPLE_CHANGED = [
+    [("Politics", [("Political power per day", "+0.25", "+2.15", "+"), ("War support from modifiers", "+5.0%", "+15.0%", "+"),
+                   ("Stability from modifiers", "-5.0%", "+10.0%", "-")]),
+     ("Occupation and Diplomacy", [("Surrender Limit", "-4.0%", "-9.0%", "-")])],
+    [("Industry", [("Factory Output", "+5.0%", "+15.0%", "+"), ("Consumer Goods Factories factor", "-5.0%", "-5.0%", "+"),
+                   ("Share of factories on consumer goods", "-5.0%", "20.0%", "+")])],
+    [("Manpower", [("Division training time", "-10.0%", "-10.0%", "+")]), ("Army", [("Max planning", "+10.0%", "+10.0%", "+")])],
+    [("Research and Intelligence", [("Research Speed", "+5.0%", "+5.0%", "+")])],
+]
+NF_SAMPLE_COLOUR = {"+": "§G%s§!", "-": "§R%s§!", "0": "%s"}
 
 
-def nf_scene_windows():
-    """The windows of the National Figures page for its two scenes: what script hides with Military factories
-    chosen, a 0-decimal figure and a rise, and where it moves the year marks; one kind of list row."""
+def nf_sample_change(name, value, decimals, rise, suffix, hide, samples):
+    """The sample of a change in a table: which of its three texts shows, with what."""
+    shown = "same" if value == 0 else ("up" if value > 0 else "down")
+    for part in ("up", "down", "same"):
+        if part != shown:
+            hide.append("%s_%s" % (name, part))
+    if value:
+        good = (value > 0) == (rise == "+")
+        samples["%s_%s" % (name, shown)] = ("§G%s§!" if good else "§R%s§!") % (("%+." + str(decimals) + "f") % value + suffix)
+
+
+def nf_sample_lists(view):
+    """The rows, which widgets show in which row ("only") and the samples of the four lists of a view."""
+    windows = []
+    rows = {}
+    for c, groups in enumerate(NF_SAMPLE_LISTS if view == "applies" else NF_SAMPLE_CHANGED):
+        p = "nf_r%d_" % c
+        heads, lines, odd = [], [], []
+        samples = {p + part: [] for part in ("hname", "hcount", "label", "v1", "clabel", "d1", "n1")}
+        i = 0
+        for group in groups:
+            heads.append(i)
+            samples[p + "hname"].append("§Y%s§!" % group[0])
+            entries = group[2] if view == "applies" else group[1]
+            if view == "applies":
+                samples[p + "hcount"].append("§g%d of %d§!" % (len(entries), group[1]))
+            i += 1
+            for entry in entries:
+                lines.append(i)
+                if i % 2:
+                    odd.append(i)
+                if view == "applies":
+                    label, value, colour = entry
+                    samples[p + "label"].append(label)
+                    samples[p + "v1"].append(NF_SAMPLE_COLOUR[colour] % value)
+                else:
+                    label, change, now, colour = entry
+                    samples[p + "clabel"].append(label)
+                    samples[p + "d1"].append(NF_SAMPLE_COLOUR[colour] % change)
+                    samples[p + "n1"].append("§g%s§!" % now)
+                i += 1
+        rows["nf_l%d_grid" % c] = i
+        if view == "applies":
+            only = {p + "head": heads, p + "hname": heads, p + "hcount": heads, p + "stripe": odd, p + "label": lines, p + "v1": lines}
+            hide = [p + part for part in ("dim", "clabel", "hchange", "hnow")] + ["%sv%d" % (p, k) for k in range(2, len(NF_FORMATS) + 1)]
+            hide += ["%sn%d" % (p, k) for k in range(1, len(NF_FORMATS) + 1)] + ["%sd%d" % (p, k) for k in range(1, len(NF_CHANGES) + 1)]
+        else:
+            only = {p + "head": heads, p + "hname": heads, p + "hchange": heads, p + "hnow": heads, p + "stripe": odd,
+                    p + "clabel": lines, p + "d1": lines, p + "n1": lines}
+            hide = [p + part for part in ("dim", "label", "hcount")] + ["%sv%d" % (p, k) for k in range(1, len(NF_FORMATS) + 1)]
+            hide += ["%sn%d" % (p, k) for k in range(2, len(NF_FORMATS) + 1)] + ["%sd%d" % (p, k) for k in range(2, len(NF_CHANGES) + 1)]
+        windows.append(("mod1440_figures_row_%d" % c, hide, only, {k: v for k, v in samples.items() if v}))
+    return windows, rows
+
+
+def nf_scene():
+    """The windows of the National Figures page for its two scenes, their samples, the bars' fills and the state of
+    the Changed view."""
     n = NF_SCENE_CHOSEN
-    hide = ["nf_t%d_pick" % k for k in range(len(SERIES)) if k != n] + ["h_name_%d" % k for k in range(len(SERIES)) if k != n]
-    hide += ["h_unit_%d" % k for k in range(len(SERIES)) if k != n and SERIES[k][3]]
-    hide += ["nf_t%d_same" % k for k in range(len(SERIES))] + ["h_none"]
-    hide += ["nf_view_applies_off", "nf_view_all_on"]
+    figures = [k for k in range(len(SERIES)) if k in NF_SPARKS or k in H_RES]
+    hide = ["nf_t%d_pick" % k for k in figures if k != n] + ["nf_t%d_ly" % k for k in figures if k != n] + ["nf_t%d_l" % n]
+    hide += ["h_name_%d" % k for k in range(len(SERIES)) if k != n] + ["h_unit_%d" % k for k in range(len(SERIES)) if k != n]
+    hide += ["h_none", "nf_last_none", "h_zero"] + ["h_year_%d" % k for k in range(2, H_YEARS)]
+    hide += ["h_range_24_off", "h_range_60_on", "h_range_120_on"]
     for name in ("latest", "max", "min"):
         hide.append("h_%s_1" % name)
     for name in ("dm", "dy", "change"):
         hide += ["h_%s_0r" % name, "h_%s_1" % name, "h_%s_1r" % name]
+    hide += ["h_dm_0", "h_dy_same", "h_change_same"]        # no change in the month: its dash
     hide += ["h_scale_%d_1" % k for k in range(5)]
-    first_x = 14 + H_CHART_X + H_INSET + H_COLUMN // 2 - 20
-    place = {"h_year_%d" % k: [first_x + 12 * k * H_COLUMN, NF_GRAPH_Y + H_CHART_Y + H_CHART_H + 1] for k in range(H_YEARS)}
-    rows = {"h_grid": H_KEEP}
-    list_rows = {"h_grid": "mod1440_figures_column"}
-    windows = [{"name": "mod1440_figures", "at": [NF_X - 6, NF_Y + 78], "sidePanel": True, "rows": rows, "listRows": list_rows,
-                "hide": hide, "place": place,
-                "_note": "Docked to Politics: the tab's corner at -6,78 plus the container's 556,0. Military factories is the chosen figure; script hides the pick plates and names of the other nineteen, the 'no change' twins and the ways of writing a number it does not use. The list rows are drawn alike: a modifier with a value."},
-               {"name": "mod1440_figures_column", "skip": True},
-               {"name": "mod1440_figures_handle", "at": [359 - 6, 12 + 78]}]
-    for c, (title, names, shown) in enumerate(NF_COLUMNS):
-        rows["nf_l%d_grid" % c] = (11, 8, 10, 7)[c]
+    samples = {}
+    for k, (now, extra, dm, dy, spark) in NF_SAMPLE.items():
+        decimals, rise = SERIES[k][4], SERIES[k][5]
+        samples["nf_t%d_v" % k] = now
+        if extra:
+            samples["nf_t%d_x" % k] = "§g%s§!" % extra
+        nf_sample_change("nf_t%d_m" % k, dm, decimals, rise, h_suffix(k), hide, samples)
+        nf_sample_change("nf_t%d_y" % k, dy, decimals, rise, h_suffix(k), hide, samples)
+    for r, (balance, made, used, bought, sold, before) in enumerate(NF_SAMPLE_RES):
+        samples["nf_res_balance_%d" % r] = ("§G%+d§!" if balance >= 0 else "§R%+d§!") % balance
+        for cname, value in (("made", made), ("used", used), ("in", bought), ("out", sold)):
+            if value:
+                samples["nf_res_%s_%d" % (cname, r)] = "%d" % value
+            else:
+                hide.append("nf_res_%s_%d" % (cname, r))
+        nf_sample_change("nf_t%d_m" % H_RES[r], balance - before, 0, "+", "", hide, samples)
+    months = NF_SAMPLE_MONTHS
+    shown = months[-24:]
+    samples.update({"nf_last": "§gWritten down on the first of each month, the last on 1 July, 1938§!",
+                    "h_unit_%d" % n: "§gThe last 2 years of 31 months§!", "h_from": "1 August, 1936", "h_to": "1 July, 1938",
+                    "h_latest_0": "61", "h_dy_0": "§G+15§!", "h_max_0": "61", "h_min_0": "%d" % min(shown),
+                    "h_change_0": "§G+%d§!" % (shown[-1] - shown[0]), "h_months": "24 of 31", "h_year_0": "1937", "h_year_1": "1938"})
+    for k in range(5):
+        samples["h_scale_%d_0" % k] = "%d" % (max(shown) * k // 4)
+    step = H_RANGES[0][1]
+    first = len(months) - 24
+    januaries = [i for i in range(24) if (first + i) % 12 == 0]
+    place = {"h_year_%d" % k: [h_first_x(step) + i * step, H_CHART_TOP + H_CHART_H + 1] for k, i in enumerate(januaries)}
+    rows = {"h_grid_24": 24, "h_grid_60": 0, "h_grid_120": 0}
+    list_rows = {"h_grid_%d" % span: "mod1440_figures_col_%d" % span for span, step_, width, caption in H_RANGES}
+    for k in NF_SPARKS:
+        rows["nf_sp%d_grid" % k] = NF_SPARK_N
+        list_rows["nf_sp%d_grid" % k] = "mod1440_figures_spark_%d" % k
+    lists, list_counts = nf_sample_lists("applies")
+    rows.update(list_counts)
+    for c in range(len(NF_COLUMNS)):
         list_rows["nf_l%d_grid" % c] = "mod1440_figures_row_%d" % c
-        windows.append({"name": "mod1440_figures_row_%d" % c, "skip": True,
-                        "hide": ["nf_r%d_%s" % (c, part) for part in ("head", "hname", "hcount", "dim", "stripe")]
-                        + ["nf_r%d_v%d" % (c, k) for k in range(2, len(NF_FORMATS) + 1)]})
-    return windows
+        samples["nf_c%d_count" % c] = "§g%d of %d apply§!" % (sum(len(g[2]) for g in NF_SAMPLE_LISTS[c]), sum(g[1] for g in NF_SAMPLE_LISTS[c]))
+    hide += ["nf_c%d_since" % c for c in range(len(NF_COLUMNS))] + ["nf_c%d_none" % c for c in range(len(NF_COLUMNS))]
+    applies_hide = hide + ["nf_view_applies_off", "nf_view_all_on", "nf_view_changed_on"]
+    fills = {"mod1440_figures_col_24": {"h_bar24": [round(v / float(max(shown)), 3) for v in shown]}}
+    for k in NF_SPARKS:
+        spark = NF_SAMPLE[k][4]
+        lo, hi = min(spark), max(spark)
+        fills["mod1440_figures_spark_%d" % k] = {"nf_sp%d" % k: [
+            round((1.0 if v else 0.0) if hi == lo else (2 + (NF_SPARK_H - 2) * (v - lo) / float(hi - lo)) / NF_SPARK_H, 3) for v in spark]}
+    windows = [{"name": "mod1440_figures", "at": [NF_X - 6, NF_Y + 78], "sidePanel": True, "rows": rows, "listRows": list_rows,
+                "hide": applies_hide, "place": place, "frames": {"nf_view_applies": 2, "h_range_24": 2},
+                "_note": "Docked to Politics: the tab's corner at -6,78 plus the container's 556,0. Germany on 1 July 1938 after 31 months, made-up figures as the design's mock-ups: Military factories chosen, the 2-year range, What applies. Script hides the pick bands and names of the other figures, the changes of the sign a row does not have and the ways of writing a number it does not use; the two range grids not in use are empty."}]
+    windows += [{"name": "mod1440_figures_col_%d" % span, "skip": True} for span, step_, width, caption in H_RANGES]
+    windows += [{"name": "mod1440_figures_spark_%d" % k, "skip": True} for k in NF_SPARKS]
+    for name, row_hide, only, row_samples in lists:
+        windows.append({"name": name, "skip": True, "hide": row_hide, "only": only})
+    for w in windows:
+        if w["name"] in fills:
+            w["fills"] = fills[w["name"]]
+    windows.append({"name": "mod1440_figures_handle", "at": [359 - 6, 12 + 78]})
+    scene_samples = {"mod1440_figures": samples}
+    scene_samples.update({name: row_samples for name, row_hide, only, row_samples in lists})
+    # the Changed view: the capture after a click on Changed, as the renderer draws it (render_gui.py --state changed)
+    changed_lists, changed_counts = nf_sample_lists("changed")
+    changed_rows = dict(rows)
+    changed_rows.update(changed_counts)
+    changed_hide = {"mod1440_figures": [h for h in hide if not h.startswith("nf_c") or "_none" in h]
+                    + ["nf_c%d_count" % c for c in range(len(NF_COLUMNS))] + ["nf_view_applies_on", "nf_view_all_on", "nf_view_changed_off"]}
+    changed_samples = {"mod1440_figures": {"nf_c%d_since" % c: "§g%d since 1 June, 1938§!" % sum(len(g[1]) for g in NF_SAMPLE_CHANGED[c])
+                                           for c in range(len(NF_COLUMNS))}}
+    changed_only = {}
+    for name, row_hide, only, row_samples in changed_lists:
+        changed_hide[name] = row_hide
+        changed_only[name] = only
+        changed_samples[name] = row_samples
+    changed = {"name": "changed", "steps": [{"clickWidget": "mod1440_figures/nf_view_changed", "wait": 1.0}],
+               "hide": changed_hide, "only": changed_only, "rows": changed_rows, "samples": changed_samples,
+               "frames": {"mod1440_figures": {"nf_view_changed": 2, "h_range_24": 2}},
+               "_note": "The Changed view as the renderer draws it with the design's made-up month; in a check of 1 January 1936 the lists say that the first comparison comes on the first of next month (or, after effect mod1440_chk_changed, list the made-up changes)."}
+    return windows, scene_samples, fills, changed
+
+
+NF_CHECKLIST = [
+    "The page stands beside the politics panel (1680x1210 from screen 550,78) and takes clicks; Shift+M, the Figures button and the close button fold it; Escape closes Politics and the page",
+    "The title strip: 'Written down on the first of each month, the last on 1 January, 1936'; 'Modifiers:' and three buttons What applies, All modifiers, Changed, the chosen one with the second frame and a yellow caption",
+    "Two tables of figures: Government and Industry and research; Manpower and Stock and experience; each head bar in yellow, the first with the column heads Now, Month, Year, 12 months; every second row on a darker band",
+    "Compare each Now with the game: political power and command power and their daily gain with the top bar's tooltips; stability and war support and their weekly change with the top bar; ruling party popularity with the politics panel's party ring (Germany 1936: 40.0%); states and cores with the state list; factories and free/idle with the top bar's tooltips (35 civilian, 28 military, 10 dockyards); fuel with the top bar; free manpower with the top bar, training with Army Readiness; divisions, equipment, convoys, trains, ships, planes as before; army, navy and air experience with the top bar's experience tooltips",
+    "On 1 January 1936 (one month) the Month and Year columns are empty and every sparkline has one column at full height on the right",
+    "A click on a row of either table and of the resource table draws its figure: the row on the lighter band with its name yellow, the graph's name and its line 'The last 2 years of 1 months'",
+    "The resource card: the seven rows with the game's icons, Balance, Made, Used, Import, Export against the logistics tab (Germany 1936: balances 3, 104, -5, 3, 177, 1, 195); the legend under them",
+    "The graph: the seven numbers in one row under a head bar; the buttons 2 years (chosen), 5 years, 10 years and Zoom in; 24 column slots of 57 px across 1560 px; one column on 1 January 1936; the tooltip of a column, of Highest and of Lowest give the month",
+    "The 5 years and 10 years buttons: the columns become 22 and 11 px wide on 26 and 13 px steps, and the other two grids draw nothing (no column and no tooltip of another range)",
+    "After `effect mod1440_chk_months` (tools/check_effects.py): 120 months, the fit range 10 years; every table row has its Month, Year and twelve sparkline columns; a click on a resource row draws a balance that goes below zero from its lowest month, with the zero line across the graph (an orange 2 px line) at the scale's 0",
+    "What applies: only the modifiers that are not 0 (Germany 1936: 11, 8, 10 and 7 rows with the heads); All modifiers: every one, those that are 0 in grey; each list scrolls; 14 rows show",
+    "Changed on 1 January 1936: each list says 'The first comparison comes on the first of next month.'; after `effect mod1440_chk_changed`: the changed modifiers with the change (green or red in the modifier's own sense) and the value now in grey, the heads 'change' and 'now', the card titles '<n> since 1 January, 1936'",
+    "Every figure row's tooltip, a sparkline's tooltip and the column heads' tooltips",
+]
+NF_SCENE = nf_scene()
+# --- end D4 round 2 ---
 
 
 # ---------------------------------------------------------------- Top bar strip (D7), on the top bar of every screen
@@ -2922,40 +3419,43 @@ SCENES = {
             "The totals against the sum of a column",
         ],
     },
+    # --- D4 round 2 ---
     "national_figures": {
         "phase": "D4", "file": "mod1440_figures.gui", "screenshot": "reference/vanilla/politics.jpg",
-        "windows": nf_scene_windows(),
+        "windows": NF_SCENE[0], "samples": NF_SCENE[1],
         "setup": [{"move": "open_politics"}, {"key": "shift+m", "wait": 1.5, "_note": "the page is hidden until asked for"}],
-        "captures": [{"name": "all", "steps": [{"clickWidget": "mod1440_figures/nf_view_all", "wait": 1.0}]}],
+        "captures": [{"name": "all", "steps": [{"clickWidget": "mod1440_figures/nf_view_all", "wait": 1.0}]}, NF_SCENE[3]],
         "teardown": [{"clickWidget": "mod1440_figures/nf_view_applies", "wait": 0.8},
                      {"key": "shift+m", "wait": 0.8, "_note": "hide it again: the page remembers per country whether it is open"}],
-        "expect": ["mod1440_figures/nf_fold", "mod1440_figures/nf_view_all", "mod1440_figures/h_zoom"],
+        "expect": ["mod1440_figures/nf_fold", "mod1440_figures/nf_view_all", "mod1440_figures/nf_view_changed", "mod1440_figures/h_zoom",
+                   "mod1440_figures/h_range_24"],
         "crop": [540, 64, 1700, 1234],
         "manual": ["The advisor and law picker opened from the panel: it stands above the page",
-                   "More than one month: the changes under the tiles and the graph, which no check lets pass"],
-        "checklist": [
-            "The page stands beside the politics panel and takes clicks; Escape closes Politics and the page with it",
-            "Shift+M, the Figures button and the page's close button fold the page; it opens again folded or open as left",
-            "What applies lists only modifiers that are not 0; All modifiers lists every one, those that are 0 in grey, and scrolls",
-            "A modifier against the tooltip of its source: a law, a spirit or an advisor; the counts '6 of 12' against the rows",
-            "Command power and its daily gain against the top bar; the twenty tiles against the top bar and the panels",
-            "The two Industry rows whose game text starts with a text icon (production efficiency growth and cap): is the icon drawn?",
-        ],
+                   "More than one month in the user's game: the Month and Year columns, the sparklines, the fit range growing from 2 to 5 years, and the Changed view after a real first of the month",
+                   "Speed 5 with the page open: no stutter from the 24 sparklines, the graph and the four lists"],
+        "checklist": NF_CHECKLIST,
     },
     "history": {
         "phase": "D5", "file": "mod1440_figures.gui", "screenshot": "reference/vanilla/politics.jpg",
-        "windows": nf_scene_windows(),
+        "windows": NF_SCENE[0], "samples": NF_SCENE[1],
         "setup": [{"move": "open_politics"}, {"key": "shift+m", "wait": 1.5},
                   {"clickWidget": "mod1440_figures/nf_t4", "scene": "national_figures", "wait": 1.0}],
+        "captures": [{"name": "ten_years", "steps": [{"clickWidget": "mod1440_figures/h_range_120", "scene": "national_figures", "wait": 1.0}]},
+                     {"name": "oil", "steps": [{"clickWidget": "mod1440_figures/nf_t20", "scene": "national_figures", "wait": 1.0}]}],
         "teardown": [{"clickWidget": "mod1440_figures/nf_t0", "scene": "national_figures", "wait": 0.8}, {"key": "shift+m", "wait": 0.8}],
-        "expect": ["mod1440_figures/h_zoom", "mod1440_figures/nf_t4"],
-        "crop": [540, 64, 1700, 636],
+        "expect": ["mod1440_figures/h_zoom", "mod1440_figures/nf_t4", "mod1440_figures/h_range_120"],
+        "crop": [540, 64, 1700, 800],
         "manual": ["More than one month: the graph gets a column on the first of each month, which no check lets pass"],
-        "checklist": ["A click on a tile draws its figure; the chosen tile has the lighter plate",
-                      "After some months of game time each figure has one column per month; a save of the build before has the eight new figures from the month of the update on",
-                      "The tooltip of a column gives its month and value",
-                      "Zoom in: the columns start at the lowest month", "The six numbers against the columns"],
+        "checklist": ["A click on a table row draws its figure; the chosen row has the lighter band and a yellow name",
+                      "1 January 1936: one column at the left of the 2-year range, 57 px wide; its tooltip gives 1 January, 1936 and the value",
+                      "10 years: the column is 11 px wide; the 2-year and 5-year grids draw nothing",
+                      "A resource row (Oil) draws the oil balance; Germany 1936: 3",
+                      "After `effect mod1440_chk_months`: 120 months, the 10-year range by default, year marks 1937 to 1946 under the first column of each year; 2 years and 5 years show the last 24 and 60 months with the marks under their Januaries; Zoom in starts the columns at the lowest month",
+                      "After `effect mod1440_chk_months`, a resource row: a balance below zero draws from its lowest month and the orange zero line stands at the scale's 0",
+                      "After `effect mod1440_chk_months_twenty` (a save of the 2026-10-16 build): the eleven new figures say 'Nothing is written down for this figure yet' and their table rows have no Month, Year or sparkline",
+                      "The seven numbers against the columns; the tooltips of Highest and Lowest name their month"],
     },
+    # --- end D4 round 2 ---
     "top_bar": tb_scene(),      # d7-top-bar
 }
 
@@ -2968,6 +3468,7 @@ SAMPLE_VALUES = {
     "fuel_k": "297.2", "max_fuel_k": "371.5", "num_ships": "38", "num_deployed_planes": "992", "num_controlled_states": "24",
     "amount_research_slots": "4", "num_researched_technologies": "55",
     "mod1440_h_date^num": "120", "mod1440_h_valid": "120", "mod1440_st_sum_pop": "125000",
+    "mod1440_h_yrs": "10", "mod1440_h_total": "120",     # D4 round 2: the line under the chosen figure's name
     "num_equipment@convoy": "1250", "num_equipment@train_equipment": "250",
 }
 

@@ -571,16 +571,22 @@ mod1440_chk_ar_row = {
 """
 
 
-def history_months(name, months, years, filled=20):
+H_SERIES = 31          # D4 round 2: the figures National Figures writes down (tools/build_managers.py, SERIES)
+H_RES = range(20, 27)  # their resource balances, which go below zero
+
+
+def history_months(name, months, years, filled=H_SERIES):
     """An effect that fills the arrays of the History page with made-up months, without running time: a rising
-    figure, a falling one and a wave, by turns. years: with the year of each month, or without as a game saved
-    before 2026-10-12 has them. filled: how many of the twenty figures get months; 12 leaves the eight of
-    2026-10-16 empty, as a game saved by the build before has them (the drawing pads them with -1)."""
-    series = "".join(("\t\tadd_to_array = { mod1440_h_%d = up }\n" if n % 3 == 0 else
+    figure, a falling one and a wave, by turns; the resource balances (D4 round 2) a wave around zero. years: with
+    the year of each month, or without as a game saved before 2026-10-12 has them. filled: how many of the figures
+    get months; 12 leaves the eight of 2026-10-16 and the eleven of 2026-10-17 empty, as a game saved by the build
+    before 2026-10-16 has them, 20 the eleven, as a save of 2026-10-16 (the drawing pads them)."""
+    series = "".join(("\t\tadd_to_array = { mod1440_h_%d = below }\n" if n in H_RES else
+                      "\t\tadd_to_array = { mod1440_h_%d = up }\n" if n % 3 == 0 else
                       "\t\tadd_to_array = { mod1440_h_%d = down }\n" if n % 3 == 1 else
                       "\t\tadd_to_array = { mod1440_h_%d = wave }\n") % n for n in range(filled))
     forget = "".join("\t\t\tremove_from_array = { array = mod1440_h_%d index = 0 }\n" % n for n in range(filled))
-    clear = "".join("\tclear_array = mod1440_h_%d\n" % n for n in range(20))
+    clear = "".join("\tclear_array = mod1440_h_%d\n" % n for n in range(H_SERIES))
     year = """		set_temp_variable = { mo = t }
 		modulo_temp_variable = { mo = 12 }
 		set_temp_variable = { yr = t }
@@ -606,6 +612,8 @@ def history_months(name, months, years, filled=20):
 		set_temp_variable = { wave = t }
 		modulo_temp_variable = { wave = 24 }
 		add_to_temp_variable = { wave = 10 }
+		set_temp_variable = { below = wave }
+		subtract_from_temp_variable = { below = 22 }
 %s		add_to_array = { mod1440_h_date = global.date }
 %s		if = {
 			limit = { check_variable = { mod1440_h_date^num > 120 } }
@@ -622,7 +630,31 @@ def history_months(name, months, years, filled=20):
 # 130 months of the twelve figures a save of the build before 2026-10-16 has
 HISTORY = ("\n# ---- the History page: made-up months\n"
            + history_months("mod1440_chk_months", 130, True) + history_months("mod1440_chk_months_old", 130, False)
-           + history_months("mod1440_chk_months_few", 7, True) + history_months("mod1440_chk_months_twelve", 130, True, 12))
+           + history_months("mod1440_chk_months_few", 7, True) + history_months("mod1440_chk_months_twelve", 130, True, 12)
+           + history_months("mod1440_chk_months_twenty", 130, True, 20))
+
+
+def changed_month():
+    """D4 round 2: the Changed view of National Figures. Writes the modifiers down as mod1440_h_record does on the
+    first of the month, then makes four of them look different on that day (political power per day, political
+    power gain, consumer goods share, research speed), so that the lists show those four as changed."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import build_managers
+    names = build_managers.NF_MODIFIERS
+    was = "".join("\tadd_to_array = { mod1440_nf_was = %s }\n" % value for value in names)
+    changes = ""
+    for value, delta in (("political_power_daily", "-0.25"), ("modifier@political_power_factor", "-0.05"),
+                         ("modifier@consumer_goods_expected_value", "0.05"), ("modifier@research_speed_factor", "-0.05")):
+        at = names.index(value)
+        changes += "\tset_temp_variable = { c_w = mod1440_nf_was^%d }\n\tadd_to_temp_variable = { c_w = %s }\n" % (at, delta)
+        changes += "\tset_variable = { mod1440_nf_was^%d = c_w }\n" % at
+    return ("\n# ---- National Figures, D4 round 2: a made-up first of the month for the Changed view\n"
+            "mod1440_chk_changed = {\n\tclear_array = mod1440_nf_was\n" + was + changes
+            + "\tset_variable = { mod1440_nf_was_date = global.date }\n\tmod1440_nf_fill = yes\n"
+            "\tlog = \"MOD1440 check: changed, [?mod1440_nf_was^num] modifiers, [?mod1440_nf_a0] [?mod1440_nf_a1] [?mod1440_nf_a2] [?mod1440_nf_a3] changed\"\n}\n")
+
+
+HISTORY += changed_month()
 
 if __name__ == "__main__":
     if "--restore" in sys.argv:
