@@ -98,7 +98,10 @@ BeforeAll {
         # --- e-diary-wars (2026-10-16): the days each state taken is held, for its card
         'every_controlled_state',
         # e-officers-gov (2026-10-16): an officer's traits, kept on him, and his status under his name
-        'has_trait', 'is_general_captured', 'is_leading_army_group'
+        'has_trait', 'is_general_captured', 'is_leading_army_group',
+        # --- D2 round 2 --- (2026-10-17) Army Readiness: the commanders of single armies (Fighting, Without a
+        # commander), and the countries whose states can hold the player's divisions (Location); all read-only
+        'is_leading_army', 'is_in_faction_with', 'has_war_with'
     )
 
     # Adds to $Into every command of a block that is neither allowed nor an effect of the mod's own.

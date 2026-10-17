@@ -698,379 +698,379 @@ scripted_gui = {
 
 		triggers = {
 			tb_s_pp_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_pp = 1 } } check_variable = { mod1440_tb_room < 106 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_pp = 1 } } check_variable = { mod1440_tb_room < 109 } } }
 			}
 			tb_s_pp_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_pp = 1 } } check_variable = { mod1440_tb_room < 106 }
+				NOT = { check_variable = { mod1440_tb_on_pp = 1 } } check_variable = { mod1440_tb_room < 109 }
 			}
 			tb_s_pp_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_pp = 1 } } check_variable = { mod1440_tb_room < 106 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_pp = 1 } } check_variable = { mod1440_tb_room < 109 } } }
 			}
 			tb_s_pp_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_pp = 1 } } check_variable = { mod1440_tb_room < 106 }
+				NOT = { check_variable = { mod1440_tb_on_pp = 1 } } check_variable = { mod1440_tb_room < 109 }
 			}
 			tb_s_pp_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_pp = 1 } }
 			}
 			tb_s_pp_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 106 } }
+				NOT = { check_variable = { mod1440_tb_room < 109 } }
 			}
 			tb_s_pp_on_visible = {
 				check_variable = { mod1440_tb_on_pp = 1 }
 			}
 			tb_s_cp_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_cp = 1 } } check_variable = { mod1440_tb_room < 103 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_cp = 1 } } check_variable = { mod1440_tb_room < 106 } } }
 			}
 			tb_s_cp_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_cp = 1 } } check_variable = { mod1440_tb_room < 103 }
+				NOT = { check_variable = { mod1440_tb_on_cp = 1 } } check_variable = { mod1440_tb_room < 106 }
 			}
 			tb_s_cp_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_cp = 1 } } check_variable = { mod1440_tb_room < 103 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_cp = 1 } } check_variable = { mod1440_tb_room < 106 } } }
 			}
 			tb_s_cp_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_cp = 1 } } check_variable = { mod1440_tb_room < 103 }
+				NOT = { check_variable = { mod1440_tb_on_cp = 1 } } check_variable = { mod1440_tb_room < 106 }
 			}
 			tb_s_cp_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_cp = 1 } }
 			}
 			tb_s_cp_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 103 } }
+				NOT = { check_variable = { mod1440_tb_room < 106 } }
 			}
 			tb_s_cp_on_visible = {
 				check_variable = { mod1440_tb_on_cp = 1 }
 			}
 			tb_s_stab_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_stab = 1 } } check_variable = { mod1440_tb_room < 122 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_stab = 1 } } check_variable = { mod1440_tb_room < 125 } } }
 			}
 			tb_s_stab_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_stab = 1 } } check_variable = { mod1440_tb_room < 122 }
+				NOT = { check_variable = { mod1440_tb_on_stab = 1 } } check_variable = { mod1440_tb_room < 125 }
 			}
 			tb_s_stab_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_stab = 1 } } check_variable = { mod1440_tb_room < 122 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_stab = 1 } } check_variable = { mod1440_tb_room < 125 } } }
 			}
 			tb_s_stab_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_stab = 1 } } check_variable = { mod1440_tb_room < 122 }
+				NOT = { check_variable = { mod1440_tb_on_stab = 1 } } check_variable = { mod1440_tb_room < 125 }
 			}
 			tb_s_stab_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_stab = 1 } }
 			}
 			tb_s_stab_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 122 } }
+				NOT = { check_variable = { mod1440_tb_room < 125 } }
 			}
 			tb_s_stab_on_visible = {
 				check_variable = { mod1440_tb_on_stab = 1 }
 			}
 			tb_s_ws_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_ws = 1 } } check_variable = { mod1440_tb_room < 121 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_ws = 1 } } check_variable = { mod1440_tb_room < 124 } } }
 			}
 			tb_s_ws_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_ws = 1 } } check_variable = { mod1440_tb_room < 121 }
+				NOT = { check_variable = { mod1440_tb_on_ws = 1 } } check_variable = { mod1440_tb_room < 124 }
 			}
 			tb_s_ws_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_ws = 1 } } check_variable = { mod1440_tb_room < 121 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_ws = 1 } } check_variable = { mod1440_tb_room < 124 } } }
 			}
 			tb_s_ws_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_ws = 1 } } check_variable = { mod1440_tb_room < 121 }
+				NOT = { check_variable = { mod1440_tb_on_ws = 1 } } check_variable = { mod1440_tb_room < 124 }
 			}
 			tb_s_ws_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_ws = 1 } }
 			}
 			tb_s_ws_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 121 } }
+				NOT = { check_variable = { mod1440_tb_room < 124 } }
 			}
 			tb_s_ws_on_visible = {
 				check_variable = { mod1440_tb_on_ws = 1 }
 			}
 			tb_s_civ_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_civ = 1 } } check_variable = { mod1440_tb_room < 135 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_civ = 1 } } check_variable = { mod1440_tb_room < 130 } } }
 			}
 			tb_s_civ_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_civ = 1 } } check_variable = { mod1440_tb_room < 135 }
+				NOT = { check_variable = { mod1440_tb_on_civ = 1 } } check_variable = { mod1440_tb_room < 130 }
 			}
 			tb_s_civ_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_civ = 1 } } check_variable = { mod1440_tb_room < 135 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_civ = 1 } } check_variable = { mod1440_tb_room < 130 } } }
 			}
 			tb_s_civ_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_civ = 1 } } check_variable = { mod1440_tb_room < 135 }
+				NOT = { check_variable = { mod1440_tb_on_civ = 1 } } check_variable = { mod1440_tb_room < 130 }
 			}
 			tb_s_civ_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_civ = 1 } }
 			}
 			tb_s_civ_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 135 } }
+				NOT = { check_variable = { mod1440_tb_room < 130 } }
 			}
 			tb_s_civ_on_visible = {
 				check_variable = { mod1440_tb_on_civ = 1 }
 			}
 			tb_s_mil_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mil = 1 } } check_variable = { mod1440_tb_room < 131 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mil = 1 } } check_variable = { mod1440_tb_room < 126 } } }
 			}
 			tb_s_mil_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_mil = 1 } } check_variable = { mod1440_tb_room < 131 }
+				NOT = { check_variable = { mod1440_tb_on_mil = 1 } } check_variable = { mod1440_tb_room < 126 }
 			}
 			tb_s_mil_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mil = 1 } } check_variable = { mod1440_tb_room < 131 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mil = 1 } } check_variable = { mod1440_tb_room < 126 } } }
 			}
 			tb_s_mil_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_mil = 1 } } check_variable = { mod1440_tb_room < 131 }
+				NOT = { check_variable = { mod1440_tb_on_mil = 1 } } check_variable = { mod1440_tb_room < 126 }
 			}
 			tb_s_mil_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_mil = 1 } }
 			}
 			tb_s_mil_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 131 } }
+				NOT = { check_variable = { mod1440_tb_room < 126 } }
 			}
 			tb_s_mil_on_visible = {
 				check_variable = { mod1440_tb_on_mil = 1 }
 			}
 			tb_s_dock_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_dock = 1 } } check_variable = { mod1440_tb_room < 123 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_dock = 1 } } check_variable = { mod1440_tb_room < 118 } } }
 			}
 			tb_s_dock_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_dock = 1 } } check_variable = { mod1440_tb_room < 123 }
+				NOT = { check_variable = { mod1440_tb_on_dock = 1 } } check_variable = { mod1440_tb_room < 118 }
 			}
 			tb_s_dock_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_dock = 1 } } check_variable = { mod1440_tb_room < 123 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_dock = 1 } } check_variable = { mod1440_tb_room < 118 } } }
 			}
 			tb_s_dock_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_dock = 1 } } check_variable = { mod1440_tb_room < 123 }
+				NOT = { check_variable = { mod1440_tb_on_dock = 1 } } check_variable = { mod1440_tb_room < 118 }
 			}
 			tb_s_dock_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_dock = 1 } }
 			}
 			tb_s_dock_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 123 } }
+				NOT = { check_variable = { mod1440_tb_room < 118 } }
 			}
 			tb_s_dock_on_visible = {
 				check_variable = { mod1440_tb_on_dock = 1 }
 			}
 			tb_s_cg_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_cg = 1 } } check_variable = { mod1440_tb_room < 90 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_cg = 1 } } check_variable = { mod1440_tb_room < 93 } } }
 			}
 			tb_s_cg_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_cg = 1 } } check_variable = { mod1440_tb_room < 90 }
+				NOT = { check_variable = { mod1440_tb_on_cg = 1 } } check_variable = { mod1440_tb_room < 93 }
 			}
 			tb_s_cg_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_cg = 1 } } check_variable = { mod1440_tb_room < 90 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_cg = 1 } } check_variable = { mod1440_tb_room < 93 } } }
 			}
 			tb_s_cg_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_cg = 1 } } check_variable = { mod1440_tb_room < 90 }
+				NOT = { check_variable = { mod1440_tb_on_cg = 1 } } check_variable = { mod1440_tb_room < 93 }
 			}
 			tb_s_cg_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_cg = 1 } }
 			}
 			tb_s_cg_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 90 } }
+				NOT = { check_variable = { mod1440_tb_room < 93 } }
 			}
 			tb_s_cg_on_visible = {
 				check_variable = { mod1440_tb_on_cg = 1 }
 			}
 			tb_s_fuel_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_fuel = 1 } } check_variable = { mod1440_tb_room < 144 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_fuel = 1 } } check_variable = { mod1440_tb_room < 147 } } }
 			}
 			tb_s_fuel_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_fuel = 1 } } check_variable = { mod1440_tb_room < 144 }
+				NOT = { check_variable = { mod1440_tb_on_fuel = 1 } } check_variable = { mod1440_tb_room < 147 }
 			}
 			tb_s_fuel_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_fuel = 1 } } check_variable = { mod1440_tb_room < 144 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_fuel = 1 } } check_variable = { mod1440_tb_room < 147 } } }
 			}
 			tb_s_fuel_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_fuel = 1 } } check_variable = { mod1440_tb_room < 144 }
+				NOT = { check_variable = { mod1440_tb_on_fuel = 1 } } check_variable = { mod1440_tb_room < 147 }
 			}
 			tb_s_fuel_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_fuel = 1 } }
 			}
 			tb_s_fuel_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 144 } }
+				NOT = { check_variable = { mod1440_tb_room < 147 } }
 			}
 			tb_s_fuel_on_visible = {
 				check_variable = { mod1440_tb_on_fuel = 1 }
 			}
 			tb_s_mp_field_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mp_field = 1 } } check_variable = { mod1440_tb_room < 135 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mp_field = 1 } } check_variable = { mod1440_tb_room < 138 } } }
 			}
 			tb_s_mp_field_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_mp_field = 1 } } check_variable = { mod1440_tb_room < 135 }
+				NOT = { check_variable = { mod1440_tb_on_mp_field = 1 } } check_variable = { mod1440_tb_room < 138 }
 			}
 			tb_s_mp_field_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mp_field = 1 } } check_variable = { mod1440_tb_room < 135 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mp_field = 1 } } check_variable = { mod1440_tb_room < 138 } } }
 			}
 			tb_s_mp_field_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_mp_field = 1 } } check_variable = { mod1440_tb_room < 135 }
+				NOT = { check_variable = { mod1440_tb_on_mp_field = 1 } } check_variable = { mod1440_tb_room < 138 }
 			}
 			tb_s_mp_field_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_mp_field = 1 } }
 			}
 			tb_s_mp_field_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 135 } }
+				NOT = { check_variable = { mod1440_tb_room < 138 } }
 			}
 			tb_s_mp_field_on_visible = {
 				check_variable = { mod1440_tb_on_mp_field = 1 }
 			}
 			tb_s_mp_train_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mp_train = 1 } } check_variable = { mod1440_tb_room < 155 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mp_train = 1 } } check_variable = { mod1440_tb_room < 158 } } }
 			}
 			tb_s_mp_train_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_mp_train = 1 } } check_variable = { mod1440_tb_room < 155 }
+				NOT = { check_variable = { mod1440_tb_on_mp_train = 1 } } check_variable = { mod1440_tb_room < 158 }
 			}
 			tb_s_mp_train_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mp_train = 1 } } check_variable = { mod1440_tb_room < 155 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_mp_train = 1 } } check_variable = { mod1440_tb_room < 158 } } }
 			}
 			tb_s_mp_train_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_mp_train = 1 } } check_variable = { mod1440_tb_room < 155 }
+				NOT = { check_variable = { mod1440_tb_on_mp_train = 1 } } check_variable = { mod1440_tb_room < 158 }
 			}
 			tb_s_mp_train_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_mp_train = 1 } }
 			}
 			tb_s_mp_train_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 155 } }
+				NOT = { check_variable = { mod1440_tb_room < 158 } }
 			}
 			tb_s_mp_train_on_visible = {
 				check_variable = { mod1440_tb_on_mp_train = 1 }
 			}
 			tb_s_res_oil_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_oil = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_oil = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_oil_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_oil = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_oil = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_oil_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_oil = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_oil = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_oil_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_oil = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_oil = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_oil_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_res_oil = 1 } }
 			}
 			tb_s_res_oil_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 77 } }
+				NOT = { check_variable = { mod1440_tb_room < 80 } }
 			}
 			tb_s_res_oil_on_visible = {
 				check_variable = { mod1440_tb_on_res_oil = 1 }
 			}
 			tb_s_res_aluminium_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_aluminium = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_aluminium = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_aluminium_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_aluminium = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_aluminium = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_aluminium_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_aluminium = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_aluminium = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_aluminium_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_aluminium = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_aluminium = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_aluminium_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_res_aluminium = 1 } }
 			}
 			tb_s_res_aluminium_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 77 } }
+				NOT = { check_variable = { mod1440_tb_room < 80 } }
 			}
 			tb_s_res_aluminium_on_visible = {
 				check_variable = { mod1440_tb_on_res_aluminium = 1 }
 			}
 			tb_s_res_rubber_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_rubber = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_rubber = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_rubber_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_rubber = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_rubber = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_rubber_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_rubber = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_rubber = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_rubber_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_rubber = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_rubber = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_rubber_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_res_rubber = 1 } }
 			}
 			tb_s_res_rubber_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 77 } }
+				NOT = { check_variable = { mod1440_tb_room < 80 } }
 			}
 			tb_s_res_rubber_on_visible = {
 				check_variable = { mod1440_tb_on_res_rubber = 1 }
 			}
 			tb_s_res_tungsten_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_tungsten = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_tungsten = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_tungsten_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_tungsten = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_tungsten = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_tungsten_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_tungsten = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_tungsten = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_tungsten_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_tungsten = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_tungsten = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_tungsten_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_res_tungsten = 1 } }
 			}
 			tb_s_res_tungsten_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 77 } }
+				NOT = { check_variable = { mod1440_tb_room < 80 } }
 			}
 			tb_s_res_tungsten_on_visible = {
 				check_variable = { mod1440_tb_on_res_tungsten = 1 }
 			}
 			tb_s_res_steel_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_steel = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_steel = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_steel_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_steel = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_steel = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_steel_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_steel = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_steel = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_steel_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_steel = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_steel = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_steel_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_res_steel = 1 } }
 			}
 			tb_s_res_steel_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 77 } }
+				NOT = { check_variable = { mod1440_tb_room < 80 } }
 			}
 			tb_s_res_steel_on_visible = {
 				check_variable = { mod1440_tb_on_res_steel = 1 }
 			}
 			tb_s_res_chromium_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_chromium = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_chromium = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_chromium_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_chromium = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_chromium = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_chromium_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_chromium = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_chromium = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_chromium_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_chromium = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_chromium = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_chromium_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_res_chromium = 1 } }
 			}
 			tb_s_res_chromium_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 77 } }
+				NOT = { check_variable = { mod1440_tb_room < 80 } }
 			}
 			tb_s_res_chromium_on_visible = {
 				check_variable = { mod1440_tb_on_res_chromium = 1 }
 			}
 			tb_s_res_coal_name_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_coal = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_coal = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_coal_name_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_coal = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_coal = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_coal_w_visible = {
-				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_coal = 1 } } check_variable = { mod1440_tb_room < 77 } } }
+				NOT = { AND = { NOT = { check_variable = { mod1440_tb_on_res_coal = 1 } } check_variable = { mod1440_tb_room < 80 } } }
 			}
 			tb_s_res_coal_w_off_visible = {
-				NOT = { check_variable = { mod1440_tb_on_res_coal = 1 } } check_variable = { mod1440_tb_room < 77 }
+				NOT = { check_variable = { mod1440_tb_on_res_coal = 1 } } check_variable = { mod1440_tb_room < 80 }
 			}
 			tb_s_res_coal_off_visible = {
 				NOT = { check_variable = { mod1440_tb_on_res_coal = 1 } }
 			}
 			tb_s_res_coal_off_click_enabled = {
-				NOT = { check_variable = { mod1440_tb_room < 77 } }
+				NOT = { check_variable = { mod1440_tb_room < 80 } }
 			}
 			tb_s_res_coal_on_visible = {
 				check_variable = { mod1440_tb_on_res_coal = 1 }

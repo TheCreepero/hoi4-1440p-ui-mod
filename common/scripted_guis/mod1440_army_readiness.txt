@@ -10,6 +10,12 @@ scripted_gui = {
 		}
 
 		properties = {
+			ar_eq_field_bar = {
+				frame = mod1440_ar_eqf
+			}
+			ar_eq_field_low = {
+				frame = mod1440_ar_eqf
+			}
 			ar_fuel_bar = {
 				frame = mod1440_ar_fuel
 			}
@@ -56,6 +62,18 @@ scripted_gui = {
 			ar_mp_garrison_z_visible = {
 				NOT = { check_variable = { garrison_manpower_need > 0 } }
 			}
+			ar_casualties_visible = {
+				check_variable = { casualties_k > 0 }
+			}
+			ar_casualties_z_visible = {
+				NOT = { check_variable = { casualties_k > 0 } }
+			}
+			ar_fighting_visible = {
+				check_variable = { mod1440_ar_fight > 0 }
+			}
+			ar_fighting_z_visible = {
+				NOT = { check_variable = { mod1440_ar_fight > 0 } }
+			}
 			ar_low_str_visible = {
 				check_variable = { mod1440_ar_low_str > 0 }
 			}
@@ -67,6 +85,40 @@ scripted_gui = {
 			}
 			ar_low_org_z_visible = {
 				NOT = { check_variable = { mod1440_ar_low_org > 0 } }
+			}
+			ar_no_cmd_visible = {
+				check_variable = { mod1440_ar_nocmd > 0 }
+			}
+			ar_no_cmd_z_visible = {
+				NOT = { check_variable = { mod1440_ar_nocmd > 0 } }
+			}
+			ar_eq_field_visible = {
+				check_variable = { mod1440_ar_eqn > 0 }
+			}
+			ar_eq_field_z_visible = {
+				NOT = { check_variable = { mod1440_ar_eqn > 0 } }
+			}
+			ar_eq_field_bar_visible = {
+				check_variable = { mod1440_ar_counted > 0 }
+				check_variable = { mod1440_ar_eqn > 0 }
+				NOT = { check_variable = { mod1440_ar_eqf < 75 } }
+			}
+			ar_eq_field_low_visible = {
+				check_variable = { mod1440_ar_counted > 0 }
+				check_variable = { mod1440_ar_eqn > 0 }
+				check_variable = { mod1440_ar_eqf < 75 }
+			}
+			ar_k_short_visible = {
+				check_variable = { mod1440_ar_kshort > 0 }
+			}
+			ar_k_short_z_visible = {
+				NOT = { check_variable = { mod1440_ar_kshort > 0 } }
+			}
+			ar_k_red_visible = {
+				check_variable = { mod1440_ar_kred > 0 }
+			}
+			ar_k_red_z_visible = {
+				NOT = { check_variable = { mod1440_ar_kred > 0 } }
 			}
 			ar_fuel_bar_visible = {
 				check_variable = { mod1440_ar_counted > 0 }
@@ -106,6 +158,12 @@ scripted_gui = {
 		}
 
 		properties = {
+			ar_eq_arrow_down = {
+				x = mod1440_ar_eq_arrow_x
+			}
+			ar_eq_arrow_up = {
+				x = mod1440_ar_eq_arrow_x
+			}
 			ar_er_pic_0 = {
 				image = "[?mod1440_ar_pic^i.GetTokenKey]"
 			}
@@ -133,11 +191,26 @@ scripted_gui = {
 			ar_er_low = {
 				frame = v
 			}
+			ar_names = {
+				frame = mod1440_ar_names_fr
+			}
+			ar_al_arrow_down = {
+				x = mod1440_ar_al_arrow_x
+			}
+			ar_al_arrow_up = {
+				x = mod1440_ar_al_arrow_x
+			}
 			ar_row_face = {
 				image = "[?mod1440_p.GetTokenKey]"
 			}
 			ar_row_plan_bar = {
 				frame = mod1440_al_plan
+			}
+			ar_row_eq_bar = {
+				frame = mod1440_al_eq
+			}
+			ar_row_eq_lowbar = {
+				frame = mod1440_al_eq
 			}
 			ar_row_worst_0 = {
 				image = "[?mod1440_al_wpic.GetTokenKey]"
@@ -160,26 +233,263 @@ scripted_gui = {
 			ar_row_worst_6 = {
 				image = "[?mod1440_al_wpic.GetTokenKey]"
 			}
-			ar_row_bar = {
-				frame = mod1440_al_fill
-			}
-			ar_row_low = {
-				frame = mod1440_al_fill
-			}
 		}
 
 		effects = {
-			ar_row_hq_click = {
-				set_temp_variable = { ar_hq = mod1440_al_hq }
-				var:ar_hq = {
-					ROOT = {
-						goto_state = PREV
+			ar_eq_all_click = {
+				set_variable = { mod1440_ar_has_sel = 0 }
+				mod1440_ar_list = yes
+				mod1440_ar_marks = yes
+			}
+			ar_eh_kind_click = {
+				set_variable = { mod1440_ar_eq_by = 0 }
+				set_variable = { mod1440_ar_eq_up = 0 }
+				mod1440_ar_eq_sort = yes
+			}
+			ar_eh_stock_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_eq_by = 1 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_eq_up = 1 } }
+						set_variable = { mod1440_ar_eq_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_eq_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_eq_by = 1 }
+					set_variable = { mod1440_ar_eq_up = 0 }
+				}
+				mod1440_ar_eq_sort = yes
+			}
+			ar_eh_field_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_eq_by = 2 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_eq_up = 1 } }
+						set_variable = { mod1440_ar_eq_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_eq_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_eq_by = 2 }
+					set_variable = { mod1440_ar_eq_up = 0 }
+				}
+				mod1440_ar_eq_sort = yes
+			}
+			ar_eh_need_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_eq_by = 3 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_eq_up = 1 } }
+						set_variable = { mod1440_ar_eq_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_eq_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_eq_by = 3 }
+					set_variable = { mod1440_ar_eq_up = 0 }
+				}
+				mod1440_ar_eq_sort = yes
+			}
+			ar_eh_short_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_eq_by = 4 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_eq_up = 1 } }
+						set_variable = { mod1440_ar_eq_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_eq_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_eq_by = 4 }
+					set_variable = { mod1440_ar_eq_up = 0 }
+				}
+				mod1440_ar_eq_sort = yes
+			}
+			ar_eh_fill_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_eq_by = 5 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_eq_up = 1 } }
+						set_variable = { mod1440_ar_eq_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_eq_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_eq_by = 5 }
+					set_variable = { mod1440_ar_eq_up = 0 }
+				}
+				mod1440_ar_eq_sort = yes
+			}
+			ar_names_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_names = 1 } }
+					set_variable = { mod1440_ar_names = 0 }
+					set_variable = { mod1440_ar_names_fr = 1 }
+				}
+				else = {
+					set_variable = { mod1440_ar_names = 1 }
+					set_variable = { mod1440_ar_names_fr = 2 }
+				}
+			}
+			ar_ah_cmd_click = {
+				set_variable = { mod1440_ar_al_by = 0 }
+				set_variable = { mod1440_ar_al_up = 0 }
+				mod1440_ar_al_sort = yes
+				mod1440_ar_marks = yes
+			}
+			ar_ah_div_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_al_by = 2 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_al_up = 1 } }
+						set_variable = { mod1440_ar_al_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_al_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_al_by = 2 }
+					set_variable = { mod1440_ar_al_up = 0 }
+				}
+				mod1440_ar_al_sort = yes
+				mod1440_ar_marks = yes
+			}
+			ar_ah_fight_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_al_by = 8 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_al_up = 1 } }
+						set_variable = { mod1440_ar_al_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_al_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_al_by = 8 }
+					set_variable = { mod1440_ar_al_up = 0 }
+				}
+				mod1440_ar_al_sort = yes
+				mod1440_ar_marks = yes
+			}
+			ar_ah_plan_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_al_by = 9 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_al_up = 1 } }
+						set_variable = { mod1440_ar_al_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_al_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_al_by = 9 }
+					set_variable = { mod1440_ar_al_up = 0 }
+				}
+				mod1440_ar_al_sort = yes
+				mod1440_ar_marks = yes
+			}
+			ar_ah_equip_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_al_by = 10 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_al_up = 1 } }
+						set_variable = { mod1440_ar_al_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_al_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_al_by = 10 }
+					set_variable = { mod1440_ar_al_up = 0 }
+				}
+				mod1440_ar_al_sort = yes
+				mod1440_ar_marks = yes
+			}
+			ar_ah_worst_click = {
+				if = {
+					limit = { check_variable = { mod1440_ar_al_by = 11 } }
+					if = {
+						limit = { check_variable = { mod1440_ar_al_up = 1 } }
+						set_variable = { mod1440_ar_al_up = 0 }
+					}
+					else = {
+						set_variable = { mod1440_ar_al_up = 1 }
+					}
+				}
+				else = {
+					set_variable = { mod1440_ar_al_by = 11 }
+					set_variable = { mod1440_ar_al_up = 0 }
+				}
+				mod1440_ar_al_sort = yes
+				mod1440_ar_marks = yes
+			}
+			ar_row_hit_click = {
+				mod1440_of_me = yes
+				ROOT = {
+					mod1440_ar_choose = yes
+				}
+			}
+			ar_row_hit_right_click = {
+				if = {
+					limit = { check_variable = { mod1440_al_lcnt > 0 } }
+					set_temp_variable = { ar_go = mod1440_al_loc }
+					var:ar_go = {
+						ROOT = {
+							goto_state = PREV
+						}
+					}
+				}
+			}
+			ar_row_loc_click = {
+				if = {
+					limit = { check_variable = { mod1440_al_lcnt > 0 } }
+					set_temp_variable = { ar_go = mod1440_al_loc }
+					var:ar_go = {
+						ROOT = {
+							goto_state = PREV
+						}
 					}
 				}
 			}
 		}
 
 		triggers = {
+			ar_eq_caption_visible = {
+				NOT = { check_variable = { mod1440_ar_has_sel = 1 } }
+			}
+			ar_eq_caption_army_visible = {
+				check_variable = { mod1440_ar_has_sel = 1 }
+			}
+			ar_eq_all_visible = {
+				check_variable = { mod1440_ar_has_sel = 1 }
+			}
+			ar_eh_field_l_visible = {
+				NOT = { check_variable = { mod1440_ar_has_sel = 1 } }
+			}
+			ar_eh_field_army_visible = {
+				check_variable = { mod1440_ar_has_sel = 1 }
+			}
+			ar_eq_arrow_down_visible = {
+				NOT = { check_variable = { mod1440_ar_eq_asc = 1 } }
+			}
+			ar_eq_arrow_up_visible = {
+				check_variable = { mod1440_ar_eq_asc = 1 }
+			}
 			ar_eq_none_visible = {
 				check_variable = { mod1440_ar_fill^num < 1 }
 			}
@@ -207,6 +517,12 @@ scripted_gui = {
 			ar_er_pic_6_visible = {
 				check_variable = { mod1440_ar_cls^i = 6 }
 			}
+			ar_er_stock_visible = {
+				NOT = { check_variable = { mod1440_ar_has_sel = 1 } }
+			}
+			ar_er_stock_shared_visible = {
+				check_variable = { mod1440_ar_has_sel = 1 }
+			}
 			ar_er_field_visible = {
 				NOT = { check_variable = { mod1440_ar_short^i > 0 } }
 			}
@@ -232,11 +548,27 @@ scripted_gui = {
 			ar_er_pct_visible = {
 				check_variable = { mod1440_ar_need^i > 0 }
 			}
+			ar_al_caption_visible = {
+				check_variable = { mod1440_ar_leaders^num > 1 }
+			}
+			ar_al_caption_one_visible = {
+				check_variable = { mod1440_ar_leaders^num = 1 }
+			}
+			ar_al_arrow_down_visible = {
+				NOT = { check_variable = { mod1440_ar_al_asc = 1 } }
+			}
+			ar_al_arrow_up_visible = {
+				check_variable = { mod1440_ar_al_asc = 1 }
+			}
 			ar_al_none_visible = {
 				check_variable = { mod1440_ar_leaders^num < 1 }
 			}
 			ar_row_stripe_visible = {
 				check_variable = { mod1440_al_odd = 1 }
+				NOT = { check_variable = { mod1440_al_pick = 1 } }
+			}
+			ar_row_pick_visible = {
+				check_variable = { mod1440_al_pick = 1 }
 			}
 			ar_row_face_visible = {
 				check_variable = { mod1440_p_ver > 0 }
@@ -244,23 +576,24 @@ scripted_gui = {
 			ar_row_unknown_visible = {
 				NOT = { check_variable = { mod1440_p_ver > 0 } }
 			}
-			ar_row_fm_visible = {
-				is_field_marshal = yes
-			}
-			ar_row_gen_visible = {
-				NOT = { is_field_marshal = yes }
+			ar_row_army_visible = {
+				check_variable = { ROOT.mod1440_ar_names = 1 }
+				NOT = { is_leading_army_group = yes }
 			}
 			ar_row_hq_visible = {
 				check_variable = { mod1440_al_hq > 0 }
 			}
-			ar_row_hq_icon_visible = {
-				check_variable = { mod1440_al_hq > 0 }
-			}
-			ar_row_hq_name_visible = {
-				check_variable = { mod1440_al_hq > 0 }
-			}
 			ar_row_hq_none_visible = {
 				NOT = { check_variable = { mod1440_al_hq > 0 } }
+			}
+			ar_row_loc_none_visible = {
+				NOT = { check_variable = { mod1440_al_lcnt > 0 } }
+			}
+			ar_row_div_visible = {
+				NOT = { is_leading_army_group = yes }
+			}
+			ar_row_div_group_visible = {
+				is_leading_army_group = yes
 			}
 			ar_row_inf_visible = {
 				check_variable = { num_infantry > 0 }
@@ -286,6 +619,12 @@ scripted_gui = {
 			ar_row_mech_none_visible = {
 				NOT = { check_variable = { num_mechanized > 0 } }
 			}
+			ar_row_oth_visible = {
+				check_variable = { mod1440_al_oth > 0 }
+			}
+			ar_row_oth_none_visible = {
+				NOT = { check_variable = { mod1440_al_oth > 0 } }
+			}
 			ar_row_fight_visible = {
 				check_variable = { num_units_in_combat > 0 }
 			}
@@ -294,6 +633,18 @@ scripted_gui = {
 			}
 			ar_row_fight_none_visible = {
 				NOT = { check_variable = { num_units_in_combat > 0 } }
+			}
+			ar_row_eq_visible = {
+				NOT = { check_variable = { mod1440_al_eq < 75 } }
+			}
+			ar_row_eq_low_visible = {
+				check_variable = { mod1440_al_eq < 75 }
+			}
+			ar_row_eq_bar_visible = {
+				NOT = { check_variable = { mod1440_al_eq < 75 } }
+			}
+			ar_row_eq_lowbar_visible = {
+				check_variable = { mod1440_al_eq < 75 }
 			}
 			ar_row_worst_0_visible = {
 				check_variable = { mod1440_al_wk = 1 }
@@ -325,14 +676,20 @@ scripted_gui = {
 			}
 			ar_row_pct_visible = {
 				check_variable = { mod1440_al_wk = 1 }
-			}
-			ar_row_bar_visible = {
-				check_variable = { mod1440_al_wk = 1 }
 				NOT = { check_variable = { mod1440_al_fill < 75 } }
 			}
-			ar_row_low_visible = {
+			ar_row_pct_low_visible = {
 				check_variable = { mod1440_al_wk = 1 }
 				check_variable = { mod1440_al_fill < 75 }
+			}
+			ar_row_loc_visible = {
+				check_variable = { mod1440_al_lcnt > 0 }
+			}
+			ar_row_loc_icon_visible = {
+				check_variable = { mod1440_al_lcnt > 0 }
+			}
+			ar_row_loc_name_visible = {
+				check_variable = { mod1440_al_lcnt > 0 }
 			}
 		}
 

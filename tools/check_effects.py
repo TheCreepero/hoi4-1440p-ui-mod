@@ -465,6 +465,109 @@ mod1440_chk_tb_log = {
 mod1440_chk_sizes2 = {
 	log = "MOD1440 check: sizes2 ev [?mod1440_ev_date^num]/[?mod1440_ev_k^num]/[?mod1440_ev_id^num] tr [?mod1440_tr_date^num]/[?mod1440_tr_k^num]/[?mod1440_tr_id^num] kp [?mod1440_kp_date^num] wr [?mod1440_wr_enemy^num]/[?mod1440_wr_id^num]/[?mod1440_wr_ecas0^num] wo [?mod1440_wo_enemy^num]/[?mod1440_wo_id^num]/[?mod1440_wo_oc^num]/[?mod1440_wo_fr^num] honours [?mod1440_hn_v] [?mod1440_hn_auto] [?mod1440_hn_sea] [?mod1440_hn_air] [?mod1440_hn_vp]"
 }
+
+# ---- Army Readiness, D2 round 2 fix round 1: why the first Location pass found no state. With a general given an
+# army: the states every_controlled_state put into a temporary array, how many of them a loop in a general's
+# scope sees, and his divisions summed over them both ways (SCR-021 says 30 for Germany's 30), then where the
+# fixed pass (mod1440_ar_here) puts him.
+mod1440_chk_ar_where = {
+	clear_temp_array = c_where
+	every_controlled_state = { add_to_temp_array = { c_where = THIS } }
+	set_temp_variable = { c_n = c_where^num }
+	log = "MOD1440 ar where: every_controlled_state put [?c_n] states into the temporary array"
+	every_army_leader = {
+		limit = { check_variable = { num_units > 0 } }
+		set_temp_variable = { c_seen = 0 }
+		set_temp_variable = { c_sum = 0 }
+		for_each_loop = {
+			array = c_where
+			value = c_st
+			add_to_temp_variable = { c_seen = 1 }
+			add_to_temp_variable = { c_sum = num_units_in_state@var:c_st }
+		}
+		log = "MOD1440 ar where: [?THIS.GetName] has [?num_units] divisions; the loop in his scope saw [?c_seen] states and [?c_sum] of his divisions"
+	}
+	set_temp_variable = { c_sum2 = 0 }
+	set_temp_variable = { c_me = THIS }
+	for_each_scope_loop = {
+		array = controlled_states
+		set_temp_variable = { c_st = THIS }
+		var:c_me = { every_army_leader = { limit = { check_variable = { num_units > 0 } } add_to_temp_variable = { c_sum2 = num_units_in_state@var:c_st } } }
+	}
+	log = "MOD1440 ar where: summed state by state from the country's own loop (the fixed form): [?c_sum2]"
+	mod1440_ar_count = yes
+	every_army_leader = {
+		limit = { check_variable = { num_units > 0 } }
+		log = "MOD1440 ar where: after the count [?THIS.GetName] stands in [?mod1440_al_loc.GetName] with [?mod1440_al_lcnt] divisions"
+	}
+}
+
+# ---- Army Readiness, D2 round 2 fix round 3: a click on the row of a general without a number. Each element of
+# the list (a place is above 5368, a number below 0) is entered as the row's change_scope enters it, and what the
+# click and the row's buttons ask is logged: THIS, mod1440_of_me, his place, the rank conditions of the five twins
+# of the row's button. Then the click's own effect runs for the first general kept by place (or the first row),
+# and what the page reads after it is logged.
+mod1440_chk_ar_pick = {
+	log = "MOD1440 ar pick: [?mod1440_ar_leaders^num] rows; before: has_sel [?mod1440_ar_has_sel] sel [?mod1440_ar_sel] names [?mod1440_ar_names]"
+	set_temp_variable = { c_pick = 0 }
+	for_each_loop = {
+		array = mod1440_ar_leaders
+		value = c_l
+		var:c_l = {
+			set_temp_variable = { c_this = THIS }
+			mod1440_of_me = yes
+			set_temp_variable = { c_fm = 0 }
+			if = { limit = { is_field_marshal = yes } set_temp_variable = { c_fm = 1 } }
+			set_temp_variable = { c_nfm = 0 }
+			if = { limit = { NOT = { is_field_marshal = yes } } set_temp_variable = { c_nfm = 1 } }
+			set_temp_variable = { c_ag = 0 }
+			if = { limit = { is_leading_army_group = yes } set_temp_variable = { c_ag = 1 } }
+			set_temp_variable = { c_nag = 0 }
+			if = { limit = { NOT = { is_leading_army_group = yes } } set_temp_variable = { c_nag = 1 } }
+			log = "MOD1440 ar pick: element [?c_l] [?THIS.GetName]: THIS [?c_this] of_me [?of_me] ch_at [?mod1440_ch_at] pick [?mod1440_al_pick]; is_field_marshal [?c_fm] not [?c_nfm]; is_leading_army_group [?c_ag] not [?c_nag]"
+		}
+		if = { limit = { check_variable = { c_pick = 0 } check_variable = { c_l > 5368 } } set_temp_variable = { c_pick = c_l } }
+	}
+	if = { limit = { check_variable = { c_pick = 0 } check_variable = { mod1440_ar_leaders^num > 0 } } set_temp_variable = { c_pick = mod1440_ar_leaders^0 } }
+	if = {
+		limit = { NOT = { check_variable = { c_pick = 0 } } }
+		var:c_pick = {
+			mod1440_of_me = yes
+			log = "MOD1440 ar pick: the click on [?THIS.GetName]: of_me [?of_me]"
+			ROOT = { mod1440_ar_choose = yes }
+		}
+		log = "MOD1440 ar pick: after: has_sel [?mod1440_ar_has_sel] sel [?mod1440_ar_sel] ([?mod1440_ar_sel.GetName]), [?mod1440_ar_fill^num] kinds listed"
+		for_each_loop = {
+			array = mod1440_ar_leaders
+			value = c_l
+			var:c_l = { log = "MOD1440 ar pick: after: [?THIS.GetName] pick [?mod1440_al_pick]" }
+		}
+	}
+}
+
+# ---- Army Readiness, D2 round 2 fix round 2: what the armies list's rows see. Each element of the list's array is
+# entered as the row's change_scope enters it, and every condition the row asks of Location and the HQ is logged
+# with the raw values: which of them is true for a general whose state game.log names.
+mod1440_chk_ar_row = {
+	log = "MOD1440 ar row: [?mod1440_ar_leaders^num] rows"
+	for_each_loop = {
+		array = mod1440_ar_leaders
+		value = c_l
+		var:c_l = {
+			set_temp_variable = { c_a = 0 }
+			if = { limit = { check_variable = { mod1440_al_loc > 0 } } set_temp_variable = { c_a = 1 } }
+			set_temp_variable = { c_z = 0 }
+			if = { limit = { NOT = { check_variable = { mod1440_al_loc = 0 } } } set_temp_variable = { c_z = 1 } }
+			set_temp_variable = { c_b = 0 }
+			if = { limit = { check_variable = { mod1440_al_lcnt > 0 } } set_temp_variable = { c_b = 1 } }
+			set_temp_variable = { c_c = 0 }
+			if = { limit = { check_variable = { mod1440_al_hq > 0 } } set_temp_variable = { c_c = 1 } }
+			set_temp_variable = { c_d = 0 }
+			if = { limit = { NOT = { check_variable = { mod1440_al_hq = 0 } } } set_temp_variable = { c_d = 1 } }
+			log = "MOD1440 ar row: [?c_l] [?THIS.GetName]: loc [?mod1440_al_loc] [?mod1440_al_loc.GetName], loc>0 [?c_a], loc not 0 [?c_z]; lcnt [?mod1440_al_lcnt], lcnt>0 [?c_b]; hq [?mod1440_al_hq] [?mod1440_al_hq.GetName], hq>0 [?c_c], hq not 0 [?c_d]; state_deployed [?state_deployed]; fill [?mod1440_al_fill]"
+		}
+	}
+}
 """
 
 

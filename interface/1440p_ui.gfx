@@ -2400,29 +2400,190 @@ spriteTypes = {
 	}
 	# --- end d2-readiness ---
 
+	# --- D2 round 2 ---
+	# Army Readiness, round 2 (2026-10-17): the head bar and bands of the three figure tables, a sortable plate per
+	# column of the equipment and armies tables, the Location button of an army row, the light band of the chosen
+	# army and the transparent area that takes a row's clicks (the game's skill_transparent.dds, as the Officers
+	# rows), and the short bars of the tables. Tiles and bars of vanilla textures, as the blocks above.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_299"
+		size = { x = 299 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_stripe_299x26"
+		size = { x = 299 y = 26 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_344"
+		size = { x = 344 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_185"
+		size = { x = 185 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_312"
+		size = { x = 312 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_130"
+		size = { x = 130 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_38"
+		size = { x = 38 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_30"
+		size = { x = 30 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_32"
+		size = { x = 32 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_54"
+		size = { x = 54 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_57"
+		size = { x = 57 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_head_130x26"
+		size = { x = 130 y = 26 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_pick_889x50"
+		size = { x = 889 y = 50 }
+		textureFile = "gfx//interface//tiles//tiled_bg_noframe.dds"
+		borderSize = { x = 12 y = 12 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_hit_889x50"
+		size = { x = 889 y = 50 }
+		textureFile = "gfx/interface/skill_transparent.dds"
+		borderSize = { x = 0 y = 0 }
+		tilingCenter = yes
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_SG_bar_46"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 46 y = 10 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+		steps = 100
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_SG_bar_low_46"
+		textureFile1 = "gfx/interface/navieslist_bar_str.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 46 y = 10 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+		steps = 100
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_SG_bar_64"
+		textureFile1 = "gfx/interface/navieslist_bar_org.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 64 y = 10 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+		steps = 100
+	}
+
+	progressbartype = {
+		name = "GFX_1440p_SG_bar_low_64"
+		textureFile1 = "gfx/interface/navieslist_bar_str.dds"
+		textureFile2 = "gfx/interface/navieslist_bar_bg.dds"
+		size = { x = 64 y = 10 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+		steps = 100
+	}
+	# --- end D2 round 2 ---
+
 	# --- D7 ---
 	# The top bar strip (tools/build_managers.py, "Top bar strip (D7)"): the game's value box of the top bar
 	# (generic_box_smallest.dds, 70x26) tiled to the width of each chip, the same box as the edit button, the
 	# Records button lowered to 28 px, and the band of every second row of the panel.
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_61x26"
-		size = { x = 61 y = 26 }
+		name = "GFX_1440p_SG_topbox_64x26"
+		size = { x = 64 y = 26 }
 		textureFile = "gfx//interface//generic_box_smallest.dds"
 		borderSize = { x = 5 y = 5 }
 		tilingCenter = yes
 	}
 
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_74x26"
-		size = { x = 74 y = 26 }
-		textureFile = "gfx//interface//generic_box_smallest.dds"
-		borderSize = { x = 5 y = 5 }
-		tilingCenter = yes
-	}
-
-	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_87x26"
-		size = { x = 87 y = 26 }
+		name = "GFX_1440p_SG_topbox_77x26"
+		size = { x = 77 y = 26 }
 		textureFile = "gfx//interface//generic_box_smallest.dds"
 		borderSize = { x = 5 y = 5 }
 		tilingCenter = yes
@@ -2437,56 +2598,72 @@ spriteTypes = {
 	}
 
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_105x26"
-		size = { x = 105 y = 26 }
+		name = "GFX_1440p_SG_topbox_93x26"
+		size = { x = 93 y = 26 }
 		textureFile = "gfx//interface//generic_box_smallest.dds"
 		borderSize = { x = 5 y = 5 }
 		tilingCenter = yes
 	}
 
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_106x26"
-		size = { x = 106 y = 26 }
+		name = "GFX_1440p_SG_topbox_102x26"
+		size = { x = 102 y = 26 }
 		textureFile = "gfx//interface//generic_box_smallest.dds"
 		borderSize = { x = 5 y = 5 }
 		tilingCenter = yes
 	}
 
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_107x26"
-		size = { x = 107 y = 26 }
+		name = "GFX_1440p_SG_topbox_108x26"
+		size = { x = 108 y = 26 }
 		textureFile = "gfx//interface//generic_box_smallest.dds"
 		borderSize = { x = 5 y = 5 }
 		tilingCenter = yes
 	}
 
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_115x26"
-		size = { x = 115 y = 26 }
+		name = "GFX_1440p_SG_topbox_109x26"
+		size = { x = 109 y = 26 }
 		textureFile = "gfx//interface//generic_box_smallest.dds"
 		borderSize = { x = 5 y = 5 }
 		tilingCenter = yes
 	}
 
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_119x26"
-		size = { x = 119 y = 26 }
+		name = "GFX_1440p_SG_topbox_110x26"
+		size = { x = 110 y = 26 }
 		textureFile = "gfx//interface//generic_box_smallest.dds"
 		borderSize = { x = 5 y = 5 }
 		tilingCenter = yes
 	}
 
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_128x26"
-		size = { x = 128 y = 26 }
+		name = "GFX_1440p_SG_topbox_114x26"
+		size = { x = 114 y = 26 }
 		textureFile = "gfx//interface//generic_box_smallest.dds"
 		borderSize = { x = 5 y = 5 }
 		tilingCenter = yes
 	}
 
 	corneredTileSpriteType = {
-		name = "GFX_1440p_SG_topbox_139x26"
-		size = { x = 139 y = 26 }
+		name = "GFX_1440p_SG_topbox_122x26"
+		size = { x = 122 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_131x26"
+		size = { x = 131 y = 26 }
+		textureFile = "gfx//interface//generic_box_smallest.dds"
+		borderSize = { x = 5 y = 5 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_SG_topbox_142x26"
+		size = { x = 142 y = 26 }
 		textureFile = "gfx//interface//generic_box_smallest.dds"
 		borderSize = { x = 5 y = 5 }
 		tilingCenter = yes

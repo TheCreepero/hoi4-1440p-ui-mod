@@ -228,7 +228,9 @@ def portraits():
             continue
         if "country_leader" in roles and plain_name.match(civilian or army or navy or "-"):
             leaders.append((name, source, civilian or army or navy))
-        if any(role in roles for role in ("corps_commander", "field_marshal", "navy_leader")):
+        # D2 fix round 3: also a character whose file gives him no command but an army or navy portrait
+        # (officer_by_effect, tools/make_game_tables.py): an effect can make him a general (Martin Bormann)
+        if any(role in roles for role in ("corps_commander", "field_marshal", "navy_leader", "officer_by_effect")):
             # an admiral shows his navy portrait, a general his army portrait; whichever the game has otherwise
             first = (navy or army) if roles.strip() == "navy_leader" else (army or navy)
             if plain_name.match(first or civilian or "-"):
@@ -1571,7 +1573,8 @@ def places():
     offices = "".join(iff(is_one("mod1440_gv_of_%d_has" % k), in_variable("mod1440_gv_of_%d" % k)) for k in range(len(OFFICES)))
     out += (
         "\n# Characters: puts right every place the country in scope keeps, after the game's list of characters has\n"
-        "# changed: the people on the lines of both logs, the list of officers, the chosen officer, the offices.\n"
+        "# changed: the people on the lines of both logs, the list of officers, the chosen officer, the offices, the\n"
+        "# army chosen on Army Readiness.\n"
         + block("mod1440_ch_remap", (
             tmp("rm_lost", 0) + logs + in_array("mod1440_of_known")
             # an officer who is gone leaves the list
@@ -1582,6 +1585,9 @@ def places():
             + block("for_each_loop", "array = rm_keep\nvalue = rm_v\nadd_to_array = { mod1440_of_known = rm_v }\n")
             + iff(is_one("mod1440_of_has_sel"), in_variable("mod1440_of_sel")
                   + iff("check_variable = { mod1440_of_sel = 0 }", setv("mod1440_of_has_sel", 0)))
+            # --- D2 round 2 --- the army chosen on Army Readiness (tools/build_managers.py), kept as its commander
+            + iff(is_one("mod1440_ar_has_sel"), in_variable("mod1440_ar_sel")
+                  + iff("check_variable = { mod1440_ar_sel = 0 }", setv("mod1440_ar_has_sel", 0)))
             # the offices: one holder who cannot be found, and the copies are taken again without a line
             + tmp("rm_lost", 0) + in_variable("mod1440_gv_leader") + offices
             + in_array("mod1440_gv_adv") + in_array("mod1440_gv_hc") + in_array("mod1440_gv_rul")

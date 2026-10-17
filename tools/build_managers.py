@@ -255,47 +255,120 @@ EQUIPMENT = [row[0] for row in AR_KINDS]        # the game's kinds (tools/check_
 # 1246. 975 wide: it stops short of the theatre box under the clock (screen x 2234). Two scripted GUIs one under the
 # other: the head (title strip and figures), which is the whole page in its short form, and the body (equipment and
 # armies); a group of widgets is hidden only as a scripted GUI of its own (Engine Facts X15).
+# Round 2 (2026-10-17, wiki/phases/D2-army-readiness.md): the figures as three banded tables; heads that sort; a
+# click on an army chooses it, and the equipment card shows that army's own kinds; where the troops stand; the
+# commander's skill and four levels, and the army's name under him on a locally patched game [SCR-078].
 AR_X, AR_Y, AR_W = 1256, 0, 975
 AR_H = 1210                     # ends where the template panel ends, above the army portraits of the bottom bar
 AR_HEAD = 60                    # height of the title strip
-AR_SUM_H = 244                  # the head: title strip and the two cards of figures
-AR_IN = AR_W - 28               # what a card has between the margins of the page
-AR_CARD_W = (AR_IN - 12) // 2   # a card of figures: 467
-AR_TILE, AR_STEP = 145, 151     # three tiles in a row of a card
+AR_SUM_H = 244                  # the head: title strip and the three tables of figures
+AR_IN = AR_W - 28               # what a card has between the margins of the page: 947
 AR_TABLE = AR_IN - 28           # a table inside a card: 919
 AR_ROW_W = AR_TABLE - 30        # a row beside the scrollbar: 889
 AR_EQ_ROW, AR_EQ_ROWS = 32, 9   # the equipment list: nine rows on the screen
 AR_AL_ROW, AR_AL_ROWS = 50, 10  # the armies list: ten rows on the screen
-AR_HQ = "GFX_1440p_SG_head_136"
-ROW = 30                        # a row of a list
 LOW = 75                        # a bar is orange below this many percent
 # A picture of a kind stands in a box; the game's pictures are of many sizes, and an icon has one scale. So a row
 # has one icon per scale, and script shows the one its kind needs: the largest scale at which the picture fits.
 AR_SCALES = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4]
 AR_PIC_BOX = (84, 30)           # in an equipment row
-AR_WORST_BOX = (56, 24)         # the worst equipped kind in an army row
+AR_WORST_BOX = (52, 22)         # the worst equipped kind in an army row, over its share
+# The figures: three cards of 311x174, 6 apart, from y 66 of the head. In each a head bar of 299x30 and five rows
+# of 26 from y 40, every second on a band; the label at x 14, the value right-aligned 8 px inside the band, a bar
+# of 64 between them where a row has one.
+AR_FIG_Y, AR_FIG_W, AR_FIG_H, AR_FIG_GAP = 66, 311, 174, 6
+AR_FIG_ROW, AR_FIG_TOP = 26, 40
+AR_FIG_RIGHT = 297              # right edge of a value
+AR_FIG_LABEL_W = 190            # a label without a bar: the longest, "Without a commander", and room to spare
+AR_FIG_VALUE_X = 204            # left edge of a value without a bar: 93 px for "12500K" or "1500.0K"
+AR_FIG_BAR = 64
+SORT_TIP = "\\nClick to sort, click again to turn the order."
+LOW_TIP = "\\nClick to sort, the lowest first; click again to turn the order."
 
-# The figures: manpower in one card, the army in the other. (name, label, value, tooltip, variable that
-# decides between the value and a plain 0, or None)
+# (name, label, value, tooltip, zero, bar). zero: (variable, text) when the value shows only above zero and the
+# text otherwise; bar: (x, variable of its fill, trigger for the bar or "").
 AR_FIGURES = [
     ("Manpower", [
-        ("mp_free", "Free manpower", "[?manpower_k|0]K", "Men you can still call up: the manpower of the top bar.", None),
+        ("mp_free", "Free manpower", "[?manpower_k|0]K", "Men you can still call up: the manpower of the top bar.", None, None),
         ("mp_training", "In training", "[?amount_manpower_in_deployment_queue|*1]",
-         "Men of the divisions in training. Queue a division and this rises.", "amount_manpower_in_deployment_queue"),
-        ("mp_garrison", "Garrisons need", "[?garrison_manpower_need|*1]", "Men the garrisons of your occupied states ask for.", "garrison_manpower_need"),
-        ("mp_army", "In the army", "[?deployed_army_manpower_k|0]K", "Men of the divisions in the field.", None),
-        ("mp_navy", "In the navy", "[?deployed_navy_manpower_k|0]K", "Men serving on your ships.", None),
-        ("mp_air", "In the air force", "[?deployed_airforce_manpower_k|0]K", "Men serving in your air wings.", None),
+         "Men of the divisions in training. Queue a division and this rises.", ("amount_manpower_in_deployment_queue", "0"), None),
+        ("mp_army", "In the army", "[?deployed_army_manpower_k|0]K",
+         "Men of the divisions in the field.\\nIn the navy: [?deployed_navy_manpower_k|0]K\\nIn the air force: [?deployed_airforce_manpower_k|0]K", None, None),
+        ("mp_garrison", "Garrisons need", "§Y[?garrison_manpower_need|*1]§!", "Men the garrisons of your occupied states ask for.",
+         ("garrison_manpower_need", "0"), None),
+        ("casualties", "Casualties", "[?casualties_k|1]K", "Men your country has lost in all of its wars, as the war overview counts them.",
+         ("casualties_k", "0"), None),
     ]),
     ("Army", [
-        ("divisions", "Divisions", "[?num_divisions|0]", "Divisions in the field.", None),
-        ("battalions", "Battalions", "[?num_battalions|0]", "Battalions of the divisions in the field.", None),
-        ("xp", "Army experience", "[?army_experience|0]", "Army experience to spend on templates and equipment.", None),
-        ("low_str", "Under strength", "[?mod1440_ar_low_str|Y0]", "Divisions below 75% strength, as of the last count.", "mod1440_ar_low_str"),
-        ("low_org", "Low organisation", "[?mod1440_ar_low_org|Y0]", "Divisions below 50% organisation, as of the last count.", "mod1440_ar_low_org"),
-        ("fuel", "Fuel", None, None, None),     # a tile of its own: value and bar
+        ("divisions", "Divisions", "[?num_divisions|0]", "Divisions in the field, with [?num_battalions|0] battalions. Divisions in training are not counted.", None, None),
+        ("fighting", "Fighting", "[?mod1440_ar_fight|Y0]",
+         "Divisions in combat, as of the last count: the sum over the commanders of single armies, so that an army group is not counted twice. Divisions without a commander are not in it.",
+         ("mod1440_ar_fight", "0"), None),
+        ("low_str", "Under strength", "[?mod1440_ar_low_str|Y0]", "Divisions below 75% strength, as of the last count.", ("mod1440_ar_low_str", "0"), None),
+        ("low_org", "Low organisation", "[?mod1440_ar_low_org|Y0]", "Divisions below 50% organisation, as of the last count.", ("mod1440_ar_low_org", "0"), None),
+        ("no_cmd", "Without a commander", "[?mod1440_ar_nocmd|Y0]",
+         "Divisions in no army with a commander, as of the last count: your divisions less those the commanders of single armies lead.",
+         ("mod1440_ar_nocmd", "0"), None),
+    ]),
+    ("Stocks", [
+        ("eq_field", "Equipped in the field", "[?mod1440_ar_eqf|0]%",
+         "The pieces of equipment your divisions in the field hold, as a share of what they need, over every kind; a kind held beyond its need counts as full. As of the last count. Orange below %d%%. Infantry equipment outweighs the rest: the Short column and the Worst column of the armies show a kind that is short." % LOW,
+         ("mod1440_ar_eqn", "§g-§!"), (156, "mod1440_ar_eqf", more_than_zero("mod1440_ar_eqn"))),
+        ("k_short", "Kinds short", "§O[?mod1440_ar_kshort|0]§!",
+         "Kinds of equipment your divisions in the field have less of than they need, as of the last count: the kinds with a number in the Short column.",
+         ("mod1440_ar_kshort", "0"), None),
+        ("k_red", "Stock cannot cover", "[?mod1440_ar_kred|R0]",
+         "Of those, the kinds whose stock cannot fill the gap, as of the last count: Short in red.", ("mod1440_ar_kred", "0"), None),
+        ("fuel", "Fuel", "[?fuel_k|0]K of [?max_fuel_k|0]K",
+         "Fuel in store, of the most you can store: the numbers of the top bar. The bar is their share as of the last count, orange below %d%%." % LOW,
+         None, (66, "mod1440_ar_fuel", "")),
+        ("xp", "Army experience", "[?army_experience|0]", "Army experience to spend on templates and equipment.", None, None),
     ]),
 ]
+
+# The heads of the two tables: one plate per column, in the row's coordinates (key, head, x, width, align, order,
+# tooltip). order: "H" a click sorts largest first, "L" lowest first, "" the column does not sort; the first column
+# gives the first order back. The arrow of the sorted column: ARROW, ARROW_DX, ARROW_DY of the shared look.
+AR_EQ_COLS = [
+    ("kind", "Kind", 0, 344, "left", "H", "The kind of equipment, with the game's picture of it.\\nClick: back to the first order, the worst equipped first, then the kinds only in stock."),
+    ("stock", "In stock", 348, 88, "right", "H", "Equipment in the stockpile that no division and no training has taken: the number of the logistics tab, as of the last count. It is the country's, also while an army is chosen (grey then)." + SORT_TIP),
+    ("field", "In the field", 440, 84, "right", "H", "Equipment in the hands of the divisions in the field; while an army is chosen, of that army's divisions. Red when it is less than they need." + SORT_TIP),
+    ("need", "Needed", 528, 84, "right", "H", "What the templates of the divisions in the field ask for; while an army is chosen, that army's. Divisions in training are not counted." + SORT_TIP),
+    ("short", "Short", 616, 84, "right", "H", "What the divisions lack: needed less in the field. Red when the stock cannot fill it, orange when it can." + SORT_TIP),
+    ("fill", "Equipped", 704, 185, "left", "L", ("In the field as a share of needed. Orange below %d%%." % LOW) + LOW_TIP),
+]
+AR_AL_COLS = [
+    ("cmd", "Commander", 0, 312, "centre", "H", "A general or field marshal who commands troops: his portrait, name and skill, and under them the army's name and his attack, defence, planning and logistics. The army's name stands there when the game gives it to the page (a locally patched game); otherwise the army is known by its commander, as on its badge.\\nClick: back to the game's order of commanders."),
+    ("where", "Location", 316, 130, "centre", "", "The state where most of his divisions stand, as of the last count: a click moves the camera there. Under it the state of his headquarters. At sea: none of his divisions stands in a state of yours, of your faction or of an enemy."),
+    ("div", "Div", 450, 38, "centre", "H", "Divisions under this commander. Grey for a field marshal who leads an army group: its divisions are counted again under the generals of its armies." + SORT_TIP),
+    ("inf", "Inf", 492, 30, "centre", "", "Divisions that are mostly infantry."),
+    ("arm", "Arm", 524, 30, "centre", "", "Divisions that are mostly armour."),
+    ("mot", "Mot", 556, 30, "centre", "", "Divisions that are mostly motorised."),
+    ("mech", "Mech", 588, 32, "centre", "", "Divisions that are mostly mechanised."),
+    ("oth", "Oth", 622, 30, "centre", "", "Divisions of every other kind: cavalry, artillery, rocket and special, as of the last count (the row's tooltip names them). The five add up to Div."),
+    ("fight", "Fighting", 656, 56, "centre", "H", "Divisions of this commander in combat now, and how many of them attack and defend." + SORT_TIP),
+    ("plan", "Planning", 716, 54, "centre", "L", "The planning bonus his divisions have built up, as a share of the most they can have, as of the last count." + LOW_TIP),
+    ("equip", "Equipped", 774, 54, "centre", "L", ("The pieces of equipment his divisions hold, as a share of what they need, over every kind; a kind held beyond its need counts as full. As of the last count. Orange below %d%%." % LOW) + LOW_TIP),
+    ("worst", "Worst", 832, 57, "centre", "L", ("The worst equipped kind of his army, with what it has as a share of what its templates ask for, as of the last count. Orange below %d%%. The row's tooltip names the kind." % LOW) + LOW_TIP),
+]
+AR_LEVELS = [("atk", "attack_level", "GFX_trait_attack"), ("def", "defense_level", "GFX_trait_defense"),
+             ("pln", "planning_level", "GFX_trait_planning"), ("log", "logistics_level", "GFX_trait_logistics")]
+AR_KINDS_ROW = [("inf", "num_infantry"), ("arm", "num_armored"), ("mot", "num_motorized"), ("mech", "num_mechanized"), ("oth", "mod1440_al_oth")]
+# The sort keys of the armies list, one array each, kept by the count (a sort counts nothing)
+AR_AL_KEYS = {"div": "num_units", "fight": "num_units_in_combat", "plan": "mod1440_al_plan", "equip": "mod1440_al_eq", "worst": "mod1440_al_fill"}
+AR_SORT_LAST = -2100000         # what a picked key becomes: below every key a sort can meet
+
+
+def ar_head(width, height=30):
+    return "GFX_1440p_SG_head_%d" % width if height == 30 else "GFX_1440p_SG_head_%dx%d" % (width, height)
+
+
+def ar_text(name, x, y, width, key, font=FONT_LABEL, fmt="left", height=24, fixed=False):
+    """A text that lets a click through to the button under it; fixed: a box of its own size for a name another
+    mod can make longer (W28)."""
+    return ('instantTextboxType = { name = "%s" position = { x = %d y = %d } font = "%s" text = "%s" '
+            'maxWidth = %d maxHeight = %d format = %s alwaystransparent = yes%s }\n'
+            % (name, x, y, font, key, width, height, fmt, " fixedsize = yes" if fixed else ""))
 
 
 def ar_scale(width, height, box):
@@ -323,6 +396,41 @@ def ar_pictures(prefix, x, y, box, image):
     return out, props
 
 
+def ar_plates(prefix, columns, sort_effect, by, up):
+    """The heads of a table in its card: a plate per column at card x 14 + column x, y 36; a sortable column is a
+    button whose click sorts (the first column gives the first order back), the others a plate. Returns the
+    widgets and their effects."""
+    out, effects = "", ""
+    for n, (key, label, cx, cw, fmt, order, tip) in enumerate(columns):
+        x = 14 + cx
+        tooltip = B.key("%s_%s_tt" % (prefix, key), tip)
+        if order:
+            out += button("%s_%s" % (prefix, key), x, 36, ar_head(cw), tooltip=tooltip)
+            if n == 0:
+                effects += block("%s_%s_click" % (prefix, key), setv(by, 0) + setv(up, 0) + sort_effect)
+            else:
+                effects += block("%s_%s_click" % (prefix, key), iff("check_variable = { %s = %d }" % (by, n), flip(up))
+                                 + els(setv(by, n) + setv(up, 0)) + sort_effect)
+        else:
+            out += icon("%s_%s" % (prefix, key), x, 36, ar_head(cw))
+        lx, lw = (x + 8, cw - 16) if fmt == "left" else ((x, cw - 8) if fmt == "right" else (x, cw))
+        if order:
+            out += ar_text("%s_%s_l" % (prefix, key), lx, 42, lw, B.key("%s_%s_l" % (prefix, key), label), FONT_SMALL, fmt, 20)
+        else:
+            out += text("%s_%s_l" % (prefix, key), lx, 42, lw, B.key("%s_%s_l" % (prefix, key), label), FONT_SMALL, fmt, 20, tooltip=tooltip)
+    return out, effects
+
+
+def ar_arrows(prefix, columns, variable, asc):
+    """The arrow of the sorted column, which script moves (X4): down for largest first, up for lowest first."""
+    first = 14 + columns[0][2] + columns[0][3] - ARROW_DX
+    out = scaled("%s_arrow_down" % prefix, first, 36 + ARROW_DY, "GFX_arrow_down_small", ARROW)
+    out += scaled("%s_arrow_up" % prefix, first, 36 + ARROW_DY, "GFX_arrow_up_small", ARROW)
+    props = block("%s_arrow_down" % prefix, "x = %s\n" % variable) + block("%s_arrow_up" % prefix, "x = %s\n" % variable)
+    trig = block("%s_arrow_down_visible" % prefix, "NOT = { %s }\n" % is_one(asc)) + block("%s_arrow_up_visible" % prefix, is_one(asc) + "\n")
+    return out, props, trig
+
+
 def army_readiness():
     effects = ""
     triggers = ""
@@ -330,6 +438,8 @@ def army_readiness():
     counted = more_than_zero("mod1440_ar_counted")
     folded = "check_variable = { mod1440_ar_folded = 1 }"
     small = "check_variable = { mod1440_ar_small = 1 }"
+    chosen = is_one("mod1440_ar_has_sel") + "\n"
+    all_armies = "NOT = { %s }\n" % is_one("mod1440_ar_has_sel")
 
     # ---- the head: title strip, the date of the count and its button, the size, the fold
     head = box("ar_head", 3, 3, AR_W - 6, 50, "", "GFX_tiled_header")
@@ -337,7 +447,7 @@ def army_readiness():
     head += text("ar_counted", 380, 20, 270, B.key("ar_counted", "Counted [?mod1440_ar_counted.GetDateStringNoHourLong]"), FONT_SMALL, "right", 20)
     triggers += block("ar_counted_visible", counted)
     head += button("ar_count", 662, 10, "GFX_button_123x34", B.key("ar_count", "Count again"), tooltip=B.key(
-        "ar_count_tt", "Goes through every division and every kind of equipment once. The two counts of divisions, the fuel bar, the equipment and the armies are from the last time this ran: at the start of each day, and on this button."))
+        "ar_count_tt", "Goes through every division, every kind of equipment and every commander once. The counted figures, the equipment, the armies and where they stand are from the last time this ran: at the start of each day, and on this button."))
     effects += block("ar_count_click", "mod1440_ar_count = yes\n")
     head += button("ar_small", 795, 13, "GFX_sort_button_100x29", B.key("ar_small", "Summary"), tooltip=B.key(
         "ar_small_tt", "Fold the page to its figures: the map below them is free for picking a deploy location."))
@@ -351,43 +461,57 @@ def army_readiness():
                    tooltip=B.key("ar_fold_tt", "Hide this page and give the map back"))
     effects += block("ar_fold_click", setv("mod1440_ar_folded", 1))
 
-    # ---- the figures: two cards of six tiles
-    band_y = AR_HEAD + 6
-    band_h = AR_SUM_H - band_y - 4
-    for c, (title, figures) in enumerate(AR_FIGURES):
-        inner = text("ar_card_%d_title" % c, 14, 7, AR_CARD_W - 28, B.key("ar_card_%d_title" % c, title), FONT_LABEL, height=24)
-        for n, (name, label, value, tip, zero) in enumerate(figures):
-            x, y = 11 + (n % 3) * AR_STEP, 34 + (n // 3) * (TILE_H + 6)
-            if name == "fuel":
-                tip = B.key("ar_fuel_tt", "Fuel in store, of the most you can store: the numbers of the top bar. The bar is their share as of the last count, orange below %d%%." % LOW)
-                inner += icon("ar_fuel_bg", x, y, tile_sprite(AR_TILE))
-                inner += text("ar_fuel_l", x + 6, y + 7, AR_TILE - 12, B.key("ar_fuel_l", label), FONT_SMALL, "centre", 20, tooltip=tip)
-                inner += text("ar_fuel", x + 6, y + 26, AR_TILE - 12, B.key("ar_fuel", "[?fuel_k|0]K of [?max_fuel_k|0]K"), FONT_VALUE, "centre", 24, tooltip=tip)
-                inner += icon("ar_fuel_bar", x + 14, y + 50, bar_sprite(AR_TILE - 28))
-                inner += icon("ar_fuel_low", x + 14, y + 50, bar_sprite(AR_TILE - 28, low=True))
-                low = "check_variable = { mod1440_ar_fuel < %d }\n" % LOW
-                properties += block("ar_fuel_bar", "frame = mod1440_ar_fuel\n") + block("ar_fuel_low", "frame = mod1440_ar_fuel\n")
-                triggers += block("ar_fuel_bar_visible", counted + "NOT = { %s }\n" % low.strip()) + block("ar_fuel_low_visible", counted + low)
-                continue
-            part, more = tile("ar_" + name, x, y, label, value, tip, width=AR_TILE, zero=zero)
-            inner += part
-            triggers += more
-        head += box("ar_card_%d" % c, 14 + c * (AR_CARD_W + 12), band_y, AR_CARD_W, band_h, inner, CARD_BG)
+    # ---- the figures: three banded tables of five rows
+    for c, (title, rows) in enumerate(AR_FIGURES):
+        inner = icon("ar_card_%d_head" % c, 6, 6, ar_head(AR_FIG_W - 12))
+        inner += ar_text("ar_card_%d_title" % c, 14, 11, AR_FIG_W - 28, B.key("ar_card_%d_title" % c, title), FONT_LABEL, height=22)
+        for n, (name, label, value, tip, zero, bar) in enumerate(rows):
+            y = AR_FIG_TOP + n * AR_FIG_ROW
+            if n % 2:
+                inner += icon("ar_card_%d_band_%d" % (c, n), 6, y, STRIPE % (AR_FIG_W - 12, AR_FIG_ROW))
+            tooltip = B.key("ar_%s_tt" % name, tip)
+            label_w = bar[0] - 16 if bar else AR_FIG_LABEL_W
+            value_x = bar[0] + AR_FIG_BAR + 6 if bar else AR_FIG_VALUE_X
+            inner += text("ar_%s_l" % name, 14, y + 3, label_w, B.key("ar_%s_l" % name, label), FONT_LABEL, height=22, tooltip=tooltip)
+            inner += text("ar_" + name, value_x, y + 1, AR_FIG_RIGHT - value_x, B.key("ar_" + name, value), FONT_VALUE, "right", 24, tooltip=tooltip)
+            if zero:
+                variable, twin = zero
+                twin_key = "0" if twin == "0" else B.key("ar_row_dash", twin)
+                inner += text("ar_%s_z" % name, value_x, y + 1, AR_FIG_RIGHT - value_x, twin_key, FONT_VALUE, "right", 24, tooltip=tooltip)
+                triggers += block("ar_%s_visible" % name, more_than_zero(variable))
+                triggers += block("ar_%s_z_visible" % name, "NOT = { %s }\n" % more_than_zero(variable).strip())
+            if bar:
+                bx, variable, when = bar
+                inner += icon("ar_%s_bar" % name, bx, y + 8, bar_sprite(AR_FIG_BAR)) + icon("ar_%s_low" % name, bx, y + 8, bar_sprite(AR_FIG_BAR, low=True))
+                properties += block("ar_%s_bar" % name, "frame = %s\n" % variable) + block("ar_%s_low" % name, "frame = %s\n" % variable)
+                low = "check_variable = { %s < %d }\n" % (variable, LOW)
+                triggers += block("ar_%s_bar_visible" % name, counted + when + "NOT = { %s }\n" % low.strip())
+                triggers += block("ar_%s_low_visible" % name, counted + when + low)
+        head += box("ar_card_%d" % c, 14 + c * (AR_FIG_W + AR_FIG_GAP), AR_FIG_Y, AR_FIG_W, AR_FIG_H, inner, CARD_BG)
 
-    # ---- equipment: the kinds in use, worst equipped first, from the arrays of the last count
+    # ---- equipment: the kinds in use, or the chosen army's, from the arrays of the last count
     body = ""
-    c_stock, c_field, c_need, c_short, c_bar, c_pct = 400, 500, 600, 700, 722, 884      # right edges; the bar's left edge
     eq_h = 68 + AR_EQ_ROWS * AR_EQ_ROW + 8
-    inner = text("ar_eq_caption", 300, 12, AR_IN - 300 - 14, B.key("ar_eq_caption", "§g[?mod1440_ar_fill^num|0] of [?mod1440_ar_kinds|0] kinds in use, the worst equipped first§!"),
+    # the captions end at card x 919 (page 933), the chosen army's before the All armies button (card 812)
+    inner = text("ar_eq_caption", 286, 13, 633, B.key("ar_eq_caption", "§gAll armies: [?mod1440_ar_fill^num|0] of [?mod1440_ar_kinds|0] kinds in use. Click a head to sort, an army below to see its own.§!"),
                  FONT_SMALL, "right", 20, tooltip=B.key("ar_eq_caption_tt", "A kind is listed while you have some in stock or your divisions in the field need some. The numbers are from the last count."))
-    inner += heads("ar_eq_heads", 14, 36, AR_TABLE, [
-        (100, 200, "Kind", "left", None),
-        (c_stock - 90, 90, "In stock", "right", "Equipment in the stockpile that no division and no training has taken: the number of the logistics tab, as of the last count."),
-        (c_field - 90, 90, "In the field", "right", "Equipment in the hands of the divisions in the field. Red when it is less than they need."),
-        (c_need - 90, 90, "Needed", "right", "What the templates of the divisions in the field ask for. Divisions in training are not counted."),
-        (c_short - 86, 86, "Short", "right", "What the divisions in the field lack: needed less in the field. Red when the stock cannot fill it, orange when it can."),
-        (c_bar, 150, "Equipped", "left", "In the field as a share of needed. Orange below %d%%." % LOW),
-    ])
+    inner += text("ar_eq_caption_army", 286, 13, 518, B.key("ar_eq_caption_army", "§gThe army of§! §Y[?mod1440_ar_sel.GetName]§!§g: [?mod1440_ar_fill^num|0] kinds it needs§!"),
+                  FONT_SMALL, "right", 20, tooltip=B.key("ar_eq_caption_army_tt", "The kinds the chosen army's divisions need or hold, as of the last count: In the army and Needed are that army's, In stock is the country's (grey). Click his row again, or All armies, for the whole country."), fixed=True)
+    inner += button("ar_eq_all", 812, 8, "GFX_sort_button_100x29", B.key("ar_eq_all", "All armies"),
+                    tooltip=B.key("ar_eq_all_tt", "Back to the equipment of the whole country."))
+    triggers += block("ar_eq_caption_visible", all_armies) + block("ar_eq_caption_army_visible", chosen) + block("ar_eq_all_visible", chosen)
+    effects += block("ar_eq_all_click", setv("mod1440_ar_has_sel", 0) + "mod1440_ar_list = yes\nmod1440_ar_marks = yes\n")
+    plates, more = ar_plates("ar_eh", AR_EQ_COLS, "mod1440_ar_eq_sort = yes\n", "mod1440_ar_eq_by", "mod1440_ar_eq_up")
+    inner += plates
+    effects += more
+    # In the field becomes In the army while an army is chosen
+    field = [c for c in AR_EQ_COLS if c[0] == "field"][0]
+    inner += ar_text("ar_eh_field_army", 14 + field[2], 42, field[3] - 8, B.key("ar_eh_field_army", "In the army"), FONT_SMALL, "right", 20)
+    triggers += block("ar_eh_field_l_visible", all_armies) + block("ar_eh_field_army_visible", chosen)
+    arrows, more, trig = ar_arrows("ar_eq", AR_EQ_COLS, "mod1440_ar_eq_arrow_x", "mod1440_ar_eq_asc")
+    inner += arrows
+    properties += more
+    triggers += trig
     inner += listing("ar_eq_list", "ar_eq_grid", 14, 68, AR_TABLE, AR_EQ_ROWS * AR_EQ_ROW, AR_EQ_ROW)
     inner += text("ar_eq_none", 28, 80, 700, B.key("ar_eq_none", "No kind of land equipment in stock or needed."), FONT_SMALL)
     triggers += block("ar_eq_none_visible", "check_variable = { mod1440_ar_fill^num < 1 }\n")
@@ -398,27 +522,30 @@ def army_readiness():
     def at(array):
         return "mod1440_ar_%s^i" % array
 
+    edge = {key: cx + cw - 8 for key, label, cx, cw, fmt, order, tip in AR_EQ_COLS}
+    width = {key: cw - 8 for key, label, cx, cw, fmt, order, tip in AR_EQ_COLS}
     eq = icon("ar_er_stripe", 0, 0, STRIPE % (AR_ROW_W, AR_EQ_ROW))
     eq_triggers = block("ar_er_stripe_visible", "check_variable = { %s = 1 }\n" % at("odd"))
     pictures, more = ar_pictures("ar_er_pic", 8, 1, AR_PIC_BOX, "[?%s.GetTokenKey]" % at("pic"))
     eq += pictures
     properties += more
     eq_triggers += "".join(block("ar_er_pic_%d_visible" % n, "check_variable = { %s = %d }\n" % (at("cls"), n)) for n in range(len(AR_SCALES)))
-    eq += text("ar_er_name", 100, 6, 200, B.key("ar_er_name", "[?%s.GetTokenLocalizedKey]" % at("kind")), FONT_LABEL, height=22, fixed=True)
+    eq += text("ar_er_name", 100, 6, 240, B.key("ar_er_name", "[?%s.GetTokenLocalizedKey]" % at("kind")), FONT_LABEL, height=22, fixed=True)
 
-    def cell(name, edge, width, value, font=FONT_VALUE, y=4):
-        return text("ar_er_" + name, edge - width, y, width, B.key("ar_er_" + name, value), font, "right", 24)
+    def cell(name, key, value, font=FONT_VALUE, y=4):
+        return text("ar_er_" + name, edge[key] - width[key], y, width[key], B.key("ar_er_" + name, value), font, "right", 24)
 
     short = "check_variable = { %s > 0 }\n" % at("short")
-    eq += cell("stock", c_stock, 90, "[?%s|0]" % at("stock"))
-    eq += cell("field", c_field, 90, "[?%s|0]" % at("field")) + cell("field_short", c_field, 90, "[?%s|R0]" % at("field"))
-    eq += cell("need", c_need, 90, "[?%s|0]" % at("need"))
-    eq += cell("short", c_short, 86, "[?%s|R0]" % at("short")) + cell("short_covered", c_short, 86, "§O[?%s|0]§!" % at("short"))
+    eq += cell("stock", "stock", "[?%s|0]" % at("stock")) + cell("stock_shared", "stock", "§g[?%s|0]§!" % at("stock"))
+    eq_triggers += block("ar_er_stock_visible", all_armies) + block("ar_er_stock_shared_visible", chosen)
+    eq += cell("field", "field", "[?%s|0]" % at("field")) + cell("field_short", "field", "[?%s|R0]" % at("field"))
+    eq += cell("need", "need", "[?%s|0]" % at("need"))
+    eq += cell("short", "short", "[?%s|R0]" % at("short")) + cell("short_covered", "short", "§O[?%s|0]§!" % at("short"))
     eq_triggers += block("ar_er_field_visible", "NOT = { %s }\n" % short.strip()) + block("ar_er_field_short_visible", short)
     eq_triggers += block("ar_er_short_visible", short + "check_variable = { %s = 1 }\n" % at("red"))
     eq_triggers += block("ar_er_short_covered_visible", short + "check_variable = { %s = 0 }\n" % at("red"))
-    eq += icon("ar_er_bar", c_bar, 10, bar_sprite(110)) + icon("ar_er_low", c_bar, 10, bar_sprite(110, low=True))
-    eq += cell("pct", c_pct, 50, "[?%s|0]%%" % at("fill"), FONT_LABEL, 6)
+    eq += icon("ar_er_bar", 722, 10, bar_sprite(110)) + icon("ar_er_low", 722, 10, bar_sprite(110, low=True))
+    eq += text("ar_er_pct", 884 - 50, 6, 50, B.key("ar_er_pct", "[?%s|0]%%" % at("fill")), FONT_LABEL, "right", 24)
     needed = "check_variable = { %s > 0 }\n" % at("need")
     eq_triggers += block("ar_er_bar_visible", needed + "check_variable = { v > %d }\n" % (LOW - 1))
     eq_triggers += block("ar_er_low_visible", needed + "check_variable = { v < %d }\n" % LOW)
@@ -429,73 +556,139 @@ def army_readiness():
     # ---- armies: one row per general who has troops
     armies_y = 6 + eq_h + 10
     armies_h = AR_H - AR_SUM_H - armies_y - 14
-    inner = text("ar_al_caption", 300, 12, AR_IN - 300 - 14, B.key("ar_al_caption", "§g[?mod1440_ar_leaders^num|0] commanders with troops; a click on HQ moves the camera there§!"),
+    # D2 fix round 2: the army's name under each commander is the player's choice (decision 8): it comes from a
+    # local patch of hoi4.exe [SCR-078], and an unpatched game writes "Himself" there. The toggle stands beside the
+    # card's title, its second frame for "on" (as the choices of the States page).
+    inner = button("ar_names", 130, 5, "GFX_sort_button_100x29", B.key("ar_names", "Army names"), tooltip=B.key(
+        "ar_names_tt", "Shows each army's name under its commander. Needs the local patch of hoi4.exe (Modding Manager, Set-HoiArmyNameProperty.ps1); without it this line would read Himself."))
+    properties += block("ar_names", "frame = mod1440_ar_names_fr\n")
+    effects += block("ar_names_click", iff(is_one("mod1440_ar_names"), setv("mod1440_ar_names", 0) + setv("mod1440_ar_names_fr", 1))
+                     + els(setv("mod1440_ar_names", 1) + setv("mod1440_ar_names_fr", 2)))
+    inner += text("ar_al_caption", 240, 13, 679, B.key("ar_al_caption", "§g[?mod1440_ar_leaders^num|0] commanders with troops. Click one for his army's equipment, right-click for the map.§!"),
                  FONT_SMALL, "right", 20)
-    columns = [
-        (10, 200, "Commander", "left", "A general or field marshal who commands troops, with his rank and skill. An army without a commander cannot be listed."),
-        (250, 140, "HQ", "centre", "The state where the commander's headquarters is deployed, as of the last count. A click moves the camera there."),
-        (394, 50, "Div", "centre", "Divisions under this commander."),
-        (446, 40, "Inf", "centre", "Divisions that are mostly infantry."),
-        (486, 40, "Arm", "centre", "Divisions that are mostly armour."),
-        (526, 40, "Mot", "centre", "Divisions that are mostly motorised."),
-        (566, 40, "Mech", "centre", "Divisions that are mostly mechanised."),
-        (610, 80, "Fighting", "centre", "Divisions of this commander in combat now, and how many of them attack and defend."),
-        (694, 84, "Planning", "centre", "The planning bonus the divisions have built up, as a share of the most they can have, as of the last count."),
-        (782, 104, "Worst kind", "centre", "The worst equipped kind of equipment of this army, with what it has as a share of what its templates ask for, as of the last count. Orange below %d%%." % LOW),
-    ]
-    inner += heads("ar_al_heads", 14, 36, AR_TABLE, [(x, w, caption, fmt, tip) for x, w, caption, fmt, tip in columns])
+    # D2 fix round 1: one commander in the singular
+    inner += text("ar_al_caption_one", 240, 13, 679, B.key("ar_al_caption_one", "§g1 commander with troops. Click him for his army's equipment, right-click for the map.§!"),
+                  FONT_SMALL, "right", 20)
+    triggers += block("ar_al_caption_visible", "check_variable = { mod1440_ar_leaders^num > 1 }\n")
+    triggers += block("ar_al_caption_one_visible", "check_variable = { mod1440_ar_leaders^num = 1 }\n")
+    plates, more = ar_plates("ar_ah", AR_AL_COLS, "mod1440_ar_al_sort = yes\nmod1440_ar_marks = yes\n", "mod1440_ar_al_by", "mod1440_ar_al_up")
+    inner += plates
+    effects += more
+    arrows, more, trig = ar_arrows("ar_al", AR_AL_COLS, "mod1440_ar_al_arrow_x", "mod1440_ar_al_asc")
+    inner += arrows
+    properties += more
+    triggers += trig
     inner += listing("ar_al_list", "ar_al_grid", 14, 68, AR_TABLE, AR_AL_ROWS * AR_AL_ROW, AR_AL_ROW)
     inner += text("ar_al_none", 28, 84, 700, B.key("ar_al_none", "No army has a commander yet. An army is listed here once it has one."), FONT_SMALL)
     triggers += block("ar_al_none_visible", "check_variable = { mod1440_ar_leaders^num < 1 }\n")
     body += card("ar_armies", 14, armies_y, AR_IN, armies_h, "Armies", inner)
 
-    # A row: the row's scope is the commander, and his variables are the values of the last count
+    # A row: the row's scope is the commander. His levels, kinds and fighting are live; the rest is of the last
+    # count. The whole row is a transparent button under the Location button: a click chooses his army, a
+    # right-click moves the camera to where his troops stand.
+    col = {key: (cx, cw) for key, label, cx, cw, fmt, order, tip in AR_AL_COLS}
+    picked = is_one("mod1440_al_pick") + "\n"
     entry = icon("ar_row_stripe", 0, 0, STRIPE % (AR_ROW_W, AR_AL_ROW))
-    row_triggers = block("ar_row_stripe_visible", is_one("mod1440_al_odd") + "\n")
-    entry += scaled("ar_row_face", 6, 2, "GFX_portrait_unknown", 0.22) + scaled("ar_row_unknown", 6, 2, "GFX_portrait_unknown", 0.22)
+    entry += icon("ar_row_pick", 0, 0, PICK % (AR_ROW_W, AR_AL_ROW))
+    row_triggers = block("ar_row_stripe_visible", is_one("mod1440_al_odd") + "\nNOT = { %s }\n" % picked.strip()) + block("ar_row_pick_visible", picked)
+    entry += scaled("ar_row_face", 4, 2, "GFX_portrait_unknown", 0.22) + scaled("ar_row_unknown", 4, 2, "GFX_portrait_unknown", 0.22)
     properties += block("ar_row_face", 'image = "[?mod1440_p.GetTokenKey]"\n')
     row_triggers += block("ar_row_face_visible", more_than_zero("mod1440_p_ver")) + block("ar_row_unknown_visible", "NOT = { %s }\n" % more_than_zero("mod1440_p_ver").strip())
-    entry += text("ar_row_name", 48, 5, 200, B.key("ar_row_name", "§Y[THIS.GetName]§!"), FONT_LABEL, height=22, fixed=True)
-    entry += text("ar_row_fm", 48, 27, 110, B.key("ar_rank_fm", "§gField Marshal§!"), FONT_SMALL, height=20)
-    entry += text("ar_row_gen", 48, 27, 110, B.key("ar_rank_gen", "§gGeneral§!"), FONT_SMALL, height=20)
-    row_triggers += block("ar_row_fm_visible", "is_field_marshal = yes\n") + block("ar_row_gen_visible", "NOT = { is_field_marshal = yes }\n")
-    entry += text("ar_row_skill", 160, 27, 80, B.key("ar_row_skill", "§gSkill§! [?skill_level|0]"), FONT_SMALL, height=20)
-    # HQ: the state of his deployed headquarters, a button that moves the camera there
+    # line 1: his name and skill; line 2: the army's name (empty on an unpatched game) and his four levels
+    entry += ar_text("ar_row_name", 46, 5, 210, B.key("ar_row_name", "§Y[THIS.GetName]§!"), FONT_LABEL, height=22, fixed=True)
+    entry += icon("ar_row_skill_bg", 262, 4, "GFX_1440p_SG_tile_30x24")
+    entry += ar_text("ar_row_skill", 262, 6, 30, B.key("ar_row_skill", "[?skill_level|0]"), FONT_LABEL, "centre", 22)
+    # the army's name: on the patched game a property of the army leader gives it [SCR-078]; shown while the
+    # player has Army names on, and not for a field marshal of an army group, whom the patch does not answer
+    names = "check_variable = { ROOT.mod1440_ar_names = 1 }\n"
+    group = "is_leading_army_group = yes\n"
+    entry += ar_text("ar_row_army", 46, 28, 137, B.key("ar_row_army", "[THIS.GetHerselfHimselfCap]"), FONT_SMALL, height=20, fixed=True)
+    row_triggers += block("ar_row_army_visible", names + "NOT = { %s }\n" % group.strip())
+    for k, (name, variable, sprite) in enumerate(AR_LEVELS):
+        x = 189 + k * 31
+        entry += scaled("ar_row_%s_icon" % name, x, 28, sprite, 0.6)
+        entry += ar_text("ar_row_%s" % name, x + 18, 28, 13, B.key("ar_row_%s" % name, "[?%s|0]" % variable), FONT_SMALL, height=20)
+    # Location: under the button, the state of his headquarters
+    lx, lw = col["where"]
+    # D2 fix round 2: in the game the Location pass set mod1440_al_loc to Brandenburg (game.log), and the row's
+    # "mod1440_al_loc > 0" stayed false while the row read the numbers set beside it: a variable that holds a state
+    # set from THIS is not asked "> 0" (the Records keep a kind number beside each scope they store). Location is
+    # asked by its count of divisions, a plain number. The HQ (state_deployed, an undocumented variable, SCR-069) is
+    # left as it was until a check with a deployed HQ shows which form holds (tools/check_effects.py,
+    # mod1440_chk_ar_row, logs each form as the row sees it).
     hq = more_than_zero("mod1440_al_hq")
-    entry += button("ar_row_hq", 252, 10, AR_HQ, tooltip=B.key("ar_row_hq_tt", "Show the headquarters on the map"))
-    entry += scaled("ar_row_hq_icon", 256, 13, "GFX_countryaction_gotolocation_big", 0.75)
-    entry += plain("ar_row_hq_name", 282, 16, 104, B.key("ar_row_hq_name", "[?mod1440_al_hq.GetName]"), FONT_SMALL, "centre", 20)
-    entry += text("ar_row_hq_none", 250, 16, 140, B.key("ar_row_hq_none", "§gnot deployed§!"), FONT_SMALL, "centre", 20)
-    row_triggers += "".join(block("%s_visible" % name, hq) for name in ("ar_row_hq", "ar_row_hq_icon", "ar_row_hq_name"))
-    row_triggers += block("ar_row_hq_none_visible", "NOT = { %s }\n" % hq.strip())
-    effects += block("ar_row_hq_click", tmp("ar_hq", "mod1440_al_hq") + block("var:ar_hq", block("ROOT", "goto_state = PREV\n")))
-    entry += text("ar_row_div", 394, 13, 50, B.key("ar_row_div", "[?num_units|0]"), FONT_VALUE, "centre", 24)
-    for k, (name, variable) in enumerate((("inf", "num_infantry"), ("arm", "num_armored"), ("mot", "num_motorized"), ("mech", "num_mechanized"))):
-        entry += text("ar_row_%s" % name, 446 + k * 40, 15, 40, B.key("ar_row_%s" % name, "[?%s|0]" % variable), FONT_LABEL, "centre", 22)
-        entry += text("ar_row_%s_none" % name, 446 + k * 40, 15, 40, B.key("ar_row_dash", "§g-§!"), FONT_LABEL, "centre", 22)
+    entry += ar_text("ar_row_hq", lx, 31, lw, B.key("ar_row_hq", "§gHQ§! [?mod1440_al_hq.GetName]"), FONT_SMALL, "centre", 20, fixed=True)
+    entry += ar_text("ar_row_hq_none", lx, 31, lw, B.key("ar_row_hq_none", "§gHQ not deployed§!"), FONT_SMALL, "centre", 20)
+    row_triggers += block("ar_row_hq_visible", hq) + block("ar_row_hq_none_visible", "NOT = { %s }\n" % hq.strip())
+    where = more_than_zero("mod1440_al_lcnt")
+    entry += ar_text("ar_row_loc_none", lx, 7, lw, B.key("ar_row_loc_none", "§gat sea§!"), FONT_SMALL, "centre", 20)
+    row_triggers += block("ar_row_loc_none_visible", "NOT = { %s }\n" % where.strip())
+    # divisions: grey for a field marshal who leads an army group, whose divisions are counted again under his generals
+    group = "is_leading_army_group = yes\n"
+    dx, dw = col["div"]
+    entry += ar_text("ar_row_div", dx, 13, dw, B.key("ar_row_div", "[?num_units|0]"), FONT_VALUE, "centre", 24)
+    entry += ar_text("ar_row_div_group", dx, 13, dw, B.key("ar_row_div_group", "§g[?num_units|0]§!"), FONT_VALUE, "centre", 24)
+    row_triggers += block("ar_row_div_visible", "NOT = { is_leading_army_group = yes }\n") + block("ar_row_div_group_visible", group)
+    for name, variable in AR_KINDS_ROW:
+        kx, kw = col[name]
+        entry += ar_text("ar_row_%s" % name, kx, 15, kw, B.key("ar_row_%s" % name, "[?%s|0]" % variable), FONT_LABEL, "centre", 22)
+        entry += ar_text("ar_row_%s_none" % name, kx, 15, kw, B.key("ar_row_dash", "§g-§!"), FONT_LABEL, "centre", 22)
         row_triggers += block("ar_row_%s_visible" % name, more_than_zero(variable))
         row_triggers += block("ar_row_%s_none_visible" % name, "NOT = { %s }\n" % more_than_zero(variable).strip())
     fighting = more_than_zero("num_units_in_combat")
-    entry += text("ar_row_fight", 610, 4, 80, B.key("ar_row_fight", "§Y[?num_units_in_combat|0]§!"), FONT_VALUE, "centre", 24)
-    entry += text("ar_row_split", 610, 27, 80, B.key("ar_row_split", "§g[?num_units_offensive_combats|0] att, [?num_units_defensive_combats|0] def§!"), FONT_SMALL, "centre", 20)
-    entry += text("ar_row_fight_none", 610, 15, 80, B.key("ar_row_dash", "§g-§!"), FONT_LABEL, "centre", 22)
+    fx, fw = col["fight"]
+    entry += ar_text("ar_row_fight", fx, 4, fw, B.key("ar_row_fight", "§Y[?num_units_in_combat|0]§!"), FONT_VALUE, "centre", 24)
+    entry += ar_text("ar_row_split", fx - 4, 28, fw + 8, B.key("ar_row_split", "§g[?num_units_offensive_combats|0] att [?num_units_defensive_combats|0] def§!"), FONT_SMALL, "centre", 20)
+    entry += ar_text("ar_row_fight_none", fx, 15, fw, B.key("ar_row_dash", "§g-§!"), FONT_LABEL, "centre", 22)
     row_triggers += block("ar_row_fight_visible", fighting) + block("ar_row_split_visible", fighting)
     row_triggers += block("ar_row_fight_none_visible", "NOT = { %s }\n" % fighting.strip())
-    entry += text("ar_row_plan", 694, 6, 84, B.key("ar_row_plan", "[?mod1440_al_plan|0]%"), FONT_LABEL, "centre", 22)
-    entry += icon("ar_row_plan_bar", 702, 30, bar_sprite(68))
+    # planning and equipped: a share over a bar of 46
+    px, pw = col["plan"]
+    entry += ar_text("ar_row_plan", px, 6, pw, B.key("ar_row_plan", "[?mod1440_al_plan|0]%"), FONT_LABEL, "centre", 22)
+    entry += icon("ar_row_plan_bar", px + 4, 31, bar_sprite(pw - 8))
     properties += block("ar_row_plan_bar", "frame = mod1440_al_plan\n")
-    # the worst equipped kind: its picture, its share and a bar
+    ex, ew = col["equip"]
+    low_eq = "check_variable = { mod1440_al_eq < %d }\n" % LOW
+    entry += ar_text("ar_row_eq", ex, 6, ew, B.key("ar_row_eq", "[?mod1440_al_eq|0]%"), FONT_LABEL, "centre", 22)
+    entry += ar_text("ar_row_eq_low", ex, 6, ew, B.key("ar_row_eq_low", "§O[?mod1440_al_eq|0]%§!"), FONT_LABEL, "centre", 22)
+    entry += icon("ar_row_eq_bar", ex + 4, 31, bar_sprite(ew - 8)) + icon("ar_row_eq_lowbar", ex + 4, 31, bar_sprite(ew - 8, low=True))
+    properties += block("ar_row_eq_bar", "frame = mod1440_al_eq\n") + block("ar_row_eq_lowbar", "frame = mod1440_al_eq\n")
+    row_triggers += block("ar_row_eq_visible", "NOT = { %s }\n" % low_eq.strip()) + block("ar_row_eq_low_visible", low_eq)
+    row_triggers += block("ar_row_eq_bar_visible", "NOT = { %s }\n" % low_eq.strip()) + block("ar_row_eq_lowbar_visible", low_eq)
+    # the worst equipped kind: its picture over its share
+    wx, ww = col["worst"]
     worst = "check_variable = { mod1440_al_wk = 1 }\n"
-    pictures, more = ar_pictures("ar_row_worst", 782, 3, AR_WORST_BOX, "[?mod1440_al_wpic.GetTokenKey]")
+    pictures, more = ar_pictures("ar_row_worst", wx + 3, 3, AR_WORST_BOX, "[?mod1440_al_wpic.GetTokenKey]")
     entry += pictures
     properties += more
     row_triggers += "".join(block("ar_row_worst_%d_visible" % n, worst + "check_variable = { mod1440_al_wcls = %d }\n" % n) for n in range(len(AR_SCALES)))
     low = "check_variable = { mod1440_al_fill < %d }\n" % LOW
-    entry += text("ar_row_pct", 838, 6, 46, B.key("ar_row_pct", "[?mod1440_al_fill|0]%"), FONT_LABEL, "right", 22)
-    entry += icon("ar_row_bar", 786, 30, bar_sprite(98)) + icon("ar_row_low", 786, 30, bar_sprite(98, low=True))
-    properties += block("ar_row_bar", "frame = mod1440_al_fill\n") + block("ar_row_low", "frame = mod1440_al_fill\n")
-    row_triggers += block("ar_row_pct_visible", worst) + block("ar_row_bar_visible", worst + "NOT = { %s }\n" % low.strip())
-    row_triggers += block("ar_row_low_visible", worst + low)
+    entry += ar_text("ar_row_pct", wx, 28, ww, B.key("ar_row_pct", "[?mod1440_al_fill|0]%"), FONT_SMALL, "centre", 20)
+    entry += ar_text("ar_row_pct_low", wx, 28, ww, B.key("ar_row_pct_low", "§O[?mod1440_al_fill|0]%§!"), FONT_SMALL, "centre", 20)
+    row_triggers += block("ar_row_pct_visible", worst + "NOT = { %s }\n" % low.strip()) + block("ar_row_pct_low_visible", worst + low)
+    # the row's button: one transparent button over the whole row, with no condition, under the Location button.
+    # D2 fix round 4: fix rounds 2 and 3 had stacked six such buttons, one per rank and Army names, to name the
+    # rank in the tooltip; in the game a click then chose nobody, as if every button under the pointer ran its
+    # click and the choice was turned on and off again (one button, round 1, chose). The tooltip names no rank.
+    details = ("\\n\\n"
+               "Entrenched [?avg_unit_entrenchment_ratio|%0], ready for the plan [?unit_ratio_ready_for_plan|%0]\\n"
+               "Battle plans [?num_battle_plans|0], traits [?num_traits|0]\\n"
+               "Combats on average: attacks [?avg_offensive_combat_status|%0], defences [?avg_defensive_combat_status|%0]\\n"
+               "Other divisions: cavalry [?num_cavalry|0], artillery [?num_artillery|0], rocket [?num_rocket|0], special [?num_special|0]\\n"
+               "Worst equipped: [?mod1440_al_wkind.GetTokenLocalizedKey], [?mod1440_al_whave|0] of [?mod1440_al_wneed|0]\\n\\n"
+               "Click: his army's equipment above; click again for all armies. Right-click: the camera to where his troops stand.")
+    go = iff(more_than_zero("mod1440_al_lcnt").strip(),tmp("ar_go", "mod1440_al_loc") + block("var:ar_go", block("ROOT", "goto_state = PREV\n")))
+    entry += button("ar_row_hit", 0, 0, "GFX_1440p_SG_hit_%dx%d" % (AR_ROW_W, AR_AL_ROW),
+                    tooltip=B.key("ar_row_hit_tt", "§Y[THIS.GetName]§!" + details))
+    effects += block("ar_row_hit_click", "mod1440_of_me = yes\n" + block("ROOT", "mod1440_ar_choose = yes\n"))
+    effects += block("ar_row_hit_right_click", go)
+    # the Location button over it: the state where most of his divisions stand
+    entry += button("ar_row_loc", lx, 3, ar_head(lw, 26), tooltip=B.key("ar_row_loc_tt", "Show where most of his divisions stand"))
+    entry += ('iconType = { name = "ar_row_loc_icon" position = { x = %d y = 5 } spriteType = "GFX_countryaction_gotolocation_big" '
+              'scale = 0.68 alwaystransparent = yes }\n' % (lx + 4))
+    entry += ar_text("ar_row_loc_name", lx + 26, 7, lw - 30, B.key("ar_row_loc_name", "[?mod1440_al_loc.GetName]"), FONT_SMALL, "centre", 20, fixed=True)
+    row_triggers += "".join(block("%s_visible" % name, where) for name in ("ar_row_loc", "ar_row_loc_icon", "ar_row_loc_name"))
+    effects += block("ar_row_loc_click", go)
     triggers += row_triggers
 
     gui = box("mod1440_army_readiness", AR_X, AR_Y, AR_W, AR_SUM_H, head, PAGE_BG)
@@ -512,7 +705,7 @@ def army_readiness():
     def mine(part, names):
         out = ""
         for m in re.finditer(r"^(\w+) = \{\n(?:\t[^\n]*\n)*?\}\n", part, re.M):
-            widget = re.sub(r"_(click|visible)$", "", m.group(1))
+            widget = re.sub(r"_(right_click|click|visible)$", "", m.group(1))
             if widget in names:
                 out += m.group(0)
         return out
@@ -538,34 +731,70 @@ def army_readiness():
 
 # The arrays of the equipment list, one element per kind in use, in the order of the list: the text key of the
 # kind, the sprite of its picture as a text key, the scale of the picture, stock, in the field, needed, short, the
-# share, whether the stock falls short of the gap (red) and the band of every second row.
+# share, whether the stock falls short of the gap (red) and the band of every second row. The count keeps them
+# unsorted too (mod1440_ar_u_*, with the key of the first order), and a sort re-orders those.
 AR_ARRAYS = ["kind", "pic", "cls", "stock", "field", "need", "short", "fill", "red", "odd"]
 
 
+def ar_sort(by, up, asc, arrow_x, columns, count, value_of, keys, pick):
+    """Script that puts a list into the order of its chosen column: the setting of the column (asc: lowest first,
+    the arrow's x), then the key of each element (value_of(n) gives the script that sets ar_v for column n, at index
+    ar_i), then the elements by their key, largest first (the key of a lowest-first order is turned)."""
+    setup = ""
+    sortable = [(n, c) for n, c in enumerate(columns) if c[5]]     # n: the column's number, as the head's click sets it
+    for first, (n, (key, label, cx, cw, fmt, order, tip)) in enumerate(sortable):
+        setup += iff("check_variable = { %s = %d }" % (by, n), tmp("ar_asc", 1 if order == "L" else 0) + setv(arrow_x, 14 + cx + cw - ARROW_DX),
+                     "if" if first == 0 else "else_if")
+    setup += iff("check_variable = { %s = 1 }" % up, iff("check_variable = { ar_asc = 1 }", tmp("ar_asc", 0)) + els(tmp("ar_asc", 1)))
+    setup += setv(asc, "ar_asc")
+    chain = ""
+    for first, (n, (key, label, cx, cw, fmt, order, tip)) in enumerate(sortable):
+        chain += iff("check_variable = { %s = %d }" % (by, n), value_of(n, key), "if" if first == 0 else "else_if")
+    making = ("clear_array = %s\n" % keys
+              + block("for_loop_effect", "start = 0\nend = %s\nvalue = ar_i\n" % count + tmp("ar_v", 0) + chain
+                      + iff("check_variable = { ar_asc = 1 }", "multiply_temp_variable = { ar_v = -1 }\n")
+                      + "add_to_array = { %s = ar_v }\n" % keys))
+    taking = block("for_loop_effect", "start = 0\nend = %s\nvalue = ar_step\n" % count
+                   + block("find_highest_in_array", "array = %s\nvalue = ar_high\nindex = ar_at\n" % keys)
+                   + pick + setv("%s^ar_at" % keys, AR_SORT_LAST))
+    return setup, making + taking
+
+
 def ar_count():
-    """The scripted effects of the counting: mod1440_ar_count and the effects of each table of kinds."""
+    """The scripted effects of the counting: mod1440_ar_count, the equipment list, the sorts, the chosen army, and
+    the effects of each table of kinds."""
     from_portraits = portrait_version()
     tables = ""
     for m, (states, rows) in enumerate(AR_TABLES):
-        kinds = ""
+        kinds, army, worst = "", "", ""
         for kind, sprite, width, height in rows:
+            what = tmp("ar_tok", "token:" + kind) + tmp("ar_pic", "token:" + sprite) + tmp("ar_cls", ar_scale(width, height, AR_PIC_BOX))
+            # the country: every kind in stock or needed, for the figures, and for the list while no army is chosen
             kinds += (tmp("ar_s", "num_equipment@" + kind) + tmp("ar_d", "num_target_equipment_in_armies@" + kind)
                       + iff("OR = { check_variable = { ar_s > 0 } check_variable = { ar_d > 0 } }", (
-                          tmp("ar_f", "num_equipment_in_armies@" + kind) + tmp("ar_tok", "token:" + kind)
-                          + tmp("ar_pic", "token:" + sprite) + tmp("ar_cls", ar_scale(width, height, AR_PIC_BOX))
-                          + "mod1440_ar_add = yes\n")))
-        worst = ""
-        for kind, sprite, width, height in rows:
+                          tmp("ar_f", "num_equipment_in_armies@" + kind) + "mod1440_ar_calc = yes\n"
+                          + iff("check_variable = { ar_d > 0 }", "mod1440_ar_tally = yes\n")
+                          + iff("check_variable = { ar_listing = 1 }", what + "mod1440_ar_add = yes\n"))))
+            # the chosen army: what its divisions hold and need, against the country's stock
+            army += (tmp("ar_s", "num_equipment@" + kind) + tmp("ar_f", 0) + tmp("ar_d", 0)
+                     + block("var:mod1440_ar_sel", tmp("ar_f", "num_equipment@" + kind) + tmp("ar_d", "num_target_equipment@" + kind))
+                     + iff("OR = { check_variable = { ar_f > 0 } check_variable = { ar_d > 0 } }", what + "mod1440_ar_calc = yes\nmod1440_ar_add = yes\n"))
+            # a commander: his worst equipped kind, and what his divisions hold of what they need
             worst += iff("check_variable = { num_target_equipment@%s > 0 }" % kind, (
-                tmp("al_share", "num_equipment@" + kind) + "divide_temp_variable = { al_share = num_target_equipment@%s }\n" % kind
-                + "multiply_temp_variable = { al_share = 100 }\n"
+                tmp("al_t", "num_target_equipment@" + kind) + tmp("al_h", "num_equipment@" + kind)
+                + tmp("al_share", "al_h") + "divide_temp_variable = { al_share = al_t }\nmultiply_temp_variable = { al_share = 100 }\n"
                 + iff("check_variable = { al_share < mod1440_al_fill }", (
                     setv("mod1440_al_fill", "al_share") + setv("mod1440_al_wk", 1)
-                    + setv("mod1440_al_wpic", "token:" + sprite) + setv("mod1440_al_wcls", ar_scale(width, height, AR_WORST_BOX))))))
+                    + setv("mod1440_al_wpic", "token:" + sprite) + setv("mod1440_al_wcls", ar_scale(width, height, AR_WORST_BOX))
+                    + setv("mod1440_al_wkind", "token:" + kind) + setv("mod1440_al_whave", "al_h") + setv("mod1440_al_wneed", "al_t")))
+                + "mod1440_ar_held = yes\n"))
         source = "the game's own kinds" if not states else "the kinds of a playset with %d states" % states
-        tables += ("\n# Army Readiness: %s (%d), for the country in scope.\n" % (source, len(rows))
+        tables += ("\n# Army Readiness: %s (%d), for the country in scope: the figures of the equipment, and the list\n"
+                   "# while no army is chosen (ar_listing = 1).\n" % (source, len(rows))
                    + block("mod1440_ar_kinds_%d" % m, setv("mod1440_ar_kinds", len(rows)) + kinds)
-                   + "\n# Army Readiness: the worst equipped kind of %s, in the scope of a general.\n" % source
+                   + "\n# Army Readiness: %s, for the list of the chosen army mod1440_ar_sel of the country in scope.\n" % source
+                   + block("mod1440_ar_akinds_%d" % m, army)
+                   + "\n# Army Readiness: the worst equipped kind of %s, and al_have and al_need, in the scope of a general.\n" % source
                    + block("mod1440_ar_worst_%d" % m, worst))
 
     def pick(effect):
@@ -584,72 +813,372 @@ def ar_count():
                       + setv("mod1440_ar_states", "ar_n"))
         states += "".join(iff("check_variable = { mod1440_ar_states = %d }" % n, tmp("ar_map", m)) for m, (n, _rows) in enumerate(AR_TABLES) if m)
 
-    # A kind in use: its values into the arrays the list is sorted from. A share is worked out as have / need * 100,
-    # dividing first: the product of a large stock and 100 is more than a script number is sure to hold.
-    add = (tmp("ar_fill", 0) + tmp("ar_short", 0) + tmp("ar_red", 0) + tmp("ar_key", 0)
-           + iff("check_variable = { ar_d > 0 }", (
-                        tmp("ar_fill", "ar_f") + "divide_temp_variable = { ar_fill = ar_d }\nmultiply_temp_variable = { ar_fill = 100 }\n"
-                        + iff("check_variable = { ar_fill > 100 }", tmp("ar_fill", 100))
-                        + tmp("ar_short", "ar_d") + "subtract_from_temp_variable = { ar_short = ar_f }\n"
-                        + iff("check_variable = { ar_short < 0 }", tmp("ar_short", 0))
-                        # A text cuts the fraction of a number off, and equipment in the field has one: the gap is
-                        # rounded up, so that it is what "Needed" less "In the field" gives on the page (X65).
-                        + tmp("ar_whole", "ar_short") + "round_temp_variable = ar_whole\n"
-                        + iff("check_variable = { var = ar_whole value = ar_short compare = less_than }", "add_to_temp_variable = { ar_whole = 1 }\n")
-                        + tmp("ar_short", "ar_whole")
-                        + iff("check_variable = { ar_short > 0 } check_variable = { var = ar_s value = ar_short compare = less_than }", tmp("ar_red", 1))
-                        # the sort key: the worse equipped, the higher; a kind only in stock comes after them all
-                        + tmp("ar_key", 200) + "subtract_from_temp_variable = { ar_key = ar_fill }\n"))
-           + "".join("add_to_array = { mod1440_ar_u_%s = ar_%s }\n" % (a, v) for a, v in (
-               ("kind", "tok"), ("pic", "pic"), ("cls", "cls"), ("stock", "s"), ("field", "f"), ("need", "d"),
-               ("short", "short"), ("fill", "fill"), ("red", "red"), ("key", "key"))))
-    sort = ("".join("clear_array = mod1440_ar_%s\n" % a for a in AR_ARRAYS) + tmp("ar_par", 0)
-            + block("for_loop_effect", "start = 0\nend = mod1440_ar_u_key^num\nvalue = ar_step\n"
-                    + block("find_highest_in_array", "array = mod1440_ar_u_key\nvalue = ar_high\nindex = ar_at\n")
-                    + "".join("add_to_array = { mod1440_ar_%s = mod1440_ar_u_%s^ar_at }\n" % (a, a) for a in AR_ARRAYS if a != "odd")
-                    + "add_to_array = { mod1440_ar_odd = ar_par }\n" + iff("check_variable = { ar_par = 0 }", tmp("ar_par", 1)) + els(tmp("ar_par", 0))
-                    + setv("mod1440_ar_u_key^ar_at", -1)))
+    # A kind: its share, what is short and whether the stock can fill it, from ar_s (stock), ar_f (in the field) and
+    # ar_d (needed). A share is worked out as have / need * 100, dividing first: the product of a large stock and
+    # 100 is more than a script number is sure to hold.
+    calc = (tmp("ar_fill", 0) + tmp("ar_short", 0) + tmp("ar_red", 0) + tmp("ar_key", 0)
+            + iff("check_variable = { ar_d > 0 }", (
+                tmp("ar_fill", "ar_f") + "divide_temp_variable = { ar_fill = ar_d }\nmultiply_temp_variable = { ar_fill = 100 }\n"
+                + iff("check_variable = { ar_fill > 100 }", tmp("ar_fill", 100))
+                + tmp("ar_short", "ar_d") + "subtract_from_temp_variable = { ar_short = ar_f }\n"
+                + iff("check_variable = { ar_short < 0 }", tmp("ar_short", 0))
+                # A text cuts the fraction of a number off, and equipment in the field has one: the gap is
+                # rounded up, so that it is what "Needed" less "In the field" gives on the page (X65).
+                + tmp("ar_whole", "ar_short") + "round_temp_variable = ar_whole\n"
+                + iff("check_variable = { var = ar_whole value = ar_short compare = less_than }", "add_to_temp_variable = { ar_whole = 1 }\n")
+                + tmp("ar_short", "ar_whole")
+                + iff("check_variable = { ar_short > 0 } check_variable = { var = ar_s value = ar_short compare = less_than }", tmp("ar_red", 1))
+                # the key of the first order: the worse equipped, the higher; a kind only in stock comes after them all
+                + tmp("ar_key", 200) + "subtract_from_temp_variable = { ar_key = ar_fill }\n")))
+    add = "".join("add_to_array = { mod1440_ar_u_%s = ar_%s }\n" % (a, v) for a, v in (
+        ("kind", "tok"), ("pic", "pic"), ("cls", "cls"), ("stock", "s"), ("field", "f"), ("need", "d"),
+        ("short", "short"), ("fill", "fill"), ("red", "red"), ("key", "key")))
+    # The figures of the head: the pieces held of what is needed, in thousands (a sum of every kind of a large
+    # army is more than a script number holds), and the kinds short and those the stock cannot fill.
+    tally = (tmp("ar_t", "ar_f") + iff("check_variable = { ar_t > ar_d }", tmp("ar_t", "ar_d"))
+             + "divide_temp_variable = { ar_t = 1000 }\nadd_to_temp_variable = { ar_have_k = ar_t }\n"
+             + tmp("ar_t", "ar_d") + "divide_temp_variable = { ar_t = 1000 }\nadd_to_temp_variable = { ar_need_k = ar_t }\n"
+             + iff("check_variable = { ar_short > 0 }", "add_to_temp_variable = { ar_ks = 1 }\n")
+             + iff("check_variable = { ar_red = 1 }", "add_to_temp_variable = { ar_kr = 1 }\n"))
+    held = (iff("check_variable = { al_h > al_t }", tmp("al_h", "al_t"))
+            + "divide_temp_variable = { al_h = 1000 }\nadd_to_temp_variable = { al_have = al_h }\n"
+            + "divide_temp_variable = { al_t = 1000 }\nadd_to_temp_variable = { al_need = al_t }\n")
+
+    # The list: the kinds of the country or of the chosen army, then the order of the chosen column
     unsorted = "".join("clear_array = mod1440_ar_u_%s\n" % a for a in AR_ARRAYS if a != "odd") + "clear_array = mod1440_ar_u_key\n"
+    listing_script = (
+        "mod1440_ar_map = yes\n" + unsorted
+        + tmp("ar_listing", 1) + iff(is_one("mod1440_ar_has_sel"), tmp("ar_listing", 0))
+        + tmp("ar_have_k", 0) + tmp("ar_need_k", 0) + tmp("ar_ks", 0) + tmp("ar_kr", 0)
+        + pick("mod1440_ar_kinds")
+        + setv("mod1440_ar_eqn", "ar_need_k") + setv("mod1440_ar_eqf", 0)
+        + iff("check_variable = { ar_need_k > 0 }", setv("mod1440_ar_eqf", "ar_have_k") + "divide_variable = { mod1440_ar_eqf = ar_need_k }\n"
+              + "multiply_variable = { mod1440_ar_eqf = 100 }\nclamp_variable = { var = mod1440_ar_eqf min = 0 max = 100 }\n")
+        + setv("mod1440_ar_kshort", "ar_ks") + setv("mod1440_ar_kred", "ar_kr")
+        + iff(is_one("mod1440_ar_has_sel"), pick("mod1440_ar_akinds"))
+        + "mod1440_ar_eq_sort = yes\n")
+
+    def eq_value(n, key):
+        if key == "kind":
+            return tmp("ar_v", "mod1440_ar_u_key^ar_i")
+        if key == "fill":       # a kind only in stock comes after every kind that is needed
+            return tmp("ar_v", 101) + iff("check_variable = { mod1440_ar_u_need^ar_i > 0 }", tmp("ar_v", "mod1440_ar_u_fill^ar_i"))
+        return tmp("ar_v", "mod1440_ar_u_%s^ar_i" % key)
+    setup, order = ar_sort("mod1440_ar_eq_by", "mod1440_ar_eq_up", "mod1440_ar_eq_asc", "mod1440_ar_eq_arrow_x", AR_EQ_COLS,
+                           "mod1440_ar_u_key^num", eq_value, "mod1440_ar_eq_keys",
+                           "".join("add_to_array = { mod1440_ar_%s = mod1440_ar_u_%s^ar_at }\n" % (a, a) for a in AR_ARRAYS if a != "odd")
+                           + "add_to_array = { mod1440_ar_odd = ar_par }\n" + iff("check_variable = { ar_par = 0 }", tmp("ar_par", 1)) + els(tmp("ar_par", 0)))
+    eq_sort = "".join("clear_array = mod1440_ar_%s\n" % a for a in AR_ARRAYS) + tmp("ar_par", 0) + setup + order
+
+    def al_value(n, key):
+        return tmp("ar_v", "mod1440_ar_lk_%s^ar_i" % key)
+    setup, order = ar_sort("mod1440_ar_al_by", "mod1440_ar_al_up", "mod1440_ar_al_asc", "mod1440_ar_al_arrow_x",
+                           AR_AL_COLS,
+                           "mod1440_ar_l_game^num", lambda n, key: tmp("ar_v", 0) if key == "cmd" else al_value(n, key),
+                           "mod1440_ar_al_keys", "add_to_array = { mod1440_ar_leaders = mod1440_ar_l_game^ar_at }\n")
+    al_sort = ("clear_array = mod1440_ar_leaders\n" + setup
+               + iff("check_variable = { mod1440_ar_al_by = 0 }", block("for_each_loop", "array = mod1440_ar_l_game\nvalue = ar_l\nadd_to_array = { mod1440_ar_leaders = ar_l }\n"))
+               + els(order))
+    # the marks of the rows: the band of every second row, and the light band of the chosen army
+    marks = (tmp("ar_sel", -1) + iff(is_one("mod1440_ar_has_sel"), tmp("ar_sel", "mod1440_ar_sel")) + tmp("al_odd", 0)
+             + block("for_each_loop", "array = mod1440_ar_leaders\nvalue = ar_l\n" + block("var:ar_l", (
+                 setv("mod1440_al_odd", "al_odd") + setv("mod1440_al_pick", 0)
+                 + iff("check_variable = { ar_l = ar_sel }", setv("mod1440_al_pick", 1))))
+                 + iff("check_variable = { al_odd = 0 }", tmp("al_odd", 1)) + els(tmp("al_odd", 0))))
+    # a click on a row (of_me: the commander): choose his army, or let it go when it was the chosen one
+    choose = (iff("check_variable = { mod1440_ar_has_sel = 1 } check_variable = { mod1440_ar_sel = of_me }", setv("mod1440_ar_has_sel", 0))
+              + block("else_if", "limit = { NOT = { check_variable = { of_me = 0 } } }\n" + setv("mod1440_ar_sel", "of_me") + setv("mod1440_ar_has_sel", 1))
+              + "mod1440_ar_list = yes\nmod1440_ar_marks = yes\n")
 
     # The fuel bar, the share of what can be stored
     fuel = setv("mod1440_ar_fuel", 0) + iff("check_variable = { max_fuel_k > 0 }", (
         setv("mod1440_ar_fuel", "fuel_k") + "divide_variable = { mod1440_ar_fuel = max_fuel_k }\nmultiply_variable = { mod1440_ar_fuel = 100 }\n"
         + "clamp_variable = { var = mod1440_ar_fuel min = 0 max = 100 }\n"))
 
+    # Where an army stands, for a player's country: the states where its divisions can be (controlled by the
+    # country, by a country of its faction or by an enemy), each read once per commander with num_units_in_state.
+    # D2 fix round 1: built as the Records find the general on the spot (SCR-021, mod1440_of_best): the state in a
+    # temporary variable, then the country's own loop over its leaders, and the states from controlled_states as
+    # the States page takes them. The first build kept the states in a temporary array and looped over it in
+    # each leader's scope; in the game it found no state for a general whose 30 divisions stood in Germany.
+    where = iff("check_variable = { ar_player = 1 }", (
+        tmp("ar_me", "THIS")
+        + block("for_each_scope_loop", "array = controlled_states\nmod1440_ar_here = yes\n")
+        + block("every_country", "limit = { NOT = { tag = PREV } OR = { is_in_faction_with = PREV has_war_with = PREV } }\n"
+                + block("for_each_scope_loop", "array = controlled_states\nmod1440_ar_here = yes\n"))))
+    here = (tmp("ar_st", "THIS") + block("var:ar_me", block("every_army_leader", (
+        "limit = { check_variable = { num_units > 0 } }\n" + tmp("al_n", "num_units_in_state@var:ar_st")
+        + iff("check_variable = { al_n > mod1440_al_lcnt }", setv("mod1440_al_lcnt", "al_n") + setv("mod1440_al_loc", "ar_st"))))))
+    location = setv("mod1440_al_loc", 0) + setv("mod1440_al_lcnt", 0)
+
     # The game's own loop over the leaders: its array army_leaders holds nothing in the place of a general whose
     # command came by an effect, and neither does THIS. mod1440_of_me gives what a variable can hold of him
-    # (tools/build_records.py, places()). Every second commander of the list gets the darker band.
-    general = (setv("mod1440_al_fill", 101) + setv("mod1440_al_wk", 0) + pick("mod1440_ar_worst")
+    # (tools/build_records.py, places()).
+    general = (setv("mod1440_al_fill", 101) + setv("mod1440_al_wk", 0) + tmp("al_have", 0) + tmp("al_need", 0) + pick("mod1440_ar_worst")
                + iff("check_variable = { mod1440_al_fill > 100 }", setv("mod1440_al_fill", 100))
+               + setv("mod1440_al_eq", 100) + iff("check_variable = { al_need > 0 }", (
+                   setv("mod1440_al_eq", "al_have") + "divide_variable = { mod1440_al_eq = al_need }\nmultiply_variable = { mod1440_al_eq = 100 }\n"
+                   + "clamp_variable = { var = mod1440_al_eq min = 0 max = 100 }\n"))
                + setv("mod1440_al_hq", "state_deployed")
                + setv("mod1440_al_plan", "avg_unit_planning_ratio") + "multiply_variable = { mod1440_al_plan = 100 }\n"
                + "clamp_variable = { var = mod1440_al_plan min = 0 max = 100 }\n"
+               # Oth: the divisions none of the four kinds counts (cavalry, artillery, rocket, special)
+               + setv("mod1440_al_oth", "num_units")
+               + "".join("subtract_from_variable = { mod1440_al_oth = %s }\n" % v for v in ("num_infantry", "num_armored", "num_motorized", "num_mechanized"))
+               + "clamp_variable = { var = mod1440_al_oth min = 0 max = 10000 }\n"
+               + location
                # the portrait, once per table of portraits and again when the numbers of text keys have moved
                # (build_records.kept_tokens()), for a player's country only: the lookup is long
                + iff("check_variable = { ar_player = 1 } " + build_records.portrait_stale(from_portraits), "mod1440_p_officer = yes\n")
-               + setv("mod1440_al_odd", "al_odd") + iff("check_variable = { al_odd = 0 }", tmp("al_odd", 1)) + els(tmp("al_odd", 0))
-               + "add_to_array = { PREV.mod1440_ar_leaders = of_me }\n")
+               + iff("check_variable = { of_me = ar_sel }", tmp("ar_found", 1))
+               + "add_to_array = { PREV.mod1440_ar_l_game = of_me }\n"
+               + "".join("add_to_array = { PREV.mod1440_ar_lk_%s = %s }\n" % (k, v) for k, v in AR_AL_KEYS.items()))
     # a player's record first learns whether the numbers of text keys have moved since the save was made: the
     # portraits looked up before are stale then (fix round 1; this runs before the Records' daily round)
     leaders = (iff("check_variable = { ar_player = 1 } check_variable = { mod1440_ev_begun = 1 }", "mod1440_tk_check = yes\n")
-               + "mod1440_of_refs = yes\nclear_array = mod1440_ar_leaders\n" + tmp("al_odd", 0) + block("every_army_leader", (
-        "limit = { check_variable = { num_units > 0 } }\nmod1440_of_me = yes\n"
-        + iff("NOT = { check_variable = { of_me = 0 } }", general))))
+               + "mod1440_of_refs = yes\n"
+               + tmp("ar_sel", -1) + iff(is_one("mod1440_ar_has_sel"), tmp("ar_sel", "mod1440_ar_sel"))
+               + tmp("ar_found", 0) + tmp("ar_fight", 0) + tmp("ar_led", 0)
+               + "clear_array = mod1440_ar_l_game\n" + "".join("clear_array = mod1440_ar_lk_%s\n" % k for k in AR_AL_KEYS)
+               + block("every_army_leader", (
+                   "limit = { check_variable = { num_units > 0 } }\n"
+                   # Fighting and Without a commander: the commanders of single armies, so that an army group's
+                   # divisions are not counted twice
+                   + iff("is_leading_army = yes", "add_to_temp_variable = { ar_fight = num_units_in_combat }\nadd_to_temp_variable = { ar_led = num_units }\n")
+                   + "mod1440_of_me = yes\n"
+                   + iff("NOT = { check_variable = { of_me = 0 } }", general)))
+               # an army that no longer has troops is let go
+               + iff("check_variable = { mod1440_ar_has_sel = 1 } check_variable = { ar_found = 0 }", setv("mod1440_ar_has_sel", 0))
+               + setv("mod1440_ar_fight", "ar_fight") + setv("mod1440_ar_nocmd", "num_divisions")
+               + "subtract_from_variable = { mod1440_ar_nocmd = ar_led }\nclamp_variable = { var = mod1440_ar_nocmd min = 0 max = 100000 }\n"
+               + where
+               + "mod1440_ar_al_sort = yes\nmod1440_ar_marks = yes\n")
     count = (
-        "# Army Readiness: the two division counts, the fuel bar, the kinds of equipment in use worst equipped first\n"
-        "# and the list of generals with troops, for the country in scope. Runs at the start of a game for every\n"
-        "# country, each day for a player, and on a click.\n"
+        "# Army Readiness: the counted figures, the list of generals with troops and where they stand, and the\n"
+        "# equipment list, for the country in scope. Runs at the start of a game for every country, each day for a\n"
+        "# player, and on a click.\n"
         + block("mod1440_ar_count",
                 tmp("ar_player", 0) + iff("is_ai = no", tmp("ar_player", 1))
+                # the frame of the Army names toggle (1 off, 2 on), also for a save that has no such variable
+                + setv("mod1440_ar_names_fr", 1) + iff(is_one("mod1440_ar_names"), setv("mod1440_ar_names_fr", 2))
                 + "set_variable = { mod1440_ar_low_str = 0 }\nset_variable = { mod1440_ar_low_org = 0 }\n"
                 + block("every_country_division", "limit = { unit_strength < 0.75 }\nadd_to_variable = { PREV.mod1440_ar_low_str = 1 }\n")
                 + block("every_country_division", "limit = { unit_organization < 0.5 }\nadd_to_variable = { PREV.mod1440_ar_low_org = 1 }\n")
-                + fuel + states + unsorted + pick("mod1440_ar_kinds") + sort + leaders
+                + fuel + "mod1440_ar_map = yes\n" + leaders + "mod1440_ar_list = yes\n"
                 + "set_variable = { mod1440_ar_counted = global.date }\n")
-        + "\n# Army Readiness: a kind in use, from ar_s (stock), ar_f (in the field), ar_d (needed), ar_tok, ar_pic, ar_cls.\n"
+        + "\n# Army Readiness: for the state in scope, the commanders with troops of the country ar_me; each keeps the\n"
+        "# state where he has the most divisions (mod1440_al_loc, and their number mod1440_al_lcnt).\n"
+        + block("mod1440_ar_here", here)
+        + "\n# Army Readiness: the table of kinds of the loaded map, in the temporary ar_map (0: the game's own).\n"
+        + block("mod1440_ar_map", states)
+        + "\n# Army Readiness: the equipment list of the country in scope, from its stock and its divisions, or from the\n"
+        "# chosen army's, with the figures of the equipment; then the order of the chosen column.\n"
+        + block("mod1440_ar_list", listing_script)
+        + "\n# Army Readiness: a kind in use, from ar_s (stock), ar_f (in the field) and ar_d (needed).\n"
+        + block("mod1440_ar_calc", calc)
+        + "\n# Army Readiness: a kind into the unsorted arrays of the list, with ar_tok, ar_pic and ar_cls.\n"
         + block("mod1440_ar_add", add)
+        + "\n# Army Readiness: a kind the country's divisions need, into the figures of the head.\n"
+        + block("mod1440_ar_tally", tally)
+        + "\n# Army Readiness: a kind a general's divisions need (al_h of al_t) into al_have and al_need, in thousands.\n"
+        + block("mod1440_ar_held", held)
+        + "\n# Army Readiness: the equipment list in the order of its chosen column (mod1440_ar_eq_by, _up), from the\n"
+        "# unsorted arrays of the last list. Counts nothing.\n"
+        + block("mod1440_ar_eq_sort", eq_sort)
+        + "\n# Army Readiness: the armies in the order of their chosen column (mod1440_ar_al_by, _up), from the game's\n"
+        "# order and the keys of the last count. Counts nothing.\n"
+        + block("mod1440_ar_al_sort", al_sort)
+        + "\n# Army Readiness: the band of every second army row and the light band of the chosen army.\n"
+        + block("mod1440_ar_marks", marks)
+        + "\n# Army Readiness: a click on the row of the commander of_me, for the country in scope.\n"
+        + block("mod1440_ar_choose", choose)
         + tables)
     return count
+
+
+# The scene of Army Readiness (tools/scenes/army_readiness.json): the samples of the design's mock-ups
+# (scratch/phases/D2/mock_d2r2.py), a German army of 1939 at war. Rows hold one text per row in drawing order;
+# "" draws nothing, for the twin script hides in that row.
+DASH = "§g-§!"
+AR_SAMPLE_ARMIES = [
+    # name, skill, levels, troops, HQ, div, (inf, arm, mot, mech, oth), fighting (att, def), planning, equipped, worst %
+    ("Gerd von Rundstedt", 4, (5, 3, 5, 2), "Schlesien", "Schlesien", 36, (30, 2, 4, 0, 0), None, 100, 92, 72),
+    ("Fedor von Bock", 4, (5, 3, 5, 3), "Pommern", "Pommern", 30, (24, 3, 3, 0, 0), None, 85, 88, 67),
+    ("Heinz Guderian", 4, (5, 2, 4, 3), "Westpreussen", "Ostpreussen", 8, (2, 4, 2, 0, 0), (3, 2, 1), 42, 89, 61),
+    ("Erich von Manstein", 4, (4, 3, 5, 2), "Schlesien", "", 12, (11, 0, 1, 0, 0), None, 100, 95, 86),
+    ("Wilhelm Ritter von Leeb", 3, (3, 3, 2, 2), "Westfalen", "Westfalen", 14, (14, 0, 0, 0, 0), None, 64, 96, 84),
+    ("Günther von Kluge", 3, (5, 3, 4, 3), "Brandenburg", "Brandenburg", 12, (11, 0, 1, 0, 0), None, 100, 97, 91),
+    ("Johannes Blaskowitz", 3, (2, 3, 3, 2), "Sachsen", "", 10, (10, 0, 0, 0, 0), None, 90, 98, 93),
+    ("Erwin von Witzleben", 3, (4, 3, 2, 4), "Rheinland", "Rheinland", 8, (6, 0, 0, 0, 2), None, 30, 98, 95),
+    ("Wilhelm List", 3, (3, 3, 2, 2), "Ostmark", "Ostmark", 6, (4, 0, 0, 0, 2), None, 100, 99, 97),
+    ("Kurt von Hammerstein-Equord", 2, (2, 2, 2, 1), "Bayern", "", 4, (4, 0, 0, 0, 0), None, 0, 100, 100),
+]
+AR_SAMPLE_NAMES = ["Heeresgruppe Süd", "Heeresgruppe Nord", "2. Panzerarmee", "11. Armee", "Army 5",
+                   "4. Armee", "8. Armee", "1. Armee", "Army 9", "Armeeabteilung Kempf"]
+AR_SAMPLE_GROUPS = {0, 1}       # field marshals leading an army group: Div in grey
+AR_SAMPLE_CHOSEN = 2            # Guderian, in the state "chosen"
+# (kind, stock, in the field, needed): the country, and Guderian's army against the country's stock
+AR_SAMPLE_KINDS = [("light_tank_chassis", 0, 1450, 2160), ("support_equipment", 40, 2280, 3150), ("artillery_equipment", 120, 3790, 4420),
+                   ("infantry_equipment", 21400, 79100, 86400), ("motorized_equipment", 1200, 2900, 3100), ("anti_tank_equipment", 310, 1080, 1080),
+                   ("armored_car_equipment", 0, 288, 288), ("anti_air_equipment", 140, 0, 0), ("medium_tank_chassis", 12, 0, 0)]
+AR_SAMPLE_ARMY = [("light_tank_chassis", 0, 620, 1010), ("support_equipment", 40, 118, 160), ("motorized_equipment", 1200, 1340, 1460),
+                  ("infantry_equipment", 21400, 3420, 3600), ("artillery_equipment", 120, 288, 288), ("armored_car_equipment", 0, 96, 96)]
+
+
+def ar_eq_samples(kinds):
+    out = {"ar_er_name": [], "ar_er_stock": [], "ar_er_stock_shared": [], "ar_er_field": [], "ar_er_field_short": [],
+           "ar_er_need": [], "ar_er_short": [], "ar_er_short_covered": [], "ar_er_pct": []}
+    for kind, stock, field, need in kinds:
+        short = max(0, need - field)
+        out["ar_er_name"].append("$%s$" % kind)
+        out["ar_er_stock"].append(str(stock))
+        out["ar_er_stock_shared"].append("§g%d§!" % stock)
+        out["ar_er_field"].append("" if short else str(field))
+        out["ar_er_field_short"].append("§R%d§!" % field if short else "")
+        out["ar_er_need"].append(str(need))
+        out["ar_er_short"].append("§R%d§!" % short if short and stock < short else "")
+        out["ar_er_short_covered"].append("§O%d§!" % short if short and stock >= short else "")
+        out["ar_er_pct"].append("%d%%" % (field * 100 // need) if need else "")
+    return out
+
+
+def ar_row_samples():
+    out = {}
+
+    def put(widget, value):
+        out.setdefault(widget, []).append(value)
+    for n, (name, skill, levels, troops, hq, div, kinds, fight, plan, equip, worst) in enumerate(AR_SAMPLE_ARMIES):
+        put("ar_row_name", "§Y%s§!" % name)
+        put("ar_row_skill", str(skill))
+        put("ar_row_army", AR_SAMPLE_NAMES[n])
+        for (key, _variable, _sprite), level in zip(AR_LEVELS, levels):
+            put("ar_row_%s" % key, str(level))
+        put("ar_row_loc_name", troops)
+        put("ar_row_hq", "§gHQ§! %s" % hq if hq else "")
+        put("ar_row_hq_none", "" if hq else "§gHQ not deployed§!")
+        group = n in AR_SAMPLE_GROUPS
+        put("ar_row_div", "" if group else str(div))
+        put("ar_row_div_group", "§g%d§!" % div if group else "")
+        for (key, _variable), value in zip(AR_KINDS_ROW, kinds):
+            put("ar_row_%s" % key, str(value) if value else "")
+            put("ar_row_%s_none" % key, "" if value else DASH)
+        put("ar_row_fight", "§Y%d§!" % fight[0] if fight else "")
+        put("ar_row_split", "§g%d att %d def§!" % fight[1:] if fight else "")
+        put("ar_row_fight_none", "" if fight else DASH)
+        put("ar_row_plan", "%d%%" % plan)
+        put("ar_row_eq", "%d%%" % equip if equip >= LOW else "")
+        put("ar_row_eq_low", "§O%d%%§!" % equip if equip < LOW else "")
+        put("ar_row_pct", "%d%%" % worst if worst >= LOW else "")
+        put("ar_row_pct_low", "§O%d%%§!" % worst if worst < LOW else "")
+    return out
+
+
+def ar_scene():
+    pictures_eq = ["ar_er_pic_%d" % n for n in range(len(AR_SCALES)) if n != ar_scale(81, 23, AR_PIC_BOX)]
+    pictures_row = ["ar_row_worst_%d" % n for n in range(len(AR_SCALES)) if n != ar_scale(81, 23, AR_WORST_BOX)]
+    zeros = ["ar_%s_z" % name for title, rows in AR_FIGURES for name, label, value, tip, zero, bar in rows if zero]
+    head_hide = ["ar_full", "ar_eq_field_low", "ar_fuel_low"] + zeros
+    body_hide = ["ar_eq_none", "ar_al_none", "ar_al_caption_one", "ar_eq_caption_army", "ar_eq_all", "ar_eh_field_army", "ar_eq_arrow_up", "ar_al_arrow_up"]
+    eq_hide = ["ar_er_low", "ar_er_stock_shared"] + pictures_eq
+    row_hide = (["ar_row_pick", "ar_row_army", "ar_row_unknown",
+                 "ar_row_loc_none", "ar_row_eq_lowbar"] + pictures_row)
+    names_hide = [h for h in row_hide if h != "ar_row_army"]
+    # with Army names on: the army's name under each commander, none under a field marshal of an army group
+    names_samples = {"ar_row_army": ["" if n in AR_SAMPLE_GROUPS else name for n, name in enumerate(AR_SAMPLE_NAMES)]}
+    body_states = ["", "sorted", "pick", "chosen", "names"]
+    samples_head = {"ar_mp_free": "412K", "ar_mp_training": "38.4K", "ar_mp_army": "1310K", "ar_mp_garrison": "§Y128.8K§!",
+                    "ar_casualties": "61.2K", "ar_divisions": "172", "ar_fighting": "§Y3§!", "ar_low_str": "§Y6§!",
+                    "ar_low_org": "§Y2§!", "ar_no_cmd": "§Y38§!", "ar_eq_field": "91%", "ar_k_short": "§O5§!",
+                    "ar_k_red": "§R2§!", "ar_fuel": "297K of 371K", "ar_xp": "37"}
+    chosen_name = AR_SAMPLE_ARMIES[AR_SAMPLE_CHOSEN][0]
+    stock_arrow = [c for c in AR_EQ_COLS if c[0] == "stock"][0]
+    return {
+        "phase": "D2", "file": "mod1440_army_readiness.gui", "screenshot": "reference/vanilla/recruit_deploy.jpg",
+        "windows": [
+            {"name": "mod1440_army_readiness", "at": [1250, 78], "sidePanel": True, "hide": head_hide,
+             "_note": "The head: title strip and three tables of figures, the whole page in its short form. Docked to Recruit & Deploy: the tab's corner at -6,78 plus the container's 1256,0. Hidden here: the twin of a value that script shows in its place (a plain 0, a dash, an orange bar, the Full button of the short form)."},
+            {"name": "mod1440_army_readiness_body", "at": [1250, 78 + AR_SUM_H], "sidePanel": True, "drawIn": body_states,
+             "rows": {"ar_eq_grid": AR_EQ_ROWS, "ar_al_grid": AR_AL_ROWS},
+             "listRows": {"ar_eq_grid": "mod1440_army_readiness_eqrow", "ar_al_grid": "mod1440_army_readiness_row"},
+             "hide": body_hide,
+             "_note": "The body, under the head while the page is in its full form: the equipment and the armies, sorted in their first orders (the arrows on Kind and Commander), no army chosen."},
+            {"name": "mod1440_army_readiness_eqrow", "skip": True, "hide": eq_hide, "only": {"ar_er_stripe": [1, 3, 5, 7]},
+             "_note": "A row per kind in use. The renderer draws one sprite and one fill for every row: in the game each row has the picture of its kind at its scale, and a bar of its share (orange below 75%)."},
+            {"name": "mod1440_army_readiness_row", "skip": True, "hide": row_hide, "only": {"ar_row_stripe": [1, 3, 5, 7, 9]},
+             "_note": "A row per commander with troops, Army names off (its default; the state names shows them). Twins script shows per row stand in the samples, with an empty text where the other one shows. The portrait is the game's unknown leader: script names each one's sprite."},
+        ],
+        "samples": {
+            "mod1440_army_readiness": samples_head,
+            "mod1440_army_readiness_body": {
+                "ar_eq_caption": "§gAll armies: 9 of %d kinds in use. Click a head to sort, an army below to see its own.§!" % len(AR_KINDS),
+                "ar_eq_caption_army": "§gThe army of§! §Y%s§!§g: %d kinds it needs§!" % (chosen_name, len(AR_SAMPLE_ARMY)),
+                "ar_al_caption": "§g12 commanders with troops. Click one for his army's equipment, right-click for the map.§!"},
+            "mod1440_army_readiness_eqrow": ar_eq_samples(AR_SAMPLE_KINDS),
+            "mod1440_army_readiness_row": ar_row_samples(),
+        },
+        "setup": [{"move": "open_recruit_deploy"}],
+        # the equipment sorted by In stock; a click on the first army row (it chooses an army only where one has
+        # a commander: assign a general first, see the checklist); Summary
+        "captures": [
+            {"name": "sorted", "steps": [{"clickWidget": "mod1440_army_readiness_body/ar_eh_stock", "wait": 1.0}],
+             "place": {"mod1440_army_readiness_body": {"ar_eq_arrow_down": [14 + stock_arrow[2] + stock_arrow[3] - ARROW_DX, 36 + ARROW_DY]}},
+             "_note": "In stock sorted largest first: the arrow on its plate (the renderer moves it as script does; the rows keep the samples' order)."},
+            # the row button's centre lies in the Location button (row x 316 to 446): aim 300 px left of it, at the
+            # commander's name (row x 144), as fix round 4's launch found
+            {"name": "pick", "steps": [{"clickWidget": "mod1440_army_readiness_row/ar_row_hit#0", "offset": [-300, 0], "wait": 1.2}],
+             "_note": "Chooses the first army; in the clean state Army 1 has no commander and the click meets an empty list. The renderer's picture of a chosen army is the state chosen."},
+            {"name": "summary", "steps": [{"clickWidget": "mod1440_army_readiness/ar_small", "wait": 1.0}],
+             "hide": {"mod1440_army_readiness": ["ar_small"] + head_hide[1:]},
+             "_note": "Summary: the head alone, the map free under it."},
+        ],
+        "teardown": [{"clickWidget": "mod1440_army_readiness/ar_full", "state": "summary", "wait": 1.0},
+                     {"clickWidget": "mod1440_army_readiness_body/ar_eh_kind", "wait": 0.8},
+                     {"clickWidget": "mod1440_army_readiness_body/ar_eq_all", "state": "chosen", "wait": 0.8,
+                      "_note": "lets a chosen army go; where none was chosen the click meets the card's caption"}],
+        "states": [
+            {"name": "chosen", "_note": "Guderian's army chosen (figure chosen of the design): his row on the light band, the equipment card with his army's kinds, In the army against Needed, the country's stock in grey, All armies.",
+             "hide": {"mod1440_army_readiness_body": [h for h in body_hide if h not in ("ar_eq_caption_army", "ar_eq_all", "ar_eh_field_army")] + ["ar_eq_caption", "ar_eh_field_l"],
+                      "mod1440_army_readiness_eqrow": [h for h in eq_hide if h != "ar_er_stock_shared"] + ["ar_er_stock"],
+                      "mod1440_army_readiness_row": [h for h in names_hide if h != "ar_row_pick"]},
+             "only": {"mod1440_army_readiness_row": {"ar_row_stripe": [1, 3, 5, 7, 9], "ar_row_pick": [AR_SAMPLE_CHOSEN]},
+                      "mod1440_army_readiness_eqrow": {"ar_er_stripe": [1, 3, 5]}},
+             "frames": {"mod1440_army_readiness_body": {"ar_names": 2}},
+             "rows": {"ar_eq_grid": len(AR_SAMPLE_ARMY)},
+             "samples": {"mod1440_army_readiness_eqrow": ar_eq_samples(AR_SAMPLE_ARMY), "mod1440_army_readiness_row": names_samples}},
+            {"name": "names", "_note": "Army names on, on the locally patched game [SCR-078]: the army's name under each commander of a single army; the toggle on its second frame. Off (the default, and what an unpatched game should keep) is the scene's own state.",
+             "hide": {"mod1440_army_readiness_row": names_hide},
+             "frames": {"mod1440_army_readiness_body": {"ar_names": 2}},
+             "samples": {"mod1440_army_readiness_row": names_samples}},
+        ],
+        "expect": ["mod1440_army_readiness/ar_fold", "mod1440_army_readiness/ar_count", "mod1440_army_readiness/ar_small"],
+        "crop": [1240, 70, 1000, 1230],
+        "manual": [
+            "Army names on, on the locally patched game: the name of his army under each commander (Army 1, or the name you gave it); a field marshal of an army group has none; on an unpatched game the toggle stays off",
+            "A field marshal leading an army group (two armies under him): his Div in grey, and Fighting and Without a commander not counting his divisions twice; a 1936 start has none",
+            "The row's tooltip: entrenchment, readiness for the plan and the average combat progress read as shares; tooltips of the plates and figures",
+            "After some days at war: Fighting, Casualties and Location against the map and the war overview",
+        ],
+        "checklist": AR_CHECKLIST,
+    }
+
+
+AR_CHECKLIST = [
+    "The head: three tables, Manpower, Army and Stocks, five rows each on alternating bands, labels at the left and values at the right edge of each band; Count again, Summary and the close button in the title strip as before",
+    "Manpower: Free manpower against the top bar's manpower; In the army's tooltip names the navy and the air force; Casualties reads 0 in a 1936 start",
+    "Army: Divisions 30 for Germany in 1936 (its tooltip 315 battalions); Fighting 0; Without a commander 30 while Army 1 has no commander (the army overview's divisions), 0 after a general is assigned and Count again pressed",
+    "Stocks: Equipped in the field 100% with a full green bar, Kinds short 0, Stock cannot cover 0 for Germany in 1936; Fuel 297K of 371K as the top bar with its bar at that share; Army experience as the top bar",
+    "Summary folds the page to the head with no seam; Full brings the equipment and the armies back; Shift+M and the handle hide and show the page in the form it was left in",
+    "Equipment: a plate per column; a click on In stock sorts largest first with the arrow on its plate's corner, a second click turns the order (arrow up); Equipped sorts the lowest first (arrow up); Kind gives the first order back (arrow on Kind). Kind names stand in 240 px and none runs into In stock",
+    "Assign a general to Army 1 (the army badge) and press Count again: his row shows his portrait, his name in yellow and his skill on a plate as on the badge, and attack, defence, planning and logistics as in his leader window",
+    "That row: Div is the badge's division count; Inf, Arm, Mot, Mech and Oth add up to Div; Location names the state where most of Army 1 stands (the map) and a click on it moves the camera there; HQ not deployed under it, or the HQ's state once deployed",
+    "Line 2 of the row: with Army names off (the default) it holds the four levels only. Click Army names beside the card's title: the button takes its chosen look, and on the locally patched game each commander of a single army gets his army's name there (Army 1, or a name given to it, also right after renaming); a field marshal of an army group gets none; an unpatched game would read Himself. Click it again: off",
+    "Click the row: it takes the light band, the equipment card reads The army of <his name>: N kinds it needs, In the field becomes In the army, In stock turns grey, All armies shows; In the army against the sum of his divisions (division details); click the row again, or All armies, for the country",
+    "Right-click the row: the camera moves to the Location state and the row is not chosen; a click on the Location button does the same",
+    "Hover the row: the tooltip gives his name, entrenchment, readiness for the plan, battle plans, traits, the average combat progress, the other divisions and the worst kind with its numbers (Light Tank: 620 of 1010 style)",
+    "Sort the armies by Div, Fighting, Planning, Equipped and Worst: the arrow follows and the chosen army keeps its light band after a sort and after Count again",
+    "A general without a number (mod1440_chk_by_effect, then given an army; or a general of Add German Generals AI REWORK): listed with his values, chosen by a click, his equipment shown",
+    "error.log: no line naming mod1440, no Could not find sprite type, no invalid scope line, also with the playset's 55 kinds",
+]
 
 
 def portrait_version():
@@ -1889,13 +2418,15 @@ TB_RES_NAMES = ["Oil", "Aluminium", "Rubber", "Tungsten", "Steel", "Chromium", "
 TB_RES_TIP = "%s balance: produced and bought, less what your lines use and what you sell. Red, with the game's crossed icon, below 0."
 
 
-def tb_chip(name, group, label, width, sprite, frame, scale, icon_w, icon_h, text_x, value, tip, default, twin=None, below=None):
-    """One value of the catalogue. Sizes measured by the design (scratch/phases/D7/custom-layout.json): 3 px,
+def tb_chip(name, group, label, width, sprite, frame, scale, icon_w, icon_h, text_x, value, tip, default, twin=None, below=None, widest=None):
+    """One value of the catalogue. Sizes measured by the design (scratch/phases/D7/custom-layout.json), widened by
+    TB_TEXT_MARGIN in fix round 1 of D2 (2026-10-17): 3 px,
     the icon, 4 px, the value at its widest, 5 px. twin: the value in another colour, shown while `below`
-    (a trigger) holds; for a resource also the game's crossed icon."""
+    (a trigger) holds; for a resource also the game's crossed icon. widest: the widest plausible value as it
+    reads, without its colour codes, which the text box must hold with TB_TEXT_MARGIN to spare (tb_widths())."""
     return {"name": name, "group": group, "label": label, "width": width, "sprite": sprite, "frame": frame, "scale": scale,
             "icon": (icon_w, icon_h), "text_x": text_x, "text_w": width - text_x - 5, "value": value, "tip": tip,
-            "default": default, "twin": twin, "below": below}
+            "default": default, "twin": twin, "below": below, "widest": widest}
 
 
 def tb_idle(variable):
@@ -1908,41 +2439,43 @@ def tb_idle(variable):
 # amount_manpower_in_deployment_queue, resource@<r> and modifier@<m>; stability_weekly, war_support_weekly and
 # consumer_goods_factor are modifiers.
 TB_CHIPS = [
-    tb_chip("pp", "Gains", "Political power per day", 90, "GFX_pol_power_icon", 1, 1.0, 27, 27, 34,
-            "[?political_power_daily|+=2]§g/d§!", "Political power you gain each day. The top bar shows the stock.", True),
-    tb_chip("cp", "Gains", "Command power per day", 87, "GFX_command_power", 1, 1.0, 24, 22, 31,
-            "[?command_power_daily|+=2]§g/d§!", "Command power you gain each day, up to the most you can hold.", True),
-    tb_chip("stab", "Gains", "Stability per week", 106, "GFX_stability_icon", 1, 1.0, 27, 24, 34,
+    tb_chip("pp", "Gains", "Political power per day", 93, "GFX_pol_power_icon", 1, 1.0, 27, 27, 34,
+            "[?political_power_daily|+=1]§g/d§!", "Political power you gain each day. The top bar shows the stock.", True, widest="+99.9/d"),
+    tb_chip("cp", "Gains", "Command power per day", 90, "GFX_command_power", 1, 1.0, 24, 22, 31,
+            "[?command_power_daily|+=2]§g/d§!", "Command power you gain each day, up to the most you can hold.", True, widest="+9.99/d"),
+    tb_chip("stab", "Gains", "Stability per week", 109, "GFX_stability_icon", 1, 1.0, 27, 24, 34,
             "[?modifier@stability_weekly|+=%1]§g/wk§!",
-            "Stability changes by this much each week (the weekly modifiers). The top bar shows where it stands.", True),
-    tb_chip("ws", "Gains", "War support per week", 105, "GFX_war_support_icon", 1, 1.0, 26, 24, 33,
+            "Stability changes by this much each week (the weekly modifiers). The top bar shows where it stands.", True, widest="+9.9%/wk"),
+    tb_chip("ws", "Gains", "War support per week", 108, "GFX_war_support_icon", 1, 1.0, 26, 24, 33,
             "[?modifier@war_support_weekly|+=%1]§g/wk§!",
-            "War support changes by this much each week (the weekly modifiers). The top bar shows where it stands.", True),
-    tb_chip("civ", "Factories", "Civilian factories, free", 119, "GFX_civ_factory", 1, 1.2, 22, 22, 29,
+            "War support changes by this much each week (the weekly modifiers). The top bar shows where it stands.", True, widest="+9.9%/wk"),
+    tb_chip("civ", "Factories", "Civilian factories, free", 114, "GFX_civ_factory", 1, 1.2, 22, 22, 29,
             "[?num_of_civilian_factories|0]  §g[?num_of_civilian_factories_available_for_projects|0] free§!",
-            "Civilian factories, and how many are free for construction once consumer goods and trade have taken theirs.", True),
-    tb_chip("mil", "Factories", "Military factories, idle", 115, "GFX_mil_factory", 1, 1.2, 22, 22, 29,
+            "Civilian factories, and how many are free for construction once consumer goods and trade have taken theirs.", True,
+            widest="999  99 free"),
+    tb_chip("mil", "Factories", "Military factories, idle", 110, "GFX_mil_factory", 1, 1.2, 22, 22, 29,
             "[?num_of_military_factories|0]  §g[?num_of_available_military_factories|0] idle§!",
             "Military factories, and how many have no production line. Yellow while any stands idle.", True,
             twin="[?num_of_military_factories|0]  §Y[?num_of_available_military_factories|0] idle§!",
-            below=tb_idle("num_of_available_military_factories")),
-    tb_chip("dock", "Factories", "Dockyards, idle", 107, "GFX_nav_dockyard_texticon", 1, 1.1, 22, 22, 29,
+            below=tb_idle("num_of_available_military_factories"), widest="999  99 idle"),
+    tb_chip("dock", "Factories", "Dockyards, idle", 102, "GFX_nav_dockyard_texticon", 1, 1.1, 22, 22, 29,
             "[?num_of_naval_factories|0]  §g[?num_of_available_naval_factories|0] idle§!",
             "Dockyards, and how many have no production line. Yellow while any stands idle.", True,
             twin="[?num_of_naval_factories|0]  §Y[?num_of_available_naval_factories|0] idle§!",
-            below=tb_idle("num_of_available_naval_factories")),
-    tb_chip("cg", "Factories", "Consumer goods", 74, "GFX_consumer_goods_texticon", 1, 1.0, 20, 20, 27,
-            "[?modifier@consumer_goods_factor|%1]", "Consumer goods: the share of your civilian factories that the people's needs take.", False),
-    tb_chip("fuel", "Fuel", "Fuel in store", 128, "GFX_fuel_state", 1, 1.0, 26, 24, 33,
+            below=tb_idle("num_of_available_naval_factories"), widest="99  99 idle"),
+    tb_chip("cg", "Factories", "Consumer goods", 77, "GFX_consumer_goods_texticon", 1, 1.0, 20, 20, 27,
+            "[?modifier@consumer_goods_factor|%1]", "Consumer goods: the share of your civilian factories that the people's needs take.", False,
+            widest="99.9%"),
+    tb_chip("fuel", "Fuel", "Fuel in store", 131, "GFX_fuel_state", 1, 1.0, 26, 24, 33,
             "[?fuel_k|0]K§g/[?max_fuel_k|0]K§!",
-            "Fuel in store, of what your silos and refineries can hold. The top bar shows how long it lasts.", True),
-    tb_chip("mp_field", "Manpower", "Manpower in the field", 119, "GFX_manpower_icon", 1, 0.9, 24, 24, 31,
-            "[?deployed_total_manpower_k|0]K§g field§!", "Men in your divisions, ships and air wings.", False),
-    tb_chip("mp_train", "Manpower", "Manpower in training", 139, "GFX_manpower_icon", 1, 0.9, 24, 24, 31,
-            "[?amount_manpower_in_deployment_queue|*1]§g training§!", "Men of the divisions in training.", False),
-] + [tb_chip("res_" + res, "Resources", TB_RES_NAMES[r], 61, "GFX_resources_strip", r + 1, 0.7, 19, 19, 26,
+            "Fuel in store, of what your silos and refineries can hold. The top bar shows how long it lasts.", True, widest="9999K/9999K"),
+    tb_chip("mp_field", "Manpower", "Manpower in the field", 122, "GFX_manpower_icon", 1, 0.9, 24, 24, 31,
+            "[?deployed_total_manpower_k|0]K§g field§!", "Men in your divisions, ships and air wings.", False, widest="99999K field"),
+    tb_chip("mp_train", "Manpower", "Manpower in training", 142, "GFX_manpower_icon", 1, 0.9, 24, 24, 31,
+            "[?amount_manpower_in_deployment_queue|*1]§g training§!", "Men of the divisions in training.", False, widest="999.9K training"),
+] + [tb_chip("res_" + res, "Resources", TB_RES_NAMES[r], 64, "GFX_resources_strip", r + 1, 0.7, 19, 19, 26,
              "[?resource@%s|0]" % res, TB_RES_TIP % TB_RES_NAMES[r], False,
-             twin="§R[?resource@%s|0]§!" % res, below="check_variable = { resource@%s < 0 }" % res)
+             twin="§R[?resource@%s|0]§!" % res, below="check_variable = { resource@%s < 0 }" % res, widest="-999")
      for r, res in enumerate(RESOURCES)]
 TB_DEFAULT = [c["name"] for c in TB_CHIPS if c["default"]]
 
@@ -2185,7 +2718,28 @@ def tb_daily():
     return iff("NOT = { check_variable = { mod1440_tb_ver = %d } }" % TB_VER, "mod1440_tb_default = yes\n")
 
 
+# --- D2 fix round 1 (2026-10-17): the game cut "+2.32/d" with dots in its box of 51 px, a text the fonts make
+# exactly 51 px wide, and the cut fell between the two characters of a colour code ("Could not find coloring for
+# character '.'", twice a frame). A chip's text box holds its widest plausible value with this much to spare.
+TB_TEXT_MARGIN = 3
+
+
+def tb_widths():
+    """Stops the build when a chip's box cannot hold its widest value (the game's font, where the game is
+    installed: the width is the sum of the glyphs' advances, GUW-012)."""
+    import guiparse
+    game = guiparse.find_game_dir()
+    if not game:
+        return
+    font = guiparse.load_font(FONT_LABEL, game)
+    for c in TB_CHIPS:
+        need = font.width(c["widest"]) + TB_TEXT_MARGIN
+        if c["text_w"] < need:
+            raise ValueError("top bar chip %s: its text box is %d px, %r needs %d" % (c["name"], c["text_w"], c["widest"], need))
+
+
 def top_bar():
+    tb_widths()
     gui, script = tb_strip()
     panel_gui, panel_script, _height = tb_panel()
     return gui + panel_gui, script + panel_script, tb_effects()
@@ -2194,7 +2748,7 @@ def top_bar():
 # The scene: samples of Germany on 1 January 1936 where they are known (35, 28 and 10 factories, 8 military
 # factories idle, fuel 297K of 371K, the resource balance D4 checked), the others as the design drew them.
 TB_SAMPLES = {
-    "pp": "§G+2.00§!§g/d§!", "cp": "§G+0.85§!§g/d§!", "stab": "§G+0.2%§!§g/wk§!", "ws": "§G+0.3%§!§g/wk§!",
+    "pp": "§G+2.3§!§g/d§!", "cp": "§G+0.85§!§g/d§!", "stab": "§G+0.2%§!§g/wk§!", "ws": "§G+0.3%§!§g/wk§!",
     "civ": "35  §g3 free§!", "mil": "28  §g8 idle§!", "mil_idle": "28  §Y8 idle§!", "dock": "10  §g0 idle§!", "dock_idle": "10  §Y0 idle§!",
     "cg": "25.0%", "fuel": "297K§g/371K§!", "mp_field": "1310K§g field§!", "mp_train": "38.4K§g training§!",
 }
@@ -2241,8 +2795,8 @@ def tb_scene():
     right, at = tb_place(TB_DEFAULT)
     chosen_right, chosen_at = tb_place(TB_CHOSEN)
     # the design measured these (scratch/phases/D7/custom-layout.json): the build must stand where it drew them
-    assert (right, [TB_X + at[n] for n in TB_DEFAULT]) == (909, [1042, 1136, 1227, 1337, 1458, 1581, 1700, 1823]), at
-    assert chosen_right == 881, chosen_right
+    assert (right, [TB_X + at[n] for n in TB_DEFAULT]) == (909, [1042, 1139, 1233, 1346, 1470, 1588, 1702, 1820]), at   # D2 fix round 1
+    assert chosen_right == 884, chosen_right
     assert right <= TB_ROOM
     samples = {"tb_" + k: v for k, v in TB_SAMPLES.items()}
     place = {}
@@ -2308,6 +2862,7 @@ TB_CHECKLIST = [
     "Consumer goods, manpower in the field and in training, and each resource against the game's numbers (production tab, Recruit & Deploy, trade tab) once ticked",
     "Default brings the eight back, in their places; the choice survives a save and a load",
     "error.log names no mod1440 file and has no Could not find sprite type line for a GFX_1440p_SG_topbox, topbtn or button_150x28 sprite",
+    "No chip value is cut with dots (political power per day reads +2.3/d, command power +0.28/d for Germany in 1936), and error.log has no Could not find coloring for character line (D2 fix round 1)",
 ]
 
 # ---------------------------------------------------------------- scenes: what the renderer and the harness need
@@ -2316,77 +2871,7 @@ TB_CHECKLIST = [
 # the recipe that brings it up, the widgets that prove it is up, and a sample for every text that holds a
 # value, so that the renderer draws numbers and the tests measure them against their boxes.
 SCENES = {
-    "army_readiness": {
-        "phase": "D2", "file": "mod1440_army_readiness.gui", "screenshot": "reference/vanilla/recruit_deploy.jpg",
-        "windows": [
-            {"name": "mod1440_army_readiness", "at": [1250, 78], "sidePanel": True,
-             "hide": ["ar_full"] + ["ar_%s_z" % n for n in ("mp_training", "mp_garrison", "low_str", "low_org")] + ["ar_fuel_low"],
-             "_note": "The head: title strip and figures, the whole page in its short form. Docked to Recruit & Deploy: the tab's corner at -6,78 plus the container's 1256,0. Hidden here: the twin of a value that script shows in its place (a plain 0, an orange bar, the Full button of the short form)."},
-            {"name": "mod1440_army_readiness_body", "at": [1250, 78 + AR_SUM_H], "sidePanel": True,
-             "rows": {"ar_eq_grid": AR_EQ_ROWS, "ar_al_grid": AR_AL_ROWS},
-             "listRows": {"ar_eq_grid": "mod1440_army_readiness_eqrow", "ar_al_grid": "mod1440_army_readiness_row"},
-             "hide": ["ar_eq_none", "ar_al_none"],
-             "_note": "The body, under the head while the page is in its full form: the equipment and the armies."},
-            {"name": "mod1440_army_readiness_eqrow", "skip": True,
-             "hide": ["ar_er_field", "ar_er_short_covered", "ar_er_low"] + ["ar_er_pic_%d" % n for n in range(len(AR_SCALES)) if n != ar_scale(81, 23, AR_PIC_BOX)],
-             "_note": "A row per kind in use. The renderer draws one sprite and one fill for every row: in the game each row has the picture of its kind at its scale, and a bar of its share."},
-            {"name": "mod1440_army_readiness_row", "skip": True,
-             "hide": (["ar_row_gen", "ar_row_unknown", "ar_row_hq_none", "ar_row_fight_none", "ar_row_low"]
-                      + ["ar_row_%s_none" % n for n in ("inf", "arm", "mot", "mech")]
-                      + ["ar_row_worst_%d" % n for n in range(len(AR_SCALES)) if n != ar_scale(81, 23, AR_WORST_BOX)])},
-        ],
-        # sample rows of a mobilising Germany, as on the design page (one text per row, in drawing order)
-        "samples": {
-            "mod1440_army_readiness": {"ar_fuel": "297K of 371K", "ar_mp_free": "1332K", "ar_mp_training": "38.4K", "ar_low_str": "§Y6§!", "ar_low_org": "§Y2§!", "ar_xp": "37", "ar_mp_army": "1310K", "ar_divisions": "172", "ar_battalions": "1650"},
-            "mod1440_army_readiness_body": {
-                "ar_eq_caption": "§g9 of %d kinds in use, the worst equipped first§!" % len(AR_KINDS),
-                "ar_al_caption": "§g12 commanders with troops; a click on HQ moves the camera there§!"},
-            "mod1440_army_readiness_eqrow": {
-                "ar_er_name": ["$%s$" % k for k in ("light_tank_chassis", "support_equipment", "artillery_equipment", "infantry_equipment",
-                                                     "motorized_equipment", "anti_tank_equipment", "armored_car_equipment",
-                                                     "anti_air_equipment", "medium_tank_chassis")],
-                "ar_er_stock": ["0", "40", "120", "21400", "1200", "310", "0", "140", "12"],
-                "ar_er_field_short": ["\u00a7R1450\u00a7!", "\u00a7R2280\u00a7!", "\u00a7R3790\u00a7!", "\u00a7R79100\u00a7!", "\u00a7R2900\u00a7!", "1080", "288", "0", "0"],
-                "ar_er_need": ["2160", "3150", "4420", "86400", "3100", "1080", "288", "0", "0"],
-                "ar_er_short": ["\u00a7R710\u00a7!", "\u00a7R870\u00a7!", "\u00a7R630\u00a7!", "\u00a7O7300\u00a7!", "\u00a7O200\u00a7!", "", "", "", ""],
-                "ar_er_pct": ["67%", "72%", "85%", "91%", "93%", "100%", "100%", "", ""],
-            },
-            "mod1440_army_readiness_row": {
-                "ar_row_name": ["\u00a7Y%s\u00a7!" % n for n in ("Gerd von Rundstedt", "Fedor von Bock", "Heinz Guderian", "Erich von Manstein",
-                                                       "Wilhelm Ritter von Leeb", "G\u00fcnther von Kluge", "Johannes Blaskowitz",
-                                                       "Erwin von Witzleben", "Wilhelm List", "Kurt von Hammerstein")],
-                "ar_row_fm": ["\u00a7gField Marshal\u00a7!"] * 2 + ["\u00a7gGeneral\u00a7!"] * 8,
-                "ar_row_skill": ["\u00a7gSkill\u00a7! %d" % n for n in (4, 4, 4, 4, 3, 3, 3, 3, 3, 2)],
-                "ar_row_hq_name": ["Schlesien", "Pommern", "Ostpreussen", "Schlesien", "Westfalen", "Brandenburg", "Sachsen", "Rheinland", "Bayern", "Hessen"],
-                "ar_row_div": ["36", "30", "8", "12", "14", "12", "10", "8", "6", "4"],
-                "ar_row_inf": ["30", "24", "2", "11", "14", "11", "10", "8", "6", "4"],
-                "ar_row_arm": ["2", "3", "4"] + ["\u00a7g-\u00a7!"] * 7,
-                "ar_row_mot": ["4", "3", "2", "1", "\u00a7g-\u00a7!", "1"] + ["\u00a7g-\u00a7!"] * 4,
-                "ar_row_mech": ["\u00a7g-\u00a7!"] * 10,
-                "ar_row_fight": ["\u00a7g-\u00a7!", "\u00a7g-\u00a7!", "\u00a7Y3\u00a7!"] + ["\u00a7g-\u00a7!"] * 7,
-                "ar_row_split": ["", "", "\u00a7g2 att, 1 def\u00a7!"] + [""] * 7,
-                "ar_row_plan": ["100%", "85%", "42%", "100%", "64%", "100%", "90%", "30%", "100%", "0%"],
-                "ar_row_pct": ["72%", "67%", "61%", "86%", "84%", "91%", "93%", "95%", "97%", "100%"],
-            },
-        },
-        "setup": [{"move": "open_recruit_deploy"}],
-        "expect": ["mod1440_army_readiness/ar_fold", "mod1440_army_readiness/ar_count", "mod1440_army_readiness/ar_small"],
-        "crop": [1240, 70, 1000, 1230],
-        "manual": ["The page after a day has passed: the counts and the bars come from a daily hook, which no check runs",
-                   "A commander with a deployed headquarters, and one fighting: a 1936 start has none"],
-        "checklist": [
-            "Shift+M hides the page and brings it back in the form it was left in; the handle beside the template panel does the same",
-            "Summary folds the page to its title strip and figures, with no seam left where the body was; Full brings the body back under them",
-            "The equipment card lists only the kinds you have or need, the worst equipped first, each with the game's picture of the kind at a size that fits its row",
-            "Short is red where the stock cannot fill the gap and orange where it can; In the field is red where it is short",
-            "Fuel reads the top bar's fuel (297K of 371K for Germany in 1936) and its bar is that share",
-            "Assign a general to an army, press Count again: the general is listed under Armies with his portrait, rank and skill",
-            "Deploy his HQ: the HQ button names its state and a click moves the camera there; without one it reads not deployed",
-            "Inf, Arm, Mot and Mech against the army badge; Worst kind shows a picture and its share",
-            "Train a division: In training rises at once; In stock falls at the next count",
-            "error.log names no mod1440 file and has no Could not find sprite type line for an archetype picture",
-        ],
-    },
+    "army_readiness": ar_scene(),      # D2 round 2
     "states": {
         "phase": "D3", "file": "mod1440_states.gui", "screenshot": "reference/vanilla/construction.jpg",
         "windows": [

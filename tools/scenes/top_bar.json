@@ -169,7 +169,7 @@
   ],
   "samples": {
     "mod1440_top_bar_strip": {
-      "tb_pp": "\u00a7G+2.00\u00a7!\u00a7g/d\u00a7!",
+      "tb_pp": "\u00a7G+2.3\u00a7!\u00a7g/d\u00a7!",
       "tb_cp": "\u00a7G+0.85\u00a7!\u00a7g/d\u00a7!",
       "tb_stab": "\u00a7G+0.2%\u00a7!\u00a7g/wk\u00a7!",
       "tb_ws": "\u00a7G+0.3%\u00a7!\u00a7g/wk\u00a7!",
@@ -198,7 +198,7 @@
       "tb_res_coal_neg": "\u00a7R195\u00a7!"
     },
     "mod1440_top_bar_fixed": {
-      "tbf_pp": "\u00a7G+2.00\u00a7!\u00a7g/d\u00a7!",
+      "tbf_pp": "\u00a7G+2.3\u00a7!\u00a7g/d\u00a7!",
       "tbf_cp": "\u00a7G+0.85\u00a7!\u00a7g/d\u00a7!",
       "tbf_stab": "\u00a7G+0.2%\u00a7!\u00a7g/wk\u00a7!",
       "tbf_ws": "\u00a7G+0.3%\u00a7!\u00a7g/wk\u00a7!",
@@ -293,7 +293,8 @@
     "Untick command power: the six chips after it move 91 px left at once, 94 px are left, and consumer goods and the seven resources become free to tick; tick oil: it stands after fuel with its own icon",
     "Consumer goods, manpower in the field and in training, and each resource against the game's numbers (production tab, Recruit & Deploy, trade tab) once ticked",
     "Default brings the eight back, in their places; the choice survives a save and a load",
-    "error.log names no mod1440 file and has no Could not find sprite type line for a GFX_1440p_SG_topbox, topbtn or button_150x28 sprite"
+    "error.log names no mod1440 file and has no Could not find sprite type line for a GFX_1440p_SG_topbox, topbtn or button_150x28 sprite",
+    "No chip value is cut with dots (political power per day reads +2.3/d, command power +0.28/d for Germany in 1936), and error.log has no Could not find coloring for character line (D2 fix round 1)"
   ],
   "states": [
     {
@@ -417,111 +418,111 @@
             5
           ],
           "tb_stab_bg": [
-            94,
+            97,
             1
           ],
           "tb_stab_icon": [
-            97,
+            100,
             2
           ],
           "tb_stab": [
-            128,
+            131,
             5
           ],
           "tb_ws_bg": [
-            204,
+            210,
             1
           ],
           "tb_ws_icon": [
-            207,
+            213,
             2
           ],
           "tb_ws": [
-            237,
+            243,
             5
           ],
           "tb_civ_bg": [
-            325,
+            334,
             1
           ],
           "tb_civ_icon": [
-            328,
+            337,
             3
           ],
           "tb_civ": [
-            354,
+            363,
             5
           ],
           "tb_mil_bg": [
-            448,
+            452,
             1
           ],
           "tb_mil_icon": [
-            451,
+            455,
             3
           ],
           "tb_mil": [
-            477,
+            481,
             5
           ],
           "tb_mil_idle": [
-            477,
+            481,
             5
           ],
           "tb_dock_bg": [
-            567,
+            566,
             1
           ],
           "tb_dock_icon": [
-            570,
+            569,
             3
           ],
           "tb_dock": [
-            596,
+            595,
             5
           ],
           "tb_dock_idle": [
-            596,
+            595,
             5
           ],
           "tb_res_oil_bg": [
-            690,
+            684,
             1
           ],
           "tb_res_oil_icon": [
-            693,
+            687,
             4
           ],
           "tb_res_oil": [
-            716,
+            710,
             5
           ],
           "tb_res_oil_neg": [
-            716,
+            710,
             5
           ],
           "tb_res_oil_miss": [
-            693,
+            687,
             4
           ],
           "tb_res_rubber_bg": [
-            755,
+            752,
             1
           ],
           "tb_res_rubber_icon": [
-            758,
+            755,
             4
           ],
           "tb_res_rubber": [
-            781,
+            778,
             5
           ],
           "tb_res_rubber_neg": [
-            781,
+            778,
             5
           ],
           "tb_res_rubber_miss": [
-            758,
+            755,
             4
           ],
           "tb_res_steel_bg": [
@@ -548,7 +549,7 @@
       },
       "samples": {
         "mod1440_top_bar_setup": {
-          "tb_used": "881 of 912 px used, 31 left. A value that needs more stays off."
+          "tb_used": "884 of 912 px used, 28 left. A value that needs more stays off."
         }
       }
     },

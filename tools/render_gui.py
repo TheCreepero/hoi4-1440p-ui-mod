@@ -237,6 +237,16 @@ class Renderer:
         for w in self.scene.get("windows") or []:
             for n, f in (state_frames.get(w["name"]) or w.get("frames") or {}).items():
                 self.frames[(w["name"], n)] = int(f)
+        # --- D2 round 2 --- widgets script shows in some rows of a list only (the band of every second row,
+        # the chosen row): "only" per window, {widget: [instance numbers from 0, in drawing order]}; a state's
+        # "only" of a window replaces the window's own
+        self.only = {}
+        self._only_index = {}
+        state_only = self.state.get("only") or {}
+        for w in self.scene.get("windows") or []:
+            for n, rows in (state_only.get(w["name"]) if w["name"] in state_only else (w.get("only") or {})).items():
+                self.only[(w["name"], n)] = set(int(r) for r in rows)
+        # --- end D2 round 2 ---
 
     # ------------------------------------------------------------ helpers
 
@@ -542,6 +552,7 @@ class Renderer:
         self._source_lines[name] = lines
         if depth == 0:
             self._sample_index = {}
+            self._only_index = {}       # D2 round 2
         outer = getattr(self, "_window", None)
         self._window = name
         self.draw_container(node, rect, canvas, name, depth, clip, window_rect=rect)
@@ -675,6 +686,11 @@ class Renderer:
         self._window = window_name
         if cname and ((window_name, cname) in self.hidden or ("*", cname) in self.hidden):
             return
+        if cname and (window_name, cname) in self.only:        # D2 round 2: drawn in some instances only
+            n = self._only_index.get((window_name, cname), 0)
+            self._only_index[(window_name, cname)] = n + 1
+            if n not in self.only[(window_name, cname)]:
+                return
         if key in ("background", "positiontype", "slider", "track", "decreasebutton", "increasebutton", "backgroundbutton"):
             if key == "positiontype":
                 px = self.num(child, "position", "x", parent.w)

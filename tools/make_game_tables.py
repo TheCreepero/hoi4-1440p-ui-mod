@@ -90,6 +90,10 @@ def portraits(game, by_effect=False, paths=None):
                 roles = [role for role in UNIT_ROLES + ("country_leader",) if re.search(r"\b%s\s*=\s*\{" % role, character)]
                 if by_effect and not roles and not re.search(r"\b(advisor|scientist)\s*=\s*\{", character):
                     roles = ["navy_leader"] if ("navy" in found and "army" not in found) else ["corps_commander"]
+                # D2 fix round 3: a character of the game with an army or navy portrait and no command in his file
+                # (an advisor such as Martin Bormann) can be given one by effect; the officers' lookup takes him too
+                if not by_effect and not roles and ("army" in found or "navy" in found):
+                    roles = ["officer_by_effect"]
                 if found and roles:
                     rows.append((name, tag, found.get("army", ""), found.get("navy", ""), found.get("civilian", ""), " ".join(roles)))
     return rows

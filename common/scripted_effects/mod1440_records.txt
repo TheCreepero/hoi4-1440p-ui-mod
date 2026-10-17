@@ -5980,7 +5980,7 @@ mod1440_tk_fix = {
 		PREV = {
 			var:tk_who = {
 				if = {
-					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 					mod1440_p_officer = yes
 				}
 				set_temp_variable = { tk_p = mod1440_p }
@@ -6113,7 +6113,7 @@ mod1440_wd_list = {
 							set_temp_variable = { wd_ch = mod1440_ev_a^mg_m }
 							var:wd_ch = {
 								if = {
-									limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+									limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 									mod1440_p_officer = yes
 								}
 								set_temp_variable = { wd_ap = mod1440_p }
@@ -6126,7 +6126,7 @@ mod1440_wd_list = {
 							set_temp_variable = { wd_ch = mod1440_ev_c^mg_m }
 							var:wd_ch = {
 								if = {
-									limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+									limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 									mod1440_p_officer = yes
 								}
 								set_temp_variable = { wd_cp = mod1440_p }
@@ -6212,7 +6212,7 @@ mod1440_wd_list = {
 								set_temp_variable = { wd_ch = mod1440_tr_a^mg_m }
 								var:wd_ch = {
 									if = {
-										limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+										limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 										mod1440_p_officer = yes
 									}
 									set_temp_variable = { wd_ap = mod1440_p }
@@ -6225,7 +6225,7 @@ mod1440_wd_list = {
 								set_temp_variable = { wd_ch = mod1440_tr_c^mg_m }
 								var:wd_ch = {
 									if = {
-										limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+										limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 										mod1440_p_officer = yes
 									}
 									set_temp_variable = { wd_cp = mod1440_p }
@@ -6317,7 +6317,7 @@ mod1440_wd_list = {
 						set_temp_variable = { wd_ch = mod1440_tr_a^wd_m }
 						var:wd_ch = {
 							if = {
-								limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+								limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 								mod1440_p_officer = yes
 							}
 							set_temp_variable = { wd_ap = mod1440_p }
@@ -6330,7 +6330,7 @@ mod1440_wd_list = {
 						set_temp_variable = { wd_ch = mod1440_tr_c^wd_m }
 						var:wd_ch = {
 							if = {
-								limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+								limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 								mod1440_p_officer = yes
 							}
 							set_temp_variable = { wd_cp = mod1440_p }
@@ -6420,7 +6420,7 @@ mod1440_wd_list = {
 						set_temp_variable = { wd_ch = mod1440_kp_a^wd_m }
 						var:wd_ch = {
 							if = {
-								limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+								limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 								mod1440_p_officer = yes
 							}
 							set_temp_variable = { wd_ap = mod1440_p }
@@ -6433,7 +6433,7 @@ mod1440_wd_list = {
 						set_temp_variable = { wd_ch = mod1440_kp_c^wd_m }
 						var:wd_ch = {
 							if = {
-								limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+								limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 								mod1440_p_officer = yes
 							}
 							set_temp_variable = { wd_cp = mod1440_p }
@@ -6550,7 +6550,7 @@ mod1440_wd_list = {
 								set_temp_variable = { wd_ch = mod1440_ev_a^mg_m }
 								var:wd_ch = {
 									if = {
-										limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+										limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 										mod1440_p_officer = yes
 									}
 									set_temp_variable = { wd_ap = mod1440_p }
@@ -6563,7 +6563,7 @@ mod1440_wd_list = {
 								set_temp_variable = { wd_ch = mod1440_ev_c^mg_m }
 								var:wd_ch = {
 									if = {
-										limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+										limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 										mod1440_p_officer = yes
 									}
 									set_temp_variable = { wd_cp = mod1440_p }
@@ -6652,7 +6652,7 @@ mod1440_wd_list = {
 									set_temp_variable = { wd_ch = mod1440_tr_a^mg_m }
 									var:wd_ch = {
 										if = {
-											limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+											limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 											mod1440_p_officer = yes
 										}
 										set_temp_variable = { wd_ap = mod1440_p }
@@ -6665,7 +6665,7 @@ mod1440_wd_list = {
 									set_temp_variable = { wd_ch = mod1440_tr_c^mg_m }
 									var:wd_ch = {
 										if = {
-											limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+											limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 											mod1440_p_officer = yes
 										}
 										set_temp_variable = { wd_cp = mod1440_p }
@@ -6759,7 +6759,7 @@ mod1440_wd_list = {
 							set_temp_variable = { wd_ch = mod1440_ev_a^wd_m }
 							var:wd_ch = {
 								if = {
-									limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+									limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 									mod1440_p_officer = yes
 								}
 								set_temp_variable = { wd_ap = mod1440_p }
@@ -6772,7 +6772,7 @@ mod1440_wd_list = {
 							set_temp_variable = { wd_ch = mod1440_ev_c^wd_m }
 							var:wd_ch = {
 								if = {
-									limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+									limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 									mod1440_p_officer = yes
 								}
 								set_temp_variable = { wd_cp = mod1440_p }
@@ -7356,7 +7356,8 @@ mod1440_ch_place = {
 }
 
 # Characters: puts right every place the country in scope keeps, after the game's list of characters has
-# changed: the people on the lines of both logs, the list of officers, the chosen officer, the offices.
+# changed: the people on the lines of both logs, the list of officers, the chosen officer, the offices, the
+# army chosen on Army Readiness.
 mod1440_ch_remap = {
 	set_temp_variable = { rm_lost = 0 }
 	for_loop_effect = {
@@ -7480,6 +7481,16 @@ mod1440_ch_remap = {
 		if = {
 			limit = { check_variable = { mod1440_of_sel = 0 } }
 			set_variable = { mod1440_of_has_sel = 0 }
+		}
+	}
+	if = {
+		limit = { check_variable = { mod1440_ar_has_sel = 1 } }
+		set_temp_variable = { rm_v = mod1440_ar_sel }
+		mod1440_ch_place = yes
+		set_variable = { mod1440_ar_sel = rm_to }
+		if = {
+			limit = { check_variable = { mod1440_ar_sel = 0 } }
+			set_variable = { mod1440_ar_has_sel = 0 }
 		}
 	}
 	set_temp_variable = { rm_lost = 0 }
@@ -9540,7 +9551,7 @@ mod1440_of_seen = {
 			}
 		}
 		if = {
-			limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+			limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 			mod1440_p_officer = yes
 		}
 		if = {
@@ -9585,7 +9596,7 @@ mod1440_of_seen = {
 			}
 		}
 		if = {
-			limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+			limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 			mod1440_p_officer = yes
 		}
 		if = {
@@ -9627,7 +9638,7 @@ mod1440_of_list = {
 	for_each_scope_loop = {
 		array = mod1440_of_known
 		if = {
-			limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+			limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 			mod1440_p_officer = yes
 		}
 		set_temp_variable = { of_keep = 1 }
@@ -9889,7 +9900,7 @@ mod1440_of_card = {
 			set_variable = { PREV.mod1440_of_c_vps = mod1440_of_vps }
 			set_variable = { PREV.mod1440_of_c_vpl = mod1440_of_vpl }
 			if = {
-				limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+				limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 				mod1440_p_officer = yes
 			}
 			set_variable = { PREV.mod1440_of_c_p = mod1440_p }
@@ -11139,13 +11150,13 @@ mod1440_gv_daily = {
 	}
 	set_temp_variable = { p_face = token:GFX_portrait_unknown }
 	if = {
-		limit = { OR = { OR = { NOT = { check_variable = { mod1440_ld_p_ver = 20710 } } NOT = { check_variable = { mod1440_ld_p_ver_ep = global.mod1440_tk_ep } } } NOT = { check_variable = { mod1440_ld_p_of = country_leader } } } }
+		limit = { OR = { OR = { NOT = { check_variable = { mod1440_ld_p_ver = 95029 } } NOT = { check_variable = { mod1440_ld_p_ver_ep = global.mod1440_tk_ep } } } NOT = { check_variable = { mod1440_ld_p_of = country_leader } } } }
 		set_temp_variable = { p_ld = country_leader }
 		var:p_ld = {
 			mod1440_p_leader = yes
 		}
 		set_variable = { mod1440_ld_p = p_tok }
-		set_variable = { mod1440_ld_p_ver = 20710 }
+		set_variable = { mod1440_ld_p_ver = 95029 }
 		set_variable = { mod1440_ld_p_ver_ep = global.mod1440_tk_ep }
 		set_variable = { mod1440_ld_p_of = country_leader }
 	}
@@ -12537,13 +12548,13 @@ mod1440_wr_card = {
 			if = {
 				limit = { exists = yes }
 				if = {
-					limit = { OR = { OR = { NOT = { check_variable = { mod1440_ld_p_ver = 20710 } } NOT = { check_variable = { mod1440_ld_p_ver_ep = global.mod1440_tk_ep } } } NOT = { check_variable = { mod1440_ld_p_of = country_leader } } } }
+					limit = { OR = { OR = { NOT = { check_variable = { mod1440_ld_p_ver = 95029 } } NOT = { check_variable = { mod1440_ld_p_ver_ep = global.mod1440_tk_ep } } } NOT = { check_variable = { mod1440_ld_p_of = country_leader } } } }
 					set_temp_variable = { p_ld = country_leader }
 					var:p_ld = {
 						mod1440_p_leader = yes
 					}
 					set_variable = { mod1440_ld_p = p_tok }
-					set_variable = { mod1440_ld_p_ver = 20710 }
+					set_variable = { mod1440_ld_p_ver = 95029 }
 					set_variable = { mod1440_ld_p_ver_ep = global.mod1440_tk_ep }
 					set_variable = { mod1440_ld_p_of = country_leader }
 				}
@@ -12738,7 +12749,7 @@ mod1440_wr_card = {
 			add_to_variable = { mod1440_wr_k_n = 1 }
 			var:mod1440_wr_k_0 = {
 				if = {
-					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 					mod1440_p_officer = yes
 				}
 				set_variable = { PREV.mod1440_wr_k_0_p = mod1440_p }
@@ -12774,7 +12785,7 @@ mod1440_wr_card = {
 			add_to_variable = { mod1440_wr_k_n = 1 }
 			var:mod1440_wr_k_1 = {
 				if = {
-					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 					mod1440_p_officer = yes
 				}
 				set_variable = { PREV.mod1440_wr_k_1_p = mod1440_p }
@@ -12810,7 +12821,7 @@ mod1440_wr_card = {
 			add_to_variable = { mod1440_wr_k_n = 1 }
 			var:mod1440_wr_k_2 = {
 				if = {
-					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 					mod1440_p_officer = yes
 				}
 				set_variable = { PREV.mod1440_wr_k_2_p = mod1440_p }
@@ -12846,7 +12857,7 @@ mod1440_wr_card = {
 			add_to_variable = { mod1440_wr_k_n = 1 }
 			var:mod1440_wr_k_3 = {
 				if = {
-					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 					mod1440_p_officer = yes
 				}
 				set_variable = { PREV.mod1440_wr_k_3_p = mod1440_p }
@@ -12882,7 +12893,7 @@ mod1440_wr_card = {
 			add_to_variable = { mod1440_wr_k_n = 1 }
 			var:mod1440_wr_k_4 = {
 				if = {
-					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 					mod1440_p_officer = yes
 				}
 				set_variable = { PREV.mod1440_wr_k_4_p = mod1440_p }
@@ -12918,7 +12929,7 @@ mod1440_wr_card = {
 			add_to_variable = { mod1440_wr_k_n = 1 }
 			var:mod1440_wr_k_5 = {
 				if = {
-					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+					limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 					mod1440_p_officer = yes
 				}
 				set_variable = { PREV.mod1440_wr_k_5_p = mod1440_p }
@@ -13407,7 +13418,7 @@ mod1440_tr_taken = {
 		limit = { check_variable = { of_best > 0 } }
 		var:of_who = {
 			if = {
-				limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 20710 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
+				limit = { OR = { NOT = { check_variable = { mod1440_p_ver = 95029 } } NOT = { check_variable = { mod1440_p_ver_ep = global.mod1440_tk_ep } } } }
 				mod1440_p_officer = yes
 			}
 			set_temp_variable = { sr_p = mod1440_p }

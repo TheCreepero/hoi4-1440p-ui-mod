@@ -124,6 +124,16 @@ Not seen in a check (the user's verdict covers the strip as a whole, not these o
 
 None: the user's test found nothing to fix.
 
+### Fix round 2 (2026-10-17)
+
+Found by the first game check of D2 round 2 (the Army Readiness check also captures the top bar); the same generator. Fixed by the D2 builder.
+
+- **Issue:** in the first game check of D2 round 2 the top bar strip read "+2.32.." and "+0.28.." for political and command power per day (Germany, 1 January 1936; `scratch/phases/D2/topbar-crop.png`, the top bar of `scratch/checks/army_readiness-20261017-132225.png`), and `error.log` got "[bitmapfont.cpp:2861]: Could not find coloring for character '.'" twice a frame, about 4900 lines in one launch.
+- **Cause:** every chip's text box was as wide as its widest sample measured, with nothing to spare: "+2.00/d" and "+2.32/d" are 51 px in `hoi_18mbs` (the glyphs' advances; the game drew "+2.32" 35 px wide, as the fonts give it), and the box was 51. The game cuts a text that is as wide as its box. Its cut kept the "§" of the "§!" that ends the value's colour and dropped the "!", so the text ended in "§.." and the font asks for a colour named "." each frame. Stability and war support (67 of 67), consumer goods (42 of 42), the two manpower chips and the resources stood at the same edge.
+- **Fix** (`tools/build_managers.py`, "Top bar strip (D7)"): each chip names its widest plausible value (`widest` in `TB_CHIPS`), and the generator stops when a box cannot hold it with `TB_TEXT_MARGIN` = 3 px to spare, measured with the game's font (`tb_widths()`). Political power per day has one decimal now (`|+=1`, "+2.3/d"; up to "+99.9/d"); command power keeps two (up to "+9.99/d"). New widths: political power 93 (was 90), command power 90 (87), stability 109 (106), war support 108 (105), civilian factories 114 (119, for "999  99 free"), military factories 110 (115, "999  99 idle"), dockyards 102 (107, "99  99 idle"), fuel 131 (128, "9999K/9999K"), consumer goods 77 (74), manpower in the field 122 (119), in training 142 (139), resources 64 (61, "-999"). The eight defaults still end at x 1951 (909 of 912 px), now at 1042, 1139, 1233, 1346, 1470, 1588, 1702, 1820; the edit button stays at 1970. The room budget and the "Needs N px" tooltips follow the widths. The chip boxes `GFX_1440p_SG_topbox_<w>x26` of the D7 block of `interface/1440p_ui.gfx` were made at the new widths.
+- **Limits:** three-digit idle dockyards with a three-digit count, more than 99 free civilian factories, a weekly stability or war support change of 10% or more, and command power of 10 a day or more are cut with dots, without the colour error only if the cut does not fall at a colour code.
+- **Re-test:** the eight chips with nothing cut ("+2.3/d", "+0.28/d" for Germany in 1936), at the positions above, the edit button and the Records handle where they were; `error.log` without "Could not find coloring"; the panel's widths (93, 90, 109, 108, 114, 110, 102, 77, 131, 122, 142, 64 px).
+
 ## Close
 
 - [x] Roadmap status and link
