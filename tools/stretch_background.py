@@ -1042,6 +1042,23 @@ def archetype_picture(source, **archetypes):
     return out
 # --- end d2-readiness ---
 
+# --- A10 ---
+def ar_sky(source):
+    """The sky of the mission card of the air region window (A10): columns 14-538 and rows 152-430 of
+    strategic_air_bg.dds, so that the combat widgets keep their vanilla places over it."""
+    return source.crop((14, 152, 538, 430))
+
+
+def ar_channel_cell(width):
+    """The cell of a channel button, two frames of `width` x 24 (the code sets frame 2 on a ticked channel):
+    frame 1 transparent, frame 2 the pick band of the house (tiles/tiled_bg_noframe.dds, border 12)."""
+    def compose(source):
+        out = Image.new("RGBA", (width * 2, 24), (0, 0, 0, 0))
+        out.paste(tile_nine(source, (12, 12), width, 24), (width, 0))
+        return out
+    return compose
+# --- end A10 ---
+
 
 # One entry per output texture. `frames` lists one widening call per frame of the source, left to right;
 # `compose` is a function that builds the whole output from the source instead.
@@ -1636,6 +1653,24 @@ JOBS = [
         "compose": archetype_picture,
     },
     # --- end d2-readiness ---
+    # --- A10 ---
+    {
+        "source": "gfx/interface/strategicair/strategic_air_bg.dds",
+        "output": "ar_sky.dds",
+        "compose": ar_sky,
+    },
+    {
+        "source": "gfx/interface/tiles/tiled_bg_noframe.dds",
+        "output": "ar_channel_cell.dds",
+        "compose": ar_channel_cell(222),
+    },
+    {
+        # the cell of the fallback that keeps the game's whole channel texts (option A of the design)
+        "source": "gfx/interface/tiles/tiled_bg_noframe.dds",
+        "output": "ar_channel_cell_400.dds",
+        "compose": ar_channel_cell(400),
+    },
+    # --- end A10 ---
 ]
 
 

@@ -3562,6 +3562,41 @@ def screen_texts():
     has the word (W9). They share the localisation files of the pages."""
     # --- a6-overview: the caption of the Modifiers card in the army overview's rail
     B.key("ao_modifiers", "Modifiers")
+    # --- A10 ---
+    air_region_texts()
+
+
+# --- A10 ---
+# The air region window (interface/zz_1440p_air_region.gui) shows each channel of its table as a number in a cell and
+# the name of the row in a column of its own. The captions are texts of the mod; the cell text of each channel is the
+# game's key AIRVIEW_DETAILS_CHANNEL_<n> given again as its number only (the format after the bar is the game's:
+# decimals and a colour, red for Our and green for Enemy), in a file under replace/ so that it wins over the game's
+# (not seen in game: wiki/phases/A10-air-region.md). To go back to the game's whole texts (option A), set
+# AR_CHANNEL_VALUE_ONLY = False and lay the window out with the argument A (see the phase notes).
+AR_CHANNEL_VALUE_ONLY = True
+AR_CHANNEL_CAPTIONS = ["Buildings bombed", "Troops bombed", "Ships bombed / sunk", "Fighters lost", "Bombers lost", "CAS lost",
+                       "Transports lost", "Bombers disrupted", "Trains lost", "Trucks lost", "Railway guns lost",
+                       "Missiles lost"]
+# decimals of each channel's number, as the game has them (counts of planes and vehicles whole, the rest one decimal)
+AR_CHANNEL_DECIMALS = [1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1]
+
+
+def air_region_texts():
+    if AR_CHANNEL_VALUE_ONLY:
+        for i, caption in enumerate(AR_CHANNEL_CAPTIONS):
+            B.key("ar_ch_%d" % (i + 1), caption)
+
+
+def air_region_replace_files():
+    """localisation/<language>/replace/mod1440_ar_l_<language>.yml: the 24 channel keys as their number, under every
+    language (the colour and decimals do not depend on the language)."""
+    if not AR_CHANNEL_VALUE_ONLY:
+        return {}
+    entries = "".join(' AIRVIEW_DETAILS_CHANNEL_%d:0 "$VAL|%s%d$"\n' % (n + 1, "R" if n < 12 else "G", AR_CHANNEL_DECIMALS[n])
+                      for n in range(24))
+    return {"localisation/%s/replace/mod1440_ar_l_%s.yml" % (lang, lang): "\ufeffl_%s:\n" % lang + entries
+            for lang in LANGUAGES}
+# --- end A10 ---
 
 
 # ---------------------------------------------------------------- assembling the files
@@ -3629,6 +3664,7 @@ def build():
     entries = "".join(' %s:0 "%s"\n' % (key, value) for key, value in sorted(B.loc.items()))
     for language in LANGUAGES:
         B.files["localisation/%s/mod1440_l_%s.yml" % (language, language)] = "\ufeffl_%s:\n" % language + entries
+    B.files.update(air_region_replace_files())     # A10
     for rel, content in B.files.items():
         if rel.endswith((".gui", ".txt")) and content.count("{") != content.count("}"):
             raise ValueError("unbalanced braces in " + rel)

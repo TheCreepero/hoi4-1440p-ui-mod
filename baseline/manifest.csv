@@ -69,6 +69,7 @@
 "task_force_template_entry","interface/naviesview.gui","1.19.3.0","2242-2260","3831a6835399f24f550f939000f4f98884543c7b3ea914799b26469affc52a74"
 "taskforce_view_entry","interface/naviesview.gui","1.19.3.0","1262-1530","a729ba50f049904d5b5a3ef8a794c9a9a0e2c5cdb1e90ebbf67346bc29f98d8e"
 "railway_gun_stats_view","interface/railway_gun.gui","1.19.3.0","279-509","6144e5ea6e987fb4416cd3acb28053909395936dbb8ff860d141be6bcb1349e3"
+"strategicairview","interface/strategicairview.gui","1.19.3.0","25-1469","ced6fde5af9466b2520ec30e0e232be48455568680eb85a113a7e5693d167f6d"
 "air_theatre_free_wings_item","interface/theatreselector.gui","1.19.3.0","876-938","eb8f99ec94beaa0a88f545b07c07c760ff137602ef1a2911a1d4d7ba6c99ba3d"
 "air_theatre_group_row_item","interface/theatreselector.gui","1.19.3.0","1062-1088","e9fe28639fe265afad0ee0df4b57978584e5bfd2f3bf9738fb3067fc384e7dbf"
 "air_theatre_item","interface/theatreselector.gui","1.19.3.0","972-1059","65b683a48e378bf47ef4a7a376078ee14c356c7cda10150839712fff75b8fe46"

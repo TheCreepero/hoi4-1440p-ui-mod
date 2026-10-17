@@ -2789,4 +2789,195 @@ spriteTypes = {
 		tilingCenter = yes
 	}
 	# --- end D7 ---
+	# --- A10 ---
+	# Air region details (interface/zz_1440p_air_region.gui): the cards, head bars and bands of the window and its details
+	# panel, one sprite per size, tiles of vanilla textures as the manager pages have them; the plot of the chart; the sky of
+	# the mission card and the cell of a channel (two textures made by tools/stretch_background.py from vanilla pixels).
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_title"
+		size = { x = 574 y = 44 }
+		textureFile = "gfx//interface//header_bg.dds"
+		borderSize = { x = 61 y = 21 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_card_a"
+		size = { x = 568 y = 68 }
+		textureFile = "gfx//interface//tiles//tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_card_b"
+		size = { x = 568 y = 238 }
+		textureFile = "gfx//interface//tiles//tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_card_c"
+		size = { x = 568 y = 338 }
+		textureFile = "gfx//interface//tiles//tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_card_table"
+		size = { x = 902 y = 334 }
+		textureFile = "gfx//interface//tiles//tiled_plain_bg_small.dds"
+		borderSize = { x = 16 y = 16 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_head_forces"
+		size = { x = 552 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_head_missions"
+		size = { x = 552 y = 38 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_head_chart"
+		size = { x = 886 y = 38 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_head_table"
+		size = { x = 886 y = 30 }
+		textureFile = "gfx//interface//tiles//tiled_header_1.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_band_forces"
+		size = { x = 552 y = 32 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_band_table"
+		size = { x = 886 y = 24 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_plot"
+		size = { x = 800 y = 276 }
+		textureFile = "gfx//interface//tiles//black_bg_tile.dds"
+		borderSize = { x = 3 y = 3 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	# The grid lines of the plot: the game's 8x8 line tiles (trait_window), repeated over 800 (border 0, as vanilla declares them).
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_grid_800"
+		size = { x = 800 y = 8 }
+		textureFile = "gfx/interface/trait_window/trait_line_dotted_tile_8x8.png"
+		borderSize = { x = 0 y = 0 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_axis_800"
+		size = { x = 800 y = 8 }
+		textureFile = "gfx/interface/trait_window/trait_line_horizontal_tile_8x8.png"
+		borderSize = { x = 0 y = 0 }
+		tilingCenter = yes
+	}
+
+	# The air superiority bar, 284x16 (vanilla 250x14) on the vanilla textures, the bar for a region
+	# with no superiority to show, and the frame around it (air_progress_frame.dds, plain in the middle).
+	progressbartype = {
+		name = "GFX_1440p_AR_superiority"
+		color = { 0.0 0.5 0.0 }
+		colortwo = { 1.0 0.0 0.0 }
+		textureFile1 = "gfx/interface/strategicair/progress_good.dds"
+		textureFile2 = "gfx/interface/strategicair/progress_bad.dds"
+		size = { x = 284 y = 16 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_superiority_off"
+		size = { x = 284 y = 16 }
+		textureFile = "gfx/interface/strategicair/progress_disabled.dds"
+		borderSize = { x = 4 y = 4 }
+		tilingCenter = yes
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_superiority_frame"
+		size = { x = 290 y = 22 }
+		textureFile = "gfx/interface/strategicair/air_progress_frame.dds"
+		borderSize = { x = 6 y = 6 }
+		tilingCenter = yes
+	}
+
+	# The sky of the mission card: columns 14-538 and rows 152-430 of strategic_air_bg.dds, so that the combat widgets keep
+	# their vanilla places over it.
+	spriteType = {
+		name = "GFX_1440p_AR_sky"
+		texturefile = "gfx/interface/1440p_ui/ar_sky.dds"
+	}
+
+	# The cell of a channel, two frames (the code sets frame 2 on a ticked channel): frame 1 transparent, frame 2 the
+	# house's pick band. _400 is the cell of the fallback that keeps the game's whole channel texts (option A).
+	spriteType = {
+		name = "GFX_1440p_AR_channel_cell"
+		texturefile = "gfx/interface/1440p_ui/ar_channel_cell.dds"
+		noOfFrames = 2
+		effectFile = "gfx/FX/buttonstate.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_AR_channel_cell_400"
+		texturefile = "gfx/interface/1440p_ui/ar_channel_cell_400.dds"
+		noOfFrames = 2
+		effectFile = "gfx/FX/buttonstate.lua"
+	}
+
+	# Nothing drawn: the four number plates of the old header (not looked up by the code) stay where the layout puts them.
+	corneredTileSpriteType = {
+		name = "GFX_1440p_AR_hidden"
+		size = { x = 8 y = 8 }
+		textureFile = "gfx/interface/skill_transparent.dds"
+		borderSize = { x = 0 y = 0 }
+		tilingCenter = yes
+	}
+	# --- end A10 ---
 }

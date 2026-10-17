@@ -1,0 +1,199 @@
+{
+  "_comment": "Scene for the air region window (A10): strategicairview with its details panel. The default state is the window with Details closed, the capture 'details' the panel open. Values are the user's Western Poland of 2026-10-17 (the 30 days of Our fighters lost and Enemy fighters lost are drawn by the figures script, the renderer has no chart). Written by scratch/phases/A10/build/make_scene.py; keys are explained in wiki/Game-Recipes.md.",
+  "screen": "air_region",
+  "phase": "A10",
+  "file": "zz_1440p_air_region.gui",
+  "screenshot": "reference/mod/air_selection.jpg",
+  "windows": [
+    {
+      "name": "strategicairview",
+      "hide": [
+        "weather_none",
+        "weather_light_rain",
+        "weather_heavy_rain",
+        "weather_light_snow",
+        "weather_heavy_snow",
+        "weather_none_night",
+        "weather_heavy_rain_night",
+        "weather_light_snow_night",
+        "weather_heavy_snow_night",
+        "progress_disabled",
+        "crypto_broken_icon",
+        "wing_type_friendly_left_1",
+        "wing_type_friendly_left_2",
+        "wing_type_friendly_left_3",
+        "wing_type_friendly_left_4",
+        "our_fighter_equipment_icon",
+        "our_fighter_equipment_icon_2",
+        "our_fighters_count",
+        "enemy_fighter_equipment_icon",
+        "enemy_fighter_equipment_icon_2",
+        "enemy_fighters_count",
+        "our_bomber_equipment_icon",
+        "our_bomber_equipment_icon_2",
+        "our_bomber_equipment_icon_3",
+        "our_bombers_count",
+        "enemy_bomber_equipment_icon",
+        "enemy_bomber_equipment_icon_2",
+        "enemy_bomber_equipment_icon_3",
+        "enemy_bombers_count",
+        "details_wnd"
+      ],
+      "rows": {
+        "our_fighters_damage_list": 0,
+        "enemy_fighters_damage_list": 0,
+        "our_bombers_damage_list": 0,
+        "enemy_bombers_damage_list": 0
+      },
+      "frames": {},
+      "_note": "The window is centred and opens at its file position (712,300); the code does not place it (open in game, design item 7). Hidden in a 1936 peace: the weather pictures but one, the superiority 'disabled' bar, the crypto icon, the friendly-presence marks and every combat picture, count and damage list of air_combat_wnd (they show in a war)."
+    }
+  ],
+  "samples": {
+    "*": {
+      "region_name": "Western Poland",
+      "wing_type_left_text_1": "805",
+      "wing_type_left_text_2": "0",
+      "wing_type_left_text_3": "276",
+      "wing_type_left_text_4": "3",
+      "wing_type_right_text_1": "1282",
+      "wing_type_right_text_2": "3",
+      "wing_type_right_text_3": "294",
+      "wing_type_right_text_4": "55",
+      "detection_left_text": "5%",
+      "effeciency_left_text": "0%",
+      "effeciency_right_text": "100%",
+      "detection_right_text": "7%",
+      "max_value": "17.0",
+      "avg_value": "8.5",
+      "min_value": "0.0",
+      "min_x_value": "0",
+      "max_x_value": "30",
+      "x_axis_type": "Days",
+      "btn_channel_1": "\u00a7R0.0\u00a7!",
+      "btn_channel_13": "\u00a7G0.0\u00a7!",
+      "btn_channel_2": "\u00a7R22.0\u00a7!",
+      "btn_channel_14": "\u00a7G0.0\u00a7!",
+      "btn_channel_3": "\u00a7R0.0\u00a7!",
+      "btn_channel_15": "\u00a7G0\u00a7!",
+      "btn_channel_4": "\u00a7R136\u00a7!",
+      "btn_channel_16": "\u00a7G33\u00a7!",
+      "btn_channel_5": "\u00a7R0\u00a7!",
+      "btn_channel_17": "\u00a7G2\u00a7!",
+      "btn_channel_6": "\u00a7R15\u00a7!",
+      "btn_channel_18": "\u00a7G11\u00a7!",
+      "btn_channel_7": "\u00a7R0\u00a7!",
+      "btn_channel_19": "\u00a7G0\u00a7!",
+      "btn_channel_8": "\u00a7R0.0\u00a7!",
+      "btn_channel_20": "\u00a7G191.0\u00a7!",
+      "btn_channel_9": "\u00a7R0\u00a7!",
+      "btn_channel_21": "\u00a7G0\u00a7!",
+      "btn_channel_10": "\u00a7R0.0\u00a7!",
+      "btn_channel_22": "\u00a7G0.0\u00a7!",
+      "btn_channel_11": "\u00a7R0.0\u00a7!",
+      "btn_channel_23": "\u00a7G0.0\u00a7!",
+      "btn_channel_12": "\u00a7R0.0\u00a7!",
+      "btn_channel_24": "\u00a7G0.0\u00a7!"
+    }
+  },
+  "setup": [
+    {
+      "move": "select_airbase",
+      "_note": "air map mode, the airbase row and its wings"
+    },
+    {
+      "key": "escape",
+      "wait": 0.8,
+      "_note": "drops the selection, the air map mode stays"
+    },
+    {
+      "click": [
+        1485,
+        922
+      ],
+      "wait": 1.5,
+      "_note": "an empty spot of the strategic region Eastern Germany between Berlin and Silesia in the Home view (about 1485,922: ESTIMATED from reference/mod/air_selection.jpg, not measured). The first launch measures it with Invoke-GameSteps -Region on a grid capture; a region that is not Eastern Germany does not matter. Raw position: it breaks when the map view changes."
+    }
+  ],
+  "captures": [
+    {
+      "name": "details",
+      "_note": "Details open: the panel docks at the window's right.",
+      "steps": [
+        {
+          "clickWidget": "strategicairview/details_open",
+          "wait": 1.2
+        }
+      ],
+      "hide": {
+        "strategicairview": [
+          "weather_none",
+          "weather_light_rain",
+          "weather_heavy_rain",
+          "weather_light_snow",
+          "weather_heavy_snow",
+          "weather_none_night",
+          "weather_heavy_rain_night",
+          "weather_light_snow_night",
+          "weather_heavy_snow_night",
+          "progress_disabled",
+          "crypto_broken_icon",
+          "wing_type_friendly_left_1",
+          "wing_type_friendly_left_2",
+          "wing_type_friendly_left_3",
+          "wing_type_friendly_left_4",
+          "our_fighter_equipment_icon",
+          "our_fighter_equipment_icon_2",
+          "our_fighters_count",
+          "enemy_fighter_equipment_icon",
+          "enemy_fighter_equipment_icon_2",
+          "enemy_fighters_count",
+          "our_bomber_equipment_icon",
+          "our_bomber_equipment_icon_2",
+          "our_bomber_equipment_icon_3",
+          "our_bombers_count",
+          "enemy_bomber_equipment_icon",
+          "enemy_bomber_equipment_icon_2",
+          "enemy_bomber_equipment_icon_3",
+          "enemy_bombers_count"
+        ]
+      },
+      "frames": {
+        "strategicairview": {
+          "btn_channel_4": 2,
+          "btn_channel_16": 2,
+          "btn_days": 2,
+          "details_open": 2
+        }
+      }
+    }
+  ],
+  "expect": [
+    "strategicairview/close_button",
+    "strategicairview/details_open"
+  ],
+  "crop": [
+    690,
+    280,
+    1550,
+    760
+  ],
+  "manual": [
+    "The chart with data, a war region (combat pictures, counts and damage lists over the sky piece), a region with friendly airbases (the marks beside the wing icons) and a region with a crypto-broken enemy are not in a 1936 peace; in a paused 1936 game every count is 0 and the chart is empty: the code hides max, average and the x labels without statistics.",
+    "Where the click on the region lands is an estimate (see the step's note): measure it on the first launch."
+  ],
+  "checklist": [
+    "1. Recipe: air map mode, Escape, a click on an empty spot of a region opens the window at x 712, y 300 (the whole view 580x718 with Details closed). Does it clear the air wing panel (ends at x 705) and the theatre boxes (y 140-250)? Note where the window really sits.",
+    "2. Title strip: the region name in hoi_30header at the left (a long name such as Labrador and Newfoundland ends before the Details button), the Details button at x 400 and the close button at x 546 of the window. Escape and the close button close it.",
+    "3. Sky card: the weather picture sits inside its frame, the Air Superiority caption over the 284 px bar; the bar fills green over red by the region's superiority; with no superiority the grey 'disabled' bar shows instead; the crypto icon (if shown) sits at the picture's lower left.",
+    "4. Forces card: the six rows read Our value | icon | caption | icon | Enemy value, values right and left aligned to the icons, hoi_20b; the detection and efficiency icons at 24 px; the head bar says Our and Enemy. Hover a value: the tooltip of the vanilla text box (AIR_SUPERIORITY_TYPE_n) shows. No grey pill plate behind the detection and efficiency values.",
+    "5. Mission card: Our Missions, the three category buttons and Enemy Missions sit in the head bar over the sky picture; clicking a category button and the Our / Enemy toggles works as before; the tooltip boxes over the sky still show their tooltips.",
+    "6. Click Details: the panel opens 6 px right of the window (x 1298), 914x718. Click Details again: does the panel close? Days / Months / Years: the chosen button shows frame 2, the chart and the labels change.",
+    "7. The chart: a 800x276 plot with a dark ground. Tick one channel (the tick box and the cell both): a 3 px line in the swatch's colour; the largest value touches the upper dotted line and its half the middle one (compare with max_value and avg_value). The right end of the line is today, the labels read 30 ... Days ... 0. Tick a second and a third channel (any number draws). Untick: the line goes.",
+    "8. The labels: max_value, avg_value and min_value stand on their grid lines, 100.0 and up are not cut. With nothing ticked, or every value 0, max and avg are hidden by the code; with no statistics the three x labels are hidden.",
+    "9. The channel table: twelve rows, a caption each (the mod's English text under every language), Our cell and Enemy cell with a tick box, a swatch in the line's colour and the VALUE ONLY, red for Our and green for Enemy. If a cell shows the old whole text (Our fighters lost: 136) or the bare key AIRVIEW_DETAILS_CHANNEL_n: the localisation file under replace did not win (fallback A in build.json).",
+    "10. A ticked cell lights up (frame 2, the pick band) beside its coloured box; an unticked cell is transparent and still takes the click (frame 1). Click the value of a cell: does it tick the channel like the tick box?",
+    "11. Scroll nothing: there are no lists. Every row of the table is banded on even rows. Read error.log for sprite lines naming GFX_1440p_AR_ or GFX_strategicair_linechart.",
+    "12. Both states: details closed (window alone) and details open (1500 px wide, y 300 to 1018). Does the whole view stay clear of the right edge, the theatre boxes and the bottom bar?"
+  ]
+}

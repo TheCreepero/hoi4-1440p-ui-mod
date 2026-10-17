@@ -177,4 +177,13 @@ spriteTypes = {
 		texturefile = "gfx/interface/1440p_ui/ls_entry_active_faction_bg.dds"
 	}
 	# --- end c2-state-rows ---
+	# --- A10 ---
+	# A10, air region details: the chart of the air region window, 800x276 with lines of 3 (vanilla 380x150, 1.5). The chart
+	# is drawn at the sprite's size; only strategicairview.gui uses it.
+	LineChartType = {
+		name = "GFX_strategicair_linechart"
+		size = { x = 800 y = 276 }
+		linewidth = 3
+	}
+	# --- end A10 ---
 }

@@ -6,7 +6,7 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
 
 - **Game**: Hearts of Iron IV
 - **Supported Version**: `1.19.*`
-- **Mod Version**: `1.7`
+- **Mod Version**: `1.9`
 - **Tags**: Graphics, Utilities, Fixes
 - **Requires**: 2560x1440 or higher at 100% UI scale
 - **Ironman & Achievements**: Not compatible since version 1.5. The manager pages are scripted GUIs, and their script under `common/` changes the game checksum. In multiplayer every player needs the mod. The pages show values and keep records of their own; the one thing they write into the game is a line in a division's history (unit honours, see The Records).
@@ -43,6 +43,10 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
   - Equipment Details and Sunk Ships open beside the wider panel. New hotkey: `Shift+I` opens Equipment Details.
 - **Air wing reorganisation** (the window "Add new Air Wing" opens): 1240x995 instead of 1000x515, so each list shows ten plane types before it scrolls instead of four, and equipment names such as "Inter-War Medium Airframe" appear in full.
 - **Theatre boxes** (top right of the map): each theatre box and the rows under it are 420 px wide instead of 300, growing to the left: the theatre's name has more room, about twelve army shields fit side by side instead of eight, and the counts of the fleet rows no longer run into the next icon.
+- **Air region details** (the window that opens on a click on a strategic air region in the air map mode):
+  - The graph is 800x276 instead of 380x150, with thicker lines on a dark plot. Its grid lines sit on the two upper labels (the largest value shown and half of it), and the axis reads 30 to 0, days ago, as the newest day is at the right.
+  - The 24 statistics are one table: one row per kind (fighters lost, troops bombed and so on), Our and Enemy side by side, each with its tick box, the colour of its line and its number. A ticked cell lights up.
+  - The twelve numbers at the top are a captioned table: fighters, bombers, close air support planes, anti-air, air detection and efficiency, Our against Enemy. The air superiority bar has a caption, and the mission buttons sit in a bar above the cloud picture.
 
 ## Manager Pages
 

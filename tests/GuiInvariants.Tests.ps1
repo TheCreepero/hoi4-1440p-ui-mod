@@ -268,6 +268,8 @@ Describe 'Mod sprites' {
             'GFX_marshal_selection_active_entry_bg'            = 'C2 general rows'
             'GFX_leader_selection_entry_bg_faction'            = 'C2 general rows (faction commander window)'
             'GFX_leader_selection_active_entry_bg_faction'     = 'C2 general rows (faction commander window)'
+            # --- A10 ---
+            'GFX_strategicair_linechart'                       = 'A10 chart of the air region window'
         }
         $redefinitionFile = 'zz_1440p_vanilla_sprites.gfx'
         $wrong = foreach ($file in @(Get-ModGuiFiles -Filter '*.gfx')) {
@@ -285,6 +287,7 @@ Describe 'Mod sprites' {
         # Textures may come from the mod or from vanilla. Without a game install (CI) only the mod is checked.
         $gameDir = Resolve-HoiGameDir
         $missing = foreach ($sprite in $script:DeclaredSprites) {
+            if ($sprite.Type -ieq 'LineChartType') { continue }   # A10: a chart has a size and a line width, no texture
             if (-not $sprite.Textures.Count) { "$($sprite.Name): no texturefile"; continue }
             foreach ($texture in $sprite.Textures) {
                 if (Test-Path (Join-Path $script:RepoRoot $texture)) { continue }
