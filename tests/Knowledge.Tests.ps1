@@ -1,6 +1,10 @@
 BeforeAll {
     $script:RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
     $script:AuditScript = $null
+    $treeCandidate = Join-Path $PSScriptRoot '..\..\..\Scripts\Knowledge\Test-HoiKnowledge.ps1'
+    if (Test-Path -LiteralPath $treeCandidate) {
+        $script:AuditScript = [System.IO.Path]::GetFullPath($treeCandidate)
+    }
     $pointerPaths = @(
         (Join-Path $HOME '.claude\skills\hoi4-modding-knowledge\manager-root.txt'),
         (Join-Path $HOME '.gemini\config\skills\hoi4-modding-knowledge\manager-root.txt')

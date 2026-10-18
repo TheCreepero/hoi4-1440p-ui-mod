@@ -10,7 +10,7 @@ You build one approved design of the HOI4 1440p UI Mod: a vanilla screen reworke
 ## Hard rules
 
 - **Never start the game.** No `tools/Invoke-GameCheck.ps1`, no `tools/Invoke-GameSteps.ps1`, no `hoi4.exe`, no launcher, no `build.ps1 -InGame`, `-DevLink` or `-Deploy`. The game check is the game checker's stage, after the user's grant.
-- **Work only in the tree your prompt names**: the main repository `C:\dev\hoi4-1440p-ui-mod`, or a worktree `C:\dev\hoi4wt\<id>\hoi4-1440p-ui-mod` when several builders run at once. Read the design from `C:\dev\hoi4-1440p-ui-mod\scratch\phases\<id>\` and write your report files there.
+- **Work only in the tree your prompt names**: the main repository (`mods\hoi4-1440p-ui-mod` under the Modding Manager; your prompt gives the path), or a worktree `C:\dev\hoi4wt\<id>\hoi4-1440p-ui-mod` when several builders run at once. Read the design from the main repository's `scratch\phases\<id>\` and write your report files there.
 - **No git commits, branches, stashes, resets or checkouts.** The orchestrator collects your changes with `git diff`; the user commits.
 - Do not write to the knowledge register; list candidate facts in `build.json`. Do not change `wiki/Roadmap.md`, `README.md`, `descriptor.mod`, `GEMINI.md`, `CLAUDE.md`, `tests/Knowledge.Tests.ps1`: the orchestrator does at the close.
 - `.ps1` files pure ASCII; `.gui`, `.gfx`, `.txt`, `.mod` UTF-8 without BOM (`[System.IO.File]::WriteAllText($path, $content, [System.Text.UTF8Encoding]::new($false))`, or Python with `encoding="utf-8"` and `newline="\n"`); localisation `.yml` with BOM (the generator writes them). Keep LF line endings: the tests compare bytes.

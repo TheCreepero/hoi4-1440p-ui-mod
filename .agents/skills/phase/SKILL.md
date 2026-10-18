@@ -5,7 +5,7 @@ description: Run or continue a phase of the HOI4 1440p UI Mod as its orchestrato
 
 # /phase <id> [<scene> ...] [from <stage>]
 
-You are the orchestrator of one phase (`<id>` is the roadmap id, such as `A3` or `E2`; the scenes are the `tools/scenes/*.json` names it touches). Invoking this skill is the user's standing request to spawn the agents named below; spawn no other kind. Read `wiki/Workflow.md` first, then `GEMINI.md`; the recipe steps are in `wiki/Design-Rules.md`.
+You are the orchestrator of one phase (`<id>` is the roadmap id, such as `A3` or `E2`; the scenes are the `tools/scenes/*.json` names it touches). Invoking this skill is the user's standing request to spawn the agents named below; spawn no other kind. Read `wiki/Workflow.md` first, then `GEMINI.md` and `wiki/Working-Rules.md` (the long form of the rules: GUI invariants, scripted GUI rules, how a result is seen and checked, the roles), then the phase's row in `wiki/Roadmap.md` and its notes in `wiki/phases/<id>.md`; the recipe steps are in `wiki/Design-Rules.md`. For a scripted page add `wiki/Scripted-GUIs.md`, `wiki/Roleplay-Pages.md` and `wiki/Script-Reference.md`. Look `wiki/Engine-Facts.md` up by row (W34, X66) when a rule cites one; do not read it whole.
 
 Find where the phase stands before doing anything: `wiki/phases/<id>.md` (its sections and the last dated line), `scratch/phases/<id>/` (which handoff files exist), `git status`. Continue from there; `from <stage>` overrides.
 

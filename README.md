@@ -102,7 +102,7 @@ Limits: no page can take typed text, so nothing can be renamed or annotated ther
 This repository adheres to the standard single-root Hearts of Iron IV mod architecture:
 
 ```
-C:\dev\hoi4-1440p-ui-mod/
+hoi4-1440p-ui-mod/
 |-- .git/                           # Git repository root
 |-- descriptor.mod                  # Clausewitz engine descriptor
 |-- thumbnail.png                   # Steam Workshop thumbnail (512x512)

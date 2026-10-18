@@ -80,6 +80,16 @@ function Select-ModBuildParameters {
 }
 
 function Get-ModManagerRoot {
+    $relativeCandidates = @(
+        (Join-Path $PSScriptRoot '..\..\..\..'),
+        (Join-Path $PSScriptRoot '..\..')
+    )
+    foreach ($relativeCandidate in $relativeCandidates) {
+        $candidateRoot = [System.IO.Path]::GetFullPath($relativeCandidate).TrimEnd('\')
+        if (Test-Path -LiteralPath (Join-Path $candidateRoot 'Config\mods_registry.json')) {
+            return $candidateRoot
+        }
+    }
     $pointerPaths = @(
         (Join-Path $HOME '.claude\skills\hoi4-modding-knowledge\manager-root.txt'),
         (Join-Path $HOME '.gemini\config\skills\hoi4-modding-knowledge\manager-root.txt')
@@ -628,13 +638,17 @@ function Set-ModRegistryWorkshopId {
     }
     $entryUpdated = $false
     foreach ($registryEntry in $registryEntries) {
-        if (([string]$registryEntry.localPath).TrimEnd('\') -ieq $Config.RepoDir) {
+        $entryPath = ([string]$registryEntry.localPath).TrimEnd('\')
+        if (-not [System.IO.Path]::IsPathRooted($entryPath)) {
+            $entryPath = [System.IO.Path]::GetFullPath((Join-Path $managerRoot $entryPath)).TrimEnd('\')
+        }
+        if ($entryPath -ieq ([string]$Config.RepoDir).TrimEnd('\')) {
             $registryEntry.steamWorkshopId = $RemoteFileId
             $entryUpdated = $true
         }
     }
     if ($entryUpdated) {
-        [System.IO.File]::WriteAllText($registryPath, (($registryEntries | ConvertTo-Json -Depth 5) + "`r`n"), (Get-ModUtf8NoBom))
+        [System.IO.File]::WriteAllText($registryPath, ((ConvertTo-Json -InputObject @($registryEntries) -Depth 5) + "`r`n"), (Get-ModUtf8NoBom))
     }
     return $entryUpdated
 }
