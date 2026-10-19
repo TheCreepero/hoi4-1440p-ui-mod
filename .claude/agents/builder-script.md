@@ -12,13 +12,13 @@ You build one approved design of the HOI4 1440p UI Mod: a scripted page, or a fi
 - **Never start the game.** No `tools/Invoke-GameCheck.ps1`, no `tools/Invoke-GameSteps.ps1`, no `hoi4.exe`, no launcher, no `build.ps1 -InGame`, `-DevLink` or `-Deploy`. The game check is the game checker's stage, after the user's grant.
 - **Work only in the tree your prompt names**: the main repository (`mods\hoi4-1440p-ui-mod` under the Modding Manager; your prompt gives the path), or a worktree `C:\dev\hoi4wt\<id>\hoi4-1440p-ui-mod` when several builders run at once. Read the design from the main repository's `scratch\phases\<id>\` and write your report files there.
 - **No git commits, branches, stashes, resets or checkouts.** The orchestrator collects your changes with `git diff`; the user commits.
-- Do not write to the knowledge register; list candidate facts in `build.json`. Do not change `wiki/Roadmap.md`, `README.md`, `descriptor.mod`, `GEMINI.md`, `CLAUDE.md`, `tests/Knowledge.Tests.ps1`: the orchestrator does at the close.
+- Do not write to the knowledge register; list candidate facts in `build.json`. Do not change `wiki/Roadmap.md`, `README.md`, `descriptor.mod`, `AGENTS.md`, `GEMINI.md`, `CLAUDE.md`, `tests/Knowledge.Tests.ps1`: the orchestrator does at the close.
 - `.ps1` files pure ASCII; `.gui`, `.gfx`, `.txt`, `.mod` UTF-8 without BOM (`[System.IO.File]::WriteAllText($path, $content, [System.Text.UTF8Encoding]::new($false))`, or Python with `encoding="utf-8"` and `newline="\n"`); localisation `.yml` with BOM (the generator writes them). Keep LF line endings: the tests compare bytes.
 - Python as `python -I`. Write a script that contains a backslash with the Write tool, not a Bash heredoc. Layout scripts go under `scratch/` or your report folder.
 
 ## Read first
 
-1. `GEMINI.md` (the project rules) and `wiki/Workflow.md` (your place in the phase), then `wiki/Design-Rules.md`, recipe steps 3 to 6.
+1. `AGENTS.md` (the project rules) and `wiki/Workflow.md` (your place in the phase), then `wiki/Design-Rules.md`, recipe steps 3 to 6.
 2. Your design: `scratch/phases/<id>/design.json`, the user's decisions in `decisions-final.json` beside it (where `by` is "agent recommendation", follow the recommendation), the mock-ups and the mock-up scripts (they hold the measured positions).
 3. `scratch/phases/<id>/contracts.md`: hotkeys, shared rows and windows, shared files and their owners.
 4. Your phase notes in `wiki/phases/<id>.md` and the files the design names.
@@ -48,7 +48,7 @@ The orchestrator continues you with the findings of a game check or of the user'
 
 ## This builder: scripted pages
 
-- Read also `wiki/Scripted-GUIs.md` (rules, "Working on a page"), `wiki/Roleplay-Pages.md`, `wiki/Script-Reference.md`, and GEMINI.md section 2a in full.
+- Read also `wiki/Scripted-GUIs.md` (rules, "Working on a page"), `wiki/Roleplay-Pages.md`, `wiki/Script-Reference.md`, and `wiki/Working-Rules.md` section 2a in full.
 - Change the generator (`tools/build_managers.py`, `tools/build_records.py`), never its output, then run `python -I tools/build_managers.py`. Look every effect, trigger and variable up in the game's `documentation/` folder or with `hoi4-vanilla-lookup`, never from memory. A new command goes into the list in `tests/ScriptedGuis.Tests.ps1` first. Tables made from the game or the playset go through `tools/make_game_tables.py`.
 - Officers are reached with `every_army_leader` and `every_navy_leader` and kept through `mod1440_of_me`, never `THIS`. Every page is `player_context` and shows the own country only. A page docked to a tab needs `clipping = no` on that tab's window in the mod's override file.
 - A value a page shows is compared with the game's own number in the game check: name the comparison in the checker's checklist (which number, where the game shows it).

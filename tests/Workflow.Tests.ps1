@@ -43,8 +43,8 @@ Describe 'Orchestrated phase workflow' {
         }
     }
 
-    It 'GEMINI.md, Home.md and the sidebar point to the Workflow page' {
-        (Read-RepoText 'GEMINI.md') | Should -Match 'wiki/Workflow\.md'
+    It 'AGENTS.md, Home.md and the sidebar point to the Workflow page' {
+        (Read-RepoText 'AGENTS.md') | Should -Match 'wiki/Workflow\.md'
         (Read-RepoText 'wiki/Home.md') | Should -Match '\(Workflow\.md\)'
         (Read-RepoText 'wiki/_Sidebar.md') | Should -Match '\(Workflow\.md\)'
     }

@@ -16,7 +16,7 @@ You design one component (a vanilla screen or a scripted page) of the HOI4 1440p
 
 ## Read first
 
-1. `GEMINI.md` (the project rules; `CLAUDE.md` points to it) and `wiki/Workflow.md` (your place in the phase).
+1. `AGENTS.md` (the project rules; `CLAUDE.md` and `GEMINI.md` point to it) and `wiki/Workflow.md` (your place in the phase).
 2. `wiki/Roadmap.md` (Decisions, your phase's row), `wiki/Design-Rules.md` (all of it: "What a redesign can add" and the recipe, steps 1 and 2, are your work), your phase notes in `wiki/phases/` if they exist, and `scratch/phases/<id>/contracts.md`.
 3. For a scripted page: `wiki/Scripted-GUIs.md`, `wiki/Roleplay-Pages.md`, `wiki/Script-Reference.md`, and the generator (`tools/build_managers.py`, `tools/build_records.py`): the pages are generated, so the generator says what a page really shows.
 4. The screens built last as the model of the design language: `wiki/phases/A9-card-pass.md`, `wiki/phases/C1-production.md`, `wiki/phases/C2-leader-selection.md` and their files.

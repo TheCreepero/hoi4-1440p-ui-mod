@@ -1,8 +1,8 @@
 # Working Rules
 
-The detailed working rules of the agents on this mod: the GUI and file invariants, the scripted GUI rules, how a result is seen and checked, and the roles of a phase. `GEMINI.md` holds the short form and says when to read which section; the `/phase` skill reads this page at the start of a phase.
+The detailed working rules of the agents on this mod: the GUI and file invariants, the scripted GUI rules, how a result is seen and checked, and the roles of a phase. `AGENTS.md` holds the short form and says when to read which section; the `/phase` skill reads this page at the start of a phase.
 
-Moved here from `GEMINI.md` on 2026-10-18, when the rule file was reduced to the rules that always apply; `GEMINI.md` says when to read which section.
+Moved here from `GEMINI.md` on 2026-10-18, when the rule file was reduced to the rules that always apply; `AGENTS.md` says when to read which section.
 
 ## 1. Phased Work
 - **Phased Work**: The mod is built one screen per phase. Before starting or continuing a phase, read `wiki/Roadmap.md` (phase list, status), `wiki/Workflow.md` (who does each step, the handoffs and the user's gates; section 7), `wiki/Design-Rules.md` (the rules and the per-screen recipe), `wiki/Engine-Facts.md` (what is confirmed, provisional or untested about the engine) and the phase's notes in `wiki/phases/` (template: `wiki/Phase-Template.md`).

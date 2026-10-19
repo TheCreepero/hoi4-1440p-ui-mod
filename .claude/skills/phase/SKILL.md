@@ -5,7 +5,7 @@ description: Run or continue a phase of the HOI4 1440p UI Mod as its orchestrato
 
 # /phase <id> [<scene> ...] [from <stage>]
 
-You are the orchestrator of one phase (`<id>` is the roadmap id, such as `A3` or `E2`; the scenes are the `tools/scenes/*.json` names it touches). Invoking this skill is the user's standing request to spawn the agents named below; spawn no other kind. Read `wiki/Workflow.md` first, then `GEMINI.md` and `wiki/Working-Rules.md` (the long form of the rules: GUI invariants, scripted GUI rules, how a result is seen and checked, the roles), then the phase's row in `wiki/Roadmap.md` and its notes in `wiki/phases/<id>.md`; the recipe steps are in `wiki/Design-Rules.md`. For a scripted page add `wiki/Scripted-GUIs.md`, `wiki/Roleplay-Pages.md` and `wiki/Script-Reference.md`. Look `wiki/Engine-Facts.md` up by row (W34, X66) when a rule cites one; do not read it whole.
+You are the orchestrator of one phase (`<id>` is the roadmap id, such as `A3` or `E2`; the scenes are the `tools/scenes/*.json` names it touches). Invoking this skill is the user's standing request to spawn the agents named below; spawn no other kind. Read `wiki/Workflow.md` first, then `AGENTS.md` and `wiki/Working-Rules.md` (the long form of the rules: GUI invariants, scripted GUI rules, how a result is seen and checked, the roles), then the phase's row in `wiki/Roadmap.md` and its notes in `wiki/phases/<id>.md`; the recipe steps are in `wiki/Design-Rules.md`. For a scripted page add `wiki/Scripted-GUIs.md`, `wiki/Roleplay-Pages.md` and `wiki/Script-Reference.md`. Look `wiki/Engine-Facts.md` up by row (W34, X66) when a rule cites one; do not read it whole.
 
 Find where the phase stands before doing anything: `wiki/phases/<id>.md` (its sections and the last dated line), `scratch/phases/<id>/` (which handoff files exist), `git status`. Continue from there; `from <stage>` overrides.
 
@@ -30,6 +30,6 @@ Tick each stage in your own working notes as it closes. Never skip a user gate.
 - Continue an agent with `SendMessage` while it exists; spawn a new one only when it is gone. Each agent starts cold, so the brief names every file it needs and nothing it does not.
 - Never start the game yourself and never let an agent start it without the user's grant for exactly those launches. Never commit; the user does.
 - Review means reading the artefact, not the agent's summary of it: the JSON, every PNG, the baseline diff, the test output.
-- You alone write the knowledge register and `wiki/Roadmap.md`, `README.md`, `descriptor.mod`, `GEMINI.md`.
+- You alone write the knowledge register and `wiki/Roadmap.md`, `README.md`, `descriptor.mod`, `AGENTS.md`.
 - Log every launch and every decision in `wiki/phases/<id>.md` the day it happens; the handoff files under `scratch/` are not in the repository.
 - When the user brings issues from their own game (a list, screenshots), enter at stage 9 with them as findings.
