@@ -206,7 +206,7 @@ Python 3 with Pillow is needed for the renderer and the texture script (`python 
 
 ## Automated Testing
 
-Unit tests are written with [Pester](https://pester.dev) and located in `tests/`. Execute tests using:
+Unit tests are written with [Pester](https://pester.dev) and located in `tests/`. The render tests draw every window and scene in one `python -I tools/render_gui.py --batch` process and write the images to `scratch/test-renders/`; decoded textures are kept under `scratch/cache/textures/`. Execute tests using:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tests\Run-Tests.ps1

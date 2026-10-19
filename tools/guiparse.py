@@ -15,6 +15,56 @@ import sys
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+_images = {}
+_memo = {}
+
+
+def load_image(path, mod_dir=REPO_ROOT):
+    """An image file as RGBA, decoded once per process and kept as a PNG under scratch/cache/textures.
+
+    Pillow decodes the game's DDS files in pure Python, which was most of a render's time; a PNG of the
+    decoded pixels reads back in a fraction of it, and is the same pixels.
+    """
+    import hashlib
+    from PIL import Image
+
+    if path in _images:
+        return _images[path]
+    stat = os.stat(path)
+    key = hashlib.md5(("%s|%d|%d" % (os.path.normcase(os.path.abspath(path)), stat.st_mtime_ns, stat.st_size)).encode("utf-8")).hexdigest()
+    cache_dir = os.path.join(mod_dir, "scratch", "cache", "textures")
+    cached = os.path.join(cache_dir, key + ".png")
+    img = None
+    if os.path.isfile(cached):
+        try:
+            img = Image.open(cached).convert("RGBA")
+        except Exception:
+            img = None
+    if img is None:
+        img = Image.open(path).convert("RGBA")
+        try:   # a read-only or missing scratch folder must not stop a render
+            os.makedirs(cache_dir, exist_ok=True)
+            img.save(cached + ".tmp", format="PNG")
+            os.replace(cached + ".tmp", cached)
+        except Exception:
+            pass
+    _images[path] = img
+    return img
+
+
+def memoized(loader):
+    """One result per process for a loader called with the same arguments (the batch mode of render_gui.py)."""
+    import functools
+
+    @functools.wraps(loader)
+    def wrapper(*args, **kwargs):
+        key = (loader.__name__, args, tuple(sorted(kwargs.items())))
+        if key not in _memo:
+            _memo[key] = loader(*args, **kwargs)
+        return _memo[key]
+    return wrapper
+
+
 TOKEN_RE = re.compile(r'#[^\r\n]*|"[^"]*"|[{}=]|[^\s{}=#"]+')
 
 
@@ -286,6 +336,7 @@ def gfx_files(folder):
     return sorted(out)
 
 
+@memoized
 def load_sprites(game_dir, mod_dir=REPO_ROOT, verbose=False):
     """name -> Sprite over every vanilla .gfx file, then the mod's (the mod wins), with a cache under scratch/."""
     import pickle
@@ -366,8 +417,6 @@ class BitmapFont:
         return total
 
     def page_image(self, page_id):
-        from PIL import Image
-
         if page_id not in self.page_images:
             file_name = self.pages.get(page_id)
             candidates = []
@@ -377,7 +426,7 @@ class BitmapFont:
             candidates += [stem + ext for ext in (".dds", ".tga", ".png")]
             for candidate in candidates:
                 if os.path.isfile(candidate):
-                    self.page_images[page_id] = Image.open(candidate).convert("RGBA")
+                    self.page_images[page_id] = load_image(candidate)
                     break
             else:
                 raise FileNotFoundError("no page image for " + self.path)
@@ -413,6 +462,7 @@ class BitmapFont:
         return cursor - x
 
 
+@memoized
 def font_declarations(game_dir, mod_dir=REPO_ROOT):
     """name -> (first fontfile path without extension, colour) from the bitmapfonts blocks of every .gfx."""
     out = {}
@@ -474,6 +524,7 @@ def load_font(name, game_dir, mod_dir=REPO_ROOT, declarations=None):
 # ---------------------------------------------------------------- localisation
 
 
+@memoized
 def load_localisation(game_dir, mod_dir=REPO_ROOT, language="english"):
     """KEY -> text from localisation/<language>/*.yml, vanilla first then the mod (the mod wins)."""
     out = {}

@@ -337,13 +337,98 @@ function Compare-GuiWindows {
     }
 }
 
-# The vanilla reference copy of a window, as saved by Export-VanillaBaseline.ps1, or $null.
+# A file parsed once per process: the Pester suites ask for the same 18 files hundreds of times. The key
+# carries the write time and the length, so a file edited meanwhile is parsed again.
+function Get-GuiParsedFile {
+    param([Parameter(Mandatory)][string]$Path)
+
+    if (-not $script:GuiParsedFiles) { $script:GuiParsedFiles = @{} }
+    $item = Get-Item -LiteralPath $Path
+    $key = "$($item.FullName)|$($item.LastWriteTimeUtc.Ticks)|$($item.Length)"
+    if (-not $script:GuiParsedFiles.ContainsKey($key)) {
+        $script:GuiParsedFiles[$key] = ConvertFrom-GuiText -Text (Read-GuiText -Path $item.FullName)
+    }
+    return $script:GuiParsedFiles[$key]
+}
+
+# Every top-level window of every .gui file under a folder (the mod's interface/), with the file it is in.
+# Built once per process and set of files; a window defined twice is listed twice.
+function Get-GuiModWindows {
+    param([Parameter(Mandatory)][string]$InterfaceDir)
+
+    if (-not $script:GuiModWindowSets) { $script:GuiModWindowSets = @{} }
+    $files = @()
+    if (Test-Path -LiteralPath $InterfaceDir) {
+        $files = @(Get-ChildItem -LiteralPath $InterfaceDir -Recurse -File -Filter '*.gui' | Sort-Object FullName)
+    }
+    $key = @($files | ForEach-Object { "$($_.FullName)|$($_.LastWriteTimeUtc.Ticks)|$($_.Length)" }) -join "`n"
+    if (-not $script:GuiModWindowSets.ContainsKey($key)) {
+        $windows = [System.Collections.Generic.List[object]]::new()
+        foreach ($file in $files) {
+            $root = Get-GuiParsedFile -Path $file.FullName
+            foreach ($window in @(Get-GuiTopLevelWindows -Root $root)) {
+                $windows.Add([pscustomobject]@{ Name = $window.Name; Type = $window.Type; Node = $window.Node; File = $file.Name; FullPath = $file.FullName; Line = $window.Line; EndLine = $window.EndLine })
+            }
+        }
+        $script:GuiModWindowSets[$key] = $windows
+    }
+    return @($script:GuiModWindowSets[$key])
+}
+
+# Many render_gui.py calls in one Python process (its --batch mode). $Jobs holds hashtables with an id and
+# an args array; the result maps each id to @{ Exit; Output }, and '*' to the whole run.
+function Invoke-GuiRenderBatch {
+    param(
+        [Parameter(Mandatory)][string]$Python,
+        [Parameter(Mandatory)][string]$RenderPy,
+        [Parameter(Mandatory)]$Jobs,
+        [Parameter(Mandatory)][string]$JobsPath
+    )
+
+    $jobsDir = Split-Path -Parent $JobsPath
+    if (-not (Test-Path -LiteralPath $jobsDir)) { New-Item -ItemType Directory -Path $jobsDir -Force | Out-Null }
+    $json = ConvertTo-Json -InputObject @($Jobs) -Depth 4
+    [System.IO.File]::WriteAllText($JobsPath, $json, [System.Text.UTF8Encoding]::new($false))
+
+    $lines = @(& $Python -I $RenderPy --batch $JobsPath 2>&1 | ForEach-Object { "$_" })
+    $results = @{ '*' = @{ Exit = $LASTEXITCODE; Output = $lines } }
+    $current = $null
+    foreach ($line in $lines) {
+        if ($line -match '^=== JOB (.*) ===$') {
+            $current = $Matches[1]
+            $results[$current] = @{ Exit = $null; Output = [System.Collections.Generic.List[string]]::new() }
+            continue
+        }
+        if ($line -match '^=== END (.*) exit (-?\d+) ===$') {
+            if ($results.ContainsKey($Matches[1])) { $results[$Matches[1]].Exit = [int]$Matches[2] }
+            $current = $null
+            continue
+        }
+        if ($current) { $results[$current].Output.Add($line) }
+    }
+    return $results
+}
+
+# The vanilla reference copy of a window, as saved by Export-VanillaBaseline.ps1, or $null. The folder is
+# indexed once per process and every baseline parsed once.
 function Find-GuiBaseline {
     param([Parameter(Mandatory)][string]$BaselineDir, [Parameter(Mandatory)][string]$Name)
 
     if (-not (Test-Path -LiteralPath $BaselineDir)) { return $null }
-    $file = Get-ChildItem -LiteralPath $BaselineDir -Recurse -File -Filter "$Name.gui" | Select-Object -First 1
+    if (-not $script:GuiBaselineIndex) { $script:GuiBaselineIndex = @{} }
+    if (-not $script:GuiBaselines) { $script:GuiBaselines = @{} }
+    $dirKey = (Resolve-Path -LiteralPath $BaselineDir).Path.ToLowerInvariant()
+    if (-not $script:GuiBaselineIndex.ContainsKey($dirKey)) {
+        $index = @{}
+        foreach ($candidate in @(Get-ChildItem -LiteralPath $BaselineDir -Recurse -File -Filter '*.gui')) {
+            if (-not $index.ContainsKey($candidate.BaseName)) { $index[$candidate.BaseName] = $candidate }
+        }
+        $script:GuiBaselineIndex[$dirKey] = $index
+    }
+    $file = $script:GuiBaselineIndex[$dirKey][$Name]
     if (-not $file) { return $null }
+    $cacheKey = "$dirKey|$Name"
+    if ($script:GuiBaselines.ContainsKey($cacheKey)) { return $script:GuiBaselines[$cacheKey] }
 
     $text = (Read-GuiText -Path $file.FullName) -replace "`r`n", "`n"
     $window = @(Get-GuiTopLevelWindows -Root (ConvertFrom-GuiText -Text $text))[0]
@@ -356,7 +441,7 @@ function Find-GuiBaseline {
         $source = $Matches[2]
     }
     $lines = $text -split "`n"
-    return [pscustomobject]@{
+    $baseline = [pscustomobject]@{
         Name        = $window.Name
         Node        = $window.Node
         Path        = $file.FullName
@@ -364,6 +449,8 @@ function Find-GuiBaseline {
         Source      = $source
         Lines       = $lines[($window.Line - 1)..($window.EndLine - 1)]
     }
+    $script:GuiBaselines[$cacheKey] = $baseline
+    return $baseline
 }
 
 # Width of a window, list or tiled button. Windows write width/height, list boxes and buttons x/y.

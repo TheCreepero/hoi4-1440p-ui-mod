@@ -38,15 +38,10 @@ BeforeAll {
         }
     }
 
-    # The top-level container of a scripted GUI, from whichever mod .gui file defines it.
+    # The top-level container of a scripted GUI, from whichever mod .gui file defines it (parsed once, tools/GuiParsing.ps1).
     function Find-Container {
         param([string]$Name)
-        foreach ($file in @(Get-ChildItem -Path (Join-Path $script:RepoRoot 'interface') -Recurse -File -Filter '*.gui')) {
-            $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)
-            $window = @(Get-GuiTopLevelWindows -Root $root | Where-Object { $_.Name -eq $Name })[0]
-            if ($window) { return $window }
-        }
-        return $null
+        return @(Get-GuiModWindows -InterfaceDir (Join-Path $script:RepoRoot 'interface') | Where-Object { $_.Name -eq $Name })[0]
     }
 
     function Get-WidgetNames {

@@ -13,12 +13,10 @@ BeforeDiscovery {
     $interfaceDir = Join-Path $repoRoot 'interface'
     if (Test-Path $interfaceDir) {
         foreach ($file in (Get-ChildItem -Path $interfaceDir -Recurse -File -Filter '*.gui')) {
-            $relPath = $file.FullName.Substring($repoRoot.Length + 1)
-            $guiFileCases += @{ RelPath = $relPath; FullPath = $file.FullName }
-            $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)
-            foreach ($window in @(Get-GuiTopLevelWindows -Root $root)) {
-                $windowCases += @{ Window = $window.Name; RelPath = $relPath; FullPath = $file.FullName }
-            }
+            $guiFileCases += @{ RelPath = $file.FullName.Substring($repoRoot.Length + 1); FullPath = $file.FullName }
+        }
+        foreach ($window in @(Get-GuiModWindows -InterfaceDir $interfaceDir)) {
+            $windowCases += @{ Window = $window.Name; RelPath = $window.FullPath.Substring($repoRoot.Length + 1); FullPath = $window.FullPath }
         }
     }
 }
@@ -38,20 +36,9 @@ BeforeAll {
         Get-ChildItem -Path $script:InterfaceDir -Recurse -File -Filter $Filter
     }
 
-    function Get-ModWindow {
-        param([string]$Path, [string]$Name)
-        $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $Path)
-        return @(Get-GuiTopLevelWindows -Root $root | Where-Object { $_.Name -eq $Name })[0]
-    }
-
-    # The top-level window with this name from whichever mod .gui file defines it, or $null.
-    function Find-ModWindow {
-        param([string]$Name)
-        foreach ($file in @(Get-ModGuiFiles -Filter '*.gui')) {
-            $window = Get-ModWindow -Path $file.FullName -Name $Name
-            if ($window) { return $window }
-        }
-        return $null
+    # Every top-level window of the mod, parsed once for the whole file (tools/GuiParsing.ps1).
+    function Get-ModWindows {
+        return @(Get-GuiModWindows -InterfaceDir $script:InterfaceDir)
     }
 }
 
@@ -224,7 +211,7 @@ Describe 'Mod sprites' {
     BeforeAll {
         $script:DeclaredSprites = @(
             foreach ($file in @(Get-ModGuiFiles -Filter '*.gfx')) {
-                Get-GuiSpriteDeclarations -Root (ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName))
+                Get-GuiSpriteDeclarations -Root (Get-GuiParsedFile -Path $file.FullName)
             }
         )
     }
@@ -273,8 +260,7 @@ Describe 'Mod sprites' {
         }
         $redefinitionFile = 'zz_1440p_vanilla_sprites.gfx'
         $wrong = foreach ($file in @(Get-ModGuiFiles -Filter '*.gfx')) {
-            $text = Read-GuiText -Path $file.FullName
-            foreach ($sprite in @(Get-GuiSpriteDeclarations -Root (ConvertFrom-GuiText -Text $text))) {
+            foreach ($sprite in @(Get-GuiSpriteDeclarations -Root (Get-GuiParsedFile -Path $file.FullName))) {
                 if ($sprite.Name -like 'GFX_1440p_*') { continue }
                 if (-not $allowed.ContainsKey($sprite.Name)) { "$($file.Name): $($sprite.Name) is a vanilla name that is not listed"; continue }
                 if ($file.Name -ne $redefinitionFile) { "$($file.Name): $($sprite.Name) belongs in $redefinitionFile" }
@@ -303,12 +289,9 @@ Describe 'Mod windows' {
     It 'defines every overridden window in one file only' {
         # With two definitions the file that loads last wins silently.
         $seen = @{}
-        $duplicates = foreach ($file in @(Get-ModGuiFiles -Filter '*.gui')) {
-            $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)
-            foreach ($window in @(Get-GuiTopLevelWindows -Root $root)) {
-                if ($seen.ContainsKey($window.Name)) { "$($window.Name): $($seen[$window.Name]) and $($file.Name)" }
-                else { $seen[$window.Name] = $file.Name }
-            }
+        $duplicates = foreach ($window in @(Get-ModWindows)) {
+            if ($seen.ContainsKey($window.Name)) { "$($window.Name): $($seen[$window.Name]) and $($window.File)" }
+            else { $seen[$window.Name] = $window.File }
         }
         $duplicates | Should -BeNullOrEmpty
     }
@@ -317,7 +300,7 @@ Describe 'Mod windows' {
 if ($guiFileCases.Count -gt 0) {
     Describe 'GUI file <RelPath>' -ForEach $guiFileCases {
         BeforeAll {
-            $script:FileRoot = ConvertFrom-GuiText -Text (Read-GuiText -Path $FullPath)
+            $script:FileRoot = Get-GuiParsedFile -Path $FullPath
         }
 
         It 'has no BOM and balanced braces and quotes' {
@@ -347,7 +330,7 @@ if ($windowCases.Count -gt 0) {
                 Set-ItResult -Skipped -Because 'there is no baseline to compare against'
                 return
             }
-            $actual = Get-ModWindow -Path $FullPath -Name $Window
+            $actual = @(Get-ModWindows | Where-Object { $_.Name -eq $Window -and $_.FullPath -eq $FullPath })[0]
             @(Compare-GuiWidgetPaths -Baseline $baseline.Node -Actual $actual.Node -WrapperPrefix $script:ModWindowPrefix) | Should -BeNullOrEmpty -Because 'the engine binds data to widgets by name inside their parent; with the patched executable it also searches the containers the mod adds, for every element type but scrollbars, list boxes, browsers and positions'
         }
     }
@@ -356,10 +339,10 @@ if ($windowCases.Count -gt 0) {
 if ($listRowCases.Count -gt 0) {
     Describe 'Rows <Row> in list <List>' -ForEach $listRowCases {
         It 'fit inside the list, which is overridden together with them' {
-            $rowWindow = Find-ModWindow -Name $Row
+            $rowWindow = @(Get-ModWindows | Where-Object { $_.Name -eq $Row })[0]
             $rowWindow | Should -Not -BeNullOrEmpty -Because "row window '$Row' is listed in `$listRowCases, so a mod .gui file should define it"
 
-            $listWindow = Find-ModWindow -Name $ListWindow
+            $listWindow = @(Get-ModWindows | Where-Object { $_.Name -eq $ListWindow })[0]
             $listWindow | Should -Not -BeNullOrEmpty -Because "'$ListWindow' holds the list of these rows; left at vanilla size it cuts wider rows off"
 
             $listNode = @(Get-GuiNodes -Node $listWindow.Node | Where-Object { (Get-GuiValue -Node $_ -Key 'name') -eq $List })[0]
@@ -391,20 +374,18 @@ if ($entryPairCases.Count -gt 0) {
             $gridName = $Grid
             $gridParent = $null
             if ($Grid -like '*/*') { $gridParent, $gridName = $Grid -split '/', 2 }
-            foreach ($file in @(Get-ModGuiFiles -Filter '*.gui')) {
-                $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)
-                # two vanilla windows can each have a grid of one name (templates_grid): a pair may name its window
-                $scopes = @($root)
-                if ($GridWindow) { $scopes = @(Get-GuiTopLevelWindows -Root $root | Where-Object { $_.Name -eq $GridWindow } | ForEach-Object { $_.Node }) }
-                if ($gridParent) { $scopes = @($scopes | ForEach-Object { Get-GuiNodes -Node $_ } | Where-Object { $_.Key -ieq 'containerWindowType' -and (Get-GuiValue -Node $_ -Key 'name') -eq $gridParent }) }
-                foreach ($scope in $scopes) {
-                    foreach ($node in @(Get-GuiNodes -Node $scope)) {
-                        if ($node.Key -ieq 'gridBoxType' -and (Get-GuiValue -Node $node -Key 'name') -eq $gridName) { $gridNode = $node }
-                    }
+            $windows = @(Get-ModWindows)
+            # two vanilla windows can each have a grid of one name (templates_grid): a pair may name its window
+            $scopes = @($windows | ForEach-Object { $_.Node })
+            if ($GridWindow) { $scopes = @($windows | Where-Object { $_.Name -eq $GridWindow } | ForEach-Object { $_.Node }) }
+            if ($gridParent) { $scopes = @($scopes | ForEach-Object { Get-GuiNodes -Node $_ } | Where-Object { $_.Key -ieq 'containerWindowType' -and (Get-GuiValue -Node $_ -Key 'name') -eq $gridParent }) }
+            foreach ($scope in $scopes) {
+                foreach ($node in @(Get-GuiNodes -Node $scope)) {
+                    if ($node.Key -ieq 'gridBoxType' -and (Get-GuiValue -Node $node -Key 'name') -eq $gridName) { $gridNode = $node }
                 }
-                $window = @(Get-GuiTopLevelWindows -Root $root | Where-Object { $_.Name -eq $Entry })[0]
-                if ($window) { $entryNode = $window.Node }
             }
+            $window = @($windows | Where-Object { $_.Name -eq $Entry })[-1]
+            if ($window) { $entryNode = $window.Node }
             $gridNode | Should -Not -BeNullOrEmpty -Because "grid '$Grid' should exist in a mod .gui file"
             $entryNode | Should -Not -BeNullOrEmpty -Because "entry window '$Entry' should exist in a mod .gui file"
 

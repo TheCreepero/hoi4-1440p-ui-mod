@@ -15,8 +15,8 @@ Learned in the redesign pass of 2026-10-16, when thirteen screens and pages were
 - **One git worktree per screen.** Agents that edit the main tree at the same time overwrite each other's edits of the shared files. Create each worktree with `git -c core.autocrlf=false worktree add --detach <dir>\hoi4-1440p-ui-mod HEAD`:
   - Without `core.autocrlf=false` the checkout writes CRLF where the generated files are LF, and `tests/ScriptedGuis.Tests.ps1` reports them out of date.
   - The folder must be named `hoi4-1440p-ui-mod`: `tests/BuildScript.Tests.ps1` checks it.
-  - Copy `scratch/cache` into the worktree, or the first render rebuilds it.
-  - The whole suite takes about eight minutes alone and much longer with several worktrees testing at once, so agents run the test files their change touches and the full `build.ps1 -Check` once at the end.
+  - Copy `scratch/cache` into the worktree, or the first render rebuilds it: the sprite and window indexes, and under `textures/` every game texture already decoded (Pillow decodes DDS in pure Python, which is most of a first render's time).
+  - The whole suite takes about three minutes alone (the render tests draw every window and scene in one `render_gui.py --batch` process) and longer with several worktrees testing at once, so agents run the test files their change touches and the full `build.ps1 -Check` once at the end.
 - **Merge whole files, not patches.** Agents' tools rewrite files with CRLF, so a patch can rewrite every line. Compare base, ours and theirs with line endings normalised and merge with `git merge-file`. Write text files with LF and `.ps1` files with CRLF (`.gitattributes`).
 - **Regenerate, never merge, generated files.** Merge the generators (`tools/build_managers.py`, `tools/build_records.py`), then run `python -I tools/build_managers.py`.
 - **Appended blocks collide.** Every screen appends sprites to `interface/1440p_ui.gfx`; two blocks appended at the same place come out of a line-level merge interleaved. Take one side whole and insert the other block whole after it, then check for duplicate sprite names. Each agent marks its block (`# --- <screen> ---`).

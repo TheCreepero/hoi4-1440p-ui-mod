@@ -6,6 +6,7 @@
     python -I tools/render_gui.py --scene army_selection --over      ... composed over the scene's vanilla screenshot
     python -I tools/render_gui.py <window> --expand divisions        with that dropdown opened
     python -I tools/render_gui.py <window> --report                  print the absolute rectangle of every named widget
+    python -I tools/render_gui.py --batch jobs.json                  many calls in one process (the Pester suites)
 
 Output goes to scratch/previews/: <name>.png at 1:1 and <name>@2x.png, or <scene>_scene.png and <scene>_crop.png.
 Texts come from the scene's samples, else from the English localisation of a literal text key, else nothing
@@ -171,6 +172,17 @@ class WindowIndex:
 # ---------------------------------------------------------------- renderer
 
 
+_window_indexes = {}
+
+
+def window_index(game_dir, mod_dir, vanilla_only):
+    """One WindowIndex per process and mode: the batch mode runs many renders, and the index only grows."""
+    key = (game_dir, mod_dir, bool(vanilla_only))
+    if key not in _window_indexes:
+        _window_indexes[key] = WindowIndex(game_dir, mod_dir, vanilla_only=vanilla_only)
+    return _window_indexes[key]
+
+
 class Renderer:
     def __init__(self, game_dir, mod_dir=REPO_ROOT, scene=None, links=None, options=None):
         self.game_dir = game_dir
@@ -182,7 +194,7 @@ class Renderer:
         self.font_decls = gp.font_declarations(game_dir, mod_dir)
         self.loc = gp.load_localisation(game_dir, mod_dir)
         self.vanilla_only = bool(self.options.get("vanilla"))
-        self.windows = WindowIndex(game_dir, mod_dir, vanilla_only=self.vanilla_only)
+        self.windows = window_index(game_dir, mod_dir, self.vanilla_only)
         self.located = []   # (window that defines the widget, widget name, Rect), in drawing order
         self.textures = {}
         self._window = None
@@ -325,7 +337,7 @@ class Renderer:
                     tried.append(candidate)
                     if os.path.isfile(candidate):
                         try:
-                            img = Image.open(candidate).convert("RGBA")
+                            img = gp.load_image(candidate, self.mod_dir)
                         except Exception as exc:
                             self.warn("texture %s of %s cannot be read: %s" % (candidate, sprite.name, exc))
                         break
@@ -1304,12 +1316,41 @@ def print_report(renderer, offset=None):
     print("contents are sample rows from gui-links.json; text wraps on maxWidth only. See wiki/Engine-Facts.md.")
 
 
+def run_batch(path):
+    """Run the calls listed in a JSON file ([{"id": ..., "args": [...]}, ...]) in this one process.
+
+    The textures, fonts, sprite index and window index load once for all of them. Each call prints what it
+    prints on its own, between "=== JOB <id> ===" and "=== END <id> exit <code> ===".
+    """
+    import contextlib
+    import traceback
+
+    with open(path, encoding="utf-8") as handle:
+        jobs = json.load(handle)
+    out = sys.stdout
+    for job in jobs:
+        job_id = str(job.get("id", ""))
+        print("=== JOB %s ===" % job_id, file=out, flush=True)
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(out):
+            try:
+                code = main([str(a) for a in job.get("args", [])])
+            except SystemExit as exc:
+                code = exc.code if isinstance(exc.code, int) else 1
+            except Exception:
+                traceback.print_exc(file=out)
+                code = 1
+        out.flush()
+        print("=== END %s exit %s ===" % (job_id, code), file=out, flush=True)
+    return 0
+
+
 def main(argv):
     # a sample text may hold a character the console code page lacks (the infinity sign of a series)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(errors="backslashreplace")
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("window", nargs="?", help="top-level window to draw")
+    ap.add_argument("--batch", metavar="JOBS.json", help="run every call listed in the file in this one process, and nothing else")
     ap.add_argument("--scene", help="scene name from tools/scenes/ (or a path)")
     ap.add_argument("--file", help="mod .gui file to take the window from (default: whichever mod file defines it, else vanilla)")
     ap.add_argument("--over", nargs="?", const=True, default=False, help="compose the scene over its screenshot (or the given PNG)")
@@ -1332,6 +1373,8 @@ def main(argv):
     ap.add_argument("--expect", nargs="+", metavar="WINDOW/WIDGET[#N]", help="widgets for --verify instead of the scene's own list")
     ap.add_argument("--state", metavar="CAPTURE", help="with --scene: draw the state of one of the scene's captures (another tab, an opened dropdown)")
     args = ap.parse_args(argv)
+    if args.batch:
+        return run_batch(args.batch)
     args.background = [int(v) for v in args.background.split(",")]
 
     game_dir = gp.find_game_dir(args.game_dir)

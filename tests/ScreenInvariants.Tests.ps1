@@ -16,12 +16,7 @@ BeforeAll {
     }
 
     function Get-ModWindows {
-        foreach ($file in @(Get-ModGuiFiles)) {
-            $root = ConvertFrom-GuiText -Text (Read-GuiText -Path $file.FullName)
-            foreach ($window in @(Get-GuiTopLevelWindows -Root $root)) {
-                [pscustomobject]@{ Name = $window.Name; Node = $window.Node; File = $file.Name; Line = $window.Line }
-            }
-        }
+        return @(Get-GuiModWindows -InterfaceDir $script:InterfaceDir)
     }
 
     function Get-Scenes {
@@ -295,9 +290,6 @@ Describe 'Screen heights' {
         $tooLow | Should -BeNullOrEmpty
     }
 
-    It 'keeps centred windows within 1240 px' {
-        Set-ItResult -Skipped -Because 'Engine Facts S14 is provisional; enable when the first centred window is judged in game'
-    }
 }
 
 Describe 'Game recipes' {
@@ -390,18 +382,27 @@ Describe 'Game recipes' {
         # a page of the mod's own (a scripted GUI) has no vanilla layout: its scene says "modOnly"
         $modOnly = @{}
         foreach ($scene in @(Get-Scenes)) { if ($scene.modOnly) { $modOnly[[string]$scene.screen] = $true } }
+        # every layout in one render_gui.py --batch run: the textures, fonts and indexes load once
         $renderPy = Join-Path (Join-Path $script:RepoRoot 'tools') 'render_gui.py'
-        $notFound = foreach ($layout in $wanted.Keys) {
+        $jobs = [System.Collections.Generic.List[object]]::new()
+        foreach ($layout in $wanted.Keys) {
             $sceneName, $state = $layout -split '\|', 2
             $modes = if ($modOnly.ContainsKey($sceneName)) { @('') } else { @('', '--vanilla') }
             foreach ($mode in $modes) {
-                $arguments = @('-I', $renderPy, '--scene', $sceneName, '--locate') + @($wanted[$layout])
+                $arguments = @('--scene', $sceneName, '--locate') + @($wanted[$layout])
                 if ($state) { $arguments += '--state'; $arguments += $state }
                 if ($mode) { $arguments += $mode }
-                foreach ($line in @(& $python @arguments 2>$null | Where-Object { $_ -like "LOCATE`t*NOTFOUND" })) {
-                    $label = if ($mode) { 'vanilla' } else { 'mod' }
-                    "$sceneName$(if ($state) { " in state $state" }) ($label): $(($line -split "`t")[1])"
-                }
+                $jobs.Add(@{ id = "$layout|$mode"; args = $arguments })
+            }
+        }
+        $results = Invoke-GuiRenderBatch -Python $python -RenderPy $renderPy -Jobs $jobs -JobsPath (Join-Path (Join-Path (Join-Path $script:RepoRoot 'scratch') 'test-renders') 'locate-jobs.json')
+        $notFound = foreach ($job in $jobs) {
+            $sceneName, $state, $mode = $job.id -split '\|', 3
+            $label = if ($mode) { 'vanilla' } else { 'mod' }
+            $result = $results[$job.id]
+            if (-not $result) { "$($job.id): no result from the render batch (exit $($results['*'].Exit))"; continue }
+            foreach ($line in @($result.Output | Where-Object { $_ -like "LOCATE`t*NOTFOUND" })) {
+                "$sceneName$(if ($state) { " in state $state" }) ($label): $(($line -split "`t")[1])"
             }
         }
         @($notFound) | Should -BeNullOrEmpty -Because 'a click on a widget the layout does not contain cannot be aimed; check the window/widget names and the scene windows'
