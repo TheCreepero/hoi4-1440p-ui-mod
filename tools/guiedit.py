@@ -22,6 +22,7 @@ Keys are matched without regard to case, as the game does. After editing, review
 tools/Compare-Baseline.ps1.
 """
 
+import bisect
 import io
 import re
 
@@ -57,59 +58,64 @@ class GuiFile:
     # ------------------------------------------------------------------ structure
 
     def _code(self):
-        return _strip_comments(self.text)
+        # the comment-free text, kept while the text does not change (a layout touches hundreds of widgets)
+        cached = getattr(self, "_code_cache", None)
+        if cached is None or cached[0] is not self.text:
+            cached = (self.text, _strip_comments(self.text))
+            self._code_cache = cached
+        return cached[1]
+
+    def _braces(self):
+        """Every "{" of the comment-free text with its matching "}" (offset after it), indexed once per text version."""
+        cached = getattr(self, "_brace_cache", None)
+        if cached is None or cached[0] is not self.text:
+            code = self._code()
+            match = {}
+            stack = []
+            for m in re.finditer(r"[{}]", code):
+                if m.group() == "{":
+                    stack.append(m.start())
+                elif stack:
+                    match[stack.pop()] = m.start() + 1
+            if stack:
+                raise GuiEditError("unbalanced braces in " + self.path)
+            cached = (self.text, sorted(match), match)
+            self._brace_cache = cached
+        return cached[1], cached[2]
 
     def _children(self, start, end):
         """(name, key, open, close) of each block directly inside the block text[start:end]
         (start is the offset of its "{", end the offset after its "}")."""
         code = self._code()
+        opens, match = self._braces()
         found = []
-        i = start + 1
-        depth = 0
-        while i < end - 1:
-            ch = code[i]
-            if ch == "{":
-                if depth == 0:
-                    close = self._match(code, i)
-                    head = re.search(r"([A-Za-z_][\w]*)\s*=\s*$", code[max(start, i - 80):i])
-                    key = head.group(1) if head else ""
-                    name = self._own_value(code, i, close, "name")
-                    found.append((name, key, i, close))
-                    i = close
-                    continue
-                depth += 1
-            elif ch == "}":
-                depth -= 1
-            i += 1
+        i = bisect.bisect_right(opens, start)
+        while i < len(opens) and opens[i] < end - 1:
+            open_at = opens[i]
+            close = match[open_at]
+            head = re.search(r"([A-Za-z_][\w]*)\s*=\s*$", code[max(start, open_at - 80):open_at])
+            key = head.group(1) if head else ""
+            name = self._own_value(code, open_at, close, "name")
+            found.append((name, key, open_at, close))
+            i = bisect.bisect_left(opens, close)
         return found
 
-    @staticmethod
-    def _match(code, open_at):
-        depth = 0
-        for i in range(open_at, len(code)):
-            if code[i] == "{":
-                depth += 1
-            elif code[i] == "}":
-                depth -= 1
-                if depth == 0:
-                    return i + 1
-        raise GuiEditError("unbalanced braces")
+    def _match(self, code, open_at):
+        try:
+            return self._braces()[1][open_at]
+        except KeyError:
+            raise GuiEditError("no block opens at offset %d" % open_at)
 
-    @staticmethod
-    def _own_spans(code, start, end):
+    def _own_spans(self, code, start, end):
         """Pieces of text[start:end] that belong to the block itself, not to a child block."""
+        opens, match = self._braces()
         spans = []
-        depth = 0
         at = start + 1
-        for i in range(start + 1, end - 1):
-            if code[i] == "{":
-                if depth == 0:
-                    spans.append((at, i))
-                depth += 1
-            elif code[i] == "}":
-                depth -= 1
-                if depth == 0:
-                    at = i + 1
+        i = bisect.bisect_right(opens, start)
+        while i < len(opens) and opens[i] < end - 1:
+            spans.append((at, opens[i]))
+            at = match[opens[i]]
+            i = bisect.bisect_left(opens, at)
         spans.append((at, end - 1))
         return spans
 
@@ -177,6 +183,22 @@ class Widget:
 
     def _label(self):
         return "/".join([self.window] + self.steps)
+
+    def kind(self):
+        """The widget's element type as the file writes it (instantTextboxType, iconType, containerWindowType)."""
+        start, _end = self.gui._span(self.window, self.steps)
+        code = self.gui._code()
+        head = re.search(r"([A-Za-z_][\w]*)\s*=\s*$", code[max(0, start - 80):start])
+        return head.group(1) if head else ""
+
+    def has(self, key):
+        """Whether the widget's own lines carry `key` (a plain or a { } value)."""
+        start, end, spans = self._own()
+        code = self.gui._code()
+        for a, b in spans:
+            if re.search(r"(?i)(?<![\w])" + re.escape(key) + r"\s*=", code[a:b]):
+                return True
+        return False
 
     def _own(self):
         start, end = self.gui._span(self.window, self.steps)

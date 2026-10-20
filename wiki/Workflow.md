@@ -21,24 +21,30 @@ A fix round goes back to the **same builder agent**, continued with the findings
 Recipe steps are those of [Design Rules](Design-Rules.md). Every handoff file lives in `scratch/phases/<id>/` (git-ignored); the durable record is `wiki/phases/<id>.md` and the published design page.
 
 1. **Open** (orchestrator). Copy [Phase Template](Phase-Template.md) to `wiki/phases/<id>.md` and fill Scope. Create `scratch/phases/<id>/`. Write `contracts.md`: hotkeys already taken (`grep -rn 'shortcut = "' interface/ tools/build_managers.py tools/build_records.py`) and the new ones, shared rows and windows, shared files and who owns each, frames two pages share. Choose the builder by kind. One screen: work in the main tree. Several screens at once: one worktree per builder ([Contributing](Contributing.md), "Several screens at once").
-2. **Design** (designer): recipe steps 1 and 2. Hands back `design.json`, the mock-ups and their scripts, and a reply of at most 15 lines.
+2. **Design** (designer): recipe steps 1 and 2. Hands back `layout.json` (every number of the proposal, the one file the mock-ups and the build are made from), `design.json`, the mock-ups drawn from the layout with `tools/mockup.py` (plus a short script for what the code draws, if any), and a reply of at most 15 lines. Reads the bindings reports by window, never the decompiled code.
 3. **Design review, gate A** (orchestrator). The design passes when:
    - every addition names the row of "What a redesign can add" or the register id that makes it possible, and the window bindings report backs every value shown;
    - every figure group has the vanilla capture, the current state and the proposal at the same scale and the same crop box;
    - the contracts are kept, or a deviation is written down;
    - what only the game can show is under `openInGame`, not promised;
    - `python -I tools/check_playset.py` has been read for the files the design touches, and a text another mod can lengthen has a box of fixed size.
-   What fails goes back to the same designer. What passes becomes the design page: an HTML page with the images embedded, published as an artifact when the tool can (link into the phase notes), else `scratch/phases/<id>/design.html`.
+   What fails goes back to the same designer. What passes becomes the design page: `python -I tools/make_design_page.py <id>` writes `scratch/phases/<id>/design.html` from the handoff files, with one composite image per figure group (vanilla, current, proposed and later the build, stacked at one scale; also written to `figures/<group>.webp`, the one file per group a review reads), published as an artifact when the tool can (link into the phase notes).
 4. **User gate 1: the design.** The user marks the page up and answers the `decisions`. The orchestrator writes each answer, dated, under "Decisions" in the phase notes and into `decisions-final.json`. Nothing is built before this gate.
-5. **Build** (builder): recipe steps 3 to 6. Hands back `build/build.json`, `build/build-<group>.png` for every figure group, the phase notes section "Build (<date>)" and a reply of at most 20 lines. The gate inside: `build.ps1 -Check <scene>` green, every render looked at.
-6. **Build review, gate B** (orchestrator). Read the whole output of `tools/Compare-Baseline.ps1 <file> -Group`: only intended changes. Compare each build render with its mock-up. Read the deviations: each one has a reason the design or the rules back. Add the build renders to the design page. What fails goes back to the same builder.
+5. **Build** (builder): recipe steps 3 to 6, starting with `python -I tools/apply_layout.py scratch/phases/<id>/layout.json` for a screen (the generator for a page). Hands back `build/build.json` (from which `tools/phase_notes.py` writes the notes' Build section), `build/build-<group>.png` for every figure group, and a reply of at most 20 lines. The gate inside: `build.ps1 -Check <scene>` green, every render looked at.
+6. **Build review, gate B** (orchestrator). `python -I tools/apply_layout.py scratch/phases/<id>/layout.json --compare <file>` reports no difference (a screen). Read the whole output of `tools/Compare-Baseline.ps1 <file> -Group`: only intended changes. Compare each build render with its mock-up. Read the deviations: each one has a reason the design or the rules back. Run `make_design_page.py` again so the page carries the build renders (same artifact). What fails goes back to the same builder.
 7. **User gate 2: the launches.** The orchestrator asks once for the phase, naming the scenes, how many launches, and that a check stays paused on 1 January 1936 or runs at most ten days with the autosave copied first. A vague grant has not got a launch through; the grant names the launches. The user's own screen and mouse are taken while the harness runs.
-8. **Game check** (game checker): recipe step 7. `tools/Invoke-GameCheck.ps1 <scene> [...]` with this mod alone, then with a mod of the playset where [Game Recipes](Game-Recipes.md) asks for it (pages that read characters, leaders, states or equipment). Works through the scene's `checklist` item by item on the crops, diffs `error.log`, reads the clock. Hands back `checks/check-<n>.json`, one row per launch in the "Game checks" table, and a reply of at most 20 lines: defects first.
-9. **Capture review** (orchestrator). Reads the same crops itself: the checker's findings are a list to confirm, not a verdict. Decides which are defects, which are the renderer's known blind spots ([Contributing](Contributing.md), "What the renderer does not show") and which only the user can settle. Defects go to the same builder as a fix round; the checker re-runs only the scenes a fix touched. Each round adds "Fix round <n>" lines to the phase notes: issue, cause, fix, what the re-test should look at.
+8. **Game check** (game checker): recipe step 7. `tools/Invoke-GameCheck.ps1 <scene> [...]` with this mod alone, then with a mod of the playset where [Game Recipes](Game-Recipes.md) asks for it (pages that read characters, leaders, states or equipment). Works through the scene's `checklist` item by item on the crops, diffs `error.log`, reads the clock. Hands back `checks/check-<n>.json` and a reply of at most 20 lines: defects first. Every failed or unseen item and every defect names its `evidence`, a cut of the capture made with `tools/crop_capture.py` into `checks/`, and the `box` it was cut from; each launch names one overview capture per scene. The rows of the "Game checks" table are generated from the file by `tools/phase_notes.py`.
+9. **Capture review** (orchestrator). Reads the evidence cuts and one overview capture per scene itself (user, 2026-10-20; before that every crop): the checker's findings are a list to confirm, not a verdict. Decides which are defects, which are the renderer's known blind spots ([Contributing](Contributing.md), "What the renderer does not show") and which only the user can settle. Defects go to the same builder as a fix round; the checker re-runs only the scenes a fix touched. Each round adds entries to `fixes.json` (issue, cause, fix, what the re-test should look at), from which `tools/phase_notes.py` writes the "Fix round <n>" lines of the phase notes.
 10. **Report, user gate 3.** When the checks are clean, the orchestrator reports to the user: what was built, the design page with the build renders beside the mock-ups, what the checks showed and with which mods loaded, and the numbered list of what only a human can settle: tooltips, click targets, states a 1936 start does not show, whether a width is too much. The user tests in their own game and playset, and commits.
 11. **Close** (orchestrator): recipe step 8. The candidate facts of every handoff (`newFacts`) go to the knowledge register with `Add-HoiKnowledge.ps1`, or are dropped with a reason; then `Export-HoiKnowledge.ps1 -Repo hoi4-1440p-ui-mod`. The register is written by the orchestrator only.
 
 The user's own in-game issues (a list and screenshots, as `screenshots/` and `FOUND_ISSUES.txt` on 2026-10-16) enter at stage 9 as findings.
+
+The phase notes are kept current by `python -I tools/phase_notes.py <id>`, run by the orchestrator at every gate: it writes the Proposal, Build, Game checks and Fix rounds sections between markers from the handoff files; Scope, Roles and handoffs, Inventory, Decisions and Close are written by hand.
+
+## The short path
+
+A small phase (the verdict would be `refine` at effort S: a card pass, a chip, a hotkey, a width, a caption; user decision 2026-10-20) has no designer agent. The orchestrator writes `layout.json` and `design.json` itself, with one figure group drawn by `tools/mockup.py` and the choices under `decisions`, makes the page and stops at user gate 1 like any phase. From stage 5 on the path is the same, with the same builder and checker. The path is chosen at stage 1 and written under "Roles and handoffs"; when the work turns out larger (a second figure group, a window that moves, a list that changes), the designer is spawned after all.
 
 ## Handoff files
 
@@ -75,6 +81,35 @@ All under `scratch/phases/<id>/`. JSON is UTF-8; strings are plain text with `\n
 }
 ```
 
+`design.json` may name its figure groups for the page: `"groups": [{"name": "main", "title": "The whole view", "note": "1:1, the same box on the screen"}]`. It is written directly with the Write tool, not through a generator script.
+
+**`layout.json`** (designer, stage 2; the builder changes it only with a deviation): every number of the proposal in one file, read by `tools/mockup.py` for the mock-ups and by `tools/apply_layout.py` for the override file, so the two cannot drift. The worked example is `tools/examples/a10-layout.json`; the pieces are in [Design Language](Design-Language.md).
+
+```json
+{
+  "id": "A10", "prefix": "ar", "scene": "air_region", "file": "interface/zz_1440p_air_region.gui",
+  "frame": "reference/mod/air_selection.jpg", "panel": null,
+  "windows": [{
+    "path": "strategicairview", "at": [712, 300], "position": [-568, -420], "size": [580, 718],
+    "background": "GFX_tiled_window_1b_thin_border", "after": "strategic_air_bg",
+    "items": [
+      {"kind": "title", "name": "title", "x": 3, "y": 3, "w": 574, "h": 44},
+      {"kind": "card", "name": "card_b", "x": 6, "y": 130, "w": 568, "h": 238},
+      {"kind": "head", "name": "head_forces", "x": 14, "y": 138, "w": 552, "h": 30},
+      {"kind": "bands", "name": "band_forces", "x": 14, "y": 168, "w": 552, "row": 32, "rows": 6},
+      {"kind": "caption", "name": "cap_{n}", "repeat": {"var": "n", "range": [1, 6], "dy": 32}, "keys": ["AIR_RESERVES_TYPE_1", "..."], "texts": ["Fighters", "..."], "x": 194, "y": 175, "w": 192, "h": 24, "font": "hoi_18mbs", "format": "center"},
+      {"kind": "move", "path": "region_name", "x": 16, "y": 10, "w": 370, "h": 32, "font": "hoi_30header", "fixed": true, "sample": "Western Poland"},
+      {"kind": "move", "path": "wing_type_left_text_{n}", "repeat": {"var": "n", "range": [1, 4], "dy": 32}, "x": 30, "y": 174, "w": 120, "h": 24, "font": "hoi_20b", "format": "right", "samples": ["805", "0", "276", "3"]},
+      {"kind": "plate", "name": "sky", "x": 28, "y": 426, "sprite": "GFX_1440p_AR_sky"},
+      {"kind": "sprite", "name": "GFX_wing_types_own", "x": 156, "y": 172, "frame": 1},
+      {"kind": "text", "font": "hoi_16mbs", "x": 20, "y": 393, "text": "Our Missions", "w": 140, "align": "center"}
+    ]
+  }]
+}
+```
+
+`title`, `card`, `head`, `bands` and `plate` are plates of the mod (`mod1440_<prefix>_<name>` on `GFX_1440p_<PREFIX>_<name>`, declared by the tool in `interface/1440p_ui.gfx`; a `plate` names an existing `sprite`, or a `texture` with its `border`); `caption` is a text of the mod on a localisation `key`; `move` puts a vanilla widget at its new place (`path` as `tools/guiedit.py` takes it; `w` and `h` set `maxWidth` and `maxHeight` on a text and `size` elsewhere; `font`, `format`, `fixed`, `sprite`, raw keys under `set`; `sample` goes into the scene and the mock-up); `text`, `sprite` and `paste` draw in the mock-up only. Numbers are window-relative; `at` is where the window stands on the screen; `after` names the child the plates are inserted after (the background by default; an item may carry its own); `repeat` expands `{n}` and `{i}` with `dx` and `dy` per step and one value per step from `keys`, `texts` or `samples`. What the layout cannot say (new textures, progress bars, lists, sprites the code sets) is the builder's own work, noted in `build.json`. `apply_layout.py --compare <file>` lists every place where a file differs from the layout; it reports none at gate B.
+
 **`decisions-final.json`** (orchestrator, stage 4): one entry per question of `design.json`, `{"question": "...", "chosen": "...", "by": "user | agent recommendation", "note": "..."}`. Where `by` is "agent recommendation" the builder follows the recommendation.
 
 **`build/build.json`** (builder, stage 5):
@@ -83,7 +118,7 @@ All under `scratch/phases/<id>/`. JSON is UTF-8; strings are plain text with `\n
 {
   "id": "A3",
   "agent": "builder-screen",
-  "worktree": "C:\\dev\\hoi4-1440p-ui-mod",
+  "worktree": "C:\\dev\\Hearts of Iron IV Modding Manager\\mods\\hoi4-1440p-ui-mod",
   "summary": "What was built, two to four sentences.",
   "figures": [{"file": "build-main.png", "group": "main", "caption": "..."}],
   "deviations": [{"what": "Where the build differs from the design", "why": "..."}],
@@ -107,12 +142,20 @@ All under `scratch/phases/<id>/`. JSON is UTF-8; strings are plain text with `\n
   "build": "80e628d+dirty",
   "playset": "this mod only | Reordered Pack (USA)",
   "launches": [{"command": "tools/Invoke-GameCheck.ps1 division_details", "captures": ["scratch/checks/division_details_crop.png"], "clock": "1 Jan 1936", "errorLog": ["lines the vanilla baseline does not have"]}],
-  "checklist": [{"item": 1, "result": "pass | fail | cannot see", "evidence": "scratch/checks/...png", "note": "..."}],
-  "defects": [{"what": "...", "where": "scene/widget", "evidence": "..."}],
+  "checklist": [{"item": 1, "result": "pass | fail | cannot see", "evidence": "scratch/phases/A3/checks/evidence-1-item1.png", "box": [1298, 300, 2212, 700], "note": "..."}],
+  "defects": [{"what": "...", "where": "scene/widget", "evidence": "scratch/phases/A3/checks/evidence-1-d1.png", "box": [0, 0, 100, 100]}],
   "forTheUser": ["What a crop cannot settle"],
   "autosave": "unchanged | not touched | hash differs",
   "newFacts": ["..."]
 }
+```
+
+A passed item names the overview capture as its evidence; a failed or unseen item, and every defect, names a cut made with `python -I tools/crop_capture.py <capture> <l,t,r,b> --out scratch/phases/<id>/checks/evidence-<n>-<item>.png` and the box. The orchestrator reads the cuts and one overview per scene.
+
+**`fixes.json`** (builder, stage 9), one entry per fix, appended round by round:
+
+```json
+[{"round": 1, "date": "2026-10-17", "issue": "What the check showed", "cause": "Why", "fix": "What changed, and where in layout.json", "retest": "What the re-test should look at", "by": "builder-screen"}]
 ```
 
 ## Several screens at once

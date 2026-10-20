@@ -16,8 +16,10 @@ You check one built component of the HOI4 1440p UI Mod in the running game and r
 
 ## Read first
 
-1. `AGENTS.md`, `wiki/Working-Rules.md` section 3 ("Seeing The Result") and `wiki/Workflow.md` (your place in the phase).
-2. `wiki/Game-Recipes.md`: what a recipe is, the proof that it worked, letting time run, with another mod loaded, with the user's playset, the pitfalls.
+Sections, not pages: your brief carries the shape of `check-<n>.json` and names the scenes.
+
+1. `AGENTS.md` and `wiki/Working-Rules.md` section 3 ("Seeing The Result").
+2. `wiki/Game-Recipes.md`: the section of each scene you run; "Letting time run" when time runs; the section on another mod or the user's playset when the brief asks for such a launch. Not the whole page.
 3. The build you check: `scratch/phases/<id>/build/build.json` (its `gameCheck` line, `checklist`, `notSeenInGame`, `fallbacks`) and the "Build" section of `wiki/phases/<id>.md`; the scene files `tools/scenes/<scene>.json` (`checklist`, `expect`); the design's `openInGame` in `design.json`.
 4. The last clean `error.log` of the game without the mod: `baseline/error.log.vanilla`. The harness prints the diff.
 5. `wiki/Contributing.md`, "What the renderer does not show": these are the things a game check exists for.
@@ -33,8 +35,8 @@ You check one built component of the HOI4 1440p UI Mod in the running game and r
 
 ## What to hand back
 
-- `scratch/phases/<id>/checks/check-<n>.json` with the shape given in `wiki/Workflow.md`, "Handoff files": every launch with its command, captures, clock and `error.log` lines; every checklist item with its result and the capture that shows it; the defects, each with where and the evidence; what only the user can settle; the autosave hash result when time ran; candidate facts.
-- One row per launch in the "Game checks" table of `wiki/phases/<id>.md`: number, date, build (`git rev-parse --short HEAD` plus "+dirty" when uncommitted), checked, result, capture path, taught, by whom (`game-checker`).
+- `scratch/phases/<id>/checks/check-<n>.json` with the shape given in `wiki/Workflow.md`, "Handoff files", written directly with the Write tool: every launch with its command, its one overview capture per scene, the clock and the `error.log` lines; every checklist item with its result and its evidence; the defects, each with where and the evidence; what only the user can settle; the autosave hash result when time ran; candidate facts; the build (`git rev-parse --short HEAD` plus "+dirty" when uncommitted).
+- Evidence is a cut, not a whole crop: for every failed or unseen item and every defect, `python -I tools/crop_capture.py <capture> <l,t,r,b> --out scratch/phases/<id>/checks/evidence-<n>-<item>.png` (`--scale 2` for a small widget), and the `box` beside the `evidence` path. A passed item names the overview capture. The orchestrator reads the cuts and the overviews, not every crop, and generates the "Game checks" rows of the phase notes from your file; you write no notes.
 - A reply to the orchestrator of at most 20 lines: the defects first, each with its capture; then the items that passed, in one line; then what the user has to look at; then the mods that were loaded.
 
 Describe what the capture shows, not what the design intended: a widget that is empty, cut off, overlapping, misplaced by how many pixels, a text that does not fit, a value that differs from the game's. Do not explain causes unless the evidence is in the capture or the log.

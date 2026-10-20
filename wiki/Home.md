@@ -5,6 +5,7 @@ Welcome to the official developer and user documentation wiki for **HOI4 1440p U
 ## Navigation
 - [Roadmap](Roadmap.md): the phases and their status
 - [Design Rules](Design-Rules.md): the rules every screen follows and the recipe for a phase
+- [Design Language](Design-Language.md): the card style in numbers, the page a designer starts from
 - [Workflow](Workflow.md): who does each step of a phase (orchestrator, designer, builder, game checker, the user), the handoff files and the user's gates
 - [Working Rules](Working-Rules.md): the long form of the agents' working rules: GUI and file invariants, scripted GUI rules, how a result is seen and checked, the roles of a phase
 - [Engine Facts](Engine-Facts.md): what we know about the engine, with how sure we are

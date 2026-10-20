@@ -12,7 +12,8 @@ Copy this file to `wiki/phases/<screen>.md` when a phase starts (stage 1 of [Wor
 
 - Handoff folder: `scratch/phases/<id>/` (not in the repository)
 - Builder: `builder-screen` or `builder-script`, and why
-- Design page: link, and the date of each round
+- Design page: link (`python -I tools/make_design_page.py <id>`), and the date of each round
+- Layout file: `scratch/phases/<id>/layout.json` (the mock-ups and the build are made from it)
 - Contracts written (hotkeys, shared rows, shared files): yes / none needed
 - Worktrees (several screens at once): paths, or "main tree"
 
@@ -29,15 +30,10 @@ Copy this file to `wiki/phases/<screen>.md` when a phase starts (stage 1 of [Wor
 
 ## Proposal
 
-What the player should see at once, then the numbers: panel sizes, row heights, column widths, fonts. Attach the scene render (`python -I tools/render_gui.py --scene <screen>`) and, for width judgements, the render over the vanilla screenshot (`--over`).
+Generated from `scratch/phases/<id>/design.json` by `python -I tools/phase_notes.py <id>` (the orchestrator runs it at every gate). Write under the markers only what the design file cannot hold.
 
-| Panel or column | Vanilla | Proposed | Why |
-|---|---|---|---|
-| | | | |
-
-Additions, each with the row of "What a redesign can add" that allows it:
-
-- 
+<!-- generated: proposal (tools/phase_notes.py; edit the handoff file, not this) -->
+<!-- end generated: proposal -->
 
 ## Decisions
 
@@ -45,36 +41,26 @@ Dated, one line each: what was agreed, what was sent back and why. The user's an
 
 - 
 
-## Build (<date>)
+## Build
 
-Status: built and checked by render and tests; not seen in game.
+Generated from `scratch/phases/<id>/build/build.json`: what was built, deviations, fallbacks, not seen in game, the game check line and the checker's checklist, the tests.
 
-- What was built:
-- Deviations from the design, each with its reason:
-- Not seen in game (what only a launch can show, and the fallback if it fails):
-- Game check: `tools/Invoke-GameCheck.ps1 <scene> [...]`
-- Checklist for the game checker (also in `tools/scenes/<scene>.json`):
-  1. 
+<!-- generated: build (tools/phase_notes.py; edit the handoff file, not this) -->
+<!-- end generated: build -->
 
 ## Game checks
 
-One row per launch. Build = `git rev-parse --short HEAD` plus "+dirty" when uncommitted, or the file hash. By = `game-checker`, the orchestrator, or the user (their own game and playset).
+One row per launch, generated from `scratch/phases/<id>/checks/check-<n>.json` (columns | # | Date | Build | By | Checked | Result | Screenshot | Taught |; By = `game-checker`). The user's own tests (their game and playset) are added by hand under the markers: date, what they looked at, their words, their screenshots.
 
-| # | Date | Build | By | Checked | Result | Screenshot | Taught |
-|---|---|---|---|---|---|---|---|
-| 1 | | | | | | `scratch/checks/...` | |
-
-Not seen in game (states the save did not show):
-
-- 
+<!-- generated: game checks (tools/phase_notes.py; edit the handoff file, not this) -->
+<!-- end generated: game checks -->
 
 ## Fix rounds
 
-One line per fix, under a heading per round: issue, cause, fix, what the re-test should look at. Findings from the user's own game name their screenshot.
+Generated from `scratch/phases/<id>/fixes.json`: one line per fix under a heading per round (issue, cause, fix, what the re-test should look at). Findings from the user's own game name their screenshot.
 
-### Fix round 1 (<date>)
-
-- 
+<!-- generated: fix rounds (tools/phase_notes.py; edit the handoff file, not this) -->
+<!-- end generated: fix rounds -->
 
 ## Close
 
