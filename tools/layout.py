@@ -8,6 +8,9 @@ The shape is given in wiki/Workflow.md, "Handoff files"; the design language it 
         for item in layout.items(window):      # repeats expanded, names and keys filled in
             ...
 
+A layout may name its look (`style`: "steel", the default since 2026-10-21, or "card" for the screens built before);
+tools/lint_layout.py checks the layout against the ruleset below and wiki/Design-Language.md.
+
 A layout names a phase (`id`), a prefix for the widgets and sprites it adds (`prefix`: widgets `mod1440_<prefix>_*`,
 sprites `GFX_1440p_<PREFIX>_*`), the override file, the scene, the capture the mock-up is drawn on, and the windows.
 A window is a guiedit path ("strategicairview", "strategicairview/details_wnd"), where it stands on the screen
@@ -22,6 +25,11 @@ are inserted (`after`), and its items, in drawing order, with x and y relative t
             (x, y, w, row, rows; `every` = 2)
   plate     a plate on a texture (texture, border) or on    iconType (+ tile sprite)    the tile or the sprite
             an existing sprite (sprite)
+  steel     a steel card (the default look, C1): optional   iconType + bitmap sprite    the bitmap
+            `head` rows (27, or 38 with buttons), `bottom`  (a DDS cut from the steel
+                                                            bar by stretch_background)
+  steel_title  the steel title strip                       iconType + bitmap sprite    the bitmap
+  inset     a near-black inset (tiled_window_thin_border)   iconType + tile sprite      the tile
   caption   a text of the mod (key, text, font, w, h,       instantTextboxType          the text
             format)
   move      a vanilla widget at its new place (path, x, y,  position, size or maxWidth, the sample text or the
@@ -41,14 +49,62 @@ import re
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# The tiles of the card style (wiki/Design-Language.md): texture and border of each plate kind.
+# The tiles of the plates (wiki/Design-Language.md): texture and border of each plate kind.
 PLATES = {
     "title": ("gfx/interface/header_bg.dds", (61, 21)),
     "card": ("gfx/interface/tiles/tiled_plain_bg_small.dds", (16, 16)),
     "head": ("gfx/interface/tiles/tiled_header_1.dds", (8, 8)),
     "bands": ("gfx/interface/tiles/black_bg_tile.dds", (3, 3)),
+    "inset": ("gfx/interface/tiles/tiled_window_thin_border.dds", (8, 8)),
 }
-PLATE_KINDS = ("title", "card", "head", "bands", "plate")
+# The steel pieces are bitmaps cut from the steel bar at their size (tools/stretch_background.py, steel_piece).
+STEEL_KINDS = ("steel", "steel_title")
+STEEL_DIR = "gfx/interface/1440p_ui"
+PLATE_KINDS = ("title", "card", "head", "bands", "plate", "inset") + STEEL_KINDS
+
+# ---------------------------------------------------------------- the ruleset in numbers
+# wiki/Design-Language.md says the same in words; tools/lint_layout.py holds a layout to it.
+STYLES = ("steel", "card")
+DEFAULT_STYLE = "steel"                  # user decision 2026-10-21: the C1 look is the default
+GROUND = "GFX_1440p_steel_ground"        # the near-black window ground of the steel look
+GAP = {"icon_text": 4, "inner": 8, "card": 6, "column": 16}
+ROW_PITCHES = (24, 32, 48)               # a table row: one line of hoi_18mbs, values beside icons, two lines
+STEEL_HEADS = (27, 38)                   # a steel card's head band: a line of text, or text with buttons
+FONTS = {                                # role -> the fonts the role may use, by look
+    "title": {"steel": ("hoi_36header",), "card": ("hoi_30header",)},
+    "name": {"steel": ("hoi_24header",), "card": ("hoi_20b",)},
+    "figure": {"steel": ("hoi_24header", "hoi_20b"), "card": ("hoi_20b",)},
+    "value": {"steel": ("hoi_20b",), "card": ("hoi_20b",)},
+    "caption": {"steel": ("hoi_18mbs",), "card": ("hoi_18mbs",)},
+    "button": {"steel": ("hoi_16mbs",), "card": ("hoi_16mbs",)},
+}
+CLOSE_INSIDE = (2, 8)                    # the close button's right edge this far inside the title strip's
+CLOSE_SLACK = 4                          # and its middle this close to the strip's middle
+
+# The review questions a design answers in design.json `heuristics` (wiki/Design-Language.md, "Review questions"):
+# Nielsen's ten heuristics and the game usability heuristics of Pinelle et al. (2008), cut to what a redesign here can change.
+HEURISTICS = [
+    ("H1", "At a glance", "The values the player checks most are readable without hovering, scrolling or opening anything."),
+    ("H2", "The game's words", "Vanilla terms, icons and units; no new name for a vanilla thing."),
+    ("H3", "A way out", "ESCAPE and the close button at the title strip's right edge close it; nothing covers the map without need."),
+    ("H4", "Consistency", "The pieces, fonts, spacing and hotkeys of the ruleset; the linter is clean or each exception has its reason."),
+    ("H5", "Muscle memory", "Frequent buttons keep vanilla's order and relative place, or the move is argued; destructive buttons stand apart from frequent ones."),
+    ("H6", "State is shown", "The selection, the open tab, the filters on and the folded parts are visible, not remembered."),
+    ("H7", "Shortcuts", "Frequent actions have a hotkey from the shared table."),
+    ("H8", "One subject per card", "Related values side by side, nothing shown twice, no empty space without a reason."),
+    ("H9", "Hierarchy and legibility", "The squinted figure keeps the title, the heads and the key figures; no text under the contrast floor."),
+    ("H10", "Long text and many mods", "Long names, many rows and other mods' values fit: fixed boxes, scrolling, tools/check_playset.py read."),
+]
+CONTRAST = {"normal": 4.5, "large": 3.0}  # WCAG 2 ratios; large is 24 px and up, or 19 px and up in a bold font
+
+
+def style(lay):
+    return lay.get("style", DEFAULT_STYLE)
+
+
+def fonts_of(look):
+    """Every font the ruleset allows in a look."""
+    return sorted({f for role in FONTS.values() for f in role[look]})
 TEXT_KINDS = ("caption", "text")
 KINDS = PLATE_KINDS + TEXT_KINDS + ("move", "sprite", "paste")
 FORMATS = ("left", "center", "centre", "right")
@@ -65,6 +121,8 @@ def load(path):
     for key in ("id", "prefix", "windows"):
         if key not in lay:
             raise LayoutError("%s: no %r" % (path, key))
+    if style(lay) not in STYLES:
+        raise LayoutError("%s: style %r (one of %s)" % (path, style(lay), ", ".join(STYLES)))
     if not re.match(r"^[a-z][a-z0-9]*$", lay["prefix"]):
         raise LayoutError("%s: the prefix is lower-case letters and digits (%r)" % (path, lay["prefix"]))
     for window in lay["windows"]:
@@ -82,7 +140,8 @@ def _check(item, window, path):
         raise LayoutError("%s: unknown kind %r (one of %s)" % (where, kind, ", ".join(KINDS)))
     need = {
         "title": ("name", "x", "y", "w", "h"), "card": ("name", "x", "y", "w", "h"), "head": ("name", "x", "y", "w", "h"),
-        "bands": ("name", "x", "y", "w", "row", "rows"), "plate": ("name", "x", "y"),
+        "bands": ("name", "x", "y", "w", "row", "rows"), "plate": ("name", "x", "y"), "inset": ("name", "x", "y", "w", "h"),
+        "steel": ("name", "x", "y", "w", "h"), "steel_title": ("name", "x", "y", "w", "h"),
         "caption": ("name", "x", "y", "w", "key"), "move": ("path",), "text": ("font", "x", "y"),
         "sprite": ("name", "x", "y"), "paste": ("box", "x", "y"),
     }[kind]
@@ -92,6 +151,8 @@ def _check(item, window, path):
             raise LayoutError("%s: a %s item needs %r (%s)" % (where, kind, key, json.dumps(item)[:80]))
     if kind == "plate" and "sprite" not in item and not ("texture" in item and "w" in item and "h" in item):
         raise LayoutError("%s: a plate names a sprite, or a texture with w and h (%s)" % (where, item["name"]))
+    if kind in STEEL_KINDS and item.get("h", 0) < steel_min_height(item):
+        raise LayoutError("%s: the steel piece %s is %d high; it needs %d (edges and head)" % (where, item["name"], item["h"], steel_min_height(item)))
     if item.get("format", "left") not in FORMATS:
         raise LayoutError("%s: format %r" % (where, item.get("format")))
 
@@ -149,7 +210,42 @@ def plate_texture(item):
         if "sprite" in item:
             return None
         return item["texture"], tuple(item.get("border", (0, 0)))
+    if item["kind"] in STEEL_KINDS:
+        return None
     return PLATES[item["kind"]]
+
+
+def steel_params(item):
+    """(head rows, head gain, bottom rows) of a steel piece, as tools/stretch_background.py steel_piece takes them."""
+    h = item["h"]
+    if item["kind"] == "steel_title":
+        return h - 6, 1.25, 4
+    return item.get("head", 0), 1.9, item.get("bottom", 15 if h >= 60 else 6)
+
+
+def steel_min_height(item):
+    head, _gain, bottom = steel_params(dict(item, h=item.get("h", 0)))
+    return 9 + (head - 10 + 3 if head else 0) + bottom      # edge, head band and rule, bottom (C1's title strip has no body)
+
+
+def steel_texture(lay, item):
+    """Where the bitmap of a steel piece is written: gfx/interface/1440p_ui/<prefix>_<name>.dds"""
+    return "%s/%s_%s.dds" % (STEEL_DIR, lay["prefix"], item["name"])
+
+
+def steel_declarations(lay):
+    """One (sprite name, texture, kind, (w, h), params) per steel bitmap the layout makes, in the order they appear."""
+    seen = {}
+    for window in lay["windows"]:
+        for item in items(window):
+            if item["kind"] not in STEEL_KINDS:
+                continue
+            name = sprite_name(lay, item)
+            key = (item["kind"], (item["w"], item["h"]), steel_params(item))
+            if name in seen and seen[name][1:] != key:
+                raise LayoutError("%s is made twice with different sizes or heads" % name)
+            seen.setdefault(name, (steel_texture(lay, item),) + key)
+    return [(name, tex, kind, size, params) for name, (tex, kind, size, params) in seen.items()]
 
 
 def plate_size(item):

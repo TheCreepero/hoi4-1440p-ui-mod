@@ -2,6 +2,8 @@
   "_comment": "The worked example of a layout file (wiki/Workflow.md, Handoff files): phase A10, the air region window and its details panel, as built in interface/zz_1440p_air_region.gui. tools/mockup.py draws it, tools/apply_layout.py applies it; tests/Layout.Tests.ps1 applies it to the vanilla baseline and compares with the built file. Numbers are window-relative; the sprites GFX_1440p_AR_* that are not plates of the card style (the superiority bar, the sky, the channel cell, the grid lines) were declared by the builder in interface/1440p_ui.gfx.",
   "id": "A10",
   "prefix": "ar",
+  "style": "card",
+  "exceptions": [{"rule": "close", "why": "Built in phase A10 (2026-10-17/18), before the close-button rule of 2026-10-21: the button ends 1 px past the strip. It moves when a phase touches A10 again."}],
   "scene": "air_region",
   "file": "interface/zz_1440p_air_region.gui",
   "frame": "reference/mod/air_selection.jpg",

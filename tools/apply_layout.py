@@ -13,6 +13,8 @@ What it does, per window of the layout:
     sprite, and any raw key under `set`;
   - declares the plates' sprites between "# --- <id> layout ---" markers inside the "# --- <id> ---" block of
     interface/1440p_ui.gfx (made when missing);
+  - writes the bitmap of every steel piece to gfx/interface/1440p_ui/<prefix>_<name>.dds, cut from the game's steel
+    bar (needs Pillow and the game folder; --no-textures skips it);
   - writes the `sample` texts of the `move` items into tools/scenes/<scene>.json when the scene exists.
 
 Absolute values, so a second run changes nothing. --compare reads a file instead and reports every widget whose
@@ -58,6 +60,11 @@ def sprite_block(name, texture, border, size):
         lines.append('\t\teffectFile = "gfx/FX/buttonstate_nodowneffect.lua"')
     lines.append("\t}")
     return "\n".join(lines)
+
+
+def steel_sprite_block(name, texture):
+    return "\n".join(["\tspriteType = {", '\t\tname = "%s"' % name, '\t\ttexturefile = "%s"' % texture,
+                      '\t\teffectFile = "gfx/FX/buttonstate_nodowneffect.lua"', "\t}"])
 
 
 def tool_blocks(lay, item, ind):
@@ -263,6 +270,9 @@ def gfx_block_text(lay):
     for name, texture, border, size in decls:
         lines.append("")
         lines.append(sprite_block(name, texture, border, size))
+    for name, texture, _kind, _size, _params in layoutmod.steel_declarations(lay):
+        lines.append("")
+        lines.append(steel_sprite_block(name, texture))
     lines.append("\t# --- end %s layout ---" % label)
     return "\n".join(lines)
 
@@ -284,6 +294,27 @@ def write_gfx(lay, gfx_path):
             close = text.rstrip().rfind("}")
             text = (text[:close].rstrip("\n") + "\n\n\t# --- %s ---\n" % label + block + "\n\t# --- end %s ---\n" % label + text[close:])
     io.open(gfx_path, "w", encoding="utf-8", newline="").write(text.replace("\n", newline))
+
+
+def write_steel(lay, game_dir=None, root=REPO_ROOT):
+    """The bitmap of every steel piece, cut from the game's steel bar, under `root`: the paths written."""
+    decls = layoutmod.steel_declarations(lay)
+    if not decls:
+        return []
+    from PIL import Image
+    import guiparse
+    from stretch_background import STEEL_BAR, steel_piece
+    found = guiparse.find_game_dir(game_dir)
+    if not found:
+        raise SystemExit("the steel pieces are cut from the game's textures: pass --game-dir or set HOI4_GAME_DIR (or --no-textures)")
+    bar = Image.open(os.path.join(found, *STEEL_BAR.split("/"))).convert("RGBA")
+    written = []
+    for _name, texture, kind, (w, h), (head, gain, bottom) in decls:
+        out = os.path.join(root, *texture.split("/"))
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        steel_piece(bar, kind, w, h, head, gain, bottom).save(out)
+        written.append(texture)
+    return written
 
 
 # ---------------------------------------------------------------- the scene
@@ -383,6 +414,8 @@ def main(argv=None):
     parser.add_argument("--scene", help="the scene file (default: tools/scenes/<scene>.json of the layout)")
     parser.add_argument("--no-gfx", action="store_true")
     parser.add_argument("--no-scene", action="store_true")
+    parser.add_argument("--no-textures", action="store_true", help="do not write the bitmaps of the steel pieces")
+    parser.add_argument("--game-dir", help="the game folder, for the steel pieces (default: HOI4_GAME_DIR, then Steam)")
     parser.add_argument("--compare", metavar="GUI", help="report where this file differs from the layout; write nothing")
     args = parser.parse_args(argv)
 
@@ -398,9 +431,13 @@ def main(argv=None):
     applier = Applier(lay, gui_path).apply()
     applier.save()
     print("wrote %s" % os.path.relpath(gui_path, REPO_ROOT))
-    if not args.no_gfx and layoutmod.plate_declarations(lay):
+    count = len(layoutmod.plate_declarations(lay)) + len(layoutmod.steel_declarations(lay))
+    if not args.no_gfx and count:
         write_gfx(lay, repo_path(args.gfx))
-        print("declared %d sprite(s) in %s" % (len(layoutmod.plate_declarations(lay)), args.gfx))
+        print("declared %d sprite(s) in %s" % (count, args.gfx))
+    if not args.no_textures:
+        for texture in write_steel(lay, args.game_dir):
+            print("wrote " + texture)
     if not args.no_scene:
         scene_path = repo_path(args.scene or os.path.join("tools", "scenes", lay.get("scene", "") + ".json"))
         if lay.get("scene") or args.scene:

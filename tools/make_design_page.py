@@ -3,8 +3,8 @@
     python -I tools/make_design_page.py A10            # scratch/phases/A10/design.html
     python -I tools/make_design_page.py A10 --open     # and open it in the browser
 
-Reads scratch/phases/<id>/design.json, decisions-final.json, build/build.json and checks/check-*.json, whichever
-exist, and writes design.html beside them, with one composite image per figure group (vanilla, current, proposed
+Reads scratch/phases/<id>/design.json, decisions-final.json, build/build.json, checks/check-*.json and audit.json
+(tools/ux_audit.py), whichever exist, and writes design.html beside them, with one composite image per figure group (vanilla, current, proposed
 and build stacked at the same scale, labelled, WebP) embedded, so the page stays small and the orchestrator reads
 one image per group. The composites are also written to scratch/phases/<id>/figures/<group>.webp. The orchestrator
 publishes the page with the Artifact tool at every gate; the same file, so the link stays.
@@ -23,6 +23,9 @@ import sys
 import webbrowser
 
 from PIL import Image, ImageDraw, ImageFont
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from layout import HEURISTICS  # noqa: E402
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KIND_ORDER = ["vanilla", "current", "proposed", "alternative", "build"]
@@ -175,6 +178,69 @@ def section(title, body, sub=None):
     return "<section>%s%s</section>" % (head, body)
 
 
+def table_html(columns, rows):
+    head = "".join("<th>%s</th>" % e(c) for c in columns)
+    body = "".join("<tr>%s</tr>" % "".join("<td>%s</td>" % c for c in row) for row in rows)
+    return '<div class="tw"><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>' % (head, body)
+
+
+def review_section(design):
+    """The player tasks (vanilla against the proposal) and the answers to the review questions of design.json."""
+    body = ""
+    tasks = design.get("tasks") or []
+    if tasks:
+        def cell(side):
+            side = side or {}
+            return "%s / %s" % (side.get("clicks", ""), side.get("looks", ""))
+        body += "<h3>Player tasks</h3>" + table_html(["Task", "Vanilla: clicks / places", "Proposed: clicks / places", "Note"],
+                                                       [[inline(t.get("task", "")), e(cell(t.get("vanilla"))), e(cell(t.get("proposed"))), inline(t.get("note", ""))] for t in tasks])
+    answers = {h.get("id"): h for h in design.get("heuristics") or []}
+    if answers:
+        rows = []
+        for hid, title, question in HEURISTICS:
+            a = answers.get(hid, {})
+            verdict = a.get("verdict", "not answered")
+            mark = '<span class="rec">%s</span>' % e(verdict) if verdict == "pass" else '<span class="chosen">%s</span>' % e(verdict)
+            rows.append(["<b>%s</b> %s" % (e(hid), e(title)), e(question), mark, inline(a.get("note", ""))])
+        body += "<h3>Review questions</h3>" + table_html(["Question", "Asks", "Answer", "Note"], rows)
+    if not body:
+        return ""
+    return section("Tasks and review", body, "What a player does on this screen, counted in clicks and in places the eye must go, vanilla against the proposal; and the designer's answers to the review questions of the Design Language page. An issue there is fixed or is one of the decisions below.")
+
+
+def audit_section(phase_dir):
+    """What tools/ux_audit.py measured: the linter, the contrast, the fonts, small buttons, the squinted figures."""
+    audit = read_json(os.path.join(phase_dir, "audit.json"))
+    if not audit:
+        return ""
+    body = ""
+    lint = audit.get("lint")
+    if lint:
+        c = lint["counts"]
+        body += "<p>Linter (%s look): %d error(s), %d warning(s), %d excepted.</p>" % (e(audit.get("style", "")), c["error"], c["warn"], c["excepted"])
+        if lint["findings"]:
+            body += table_html(["Level", "Rule", "Where", "Finding", "Reason"],
+                               [[e(f["level"]), e(f["rule"]), e("%s %s" % (f["window"], f["item"])), e(f["message"]), e(f.get("why") or "")] for f in lint["findings"]])
+    contrast = audit.get("contrast")
+    if contrast is not None:
+        low = [c for c in contrast if not c["ok"]]
+        body += "<h3>Contrast</h3><p>%d of %d texts under the floor (4.5:1, or 3:1 for large text). The game's text shadows read better than the ratio says.</p>" % (len(low), len(contrast))
+        if low:
+            body += table_html(["Ratio", "Needed", "Where", "Font", "Text"],
+                               [["%.2f" % c["ratio"], "%.1f" % c["needed"], e("%s %s" % (c["window"], c["item"])), e(c["font"]), e(c["text"])] for c in low])
+    if audit.get("fonts"):
+        body += "<h3>Fonts</h3><p>%s</p>" % ", ".join("<code>%s</code> x%d" % (e(f), n) for f, n in audit["fonts"].items())
+    if audit.get("targets"):
+        body += "<h3>Small buttons</h3><ul>%s</ul>" % "".join("<li>%s %s: %dx%d</li>" % (e(t["window"]), e(t["item"]), t["size"][0], t["size"][1]) for t in audit["targets"])
+    for rel in audit.get("squint", []):
+        path = os.path.join(phase_dir, *rel.split("/"))
+        if os.path.isfile(path):
+            group = os.path.basename(rel)[:-len("-squint.webp")]
+            body += ('<figure class="fig"><figcaption><span class="tag">%s</span>Squinted: blurred and grey, what still stands out is what the eye finds first</figcaption>'
+                     '<div class="scroll"><img src="%s" alt="%s squinted"></div></figure>' % (e(group), data_uri(path), e(group)))
+    return section("Measured", body, "Made by tools/ux_audit.py from the layout file and the figures.")
+
+
 def make_page(phase_dir, full=False):
     design = read_json(os.path.join(phase_dir, "design.json"))
     if not design:
@@ -243,6 +309,13 @@ def make_page(phase_dir, full=False):
                     % (e(group), e(caption), data_uri(out), e(group)))
     parts.append(section("Vanilla beside the proposal", "".join(figs),
                          "Each group stacks the vanilla capture, the current build where one exists, the proposal and, after the build, the render of the mod's files, all cut at the same box and the same scale. The button shows them at 1:1."))
+
+    review = review_section(design)
+    if review:
+        parts.append(review)
+    measured = audit_section(phase_dir)
+    if measured:
+        parts.append(measured)
 
     if build:
         body = rich(build.get("summary"))

@@ -50,7 +50,7 @@ Generated from `scratch/phases/<id>/build/build.json`: what was built, deviation
 
 ## Game checks
 
-One row per launch, generated from `scratch/phases/<id>/checks/check-<n>.json` (columns | # | Date | Build | By | Checked | Result | Screenshot | Taught |; By = `game-checker`). The user's own tests (their game and playset) are added by hand under the markers: date, what they looked at, their words, their screenshots.
+One row per launch, generated from `scratch/phases/<id>/checks/check-<n>.json` (columns | # | Date | Build | By | Checked | Result | Screenshot | Taught |; By = `game-checker`). The user's own tests (their game and playset) are added by hand under the markers: date, what they looked at, their words, their screenshots, and the play verdict ([Design Language](Design-Language.md), "Review questions"): what they looked for and did not find; what they misread; what they still opened another screen or vanilla's window for.
 
 <!-- generated: game checks (tools/phase_notes.py; edit the handoff file, not this) -->
 <!-- end generated: game checks -->

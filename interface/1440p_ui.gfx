@@ -1,5 +1,18 @@
 spriteTypes = {
 
+	# --- design language ---
+	# The window ground of the steel look, the default of every screen since 2026-10-21 (wiki/Design-Language.md):
+	# the near-black inset texture with its border, tiled at the window's size. Same as GFX_1440p_PD_black_tile (C1).
+	corneredTileSpriteType = {
+		name = "GFX_1440p_steel_ground"
+		size = { x = 192 y = 192 }
+		textureFile = "gfx/interface/tiles/tiled_window_thin_border.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+	# --- end design language ---
+
 	# Air wing, gun emplacement and rocket rows, 784 wide. Frame 1 unselected, frame 2 selected.
 	# The texture is the vanilla wing_entry_bg.dds widened by tools/stretch_background.py.
 	spriteType = {

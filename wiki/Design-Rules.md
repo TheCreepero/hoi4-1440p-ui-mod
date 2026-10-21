@@ -89,7 +89,7 @@ The `.gui` files do not state these outright, and the static tests cannot catch 
 
 ## Spacing
 
-The same distances everywhere, so that cards, columns and pictures read as one design (user, 2026-10-16). Measured in the file's pixels at 2560x1440.
+The same distances everywhere, so that cards, columns and pictures read as one design (user, 2026-10-16). Measured in the file's pixels at 2560x1440. The ruleset that a layout is checked against (the look, fonts by role, fixed places, hotkeys) is [Design Language](Design-Language.md); this section keeps the reasons.
 
 | Between | Space |
 |---|---|
@@ -104,7 +104,7 @@ The same distances everywhere, so that cards, columns and pictures read as one d
 
 ## Fonts
 
-Larger text means choosing a larger font that vanilla already ships. Sizes in use in vanilla GUI files:
+Larger text means choosing a larger font that vanilla already ships; which font each role takes is in [Design Language](Design-Language.md), "Fonts by role". Sizes in use in vanilla GUI files:
 
 | Use | Vanilla fonts |
 |---|---|

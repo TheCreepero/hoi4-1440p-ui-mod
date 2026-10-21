@@ -71,6 +71,103 @@ Describe 'The layout file (tools/layout.py, tools/apply_layout.py)' {
     }
 }
 
+Describe 'The ruleset (tools/lint_layout.py, wiki/Design-Language.md)' {
+    It 'passes both worked examples: the steel catalogue with no finding, A10 with its one argued exception' {
+        if (-not $script:Python) { Set-ItResult -Skipped -Because 'python is not installed'; return }
+        $steel = Invoke-Tool @((Join-Path $script:Tools 'lint_layout.py'), (Join-Path (Join-Path $script:Tools 'examples') 'steel-layout.json'))
+        $steel.Exit | Should -Be 0 -Because $steel.Output
+        $steel.Output | Should -Match 'steel look: 0 error\(s\), 0 warning\(s\), 0 excepted'
+        $a10 = Invoke-Tool @((Join-Path $script:Tools 'lint_layout.py'), $script:Example)
+        $a10.Exit | Should -Be 0 -Because $a10.Output
+        $a10.Output | Should -Match 'card look: 0 error\(s\), 0 warning\(s\), 1 excepted'
+    }
+
+    It 'finds a foreign font, a wrong gap, row and head, and a misplaced close button, and honours a why' {
+        if (-not $script:Python) { Set-ItResult -Skipped -Because 'python is not installed'; return }
+        $bad = @{
+            id = 'T2'; prefix = 'tt'
+            windows = @(@{ path = 'w'; size = @(400, 400); background = 'GFX_1440p_steel_ground'; items = @(
+                @{ kind = 'steel_title'; name = 'title'; x = 2; y = 2; w = 396; h = 46 },
+                @{ kind = 'move'; path = 'close_button'; x = 300; y = 8 },
+                @{ kind = 'steel'; name = 'a'; x = 6; y = 54; w = 388; h = 100; head = 30 },
+                @{ kind = 'steel'; name = 'b'; x = 6; y = 164; w = 388; h = 100 },
+                @{ kind = 'bands'; name = 'rows'; x = 14; y = 84; w = 372; row = 28; rows = 2 },
+                @{ kind = 'text'; font = 'hoi_22tech'; x = 20; y = 90; text = 'x' },
+                @{ kind = 'text'; font = 'hoi_22tech'; x = 20; y = 120; text = 'y'; why = 'a test' }
+            ) })
+        }
+        $path = Join-Path $script:Work 'lint-bad.json'
+        [System.IO.File]::WriteAllText($path, ($bad | ConvertTo-Json -Depth 6), [System.Text.UTF8Encoding]::new($false))
+        $result = Invoke-Tool @((Join-Path $script:Tools 'lint_layout.py'), $path)
+        $result.Exit | Should -Be 1
+        foreach ($rule in @('font', 'gap', 'row', 'head', 'close')) { $result.Output | Should -Match ('(?m)^error\s+' + $rule + '\s') }
+        $result.Output | Should -Match '5 error\(s\), 0 warning\(s\), 1 excepted'
+    }
+
+    It 'declares the steel pieces as bitmap sprites and cuts them from the game''s steel bar' {
+        if (-not $script:Python) { Set-ItResult -Skipped -Because 'python is not installed'; return }
+        $catalogue = Join-Path (Join-Path $script:Tools 'examples') 'steel-layout.json'
+        $code ="import sys; sys.path.insert(0, r'$($script:Tools)'); import layout, apply_layout; lay = layout.load(r'$catalogue'); print(len(layout.steel_declarations(lay))); print(apply_layout.gfx_block_text(lay))"
+        $result = Invoke-Tool @('-c', $code)
+        $result.Exit | Should -Be 0 -Because $result.Output
+        [int]@($result.Output -split '\r?\n')[0] | Should -Be 6 -Because 'the title strip and five cards'
+        $result.Output | Should -Match 'name = "GFX_1440p_STEEL_table"\s+texturefile = "gfx/interface/1440p_ui/steel_table.dds"'
+        $result.Output | Should -Match 'name = "GFX_1440p_STEEL_line_inset"\s+size = \{ x = 392 y = 66 \}' -Because 'an inset is a tile'
+    }
+
+    It 'cuts the steel bitmaps at their sizes' -Skip:(-not $canRender) {
+        $catalogue = Join-Path (Join-Path $script:Tools 'examples') 'steel-layout.json'
+        $out = Join-Path $script:Work 'steel'
+        $cut ="import sys; sys.path.insert(0, r'$($script:Tools)'); import layout, apply_layout; from PIL import Image; import os; lay = layout.load(r'$catalogue'); paths = apply_layout.write_steel(lay, root=r'$out'); im = Image.open(os.path.join(r'$out', *paths[1].split('/'))); print(len(paths), im.size)"
+        $made = Invoke-Tool @('-c', $cut)
+        $made.Exit | Should -Be 0 -Because $made.Output
+        $made.Output | Should -Match '6 \(808, 180\)'
+    }
+}
+
+Describe 'The review (tools/ux_audit.py, the review questions)' {
+    It 'lists the same ten review questions in tools/layout.py and on the Design Language page' {
+        if (-not $script:Python) { Set-ItResult -Skipped -Because 'python is not installed'; return }
+        $code = "import sys; sys.path.insert(0, r'$($script:Tools)'); import layout; [print(i + '|' + t) for i, t, _q in layout.HEURISTICS]"
+        $result = Invoke-Tool @('-c', $code)
+        $result.Exit | Should -Be 0 -Because $result.Output
+        $page = [System.IO.File]::ReadAllText((Join-Path (Join-Path $script:RepoRoot 'wiki') 'Design-Language.md'), [System.Text.Encoding]::UTF8)
+        $rows = @($result.Output -split '\r?\n' | Where-Object { $_ })
+        $rows.Count | Should -Be 10
+        foreach ($row in $rows) {
+            $id, $title = $row -split '\|', 2
+            $page | Should -Match ('\| ' + [regex]::Escape($id) + ' \| ' + [regex]::Escape($title) + ' \|')
+        }
+    }
+
+    It 'measures a design and puts the tasks, the answers and the measurements on the design page' -Skip:(-not $canRender) {
+        $phase = Join-Path $script:Work 'audit-sample'
+        if (Test-Path $phase) { Remove-Item -LiteralPath $phase -Recurse -Force }
+        New-Item -ItemType Directory -Path $phase -Force | Out-Null
+        Copy-Item -LiteralPath (Join-Path (Join-Path $script:Tools 'examples') 'steel-layout.json') -Destination (Join-Path $phase 'layout.json')
+        $mock = Invoke-Tool @((Join-Path $script:Tools 'mockup.py'), (Join-Path $phase 'layout.json'), '--out', (Join-Path $phase 'proposed-main.png'))
+        $mock.Exit | Should -Be 0 -Because $mock.Output
+        Copy-Item -LiteralPath (Join-Path $phase 'proposed-main.png') -Destination (Join-Path $phase 'vanilla-main.png')
+        $design = @{
+            id = 'T3'; title = 'Audit sample'; kind = 'screen'; verdict = 'rework'; effort = 'S'; summary = 'Steel.'
+            figures = @(@{ file = 'vanilla-main.png'; kind = 'vanilla'; group = 'main' }, @{ file = 'proposed-main.png'; kind = 'proposed'; group = 'main' })
+            tasks = @(@{ task = 'How much artillery is short?'; vanilla = @{ clicks = 2; looks = 3 }; proposed = @{ clicks = 0; looks = 1 } })
+            heuristics = @(@{ id = 'H1'; verdict = 'pass'; note = 'In the table.' }, @{ id = 'H9'; verdict = 'issue'; note = 'Red alone marks a shortage.' })
+        }
+        [System.IO.File]::WriteAllText((Join-Path $phase 'design.json'), ($design | ConvertTo-Json -Depth 6), [System.Text.UTF8Encoding]::new($false))
+        $audit = Invoke-Tool @((Join-Path $script:Tools 'ux_audit.py'), $phase)
+        $audit.Exit | Should -Be 0 -Because $audit.Output
+        $audit.Output | Should -Match 'linter: 0 error\(s\)'
+        $audit.Output | Should -Match 'contrast: \d+ of \d+ texts under the floor'
+        $audit.Output | Should -Match 'squinted: figures/main-squint\.webp'
+        $result = Invoke-Tool @((Join-Path $script:Tools 'make_design_page.py'), $phase)
+        $result.Exit | Should -Be 0 -Because $result.Output
+        $text = [System.IO.File]::ReadAllText((Join-Path $phase 'design.html'), [System.Text.Encoding]::UTF8)
+        foreach ($part in @('Player tasks', 'How much artillery is short\?', 'Review questions', 'Hierarchy and legibility', 'not answered', 'Measured', 'Contrast', 'Squinted')) { $text | Should -Match $part }
+        ([regex]::Matches($text, '<img ')).Count | Should -Be 2 -Because 'the figure group and its squinted copy'
+    }
+}
+
 Describe 'The mock-up from a layout (tools/mockup.py)' -Skip:(-not $canRender) {
     It 'draws the worked example' {
         $out = Join-Path $script:Work 'a10-mockup-test.png'

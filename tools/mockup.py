@@ -20,6 +20,7 @@ The primitives are there for a hand-written mock-up too:
     m = Mockup("reference/vanilla/production.jpg", panel="reference/vanilla/production-panel.png")
     m.sprite("GFX_tiled_plain_bg", 0, 80, 1044, 1360)        # any sprite, at its size or a given one
     m.card(6, 56, 568, 68); m.head_bar(14, 138, 552, 30); m.bands(14, 168, 552, 32, 6); m.title_strip(3, 3, 574, 44)
+    m.steel(6, 56, 568, 120, head=27); m.steel(2, 2, 816, 46, title=True)   # the steel look
     m.text("hoi_36header", 45, 86, "Production")              # a game font; colour codes and text icons work
     m.text("hoi_18mbs", 194, 175, "Fighters", w=192, align="center")
     m.paste(m.cut((16, 76, 512, 112)), 12, 140)               # a piece of the panel capture, at 1:1
@@ -38,7 +39,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import guiparse  # noqa: E402
 import layout as layoutmod  # noqa: E402
 from render_gui import Rect, Renderer  # noqa: E402
-from stretch_background import tile_nine  # noqa: E402
+from stretch_background import STEEL_BAR, steel_piece, tile_nine  # noqa: E402
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -94,6 +95,15 @@ class Mockup:
     def plate(self, kind, x, y, w, h):
         texture, border = layoutmod.PLATES[kind]
         self.paste(self.tile(texture, border, w, h), x, y)
+
+    def steel(self, x, y, w, h, head=0, title=False):
+        """A piece of the steel look: a card with `head` rows of head band, or the title strip."""
+        item = {"kind": "steel_title" if title else "steel", "w": w, "h": h, "head": head}
+        self.paste(self.steel_image(item), x, y)
+
+    def steel_image(self, item):
+        head, gain, bottom = layoutmod.steel_params(item)
+        return steel_piece(self.texture_file(STEEL_BAR), item["kind"], item["w"], item["h"], head, gain, bottom)
 
     def title_strip(self, x, y, w, h):
         self.plate("title", x, y, w, h)
@@ -160,8 +170,10 @@ class Mockup:
     def draw_item(self, lay, item, ox, oy):
         kind = item["kind"]
         x, y = ox + item.get("x", 0), oy + item.get("y", 0)
-        if kind in ("title", "card", "head"):
+        if kind in ("title", "card", "head", "inset"):
             self.plate(kind, x, y, item["w"], item["h"])
+        elif kind in layoutmod.STEEL_KINDS:
+            self.paste(self.steel_image(item), x, y)
         elif kind == "bands":
             for _n, by in layoutmod.band_rows(item):
                 self.plate("bands", x, oy + by, item["w"], item["row"])

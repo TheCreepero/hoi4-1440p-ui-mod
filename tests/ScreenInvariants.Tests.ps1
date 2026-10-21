@@ -249,6 +249,46 @@ Describe 'Hotkeys' {
         }
         @($collisions | Sort-Object -Unique) | Should -BeNullOrEmpty
     }
+
+    It 'gives every hotkey the mod adds the key of its action in the shared table (tools/hotkeys.json)' {
+        # wiki/Design-Language.md, Hotkeys (user decision 2026-10-21): one key per action on every screen, one action per key
+        $table = Get-Content -LiteralPath (Join-Path (Join-Path $script:RepoRoot 'tools') 'hotkeys.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+        $always = @($table.always.PSObject.Properties.Name | ForEach-Object { $_.ToLowerInvariant() })
+        $pattern = '\bshortcut\s*=\s*"?([^"\s}]+)"?'
+        function Get-KeyedButtons([string]$Path) {
+            $text = [regex]::Replace([System.IO.File]::ReadAllText($Path), '#[^\r\n]*', '')
+            foreach ($m in [regex]::Matches($text, $pattern)) {
+                $names = [regex]::Matches($text.Substring(0, $m.Index), 'name\s*=\s*"([^"]+)"')
+                if ($names.Count) { [pscustomobject]@{ Button = $names[$names.Count - 1].Groups[1].Value; Key = $m.Groups[1].Value.ToLowerInvariant() } }
+            }
+        }
+        $vanilla = @{}
+        foreach ($file in @(Get-ChildItem -Path $script:BaselineDir -Recurse -File -Filter '*.gui')) {
+            foreach ($b in @(Get-KeyedButtons $file.FullName)) { $vanilla["$($b.Button)|$($b.Key)"] = $true }
+        }
+        $added = @{}
+        foreach ($file in @(Get-ModGuiFiles)) {
+            foreach ($b in @(Get-KeyedButtons $file.FullName)) {
+                if ($always -contains $b.Key -or $vanilla.ContainsKey("$($b.Button)|$($b.Key)")) { continue }
+                $added["$($file.Name):$($b.Button)"] = $b.Key
+            }
+        }
+        $listed = @{}
+        $problems = @()
+        foreach ($a in @($table.actions)) {
+            if ($a.key -notmatch '^shift\+[a-z]$') { $problems += "the action '$($a.action)' has '$($a.key)'; an added hotkey is shift+letter" }
+            foreach ($id in @($a.buttons)) {
+                $listed[$id] = $a.key
+                if (-not $added.ContainsKey($id)) { $problems += "$id is listed under '$($a.action)' but carries no added hotkey" }
+                elseif ($added[$id] -ne $a.key) { $problems += "$id has '$($added[$id])'; its action '$($a.action)' has '$($a.key)'" }
+            }
+        }
+        foreach ($id in $added.Keys) {
+            if (-not $listed.ContainsKey($id)) { $problems += "$id adds '$($added[$id])' and is not in tools/hotkeys.json" }
+        }
+        foreach ($dup in @($table.actions | Group-Object key | Where-Object Count -gt 1)) { $problems += "'$($dup.Name)' is the key of $($dup.Count) actions" }
+        @($problems | Sort-Object) | Should -BeNullOrEmpty
+    }
 }
 
 Describe 'Localisation' {

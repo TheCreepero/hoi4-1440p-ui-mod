@@ -920,6 +920,13 @@ def naval_strip_301(source):
 # --- end C1 ---
 
 
+def steel_piece(bar, kind, width, height, head=0, head_gain=1.9, bottom_rows=15):
+    """A piece of the steel look (the default since 2026-10-21) at its size, as a layout file names it
+    (tools/layout.py, steel_params): a "steel" card, with `head` rows of head band or none, or the
+    "steel_title" strip. tools/apply_layout.py writes it as a DDS, tools/mockup.py draws it."""
+    return steel_plate(bar, width, height, head=head, head_gain=head_gain, bottom_rows=bottom_rows)
+
+
 # ---------------------------------------------------------------------------------------------
 # General selection (phase C2). The window grows from 550x607 to 800x1180, a general's row from 510x98
 # to 760x124 with a portrait box 32 wider. Shared with interface/zz_1440p_leader_selection.gui.
