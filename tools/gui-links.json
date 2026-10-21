@@ -164,6 +164,53 @@
       "entry": "air_wing_reorganization_equipment_entry_right",
       "window": "air_wing_reorganization",
       "_comment": "a7-reorg: a plane card of the wing list; the code fills the grid of list_right, one card per plane type."
+    },
+    {
+      "grid": "resource_strip_container/resources_grid",
+      "entry": "resource_strip_item",
+      "window": "countryproductionlineview",
+      "_comment": "C1 round 2: the seven materials of the top, slots of 70."
+    },
+    {
+      "grid": "resources_grid",
+      "entry": "production_resource_item",
+      "window": "production_military_line_entry",
+      "_comment": "C1 round 2: the materials in a line's head, a row of four slots of 46 (the same function fills the expanded and the collapsed line, GUL-037)."
+    },
+    {
+      "grid": "resources_grid",
+      "entry": "production_resource_item",
+      "window": "production_military_line_entry_collapsed"
+    },
+    {
+      "grid": "resources_grid",
+      "entry": "production_resource_item",
+      "window": "production_naval_line_entry"
+    },
+    {
+      "grid": "resources_grid",
+      "entry": "production_resource_item",
+      "window": "production_naval_line_entry_collapsed"
+    },
+    {
+      "grid": "resources_grid",
+      "entry": "production_resource_item",
+      "window": "production_ship_refit_line_entry"
+    },
+    {
+      "grid": "resources_grid",
+      "entry": "production_resource_item",
+      "window": "production_ship_refit_line_entry_collapsed"
+    },
+    {
+      "grid": "resources_grid",
+      "entry": "production_resource_item",
+      "window": "production_railway_gun_line_entry"
+    },
+    {
+      "grid": "resources_grid",
+      "entry": "production_resource_item",
+      "window": "production_railway_gun_line_entry_collapsed"
     }
   ],
   "listRows": [
@@ -227,4 +274,4 @@
       "@equipment_entry_heigth": "40"
     }
   }
-}
+}

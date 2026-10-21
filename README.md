@@ -47,6 +47,10 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
   - The graph is 800x276 instead of 380x150, with thicker lines on a dark plot. Its grid lines sit on the two upper labels (the largest value shown and half of it), and the axis reads 30 to 0, days ago, as the newest day is at the right.
   - The 24 statistics are one table: one row per kind (fighters lost, troops bombed and so on), Our and Enemy side by side, each with its tick box, the colour of its line and its number. A ticked cell lights up.
   - The twelve numbers at the top are a captioned table: fighters, bombers, close air support planes, anti-air, air detection and efficiency, Our against Enemy. The air superiority bar has a caption, and the mission buttons sit in a bar above the cloud picture.
+- **Production** (the panel the production tab opens):
+  - Every production line is a card of riveted steel on a near-black panel: line names, the factory count and the ready date in the large title font, and the line's materials in a row in its head.
+  - Factory slots sit in a grid of boxes beside the progress bar, and one notch of the mouse wheel scrolls one card.
+  - The factories, the material stock and the production and efficiency figures stand in three cards across the top, with the filters in a row under them.
 
 ## Manager Pages
 

@@ -757,35 +757,167 @@ def production_columns(frame, gap=True):
     return grow(frame, "x", inserts)
 
 
-PROD_HEADER_WIDTH = 796
-PROD_FILTER_CELL = 66     # a filter cell: the checkbox (45 wide, 44 columns of the cell) and the count (22)
+# --- C1 ---
+# Round 2, bold variant (2026-10-20): every card of the production panel is cut from vanilla's gunmetal
+# steel bar (tiled_frontend_upper_bar, the main menu's riveted bar), recoloured only: the top band
+# lightened is the head, its rule and groove divide head from body, the body is darkened graphite, and the
+# columns sit in near-black insets of tiled_window_thin_border. Sizes are shared with
+# interface/zz_1440p_production.gui and scratch/phases/C1/mock_c1r2b.py.
+
+STEEL_BAR = "gfx/interface/tiles/tiled_frontend_upper_bar.dds"
+CARD_INSET = "gfx/interface/tiles/tiled_window_thin_border.dds"
+NAVAL_STRIP = "gfx/interface/naval_production_item_slots_strip.dds"
+HEAD_H = 27                # a line card's head band, rows 0-26; the plate and the picture start at 27 [GUL-041]
+CARD_GAP = 6               # transparent rows under every line card: 110 + 6 = the window's 116 (collapsed 60 + 6)
+LINE_W = 780
+PROD_X, PROD_W = 310, 266  # the production inset's column and width
+FAC_X, FAC_W = 620, 158    # the factories inset
 
 
-def production_header(source):
-    """The top of the production panel (production_win_top.dds, 550x253: resources, efficiency,
-    factories and two rows of filters stacked) as three rows, 796x126.
+def _gain(image, factor, box):
+    """Lighten or darken the colours of a box of `image` (alpha kept)."""
+    piece = image.crop(box)
+    r, g, b, a = piece.split()
+    r, g, b = (ch.point(lambda v: min(255, int(v * factor))) for ch in (r, g, b))
+    image.paste(Image.merge("RGBA", (r, g, b, a)), box[:2])
 
-    Row 1 (44 rows): the resources band (rows 8-52), then a piece of the plain efficiency band for the
-    factories in use. Row 2 (48): the factories band where its add-line buttons stand (rows 114-162),
-    grown by 286 columns in its plain parts, beside the plain efficiency band for the six efficiency
-    figures. Row 3 (34): the twelve filter cells in one row; each cell of the source (85 columns,
-    starting at column 13) keeps its checkbox part and the end of its count part.
-    """
-    out = Image.new("RGBA", (PROD_HEADER_WIDTH, 126), (0, 0, 0, 0))
-    out.paste(source.crop((20, 8, 530, 52)), (0, 0))
-    plain = grow(source.crop((20, 52, 306, 88)), "y", [(18, 8)])          # 286 x 44
-    out.paste(plain, (510, 0))
-    factories = grow(source.crop((20, 114, 530, 162)), "x", stretched(120, 240, 143) + stretched(300, 420, 143))
-    out.paste(factories.crop((0, 0, 430, 48)), (0, 44))
-    out.paste(grow(source.crop((20, 52, 386, 88)), "y", [(18, 12)]), (430, 44))
-    x = 0
+
+def _htile(src, width, side=24):
+    """The columns of `src` laid out at `width`: `side` columns kept at each end (with the corner rivets), the middle repeated."""
+    out = Image.new("RGBA", (width, src.height))
+    mid = src.crop((side, 0, src.width - side, src.height))
+    for x in range(side, width - side, mid.width):
+        out.paste(mid.crop((0, 0, min(mid.width, width - side - x), src.height)), (x, 0))
+    out.paste(src.crop((0, 0, side, src.height)), (0, 0))
+    out.paste(src.crop((src.width - side, 0, src.width, src.height)), (width - side, 0))
+    return out
+
+
+def steel_plate(bar, width, height, head=0, head_gain=1.9, bottom_rows=15, body_gain=0.8):
+    """A steel card of width x height from the steel bar `bar` (484x128): rows 0-8 the edge, with `head` rows
+    the top band (rows 12-27 repeated, lightened) ending in the bright rule (33) and the groove (34-35),
+    then the body (rows 44-100 repeated, darkened) and the bottom edge; 24 columns kept at each side."""
+    rows = list(range(0, 9))
+    if head:
+        band = list(range(12, 28))
+        rows += [band[i % len(band)] for i in range(head - 10)] + [33, 34, 35]
+    body = list(range(44, 101))
+    rows += [body[i % len(body)] for i in range(height - len(rows) - bottom_rows)] + list(range(128 - bottom_rows, 128))
+    src = Image.new("RGBA", (bar.width, len(rows)))
+    for dy, sy in enumerate(rows):
+        src.paste(bar.crop((0, sy, bar.width, sy + 1)), (0, dy))
+    _gain(src, body_gain, (0, head + 2 if head else 9, bar.width, len(rows) - 4))
+    if head:
+        _gain(src, head_gain, (0, 4, bar.width, head - 1))
+    return _htile(src, width)
+
+
+def slot_box(strip):
+    """A factory slot box, 28x22, in the steel look: one cell of the mesh of vanilla's three-row slot tray
+    (the last frame of naval_production_item_slots_strip, 511 wide, cell at 325-352 x 55-76) turned grey and
+    lightened x2, in a 1 px frame lit from the top left."""
+    from PIL import ImageOps
+    cell = strip.crop((strip.width - 511 + 347, 55, strip.width - 511 + 374, 76)).convert("L")
+    cell = cell.point(lambda v: min(255, int(v * 2.1 + 6)))
+    box = Image.new("RGBA", (28, 22), (22, 23, 25, 255))
+    box.paste(Image.new("RGBA", (27, 21), (74, 76, 80, 255)), (0, 0))
+    box.paste(ImageOps.colorize(cell, (0, 0, 0), (255, 255, 255)).convert("RGBA").crop((0, 0, 26, 20)), (1, 1))
+    return box
+
+
+def _inset(card, inset_tile, x, y, w, h):
+    card.alpha_composite(tile_nine(inset_tile, (8, 8), w, h), (x, y))
+
+
+def line_card(bar, inset_tile, box, slot_rows=0, collapsed=False):
+    """A line card: the steel plate with its head, the black insets of the production column (and of the
+    factory slots, with `slot_rows` rows of slot boxes), CARD_GAP transparent rows below."""
+    h = 60 if collapsed else 110
+    card = steel_plate(bar, LINE_W, h, head=HEAD_H)
+    if collapsed:
+        _inset(card, inset_tile, PROD_X - 4, 29, PROD_W + 8, 28)
+    else:
+        _inset(card, inset_tile, PROD_X - 4, 29, PROD_W + 8, h - 33)
+        _inset(card, inset_tile, FAC_X - 2, 29, FAC_W, h - 33)
+        for r in range(slot_rows):
+            for c in range(5):
+                card.alpha_composite(box, (FAC_X + 3 + 30 * c, 34 + 23 * r))
+    out = Image.new("RGBA", (LINE_W, h + CARD_GAP), (0, 0, 0, 0))
+    out.paste(card, (0, 0))
+    return out
+
+
+def _ring(card, width=2):
+    """The card's outline `width` px thick (its alpha minus the same eroded), as a light steel stroke."""
+    from PIL import ImageChops, ImageFilter
+    alpha = card.getchannel("A")
+    inner = alpha.filter(ImageFilter.MinFilter(2 * width + 1))
+    mask = ImageChops.subtract(alpha, inner)
+    out = Image.new("RGBA", card.size, (214, 219, 224, 255))
+    out.putalpha(mask)
+    return out
+
+
+def selection_outline(bar, collapsed=False):
+    """GFX_1440p_PD_line_selected: the 2 px light steel outline of a card's shape."""
+    return _ring(steel_plate(bar, LINE_W, 60 if collapsed else 110, head=HEAD_H))
+
+
+def mio_tint(bar):
+    """GFX_1440p_PD_line_has_mio: a warm tint over the head band only, so the name stays readable."""
+    band = steel_plate(bar, LINE_W, 60, head=HEAD_H).crop((0, 0, LINE_W, HEAD_H))
+    out = Image.new("RGBA", band.size, (205, 150, 55, 255))
+    out.putalpha(band.getchannel("A").point(lambda v: v * 85 // 255))
+    return out
+
+
+def title_strip(bar):
+    return steel_plate(bar, 816, 46, head=40, head_gain=1.25, bottom_rows=4)
+
+
+def top_materials(bar):
+    return steel_plate(bar, 500, 92)
+
+
+def top_figures(bar, inset_tile):
+    """The figures table: the steel head band is the head bar, rows 1 and 3 on a black band (the plain
+    middle of the inset texture, no frame), row 2 on the graphite."""
+    card = steel_plate(bar, 306, 92, head=HEAD_H)
+    band = _htile(inset_tile.crop((10, 10, 180, 30)), 294, side=0)
+    for r in (0, 2):
+        card.alpha_composite(band, (6, 27 + 20 * r))
+    return card
+
+
+def top_filters(bar, source):
+    """The filter strip: a steel strip with the twelve cells (the checkbox's tray and its count box, cut
+    from the vanilla top, production_win_top.dds) at 66 columns each, a 6 px gap after the sixth."""
+    card = steel_plate(bar, 812, 36, bottom_rows=6)
+    x = 6
     for top in (176, 207):
         for k in range(6):
             c = 13 + 85 * k
-            out.paste(source.crop((c, top, c + 44, top + 34)), (x, 92))
-            out.paste(source.crop((c + 63, top, c + 85, top + 34)), (x + 44, 92))
-            x += PROD_FILTER_CELL
+            for a, b, dx in ((c, c + 44, 0), (c + 63, c + 85, 44)):
+                card.alpha_composite(source.crop((a, top + 6, b, top + 34)), (x + dx, 3))
+            x += 66
+        x += 6
+    return card
+
+
+def goods_card(bar):
+    """The consumer goods line: a steel plate without a head, 780x69, CARD_GAP transparent rows below."""
+    out = Image.new("RGBA", (LINE_W, 69 + CARD_GAP), (0, 0, 0, 0))
+    out.paste(steel_plate(bar, LINE_W, 69), (0, 0))
     return out
+
+
+def naval_strip_301(source):
+    """The collapsed naval equipment strip (vanilla 352 wide) cut to the card's 301: its left 290 columns
+    and its own right end."""
+    return join([source.crop((0, 0, 290, source.height)), source.crop((source.width - 11, 0, source.width, source.height))], "x")
+
+
+# --- end C1 ---
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1448,50 +1580,78 @@ JOBS = [
         "output": "ao_filter_entry_highlight.dds",
         "compose": lambda source: grow(source, "x", stretched(20, 70, 10)),
     },
-    # C1. Production: the lines 1000 wide, the equipment plates and overlays 142 wider, the panel top
-    # rearranged. production_item and the naval strip keep their vanilla sprite names (the code sets
-    # them), the others get GFX_1440p_ names.
+    # C1. Production, round 2 (bold variant): every card is cut from the steel bar (see "C1" above), the
+    # equipment plates and overlays keep round 1's art. production_item and the naval strip keep their
+    # vanilla sprite names (the code sets them), the others get GFX_1440p_ names.
+    {
+        # a transparent 4x4: the Background block of a window whose cards are icons of their own (the vanilla
+        # backgrounds stay in the file, the widget names being the code's)
+        "source": STEEL_BAR,
+        "output": "pd_none.dds",
+        "compose": lambda source: Image.new("RGBA", (4, 4), (0, 0, 0, 0)),
+    },
+    {
+        "source": STEEL_BAR,
+        "output": "pd_title.dds",
+        "compose": title_strip,
+    },
+    {
+        "source": STEEL_BAR,
+        "output": "pd_top_materials.dds",
+        "compose": top_materials,
+    },
+    {
+        "source": STEEL_BAR,
+        "output": "pd_top_figures.dds",
+        "extra": {"inset_tile": CARD_INSET},
+        "compose": top_figures,
+    },
     {
         "source": "gfx/interface/production_win_top.dds",
-        "output": "pd_header.dds",
-        "compose": production_header,
+        "output": "pd_top_filters.dds",
+        "extra": {"bar": STEEL_BAR},
+        "compose": lambda source, bar: top_filters(bar, source),
     },
     {
-        "source": "gfx/interface/production_item.dds",
+        # the land line, GFX_production_item: three rows of slot boxes
+        "source": STEEL_BAR,
         "output": "pd_line.dds",
-        "frames": [production_columns],
+        "extra": {"inset_tile": CARD_INSET, "strip": NAVAL_STRIP},
+        "compose": lambda source, inset_tile, strip: line_card(source, inset_tile, slot_box(strip), slot_rows=3),
     },
     {
-        # Three frames: one, two and three rows of factory slots.
-        "source": "gfx/interface/naval_production_item_slots_strip.dds",
+        # GFX_naval_production_item_bg_strip, three frames: one, two and three rows of slot boxes
+        "source": STEEL_BAR,
         "output": "pd_naval_line.dds",
-        "frames": [production_columns] * 3,
+        "extra": {"inset_tile": CARD_INSET, "strip": NAVAL_STRIP},
+        "compose": lambda source, inset_tile, strip: join([line_card(source, inset_tile, slot_box(strip), slot_rows=n) for n in (1, 2, 3)], "x"),
     },
     {
-        "source": "gfx/interface/production_item_collapsed.dds",
+        "source": STEEL_BAR,
         "output": "pd_line_collapsed.dds",
-        "frames": [production_columns],
+        "extra": {"inset_tile": CARD_INSET, "strip": NAVAL_STRIP},
+        "compose": lambda source, inset_tile, strip: line_card(source, inset_tile, slot_box(strip), collapsed=True),
     },
     {
-        "source": "gfx/interface/production_line_selected.dds",
+        "source": STEEL_BAR,
+        "output": "pd_goods_line.dds",
+        "compose": goods_card,
+    },
+    {
+        "source": STEEL_BAR,
         "output": "pd_line_selected.dds",
-        "frames": [production_columns],
+        "compose": selection_outline,
     },
     {
-        "source": "gfx/interface/naval_production_line_selected.dds",
-        "output": "pd_naval_line_selected.dds",
-        "frames": [production_columns],
-    },
-    {
-        "source": "gfx/interface/production_item_selected_collapsed.dds",
+        "source": STEEL_BAR,
         "output": "pd_line_selected_collapsed.dds",
-        "frames": [production_columns],
+        "compose": lambda source: selection_outline(source, collapsed=True),
     },
     {
-        # The marker of a line that a military-industrial organisation produces: the header band only.
-        "source": "gfx/interface/military_industrial_organization/production_item_has_mio.dds",
+        # The marker of a line that a military-industrial organisation produces: a tint over the head band only.
+        "source": STEEL_BAR,
         "output": "pd_line_has_mio.dds",
-        "frames": [production_columns],
+        "compose": mio_tint,
     },
     {
         "source": "gfx/interface/prod_land_equipment_item_large.dds",
@@ -1511,7 +1671,7 @@ JOBS = [
     {
         "source": "gfx/interface/naval_item_collapsed.dds",
         "output": "pd_naval_item_collapsed.dds",
-        "frames": [lambda f: production_columns(f, gap=False)],
+        "compose": naval_strip_301,
     },
     {
         "source": "gfx/interface/outdated_equipment_overlay.dds",
@@ -1534,10 +1694,16 @@ JOBS = [
         "frames": [lambda f: production_columns(f, gap=False)],
     },
     {
-        # The deploy location button of a ship line, 124 to 185 wide: a round badge (0-36), a plain bar.
+        # The deploy location button of a ship line, 124 to 266 wide: a round badge (0-36), a plain bar.
         "source": "gfx/interface/naval_deploy_button.dds",
         "output": "pd_deploy_button.dds",
-        "compose": lambda source: grow(source, "x", stretched(50, 110, 61)),
+        "compose": lambda source: grow(source, "x", stretched(50, 110, 142)),
+    },
+    {
+        # the same in a collapsed ship line, 194 wide
+        "source": "gfx/interface/naval_deploy_button.dds",
+        "output": "pd_deploy_button_short.dds",
+        "compose": lambda source: grow(source, "x", stretched(50, 110, 70)),
     },
     # C2. General selection: the window and a general's row.
     {

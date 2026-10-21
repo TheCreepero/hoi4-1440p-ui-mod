@@ -999,13 +999,50 @@ spriteTypes = {
 	}
 	# --- end a7-reorg ---
 
-	# C1: production. The top of the panel (resources, efficiency, factories, filters in two rows,
-	# 1020x134) and the parts of a line that the files name, widened as the lines are (1000 wide; the
-	# equipment plate 142 wider). The line backgrounds the code sets keep their vanilla names and are
+	# --- C1 ---
+	# C1: production, round 2 (bold variant, 2026-10-20). Cards cut from vanilla's steel bar and the
+	# equipment plates of round 1; the line backgrounds the code sets keep their vanilla names and are
 	# redefined in interface/zz_1440p_vanilla_sprites.gfx. Textures: tools/stretch_background.py, pd_*.
+	# The title strip (816x46) and the three cards of the top (materials 500x92, figures 306x92, filters 812x36).
+	# A transparent 4x4 for the Background blocks the vanilla windows keep (their widget names are the code's).
 	spriteType = {
-		name = "GFX_1440p_PD_header"
-		texturefile = "gfx/interface/1440p_ui/pd_header.dds"
+		name = "GFX_1440p_PD_none"
+		texturefile = "gfx/interface/1440p_ui/pd_none.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_title"
+		texturefile = "gfx/interface/1440p_ui/pd_title.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_top_materials"
+		texturefile = "gfx/interface/1440p_ui/pd_top_materials.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_top_figures"
+		texturefile = "gfx/interface/1440p_ui/pd_top_figures.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_top_filters"
+		texturefile = "gfx/interface/1440p_ui/pd_top_filters.dds"
+		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
+	}
+
+	# The near-black tile of the panel's background and of the top materials' insets (vanilla's
+	# tiled_window_thin_border with a border of 8 instead of 64).
+	corneredTileSpriteType = {
+		name = "GFX_1440p_PD_black_tile"
+		size = { x = 192 y = 192 }
+		textureFile = "gfx/interface/tiles/tiled_window_thin_border.dds"
+		borderSize = { x = 8 y = 8 }
+		tilingCenter = yes
 		effectFile = "gfx/FX/buttonstate_nodowneffect.lua"
 	}
 
@@ -1015,13 +1052,18 @@ spriteTypes = {
 	}
 
 	spriteType = {
+		name = "GFX_1440p_PD_goods_line"
+		texturefile = "gfx/interface/1440p_ui/pd_goods_line.dds"
+	}
+
+	spriteType = {
 		name = "GFX_1440p_PD_line_selected"
 		texturefile = "gfx/interface/1440p_ui/pd_line_selected.dds"
 	}
 
 	spriteType = {
 		name = "GFX_1440p_PD_naval_line_selected"
-		texturefile = "gfx/interface/1440p_ui/pd_naval_line_selected.dds"
+		texturefile = "gfx/interface/1440p_ui/pd_line_selected.dds"
 	}
 
 	spriteType = {
@@ -1074,11 +1116,17 @@ spriteTypes = {
 		texturefile = "gfx/interface/1440p_ui/pd_outdated_naval_overlay_collapsed.dds"
 	}
 
-	# The deploy location button of a ship line, 185 wide: the fleet name has 150 px.
+	# The deploy location button of a ship line, 266 wide (a collapsed line: 194): the fleet name has 200 px.
 	spriteType = {
 		name = "GFX_1440p_PD_deploy_button"
 		texturefile = "gfx/interface/1440p_ui/pd_deploy_button.dds"
 	}
+
+	spriteType = {
+		name = "GFX_1440p_PD_deploy_button_short"
+		texturefile = "gfx/interface/1440p_ui/pd_deploy_button_short.dds"
+	}
+	# --- end C1 ---
 
 	# C2: general selection. The window, 800x1180, and a general's row, 760x124 with a portrait box of
 	# 96 columns, widened from the vanilla bitmaps by tools/stretch_background.py (ls_*).

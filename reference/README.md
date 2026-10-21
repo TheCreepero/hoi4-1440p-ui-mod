@@ -130,6 +130,7 @@ How each screen is brought up is in [wiki/Game-Recipes.md](../wiki/Game-Recipes.
 | A8 | theatre bar at the bottom | [theatre_bar.jpg](mod/theatre_bar.jpg) | [theatre_bar-panel.png](mod/theatre_bar-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
 | A8 | theatre bar at the bottom, air | [theatre_bar-air.jpg](mod/theatre_bar-air.jpg) | [theatre_bar-air-panel.png](mod/theatre_bar-air-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
 | A8 | theatre bar at the bottom, navy | [theatre_bar-navy.jpg](mod/theatre_bar-navy.jpg) | [theatre_bar-navy-panel.png](mod/theatre_bar-navy-panel.png) | 1.19.3.0 | 1.6 | 2026-10-14 |
+| C1 | production panel (round 2, the user's game, 1940) | [production.jpg](mod/production.jpg) | [production-panel.png](mod/production-panel.png) | 1.19.3.0 | 1.9 | 2026-10-21 |
 | D2 | army_readiness | [army_readiness.jpg](mod/army_readiness.jpg) | [army_readiness-panel.png](mod/army_readiness-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
 | D3 | states | [states.jpg](mod/states.jpg) | [states-panel.png](mod/states-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |
 | D4 | national_figures | [national_figures.jpg](mod/national_figures.jpg) | [national_figures-panel.png](mod/national_figures-panel.png) | 1.19.3.0 | 1.6 | 2026-10-13 |

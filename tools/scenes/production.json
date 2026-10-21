@@ -33,7 +33,8 @@
         "aircraft_button_glow",
         "naval_button_glow",
         "tutorial_glow",
-        "tutorial_glow_2"
+        "tutorial_glow_2",
+        "energy_ratio_anim"
       ],
       "_note": "The naval tab, as the vanilla reference shows it. 'place' adds the 36 px top margin of the scrolling list to its grid; the renderer does not model margins."
     },
@@ -56,7 +57,13 @@
         "factories_add_10x",
         "deploy_icon"
       ],
-      "_note": "The code shows one of each pair of factory buttons, one manufacturer button, and the overlays only in their states."
+      "_note": "The code shows one of each pair of factory buttons, one manufacturer button, and the overlays only in their states.",
+      "rows": {
+        "resources_grid": 4
+      },
+      "listRows": {
+        "resources_grid": "production_resource_item"
+      }
     },
     {
       "name": "production_military_line_entry",
@@ -75,7 +82,13 @@
         "factories_add_10x",
         "efficiency_progressbar_to_max",
         "convert"
-      ]
+      ],
+      "rows": {
+        "resources_grid": 4
+      },
+      "listRows": {
+        "resources_grid": "production_resource_item"
+      }
     },
     {
       "name": "production_military_line_entry_collapsed",
@@ -92,7 +105,13 @@
         "factories_add_10x",
         "efficiency_progressbar_to_max",
         "convert"
-      ]
+      ],
+      "rows": {
+        "resources_grid": 4
+      },
+      "listRows": {
+        "resources_grid": "production_resource_item"
+      }
     },
     {
       "name": "production_naval_line_entry_collapsed",
@@ -108,7 +127,130 @@
         "factories_add_5x",
         "factories_add_10x",
         "deploy_icon"
+      ],
+      "rows": {
+        "resources_grid": 4
+      },
+      "listRows": {
+        "resources_grid": "production_resource_item"
+      }
+    },
+    {
+      "name": "production_ship_refit_line_entry",
+      "skip": true,
+      "hide": [
+        "has_mio_background",
+        "production_line_selected",
+        "change_manufacturer",
+        "outdated_equipment_overlay",
+        "equipment_designer_can_upgrade",
+        "need_state_icon",
+        "total_need",
+        "prod_line_glow",
+        "factories_sub_5x",
+        "factories_sub_10x",
+        "factories_add_5x",
+        "factories_add_10x",
+        "deploy_icon"
+      ],
+      "rows": {
+        "resources_grid": 3
+      },
+      "listRows": {
+        "resources_grid": "production_resource_item"
+      }
+    },
+    {
+      "name": "production_ship_refit_line_entry_collapsed",
+      "skip": true,
+      "hide": [
+        "has_mio_background",
+        "production_line_selected",
+        "change_manufacturer",
+        "outdated_equipment_overlay",
+        "factories_sub_5x",
+        "factories_sub_10x",
+        "factories_add_5x",
+        "factories_add_10x",
+        "deploy_icon"
+      ],
+      "rows": {
+        "resources_grid": 3
+      },
+      "listRows": {
+        "resources_grid": "production_resource_item"
+      }
+    },
+    {
+      "name": "production_railway_gun_line_entry",
+      "skip": true,
+      "hide": [
+        "has_mio_background",
+        "production_line_selected",
+        "change_manufacturer",
+        "outdated_equipment_overlay",
+        "prod_line_glow",
+        "factories_sub_5x",
+        "factories_sub_10x",
+        "factories_add_5x",
+        "factories_add_10x"
+      ],
+      "rows": {
+        "resources_grid": 3
+      },
+      "listRows": {
+        "resources_grid": "production_resource_item"
+      }
+    },
+    {
+      "name": "production_railway_gun_line_entry_collapsed",
+      "skip": true,
+      "hide": [
+        "has_mio_background",
+        "production_line_selected",
+        "change_manufacturer",
+        "outdated_equipment_overlay",
+        "factories_sub_5x",
+        "factories_sub_10x",
+        "factories_add_5x",
+        "factories_add_10x"
+      ],
+      "rows": {
+        "resources_grid": 3
+      },
+      "listRows": {
+        "resources_grid": "production_resource_item"
+      }
+    },
+    {
+      "name": "production_military_new_line_entry",
+      "skip": true,
+      "hide": [
+        "production_line_selected"
       ]
+    },
+    {
+      "name": "production_naval_new_line_entry",
+      "skip": true,
+      "hide": [
+        "production_line_selected"
+      ]
+    },
+    {
+      "name": "production_consumergoods_line_entry",
+      "skip": true,
+      "hide": []
+    },
+    {
+      "name": "resource_strip_item",
+      "skip": true,
+      "hide": [
+        "energy_ratio_anim"
+      ]
+    },
+    {
+      "name": "production_resource_item",
+      "skip": true
     }
   ],
   "samples": {
@@ -219,25 +361,74 @@
       "general_name": "Infantry Equipment I",
       "speed": "3 Jan 1936",
       "factories_used_txt": "15",
-      "total_need": "Total need: 200"
+      "total_need": "Total need: 200",
+      "priority": "7"
     },
     "production_naval_line_entry_collapsed": {
-      "deploy_name": "Auto"
+      "deploy_name": "USN Atlantic Fleet R...",
+      "name": "Columbus Class",
+      "speed": "7 May 1944",
+      "factories_used_txt": "5",
+      "priority": "41",
+      "amount": "30"
     },
     "production_ship_refit_line_entry": {
-      "deploy_name": "Auto"
+      "deploy_name": "Auto",
+      "name": "Refit Iowa",
+      "speed": "10 Nov 1944",
+      "factories_used_txt": "4",
+      "priority": "10",
+      "general_name": "Heavy Ship Hull",
+      "ship_name": "USS Iowa"
     },
     "production_ship_refit_line_entry_collapsed": {
-      "deploy_name": "Auto"
+      "deploy_name": "Auto",
+      "name": "Refit Columbus",
+      "speed": "7 May 1944",
+      "factories_used_txt": "3",
+      "priority": "9"
     },
     "production_railway_gun_line_entry": {
-      "deploy_name": "Auto"
+      "deploy_name": "Auto",
+      "name": "Schwerer Gustav",
+      "speed": "3 Jan 1937",
+      "factories_used_txt": "12",
+      "priority": "11",
+      "general_name": "Railway Gun",
+      "name_list_btn": "Dora"
     },
     "production_railway_gun_line_entry_collapsed": {
-      "deploy_name": "Auto"
+      "deploy_name": "Auto",
+      "name": "Schwerer Gustav",
+      "speed": "3 Jan 1937",
+      "factories_used_txt": "12",
+      "priority": "11"
     },
     "production_military_line_entry_collapsed": {
-      "total_need": "200"
+      "total_need": "Need: 120",
+      "name": "Panzer II Ausf. A",
+      "speed": "28 Feb 1936",
+      "factories_used_txt": "6",
+      "priority": "8"
+    },
+    "production_resource_item": {
+      "amount": [
+        "15",
+        "10",
+        "100",
+        "5"
+      ]
+    },
+    "resource_strip_item": {
+      "value": [
+        "1838",
+        "38",
+        "75",
+        "397",
+        "329",
+        "28",
+        "292"
+      ]
     }
   },
   "setup": [
@@ -245,28 +436,72 @@
       "move": "open_production"
     }
   ],
-  "captures": [],
+  "captures": [
+    {
+      "name": "land",
+      "_note": "The land lines: the three ship filters and the refit filter switched off, so the list holds equipment lines only (the first game check brings the land tab up; no capture of it exists yet). The renderer draws the land and collapsed windows one by one (render_gui.py <window> --scene production); a state cannot swap the list entry.",
+      "steps": [
+        {
+          "clickWidget": "countryproductionlineview/show_capital_ships",
+          "wait": 0.5
+        },
+        {
+          "clickWidget": "countryproductionlineview/show_screen_ships",
+          "wait": 0.5
+        },
+        {
+          "clickWidget": "countryproductionlineview/show_other_ships",
+          "wait": 0.5
+        },
+        {
+          "clickWidget": "countryproductionlineview/show_refitting",
+          "wait": 0.8
+        }
+      ],
+      "expect": [
+        "countryproductionlineview/close_button",
+        "production_military_line_entry/btn_x10"
+      ]
+    },
+    {
+      "name": "collapsed",
+      "_note": "The first line collapsed with its expand arrow: the same head over one strip (a naval line: bar, amount, deploy target). The renderer draws the land and collapsed windows one by one (render_gui.py <window> --scene production); a state cannot swap the list entry.",
+      "steps": [
+        {
+          "clickWidget": "production_naval_line_entry/expand#0",
+          "wait": 1.0
+        }
+      ],
+      "expect": [
+        "production_naval_line_entry_collapsed/deploy_location"
+      ]
+    }
+  ],
   "expect": [
     "countryproductionlineview/close_button",
     "countryproductionlineview/infantry_button",
-    "countryproductionlineview/naval_button"
+    "countryproductionlineview/naval_button",
+    "production_naval_line_entry/deploy_location"
   ],
   "crop": [
     0,
     60,
-    560,
-    1140
+    840,
+    1380
   ],
   "manual": [],
   "checklist": [
-    "Width: the panel is 820 px (vanilla 550); ten lines on the screen with the naval tab",
-    "Top: resources and factories in use; add-line buttons and the six efficiency figures; the twelve filters in one row, each clickable with its count",
-    "A naval line: the ship picture (does it fill the wider frame?), manufacturer and deploy location, ready date, factories - n +, the slots, amount + and -, the next ship's name, resources, delete",
-    "A land line: efficiency bar beside the manufacturer, ready date and total need, x10 and x5, the 5x3 slots",
-    "A collapsed line (the expand arrow), a refit line, a railway gun line",
-    "The equipment pickers, the deployment and ship name windows and naval repair open beside the panel, not under it",
-    "Priority arrows and drag order; scroll the list to its end"
+    "Panel: 820 px wide on a near-black ground; ten expanded cards (116 apart) fit the screen with the top three steel cards and the title strip above them",
+    "Title strip: Production, the three factory figures in hoi_24header (military, dockyards, repair) with their tooltips, the close button at the strip's right edge (under the top bar's alerts while a request is pending); ESCAPE closes the panel",
+    "Top cards: seven materials in black insets (hoi_20b, icon at 1:1, four-digit amounts whole), the five add-line buttons (infantry, armour, aircraft, naval, naval repair) each opening its picker, the Production / Efficiency table (six figures right-aligned in hoi_20b), the twelve filters each clickable with its count",
+    "A naval line, expanded: head (priority badge and arrows, the name in hoi_24header whole, manufacturer button, up to four materials in a row with 3-digit amounts inside their slots, dockyards - n +, delete), the ship picture on the plate as before, the deploy target whole beside RBM's insignia (name clear of it), the date in hoi_24header on the 266x24 bar in all three colours (green, yellow, red), the cost box (cost per unit, or empty), amount + infinity -, the slot boxes with the factory icons inside them, the next ship's name",
+    "A land line, expanded (filter off the ships, or the land tab): efficiency icon and bar, need icon and 'Need: n', the date bar, x10 and x5, fifteen slots, the cost box; the plate and picture as before",
+    "Collapsed lines (the expand arrow): land (bar, need), naval (bar of 180 with the date whole, - amount +, deploy target), refit and railway gun lines; the same head, the date in the same column as the expanded lines; the efficiency bar of a collapsed land line in the strip's right part",
+    "Line states: selected line (2 px light steel outline), a line with a manufacturer (tint of the head band only, name readable), outdated equipment overlay, refit line, railway gun line, consumer goods line, the new-line entries (x10/x5; amount buttons)",
+    "Every list scrolled to the end: the last line fully visible; the mouse wheel moves one card (116) per notch; drag and drop and the priority arrows still work",
+    "The five slide-in windows (two equipment pickers, deployment, ship names, naval repair) open beside the panel at x 809-814, not under it",
+    "Both states of the close button hotkey and of every factory button (- n +)"
   ],
-  "_note": "C1 round 3 (2026-10-16): the panel is 820 wide, the lines 780, the top in three rows. Round 1 was 1044 wide.",
+  "_note": "C1 round 2, bold variant (2026-10-20): the panel is 820 wide, the lines 780 (cards 110 + 6, window 116; collapsed 60 + 6), the top three steel cards under a title strip.",
   "knownCuts": []
 }
