@@ -735,7 +735,6 @@ guiTypes = {
 
 		iconType = {
 			name = "has_mio_background"
-			size = { width = 780 height = 27 }
 			quadTextureSprite ="GFX_1440p_PD_line_has_mio"
 			alwaystransparent = yes
 		}
@@ -1093,7 +1092,6 @@ guiTypes = {
 
 		iconType = {
 			name = "has_mio_background"
-			size = { width = 780 height = 27 }
 			quadTextureSprite ="GFX_1440p_PD_line_has_mio"
 			alwaystransparent = yes
 		}
@@ -1514,7 +1512,6 @@ guiTypes = {
 
 		iconType = {
 			name = "has_mio_background"
-			size = { width = 780 height = 27 }
 			quadTextureSprite ="GFX_1440p_PD_line_has_mio"
 			alwaystransparent = yes
 		}
@@ -1897,7 +1894,6 @@ guiTypes = {
 
 		iconType = {
 			name = "has_mio_background"
-			size = { width = 780 height = 27 }
 			quadTextureSprite ="GFX_1440p_PD_line_has_mio"
 			alwaystransparent = yes
 		}
@@ -2027,7 +2023,6 @@ guiTypes = {
 
 		iconType = {
 			name ="progressbar"
-			size = { width = 180 height = 24 }
 			spriteType = "GFX_prod_progress_bar2"
 			position = { x= 310 y = 31 }
 		}
@@ -2226,7 +2221,6 @@ guiTypes = {
 
 		iconType = {
 			name = "has_mio_background"
-			size = { width = 780 height = 27 }
 			quadTextureSprite ="GFX_1440p_PD_line_has_mio"
 			alwaystransparent = yes
 		}
@@ -2541,7 +2535,6 @@ guiTypes = {
 
 		iconType = {
 			name = "has_mio_background"
-			size = { width = 780 height = 27 }
 			quadTextureSprite ="GFX_1440p_PD_line_has_mio"
 			alwaystransparent = yes
 		}
@@ -2770,7 +2763,6 @@ guiTypes = {
 
 		iconType = {
 			name = "has_mio_background"
-			size = { width = 780 height = 27 }
 			quadTextureSprite ="GFX_1440p_PD_line_has_mio"
 			alwaystransparent = yes
 		}
@@ -3071,7 +3063,6 @@ guiTypes = {
 
 		iconType = {
 			name = "has_mio_background"
-			size = { width = 780 height = 27 }
 			quadTextureSprite ="GFX_1440p_PD_line_has_mio"
 			alwaystransparent = yes
 		}
@@ -3165,7 +3156,6 @@ guiTypes = {
 
 		iconType = {
 			name ="progressbar"
-			size = { width = 180 height = 24 }
 			spriteType = "GFX_prod_progress_bar2"
 			position = { x= 310 y = 31 }
 		}
@@ -4185,7 +4175,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "button"
-			size = { width = 68 height = 32 }
+			size = { x = 68 y = 32 }
 			quadTextureSprite ="GFX_1440p_PD_black_tile"
 		}
 

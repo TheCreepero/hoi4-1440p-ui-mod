@@ -31,7 +31,7 @@ $script:NewGameClicks = @(
     @{ Name = 'New Game';          X = 1280; Y = 600;  Wait = 10 }
     @{ Name = '1 January 1936';    X = 1147; Y = 620;  Wait = 1 }
     @{ Name = 'Select Scenario';   X = 1427; Y = 937;  Wait = 6 }
-    @{ Name = 'German Reich';      X = 1507; Y = 512;  Wait = 1 }
+    @{ Name = 'German Reich';      X = 1357; Y = 512;  Wait = 1 }   # 5th portrait since 2026-10-22 (France, UK, Japan, USA, Germany, Italy, USSR); 1507 is Italy now
     @{ Name = 'Select Country';    X = 1363; Y = 1056; Wait = 8 }
     @{ Name = 'Start';             X = 2417; Y = 1399; Wait = 0 }
 )

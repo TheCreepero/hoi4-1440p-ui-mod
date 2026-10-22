@@ -182,11 +182,10 @@ Describe 'Executable name search' {
 }
 
 Describe 'Checksum' {
-    It 'is changed by the scripted GUIs of Milestone D and by nothing else' {
-        # Mirrors checksum_manifest.txt in the game folder. Since phase D2 the mod has scripted GUIs, which
-        # live under common/ and end Ironman and achievement compatibility (wiki/Roadmap.md, "Checksum").
-        # They stay in these four folders; tests/ScriptedGuis.Tests.ps1 checks what the files may say.
-        $scriptedGuiFolders = @('scripted_guis', 'scripted_effects', 'on_actions', 'synchronized_dynamic_tokens')
+    It 'is left alone: nothing under common, events, history or map' {
+        # Mirrors checksum_manifest.txt in the game folder. The mod is interface and texture files only, so Ironman and
+        # achievements stay available. From phase D2 (2026-10-12) to version 1.9 it carried the scripted manager pages under
+        # common/; on 2026-10-21 they became the mod HOI4 Manager Pages (wiki/Roadmap.md, "Milestones D and E").
         $rules = @(
             @{ Dir = 'common'; Extensions = @('.txt', '.lua') }
             @{ Dir = 'events'; Extensions = @('.txt') }
@@ -197,13 +196,10 @@ Describe 'Checksum' {
             $dir = Join-Path $script:RepoRoot $rule.Dir
             if (-not (Test-Path $dir)) { continue }
             foreach ($file in @(Get-ChildItem -Path $dir -Recurse -File | Where-Object { $rule.Extensions -contains $_.Extension.ToLowerInvariant() })) {
-                $rel = $file.FullName.Substring($script:RepoRoot.Length + 1)
-                $parts = $rel -split '[\\/]'
-                if ($rule.Dir -eq 'common' -and $parts.Count -eq 3 -and $scriptedGuiFolders -contains $parts[1]) { continue }
-                $rel
+                $file.FullName.Substring($script:RepoRoot.Length + 1)
             }
         }
-        $hits | Should -BeNullOrEmpty -Because 'gameplay files other than scripted GUIs are outside what this mod does'
+        $hits | Should -BeNullOrEmpty -Because 'gameplay files change the checksum; anything that needs script belongs in HOI4 Manager Pages'
     }
 }
 

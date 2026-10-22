@@ -1,11 +1,9 @@
 {
-  "_comment": "The shared hotkey table (wiki/Design-Language.md, Hotkeys; user decision 2026-10-21): one key per action on every screen, and one action per key. Every hotkey the mod adds is listed here under its action as file:button; the keys vanilla gives its own buttons stay as they are and are not listed. A new hotkey reuses the key of its action, or adds an action with a free shift+letter. tests/ScreenInvariants.Tests.ps1 checks the files against this table.",
+  "_comment": "Shift+M and Shift+J are reserved by HOI4 Manager Pages (the pages split out on 2026-10-21) and are not used here. The shared hotkey table (wiki/Design-Language.md, Hotkeys; user decision 2026-10-21): one key per action on every screen, and one action per key. Every hotkey the mod adds is listed here under its action as file:button; the keys vanilla gives its own buttons stay as they are and are not listed. A new hotkey reuses the key of its action, or adds an action with a free shift+letter. tests/ScreenInvariants.Tests.ps1 checks the files against this table.",
   "always": {"ESCAPE": "Close the window", "RETURN": "Confirm"},
   "actions": [
     {"action": "Create a new group from the selection", "key": "shift+n", "buttons": ["zz_1440p_air_selection.gui:btn_create_air_group", "zz_1440p_fleet.gui:btn_create_new_from_selected"]},
     {"action": "Unassign from the commander", "key": "shift+u", "buttons": ["zz_1440p_air_selection.gui:btn_unassign", "zz_1440p_army_selection.gui:btn_unassign"]},
-    {"action": "Fold or open a manager page", "key": "shift+m", "buttons": ["mod1440_army_readiness.gui:ar_fold", "mod1440_army_readiness.gui:ar_unfold", "mod1440_states.gui:st_fold", "mod1440_states.gui:st_unfold", "mod1440_figures.gui:nf_toggle"]},
-    {"action": "Open or close the Records", "key": "shift+j", "buttons": ["mod1440_records.gui:rec_toggle"]},
     {"action": "Consolidate the selection", "key": "shift+c", "buttons": ["zz_1440p_army_selection.gui:btn_consolidate_selection"]},
     {"action": "Upgrade", "key": "shift+g", "buttons": ["zz_1440p_fleet.gui:btn_upgrade"]},
     {"action": "Repair now", "key": "shift+p", "buttons": ["zz_1440p_fleet.gui:btn_repair_now"]},

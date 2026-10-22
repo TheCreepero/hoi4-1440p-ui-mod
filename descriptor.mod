@@ -1,7 +1,6 @@
-version="1.9"
+version="2.0"
 tags={
 	"Graphics"
-	"Utilities"
 	"Fixes"
 }
 name="HOI4 1440p UI Mod"

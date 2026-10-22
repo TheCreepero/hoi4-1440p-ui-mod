@@ -1,15 +1,15 @@
 # HOI4 1440p UI Mod
 
-High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2560x1440) and higher displays, adds manager pages that fill the free width with tables and figures of your country, and keeps a record of your campaign for role-play: a war diary, your officers, your government and your wars.
+High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2560x1440) and higher displays. Interface and texture files only, so Ironman and achievements stay available. The manager pages and the Records window that shipped in versions 1.5 to 1.9 are the companion mod [HOI4 Manager Pages](../hoi4-manager-pages) since 2026-10-21; it stands on its own.
 
 ## Overview
 
 - **Game**: Hearts of Iron IV
 - **Supported Version**: `1.19.*`
-- **Mod Version**: `1.9`
-- **Tags**: Graphics, Utilities, Fixes
+- **Mod Version**: `2.0`
+- **Tags**: Graphics, Fixes
 - **Requires**: 2560x1440 or higher at 100% UI scale
-- **Ironman & Achievements**: Not compatible since version 1.5. The manager pages are scripted GUIs, and their script under `common/` changes the game checksum. In multiplayer every player needs the mod. The pages show values and keep records of their own; the one thing they write into the game is a line in a division's history (unit honours, see The Records).
+- **Ironman & Achievements**: Compatible since version 2.0: the mod has no script files and leaves the game checksum alone. (Versions 1.5 to 1.9 carried the manager pages and were not.)
 - **Status**: In development, one screen at a time. Not published on the Steam Workshop, and local from the first screen that wraps vanilla widgets in containers of its own: that needs `hoi4.exe` patched with the Modding Manager's `Scripts\Executable\Set-HoiRecursiveLookups.ps1` (decided 2026-10-15). See [wiki/Roadmap.md](wiki/Roadmap.md), Decisions and Milestone F.
 - **Tested with**: the vanilla game, and on 13 October 2026 in a playset of 55 other mods with Road to 56, Vanilla Navy Rework, RBM's GFX Overhaul and the Better Mechanics mods; the army overview, the air wing reorganisation and the theatre boxes in the same playset on 14 October. What was found and fixed there, and what is not solved: `wiki/Compatibility.md`.
 
@@ -52,52 +52,9 @@ High-resolution UI mod for Hearts of Iron IV that redesigns screens for 1440p (2
   - Factory slots sit in a grid of boxes beside the progress bar, and one notch of the mouse wheel scrolls one card.
   - The factories, the material stock and the production and efficiency figures stand in three cards across the top, with the filters in a row under them.
 
-## Manager Pages
+## Manager Pages and the Records
 
-Pages of the mod's own that stand beside a vanilla panel and use the width of the screen for values the game shows nowhere in one place. `Shift+M` shows and hides the page of the open tab. They show values of your own country and change nothing in the game.
-
-- **Army Readiness** (beside Recruit & Deploy, open by default):
-  - Eleven figures as tiles across the top: manpower free, in training, in the army, navy and air force and asked for by garrisons; divisions, battalions, army experience, divisions under strength (below 75%) and low on organisation (below 50%).
-  - Equipment: for sixteen kinds of land equipment the stock, what the divisions in the field hold, what they need and what they are short of, with a bar and its percentage. A shortage is red, a bar below 75% orange, a kind you neither have nor need grey.
-  - Armies: one row per commander with troops: rank, skill, divisions, battalions, divisions fighting, planning, the worst equipped kind of equipment, divisions by kind.
-- **States** (beside Construction, opened with `Shift+M`):
-  - One row per state you control: free building slots, the levels of nine buildings, seven resources, population, and compliance and resistance for occupied states.
-  - A click on a column head sorts, a second click turns the order. Three choices narrow the list: cores, occupied, with free slots.
-  - A bar under the list holds the totals of every column over the states that are listed.
-  - A click on a state moves the camera there and hides the page.
-- **National Figures** (opened from Politics with `Shift+M` or the button in its title strip):
-  - Across the top, what your country has today: factories and how many are free, research slots, technologies, states, convoys, trains, ships and planes as tiles; stability, war support, fuel and the four parties as bars.
-  - The summed modifiers of your country, 101 of them in eight groups: what all laws, spirits, advisors and technologies together add to factory output, construction speed, research speed, organisation, compliance and so on. A modifier that is zero has a grey name and no value, so what applies stands out.
-  - A table of resources: balance, produced, used, imported, exported.
-- **History** (the second page of National Figures):
-  - Twelve figures of your country month by month, ten years at most: manpower, divisions, factories, stability, war support, fuel and others. The mod writes them down on the first of each month, from the day it is active in a game.
-  - A table lists the twelve with their newest month and the change in a month and in a year; a click on one draws it as a column graph with its highest and lowest month, the years under it, and a zoom that lets the columns start at the lowest month.
-
-- **Top bar strip** (on every screen, in the empty middle of the top bar):
-  - Chips drawn like the vanilla values: by default political power and command power per day, stability and war support per week, civilian factories with how many are free, military factories and dockyards with how many are idle, and fuel in store of capacity. The label is the tooltip.
-  - An edit button beside the Records button opens a panel where you choose among eighteen values (consumer goods, manpower in the field and in training, the seven resource balances too). What does not fit is refused; Default brings the eight back; the choice is kept with your country.
-
-Limits: the game gives script no list of templates, training lines, production lines or queues, so the pages have none; an army without a commander is not listed; equipment, buildings and resources that another mod adds do not appear.
-
-## The Records
-
-A window for playing the game as a story: the mod writes down what happens in your campaign, from the day it is active in a game. The Records button of the top bar or `Shift+J` opens it, `Escape` closes it.
-
-- **War Diary**: a dated log. Wars declared and ended, capitulations, annexations, subjects, your faction, every state and every victory point taken or lost, changes of government, officers commissioned, promoted and decorated. Beside it the record in figures: how many wars, states, victory points, capitals, promotions and decorations since it began.
-  - A line about a state or a victory point names the enemy and the general who had the most divisions there, and its button moves the camera to the place.
-  - Six filters: everything, or one kind of line.
-- **Officers**: every general and admiral with his portrait in one table that sorts by any column: skill, the four levels, traits, command, battles won and lost.
-  - A click on an officer opens his file: his portrait, when he was commissioned and promoted, his battles, the states and victory points taken under him, his lines of the diary. An officer who has retired keeps his record.
-  - Portraits are the game's own, for the named characters of the game. A general the game makes up when you recruit one shows the unknown leader: nothing lets a mod read his portrait.
-  - Generals and admirals that other mods add are listed too, also those a mod or a focus gives their command later in the game. Their portraits show for the mods the build was made with (`tools/portraits_mods_table.py`); from any other mod they show the unknown leader.
-  - **Decorations**: his medals side by side on his file. Award him the medals your country has in the game (Iron Cross and Knight's Cross for Germany, Victoria Cross for Britain and so on), by name and icon. For an officer they are a record only: no bonus and no cost.
-- **Government**: the head of government with portrait and flag, the parties with their leaders and support, the laws in force, the cabinet, the high command, your faction with its members, your subjects. Each name with the day it took office.
-- **Wars**: one row per enemy and one per finished war: since when, for how many days, a bar for the enemy's surrender progress, how it ended. Totals for all wars, and counters for aces.
-  - A click on a war opens its file: the flags of both sides, the two heads of government with their portraits and parties, the days, your casualties, the states and victory points taken and lost, how close each side is to giving up, and the lines of the diary about that enemy.
-- **State card**: beside the state view of a state you control: when it was taken and from whom.
-- **Unit honours** (By Blood Alone): your divisions that stand in an enemy capital when it falls get a line in their own history, "Took part in the capture of ...". The Battle honours switch on the War Diary turns this off. The state card's button cites the divisions in a state the same way; for a citation the game lets you award a medal at its usual price. A division takes one such line a day.
-
-Limits: no page can take typed text, so nothing can be renamed or annotated there; the game gives script no name of a division or a ship; a record starts when the mod is first active in a game; a line found by the daily comparison (a peace, a capitulation, an office, a victory point) carries the date of the day that ended; a battle that is won without the place changing hands is counted for the officer but has no line, because the game does not say where it was fought. Not yet seen in a test: battles counted per officer, a capitulation, landings and aces.
+Moved on 2026-10-21 to the companion mod [HOI4 Manager Pages](../hoi4-manager-pages): Army Readiness, States, National Figures with History, the top bar strip, and the Records window (War Diary, Officers, Government, Wars, the state card, unit honours). That mod needs script under `common/`, so it changes the checksum; this one does not. Both work with or without the other.
 
 ---
 
@@ -115,10 +72,9 @@ hoi4-1440p-ui-mod/
 |-- artifacts/                      # Packaged release archives (git-ignored)
 |-- baseline/                       # Vanilla reference copies of overridden windows (dev-only)
 |-- reference/                      # Captures of every screen, vanilla and reworked (dev-only)
-|-- common/                         # Script of the manager pages only (generated; changes the checksum)
 |-- gfx/                            # Textures built from vanilla assets
-|-- interface/                      # GUI layout (.gui) and sprite (.gfx) files; mod1440_*.gui are generated
-|-- localisation/                   # Texts of the manager pages (generated, one file per game language)
+|-- interface/                      # GUI layout (.gui) and sprite (.gfx) files
+|-- localisation/                   # Captions of the reworked screens (one file per game language)
 |-- tests/                          # Automated Pester test suites
 |-- tools/                          # GUI inspection and baseline scripts (dev-only)
 \-- wiki/                           # GitHub documentation wiki (roadmap, design rules)
@@ -171,10 +127,6 @@ Screen work uses the scripts in `tools/`:
 
 # Refresh the baseline of a window, for example after a game update
 .\tools\Export-VanillaBaseline.ps1 airselectionview.gui air_selection_view
-
-# Write every file of the manager pages and the Records window (scripted GUIs) from the tables in the tools; a running game redraws them
-python -I tools\build_managers.py
-python -I tools\build_managers.py --check   # fails when a generated file was edited by hand or is stale
 
 # Rebuild the textures that are enlarged copies of vanilla ones (needs Python with Pillow)
 python tools\stretch_background.py

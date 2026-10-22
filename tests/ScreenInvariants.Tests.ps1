@@ -306,6 +306,22 @@ Describe 'Localisation' {
     }
 }
 
+Describe 'Caption texts' {
+    It 'gives every MOD1440_ key an override file names an English text in localisation/english/1440p_screens_l_english.yml' {
+        # the captions of the reworked screens are the mod's own keys; a key without a text shows as the key itself in game
+        $used = @{}
+        foreach ($file in @(Get-ChildItem -Path (Join-Path $script:RepoRoot 'interface') -Recurse -File -Filter '*.gui')) {
+            foreach ($m in [regex]::Matches(([System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)), '"(MOD1440_[A-Z0-9_]+)"')) { $used[$m.Groups[1].Value] = $true }
+        }
+        $defined = @{}
+        $yml = Join-Path $script:RepoRoot 'localisation\english\1440p_screens_l_english.yml'
+        if (Test-Path -LiteralPath $yml) {
+            foreach ($m in [regex]::Matches(([System.IO.File]::ReadAllText($yml, [System.Text.Encoding]::UTF8)), '(?m)^\s*(MOD1440_[A-Z0-9_]+):')) { $defined[$m.Groups[1].Value] = $true }
+        }
+        @($used.Keys | Where-Object { -not $defined.ContainsKey($_) } | Sort-Object) | Should -BeNullOrEmpty
+    }
+}
+
 Describe 'Screen heights' {
     It 'keeps every docked window of a scene above the bottom bar (y 1140)' {
         # Engine Facts S15: a panel docked top left may run down to about y 1130; A1's accepted maxima end at 1139

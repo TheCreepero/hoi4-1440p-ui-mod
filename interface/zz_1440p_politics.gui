@@ -11,9 +11,6 @@ guiTypes = {
 		hide_animation_type = accelerated
 		animation_time = 300	
 		size = { width=550 height=100%% }
-		# 1440p (D4): the National Figures page is docked to politics_tab and stands beside this panel; a page
-		# attached to a tab is drawn only inside the tab's window unless the window lets it out [SGUI-005].
-		clipping = no
 		
 		#hide_sound = menu_close_window
 		show_sound = menu_open_window

@@ -13,7 +13,7 @@
       ],
       "height": 1362,
       "sidePanel": true,
-      "_note": "The vanilla window with clipping = no, so that the National Figures page docked to politics_tab shows beside it (D4)."
+      "_note": "The vanilla window; its clipping = no line of D4 went with the pages on 2026-10-22 (HOI4 Manager Pages docks nothing here since D8)."
     }
   ],
   "samples": {
@@ -42,7 +42,7 @@
   "manual": [],
   "checklist": [
     "The panel looks as vanilla: portrait, focus, spirits, faction, the ruling party plate, the parties, the three buttons, the idea categories",
-    "The Figures button in the title strip opens National Figures beside the panel; Escape closes the panel and the page with it"
+    "No page and no Figures button: the pages are the mod HOI4 Manager Pages since 2026-10-21"
   ],
-  "_note": "Overridden since D4 for one line: clipping = no on countrypoliticsview, and the ideology text of ruling_party_info moved (wiki/phases/D4-national-figures.md)."
+  "_note": "Overridden since D4 for the ideology text of ruling_party_info, which moved (wiki/phases/D4-national-figures.md, now in HOI4 Manager Pages); the clipping = no line was removed on 2026-10-22."
 }

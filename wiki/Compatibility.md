@@ -1,5 +1,6 @@
 # Compatibility with other mods
 
+> Since 2026-10-21 the manager pages and the Records are the mod HOI4 Manager Pages (`../hoi4-manager-pages`); what this page records about them (the top bar, the Construction tab, the States table, the Officers list, the Government page, the state card) describes that mod and is kept here as the record of the checkpoints run while they were part of this one.
 The mod is built against the plain game. The user plays it in a playset of about 56 mods, and what holds against the plain game does not always hold there. This page says where two mods meet, how a playset is checked, and what each checkpoint found.
 
 ## Where mods meet

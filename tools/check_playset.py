@@ -32,11 +32,30 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import guiparse  # noqa: E402
-from make_game_tables import blocks, without_comments, portraits  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PARTS = ["playset", "windows", "sprites", "fonts", "hotkeys", "guis", "content"]
+PARTS = ["playset", "windows", "sprites", "fonts", "hotkeys"]
 OUT = []
+
+
+def blocks(text):
+    """The 'name = { ... }' blocks at the top level of a text (once shared with tools/make_game_tables.py, which
+    went with the pages to HOI4 Manager Pages on 2026-10-21)."""
+    out, i = [], 0
+    for m in re.finditer(r"([A-Za-z_0-9.\-']+)\s*=\s*\{", text):
+        if m.start() < i:
+            continue
+        depth, j = 1, m.end()
+        while depth and j < len(text):
+            depth += {"{": 1, "}": -1}.get(text[j], 0)
+            j += 1
+        out.append((m.group(1), text[m.end():j - 1]))
+        i = j
+    return out
+
+
+def without_comments(text):
+    return re.sub(r"#[^\n]*", "", text)
 
 
 def say(text=""):
@@ -87,7 +106,7 @@ def playset(user):
             unread.append(rel + " (no folder: an archive, or not downloaded)")
             continue
         supported = re.search(r'^\s*supported_version\s*=\s*"([^"]*)"', text, re.M)
-        mine = "hoi4-1440p-ui-mod" in rel or os.path.isfile(os.path.join(folder, "tools", "check_playset.py"))
+        mine = os.path.normcase(os.path.abspath(folder)) == os.path.normcase(os.path.abspath(ROOT))   # this repository, and no sibling mod of the Manager
         layers.append(Layer(name.group(1) if name else rel, folder, re.findall(r'^\s*replace_path\s*=\s*"([^"]*)"', text, re.M),
                             mine, supported.group(1) if supported else ""))
     return layers, unread, path
@@ -469,236 +488,6 @@ def part_hotkeys(view, guis):
 # ---------------------------------------------------------------- scripted GUIs
 
 
-def scripted_guis(folder):
-    out = []
-    base = os.path.join(folder, "common", "scripted_guis")
-    if not os.path.isdir(base):
-        return out
-    for name in sorted(os.listdir(base)):
-        if not name.lower().endswith(".txt"):
-            continue
-        try:
-            root = guiparse.parse_file(os.path.join(base, name))
-        except Exception:
-            continue
-        for top in root.blocks("scripted_gui"):
-            for gui in top.blocks():
-                out.append((gui.key, gui.get("window_name") or "", gui.get("parent_window_token") or "",
-                            gui.get("parent_window_name") or "", gui.get("context_type") or "", name))
-    return out
-
-
-def place(node):
-    if node is None:
-        return "window not found"
-    pos, size = node.block("position"), node.block("size")
-    text = "at %s,%s" % (pos.get("x"), pos.get("y")) if pos else "at 0,0"
-    if size:
-        text += " size %sx%s" % (size.get("width") or size.get("x"), size.get("height") or size.get("y"))
-    if node.get("orientation"):
-        text += " from " + node.get("orientation")
-    return text
-
-
-def part_guis(view, guis):
-    mine = scripted_guis(ROOT)
-    tokens = set(g[2] for g in mine if g[2])
-    my_windows = {}
-    for path in my_gui_files():
-        for window in guiparse.top_level_windows(guiparse.parse_file(path)):
-            my_windows[window.name.lower()] = window
-    their_windows = {}
-    for _layer, _rel, root in guis:
-        for window in guiparse.top_level_windows(root):
-            their_windows[window.name.lower()] = window
-    head("scripted GUIs on the tabs of this mod's pages: " + ", ".join(sorted(tokens)))
-    for token in sorted(tokens):
-        say(token)
-        for name, window, tok, _parent, _context, _file in mine:
-            if tok == token:
-                say("    this mod: %s, %s" % (name, place(my_windows.get(window.lower()))))
-        for layer in view.mods:
-            for name, window, tok, parent, _context, file in scripted_guis(layer.folder):
-                if tok == token or (parent and parent.lower() in my_windows):
-                    say("    [%s] %s (%s), %s" % (layer, name, file, place(their_windows.get(window.lower()))))
-    say()
-    say("scripted GUIs per mod: " + ", ".join("%s %d" % (layer, n) for layer, n in
-                                             ((layer, len(scripted_guis(layer.folder))) for layer in view.mods) if n))
-
-
-# ---------------------------------------------------------------- content the pages name
-
-
-def compare(title, named, have, game_has, note=""):
-    """named: what the mod's pages name; have: id -> layer in the playset; game_has: the ids of the game alone."""
-    gone = [n for n in named if n not in have]
-    new = sorted(n for n in have if n not in game_has and n not in named)
-    say("%s: the pages name %d; the playset has %d, the game alone %d" % (title, len(named), len(have), len(game_has)))
-    if gone:
-        say("    !! named by a page, not in the playset: " + few(gone))
-    if new:
-        by_mod = {}
-        for n in new:
-            by_mod.setdefault(have[n].name, []).append(n)
-        for mod, names in sorted(by_mod.items()):
-            say("    not named by a page, from [%s]: %s" % (mod, few(names, 14)))
-    if note and (gone or new):
-        say("    " + note)
-
-
-def part_content(view):
-    import build_managers as M
-    import build_records as R
-    from unit_medals_table import MEDALS
-    from victory_points_table import VICTORY_POINTS
-    from portraits_table import PORTRAITS
-    try:
-        from portraits_mods_table import PORTRAITS as MOD_PORTRAITS
-    except ImportError:
-        MOD_PORTRAITS = []
-    try:
-        from victory_points_mods_table import MAPS
-    except ImportError:
-        MAPS = []
-    game = View(view.game.folder, [])
-    head("content the pages name")
-
-    def layers(table):
-        return dict((k, v[1]) for k, v in table.items())
-
-    # equipment: the kinds Army Readiness counts in a game with the playset's number of states (d2-readiness), against
-    # the archetypes the land sub-units of the playset need (tools/make_game_tables.py, equipment_kinds)
-    from make_game_tables import equipment_kinds, state_count
-    states = state_count(view)
-    tables = [rows for count, rows in M.AR_TABLES if count == states] or [M.AR_TABLES[0][1]]
-    counted = [row[0] for row in tables[0]]
-    needed = [row[0] for row in equipment_kinds(view)]
-    say("equipment (kinds of Army Readiness): the playset's land sub-units need %d kinds; the page counts %d for %d states (%s)"
-        % (len(needed), len(counted), states, "the playset's table" if tables[0] is not M.AR_TABLES[0][1] else "the game's table"))
-    missing = [k for k in needed if k not in counted]
-    if missing:
-        say("    !! needed in the playset, not counted (run tools/make_game_tables.py --mods): " + few(missing, 14))
-    gone = [k for k in counted if k not in needed]
-    if gone:
-        say("    counted, needed by no sub-unit of the playset (a row only while some are in stock): " + few(gone, 14))
-
-    # buildings and resources of the States table
-    named = []
-    for column in M.STATE_COLUMNS:
-        m = re.match(r"building_level@(\w+)", column[1])
-        if m:
-            named.append(m.group(1))
-    named += ["infrastructure", "industrial_complex", "arms_factory"]
-    compare("buildings (States)", named, layers(view.ids("common/buildings", "buildings")),
-            set(game.ids("common/buildings", "buildings")))
-    compare("resources (States, National Figures)", M.RESOURCES, layers(view.ids("common/resources", "resources")),
-            set(game.ids("common/resources", "resources")))
-    compare("ideology groups (Government)", [group for _, group in R.IDEOLOGIES], layers(view.ids("common/ideologies", "ideologies")),
-            set(game.ids("common/ideologies", "ideologies")))
-
-    # laws of the Government page: the ideas of three categories
-    def ideas(v, category):
-        out = {}
-        for _key, (layer, full, _rel) in sorted(v.files("common/ideas", ".txt").items()):
-            text = without_comments(guiparse.read_text(full))
-            for top, body in blocks(text):
-                if top != "ideas":
-                    continue
-                for cat, inner in blocks(body):
-                    if cat == category:
-                        for ident, _b in blocks(inner):
-                            out[ident] = layer
-        return out
-
-    for label, category in (("Economy", "economy"), ("Trade", "trade_laws"), ("Conscription", "mobilization_laws")):
-        named = dict(R.LAWS)[label]
-        compare("laws: %s (Government)" % label, named, ideas(view, category), set(ideas(game, category)),
-                "a law no page names reads \"another law\"")
-
-    # advisor slots
-    def slots(v):
-        out = {}
-        for _key, (layer, full, _rel) in sorted(v.files("common/idea_tags", ".txt").items()):
-            for slot in re.findall(r"\b(?:character_slot|slot)\s*=\s*(\w+)", without_comments(guiparse.read_text(full))):
-                out[slot] = layer
-        return out
-
-    named = [o[0] for o in R.OFFICES] + ["political_advisor", "high_command"]
-    compare("offices (Government)", named, slots(view), set(slots(game)))
-
-    # unit medals
-    compare("unit medals (Officers)", [m[0] for m in MEDALS], layers(view.ids("common/unit_medals", "unit_medals")),
-            set(game.ids("common/unit_medals", "unit_medals")), "a medal that is gone would be offered without a name")
-
-    # victory points
-    def points(v):
-        out, states = {}, 0
-        for _key, (layer, full, _rel) in sorted(v.files("history/states", ".txt").items()):
-            text = without_comments(guiparse.read_text(full))
-            state = re.search(r"\bid\s*=\s*(\d+)", text)
-            if not state:
-                continue
-            states += 1
-            for m in re.finditer(r"victory_points\s*=\s*\{\s*(\d+)\s+([\d.]+)\s*\}", text):
-                out[int(m.group(1))] = (int(state.group(1)), int(float(m.group(2))), layer)
-        return out, states
-
-    # script takes the table of the map that has as many states as the loaded game (tools/build_records.py)
-    now, states = points(view)
-    rows, source = VICTORY_POINTS, "the game's table"
-    for name, count, points_of_map in MAPS:
-        if count == states:
-            rows, source = points_of_map, "the table of " + name
-    table = dict((p, (s, v)) for p, s, v in rows)
-    say("victory points: the playset has %d states, so script follows %s" % (states, source))
-    gone = sorted(p for p in table if p not in now)
-    moved = sorted(p for p in table if p in now and now[p][0] != table[p][0])
-    valued = sorted(p for p in table if p in now and now[p][1] != table[p][1])
-    new = sorted(p for p in now if p not in table)
-    say("victory points (War Diary): the table has %d; the playset has %d" % (len(table), len(now)))
-    say("    in the table, no victory point in the playset: %d %s" % (len(gone), few(gone, 10)))
-    say("    in another state in the playset: %d %s" % (len(moved), few(moved, 10)))
-    say("    another value in the playset: %d %s" % (len(valued), few(valued, 10)))
-    by_mod = {}
-    for p in new:
-        by_mod.setdefault(now[p][2].name, []).append(p)
-    say("    in the playset, not in the table (no line when one changes hands; a point without a name cannot be in it): %d" % len(new))
-    for mod, ps in sorted(by_mod.items()):
-        say("        [%s] %d: %s" % (mod, len(ps), few(ps, 10)))
-
-    # characters
-    paths = [full for _key, (_layer, full, _rel) in sorted(view.files("common/characters", ".txt").items())]
-    owner = dict((full, layer) for _key, (layer, full, _rel) in view.files("common/characters", ".txt").items())
-    rows = {}
-    for path in paths:
-        for row in portraits(None, by_effect=True, paths=[path]):
-            rows[row[0]] = (row, owner[path])
-    known = dict((row[0], row) for row in list(PORTRAITS) + list(MOD_PORTRAITS))
-    officer = ("corps_commander", "field_marshal", "navy_leader", "country_leader")
-    missing, repainted = {}, {}
-    for name, (row, layer) in rows.items():
-        if not any(role in row[5] for role in officer):
-            continue
-        if name not in known:
-            missing.setdefault(layer.name, []).append(name)
-        elif tuple(known[name][2:5]) != tuple(row[2:5]):
-            repainted.setdefault(layer.name, []).append(name)
-    say("characters (portraits in the Records): the tables have %d; the playset has %d with a portrait and a role"
-        % (len(known), len(rows)))
-    for mod, names in sorted(missing.items()):
-        say("    no row in the tables (shown without a portrait), from [%s]: %d: %s" % (mod, len(names), few(sorted(names), 6)))
-    for mod, names in sorted(repainted.items()):
-        say("    another portrait in the playset than in the tables, from [%s]: %d: %s" % (mod, len(names), few(sorted(names), 6)))
-    if not missing and not repainted:
-        say("    every officer and head of government of the playset has the row the playset gives him")
-    replaced = [layer.name for layer in view.mods if "common/characters" in layer.replace]
-    if replaced:
-        say("    replace_path on common/characters: " + ", ".join(replaced))
-
-
-# ---------------------------------------------------------------- main
-
-
 def main(argv):
     game = guiparse.find_game_dir()
     if not game:
@@ -738,7 +527,7 @@ def main(argv):
             say("  !! this mod is not in the playset")
         elif not layers[-1].mine:
             say("  !! this mod is not the last of the playset")
-    guis = mod_guis(view) if set(wanted) & set(["windows", "hotkeys", "guis"]) else []
+    guis = mod_guis(view) if set(wanted) & set(["windows", "hotkeys"]) else []
     if "windows" in wanted:
         part_windows(view, guis)
     if "sprites" in wanted:
@@ -747,10 +536,6 @@ def main(argv):
         part_fonts(view)
     if "hotkeys" in wanted:
         part_hotkeys(view, guis)
-    if "guis" in wanted:
-        part_guis(view, guis)
-    if "content" in wanted:
-        part_content(view)
     if out_file:
         io.open(out_file, "w", encoding="utf-8", newline="\n").write("\n".join(OUT) + "\n")
     return 0

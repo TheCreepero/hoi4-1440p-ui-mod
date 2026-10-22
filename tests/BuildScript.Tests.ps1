@@ -5,9 +5,9 @@ BeforeAll {
 }
 
 Describe 'build.ps1 configuration' {
-    It 'ships the common, gfx, interface and localisation folders with the descriptor and thumbnail' {
+    It 'ships the gfx, interface and localisation folders with the descriptor and thumbnail, and nothing under common' {
         $shippedTopLevel = @(Get-ModContentFiles -Config $script:BuildConfig | ForEach-Object { ($_ -split '/')[0] } | Sort-Object -Unique)
-        $shippedTopLevel | Should -Be @('common', 'descriptor.mod', 'gfx', 'interface', 'localisation', 'thumbnail.png') -Because 'tools, baseline and reference are development folders, and reference alone is tens of megabytes'
+        $shippedTopLevel | Should -Be @('descriptor.mod', 'gfx', 'interface', 'localisation', 'thumbnail.png') -Because 'tools, baseline and reference are development folders, and since 2026-10-21 the mod has no script: the pages are HOI4 Manager Pages'
     }
 
     It 'installs as hoi4-1440p-ui-mod and packages hoi4-1440p-ui-mod.zip' {
