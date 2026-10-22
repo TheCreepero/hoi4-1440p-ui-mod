@@ -16,4 +16,3 @@
   - [A3 Unit details](phases/A3-unit-details.md)
   - [A4 Fleet panel](phases/A4-fleet.md)
   - [A5 Recruit and deploy](phases/A5-recruit-deploy.md)
-  - [D8 Free pages: the split of the manager pages](phases/D8-free-pages.md)
