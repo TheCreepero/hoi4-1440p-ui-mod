@@ -1,0 +1,13 @@
+{
+    "testSuites": {
+        "Knowledge": ["*.md", "docs/**", "wiki/**"],
+        "BuildScript": ["tools/HoiModBuild.ps1", "tools/HoiModBuild.json", "descriptor.mod", "thumbnail.png", "common/**", "gfx/**", "interface/**", "localisation/**"],
+        "GuiInvariants": ["tools/GuiParsing.ps1", "tools/gui-links.json", "interface/**", "gfx/**", "baseline/**", "common/**"],
+        "Layout": ["tools/GuiParsing.ps1", "tools/layout.py", "tools/apply_layout.py", "tools/guiedit.py", "tools/lint_layout.py", "tools/ux_audit.py", "tools/mockup.py", "tools/make_design_page.py", "tools/phase_notes.py", "tools/crop_capture.py", "tools/stretch_background.py", "tools/render_gui.py", "tools/guiparse.py", "tools/gui-links.json", "tools/examples/**", "tools/scenes/**", "baseline/strategicairview/**", "interface/**", "gfx/**", "localisation/**", "reference/**", "wiki/Design-Language.md", "wiki/Phase-Template.md"],
+        "PythonParser": ["tools/GuiParsing.ps1", "tools/guiparse.py", "interface/**"],
+        "Renderer": ["tools/GuiParsing.ps1", "tools/render_gui.py", "tools/guiparse.py", "tools/gui-links.json", "tools/scenes/**", "interface/**", "gfx/**", "localisation/**"],
+        "ScreenInvariants": ["tools/GuiParsing.ps1", "tools/render_gui.py", "tools/guiparse.py", "tools/gui-links.json", "tools/scenes/**", "tools/hotkeys.json", "tools/moves.json", "interface/**", "gfx/**", "baseline/**", "localisation/**", "build.ps1"],
+        "Workflow": ["wiki/Workflow.md", "wiki/Home.md", "wiki/_Sidebar.md", "wiki/Phase-Template.md", "AGENTS.md", ".claude/agents/**", ".claude/skills/phase/**", ".agents/skills/phase/**", ".gitignore"],
+        "none": ["assets/**", "screenshots/**", "FOUND_ISSUES.txt"]
+    }
+}
