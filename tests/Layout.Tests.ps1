@@ -59,6 +59,22 @@ Describe 'The layout file (tools/layout.py, tools/apply_layout.py)' {
         ($made -join "`n") | Should -Be ($committed -join "`n")
     }
 
+    It 'applied to a CRLF copy of the baseline it keeps CRLF, and a second run changes nothing' {
+        if (-not $script:Python) { Set-ItResult -Skipped -Because 'python is not installed'; return }
+        $gui = Join-Path $script:Work 'a10-crlf.gui'
+        $gfx = Join-Path $script:Work 'a10-crlf.gfx'
+        $baselineText = [System.IO.File]::ReadAllText((Join-Path (Join-Path (Join-Path $script:RepoRoot 'baseline') 'strategicairview') 'strategicairview.gui'))
+        [System.IO.File]::WriteAllText($gui, ($baselineText -replace "`r`n", "`n" -replace "`n", "`r`n"), [System.Text.UTF8Encoding]::new($false))
+        Copy-Item -LiteralPath (Join-Path (Join-Path $script:RepoRoot 'interface') '1440p_ui.gfx') -Destination $gfx -Force
+        $first = Invoke-Tool @((Join-Path $script:Tools 'apply_layout.py'), $script:Example, '--gui', $gui, '--gfx', $gfx, '--no-scene')
+        $first.Exit | Should -Be 0 -Because $first.Output
+        $once = [System.IO.File]::ReadAllBytes($gui)
+        $second = Invoke-Tool @((Join-Path $script:Tools 'apply_layout.py'), $script:Example, '--gui', $gui, '--gfx', $gfx, '--no-scene')
+        $second.Exit | Should -Be 0 -Because $second.Output
+        [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($gui)) | Should -Be ([System.Convert]::ToBase64String($once)) -Because 'a git checkout with core.autocrlf gives the baseline CRLF'
+        ([regex]::Matches([System.IO.File]::ReadAllText($gui), "(?<!`r)`n")).Count | Should -Be 0 -Because 'every line keeps the CRLF of the file'
+    }
+
     It 'the generated sprite block parses and declares a tile per plate' {
         if (-not $script:Python) { Set-ItResult -Skipped -Because 'python is not installed'; return }
         $gfx = Join-Path $script:Work 'a10-test.gfx'

@@ -50,10 +50,13 @@ def _strip_comments(text):
 class GuiFile:
     def __init__(self, path):
         self.path = path
-        self.text = io.open(path, encoding="utf-8", newline="").read()
+        text = io.open(path, encoding="utf-8", newline="").read()
+        # edits insert "\n": work on LF and give the file back its own line ending, so a CRLF checkout edits the same
+        self.newline = "\r\n" if "\r\n" in text else "\n"
+        self.text = text.replace("\r\n", "\n")
 
     def save(self):
-        io.open(self.path, "w", encoding="utf-8", newline="").write(self.text)
+        io.open(self.path, "w", encoding="utf-8", newline="").write(self.text.replace("\n", self.newline))
 
     # ------------------------------------------------------------------ structure
 
