@@ -86,9 +86,24 @@ class GuiFile:
             self._brace_cache = cached
         return cached[1], cached[2]
 
+    def _memo(self):
+        """Results that hold while the text does not change: the blocks under a block, the span of a widget path."""
+        cached = getattr(self, "_memo_cache", None)
+        if cached is None or cached[0] is not self.text:
+            cached = (self.text, {})
+            self._memo_cache = cached
+        return cached[1]
+
     def _children(self, start, end):
         """(name, key, open, close) of each block directly inside the block text[start:end]
         (start is the offset of its "{", end the offset after its "}")."""
+        memo = self._memo()
+        key = ("children", start, end)
+        if key not in memo:
+            memo[key] = self._scan_children(start, end)
+        return memo[key]
+
+    def _scan_children(self, start, end):
         code = self._code()
         opens, match = self._braces()
         found = []
@@ -155,6 +170,13 @@ class GuiFile:
         raise GuiEditError("window %r is not in %s" % (name, self.path))
 
     def _span(self, window, steps):
+        memo = self._memo()
+        key = ("span", window, tuple(steps))
+        if key not in memo:
+            memo[key] = self._find_span(window, steps)
+        return memo[key]
+
+    def _find_span(self, window, steps):
         code = self._code()
         root = re.search(r"guiTypes\s*=\s*\{", code)
         open_at = root.end() - 1
