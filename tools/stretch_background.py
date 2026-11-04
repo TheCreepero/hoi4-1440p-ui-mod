@@ -1135,6 +1135,13 @@ def _brightness(pixel):
     return 0.299 * pixel[0] + 0.587 * pixel[1] + 0.114 * pixel[2]
 
 
+def _pixels(image):
+    """The pixels of an image, row by row: ints for a one-band image, tuples otherwise."""
+    bands = len(image.getbands())
+    data = image.tobytes()
+    return list(data) if bands == 1 else list(zip(*[iter(data)] * bands))
+
+
 def archetype_picture(source, **archetypes):
     """A technology picture in the look of the archetype pictures. The shape is the picture's: its largest
     piece (the level mark beside it is dropped), cropped and scaled to ARCHETYPE_HEIGHT. The colours are the
@@ -1170,7 +1177,7 @@ def archetype_picture(source, **archetypes):
     shape = shape.crop(shape.getbbox())
     width = round(shape.width * ARCHETYPE_HEIGHT / shape.height)
     small = shape.convert("RGBa").resize((width, ARCHETYPE_HEIGHT), Image.LANCZOS).convert("RGBA")
-    colours = sorted((p for image in archetypes.values() for p in image.getdata() if p[3] == 255), key=_brightness)
+    colours = sorted((p for image in archetypes.values() for p in _pixels(image) if p[3] == 255), key=_brightness)
     mp = small.load()
     rank = sorted((0.75 * _brightness(mp[x, y]) / 255.0 + 0.25 * (1.0 - 0.8 * y / ARCHETYPE_HEIGHT - 0.2 * x / width), x, y)
                   for y in range(ARCHETYPE_HEIGHT) for x in range(width) if mp[x, y][3] > 0)
