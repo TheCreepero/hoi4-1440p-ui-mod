@@ -130,6 +130,7 @@ Opened on 2026-10-15 with a design round (mock-ups composed from the references,
 |---|---|---|---|
 | C1 | Production | `countryproductionlineview.gui`: the panel, ten kinds of line, five windows beside it | Done at 820 px; round 2 (steel cards on near-black, the bold variant) checked by the user in game on 2026-10-21 after one fix (wheel scrolling); round 1 checked on 2026-10-16 with the user's playset ([notes](phases/C1-production.md)) |
 | C2 | General selection | `unitleaderwindow.gui`: `armyleaderwindow`, `armyleaderentry` | Done; checked by the tester in game on 2026-10-16 ([notes](phases/C2-leader-selection.md)) |
+| C4 | Politics panel | `countrypoliticsview.gui`: `countrypoliticsview` and the idea category rows | In progress: design, opened 2026-10-22 on the user's request (wider, rearranged) ([notes](phases/C4-politics.md)) |
 
 Not scheduled:
 
