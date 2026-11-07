@@ -12,7 +12,7 @@
 
 Learned in the redesign pass of 2026-10-16, when thirteen screens and pages were built by parallel agents.
 
-- **One git worktree per screen.** Agents that edit the main tree at the same time overwrite each other's edits of the shared files. Create each worktree with `git -c core.autocrlf=false worktree add --detach <dir>\hoi4-1440p-ui-mod HEAD`:
+- **One git worktree per screen.** Agents that edit the main tree at the same time overwrite each other's edits of the shared files. Create each worktree with `git -c core.autocrlf=false worktree add --detach <Manager>\scratch\worktrees\<id>\hoi4-1440p-ui-mod HEAD`, where `<Manager>` is the Modding Manager folder that holds `mods\` (git-ignored there; inside the tree the worktree finds the Manager and its shared rules as the main tree does):
   - Without `core.autocrlf=false` the checkout writes CRLF where the files are LF, and the tests that compare bytes report them changed.
   - The folder must be named `hoi4-1440p-ui-mod`: `tests/BuildScript.Tests.ps1` checks it.
   - Copy `scratch/cache` into the worktree, or the first render rebuilds it: the sprite and window indexes, and under `textures/` every game texture already decoded (Pillow decodes DDS in pure Python, which is most of a first render's time).
